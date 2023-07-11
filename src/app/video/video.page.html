@@ -1,0 +1,130 @@
+ <div #videoPrincipalContainer id="videoPrincipalContainer" class="sinovad-video-principal-container sinovad-custom-container" style="width:100%;height:100%;">
+  <div *ngIf="showVideo" class="sinovad-video-container" #videoContainer (click)="!isMobileDevice() && onClickVideoContainer(videoContainer)"
+  (touchstart)="isMobileDevice() && onTouchVideoContainer(videoContainer)" (mousemove)="onMouseMoveVideoContainer(videoContainer)">
+    <div class="sinovad-full-screen-video-container">
+      <section #controlsContainer class="sinovad-controls-container" [ngClass]="{'show':showControls}" tabindex="0">
+        <img style="display:none;" src (error)="initializeControlsContainer(controlsContainer)">
+        <section id="videoHeaderSection" class="sinovad-video-header-section"  tabindex="0">
+          <button id="backVideoButton" class="sinovad-video-control-button" (click)="closeVideo()">
+            <img [src]="'back-button-short.png' | formatDataPipe : 'GetImageURLByKey'">
+          </button>
+          <div class="sinovad-video-header-section-title-container">
+            {{builderVideo.TranscodePrepareVideo.Title}}
+          </div>
+        </section>
+        <div class="sinovad-full-screen-video-popup-footer">
+          <div style="width:100%">
+            <div class="solitv-progress-bar">
+              <div #controlLeft [style.visibility]="showControls?'':'hidden'" class="sinovad-current-time">
+                {{getVideoTime()}}
+              </div>
+              <div class="solitv-slider-container" [style.width]="'calc(100% - '+(controlLeft.offsetWidth+controlRight.offsetWidth)+'px)'">
+                <div class="solitv-slider-content" tabindex="-1" (contextmenu)="!isMobileDevice() && onClickSlider(sliderContainer)" (click)="onClickSlider(sliderContainer)" (touchend)="isMobileDevice() && onClickSlider(sliderContainer)" (touchstart)="isMobileDevice() && onTouchStartSlider($event,sliderContainer,controlLeft)" (touchmove)="isMobileDevice() && onTouchMoveSlider($event,sliderContainer,controlLeft)" (mousedown)="onMouseDownSlider($event,sliderContainer)" (mousemove)="onMouseMoveSlider($event,sliderContainer)">
+                  <div #silderFills class="sinovad-slider-fills">
+                  </div>
+                  <div style="width: 0px;">
+                    <div #sliderContainer class="sinovad-slider-fills-progress-container" [style.width]="silderFills.offsetWidth+'px'">
+                      <div #sliderContainer class="sinovad-slider-fills-progress-content">
+                        <div #silderProgress class="sinovad-slider-fills-progress" [style.width]="getSliderPogressWidth()">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div #controlRight [style.visibility]="showControls?'':'hidden'" class="sinovad-current-time">
+                {{getDurationTime()}}
+              </div>
+            </div>
+            <section id="section_video_secondary_buttons" class="sinovad-full-screen-video-popup-episode-buttons-section sinovad-section" tabindex="0">
+              <div class="sinovad-full-screen-video-popup-episode-buttons-section-left">
+                <button *ngIf="isEnablePreviousEpisodeButton()" id="previousButton" class="sinovad-video-control-button" (click)="goToPreviousEpisode()">
+                  <img [src]="'previous-episode.png' | formatDataPipe : 'GetImageURLByKey'" width="40px">
+                </button>
+              </div>
+              <div class="sinovad-full-screen-video-popup-episode-buttons-section-right">
+                <div style="display:flex;align-items: center;float: right;">
+                  <button id="nextButton" *ngIf="isEnableNextEpisodeButton()" class="sinovad-video-control-button" (click)="goToNextEpisode()">
+                    <img [src]="'next-episode.png' | formatDataPipe : 'GetImageURLByKey'" width="40px">
+                  </button>
+                  <button id="aspectRatio" class="sinovad-video-control-button " style="margin-left: 20px;" (click)="onChangeObjectContain()">
+                    <img [src]="'aspect-ratio.png' | formatDataPipe : 'GetImageURLByKey'" width="40px">
+                  </button>
+                  <button id="fullScreenButton" class="sinovad-video-control-button " style="margin-left: 20px;"  (click)="toggleFullScreenVideo()">
+                    <img [src]="'full-screen-video.png' | formatDataPipe : 'GetImageURLByKey'" width="30px">
+                  </button>
+                  <button id="settingsOption" class="sinovad-video-control-button " style="margin-left: 20px;" (click)="showSettings()">
+                    <img [src]="'settings.png' | formatDataPipe : 'GetImageURLByKey'" width="36px">
+                  </button>
+                </div>
+              </div>
+            </section>
+            <div style="display: flex;height: 50px;" class="sinovad-section">
+              <div class="sinovad-full-screen-video-popup-footer-center">
+                <section id="section_video_principal_buttons" class="sinovad-full-screen-video-popup-footer-center-content" tabindex="0">
+                  <button id="rewindButton" class="sinovad-video-control-button " (click)="rewindVideo()" style="margin-right: 25px;">
+                    <img [src]="'rewind.png' | formatDataPipe : 'GetImageURLByKey'" width="30px">
+                  </button>
+                  <button #playButton id="playButton" class="sinovad-video-control-button principal" *ngIf="!isPlayingVideo()" (click)="playOrPauseVideo()">
+                    <img style="display:none;" src (error)="focusButton(playButton)">
+                    <img [src]="'play-video.png' | formatDataPipe : 'GetImageURLByKey'" width="30px">
+                  </button>
+                  <button #stopButton id="stopButton" class="sinovad-video-control-button principal" *ngIf="isPlayingVideo()" (click)="playOrPauseVideo()">
+                    <img style="display:none;" src (error)="focusButton(stopButton)">
+                    <img [src]="'pause-video.png' | formatDataPipe : 'GetImageURLByKey'" width="30px">
+                  </button>
+                  <button id="forwardButton" class="sinovad-video-control-button " (click)="forwardVideo()"  style="margin-left: 25px;">
+                    <img [src]="'forward.png' | formatDataPipe : 'GetImageURLByKey'" width="30px">
+                  </button>
+                </section>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <div *ngIf="!loadedData" class="sinovad-loading-video" [ngClass]="{'show-controls':showControls}">
+        Cargando video...
+      </div>
+      <section *ngIf="showingSettings" #settingsContainer  class="easy-media-settings-section-container" tabindex="0">
+        <img style="display:none;" src (error)="initializeSettingsContainer(settingsContainer)">
+        <div class="easy-media-settings-section-content">
+            <section id="section_settings_back_button" class="sinovad-settings-options-header-section" tabindex="0">
+              <div class="sinovad-settings-section-container-left">
+                <div class="sinovad-settings-section-content-left">
+                  <button id="closeSettings" class="sinovad-video-settings-button" (click)="hideSettings()">
+                    <img [src]="'back-button-short.png' | formatDataPipe : 'GetImageURLByKey'">
+                  </button>
+                </div>
+              </div>
+            </section>
+            <section id="streams_options_section" class="sinovad-settings-options-section" tabindex="0">
+              <ng-template ngFor let-pop [ngForOf]="listPrincipalSettingsOptions">
+                <button id="stream_option_{{pop.index}}" (click)="onClickPrincipalSettingsOption(pop)" [ngClass]="{'selected':currentSelectedPrincipalSettingOption && pop.index==currentSelectedPrincipalSettingOption.index}">
+                  {{pop.name}}
+                </button>
+              </ng-template>
+            </section>
+            <section *ngIf="currentSelectedPrincipalSettingOption" id="streams_suboptions_section_{{currentSelectedPrincipalSettingOption.index}}" class="sinovad-settings-suboptions-section" tabindex="0">
+              <ng-template ngFor let-option [ngForOf]="currentSelectedPrincipalSettingOption.listOptions">
+                <button id="stream_option_{{currentSelectedPrincipalSettingOption.id}}_suboption_{{option.index}}" (click)="onClickStreamOption(option)" [ngClass]="{'selected':currentSelectedPrincipalSettingOption.selectedOption && currentSelectedPrincipalSettingOption.selectedOption.index==option.index}">
+                  {{option.name}}
+                </button>
+              </ng-template>
+            </section>
+        </div>
+      </section>
+      <ng-template [ngIf]="currentSubtitleData">
+        <ng-template ngFor let-subtitle [ngForOf]="currentSubtitleData"  let-i="index">
+          <div class="sinovad-subtitles-forzed-section" [innerHtml]="subtitle.text" [style.display]="checkIfDisplaySubtitles(subtitle)?'block':'none'">
+          </div>
+        </ng-template>
+      </ng-template>
+
+      <video *ngIf="showVideoTarget" #videoTarget id="video" class="sinovad-custom-video" [ngClass]="{'small':isSmallDevice()}" (error)="onErrorVideo()" (loadedmetadata)="onLoadedMetadata()" (loadeddata)="onLoadedData()" (ended)="OnEndedVideo()">
+      </video>
+    </div>
+  </div>
+</div>
+
+<app-confirm-message-modal *ngIf="showReplyVideoMessageBox" [message]="getConfirmMessage()"
+(close)="onDeclineReplyVideo()" (confirm)="onConfirmReplyVideo()"></app-confirm-message-modal>

@@ -1,0 +1,61 @@
+<div class="sinovad-storage-container">
+  <section class="sinovad-storage-principal-section">
+    <div class="container">
+      <div class="row mt-4">
+        <h3>Almacenamiento</h3>
+      </div>
+      <div class="row mt-4">
+        <div class="col-4">
+          <button class="btn btn-primary" (click)="openNewAccountStorage()">Agregar</button>
+        </div>
+        <div class="col-8 text-end">
+          <button class="btn btn-primary" (click)="updateVideoInAllStorages()">Sincronizar todo</button>
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-12">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Path</th>
+                <th scope="col">Type</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-template ngFor let-accountStorage [ngForOf]="listAccountStorages" let-i="index">
+                <tr>
+                  <th scope="row">{{i+1}}</th>
+                  <td>{{accountStorage.PhisicalPath}}</td>
+                  <td>{{accountStorage.AccountStorageTypeId==1?'Movies':'Tv Series'}}</td>
+                  <td>
+                    <button style="margin-left: 20px;" type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="Sincronizar" (click)="updateStorageVideos(accountStorage)"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
+                    <button style="margin-left: 20px;" type="button" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Editar" (click)="editStorage(accountStorage)"><i class="fa-solid fa-pen-to-square"></i></button>
+                    <button style="margin-left: 20px;" type="button" class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="Eliminar" (click)="deleteStorage(accountStorage)"><i class="fa-sharp fa-solid fa-trash"></i></button>
+                  </td>
+                </tr>
+              </ng-template>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+
+<app-account-storage-form *ngIf="showForm" (closeAccountStorageFormWithChanges)="onCloseAccountStorageFormWithChanges()" (closeAccountStorageForm)="onCloseAccountStorageForm()" [listMainDirectories]="listMainDirectories" [accountStorage]="accountStorage"></app-account-storage-form>
+
+
+<div *ngIf="callSearchMediaLog" class="sinovad-searh-media-log-container">
+  <div class="sinovad-searh-media-log-content">
+    <div *ngIf="searchMediaLogContent!=''" class="sinovad-searh-media-log-html" [innerHTML]="searchMediaLogContent">
+    </div>
+    <div *ngIf="searchMediaLogContent==''" class="sinovad-searh-media-log-second-content">
+        Buscando videos...
+    </div>
+  </div>
+</div>
+
+

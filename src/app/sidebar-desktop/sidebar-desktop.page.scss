@@ -1,0 +1,58 @@
+.sinovad-sidebar-modules-list{
+  display: block;
+  padding: 10px 10px 10px 20px;
+}
+
+.sinovad-sidebar-module-element{
+  display: block;
+}
+
+.sinovad-sidebar-module-button{
+  background-color: transparent;
+  color: white;
+  border: none;
+  opacity: 0.75;
+  width: 100%;
+  height: 30px;
+  text-align: left;
+  font-size: 16px;
+}
+
+
+.sinovad-sidebar-module-button.active{
+  color: #007bff;
+}
+
+
+.sinovad-sidebar-module-button:hover{
+  opacity: 1;
+  color: white;
+}
+
+.sinovad-sidebar-options-list{
+  display: block;
+}
+
+.sinovad-sidebar-option-element{
+  display: flex;
+  height: 40px;
+  align-items: center;
+  a{
+    cursor: pointer;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    opacity: 0.75;
+    font-size: 16px;
+    width: 100%;
+    text-decoration:unset;
+    color: white;
+  }
+  a.active{
+    color: #007bff;
+  }
+  a:hover{
+    opacity: 1;
+    color: white;
+  }
+}

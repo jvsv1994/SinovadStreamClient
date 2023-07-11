@@ -1,0 +1,30 @@
+<div #searchSection class="sinovad-search-section">
+  <div class="sinovad-search-section-top">
+    <input #input type="text" readonly [value]="searchText" (change)="onChangeInput($event)">
+  </div>
+  <div *ngIf="!isMobileDevice()" class="sinovad-search-section-bottom">
+    <div>
+      <section id="section_keyboard_first_row" class="sinovad-letters-first-raw-section" tabindex="0">
+          <button id="space_bar" (click)="onClickSpaceBar()">
+            <img [src]="'space-bar.png' | formatDataPipe : 'GetImageURLByKey'" style="width:50px">
+          </button>
+          <button id="back_space" (click)="onClickBackSpace()">
+            <img [src]="'back-space.png' | formatDataPipe : 'GetImageURLByKey'" style="width:40px">
+          </button>
+          <button id="clear_text"  (click)="clearSearchText()" >
+            <img [src]="'delete-search.png' | formatDataPipe : 'GetImageURLByKey'" style="width:40px">
+          </button>
+      </section>
+      <ng-template ngFor let-row [ngForOf]="rowsLetters" let-index="index">
+        <section id="section_keyboard_{{index}}" class="sinovad-letters-raw-section" tabindex="0">
+          <ng-template ngFor let-letter [ngForOf]="row.letters">
+            <button id="key_{{letter.name}}" (click)="onClickKey(letter)">
+              {{letter.name}}
+            </button>
+          </ng-template>
+        </section>
+      </ng-template>
+    </div>
+  </div>
+</div>
+

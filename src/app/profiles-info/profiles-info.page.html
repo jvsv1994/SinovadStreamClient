@@ -1,0 +1,26 @@
+<ng-template #modalTarget let-modal>
+  <section>
+    <header>
+      <div class="sinovaclient-header-content">
+        <div class="sinovaclient-left">
+          <span>Sinovad</span>
+        </div>
+        <div class="sinovaclient-right">
+            <button (click)="saveProfile()">Listo</button>
+        </div>
+      </div>
+    </header>
+    <div class="sinovadclient-modal-content">
+      <div>
+        <h2>Editar Perfil</h2>
+        <input type="text" [(ngModel)]="currentTmpProfile.FullName">
+      </div>
+    </div>
+    <footer *ngIf="!currentTmpProfile.Main">
+      <div class="sinovaclient-footer-content">
+          <button (click)="onClickDeleteButton()">Eliminar Perfil</button>
+      </div>
+    </footer>
+  </section>
+</ng-template>
+

@@ -1,0 +1,56 @@
+<ng-template [ngIf]="showModal">
+  <ng-template #modalTarget let-modal>
+    <section id="profilesViewSection" class="sinovad-profiles-view-container sinovad-profiles-section" tabindex="0">
+      <div class="sinovad-profiles-view-content" #profilesViewContent>
+        <div class="sinovad-profiles-view-header" #profilesViewHeader>
+          ¿Quién eres?
+        </div>
+        <div class="sinovad-profiles-view-body" [style.height]="isSmallDevice()?'calc(100% - '+(profilesViewHeader.offsetHeight+profilesViewFooter.offsetHeight)+'px)':''">
+          <section id="profiles_view_list_profiles_section" #profilesViewBody class="sinovad-profiles-view-list-container" tabindex="0">
+            <ng-template [ngIf]="sharedData.listProfiles">
+              <ng-template ngFor let-profile [ngForOf]="sharedData.listProfiles">
+                <button id="profile_{{profile.Id}}" (click)="onSelectProfile(profile)">
+                  <div class="sinovad-initials-profile">
+                    {{getInitials(profile)}}
+                  </div>
+                  <div *ngIf="enableEditMode" class="sinovad-icon-edit-profile-container">
+                    <div class="sinovad-icon-edit-profile-content">
+                      <img [src]="'edit-profile.png' | formatDataPipe : 'GetImageURLByKey'">
+                    </div>
+                  </div>
+                  <div class="sinovad-fullname-profile">
+                    {{profile.FullName}}
+                  </div>
+                </button>
+              </ng-template>
+            </ng-template>
+            <button id="create_new_profile" (click)="showNewProfile()">
+              <div class="sinovad-initials-profile add">
+                <img [src]="'plus.png' | formatDataPipe : 'GetImageURLByKey'" width="40px">
+              </div>
+              <div class="sinovad-fullname-profile">
+                Crear Perfil
+              </div>
+            </button>
+          </section>
+        </div>
+        <section id="profiles_view_footer_section" #profilesViewFooter class="sinovad-profiles-view-footer" tabindex="0">
+            <button id="edit-ready-profile-button" (click)="!enableEditMode?changeToEditMode():confirmEdit()">
+              <ng-template [ngIf]="!enableEditMode">
+                EDITAR
+              </ng-template>
+              <ng-template [ngIf]="enableEditMode">
+                LISTO
+              </ng-template>
+            </button>
+        </section>
+      </div>
+    </section>
+  </ng-template>
+</ng-template>
+
+<app-profiles-info *ngIf="showProfilesInfo" [currentTmpProfile]="currentTmpProfile" (closeWithChanges)="onSaveProfile()"></app-profiles-info>
+
+<app-profile-form *ngIf="showForm" [currentTmpProfile]="currentTmpProfile" (close)="onCloseForm()" (closeWithChanges)="onSaveProfile()"></app-profile-form>
+
+

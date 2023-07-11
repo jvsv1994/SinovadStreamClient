@@ -1,0 +1,101 @@
+<div class="sinovad-back-button-container">
+  <button id="button_close_form" (click)="onClose()">
+    <img [src]="'back-screen.png' | formatDataPipe : 'GetImageURLByKey'">
+  </button>
+</div>
+<section id="sinovad-form-container" class="sinovad-sinovad-form-container" [ngClass]="{'small':isSmallDevice()}" tabindex="0">
+  <div class="sinovad-login-form-content">
+    <div *ngIf="!showSuccessMessage">
+      <div class="sinovad-login-title-container">
+        Regístrate
+      </div>
+      <section id="sinovad-form-container-UserName-section" class="sinovad-login-form-caption-input-container" tabindex="0">
+        <div class="sinovad-form-caption-input-content">
+          <div class="sinovad-login-form-caption-container">
+            <span>
+              Correo electrónico
+            </span>
+          </div>
+          <div class="sinovad-form-textinput-container">
+            <input type="text" [(ngModel)]="registerUserModel.Email"/>
+          </div>
+        </div>
+      </section>
+      <section id="sinovad-form-container-UserName-section" class="sinovad-login-form-caption-input-container">
+        <div class="sinovad-form-caption-input-content">
+          <div class="sinovad-login-form-caption-container">
+            <span>
+              Nombres
+            </span>
+          </div>
+          <div class="sinovad-form-textinput-container">
+            <input type="text" [(ngModel)]="registerUserModel.FirstName"/>
+          </div>
+        </div>
+      </section>
+      <section id="sinovad-form-container-UserName-section" class="sinovad-login-form-caption-input-container">
+        <div class="sinovad-form-caption-input-content">
+          <div class="sinovad-login-form-caption-container">
+            <span>
+              Apellidos
+            </span>
+          </div>
+          <div class="sinovad-form-textinput-container">
+            <input type="text" [(ngModel)]="registerUserModel.LastName"/>
+          </div>
+        </div>
+      </section>
+      <section id="sinovad-form-container-UserName-section" class="sinovad-login-form-caption-input-container">
+        <div class="sinovad-form-caption-input-content">
+          <div class="sinovad-login-form-caption-container">
+            <span>
+              Usuario
+            </span>
+          </div>
+          <div class="sinovad-form-textinput-container">
+            <input type="text" [(ngModel)]="registerUserModel.UserName"/>
+          </div>
+        </div>
+      </section>
+      <section id="sinovad-form-container-password-section" class="sinovad-login-form-caption-input-container">
+        <div class="sinovad-form-caption-input-content">
+          <div class="sinovad-login-form-caption-container">
+            <span>
+              Contraseña
+            </span>
+          </div>
+          <div class="sinovad-form-textinput-container">
+            <input id="password-input" type="password" [(ngModel)]="registerUserModel.Password"/>
+          </div>
+        </div>
+      </section>
+      <section id="sinovad-form-container-password-section" class="sinovad-login-form-caption-input-container">
+        <div class="sinovad-form-caption-input-content">
+          <div class="sinovad-login-form-caption-container">
+            <span>
+              Confirmar contraseña
+            </span>
+          </div>
+          <div class="sinovad-form-textinput-container">
+            <input id="password-input" type="password" [(ngModel)]="registerUserModel.ConfirmPassword"/>
+          </div>
+        </div>
+      </section>
+      <section id="sinovad-form-container-button-section" class="sinovad-login-form-button-section">
+        <button id="log-in-button" (click)="register()">Registrar</button>
+      </section>
+      <div class="sinovad-login-form-error-message-container">
+        {{errorMessage}}
+      </div>
+    </div>
+    <div *ngIf="showSuccessMessage">
+      <h2>Registro de Usuario</h2>
+      <p>Usuario registrado satistactoriamente, verifique su correo electrónico y active su cuenta por favor.</p>
+    </div>
+  </div>
+</section>
+
+<div class="sinovad-spinner-container" *ngIf="showLoading">
+  <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+</div>
+

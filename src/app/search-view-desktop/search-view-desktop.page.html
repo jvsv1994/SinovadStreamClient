@@ -1,0 +1,10 @@
+<div #container class="sinovad-search-view-container" [ngClass]="{'small':isSmallDevice()}">
+  <div #header class="sinovad-search-view-title">
+    <div *ngIf="searchText!=undefined && searchText!=''" class="sinovad-search-view-title-content">
+      <h2>Resultados para "{{searchText}}"</h2>
+    </div>
+  </div>
+  <div #itemListContainer [style.height]="'calc(100% - '+header.offsetHeight+'px)'">
+    <app-vertical-item-list (showItemView)="onSelectItem($event)" [executeSearch]="executeSearch"></app-vertical-item-list>
+  </div>
+</div>

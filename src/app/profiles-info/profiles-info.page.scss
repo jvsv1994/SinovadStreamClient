@@ -1,0 +1,69 @@
+section{
+  width: 100%;
+  height: 100%;
+  background-color: rgb(14, 11, 19);
+}
+
+button{
+  outline:none !important;
+  cursor: pointer !important;
+  box-sizing: border-box !important;
+}
+
+header{
+  .sinovaclient-header-content{
+    display: flex;
+    color: white;
+  }
+  .sinovaclient-left{
+    float: left;
+    width: 100%;
+    span{
+      font-size: 30px;
+    }
+  }
+  .sinovaclient-right{
+    float: right;
+    width: 100%;
+    button{
+      float: right;
+      font-size: 20px;
+      padding: 12px 20px 12px 20px;
+      background: #4b4e5a;
+      color: #f9f9f9;
+      border-radius: 5px;
+      border: none;
+    }
+  }
+}
+
+.sinovadclient-modal-content{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  h2{
+    color: white;
+    text-align: center;
+  }
+  input{
+    background-color: rgba(249, 249, 249, 0.1019607843);
+    color: white;
+    min-width: 200px;
+    padding: 10px 6px 10px 6px;
+    font-size: 20px;
+  }
+}
+
+.sinovaclient-footer-content{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+  button{
+    border:none;
+    background-color: transparent;
+    color: #67bdff;
+  }
+}
+
+

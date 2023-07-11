@@ -1,0 +1,57 @@
+<ng-template #modalTarget let-modal>
+  <ng-template [ngIf]="tvProgram!=undefined">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalCenteredScrollableTitle">{{tvProgram.Id>0?'Editar':'Nuevo'}}</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="modal.dismiss()"></button>
+    </div>
+    <div class="modal-body">
+      <div *ngIf="isMovie()" class="mb-3">
+        <label for="title" class="form-label">Título</label>
+        <textarea id="title" class="form-control" [(ngModel)]="tvProgram.Title"></textarea>
+      </div>
+      <div *ngIf="isTvSerie()" class="mb-3">
+        <label for="name" class="form-label">Nombre</label>
+        <textarea id="name" class="form-control" [(ngModel)]="tvProgram.Name"></textarea>
+      </div>
+      <div *ngIf="isMovie()" class="mb-3">
+        <label for="releaseDate" class="form-label">Fecha Lanzamiento</label>
+        <input id="releaseDate" class="form-control" type="date" (change)="tvProgram.ReleaseDate=getTargetDateValue($event.target)" [valueAsDate]="tvProgram.ReleaseDate"/>
+      </div>
+      <div *ngIf="isTvSerie()" class="mb-3">
+        <label for="firstAirDate" class="form-label">Primera Fecha de Emision</label>
+        <input id="firstAirDate" class="form-control" type="date" (change)="tvProgram.FirstAirDate=getTargetDateValue($event.target)" [valueAsDate]="tvProgram.FirstAirDate"/>
+      </div>
+      <div *ngIf="isTvSerie()" class="mb-3">
+        <label for="lastAirDate" class="form-label">Última Fecha de Emision</label>
+        <input id="lastAirDate" class="form-control" type="date" (change)="tvProgram.LastAirDate=getTargetDateValue($event.target)" [valueAsDate]="tvProgram.LastAirDate"/>
+      </div>
+      <div class="mb-3">
+        <label for="directors" class="form-label">Directores</label>
+        <textarea id="directors" class="form-control" [(ngModel)]="tvProgram.Directors"></textarea>
+      </div>
+      <div class="mb-3">
+        <label for="actors" class="form-label">Actores</label>
+        <textarea id="actors" class="form-control" [(ngModel)]="tvProgram.Actors"></textarea>
+      </div>
+      <div class="mb-3">
+        <label for="summary" class="form-label">Resumen</label>
+        <textarea id="summary" class="form-control" [(ngModel)]="tvProgram.Overview"></textarea>
+      </div>
+      <div class="mb-3">
+        <label for="genres" class="form-label">Géneros</label>
+        <textarea id="genres" class="form-control" readonly [value]="getSelectedGenres()" (click)="showListGenresPopUp()"></textarea>
+      </div>
+      <div class="mb-3">
+        <label for="posterPath" class="form-label">Imágen</label>
+        <textarea id="posterPath" class="form-control" [(ngModel)]="tvProgram.PosterPath"></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="modal.dismiss()">Close</button>
+      <button type="button" class="btn btn-primary" (click)="modal.close()">Guardar</button>
+    </div>
+  </ng-template>
+</ng-template>
+
+<app-item-genres *ngIf="showGenresPopUp" [tvProgram]="tvProgram" [listAllGenresPopUp]="listAllGenresPopUp"
+(close)="showGenresPopUp=false" (closeWithChanges)="onCloseGenresPopUp($event)"></app-item-genres>

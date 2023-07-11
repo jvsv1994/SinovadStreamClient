@@ -1,0 +1,183 @@
+:host{
+
+}
+.sinovad-logo-button{
+  padding: 0px;
+  border: none;
+  margin-left: 30px;
+  cursor: pointer;
+  text-decoration: unset;
+  font-size: 20px;
+  .first-span{
+    color: #007bff;
+    margin-right: 6px;
+  }
+  .second-span{
+    color: white;
+  }
+}
+
+.sinovad-custom-search{
+  display: flex;
+  align-items: center;
+  height: 30px;
+  border-radius: 5px;
+  border: 2px solid transparent;
+  margin-left: 20px;
+  background-color: white;
+  input{
+    background: transparent;
+    border: none;
+    outline: none;
+    padding-left: 10px;
+  }
+  button{
+    background: transparent;
+    border: none;
+    outline: none;
+    border-radius: 0px 7px 7px 0px;
+    opacity: 0.7;
+    padding-right: 8px;
+    padding-left: 8px;
+  }
+  button:hover{
+    opacity: 1;
+  }
+}
+
+.sinovad-custom-search.focused{
+  border: 2px solid #007bff;
+}
+
+.sinovad-toggle-sidebar-button{
+  padding: 0px;
+  border: none;
+  margin-left: 30px;
+  cursor: pointer;
+  color: white;
+  font-size: 24px;
+  opacity: 0.7;
+}
+
+.sinovad-toggle-sidebar-button:hover{
+  opacity: 1;
+}
+
+nav{
+  background: black;
+  color: white;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  display: flex;
+  height: 70px;
+  align-items: center;
+  ul.sinovad-nav-list {
+    list-style-type: none;
+    flex-direction: row;
+    display: flex;
+    height: 100%;
+    align-items: center;
+    margin-bottom: 0px;
+    li{
+      display: flex;
+      align-items: center;
+      height: 100%;
+      a{
+        color: white;
+        cursor: pointer;
+        text-decoration: unset;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+    }
+  }
+}
+
+.sinovad-navbar-search{
+  background: black;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+  padding-right: 20px;
+  .sinovad-bottom-search{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    height: 30px;
+    border-radius: 5px;
+    border: 2px solid transparent;
+    margin-right: 20px;
+    background-color: white;
+    input{
+      background: transparent;
+      border: none;
+      outline: none;
+      padding-left: 10px;
+      width: 100%;
+    }
+    button{
+      background: transparent;
+      border: none;
+      outline: none;
+      border-radius: 0px 7px 7px 0px;
+      opacity: 0.7;
+      padding-right: 8px;
+      padding-left: 8px;
+    }
+    button:hover{
+      opacity: 1;
+    }
+  }
+  .sinovad-bottom-search.focused{
+    border: 2px solid #007bff;
+  }
+  .sinovad-close-search-container{
+    width: 20px;
+    button{
+      background: transparent;
+      border: none;
+      outline: none;
+      border-radius: 0px 7px 7px 0px;
+      opacity: 0.7;
+      color: white;
+      padding-right: 8px;
+      padding-left: 8px;
+      font-size: 24px;
+    }
+    button:hover{
+      opacity: 1;
+    }
+  }
+}
+
+
+@media only screen and (max-width: 1024px) {
+  .sinovad-nav-list{
+    li{
+      a{
+        span{
+          display: none;
+        }
+      }
+    }
+  }
+  .sinovad-custom-search{
+    background: transparent;
+    button{
+      color: white;
+      font-size: 24px;
+    }
+    input{
+      display: none;
+    }
+  }
+}
+
+
+
+

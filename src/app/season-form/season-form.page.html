@@ -1,0 +1,26 @@
+<ng-template #modalTarget let-modal>
+  <ng-template [ngIf]="season!=undefined">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalCenteredScrollableTitle">{{season.Id>0?'Editar':'Nuevo'}}</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="modal.dismiss()"></button>
+    </div>
+    <div class="modal-body">
+      <div class="mb-3">
+        <label for="seasonNumber" class="form-label">Número</label>
+        <input id="seasonNumber" class="form-control" type="number" [(ngModel)]="season.SeasonNumber"/>
+      </div>
+      <div class="mb-3">
+        <label for="name" class="form-label">Nombre</label>
+        <textarea id="name" class="form-control" [(ngModel)]="season.Name"></textarea>
+      </div>
+      <div class="mb-3">
+        <label for="name" class="form-label">Resumen</label>
+        <textarea id="name" class="form-control" [(ngModel)]="season.Summary"></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="modal.dismiss()">Close</button>
+      <button type="button" class="btn btn-primary" (click)="modal.close()">Guardar</button>
+    </div>
+  </ng-template>
+</ng-template>

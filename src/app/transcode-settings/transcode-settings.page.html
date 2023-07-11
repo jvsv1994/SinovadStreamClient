@@ -1,0 +1,48 @@
+<div class="sinovad-manage-media-container">
+  <section *ngIf="currentTranscodeSettings" class="sinovad-manage-media-principal-section">
+    <div class="container">
+      <div class="row mt-4">
+        <h3>Transcodificación</h3>
+      </div>
+      <div class="row mt-4">
+        <div class="mb-3">
+          <label for="transmission-methods" class="form-label">Metodo de Transmision:</label>
+          <select name="transmissionMethods" id="transmission-methods" class="form-select" (change)="onChangeTransmissionMethod($event)">
+              <ng-template ngFor let-tm [ngForOf]="transmissionMethodList">
+                <option *ngIf="tm.Id==currentTranscodeSettings.TransmissionMethodCatalogDetailId" value="{{tm.Id}}" selected>{{tm.Name}}</option>
+                <option *ngIf="tm.Id!=currentTranscodeSettings.TransmissionMethodCatalogDetailId" value="{{tm.Id}}">{{tm.Name}}</option>
+              </ng-template>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="transmission-methods" class="form-label">Preset:</label>
+          <select name="transmissionMethods" class="form-select" id="transmission-methods" (change)="onChangePreset($event)">
+              <ng-template ngFor let-pr [ngForOf]="presetList">
+                <option *ngIf="pr.Id==currentTranscodeSettings.PresetCatalogDetailId" selected value="{{pr.Id}}">{{pr.Name}}</option>
+                <option *ngIf="pr.Id!=currentTranscodeSettings.PresetCatalogDetailId" value="{{pr.Id}}">{{pr.Name}}</option>
+              </ng-template>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="constantRateFactorId" class="form-label">Factor de Tasa Constante:</label>
+          <input id="constantRateFactorId" type="number" class="form-control" [value]="currentTranscodeSettings.ConstantRateFactor" (change)="currentTranscodeSettings.ConstantRateFactor=getTargetValue($event.target)">
+        </div>
+        <div class="mb-3">
+          <label for="transcode-directory" class="form-label">Directorio:</label>
+          <input *ngIf="currentTranscodeSettings" id="transcode-directory" class="form-control" readonly [value]="currentTranscodeSettings.DirectoryPhysicalPath" (click)="showingDirectoryTranscodeVideos=true">
+        </div>
+        <div class="mb-3">
+          <button type="button" class="btn btn-primary" (click)="saveTrancodeSettings()">Guardar Cambios</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<app-directory-chooser *ngIf="showingDirectoryTranscodeVideos" [listMainDirectories]="listMainDirectories"
+(outputSelectedSubdirectory)="onSaveDirectoryTranscodedVideos($event)" (closeChooserDirectory)="showingDirectoryTranscodeVideos=false"></app-directory-chooser>
+
+<app-success-message-modal *ngIf="showSucessMessage" (closeModal)="showSucessMessage=false"></app-success-message-modal>
+<!--Implement modal to show success message-->
+
+

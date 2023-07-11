@@ -1,0 +1,19 @@
+.sinovad-search-view-container{
+  display: block;
+  height: 100%;
+  width: 100%;
+  padding: 10px;
+  background: #2d3744;
+  overflow: auto;
+}
+
+.sinovad-search-view-title{
+  color: white;
+  margin-left: 20px;
+  margin-right: 20px;
+  .sinovad-search-view-title-content{
+    height: 100%;
+    border-bottom: 1px solid #dedede;
+    width: 100%;
+  }
+}

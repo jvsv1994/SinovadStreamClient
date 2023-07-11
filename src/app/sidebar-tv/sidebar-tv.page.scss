@@ -1,0 +1,201 @@
+.sinovad-avatar-container{
+  padding: 20px;
+}
+
+.sinovad-icon-container{
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sinovad-icon-content{
+  display: block;
+  text-align: center;
+  img{
+    width: 160px;
+  }
+}
+
+
+button{
+  outline:none !important;
+  cursor: pointer !important;
+  box-sizing: border-box !important;
+}
+
+.sinovad-module-container{
+  border-top: 1px solid #dedede;
+}
+
+.sinovad-avatar-button{
+  display: block;
+  padding-bottom: 10px;
+  padding-left: 0px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: white;
+  opacity: 0.7;
+  display: flex;
+  align-items: center;
+  .sinovad-intials-profile{
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+    border: 1px solid white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+  }
+  .sinovad-fullname-profile{
+    display: block;
+    margin-left: 10px;
+    font-size: 20px;
+  }
+}
+
+.sinovad-avatar-button:hover{
+  .sinovad-intials-profile{
+    border-color: white;
+    border: 2px solid white;
+  }
+  color: white;
+  opacity: 1;
+}
+
+.sinovad-avatar-button:focus-visible{
+  .sinovad-intials-profile{
+    border-color: white;
+    border: 2px solid white;
+  }
+  color: white;
+  opacity: 1;
+}
+
+.sinovad-avatar-button:focus{
+  .sinovad-intials-profile{
+    border-color: white !important;
+    border: 2px solid white;
+  }
+  color: white !important;
+  opacity: 1;
+}
+
+.sinovad-menu-button{
+  display: block;
+  background: transparent;
+  color: white;
+  border: none;
+  padding: 10px 10px 10px 20px;
+  cursor: pointer;
+  font-size: 18px;
+  width: 100%;
+  text-align: left;
+  opacity: 0.7;
+}
+
+
+.sinovad-menu-button.selected{
+  color: #007bff;
+  opacity: 1;
+}
+
+.sinovad-menu-button:focus-visible{
+  color: white;
+  opacity: 1;
+}
+
+.sinovad-menu-button:focus{
+  color: white;
+  opacity: 1;
+}
+
+.sinovad-menu-button:hover{
+  color: white;
+  opacity: 1;
+}
+
+.sinovad-container-video{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 1054;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: black;
+  top: 0;
+  left: 0;
+}
+
+.sinovad-page-container{
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.sinovad-header-container{
+  height: 60px;
+  background: rgba(0,0,0,.15);
+}
+
+.sinovad-menu-body-container{
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.sinovad-menu-container{
+  width: 200px;
+  display: block;
+  background: black;
+  overflow-y: auto;
+}
+
+.sinovad-body-container{
+  display: block;
+  height: 100%;
+}
+
+.small{
+  .sinovad-body-container{
+    width: 100% !important;
+  }
+  .sinovad-menu-container{
+    position: absolute;
+    z-index: 999;
+  }
+}
+
+
+.sinovad-context-menu-item-list{
+  position: absolute;
+  z-index: 999999999;
+  background-color: #DCD8BB;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.sinovad-context-menu-option{
+  display: flex;
+  padding: 10px;
+  cursor: pointer;
+  color: black;
+  align-items: center;
+}
+
+.sinovad-context-menu-option:hover{
+  color: blue;
+}
+
+.sinovad-context-menu-option-icon{
+  display: block;
+}
+
+.sinovad-context-menu-option-text{
+  padding-left: 10px;
+  display: block;
+}

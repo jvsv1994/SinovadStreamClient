@@ -1,0 +1,12 @@
+<ng-template #modalTarget let-modal>
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalCenteredScrollableTitle">Mensaje de Confirmación</h5>
+    </div>
+    <div class="modal-body">
+      {{message}}
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-primary" (click)="modal.close()">Si</button>
+      <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="modal.dismiss()">No</button>
+    </div>
+</ng-template>

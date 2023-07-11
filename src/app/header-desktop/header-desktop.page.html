@@ -1,0 +1,33 @@
+<header>
+  <nav>
+    <a class="sinovad-toggle-sidebar-button" (click)="toggleSidebar.emit(true)">
+      <i class="fa-solid fa-bars"></i>
+    </a>
+    <a class="sinovad-logo-button" (click)="goHome.emit(true)">
+      <span class="first-span">Sinovad</span>
+      <span class="second-span">Stream</span>
+    </a>
+    <div class="sinovad-custom-search" [ngClass]="{'focused':isFocusSearch && !isSmallDevice()}">
+        <input #input type="text" [(ngModel)]="searchText" (change)="onChangeSearchValue()" (focus)="isFocusSearch=true" (blur)="isFocusSearch=false">
+        <button (click)="onClickSearchButton()">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+    </div>
+    <app-dropdown-account (logout)="logout.emit(true)" (changeProfile)="goHome.emit(true)" (showSplashScreen)="showSplashScreen.emit(true)"></app-dropdown-account>
+  </nav>
+  <div *ngIf="isSmallDevice() && showNavbarSearch" class="sinovad-navbar-search">
+    <div class="sinovad-bottom-search" [ngClass]="{'focused':isFocusSearch}">
+      <input #input type="text" [(ngModel)]="searchText" (change)="onChangeSearchValue()" (focus)="isFocusSearch=true" (blur)="isFocusSearch=false">
+      <button (click)="onClickSearchButton()">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </button>
+    </div>
+    <div class="sinovad-close-search-container">
+      <button (click)="showNavbarSearch=false">
+        <i class="fa fa-times"></i>
+      </button>
+    </div>
+  </div>
+</header>
+
+

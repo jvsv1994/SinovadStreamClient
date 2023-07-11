@@ -1,0 +1,32 @@
+<ng-template #accountStorageModalTarget let-modal>
+  <ng-template [ngIf]="accountStorage!=undefined">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalCenteredScrollableTitle">{{accountStorage.Id>0?'Editar Almacenamiento':'Nuevo Almacenamiento'}}</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="modal.dismiss()"></button>
+    </div>
+    <div class="modal-body">
+      <div class="mb-3">
+        <label for="typeFormControlId" class="form-label">Tipo</label>
+        <select id="typeFormControlId" class="form-select" aria-label="Seleccionar Tipo" (change)="onChangeMediaType($event)">
+          <ng-template ngFor let-mt [ngForOf]="mediaTypes">
+            <option *ngIf="mt.Id==accountStorage.AccountStorageTypeId" selected value="{{mt.Id}}">{{mt.Name}}</option>
+            <option *ngIf="mt.Id!=accountStorage.AccountStorageTypeId" value="{{mt.Id}}">{{mt.Name}}</option>
+          </ng-template>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="directoryFormControlId" class="form-label">Directorio</label>
+        <input id="directoryFormControlId" class="form-control" readonly  [(ngModel)]="accountStorage.PhisicalPath" (click)="showChooserDirectory=true;">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="modal.dismiss()">Close</button>
+      <button type="button" class="btn btn-primary" (click)="modal.close()">Guardar</button>
+    </div>
+  </ng-template>
+</ng-template>
+<app-directory-chooser *ngIf="showChooserDirectory" [listMainDirectories]="listMainDirectories"
+(outputSelectedSubdirectory)="onSelectDirectory($event)" (closeChooserDirectory)="showChooserDirectory=false"></app-directory-chooser>
+
+
+

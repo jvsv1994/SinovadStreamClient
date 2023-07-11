@@ -1,0 +1,23 @@
+
+
+
+<div class="sinovad-page-container">
+  <div #menuBodyContainer class="sinovad-menu-body-container" [style.height]="'100%'">
+    <div #menu>
+      <section id="menuContainer" #menuContainer class="sinovad-menu-container" [style.height]="'100%'" (click)="focusContainer(menuContainer,ref)" tabindex="0">
+        <app-sidebar-tv *ngIf="sharedData.accountData" (showProfiles)="showSplashScreen=false" (selectOption)="onClickMenuOption($event)"></app-sidebar-tv>
+      </section>
+    </div>
+    <section id="bodyContainer" #principalContainer class="sinovad-body-container" [style.width]="'calc(100% - '+menu.offsetWidth+'px)'" (click)="onClickBody()" tabindex="0">
+      <ng-template [ngIf]="!hideContent">
+        <router-outlet class="small" name="rohtp" (activate)="onActivate($event)"></router-outlet>
+      </ng-template>
+    </section>
+  </div>
+</div>
+
+<section *ngIf="sharedData.currentVideo" class="sinovad-container-video">
+  <app-video [ngClass]="{'small':isSmallDevice()}" (fullscreen)="showVideoInFullScreen()" [builderVideo]="sharedData.currentVideo" (outputCloseVideo)="closeVideo()"></app-video>
+</section>
+
+<app-splash-screen *ngIf="showSplashScreen"></app-splash-screen>

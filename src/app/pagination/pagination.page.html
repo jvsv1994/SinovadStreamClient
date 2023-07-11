@@ -1,0 +1,13 @@
+<ul class="pagination justify-content-center text-truncate">
+  <li class="page-item" [ngClass]="{'disabled':!responsePagination.HasPreviousPage}" (click)="onSelectPreviousPage()">
+    <button class="page-link" tabindex="-1">Previous</button>
+  </li>
+  <ng-template ngFor let-page [ngForOf]="listPages" let-i="index">
+    <li class="page-item"  [ngClass]="{'active':page.IsButton && page.Text==responsePagination.PageNumber.toString(),'disabled':!page.IsButton}" (click)="onSelectPage(page.Text)">
+      <button class="page-link">{{page.Text}}</button>
+    </li>
+  </ng-template>
+  <li class="page-item" [ngClass]="{'disabled':!responsePagination.HasNextPage}" (click)="onSelectNextPage()">
+    <button class="page-link">Next</button>
+  </li>
+</ul>

@@ -1,0 +1,161 @@
+.sinovad-back-button-container{
+  margin-top: 10px;
+  button{
+    background-color: transparent;
+    border: none;
+    outline: none;
+    img{
+      width: 40px;
+    }
+  }
+}
+
+
+.sinovad-form-group{
+  display: block;
+}
+
+.sinovad-form-popup-input-container{
+  width: 100%;
+  .sinovad-genres-container{
+    width: 100%;
+    min-height: 50px;
+    cursor: pointer;
+    background: white;
+    border: 1px solid #cbcbcb;
+    border-radius: 5px;
+  }
+  input{
+    width: 100%;
+    height: 36px;
+    border: 1px solid #cbcbcb;
+    outline: none;
+  }
+  input.date{
+    padding: 0px 10px 0px 10px;
+  }
+  textarea{
+    width: 100%;
+    height: 100px;
+    border: 1px solid #cbcbcb;
+    resize: none;
+    outline: none;
+  }
+  .sinovad-large-textarea{
+    height: 100px;
+  }
+
+  select{
+    width: 100%;
+    height: 40px;
+    border-radius: 5px;
+    outline: none;
+  }
+  optgroup{
+    height: 50px;
+  }
+}
+
+.sinovad-form-popup-search-movie-button-container{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding-right: 45px;
+  button{
+    border-radius: 4px;
+    padding: 6px 10px 6px 10px;
+  }
+}
+
+.sinovad-form-popup-save-button-container{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  button{
+    border-radius: 4px;
+    padding: 6px 10px 6px 10px;
+  }
+}
+
+
+:host {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+select{
+  outline:none !important;
+}
+
+option{
+  outline:none !important;
+}
+
+section{
+  outline:none !important;
+}
+
+img{
+  box-sizing: border-box !important;
+}
+
+input{
+  outline: none;
+}
+
+.sinovad-auxiliary-container{
+  display: none;
+  width: 0px;
+  height: 0px;
+}
+
+body{
+  margin: 0px !important;
+}
+
+*{
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+div{
+  box-sizing: border-box;
+  &::-webkit-scrollbar{
+    width: 6px !important;
+    height: 6px !important;
+  }
+}
+
+section{
+  &::-webkit-scrollbar{
+    width: 6px !important;
+    height: 6px !important;
+  }
+}
+
+.sinovad-custom-container{
+  outline: none;
+}
+.sinovad-section{
+  outline: none;
+}
+
+.small{
+  div{
+    &::-webkit-scrollbar{
+      width: 0px !important;
+      height: 0px !important;
+    }
+  }
+  section{
+    &::-webkit-scrollbar{
+      width: 6px !important;
+      height: 6px !important;
+    }
+  }
+}

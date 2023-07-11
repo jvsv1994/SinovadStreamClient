@@ -1,0 +1,47 @@
+
+
+
+<div *ngIf="sharedData.currentToken!=undefined && sharedData.accountData!=undefined" class="sinovad-page-container" [ngClass]="{'small':isSmallDevice()}">
+  <div #header>
+    <app-header-desktop (goHome)="ShowInitial()" (executeSearch)="onSearchMedia($event)" (toggleSidebar)="onClickToggleSidebarButton()" (showSplashScreen)="showSplashScreen=true" (logout)="logOut()" (showHomeUser)="ShowInitial()"
+    (logout)="logOut()"></app-header-desktop>
+  </div>
+  <div class="sinovad-menu-body-container" [style.height]="'calc(100% - '+(header.offsetHeight+footer.offsetHeight)+'px)'">
+    <div #menu>
+      <section id="menuContainer" #menuContainer class="sinovad-menu-container" [style.width]="!isCollapsedSidebar?'230px':'0px'" [style.height]="'100%'" tabindex="0">
+        <app-sidebar-desktop [unselectSidebarOption]="unselectSidebarOption" [selectHomeUserOption]="selectHomeUserOption" [isCollapsedSidebar]="isCollapsedSidebar" (selectOption)="onClickSidebarOption($event)"></app-sidebar-desktop>
+      </section>
+    </div>
+    <section id="bodyContainer" #principalContainer class="sinovad-body-container" [ngClass]="{'locked':isSmallDevice() && !isCollapsedSidebar}" [style.width]="'calc(100% - '+menu.offsetWidth+'px)'" tabindex="0">
+      <ng-template [ngIf]="!hideContent">
+        <router-outlet class="small" (activate)="onActivate($event)"></router-outlet>
+      </ng-template>
+    </section>
+  </div>
+  <div #footer>
+
+  </div>
+</div>
+
+<div *ngIf="sharedData.currentToken==undefined && sharedData.accountData==undefined" class="sinovad-page-container">
+  <router-outlet class="small" (activate)="onActivate($event)"></router-outlet>
+</div>
+
+<section *ngIf="sharedData.currentVideo" class="sinovad-container-video">
+  <app-video [ngClass]="{'small':isSmallDevice()}" (fullscreen)="showVideoInFullScreen()" [builderVideo]="sharedData.currentVideo" (outputCloseVideo)="closeVideo()"></app-video>
+</section>
+
+<app-splash-screen *ngIf="showSplashScreen"></app-splash-screen>
+
+<div *ngIf="sharedData.contextMenuData" class="sinovad-context-menu-item-list" [style.top]="sharedData.contextMenuData.top+'px'" [style.left]="sharedData.contextMenuData.left+'px'">
+  <ng-template ngFor let-option [ngForOf]="sharedData.contextMenuData.listOptions"  let-i="index">
+      <div class="sinovad-context-menu-option" [style.border-bottom]="option.showBorderBottom?'1px solid black':''" (click)="sharedData.contextMenuData.parentPage && sharedData.contextMenuData.parentPage.onClickContextMenuOption($event,option)">
+        <div class="sinovad-context-menu-option-icon">
+          <img [src]="option.icon | formatDataPipe : 'GetImageURLByKey'" style="width:24px;">
+        </div>
+        <div class="sinovad-context-menu-option-text">
+          {{option.text}}
+        </div>
+      </div>
+  </ng-template>
+</div>

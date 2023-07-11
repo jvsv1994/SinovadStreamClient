@@ -1,0 +1,45 @@
+
+
+<div class="sinovad-account-dropdown">
+  <ul class="sinovad-dropdown-list" role="menu">
+    <li class="sinovad-avatar-item">
+      <a #button id="avatar_button" class="sinovad-avatar-button principal" (click)="onClickAvatarButton()">
+        <ng-template [ngIf]="sharedData.currentProfile">
+          <span class="sinovad-fullname-profile text-truncate">
+            {{sharedData.currentProfile.FullName}}
+          </span>
+          <div class="sinovad-intials-profile">
+            {{getInitials(sharedData.currentProfile)}}
+          </div>
+        </ng-template>
+      </a>
+    </li>
+    <div class="sinovad-separator-dropdown"></div>
+    <div class="sinovad-bottom-list">
+      <ng-template [ngIf]="sharedData.listProfiles && sharedData.listProfiles.length>0">
+        <ng-template ngFor let-profile [ngForOf]="sharedData.listProfiles">
+          <li *ngIf="sharedData.currentProfile && profile.Id!=sharedData.currentProfile.Id" class="sinovad-avatar-item">
+            <a #button id="avatar_button" class="sinovad-avatar-button" (click)="onSelectProfile(profile)">
+                <div class="sinovad-intials-profile">
+                  {{getInitials(profile)}}
+                </div>
+                <span class="sinovad-fullname-profile text-truncate">
+                  {{profile.FullName}}
+                </span>
+            </a>
+          </li>
+        </ng-template>
+      </ng-template>
+      <li class="sinovad-avatar-item">
+        <a id="log_out_button" (click)="onClickChangeProfileButton()">
+          <span>Cambiar perfil</span>
+        </a>
+      </li>
+      <li class="sinovad-avatar-item">
+        <a id="log_out_button" (click)="logout.emit(true)">
+          <span>Cerrar Sesión</span>
+        </a>
+      </li>
+    </div>
+  </ul>
+</div>

@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Sinovad</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+
+<body>
+  <script>
+    var currenthost = null;
+    var localipaddress = null;
+    const queryString = window.location.search;
+    if (queryString != "") {
+        const urlParams = new URLSearchParams(queryString);
+        currenthost = urlParams.get('currenthost');
+        localipaddress = urlParams.get('localipaddress');
+        console.log("Current Host");
+        console.log(currenthost);
+        console.log("Local Ip Address");
+        console.log(localipaddress);
+    }
+   var configurationData={
+      developerMode:true,
+      localIpAddress:'192.168.18.8',
+      currentHost:'http://192.168.18.8:5179',
+      alwaysFullScreen:false
+    }
+    window.configurationData=configurationData;
+  </script>
+  <app-sinovad-desktop></app-sinovad-desktop>
+  <!--<app-sinovad-tv></app-sinovad-tv>-->
+</body>

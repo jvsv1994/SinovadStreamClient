@@ -1,0 +1,282 @@
+button{
+  outline:none !important;
+  cursor: pointer !important;
+  box-sizing: border-box !important;
+}
+
+.sinovad-episode-button{
+  width: 100%;
+  cursor: pointer;
+  font-size: 25px;
+  display: flex;
+  border-radius: 5px;
+  height: 300px;
+  margin-bottom: 15px;
+  padding: 0px;
+}
+
+.sinovad-episode-button:hover{
+  .sinovad-episode-detail-section{
+    color: #007bff;
+  }
+}
+
+.sinovad-episode-button:focus-visible{
+  .sinovad-episode-detail-section{
+    color: #007bff;
+  }
+}
+
+.sinovad-episode-button:focus{
+  .sinovad-episode-detail-section{
+    color: #007bff !important;
+  }
+}
+
+.sinovad-overview-section{
+  font-size: 20px;
+  font-weight: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: auto;
+  white-space: pre-wrap;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  -webkit-line-clamp: 10;
+}
+
+.sinovad-episode-title-section{
+  margin-bottom: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: auto;
+  white-space: pre-wrap;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+}
+
+.sinovad-episode-image-section{
+  display: block;
+  img{
+    height: 300px;
+  }
+}
+
+.sinovad-episode-detail-section{
+  display: block;
+  background-color: white;
+  color: black;
+  padding: 20px;
+  text-align: left;
+  width: 100%;
+  height: 300px;
+}
+
+.sinovad-video-container{
+  width: 100%;
+  height: 100%;
+  background: black;
+}
+
+.sinovad-item-progress-bar-container{
+  width: 100%;
+  height: 5px;
+  background-color: rgb(30, 26, 40);
+  position: relative;
+  margin-top: 10px;
+}
+
+.sinovad-item-progress-bar-content{
+  background-color: red;
+  height: 100%;
+}
+
+.sinovad-item-view-container{
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  outline: none;
+}
+
+.sinovad-item-view-title-container{
+  position: relative;
+  width: fit-content;
+  font-size: 50px;
+  font-weight: bold;
+  color: white;
+  padding-left: 20px;
+  padding-top: 20px;
+}
+
+.sinovad-item-view-subtitle-container{
+  position: relative;
+  width: fit-content;
+  font-size: 25px;
+  font-weight: bold;
+  color: white;
+  padding-left: 20px;
+  padding-top: 20px;
+}
+
+.sinovad-item-view-summary-container{
+  position: relative;
+  width: fit-content;
+  font-size: 30px;
+  color: white;
+  padding-left: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.sinovad-item-view-principal-button-container{
+  position: relative;
+  width: fit-content;
+  font-size: 25px;
+  color: white;
+  padding-left: 20px;
+  padding-top: 20px;
+  button{
+    padding: 10px 20px 10px 20px;
+    border-radius: 5px;
+    margin-right: 10px;
+  }
+  button:hover{
+    color: #007bff;
+  }
+  button:focus-visible{
+    color: #007bff;
+  }
+  button:focus{
+    color: #007bff !important;
+  }
+}
+
+.sinovad-item-view-background-container{
+  position: relative;
+  img{
+    max-width: unset;
+    width: 100%;
+    opacity: 0.5;
+  }
+}
+
+.sinovad-item-view-seasons-container{
+  position: relative;
+  width: 100%;
+  font-size: 20px;
+  color: white;
+  padding-left: 20px;
+  padding-top: 20px;
+  font-weight: bold;
+}
+
+.sinovad-list-itsinovad-row-container{
+  display: flex;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+
+.sinovad-list-button-scroll-left{
+  position: relative;
+  width: 60px;
+  height: 82px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  img{
+    opacity: 0.4;
+    max-width: unset;
+    height: 110px;
+    display: none;
+  }
+}
+
+.sinovad-list-button-scroll-right{
+  width: 60px;
+  height: 82px;
+  right: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  cursor: pointer;
+  img{
+    max-width: unset;
+    height: 110px;
+    display: none;
+    opacity: 0.4;
+  }
+}
+
+.sinovad-list-button-scroll-right:hover img{
+  display: block;
+}
+
+.sinovad-list-button-scroll-left:hover img{
+  display: block;
+}
+
+.sinovad-list-itsinovad-row{
+  display: block;
+  overflow-x: auto;
+  width: 100%;
+}
+
+.sinovad-list-itsinovad-content{
+  display: flex;
+}
+
+.sinovad-season-container{
+  padding-right: 10px;
+}
+
+.sinovad-season-button{
+  font-size: 25px;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 10px;
+  padding-bottom: 4px;
+  cursor: pointer;
+  padding-left: 10px;
+  padding-right: 10px;
+  background: transparent;
+  border: none;
+}
+
+.sinovad-season-button:hover{
+  border-bottom: 4px solid #007bff;
+}
+
+.sinovad-season-button:focus-visible{
+  border-bottom: 4px solid #007bff;
+}
+
+.sinovad-season-button:focus{
+  border-bottom: 4px solid #007bff !important;
+}
+
+.sinovad-season-button.selected{
+  border-bottom: 4px solid #007bff;
+}
+
+
+button{
+  font-size: 25px;
+}
+
+.sinovad-mobile-platform{
+  .sinovad-list-button-scroll-right{
+    display: none !important;
+  }
+  .sinovad-list-button-scroll-left{
+    display: none !important;
+  }
+}

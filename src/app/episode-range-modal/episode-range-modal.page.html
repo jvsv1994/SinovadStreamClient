@@ -1,0 +1,20 @@
+<ng-template #modalTarget let-modal>
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalCenteredScrollableTitle">Rango de Episodios</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="modal.dismiss()"></button>
+    </div>
+    <div class="modal-body">
+      <div class="mb-3">
+        <label for="seasonNumber" class="form-label">Desde</label>
+        <input id="seasonNumber" class="form-control" type="number" [(ngModel)]="initialEpisodeNumber"/>
+      </div>
+      <div class="mb-3">
+        <label for="seasonNumber" class="form-label">Hasta</label>
+        <input id="seasonNumber" class="form-control" type="number" [(ngModel)]="lastEpisodeNumber"/>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="modal.dismiss()">Close</button>
+      <button type="button" class="btn btn-primary" (click)="modal.close()">Guardar</button>
+    </div>
+</ng-template>

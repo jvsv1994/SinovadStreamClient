@@ -1,0 +1,104 @@
+.sinovad-searh-media-log-container{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sinovad-searh-media-log-content{
+  width: 80%;
+  height: 80%;
+  background: black;
+  border: 1px solid #dedede;
+  border-radius: 6px;
+  color: white;
+  padding: 10px;
+}
+
+.sinovad-searh-media-log-second-content{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 26px;
+}
+
+.sinovad-searh-media-log-html{
+  color: white;
+  font-size: 16px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  width: 100%;
+  height: 100%;
+}
+
+.sinovad-storage-principal-section{
+  display: block;
+  border-bottom: 1px solid #dedede;
+  margin-left: 10px;
+  margin-right: 10px;
+  h3{
+    color: white;
+    margin-left: 10px;
+    margin-bottom: 2px;
+    font-size: 30px;
+  }
+}
+
+.sinovad-storage-container{
+  display: block;
+}
+
+.sinovad-storage-section{
+  display: block;
+  padding: 10px;
+  h3{
+    margin-top: 0px;
+    margin-left: 0px;
+    font-size: 20px;
+  }
+  .sinovad-storage-buttons-container{
+    display: flex;
+    align-items: center;
+  }
+  input{
+    width: 100%;
+    height: 30px;
+    border-radius: 5px;
+    outline: none;
+    cursor: pointer;
+  }
+}
+
+.sinovad-transcode-subsection{
+  display: block;
+  padding: 10px;
+  label{
+    color: white;
+  }
+  select{
+    width: 300px;
+    margin-left: 20px;
+    height: 30px;
+    border-radius: 5px;
+  }
+  input{
+    width: 300px;
+    margin-left: 20px;
+    height: 30px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+}
+
+.sinovad-transcode-subsection-buttons{
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  padding: 10px;
+}

@@ -1,0 +1,33 @@
+<ng-template #directoryChooserModelTarget let-directoryChooserModal>
+  <div class="modal-header">
+    <h5 class="modal-title">Seleccionar directorio</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="directoryChooserModal.dismiss()"></button>
+  </div>
+  <div class="modal-body">
+    <div class="sinovad-directory-chooser-content">
+      <div class="sinovad-main-directories-section">
+        <ng-template ngFor let-md [ngForOf]="listMainDirectories">
+          <button class="sinovad-main-directory-option" [ngClass]="{'sinovad-directory-selected':selectedMainDirectory && md.name==selectedMainDirectory.name}" (click)="onClickMainDirectory(md)">
+            {{md.name}}
+          </button>
+        </ng-template>
+      </div>
+      <div class="sinovad-subdirectories-section">
+        <button class="sinovad-subdirectory-option" *ngIf="selectedSubdirectory" (click)="onClickBackFolder()">
+          <= .. [Regresar]
+        </button>
+        <ng-template ngFor let-sd [ngForOf]="listSubdirectoriesTmp">
+          <button class="sinovad-subdirectory-option" [ngClass]="{'sinovad-directory-selected':selectedSubdirectory && sd.name==selectedSubdirectory.name}" (click)="onClickSubDirectory(sd)">
+            {{sd.name}}
+          </button>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="directoryChooserModal.dismiss()">Close</button>
+    <button type="button" class="btn btn-primary" (click)="directoryChooserModal.close()">Guardar</button>
+  </div>
+</ng-template>
+
+

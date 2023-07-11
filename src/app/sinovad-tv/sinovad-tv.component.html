@@ -1,0 +1,4 @@
+
+<div #mainContainer id="sinovadMainContainer" class="sinovad-main-container" [ngClass]="{'small':isSmallDevice()}">
+  <router-outlet name="rostp" (activate)="onActivate($event)"></router-outlet>
+</div>

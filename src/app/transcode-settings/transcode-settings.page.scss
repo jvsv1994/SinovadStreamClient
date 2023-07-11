@@ -1,0 +1,40 @@
+.sinovad-manage-media-container{
+  display: block;
+}
+
+.sinovad-manage-media-section{
+  display: block;
+  padding: 10px;
+}
+
+label{
+  color: white;
+}
+
+h3{
+  color: white;
+}
+
+.sinovad-transcode-subsection{
+  display: block;
+  padding: 10px;
+}
+
+.sinovad-transcode-subsection-buttons{
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  padding: 10px;
+}
+
+.sinovad-buttons-container{
+  display: flex;
+  align-items: center;
+}
+
+.sinovad-manage-media-principal-section{
+  display: block;
+  border-bottom: 1px solid #dedede;
+  margin-left: 10px;
+  margin-right: 10px;
+}

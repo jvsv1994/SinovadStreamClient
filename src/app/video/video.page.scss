@@ -1,0 +1,455 @@
+:host{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+button{
+  outline:none !important;
+  cursor: pointer !important;
+  box-sizing: border-box !important;
+}
+
+video::cue {
+  background-color: transparent;
+  font-size: 45px;
+  color: yellow;
+  text-align: center;
+  font-weight: bold;
+  text-shadow: 2px 2px black;
+}
+
+video.small::cue {
+  font-size: 25px;
+}
+
+.sinovad-loading-video{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top:0px;
+  padding-bottom: 0px;
+  left: 0;
+  background-color: black;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  color: white;
+}
+
+.sinovad-loading-video.show-controls{
+  padding-bottom: 300px;
+  top: 150px;
+}
+
+.easy-media-settings-section-container{
+  position: absolute;
+  top: 0;
+  left:0;
+  width: 100%;
+  height: auto;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 0px 0px 50px 0px;
+  z-index: 99999;
+}
+
+.easy-media-settings-section-content{
+  display: block;
+}
+
+.sinovad-settings-options-section{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  border-bottom: 1px solid #dedede;
+  margin-bottom: 50px;
+  button{
+    color: white;
+    outline: none;
+    padding: 20px;
+    background-color: transparent;
+    border: none;
+    font-size: 30px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  button.selected{
+    color: black;
+    background-color: white;
+  }
+  button:hover{
+    color: #007bff;
+  }
+  button:focus-visible{
+    color: #007bff;
+  }
+  button:focus{
+    color: #007bff !important;
+  }
+}
+
+.sinovad-settings-suboptions-section{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  button{
+    color: white;
+    outline: none;
+    padding: 10px;
+    background-color: transparent;
+    border: none;
+    font-size: 30px;
+    cursor: pointer;
+    margin-right: 6px;
+    border-radius: 5px;
+  }
+  button.selected{
+    color: black;
+    background-color: white;
+  }
+  button:hover{
+    color: #007bff;
+  }
+  button:focus-visible{
+    color: #007bff;
+  }
+  button:focus{
+    color: #007bff !important;
+  }
+}
+
+.sinovad-video-container{
+  width: 100%;
+  height: 100%;
+  background: black;
+}
+
+.sinovad-full-screen-video-container{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  user-select: none;
+}
+
+.sinovad-full-screen-video-popup{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.sinovad-video-header-section{
+  position: absolute;
+  top: 0;
+  left:0;
+  padding-left: 0px;
+  z-index: 999;
+  display: flex;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  button{
+    height: 60px;
+    display: flex;
+    align-items: center;
+    width: 70px;
+    justify-content: center;
+    cursor: pointer;
+    img{
+      width: 30px;
+      height: 40px;
+    }
+  }
+}
+
+.sinovad-full-screen-video-popup-footer{
+  position: absolute;
+  bottom: 0;
+  left:0;
+  padding-left: 0px;
+  z-index: 999;
+  display: flex;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.solitv-progress-bar{
+  background: transparent;
+  height: 40px;
+  pointer-events: auto;
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+.solitv-slider-container{
+  box-sizing: border-box;
+  cursor: pointer;
+  height: 100%;
+
+  pointer-events: auto;
+  position: relative;
+  touch-action: none;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.solitv-slider-content{
+  height: 100%;
+  padding-top: 20px;
+  cursor: pointer;
+  outline: none;
+}
+
+.sinovad-slider-fills{
+  height: 3px;
+  overflow: hidden;
+  pointer-events: none;
+  width: 100%;
+  background: white;
+  opacity: 0.5;
+}
+
+
+.sinovad-slider-fills-progress-container{
+  position: relative;
+}
+
+.sinovad-slider-fills-progress-content{
+  width: 100%;
+  height: 8px;
+  margin-top: -6px;
+}
+
+.sinovad-slider-fills-progress{
+  cursor: pointer;
+  background: white;
+  height: 100%;
+  width: 0%;
+}
+
+.sinovad-video-control-button{
+  color: white;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  opacity: 0.9;
+  img{
+    max-width: unset;
+  }
+}
+
+.sinovad-video-control-button:hover{
+  background: #007bff;
+}
+
+.sinovad-video-control-button:focus-visible{
+  background: #007bff;
+}
+
+.sinovad-video-control-button:focus{
+  background: #007bff !important;
+}
+
+
+.sinovad-settings-options-header-section{
+  display: flex;
+}
+
+.sinovad-settings-section-container-left{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  float: left;
+}
+
+.sinovad-settings-section-content-left{
+  position: relative;
+}
+
+.sinovad-video-settings-button{
+  color: white;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 70px;
+  height: 60px;
+  opacity: 0.9;
+  img{
+    max-width: unset;
+    width: 30px;
+    height: 40px;
+  }
+}
+
+
+.sinovad-video-settings-button:hover{
+  background: #007bff !important;
+}
+
+.sinovad-video-settings-button:focus-visible{
+  background: #007bff !important;
+}
+
+.sinovad-video-settings-button:focus{
+  background: #007bff !important;
+}
+
+
+.sinovad-video-container{
+  width:100%;
+  height:100%;
+}
+
+.sinovad-controls-container{
+  z-index: -99;
+  pointer-events: none;
+}
+
+.sinovad-controls-container.show{
+  z-index: unset;
+  pointer-events: unset;
+}
+
+.sinovad-custom-video{
+  width: 100%;
+  height: 100%;
+}
+
+.sinovad-full-screen-video-popup-episode-buttons-section{
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 40px;
+}
+
+.sinovad-full-screen-video-popup-episode-buttons-section-left{
+  display: block;
+  float: left;
+  width: 100%;
+  padding-left: 10px;
+}
+
+.sinovad-full-screen-video-popup-episode-buttons-section-right{
+  display: block;
+  float: right;
+  width: 100%;
+  padding-right: 10px;
+  .sinovad-video-control-button{
+    float: right;
+  }
+}
+
+
+.sinovad-full-screen-video-popup-footer-left{
+  display: block;
+  float: left;
+  width: 170px;
+}
+.sinovad-full-screen-video-popup-footer-left-content{
+  display: flex;
+  align-items: center;
+  float: left;
+  width: 100%;
+  height: 100%;
+  color: white;
+}
+
+.sinovad-current-time{
+  color: white;
+  font-size: 25px;
+}
+
+.sinovad-full-screen-video-popup-footer-center{
+  display: block;
+  float: left;
+  width: 100%;
+}
+.sinovad-full-screen-video-popup-footer-center-content{
+  display: flex;
+  align-items: center;
+  float: left;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+}
+
+.sinovad-full-screen-video-popup-footer-right{
+  width: 100px;
+  display: block;
+  float: right;
+}
+
+.sinovad-full-screen-video-popup-footer-right-content{
+  display: flex;
+  align-items: center;
+  float: right;
+  height: 100%;
+}
+
+
+.sinovad-video-header-section-title-container{
+  display: flex;
+  align-items: center;
+  font-size: 35px;
+  color: white;
+  justify-content: center;
+  width:100%;
+  padding-right: 70px;
+}
+
+
+.sinovad-subtitles-forzed-section{
+  position: absolute;
+  width: 100%;
+  bottom: 10px;
+  font-size: 45px;
+  color: yellow;
+  text-align: center;
+  font-weight: bold;
+  text-shadow: 2px 2px black;
+}
+
+.sinovad-custom-video-object-fit{
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  color: white;
+  padding: 10px;
+  label{
+    margin-right: 6px;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  select{
+    background-color: white;
+    color: black;
+    height: 30px;
+    font-size: 18px;
+    border-radius: 5px;
+  }
+  option{
+    background-color: white;
+    color: black;
+  }
+}
+
+:host.small{
+  .sinovad-video-header-section-title-container{
+    font-size: 25px;
+  }
+}

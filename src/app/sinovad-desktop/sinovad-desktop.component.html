@@ -1,0 +1,4 @@
+
+<div #mainContainer id="sinovadMainContainer" class="sinovad-main-container" [ngClass]="{'small':isSmallDevice()}">
+  <app-root-desktop *ngIf="showRootPage" (toggleVideo)="executeToggleVideo($event)"></app-root-desktop>
+</div>
