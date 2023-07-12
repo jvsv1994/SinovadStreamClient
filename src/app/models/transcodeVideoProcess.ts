@@ -1,5 +1,5 @@
 
-export class TranscodeSetting{
+export class TranscoderSettings{
 
   public Id: Number;
   public Guid: String;

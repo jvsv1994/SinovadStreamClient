@@ -467,9 +467,9 @@ INSERT INTO CatalogDetail(Catalog_ID,ID,Name) VALUES (5,2,'Web');
 INSERT INTO CatalogDetail(Catalog_ID,ID,Name) VALUES (5,3,'Mobile');
 INSERT INTO CatalogDetail(Catalog_ID,ID,Name) VALUES (5,4,'TV');
  */
-/*TranscodeSettings*/
+/*TranscoderSettingss*/
 
-CREATE TABLE TranscodeSettings (
+CREATE TABLE TranscoderSettingss (
   ID int NOT NULL PRIMARY KEY IDENTITY(1,1),
   MediaServer_ID int NOT NULL,
   Transmission_Method_Catalog_ID int NOT NULL,
@@ -477,12 +477,12 @@ CREATE TABLE TranscodeSettings (
   Preset_Catalog_ID int NOT NULL,
   Preset_Catalog_Detail_ID int NOT NULL,
   DirectoryPhysicalPath varchar(1000) NULL,
-  CONSTRAINT FK_TranscodeSettings_MediaServer_ID
+  CONSTRAINT FK_TranscoderSettingss_MediaServer_ID
     FOREIGN KEY (MediaServer_ID)
     REFERENCES MediaServer (ID)
 );
 
-ALTER TABLE TranscodeSettings
+ALTER TABLE TranscoderSettingss
 Add ConstantRateFactor int NOT NULL DEFAULT 0;
 
 

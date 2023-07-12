@@ -71,7 +71,7 @@ export class SideBarTvPage extends ParentComponent implements OnInit {
         {
           index:6,
           Name:"Transcodificación",
-          Method:"ShowTranscodeSettings"
+          Method:"ShowTranscoderSettingss"
         }
       ]
     },{

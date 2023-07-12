@@ -60,7 +60,7 @@ export class SideBarDesktopPage extends ParentComponent implements OnInit {
         {
           index:6,
           name:"Transcodificación",
-          method:"ShowTranscodeSettings",
+          method:"ShowTranscoderSettingss",
           iconClass:"fa-solid fa-database"
         }
       ]

@@ -164,7 +164,7 @@ export class RootDesktopPage extends ParentComponent implements OnInit {
       this.router.navigate([this.sharedData.platform,'storage'],{ skipLocationChange: false});
     }
 
-    public ShowTranscodeSettings(){
+    public ShowTranscoderSettingss(){
       this.hideContent=true;
       this.ref.detectChanges();
       this.hideContent=false;

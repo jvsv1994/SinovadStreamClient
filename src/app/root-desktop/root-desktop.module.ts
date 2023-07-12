@@ -22,7 +22,7 @@ import { ProfilesViewPage } from '../profiles-view/profiles-view.page';
 import { TvSeriesPage } from '../tvseries/tvseries.page';
 import { MoviesPage } from '../movies/movies.page';
 import { HomePage } from '../home/home.page';
-import { TranscodeSettingsPage } from '../transcode-settings/transcode-settings.page';
+import { TranscoderSettingssPage } from '../transcode-settings/transcode-settings.page';
 import { ItemListPage } from '../item-list/item-list.page';
 import { ManageMediaPage } from '../manage-media/manage-media.page';
 
@@ -103,8 +103,8 @@ const routes: Routes = [
   },
   {
     path: 'desktop/transcoding',
-    component: TranscodeSettingsPage,
-    loadChildren: () => import('../transcode-settings/transcode-settings.module').then(m => m.TranscodeSettingsPageModule)
+    component: TranscoderSettingssPage,
+    loadChildren: () => import('../transcode-settings/transcode-settings.module').then(m => m.TranscoderSettingssPageModule)
   },
   {
     path: 'desktop/management-items',

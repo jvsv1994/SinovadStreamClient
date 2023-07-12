@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { TranscodeSettingsPage } from './transcode-settings.page';
+import { TranscoderSettingssPage } from './transcode-settings.page';
 import { DirectoryChooserPageModule } from '../directory-chooser/directory-chooser.module';
 import { SharedModule } from 'src/shared.module';
 import { SuccessMessageModalPageModule } from '../success-message-modal/success-message-modal.module';
 
 @NgModule({
     declarations: [
-      TranscodeSettingsPage
+      TranscoderSettingssPage
     ],
     imports: [
         CommonModule,
@@ -18,7 +18,7 @@ import { SuccessMessageModalPageModule } from '../success-message-modal/success-
         SharedModule,
         ReactiveFormsModule
     ],
-    exports: [TranscodeSettingsPage]
+    exports: [TranscoderSettingssPage]
 })
-export class TranscodeSettingsPageModule {
+export class TranscoderSettingssPageModule {
 }
