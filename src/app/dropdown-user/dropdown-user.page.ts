@@ -11,9 +11,9 @@ import { Router } from '@angular/router';
 
 declare var window;
 @Component({
-  selector: 'app-dropdown-account',
-  templateUrl: './dropdown-account.page.html',
-  styleUrls: ['./dropdown-account.page.scss']
+  selector: 'app-dropdown-user',
+  templateUrl: './dropdown-user.page.html',
+  styleUrls: ['./dropdown-user.page.scss']
 })
 export class DropDownUserPage extends ParentComponent implements OnInit {
 
