@@ -7,10 +7,10 @@
       <div class="row mt-4">
         <div class="mb-3">
           <label for="transmission-methods" class="form-label">Metodo de Transmision:</label>
-          <select name="transmissionMethods" id="transmission-methods" class="form-select" (change)="onChangeTransmissionMethod($event)">
+          <select name="transmissionMethods" id="transmission-methods" class="form-select" (change)="onChangeVideoTransmissionType($event)">
               <ng-template ngFor let-tm [ngForOf]="transmissionMethodList">
-                <option *ngIf="tm.Id==currentTranscoderSettingss.TransmissionMethodCatalogDetailId" value="{{tm.Id}}" selected>{{tm.Name}}</option>
-                <option *ngIf="tm.Id!=currentTranscoderSettingss.TransmissionMethodCatalogDetailId" value="{{tm.Id}}">{{tm.Name}}</option>
+                <option *ngIf="tm.Id==currentTranscoderSettingss.VideoTransmissionTypeCatalogDetailId" value="{{tm.Id}}" selected>{{tm.Name}}</option>
+                <option *ngIf="tm.Id!=currentTranscoderSettingss.VideoTransmissionTypeCatalogDetailId" value="{{tm.Id}}">{{tm.Name}}</option>
               </ng-template>
           </select>
         </div>
@@ -29,7 +29,7 @@
         </div>
         <div class="mb-3">
           <label for="transcode-directory" class="form-label">Directorio:</label>
-          <input *ngIf="currentTranscoderSettingss" id="transcode-directory" class="form-control" readonly [value]="currentTranscoderSettingss.DirectoryPhysicalPath" (click)="showingDirectoryTranscodeVideos=true">
+          <input *ngIf="currentTranscoderSettingss" id="transcode-directory" class="form-control" readonly [value]="currentTranscoderSettingss.TemporaryFolder" (click)="showingDirectoryTranscodeVideos=true">
         </div>
         <div class="mb-3">
           <button type="button" class="btn btn-primary" (click)="saveTrancodeSettings()">Guardar Cambios</button>

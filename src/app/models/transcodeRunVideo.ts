@@ -5,7 +5,7 @@ export class TranscodeRunVideo{
   public TranscodeProcessStreamId: number;
   public TranscodeProcessSubtitlesId: number;
   public VideoPath: string;
-  public VideoOutputDirectoryPhysicalPath: string;
+  public VideoOutputTemporaryFolder: string;
   public VideoOutputDirectoryRoutePath: string;
   public TranscodePrepareVideo:TranscodePrepareVideo;
 

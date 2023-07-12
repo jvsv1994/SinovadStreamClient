@@ -1,16 +1,28 @@
 
   export enum CatalogEnum
   {
-      TransmissionMethod = 1,
-      Preset = 2,
+      VideoTransmissionType = 1,
+      TranscoderPreset = 2,
       MediaServerState = 3
   }
 
-  export enum TransmissionMethod
+  export enum VideoTransmissionType
   {
       None = 1,
       MPEGDASH = 2,
       HLS = 3
+  }
+
+  export enum TranscoderPreset{
+    Ultrafast=1,
+    Superfast=2,
+    Veryfast=3,
+    Faster=4,
+    Fast=5,
+    Medium=6,
+    Slow=7,
+    Slower=8,
+    Veryslow=9
   }
 
   export enum MediaType

@@ -11,14 +11,14 @@ export class TranscodePrepareVideo{
   public ProcessGUID:string;
   public TimeSpan: string;
   public TotalSeconds: number;
-  public TranscodeDirectoryPhysicalPath: string;
+  public TranscodeTemporaryFolder: string;
   public TranscodeDirectoryRoutePath: string;
   public VideoOutputName: string;
   public FinalCommandGenerateStreams: string;
   public FinalCommandGenerateSubtitles: string;
   public ListAudioStreams: CustomStream[];
   public ListSubtitlesStreams: CustomStream[];
-  public TransmissionMethodId: number;
+  public VideoTransmissionTypeId: number;
   public Preset: string;
 
 }

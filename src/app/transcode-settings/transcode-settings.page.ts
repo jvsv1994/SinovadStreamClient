@@ -50,11 +50,11 @@ export class TranscoderSettingssPage extends ParentComponent implements OnInit {
     }
 
     public getCatalogDetails(){
-      let listCatalogIds=CatalogEnum.Preset+","+CatalogEnum.TransmissionMethod;
+      let listCatalogIds=CatalogEnum.TranscoderPreset+","+CatalogEnum.VideoTransmissionType;
       this.restProvider.executeSinovadApiService(HttpMethodType.GET,"/catalogs/GetAllCatalogDetailsWithPaginationByCatalogIdsAsync?catalogIds="+listCatalogIds).then((response:SinovadApiGenericResponse) => {
         let data=response.Data;
-        this.transmissionMethodList=data.filter(item=>item.CatalogId==CatalogEnum.TransmissionMethod);
-        this.presetList=data.filter(item=>item.CatalogId==CatalogEnum.Preset);
+        this.transmissionMethodList=data.filter(item=>item.CatalogId==CatalogEnum.VideoTransmissionType);
+        this.presetList=data.filter(item=>item.CatalogId==CatalogEnum.TranscoderPreset);
         this.getTranscoderSettingss();
       },error=>{
         console.error(error);
@@ -79,11 +79,11 @@ export class TranscoderSettingssPage extends ParentComponent implements OnInit {
         if(this.currentTranscoderSettingss==undefined)
         {
           var currentTranscoderSettingss= new TranscoderSettings();
-          currentTranscoderSettingss.DirectoryPhysicalPath="";
+          currentTranscoderSettingss.TemporaryFolder="";
           currentTranscoderSettingss.ConstantRateFactor=18;
-          currentTranscoderSettingss.TransmissionMethodCatalogId=CatalogEnum.TransmissionMethod;
-          currentTranscoderSettingss.TransmissionMethodCatalogDetailId=this.transmissionMethodList[0].Id;
-          currentTranscoderSettingss.PresetCatalogId=CatalogEnum.Preset;
+          currentTranscoderSettingss.VideoTransmissionTypeCatalogId=CatalogEnum.VideoTransmissionType;
+          currentTranscoderSettingss.VideoTransmissionTypeCatalogDetailId=this.transmissionMethodList[0].Id;
+          currentTranscoderSettingss.PresetCatalogId=CatalogEnum.TranscoderPreset;
           currentTranscoderSettingss.PresetCatalogDetailId=this.presetList[0].Id;
           currentTranscoderSettingss.MediaServerId=this.sharedData.currentMediaServerData.Id;
           this.currentTranscoderSettingss=currentTranscoderSettingss;
@@ -103,8 +103,8 @@ export class TranscoderSettingssPage extends ParentComponent implements OnInit {
       });
     }
 
-    public onChangeTransmissionMethod(event:any){
-      this.currentTranscoderSettingss.TransmissionMethodCatalogDetailId=Number(event.target.value);
+    public onChangeVideoTransmissionType(event:any){
+      this.currentTranscoderSettingss.VideoTransmissionTypeCatalogDetailId=Number(event.target.value);
     }
 
     public onChangePreset(event:any){
@@ -112,7 +112,7 @@ export class TranscoderSettingssPage extends ParentComponent implements OnInit {
     }
 
     public onSaveDirectoryTranscodedVideos(path:string){
-      this.currentTranscoderSettingss.DirectoryPhysicalPath=path;
+      this.currentTranscoderSettingss.TemporaryFolder=path;
       this.showingDirectoryTranscodeVideos=false;
     }
 

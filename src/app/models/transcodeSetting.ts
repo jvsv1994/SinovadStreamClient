@@ -3,11 +3,11 @@ export class TranscoderSettings{
 
   public Id: number;
   public MediaServerId: number;
-  public TransmissionMethodCatalogId: number;
-  public TransmissionMethodCatalogDetailId: number;
+  public VideoTransmissionTypeCatalogId: number;
+  public VideoTransmissionTypeCatalogDetailId: number;
   public PresetCatalogId: number;
   public PresetCatalogDetailId: number;
-  public DirectoryPhysicalPath: string;
+  public TemporaryFolder: string;
   public ConstantRateFactor: number;
 
 }

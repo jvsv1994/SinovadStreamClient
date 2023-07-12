@@ -9,7 +9,7 @@ import { EventsService } from 'src/services/events-service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { parse } from '@plussub/srt-vtt-parser';
 import Hls, { HlsConfig } from 'hls.js';
-import { HttpMethodType, LoadVideoStatus, TransmissionMethod } from '../Enums';
+import { HttpMethodType, LoadVideoStatus, VideoTransmissionType } from '../Enums';
 import { RestProviderService } from 'src/services/rest-provider.service';
 import { Episode } from '../models/episode';
 import { VideoProfile } from '../models/videoProfile';
@@ -826,7 +826,7 @@ public onClickSlider(sliderContainer:any){
   }
 
   public isPlayingVideo(){
-    if(this.builderVideo.TranscodePrepareVideo && this.builderVideo.TranscodePrepareVideo.TransmissionMethodId==TransmissionMethod.MPEGDASH)
+    if(this.builderVideo.TranscodePrepareVideo && this.builderVideo.TranscodePrepareVideo.VideoTransmissionTypeId==VideoTransmissionType.MPEGDASH)
     {
       if(this.dashMediaPlayer && !this.dashMediaPlayer.isPaused())
       {
@@ -858,7 +858,7 @@ public onClickSlider(sliderContainer:any){
       this.hls.audioTrack=1;
     } */
 
-    if(this.builderVideo.TranscodePrepareVideo && this.builderVideo.TranscodePrepareVideo.TransmissionMethodId==TransmissionMethod.MPEGDASH)
+    if(this.builderVideo.TranscodePrepareVideo && this.builderVideo.TranscodePrepareVideo.VideoTransmissionTypeId==VideoTransmissionType.MPEGDASH)
     {
       if(this.dashMediaPlayer)
       {
@@ -946,7 +946,7 @@ public onClickSlider(sliderContainer:any){
   }
 
   public getCurrentVideoTime(){
-    if(this.builderVideo.TranscodePrepareVideo && this.builderVideo.TranscodePrepareVideo.TransmissionMethodId==TransmissionMethod.MPEGDASH)
+    if(this.builderVideo.TranscodePrepareVideo && this.builderVideo.TranscodePrepareVideo.VideoTransmissionTypeId==VideoTransmissionType.MPEGDASH)
     {
       if(this.dashMediaPlayer && this.dashMediaPlayer.time())
       {
@@ -1125,7 +1125,7 @@ public onClickSlider(sliderContainer:any){
     }else{
       seconsToRest=this.getCurrentVideoTime();
     }
-    if(this.builderVideo.TranscodePrepareVideo && this.builderVideo.TranscodePrepareVideo.TransmissionMethodId==TransmissionMethod.MPEGDASH)
+    if(this.builderVideo.TranscodePrepareVideo && this.builderVideo.TranscodePrepareVideo.VideoTransmissionTypeId==VideoTransmissionType.MPEGDASH)
     {
       if(this.dashMediaPlayer && this.dashMediaPlayer.time()>seconsToRest)
       {
@@ -1168,7 +1168,7 @@ public onClickSlider(sliderContainer:any){
       }else{
         seconsToAdd=maxSecondsToAdd;
       }
-      if(this.builderVideo.TranscodePrepareVideo && this.builderVideo.TranscodePrepareVideo.TransmissionMethodId==TransmissionMethod.MPEGDASH)
+      if(this.builderVideo.TranscodePrepareVideo && this.builderVideo.TranscodePrepareVideo.VideoTransmissionTypeId==VideoTransmissionType.MPEGDASH)
       {
         if(this.dashMediaPlayer && this.dashMediaPlayer.duration()-this.dashMediaPlayer.time()>=seconsToAdd)
         {

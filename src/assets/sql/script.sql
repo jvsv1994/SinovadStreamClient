@@ -476,7 +476,7 @@ CREATE TABLE TranscoderSettingss (
   Transmission_Method_Catalog_Detail_ID int NOT NULL,
   Preset_Catalog_ID int NOT NULL,
   Preset_Catalog_Detail_ID int NOT NULL,
-  DirectoryPhysicalPath varchar(1000) NULL,
+  TemporaryFolder varchar(1000) NULL,
   CONSTRAINT FK_TranscoderSettingss_MediaServer_ID
     FOREIGN KEY (MediaServer_ID)
     REFERENCES MediaServer (ID)
