@@ -16,7 +16,7 @@ import { TvSeriesPage } from '../tvseries/tvseries.page';
 import { MovieDetailPage } from '../movie-detail/movie-detail.page';
 import { TvSerieDetailPage } from '../tvserie-detail/tvserie-detail.page';
 import { LandingPage } from '../landing/landing.page';
-import { RegisterUserPage } from '../register-account/register-account.page';
+import { RegisterUserPage } from '../register-user/register-user.page';
 import { LoginPage } from '../login/login.page';
 import { RecoverPasswordPage } from '../recover-password/recover-password.page';
 import { ResetPasswordPage } from '../reset-password/reset-password.page';
@@ -67,7 +67,7 @@ const routes: Routes = [
   {
     path: 'web/register',
     component:RegisterUserPage,
-    loadChildren: () => import('../register-account/register-account.module').then(m => m.RegisterAcccountPageModule)
+    loadChildren: () => import('../register-user/register-user.module').then(m => m.RegisterAcccountPageModule)
   },
   {
     path: 'web/login',

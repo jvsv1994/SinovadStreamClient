@@ -26,7 +26,7 @@ export class LoginPage extends ParentComponent implements OnInit {
   showLoading:boolean=false;
   @ViewChild('loginFormContainer') loginFormContainer: ElementRef;
   customKeyboardControlsEvent:any;
-  account:User=new User();
+  user:User=new User();
   @Output() showSplashScreen =new EventEmitter();
 
   constructor(
@@ -75,7 +75,7 @@ export class LoginPage extends ParentComponent implements OnInit {
       this.router.navigate([this.sharedData.platform,'home'],{ skipLocationChange: false});
     }
     this.showLoading=true;
-    this.restProvider.executeSinovadApiService(HttpMethodType.POST,'/users/Login',this.account).then((response:SinovadApiGenericResponse) => {
+    this.restProvider.executeSinovadApiService(HttpMethodType.POST,'/users/Login',this.user).then((response:SinovadApiGenericResponse) => {
       let token=response.Data;
       localStorage.setItem('apiKey',token);
       this.sharedData.currentToken=token;

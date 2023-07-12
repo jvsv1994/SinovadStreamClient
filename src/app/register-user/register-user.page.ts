@@ -12,9 +12,9 @@ import { Router } from '@angular/router';
 
 declare var window;
 @Component({
-  selector: 'app-register-account',
-  templateUrl: './register-account.page.html',
-  styleUrls: ['./register-account.page.scss']
+  selector: 'app-register-user',
+  templateUrl: './register-user.page.html',
+  styleUrls: ['./register-user.page.scss']
 })
 export class RegisterUserPage extends ParentComponent implements OnInit {
 

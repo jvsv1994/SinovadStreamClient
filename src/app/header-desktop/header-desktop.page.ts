@@ -54,7 +54,7 @@ export class HeaderDesktopPage extends ParentComponent implements OnInit {
   }
 
   public addClickEvent(){
-    const target = document.getElementById("accountDropDown");
+    const target = document.getElementById("userDropDown");
     document.addEventListener('click', (event) => {
       const withinBoundaries = event.composedPath().includes(target)
       if (withinBoundaries) {

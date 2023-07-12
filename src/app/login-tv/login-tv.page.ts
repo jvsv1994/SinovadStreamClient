@@ -26,7 +26,7 @@ export class LoginTvPage extends ParentComponent implements OnInit {
   showLoading:boolean=false;
   @ViewChild('loginFormContainer') loginFormContainer: ElementRef;
   customKeyboardControlsEvent:any;
-  account:User=new User();
+  user:User=new User();
 
   constructor(
     private router: Router,
@@ -67,7 +67,7 @@ export class LoginTvPage extends ParentComponent implements OnInit {
 
   public login(){
     this.showLoading=true;
-    this.restProvider.executeSinovadApiService(HttpMethodType.POST,'/accounts/Login',this.account).then((response:SinovadApiGenericResponse) => {
+    this.restProvider.executeSinovadApiService(HttpMethodType.POST,'/users/Login',this.user).then((response:SinovadApiGenericResponse) => {
       let token=response.Data;
       localStorage.setItem('apiKey',token);
       this.router.navigate([{ outlets: { rostp: ['maintv'] } }],{ skipLocationChange: false});

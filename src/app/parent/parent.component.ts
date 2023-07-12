@@ -116,7 +116,7 @@ export class ParentComponent implements OnInit {
 
   public getUser(): Promise<any>{
     return new Promise((resolve, reject) => {
-      this.restProvider.executeSinovadApiService(HttpMethodType.GET,'/accounts/GetUserData').then((response:SinovadApiGenericResponse) => {
+      this.restProvider.executeSinovadApiService(HttpMethodType.GET,'/users/GetUserData').then((response:SinovadApiGenericResponse) => {
         let data=response.Data;
         this.sharedData.userData=data;
         if(this.sharedData.userData==null)
