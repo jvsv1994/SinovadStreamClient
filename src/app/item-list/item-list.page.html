@@ -50,7 +50,7 @@
   </div>
 </div>
 
-<app-item-form *ngIf="showPopUpForm" [currentItemTypeID]="currentItemTypeID" [tvProgram]="item"
+<app-item-form *ngIf="showPopUpForm" [currentMediaTypeID]="currentMediaTypeID" [tvProgram]="item"
 (closeForm)="showPopUpForm=false" (closeFormWithChanges)="onSaveItem()"></app-item-form>
 
 <app-season-list-modal *ngIf="showListSeasonsPopUp" [parent]="lastSelectedItem" (close)="showListSeasonsPopUp=false"></app-season-list-modal>

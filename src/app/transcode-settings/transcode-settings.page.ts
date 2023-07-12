@@ -85,7 +85,7 @@ export class TranscodeSettingsPage extends ParentComponent implements OnInit {
           currentTranscodeSettings.TransmissionMethodCatalogDetailId=this.transmissionMethodList[0].Id;
           currentTranscodeSettings.PresetCatalogId=CatalogEnum.Preset;
           currentTranscodeSettings.PresetCatalogDetailId=this.presetList[0].Id;
-          currentTranscodeSettings.AccountServerId=this.sharedData.currentMediaServerData.Id;
+          currentTranscodeSettings.MediaServerId=this.sharedData.currentMediaServerData.Id;
           this.currentTranscodeSettings=currentTranscodeSettings;
         }
       },error=>{

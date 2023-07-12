@@ -5,7 +5,7 @@ import { SharedDataService } from 'src/services/shared-data.service';
 import { EventsService } from 'src/services/events-service';
 import { ParentComponent } from '../parent/parent.component';
 import { HttpClient } from '@angular/common/http';
-import { HttpMethodType, ItemType } from '../Enums';
+import { HttpMethodType, MediaType } from '../Enums';
 import { RestProviderService } from 'src/services/rest-provider.service';
 import { Item } from '../models/item';
 import { ItemsGroup } from '../models/itemsGroup';
@@ -24,7 +24,7 @@ export class HorizontalItemListPage extends ParentComponent implements OnInit {
   @Output() showItemView =new EventEmitter();
   @Output() focus =new EventEmitter();
   showLoadingApp:boolean=true;
-  @Input() currentItemTypeID: number;
+  @Input() currentMediaTypeID: number;
   @Input() title: string;
   listItems: any[];
   itemsGroupList:ItemsGroup[]=[];
@@ -156,10 +156,10 @@ export class HorizontalItemListPage extends ParentComponent implements OnInit {
     ngAfterViewInit(){
       if(this.sharedData.currentProfile)
       {
-        if(this.currentItemTypeID==ItemType.Movie)
+        if(this.currentMediaTypeID==MediaType.Movie)
         {
           this.getAllProgramsByAccount(true,false);
-        }else if(this.currentItemTypeID==ItemType.TvSerie)
+        }else if(this.currentMediaTypeID==MediaType.TvSerie)
         {
           this.getAllProgramsByAccount(false,true);
         }else{

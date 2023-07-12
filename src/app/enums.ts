@@ -18,7 +18,7 @@
       HLS = 3
   }
 
-  export enum ItemType
+  export enum MediaType
   {
       Movie = 1,
       TvSerie = 2

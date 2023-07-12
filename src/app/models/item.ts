@@ -23,13 +23,13 @@ export class Item{
   public MovieGenreId:number;
   public GenreId:number;
   public VideoId:number;
-  public AccountServerId:number;
+  public MediaServerId:number;
   public TvSerieGenreId:number;
   public GenreName:string;
   public IpAddress:string;
   public HostUrl:string;
   public HostState:number;
-  public AccountStorageTypeId:number;
+  public MediaType:number;
   public Created:Date;
   public LastModified:Date;
   public ContinueVideo:boolean;

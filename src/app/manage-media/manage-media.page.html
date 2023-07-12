@@ -6,7 +6,7 @@
       </div>
       <div class="row mt-4">
         <div class="col-4">
-          <button class="btn btn-primary" (click)="openNewAccountStorage()">Agregar</button>
+          <button class="btn btn-primary" (click)="openNewStorage()">Agregar</button>
         </div>
         <div class="col-8 text-end">
           <button class="btn btn-primary" (click)="updateVideoInAllStorages()">Sincronizar todo</button>
@@ -24,15 +24,15 @@
               </tr>
             </thead>
             <tbody>
-              <ng-template ngFor let-accountStorage [ngForOf]="listAccountStorages" let-i="index">
+              <ng-template ngFor let-storage [ngForOf]="listStorages" let-i="index">
                 <tr>
                   <th scope="row">{{i+1}}</th>
-                  <td>{{accountStorage.PhisicalPath}}</td>
-                  <td>{{accountStorage.AccountStorageTypeId==1?'Movies':'Tv Series'}}</td>
+                  <td>{{storage.PhysicalPath}}</td>
+                  <td>{{storage.MediaType==1?'Movies':'Tv Series'}}</td>
                   <td>
-                    <button style="margin-left: 20px;" type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="Sincronizar" (click)="updateStorageVideos(accountStorage)"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
-                    <button style="margin-left: 20px;" type="button" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Editar" (click)="editStorage(accountStorage)"><i class="fa-solid fa-pen-to-square"></i></button>
-                    <button style="margin-left: 20px;" type="button" class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="Eliminar" (click)="deleteStorage(accountStorage)"><i class="fa-sharp fa-solid fa-trash"></i></button>
+                    <button style="margin-left: 20px;" type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="Sincronizar" (click)="updateStorageVideos(storage)"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
+                    <button style="margin-left: 20px;" type="button" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Editar" (click)="editStorage(storage)"><i class="fa-solid fa-pen-to-square"></i></button>
+                    <button style="margin-left: 20px;" type="button" class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="Eliminar" (click)="deleteStorage(storage)"><i class="fa-sharp fa-solid fa-trash"></i></button>
                   </td>
                 </tr>
               </ng-template>
@@ -45,7 +45,7 @@
 </div>
 
 
-<app-account-storage-form *ngIf="showForm" (closeAccountStorageFormWithChanges)="onCloseAccountStorageFormWithChanges()" (closeAccountStorageForm)="onCloseAccountStorageForm()" [listMainDirectories]="listMainDirectories" [accountStorage]="accountStorage"></app-account-storage-form>
+<app-account-storage-form *ngIf="showForm" (closeStorageFormWithChanges)="onCloseStorageFormWithChanges()" (closeStorageForm)="onCloseStorageForm()" [listMainDirectories]="listMainDirectories" [storage]="storage"></app-account-storage-form>
 
 
 <div *ngIf="callSearchMediaLog" class="sinovad-searh-media-log-container">

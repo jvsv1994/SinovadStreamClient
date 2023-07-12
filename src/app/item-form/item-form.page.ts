@@ -8,7 +8,7 @@ import { HttpClient} from '@angular/common/http';
 import { RestProviderService } from 'src/services/rest-provider.service';
 import { TvProgram } from '../models/tvProgram';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { HttpMethodType, ItemType } from '../Enums';
+import { HttpMethodType, MediaType } from '../Enums';
 import { Genre } from '../models/genre';
 import { SinovadApiGenericResponse } from '../response/sinovadApiGenericResponse';
 import { TvProgramGenre } from '../models/tvProgramGenre';
@@ -21,7 +21,7 @@ import { TvProgramGenre } from '../models/tvProgramGenre';
 export class ItemFormPage extends ParentComponent implements OnInit {
 
   @Input() tvProgram:TvProgram;
-  @Input() currentItemTypeID: number;
+  @Input() currentMediaTypeID: number;
   @Output() closeForm=new EventEmitter();;
   @Output() closeFormWithChanges=new EventEmitter();
 
@@ -42,7 +42,7 @@ export class ItemFormPage extends ParentComponent implements OnInit {
     }
 
     public isMovie(){
-      if(this.currentItemTypeID==ItemType.Movie)
+      if(this.currentMediaTypeID==MediaType.Movie)
       {
         return true;
       }else{
@@ -51,7 +51,7 @@ export class ItemFormPage extends ParentComponent implements OnInit {
     }
 
     public isTvSerie(){
-      if(this.currentItemTypeID==ItemType.TvSerie)
+      if(this.currentMediaTypeID==MediaType.TvSerie)
       {
         return true;
       }else{
@@ -90,11 +90,11 @@ export class ItemFormPage extends ParentComponent implements OnInit {
     }
 
     public saveItem(){
-      if(this.currentItemTypeID==ItemType.Movie)
+      if(this.currentMediaTypeID==MediaType.Movie)
       {
         this.saveMovie();
       }
-      if(this.currentItemTypeID==ItemType.TvSerie)
+      if(this.currentMediaTypeID==MediaType.TvSerie)
       {
         this.saveTvSerie();
       }

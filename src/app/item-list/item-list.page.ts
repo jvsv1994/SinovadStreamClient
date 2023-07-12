@@ -5,7 +5,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { ParentComponent } from '../parent/parent.component';
 import { SharedDataService } from 'src/services/shared-data.service';
 import { EventsService } from 'src/services/events-service';
-import { HttpMethodType, ItemType } from '../Enums';
+import { HttpMethodType, MediaType } from '../Enums';
 import { RestProviderService } from 'src/services/rest-provider.service';
 import { SinovadApiGenericResponse } from '../response/sinovadApiGenericResponse';
 import { SinovadApiPaginationResponse } from '../response/sinovadApiPaginationResponse';
@@ -18,7 +18,7 @@ import { TvProgram } from '../models/tvProgram';
 export class ItemListPage extends ParentComponent implements OnInit{
 
   _window=window;
-  @Input() currentItemTypeID: number;
+  @Input() currentMediaTypeID: number;
   @Input() title: string='';
   listItems: TvProgram[];
   listSelectedItems:TvProgram[]=[];
@@ -83,11 +83,11 @@ export class ItemListPage extends ParentComponent implements OnInit{
 
   public showItemForm(){
     let itemTmp=new TvProgram();
-    if(this.currentItemTypeID==ItemType.Movie)
+    if(this.currentMediaTypeID==MediaType.Movie)
     {
       itemTmp.ReleaseDate=new Date();
     }
-    if(this.currentItemTypeID==ItemType.TvSerie)
+    if(this.currentMediaTypeID==MediaType.TvSerie)
     {
       itemTmp.FirstAirDate=new Date();
       itemTmp.LastAirDate=new Date();
@@ -102,11 +102,11 @@ export class ItemListPage extends ParentComponent implements OnInit{
   }
 
   public getGenresByitem(){
-    if(this.currentItemTypeID==ItemType.Movie)
+    if(this.currentMediaTypeID==MediaType.Movie)
     {
       this.getMovie();
     }
-    if(this.currentItemTypeID==ItemType.TvSerie)
+    if(this.currentMediaTypeID==MediaType.TvSerie)
     {
       this.getTvSerie();
     }
@@ -124,7 +124,7 @@ export class ItemListPage extends ParentComponent implements OnInit{
 
   public executeGetAllItems(page:string,take:string){
     var queryParams="?page="+page+"&take="+take;
-    var path=this.currentItemTypeID==ItemType.Movie?'/movies/GetAllWithPaginationAsync'+queryParams:'/tvseries/GetAllWithPaginationAsync'+queryParams;
+    var path=this.currentMediaTypeID==MediaType.Movie?'/movies/GetAllWithPaginationAsync'+queryParams:'/tvseries/GetAllWithPaginationAsync'+queryParams;
     this.restProvider.executeSinovadApiService(HttpMethodType.GET,path).then((response:SinovadApiPaginationResponse) => {
       this.response=response;
       var data=response.Data;
@@ -170,7 +170,7 @@ export class ItemListPage extends ParentComponent implements OnInit{
     event.stopPropagation();
     this.onClickItem(event,item);
     let listOptions=[];
-    if(this.currentItemTypeID==ItemType.TvSerie && !this.isItemDisableForEdit(item))
+    if(this.currentMediaTypeID==MediaType.TvSerie && !this.isItemDisableForEdit(item))
     {
       listOptions.push({text:"Ver",key:"view",icon:"view.png"});
     }
@@ -184,7 +184,7 @@ export class ItemListPage extends ParentComponent implements OnInit{
   }
 
   public onClickContextMenuOption(event:any,option:any){
-    if(option.key=="view" && this.currentItemTypeID==ItemType.TvSerie)
+    if(option.key=="view" && this.currentMediaTypeID==MediaType.TvSerie)
     {
       this.showListSeasonsPopUp=true;
     }
@@ -196,7 +196,7 @@ export class ItemListPage extends ParentComponent implements OnInit{
   }
 
   public getTitleWidth(){
-    if(this.currentItemTypeID==ItemType.Movie){
+    if(this.currentMediaTypeID==MediaType.Movie){
       return 'calc(100% - 120px)';
     }else{
       return 'calc(100% - 120px)';
@@ -265,11 +265,11 @@ export class ItemListPage extends ParentComponent implements OnInit{
       }
       var listIds=listItemIds.join(",");
       var routePath="";
-      if(this.currentItemTypeID==ItemType.Movie)
+      if(this.currentMediaTypeID==MediaType.Movie)
       {
         routePath='/movies/DeleteList/'+listIds;
       }
-      if(this.currentItemTypeID==ItemType.TvSerie)
+      if(this.currentMediaTypeID==MediaType.TvSerie)
       {
         routePath='/tvseries/DeleteList/'+listIds;
       }

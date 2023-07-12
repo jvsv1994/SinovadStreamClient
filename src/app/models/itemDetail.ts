@@ -5,7 +5,7 @@ import { Season } from "./season";
 export class ItemDetail{
 
   public Id: number;
-  public AccountStorageTypeId: number;
+  public MediaType: number;
   public Adult: boolean;
   public TmdbId:number;
   public OriginalLanguage: string;

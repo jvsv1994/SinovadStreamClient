@@ -1,8 +1,8 @@
 
 export class VideoProfile{
 
-  public accountStorageId:Number;
-  public accountStorageTypeId:Number;
+  public storageId:Number;
+  public accountMediaType:Number;
   public paths:String;
   public logIdentifier:String;
 

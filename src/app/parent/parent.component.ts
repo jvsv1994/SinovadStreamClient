@@ -4,7 +4,7 @@ import { SharedDataService } from 'src/services/shared-data.service';
 import { EventsService } from 'src/services/events-service';
 import { RestProviderService } from 'src/services/rest-provider.service';
 import { CatalogEnum, HttpMethodType, ServerState } from '../Enums';
-import { AccountServer } from '../models/accountServer';
+import { MediaServer } from '../models/accountServer';
 import { Item } from '../models/item';
 import { ItemDetail } from '../models/itemDetail';
 import { BuilderVideo } from '../models/builderVideo';
@@ -61,7 +61,7 @@ export class ParentComponent implements OnInit {
     transcodeVideo.VideoId=item.VideoId;
     transcodeVideo.Title=item.Subtitle?item.Title+" "+item.Subtitle:item.Title;
     transcodeVideo.PhysicalPath=item.PhysicalPath;
-    transcodeVideo.AccountServerId=item.AccountServerId;
+    transcodeVideo.MediaServerId=item.MediaServerId;
     transcodeVideo.HostUrl=item.HostUrl;
     transcodeVideo.CurrentTime=item.CurrentTime;
     transcodeVideo.ProcessGUID=processGUID;
@@ -101,7 +101,7 @@ export class ParentComponent implements OnInit {
     transcodeVideo.VideoId=episode.VideoId;
     transcodeVideo.Title=episode.TvSerieName+" "+"T"+episode.SeasonNumber+":E"+episode.EpisodeNumber+" "+episode.Name;
     transcodeVideo.PhysicalPath=episode.PhysicalPath;
-    transcodeVideo.AccountServerId=episode.AccountServerId;
+    transcodeVideo.MediaServerId=episode.MediaServerId;
     transcodeVideo.HostUrl=episode.HostUrl;
     transcodeVideo.ProcessGUID=processGUID;
     transcodeVideo.CurrentTime=0;
@@ -169,7 +169,7 @@ export class ParentComponent implements OnInit {
   }
 
   public saveMediaServer(){
-    let acountServer:AccountServer={
+    let acountServer:MediaServer={
       UserId:this.sharedData.userData.Id,
       IpAddress:this.sharedData.configurationData.localIpAddress,
       HostUrl:this.sharedData.configurationData.currentHost,

@@ -6,7 +6,7 @@ import { ManageMediaPage } from './manage-media.page';
 import { DirectoryChooserPageModule } from '../directory-chooser/directory-chooser.module';
 import { SharedModule } from 'src/shared.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { AccountStorageFormPageModule } from '../account-storage-form/account-storage-form.module';
+import { StorageFormPageModule } from '../account-storage-form/account-storage-form.module';
 
 @NgModule({
     declarations: [
@@ -19,7 +19,7 @@ import { AccountStorageFormPageModule } from '../account-storage-form/account-st
         SharedModule,
         ReactiveFormsModule,
         NgbModule,
-        AccountStorageFormPageModule
+        StorageFormPageModule
     ],
     exports: [ManageMediaPage]
 })

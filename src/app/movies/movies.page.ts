@@ -7,7 +7,7 @@ import { ParentComponent } from '../parent/parent.component';
 import { HttpClient} from '@angular/common/http';
 import { RestProviderService } from 'src/services/rest-provider.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ItemType } from '../Enums';
+import { MediaType } from '../Enums';
 import { ItemDetail } from '../models/itemDetail';
 
 @Component({
@@ -18,7 +18,7 @@ import { ItemDetail } from '../models/itemDetail';
 export class MoviesPage extends ParentComponent implements OnInit {
 
   @Output() toggleVideo =new EventEmitter();
-  currentItemTypeID:number;
+  currentMediaTypeID:number;
   title:string;
 
   constructor(
@@ -36,7 +36,7 @@ export class MoviesPage extends ParentComponent implements OnInit {
 
     public ngOnInit(): void {
       this.title="Películas";
-      this.currentItemTypeID=ItemType.Movie;
+      this.currentMediaTypeID=MediaType.Movie;
     }
 
     public onSelectMovie(detail:ItemDetail){

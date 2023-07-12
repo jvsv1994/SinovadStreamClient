@@ -18,7 +18,7 @@ export class HomePage extends ParentComponent implements OnInit {
 
   @Output() toggleVideo =new EventEmitter();
   itemViewData:ItemDetail;
-  currentItemTypeID:number;
+  currentMediaTypeID:number;
   title:string;
 
   constructor(
@@ -40,7 +40,7 @@ export class HomePage extends ParentComponent implements OnInit {
         this.router.navigate([this.sharedData.platform,'landing'],{ skipLocationChange: false});
       }
       this.itemViewData=undefined;
-      this.currentItemTypeID=undefined;
+      this.currentMediaTypeID=undefined;
     }
 
     public onSelectItem(detail:ItemDetail){

@@ -2,7 +2,7 @@
 export class TranscodeSetting{
 
   public Id: number;
-  public AccountServerId: number;
+  public MediaServerId: number;
   public TransmissionMethodCatalogId: number;
   public TransmissionMethodCatalogDetailId: number;
   public PresetCatalogId: number;

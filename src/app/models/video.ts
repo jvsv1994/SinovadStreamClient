@@ -7,9 +7,9 @@ export class Video{
   public Title:string;
   public Subtitle:string;
   public PhysicalPath:string;
-  public AccountServerId:number;
-  public AccountStorageId:number;
-  public AccountStorageTypeId:number;
+  public MediaServerId:number;
+  public StorageId:number;
+  public MediaType:number;
   public VideoId:number;
   public MovieId:number;
   public TvSerieId:number;

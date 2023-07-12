@@ -10,7 +10,7 @@ import { ItemDetail } from '../models/itemDetail';
 import { ItemViewPage } from '../item-view/item-view.page';
 import { HorizontalItemListPage } from '../horizontal-item-list/horizontal-item-list.page';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HttpMethodType, ItemType } from '../Enums';
+import { HttpMethodType, MediaType } from '../Enums';
 import { SearchViewTvPage } from '../search-view-tv/search-view-tv.page';
 
 @Component({
@@ -27,7 +27,7 @@ export class MainTvPage extends ParentComponent implements OnInit {
   itemViewData:ItemDetail;
   hideContent:boolean=false;
   _window=window;
-  currentItemTypeID:number;
+  currentMediaTypeID:number;
   title:string;
   selectedMenuOption:any;
   customKeyboardEventVerticalContainer:any;
@@ -181,28 +181,28 @@ export class MainTvPage extends ParentComponent implements OnInit {
     public ShowSeries(){
       this.itemViewData=undefined;
       this.title="Series de TV";
-      this.currentItemTypeID=ItemType.TvSerie;
+      this.currentMediaTypeID=MediaType.TvSerie;
       this.showHorizontalItemList();
     }
 
     public ShowMovies(){
       this.itemViewData=undefined;
       this.title="Películas";
-      this.currentItemTypeID=ItemType.Movie;
+      this.currentMediaTypeID=MediaType.Movie;
       this.showHorizontalItemList();
     }
 
     public ShowSearch(){
       this.itemViewData=undefined;
       this.title=undefined;
-      this.currentItemTypeID=undefined;
+      this.currentMediaTypeID=undefined;
       this.showVerticalItemList();
     }
 
     public ShowInitial(){
       this.title=undefined;
       this.itemViewData=undefined;
-      this.currentItemTypeID=undefined;
+      this.currentMediaTypeID=undefined;
       this.showHorizontalItemList();
     }
 
@@ -238,7 +238,7 @@ export class MainTvPage extends ParentComponent implements OnInit {
       let ctx=this;
       if(event instanceof HorizontalItemListPage)
       {
-        event.currentItemTypeID=this.currentItemTypeID;
+        event.currentMediaTypeID=this.currentMediaTypeID;
         event.title=this.title;
         event.toggleVideo.subscribe(event => {
           ctx.toggleVideo.emit(event);

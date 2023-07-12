@@ -7,7 +7,7 @@ import { ParentComponent } from '../parent/parent.component';
 import { HttpClient} from '@angular/common/http';
 import { RestProviderService } from 'src/services/rest-provider.service';
 import { HttpMethodType } from '../Enums';
-import { AccountStorage } from '../models/accountStorage';
+import { Storage } from '../models/storage';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 
@@ -17,16 +17,16 @@ declare var window;
   templateUrl: './account-storage-form.page.html',
   styleUrls: ['./account-storage-form.page.scss']
 })
-export class AccountStorageFormPage extends ParentComponent implements OnInit,OnDestroy {
+export class StorageFormPage extends ParentComponent implements OnInit {
 
 
-  @Input() accountStorage:AccountStorage;
+  @Input() storage:Storage;
   @Input() listMainDirectories:any[];
-  @Output() closeAccountStorageForm=new EventEmitter();;
-  @Output() closeAccountStorageFormWithChanges=new EventEmitter();;
+  @Output() closeStorageForm=new EventEmitter();;
+  @Output() closeStorageFormWithChanges=new EventEmitter();;
 
   showChooserDirectory:boolean=false;
-  @ViewChild('accountStorageModalTarget') accountStorageModalTarget: ElementRef;
+  @ViewChild('storageModalTarget') storageModalTarget: ElementRef;
 
   mediaTypes=[
     {
@@ -55,35 +55,30 @@ export class AccountStorageFormPage extends ParentComponent implements OnInit,On
     }
 
     ngAfterViewInit(){
-      this.modalService.open(this.accountStorageModalTarget,{container:"#sinovadMainContainer",modalDialogClass:'modal-dialog modal-dialog-centered modal-dialog-scrollable',scrollable:true,ariaLabelledBy: 'exampleModalCenteredScrollableTitle'}).result.then((result) => {
-        this.saveAccountStorage();
+      this.modalService.open(this.storageModalTarget,{container:"#sinovadMainContainer",modalDialogClass:'modal-dialog modal-dialog-centered modal-dialog-scrollable',scrollable:true,ariaLabelledBy: 'exampleModalCenteredScrollableTitle'}).result.then((result) => {
+        this.saveStorage();
       }, (reason) => {
-        this.closeAccountStorageForm.emit(true);
+        this.closeStorageForm.emit(true);
       });
     }
 
-    public saveAccountStorage(){
-      this.accountStorage.AccountServerId=this.sharedData.currentMediaServerData.Id;
-      let methodType=this.accountStorage.Id>0?HttpMethodType.PUT:HttpMethodType.POST;
-      var path=this.accountStorage.Id>0?"/storages/Update":"/storages/Create";
-      this.restProvider.executeSinovadApiService(methodType,path,this.accountStorage).then((response) => {
-        this.closeAccountStorageFormWithChanges.emit(true);
+    public saveStorage(){
+      this.storage.MediaServerId=this.sharedData.currentMediaServerData.Id;
+      let methodType=this.storage.Id>0?HttpMethodType.PUT:HttpMethodType.POST;
+      var path=this.storage.Id>0?"/storages/Update":"/storages/Create";
+      this.restProvider.executeSinovadApiService(methodType,path,this.storage).then((response) => {
+        this.closeStorageFormWithChanges.emit(true);
       },error=>{
         console.error(error);
       });
     }
 
     public onChangeMediaType(event:any){
-      this.accountStorage.AccountStorageTypeId=Number(event.target.value);
-    }
-
-
-    ngOnDestroy(){
-
+      this.storage.MediaType=Number(event.target.value);
     }
 
     public onSelectDirectory(event:any){
-      this.accountStorage.PhisicalPath=event;
+      this.storage.PhysicalPath=event;
       this.showChooserDirectory=false;
     }
 

@@ -6,7 +6,7 @@ import { EventsService } from 'src/services/events-service';
 import { ParentComponent } from '../parent/parent.component';
 import { FormBuilder } from '@angular/forms';
 import { HttpClient} from '@angular/common/http';
-import { ItemType } from '../Enums';
+import { MediaType } from '../Enums';
 import { RestProviderService } from 'src/services/rest-provider.service';
 import { ItemDetail } from '../models/itemDetail';
 import { Episode } from '../models/episode';
@@ -110,7 +110,7 @@ export class ItemViewPage extends ParentComponent implements OnInit {
     }
 
     public showVideo(){
-      if(this.detail.Item.AccountStorageTypeId==ItemType.Movie)
+      if(this.detail.Item.MediaType==MediaType.Movie)
       {
         this.getVideosByItem();
       }else{

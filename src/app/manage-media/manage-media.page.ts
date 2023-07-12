@@ -7,8 +7,8 @@ import { ParentComponent } from '../parent/parent.component';
 import { HttpClient} from '@angular/common/http';
 import {v4 as uuid} from "uuid";
 import { RestProviderService } from 'src/services/rest-provider.service';
-import { HttpMethodType, ItemType } from '../Enums';
-import { AccountStorage } from '../models/accountStorage';
+import { HttpMethodType, MediaType } from '../Enums';
+import { Storage } from '../models/storage';
 import { SinovadApiGenericResponse } from '../response/sinovadApiGenericResponse';
 
 declare var window;
@@ -29,16 +29,16 @@ export class ManageMediaPage extends ParentComponent implements OnInit,OnDestroy
 
   showingDirectoryTranscodeVideos:boolean;
 
-  accountStorageMovies:AccountStorage={AccountStorageTypeId:1,PhisicalPath:""};
-  accountStorageTvSeries:AccountStorage={AccountStorageTypeId:2,PhisicalPath:""};
+  storageMovies:Storage={MediaType:1,PhysicalPath:""};
+  storageTvSeries:Storage={MediaType:2,PhysicalPath:""};
 
   callSearchMediaLog:boolean=false;
   searchMediaLogContent:string="";
 
   searchingMediaInterval:any;
-  listAccountStorages:AccountStorage[];
+  listStorages:Storage[];
 
-  accountStorage:AccountStorage;
+  storage:Storage;
 
   showForm:boolean=false;
 
@@ -58,7 +58,7 @@ export class ManageMediaPage extends ParentComponent implements OnInit,OnDestroy
 
     ngAfterViewInit(){
       this.getAllMainDirectories();
-      this.getAccountStorages();
+      this.getStorages();
     }
 
     ngOnDestroy(){
@@ -77,26 +77,26 @@ export class ManageMediaPage extends ParentComponent implements OnInit,OnDestroy
       });
     }
 
-    public getAccountStorages(){
+    public getStorages(){
       var path="/storages/GetAllWithPaginationByMediaServerAsync/"+this.sharedData.currentMediaServerData.Id;
       this.restProvider.executeSinovadApiService(HttpMethodType.GET,path).then((response:SinovadApiGenericResponse) => {
         let data=response.Data;
-        this.listAccountStorages=data;
+        this.listStorages=data;
         if(data && data.length>0)
         {
-          let accountStorageMovies=data.find(item=>item.AccountStorageTypeId==1);
-          if(accountStorageMovies)
+          let storageMovies=data.find(item=>item.MediaType==1);
+          if(storageMovies)
           {
-            this.accountStorageMovies=accountStorageMovies;
+            this.storageMovies=storageMovies;
           }else{
-            this.accountStorageMovies.AccountServerId=this.sharedData.currentMediaServerData.Id;
+            this.storageMovies.MediaServerId=this.sharedData.currentMediaServerData.Id;
           }
-          let accountStorageTvSeries=data.find(item=>item.AccountStorageTypeId==2);
-          if(accountStorageTvSeries)
+          let storageTvSeries=data.find(item=>item.MediaType==2);
+          if(storageTvSeries)
           {
-            this.accountStorageTvSeries=accountStorageTvSeries;
+            this.storageTvSeries=storageTvSeries;
           }else{
-            this.accountStorageTvSeries.AccountServerId=this.sharedData.currentMediaServerData.Id;
+            this.storageTvSeries.MediaServerId=this.sharedData.currentMediaServerData.Id;
           }
         }
       },error=>{
@@ -104,54 +104,54 @@ export class ManageMediaPage extends ParentComponent implements OnInit,OnDestroy
       });
     }
 
-    public openNewAccountStorage(){
-      let accountStorage= new AccountStorage();
-      accountStorage.AccountServerId=this.sharedData.currentMediaServerData.Id;
-      accountStorage.AccountStorageTypeId=ItemType.Movie;
-      this.accountStorage=accountStorage;
+    public openNewStorage(){
+      let storage= new Storage();
+      storage.MediaServerId=this.sharedData.currentMediaServerData.Id;
+      storage.MediaType=MediaType.Movie;
+      this.storage=storage;
       this.showForm=true;
     }
 
-    public editStorage(accountStorage:AccountStorage){
-      this.accountStorage=JSON.parse(JSON.stringify(accountStorage));
+    public editStorage(storage:Storage){
+      this.storage=JSON.parse(JSON.stringify(storage));
       this.showForm=true;
     }
 
-    public deleteStorage(accountStorage:AccountStorage){
-      var path="/storages/Delete/"+accountStorage.Id;
+    public deleteStorage(storage:Storage){
+      var path="/storages/Delete/"+storage.Id;
       this.restProvider.executeSinovadApiService(HttpMethodType.DELETE,path).then((response:SinovadApiGenericResponse) => {
-        this.getAccountStorages();
+        this.getStorages();
       },error=>{
         console.error(error);
       });
     }
 
-    public onCloseAccountStorageForm(){
+    public onCloseStorageForm(){
       this.showForm=false;
     }
 
-    public onCloseAccountStorageFormWithChanges(){
+    public onCloseStorageFormWithChanges(){
       this.showForm=false;
-      this.getAccountStorages();
+      this.getStorages();
     }
 
-    public updateStorageVideos(accountStorage:AccountStorage){
-      if(accountStorage.Id>0 && accountStorage.PhisicalPath!=undefined && accountStorage.PhisicalPath!="")
+    public updateStorageVideos(storage:Storage){
+      if(storage.Id>0 && storage.PhysicalPath!=undefined && storage.PhysicalPath!="")
       {
-        var listAccountStorages=[accountStorage];
-        this.executeUpdateVideosInAllStorages(listAccountStorages);
+        var listStorages=[storage];
+        this.executeUpdateVideosInAllStorages(listStorages);
       }
     }
 
     public updateVideoInAllStorages(){
-       this.executeUpdateVideosInAllStorages(this.listAccountStorages);
+       this.executeUpdateVideosInAllStorages(this.listStorages);
     }
 
-    public executeUpdateVideosInAllStorages(listAccountStorages:AccountStorage[]){
+    public executeUpdateVideosInAllStorages(listStorages:Storage[]){
       let logIdentifier=uuid();
       this.callSearchMediaLog=true;
       let mediaRequest: any={
-        ListAccountStorages:listAccountStorages,
+        ListStorages:listStorages,
         LogIdentifier:logIdentifier
       };
       this.restProvider.executeSinovadStreamServerService(HttpMethodType.POST,'/medias/UpdateVideosInListStorages',mediaRequest).then((response) => {

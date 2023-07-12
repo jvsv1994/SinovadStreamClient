@@ -7,7 +7,7 @@ import { ParentComponent } from '../parent/parent.component';
 import { HttpClient} from '@angular/common/http';
 import { RestProviderService } from 'src/services/rest-provider.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HttpMethodType, ItemType } from '../Enums';
+import { HttpMethodType, MediaType } from '../Enums';
 import { ItemListPage } from '../item-list/item-list.page';
 import { ManageMediaPage } from '../manage-media/manage-media.page';
 import { SidebarOption } from '../models/sidebarOption';
@@ -32,7 +32,7 @@ export class RootDesktopPage extends ParentComponent implements OnInit {
   showSplashScreen:boolean=false;
   hideContent:boolean=false;
   _window=window;
-  currentItemTypeID:number;
+  currentMediaTypeID:number;
   title:string;
   selectedSidebarOption:SidebarOption;
   isCollapsedSidebar:boolean=false;
@@ -173,13 +173,13 @@ export class RootDesktopPage extends ParentComponent implements OnInit {
 
     public ShowManagementMovies(){
       this.title="Películas";
-      this.currentItemTypeID=ItemType.Movie;
+      this.currentMediaTypeID=MediaType.Movie;
       this.showItemList();
     }
 
     public ShowManagementTvSeries(){
       this.title="Series de TV";
-      this.currentItemTypeID=ItemType.TvSerie;
+      this.currentMediaTypeID=MediaType.TvSerie;
       this.showItemList();
     }
 
@@ -216,7 +216,7 @@ export class RootDesktopPage extends ParentComponent implements OnInit {
       }
       if(event instanceof ItemListPage)
       {
-        event.currentItemTypeID=ctx.currentItemTypeID;
+        event.currentMediaTypeID=ctx.currentMediaTypeID;
         event.title=this.title;
         ctx.ref.detectChanges();
       }

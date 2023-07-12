@@ -284,16 +284,16 @@ CREATE TABLE FilmaffinityData (
 
 /*Account Server*/
 
-CREATE TABLE AccountServer (
+CREATE TABLE MediaServer (
   ID int NOT NULL PRIMARY KEY IDENTITY(1,1),
   IpAddress varchar(1000) NULL,
   Account_ID int NOT NULL,
-  CONSTRAINT FK_AccountServer_Account_ID
+  CONSTRAINT FK_MediaServer_Account_ID
     FOREIGN KEY (Account_ID)
     REFERENCES Account (ID)
 );
 
-ALTER TABLE AccountServer
+ALTER TABLE MediaServer
 Add State_Catalog_ID int NOT NULL Default 3,
 State_Catalog_Detail_ID int NOT NULL Default 2,
 HostUrl varchar(1000) NULL;
@@ -301,14 +301,14 @@ HostUrl varchar(1000) NULL;
 
 /*Account Storage*/
 
-CREATE TABLE AccountStorage (
+CREATE TABLE Storage (
   ID int NOT NULL PRIMARY KEY IDENTITY(1,1),
-  AccountServer_ID int NOT NULL,
-  PhisicalPath varchar(1000) NULL,
-  AccountStorageType_ID int NOT NULL,
-  CONSTRAINT FK_AccountStorage_AccountServer_ID
-    FOREIGN KEY (AccountServer_ID)
-    REFERENCES AccountServer (ID)
+  MediaServer_ID int NOT NULL,
+  PhysicalPath varchar(1000) NULL,
+  StorageType_ID int NOT NULL,
+  CONSTRAINT FK_Storage_MediaServer_ID
+    FOREIGN KEY (MediaServer_ID)
+    REFERENCES MediaServer (ID)
 );
 
 
@@ -381,7 +381,7 @@ CREATE TABLE Video (
   ID int NOT NULL PRIMARY KEY IDENTITY(1,1),
   Title varchar(1000) NULL,
   PhysicalPath varchar(1000) NULL,
-  AccountStorage_ID int NULL,
+  Storage_ID int NULL,
   Movie_ID int NULL,
   Episode_ID int NULL,
   TvSerie_ID int NULL,
@@ -471,15 +471,15 @@ INSERT INTO CatalogDetail(Catalog_ID,ID,Name) VALUES (5,4,'TV');
 
 CREATE TABLE TranscodeSettings (
   ID int NOT NULL PRIMARY KEY IDENTITY(1,1),
-  AccountServer_ID int NOT NULL,
+  MediaServer_ID int NOT NULL,
   Transmission_Method_Catalog_ID int NOT NULL,
   Transmission_Method_Catalog_Detail_ID int NOT NULL,
   Preset_Catalog_ID int NOT NULL,
   Preset_Catalog_Detail_ID int NOT NULL,
   DirectoryPhysicalPath varchar(1000) NULL,
-  CONSTRAINT FK_TranscodeSettings_AccountServer_ID
-    FOREIGN KEY (AccountServer_ID)
-    REFERENCES AccountServer (ID)
+  CONSTRAINT FK_TranscodeSettings_MediaServer_ID
+    FOREIGN KEY (MediaServer_ID)
+    REFERENCES MediaServer (ID)
 );
 
 ALTER TABLE TranscodeSettings
@@ -495,6 +495,6 @@ CREATE TABLE TranscodeVideoProcess (
   TranscodeSubtitlesProcessID int NULL,
   WorkingDirectoryPath varchar(1000) NOT NULL,
   CreationDate DATETIME  NOT NULL DEFAULT (GETDATE()),
-  AccountServer_ID int NOT NULL
+  MediaServer_ID int NOT NULL
 );
 

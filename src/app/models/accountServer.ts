@@ -1,6 +1,6 @@
 
 
-export class AccountServer{
+export class MediaServer{
 
   public Id?: number;
   public IpAddress:string;

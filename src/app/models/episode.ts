@@ -2,7 +2,7 @@
 export class Episode{
 
   public Id: number;
-  public AccountServerId: number;
+  public MediaServerId: number;
   public EpisodeNumber:number;
   public SeasonNumber:number;
   public Name:string;

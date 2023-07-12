@@ -4,11 +4,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DirectoryChooserPageModule } from '../directory-chooser/directory-chooser.module';
 import { SharedModule } from 'src/shared.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { AccountStorageFormPage } from './account-storage-form.page';
+import { StorageFormPage } from './account-storage-form.page';
 
 @NgModule({
     declarations: [
-        AccountStorageFormPage
+        StorageFormPage
     ],
     imports: [
         CommonModule,
@@ -18,7 +18,7 @@ import { AccountStorageFormPage } from './account-storage-form.page';
         ReactiveFormsModule,
         NgbModule
     ],
-    exports: [AccountStorageFormPage]
+    exports: [StorageFormPage]
 })
-export class AccountStorageFormPageModule {
+export class StorageFormPageModule {
 }
