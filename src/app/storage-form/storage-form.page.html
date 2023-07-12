@@ -9,8 +9,8 @@
         <label for="typeFormControlId" class="form-label">Tipo</label>
         <select id="typeFormControlId" class="form-select" aria-label="Seleccionar Tipo" (change)="onChangeMediaType($event)">
           <ng-template ngFor let-mt [ngForOf]="mediaTypes">
-            <option *ngIf="mt.Id==storage.MediaType" selected value="{{mt.Id}}">{{mt.Name}}</option>
-            <option *ngIf="mt.Id!=storage.MediaType" value="{{mt.Id}}">{{mt.Name}}</option>
+            <option *ngIf="mt.Id==storage.MediaTypeCatalogDetailId" selected value="{{mt.Id}}">{{mt.Name}}</option>
+            <option *ngIf="mt.Id!=storage.MediaTypeCatalogDetailId" value="{{mt.Id}}">{{mt.Name}}</option>
           </ng-template>
         </select>
       </div>

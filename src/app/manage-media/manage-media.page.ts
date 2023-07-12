@@ -7,7 +7,7 @@ import { ParentComponent } from '../parent/parent.component';
 import { HttpClient} from '@angular/common/http';
 import {v4 as uuid} from "uuid";
 import { RestProviderService } from 'src/services/rest-provider.service';
-import { HttpMethodType, MediaType } from '../Enums';
+import { CatalogEnum, HttpMethodType, MediaType } from '../Enums';
 import { Storage } from '../models/storage';
 import { SinovadApiGenericResponse } from '../response/sinovadApiGenericResponse';
 
@@ -29,8 +29,8 @@ export class ManageMediaPage extends ParentComponent implements OnInit,OnDestroy
 
   showingDirectoryTranscodeVideos:boolean;
 
-  storageMovies:Storage={MediaType:1,PhysicalPath:""};
-  storageTvSeries:Storage={MediaType:2,PhysicalPath:""};
+  storageMovies:Storage={MediaTypeCatalogId:CatalogEnum.MediaType,MediaTypeCatalogDetailId:MediaType.Movie,PhysicalPath:""};
+  storageTvSeries:Storage={MediaTypeCatalogId:CatalogEnum.MediaType,MediaTypeCatalogDetailId:MediaType.TvSerie,PhysicalPath:""};
 
   callSearchMediaLog:boolean=false;
   searchMediaLogContent:string="";
@@ -107,7 +107,8 @@ export class ManageMediaPage extends ParentComponent implements OnInit,OnDestroy
     public openNewStorage(){
       let storage= new Storage();
       storage.MediaServerId=this.sharedData.currentMediaServerData.Id;
-      storage.MediaType=MediaType.Movie;
+      storage.MediaTypeCatalogId=CatalogEnum.MediaType;
+      storage.MediaTypeCatalogDetailId=MediaType.Movie;
       this.storage=storage;
       this.showForm=true;
     }

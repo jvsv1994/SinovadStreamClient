@@ -173,7 +173,8 @@ export class ParentComponent implements OnInit {
       UserId:this.sharedData.userData.Id,
       IpAddress:this.sharedData.configurationData.localIpAddress,
       Url:this.sharedData.configurationData.currentHost,
-      State:MediaServerState.Stopped
+      StateCatalogId:CatalogEnum.MediaServerState,
+      StateCatalogDetailId:MediaServerState.Stopped
     }
     this.restProvider.executeSinovadApiService(HttpMethodType.POST,"/mediaServers/Create",acountServer).then((response) => {
       var path="/mediaServers/GetByUserAndIpAddressAsync?userId="+this.sharedData.userData.Id+"&ipAddress="+this.sharedData.configurationData.localIpAddress;

@@ -3,7 +3,8 @@
   {
       VideoTransmissionType = 1,
       TranscoderPreset = 2,
-      MediaServerState = 3
+      MediaServerState = 3,
+      MediaType = 4
   }
 
   export enum VideoTransmissionType

@@ -74,7 +74,7 @@ export class StorageFormPage extends ParentComponent implements OnInit {
     }
 
     public onChangeMediaType(event:any){
-      this.storage.MediaType=Number(event.target.value);
+      this.storage.MediaTypeCatalogDetailId=Number(event.target.value);
     }
 
     public onSelectDirectory(event:any){

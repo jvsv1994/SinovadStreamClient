@@ -28,7 +28,7 @@
                 <tr>
                   <th scope="row">{{i+1}}</th>
                   <td>{{storage.PhysicalPath}}</td>
-                  <td>{{storage.MediaType==1?'Movies':'Tv Series'}}</td>
+                  <td>{{storage.MediaTypeCatalogDetailId==1?'Movies':'Tv Series'}}</td>
                   <td>
                     <button style="margin-left: 20px;" type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="Sincronizar" (click)="updateStorageVideos(storage)"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
                     <button style="margin-left: 20px;" type="button" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Editar" (click)="editStorage(storage)"><i class="fa-solid fa-pen-to-square"></i></button>
