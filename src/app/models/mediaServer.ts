@@ -7,6 +7,6 @@ export class MediaServer{
   public IpAddress:string;
   public UserId: number;
   public State?: MediaServerState;
-  public HostUrl: string;
+  public Url: string;
 
 }

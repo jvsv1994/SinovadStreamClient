@@ -172,7 +172,7 @@ export class ParentComponent implements OnInit {
     let acountServer:MediaServer={
       UserId:this.sharedData.userData.Id,
       IpAddress:this.sharedData.configurationData.localIpAddress,
-      HostUrl:this.sharedData.configurationData.currentHost,
+      Url:this.sharedData.configurationData.currentHost,
       State:MediaServerState.Stopped
     }
     this.restProvider.executeSinovadApiService(HttpMethodType.POST,"/mediaServers/Create",acountServer).then((response) => {
