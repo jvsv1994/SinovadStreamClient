@@ -114,7 +114,7 @@ export class ParentComponent implements OnInit {
     return transcodeVideo;
   }
 
-  public getAccount(): Promise<any>{
+  public getUser(): Promise<any>{
     return new Promise((resolve, reject) => {
       this.restProvider.executeSinovadApiService(HttpMethodType.GET,'/accounts/GetUserData').then((response:SinovadApiGenericResponse) => {
         let data=response.Data;

@@ -4,11 +4,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { SharedModule } from 'src/shared.module';
 import { ProfilesViewPageModule } from '../profiles-view/profiles-view.module';
-import { DropDownAccountPage } from './dropdown-account.page';
+import { DropDownUserPage } from './dropdown-account.page';
 
 @NgModule({
     declarations: [
-      DropDownAccountPage
+      DropDownUserPage
     ],
     imports: [
         CommonModule,
@@ -17,7 +17,7 @@ import { DropDownAccountPage } from './dropdown-account.page';
         ReactiveFormsModule,
         ProfilesViewPageModule
     ],
-    exports: [DropDownAccountPage]
+    exports: [DropDownUserPage]
 })
-export class DropDownAccountPageModule {
+export class DropDownUserPageModule {
 }

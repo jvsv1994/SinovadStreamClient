@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Account } from 'src/app/models/account';
+import { User } from 'src/app/models/user';
 import { BuilderVideo } from 'src/app/models/builderVideo';
 import { Configuration } from 'src/app/models/configuration';
 import { Profile } from 'src/app/models/profile';
@@ -9,7 +9,7 @@ export class SharedDataService {
 
   allOptions: any[];
   menuOptions: any[];
-  userData: Account;
+  userData: User;
   AdministratorRoleID: number=1;
   VisitatorRoleID: number=2;
   UserRoleID: number=3;

@@ -53,7 +53,7 @@ export class SinovadWebComponent extends ParentComponent implements OnInit {
       if(localStorage.getItem('apiKey'))
       {
         this.sharedData.currentToken=localStorage.getItem('apiKey');
-        this.getAccount().then(res=>{
+        this.getUser().then(res=>{
           this.getProfiles().then(response=>{
             this.showRootPage=true;
             if(window.location.pathname.startsWith("/web/"))

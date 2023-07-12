@@ -5,7 +5,7 @@ import { SharedDataService } from 'src/services/shared-data.service';
 import { EventsService } from 'src/services/events-service';
 import { ParentComponent } from '../parent/parent.component';
 import { HttpClient } from '@angular/common/http';
-import { Account } from '../models/account';
+import { User } from '../models/user';
 import { RestProviderService } from 'src/services/rest-provider.service';
 import { HttpMethodType } from '../Enums';
 import { SinovadApiGenericResponse } from '../response/sinovadApiGenericResponse';
@@ -26,7 +26,7 @@ export class LoginTvPage extends ParentComponent implements OnInit {
   showLoading:boolean=false;
   @ViewChild('loginFormContainer') loginFormContainer: ElementRef;
   customKeyboardControlsEvent:any;
-  account:Account=new Account();
+  account:User=new User();
 
   constructor(
     private router: Router,

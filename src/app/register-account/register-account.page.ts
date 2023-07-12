@@ -16,7 +16,7 @@ declare var window;
   templateUrl: './register-account.page.html',
   styleUrls: ['./register-account.page.scss']
 })
-export class RegisterAccountPage extends ParentComponent implements OnInit {
+export class RegisterUserPage extends ParentComponent implements OnInit {
 
   _window=window;
   title: string;

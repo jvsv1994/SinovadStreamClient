@@ -15,7 +15,7 @@ declare var window;
   templateUrl: './dropdown-account.page.html',
   styleUrls: ['./dropdown-account.page.scss']
 })
-export class DropDownAccountPage extends ParentComponent implements OnInit {
+export class DropDownUserPage extends ParentComponent implements OnInit {
 
   @Output() showSplashScreen =new EventEmitter();
   @Output() changeProfile =new EventEmitter();

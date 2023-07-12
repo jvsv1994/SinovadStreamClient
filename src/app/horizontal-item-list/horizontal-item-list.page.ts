@@ -83,7 +83,7 @@ export class HorizontalItemListPage extends ParentComponent implements OnInit {
       this.ref.detectChanges();
     }
 
-    public getAllProgramsByAccount(searchMovies:boolean,searchTvSeries:boolean){
+    public getAllProgramsByUser(searchMovies:boolean,searchTvSeries:boolean){
       var path='/videos/GetAllTvProgramsOrganized?userId='+this.sharedData.userData.Id+"&profileId="+this.sharedData.currentProfile.Id+"&searchMovies="+searchMovies+"&searchTvSeries="+searchTvSeries;
       this.restProvider.executeSinovadApiService(HttpMethodType.GET,path).then((response:SinovadApiGenericResponse) => {
         var itemsGroupList:ItemsGroup[]=response.Data;
@@ -158,12 +158,12 @@ export class HorizontalItemListPage extends ParentComponent implements OnInit {
       {
         if(this.currentMediaTypeID==MediaType.Movie)
         {
-          this.getAllProgramsByAccount(true,false);
+          this.getAllProgramsByUser(true,false);
         }else if(this.currentMediaTypeID==MediaType.TvSerie)
         {
-          this.getAllProgramsByAccount(false,true);
+          this.getAllProgramsByUser(false,true);
         }else{
-          this.getAllProgramsByAccount(true,true);
+          this.getAllProgramsByUser(true,true);
         }
       }
     }

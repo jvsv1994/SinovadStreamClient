@@ -14,7 +14,7 @@ import { ConfirmEmailPage } from '../confirm-email/confirm-email.page';
 import { ResetPasswordPage } from '../reset-password/reset-password.page';
 import { RecoverPasswordPage } from '../recover-password/recover-password.page';
 import { LoginPage } from '../login/login.page';
-import { RegisterAccountPage } from '../register-account/register-account.page';
+import { RegisterUserPage } from '../register-account/register-account.page';
 import { TvSerieDetailPage } from '../tvserie-detail/tvserie-detail.page';
 import { LandingPage } from '../landing/landing.page';
 import { MovieDetailPage } from '../movie-detail/movie-detail.page';
@@ -69,7 +69,7 @@ const routes: Routes = [
   },
   {
     path: 'desktop/register',
-    component:RegisterAccountPage,
+    component:RegisterUserPage,
     loadChildren: () => import('../register-account/register-account.module').then(m => m.RegisterAcccountPageModule)
   },
   {

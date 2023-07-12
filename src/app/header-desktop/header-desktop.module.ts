@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/shared.module';
 import { HeaderDesktopPage } from './header-desktop.page';
-import { DropDownAccountPageModule } from '../dropdown-account/dropdown-account.module';
+import { DropDownUserPageModule } from '../dropdown-account/dropdown-account.module';
 @NgModule({
     declarations: [
       HeaderDesktopPage
@@ -12,7 +12,7 @@ import { DropDownAccountPageModule } from '../dropdown-account/dropdown-account.
         CommonModule,
         FormsModule,
         SharedModule,
-        DropDownAccountPageModule,
+        DropDownUserPageModule,
         ReactiveFormsModule
     ],
     exports: [HeaderDesktopPage]

@@ -5,7 +5,7 @@ import { SharedDataService } from 'src/services/shared-data.service';
 import { EventsService } from 'src/services/events-service';
 import { ParentComponent } from '../parent/parent.component';
 import { HttpClient } from '@angular/common/http';
-import { Account } from '../models/account';
+import { User } from '../models/user';
 import { RestProviderService } from 'src/services/rest-provider.service';
 import { HttpMethodType } from '../Enums';
 import { SinovadApiGenericResponse } from '../response/sinovadApiGenericResponse';
@@ -26,7 +26,7 @@ export class LoginPage extends ParentComponent implements OnInit {
   showLoading:boolean=false;
   @ViewChild('loginFormContainer') loginFormContainer: ElementRef;
   customKeyboardControlsEvent:any;
-  account:Account=new Account();
+  account:User=new User();
   @Output() showSplashScreen =new EventEmitter();
 
   constructor(
@@ -80,7 +80,7 @@ export class LoginPage extends ParentComponent implements OnInit {
       localStorage.setItem('apiKey',token);
       this.sharedData.currentToken=token;
       this.showSplashScreen.emit(true);
-      this.getAccount().then(res=>{
+      this.getUser().then(res=>{
         this.getProfiles().then(res=>{
           this.router.navigate([this.sharedData.platform,'select-profile'],{ skipLocationChange: false});
         },error=>{

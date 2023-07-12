@@ -55,7 +55,7 @@ export class MainTvPage extends ParentComponent implements OnInit {
 
     public ngOnInit(): void {
       this.sharedData.currentToken=localStorage.getItem('apiKey');
-      this.getAccount().then(res=>{
+      this.getUser().then(res=>{
 
       },error=>{
         console.error(error);

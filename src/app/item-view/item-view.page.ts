@@ -25,7 +25,7 @@ export class ItemViewPage extends ParentComponent implements OnInit {
   listGenresByItem:any[];
   startResize:boolean=false;
   @ViewChild('container') container: ElementRef;
-  itemAccountData:any;
+  itemUserData:any;
   listEpisodePreference:any[];
   lastEpisodeWatched:any;
   @Output() toggleVideo =new EventEmitter();
@@ -102,9 +102,9 @@ export class ItemViewPage extends ParentComponent implements OnInit {
       {
 
       }else{
-        if(this.itemAccountData)
+        if(this.itemUserData)
         {
-          this.getVideosByItem(this.itemAccountData.CurrentTime);
+          this.getVideosByItem(this.itemUserData.CurrentTime);
         }
       }*/
     }

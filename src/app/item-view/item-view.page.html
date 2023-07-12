@@ -37,11 +37,11 @@
           </div>
         </ng-template>
         <ng-template [ngIf]="!lastEpisodeWatched">
-          <ng-template [ngIf]="itemAccountData">
+          <ng-template [ngIf]="itemUserData">
             <button id="restart_play" class="" (click)="showVideo()">Ver desde el principio</button>
             <button id="continue_play" class="" (click)="continueVideo()">Continuar viendo</button>
           </ng-template>
-          <ng-template [ngIf]="!itemAccountData">
+          <ng-template [ngIf]="!itemUserData">
             <button id ="play_now" class="" (click)="showVideo()">Ver ahora</button>
           </ng-template>
         </ng-template>

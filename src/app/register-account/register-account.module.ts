@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RegisterAccountPage } from './register-account.page';
+import { RegisterUserPage } from './register-account.page';
 import { SharedModule } from 'src/shared.module';
 
 @NgModule({
     declarations: [
-      RegisterAccountPage
+      RegisterUserPage
     ],
     imports: [
         CommonModule,
@@ -14,7 +14,7 @@ import { SharedModule } from 'src/shared.module';
         SharedModule,
         ReactiveFormsModule
     ],
-    exports: [RegisterAccountPage]
+    exports: [RegisterUserPage]
 })
 export class RegisterAcccountPageModule {
 }
