@@ -1,10 +1,22 @@
 
   export enum CatalogEnum
   {
-      VideoTransmissionType = 1,
-      TranscoderPreset = 2,
-      MediaServerState = 3,
-      MediaType = 4
+    MediaServerState = 1,
+    MediaType = 2,
+    VideoTransmissionType = 3,
+    TranscoderPreset = 4
+  }
+
+  export enum MediaServerState
+  {
+      Started = 1,
+      Stopped = 2
+  }
+
+  export enum MediaType
+  {
+      Movie = 1,
+      TvSerie = 2
   }
 
   export enum VideoTransmissionType
@@ -26,17 +38,6 @@
     Veryslow=9
   }
 
-  export enum MediaType
-  {
-      Movie = 1,
-      TvSerie = 2
-  }
-
-  export enum MediaServerState
-  {
-      Started = 1,
-      Stopped = 2
-  }
 
 export enum HttpMethodType{
   GET=0,
