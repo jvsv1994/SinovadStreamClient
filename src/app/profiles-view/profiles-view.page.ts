@@ -8,8 +8,6 @@ import { HttpClient} from '@angular/common/http';
 import { RestProviderService } from 'src/services/rest-provider.service';
 import { Profile } from '../models/profile';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { HttpMethodType } from '../Enums';
-import { SinovadApiGenericResponse } from '../response/sinovadApiGenericResponse';
 import { Router } from '@angular/router';
 
 declare var window;
@@ -112,7 +110,7 @@ export class ProfilesViewPage extends ParentComponent implements OnInit {
     public showNewProfile(){
       this.currentTmpProfile={
         FullName:"",
-        AccountId:this.sharedData.accountData.Id
+        UserId:this.sharedData.userData.Id
       };
       this.showForm=true;
     }

@@ -1,7 +1,7 @@
 
 
 
-<div *ngIf="sharedData.currentToken!=undefined && sharedData.accountData!=undefined" class="sinovad-page-container" [ngClass]="{'small':isSmallDevice()}">
+<div *ngIf="sharedData.currentToken!=undefined && sharedData.userData!=undefined" class="sinovad-page-container" [ngClass]="{'small':isSmallDevice()}">
   <div #header>
     <app-header-desktop (goHome)="ShowInitial()" (executeSearch)="onSearchMedia($event)" (toggleSidebar)="onClickToggleSidebarButton()" (showSplashScreen)="showSplashScreen=true" (logout)="logOut()" (showHomeUser)="ShowInitial()"
     (logout)="logOut()"></app-header-desktop>
@@ -23,7 +23,7 @@
   </div>
 </div>
 
-<div *ngIf="sharedData.currentToken==undefined && sharedData.accountData==undefined" class="sinovad-page-container">
+<div *ngIf="sharedData.currentToken==undefined && sharedData.userData==undefined" class="sinovad-page-container">
   <router-outlet class="small" (activate)="onActivate($event)"></router-outlet>
 </div>
 

@@ -56,7 +56,7 @@ export class ConfirmEmailPage extends ParentComponent implements OnInit {
           var validateConfirmEmailTokenModel= new ValidateConfirmEmailTokenModel();
           validateConfirmEmailTokenModel.ConfirmEmailToken=additionalUrlData.ConfirmEmailToken;
           validateConfirmEmailTokenModel.UserId=additionalUrlData.UserId;;
-          this.restProvider.executeSinovadApiService(HttpMethodType.POST,'/accounts/ValidateConfirmEmailToken',validateConfirmEmailTokenModel).then((result: any) => {
+          this.restProvider.executeSinovadApiService(HttpMethodType.POST,'/users/ValidateConfirmEmailToken',validateConfirmEmailTokenModel).then((result: any) => {
             this.showLoading=false;
             this.showSuccessMessage=true;
           },error=>{

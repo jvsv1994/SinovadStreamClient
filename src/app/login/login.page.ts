@@ -75,7 +75,7 @@ export class LoginPage extends ParentComponent implements OnInit {
       this.router.navigate([this.sharedData.platform,'home'],{ skipLocationChange: false});
     }
     this.showLoading=true;
-    this.restProvider.executeSinovadApiService(HttpMethodType.POST,'/accounts/Login',this.account).then((response:SinovadApiGenericResponse) => {
+    this.restProvider.executeSinovadApiService(HttpMethodType.POST,'/users/Login',this.account).then((response:SinovadApiGenericResponse) => {
       let token=response.Data;
       localStorage.setItem('apiKey',token);
       this.sharedData.currentToken=token;

@@ -2,9 +2,9 @@
 export class Profile{
 
    Id?: number;
-   AccountId?: String;
-   FullName?: String;
+   UserId?: number;
+   FullName?: string;
    Main?: Boolean;
-   Pincode?: Number;
-   AvatarPath?: String;
+   Pincode?: number;
+   AvatarPath?: string;
 }

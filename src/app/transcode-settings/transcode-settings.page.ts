@@ -74,7 +74,7 @@ export class TranscodeSettingsPage extends ParentComponent implements OnInit {
     }
 
     public getTranscodeSettings(){
-      this.restProvider.executeSinovadApiService(HttpMethodType.GET,"/transcodeSettings/GetByAccountServerAsync/"+this.sharedData.currentAccountServerData.Id).then((response:SinovadApiGenericResponse) => {
+      this.restProvider.executeSinovadApiService(HttpMethodType.GET,"/transcoderSettings/GetByMediaServerAsync/"+this.sharedData.currentMediaServerData.Id).then((response:SinovadApiGenericResponse) => {
         this.currentTranscodeSettings=response.Data;
         if(this.currentTranscodeSettings==undefined)
         {
@@ -85,7 +85,7 @@ export class TranscodeSettingsPage extends ParentComponent implements OnInit {
           currentTranscodeSettings.TransmissionMethodCatalogDetailId=this.transmissionMethodList[0].Id;
           currentTranscodeSettings.PresetCatalogId=CatalogEnum.Preset;
           currentTranscodeSettings.PresetCatalogDetailId=this.presetList[0].Id;
-          currentTranscodeSettings.AccountServerId=this.sharedData.currentAccountServerData.Id;
+          currentTranscodeSettings.AccountServerId=this.sharedData.currentMediaServerData.Id;
           this.currentTranscodeSettings=currentTranscodeSettings;
         }
       },error=>{

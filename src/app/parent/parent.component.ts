@@ -118,19 +118,19 @@ export class ParentComponent implements OnInit {
     return new Promise((resolve, reject) => {
       this.restProvider.executeSinovadApiService(HttpMethodType.GET,'/accounts/GetUserData').then((response:SinovadApiGenericResponse) => {
         let data=response.Data;
-        this.sharedData.accountData=data;
-        if(this.sharedData.accountData==null)
+        this.sharedData.userData=data;
+        if(this.sharedData.userData==null)
         {
           this.sharedData.currentToken=undefined;
           localStorage.removeItem("apiKey");
         }else{
           if(this.sharedData.configurationData.localIpAddress)
           {
-            var path="/accountServers/GetByAccountAndIpAddressAsync?accountId="+this.sharedData.accountData.Id+"&ipAddress="+this.sharedData.configurationData.localIpAddress;
+            var path="/mediaServers/GetByUserAndIpAddressAsync?userId="+this.sharedData.userData.Id+"&ipAddress="+this.sharedData.configurationData.localIpAddress;
             this.restProvider.executeSinovadApiService(HttpMethodType.GET,path).then((response:SinovadApiGenericResponse) => {
               let data=response.Data;
-              this.sharedData.currentAccountServerData=data;
-              if(this.sharedData.currentAccountServerData==undefined)
+              this.sharedData.currentMediaServerData=data;
+              if(this.sharedData.currentMediaServerData==undefined)
               {
                 this.saveMediaServer();
               }else{
@@ -157,7 +157,7 @@ export class ParentComponent implements OnInit {
 
   public getProfiles(): Promise<any>{
     return new Promise((resolve, reject) => {
-      this.restProvider.executeSinovadApiService(HttpMethodType.GET,'/profiles/GetAllWithPaginationByAccountAsync/'+this.sharedData.accountData.Id).then((response:SinovadApiGenericResponse) => {
+      this.restProvider.executeSinovadApiService(HttpMethodType.GET,'/profiles/GetAllWithPaginationByUserAsync/'+this.sharedData.userData.Id).then((response:SinovadApiGenericResponse) => {
         let listProfiles=response.Data;
         this.sharedData.listProfiles=listProfiles;
         this.sharedData.currentProfile=listProfiles[0];
@@ -170,17 +170,17 @@ export class ParentComponent implements OnInit {
 
   public saveMediaServer(){
     let acountServer:AccountServer={
-      AccountId:this.sharedData.accountData.Id,
+      UserId:this.sharedData.userData.Id,
       IpAddress:this.sharedData.configurationData.localIpAddress,
       HostUrl:this.sharedData.configurationData.currentHost,
       StateCatalogId:CatalogEnum.ServerState,
       StateCatalogDetailId:ServerState.Stopped
     }
-    this.restProvider.executeSinovadApiService(HttpMethodType.POST,"/accountServers/Create",acountServer).then((response) => {
-      var path="/accountServers/GetByAccountAndIpAddressAsync?accountId="+this.sharedData.accountData.Id+"&ipAddress="+this.sharedData.configurationData.localIpAddress;
+    this.restProvider.executeSinovadApiService(HttpMethodType.POST,"/mediaServers/Create",acountServer).then((response) => {
+      var path="/mediaServers/GetByUserAndIpAddressAsync?userId="+this.sharedData.userData.Id+"&ipAddress="+this.sharedData.configurationData.localIpAddress;
       this.restProvider.executeSinovadApiService(HttpMethodType.GET,path).then((response:SinovadApiGenericResponse) => {
         let data=response.Data;
-        this.sharedData.currentAccountServerData=data;
+        this.sharedData.currentMediaServerData=data;
         if(this.sharedData.configurationData.currentHost)
         {
           this.saveApiKeyInMediaStreamHost();
@@ -195,9 +195,8 @@ export class ParentComponent implements OnInit {
 
   public saveApiKeyInMediaStreamHost(){
     let hostData={
-      apiKey:this.sharedData.currentToken,
-      accountServerId:this.sharedData.currentAccountServerData.Id,
-      accountServer:this.sharedData.currentAccountServerData
+      ApiKey:this.sharedData.currentToken,
+      MediaServer:this.sharedData.currentMediaServerData
     }
     this.restProvider.executeSinovadStreamServerService(HttpMethodType.POST,'/main/SaveHosData',hostData).then((response) => {
 

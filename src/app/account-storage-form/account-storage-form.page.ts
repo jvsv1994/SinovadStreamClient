@@ -63,9 +63,9 @@ export class AccountStorageFormPage extends ParentComponent implements OnInit,On
     }
 
     public saveAccountStorage(){
-      this.accountStorage.AccountServerId=this.sharedData.currentAccountServerData.Id;
+      this.accountStorage.AccountServerId=this.sharedData.currentMediaServerData.Id;
       let methodType=this.accountStorage.Id>0?HttpMethodType.PUT:HttpMethodType.POST;
-      var path=this.accountStorage.Id>0?"/accountStorages/Update":"/accountStorages/Create";
+      var path=this.accountStorage.Id>0?"/storages/Update":"/storages/Create";
       this.restProvider.executeSinovadApiService(methodType,path,this.accountStorage).then((response) => {
         this.closeAccountStorageFormWithChanges.emit(true);
       },error=>{

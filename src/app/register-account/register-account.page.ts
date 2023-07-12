@@ -45,9 +45,9 @@ export class RegisterAccountPage extends ParentComponent implements OnInit {
     }
 
     public register(){
-      this.registerUserModel.ConfirmEmailUrl=window.location.origin+"/confirm";
+      this.registerUserModel.ConfirmEmailUrl=window.location.origin+"/"+this.sharedData.platform+"/confirm";
       this.showLoading=true;
-      this.restProvider.executeSinovadApiService(HttpMethodType.POST,'/accounts/Register',this.registerUserModel).then((response: any) => {
+      this.restProvider.executeSinovadApiService(HttpMethodType.POST,'/users/Register',this.registerUserModel).then((response: any) => {
         console.log("Registrado exitosamente");
         this.showLoading=false;
         this.showSuccessMessage=true;

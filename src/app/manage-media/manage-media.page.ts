@@ -78,7 +78,7 @@ export class ManageMediaPage extends ParentComponent implements OnInit,OnDestroy
     }
 
     public getAccountStorages(){
-      var path="/accountStorages/GetAllWithPaginationByAccountServerAsync/"+this.sharedData.currentAccountServerData.Id;
+      var path="/storages/GetAllWithPaginationByMediaServerAsync/"+this.sharedData.currentMediaServerData.Id;
       this.restProvider.executeSinovadApiService(HttpMethodType.GET,path).then((response:SinovadApiGenericResponse) => {
         let data=response.Data;
         this.listAccountStorages=data;
@@ -89,14 +89,14 @@ export class ManageMediaPage extends ParentComponent implements OnInit,OnDestroy
           {
             this.accountStorageMovies=accountStorageMovies;
           }else{
-            this.accountStorageMovies.AccountServerId=this.sharedData.currentAccountServerData.Id;
+            this.accountStorageMovies.AccountServerId=this.sharedData.currentMediaServerData.Id;
           }
           let accountStorageTvSeries=data.find(item=>item.AccountStorageTypeId==2);
           if(accountStorageTvSeries)
           {
             this.accountStorageTvSeries=accountStorageTvSeries;
           }else{
-            this.accountStorageTvSeries.AccountServerId=this.sharedData.currentAccountServerData.Id;
+            this.accountStorageTvSeries.AccountServerId=this.sharedData.currentMediaServerData.Id;
           }
         }
       },error=>{
@@ -106,7 +106,7 @@ export class ManageMediaPage extends ParentComponent implements OnInit,OnDestroy
 
     public openNewAccountStorage(){
       let accountStorage= new AccountStorage();
-      accountStorage.AccountServerId=this.sharedData.currentAccountServerData.Id;
+      accountStorage.AccountServerId=this.sharedData.currentMediaServerData.Id;
       accountStorage.AccountStorageTypeId=ItemType.Movie;
       this.accountStorage=accountStorage;
       this.showForm=true;
@@ -118,7 +118,7 @@ export class ManageMediaPage extends ParentComponent implements OnInit,OnDestroy
     }
 
     public deleteStorage(accountStorage:AccountStorage){
-      var path="/accountStorages/Delete/"+accountStorage.Id;
+      var path="/storages/Delete/"+accountStorage.Id;
       this.restProvider.executeSinovadApiService(HttpMethodType.DELETE,path).then((response:SinovadApiGenericResponse) => {
         this.getAccountStorages();
       },error=>{

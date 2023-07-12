@@ -2,7 +2,7 @@
 
 export class Account{
 
-   Id?: string;
+   Id?: number;
    UserName?: String;
    Password?: String;
    FirstName?: String;

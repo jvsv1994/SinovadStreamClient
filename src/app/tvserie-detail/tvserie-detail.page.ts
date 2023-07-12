@@ -45,7 +45,7 @@ export class TvSerieDetailPage extends ParentComponent implements OnInit {
     }
 
     public getTvSerieDetail(tvSerieId:number){
-      var path="/videos/GetTvSerieDataByAccount?accountId="+this.sharedData.accountData.Id+"&tvSerieId="+tvSerieId;
+      var path="/videos/GetTvSerieDataByUser?userId="+this.sharedData.userData.Id+"&tvSerieId="+tvSerieId;
       this.restProvider.executeSinovadApiService(HttpMethodType.GET,path).then((response:SinovadApiGenericResponse) => {
         if(response.Data.ListSeasons && response.Data.ListSeasons.length>0)
         {

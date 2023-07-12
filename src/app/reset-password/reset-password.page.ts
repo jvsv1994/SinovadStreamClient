@@ -63,7 +63,7 @@ export class ResetPasswordPage extends ParentComponent implements OnInit {
           var validateResetPasswordTokenModel= new ValidateResetPasswordTokenModel();
           validateResetPasswordTokenModel.ResetPasswordToken=this.resetPasswordToken;
           validateResetPasswordTokenModel.UserId=this.userId;;
-          this.restProvider.executeSinovadApiService(HttpMethodType.POST,'/accounts/ValidateResetPasswordToken',validateResetPasswordTokenModel).then((result: any) => {
+          this.restProvider.executeSinovadApiService(HttpMethodType.POST,'/users/ValidateResetPasswordToken',validateResetPasswordTokenModel).then((result: any) => {
             this.showResetPasswordForm=true;
             this.showLoading=false;
           },error=>{
@@ -87,7 +87,7 @@ export class ResetPasswordPage extends ParentComponent implements OnInit {
     this.showLoading=true;
     this.resetPasswordModel.ResetPasswordToken=this.resetPasswordToken;
     this.resetPasswordModel.UserId=this.userId;
-    this.restProvider.executeSinovadApiService(HttpMethodType.POST,'/accounts/ResetPassword',this.resetPasswordModel).then((result: any) => {
+    this.restProvider.executeSinovadApiService(HttpMethodType.POST,'/users/ResetPassword',this.resetPasswordModel).then((result: any) => {
       this.showResetPasswordSuccessMessage=true;
       this.showResetPasswordForm=false;
       this.showLoading=false;

@@ -84,7 +84,7 @@ export class HorizontalItemListPage extends ParentComponent implements OnInit {
     }
 
     public getAllProgramsByAccount(searchMovies:boolean,searchTvSeries:boolean){
-      var path='/videos/GetAllTvProgramsOrganized?accountId='+this.sharedData.accountData.Id+"&profileId="+this.sharedData.currentProfile.Id+"&searchMovies="+searchMovies+"&searchTvSeries="+searchTvSeries;
+      var path='/videos/GetAllTvProgramsOrganized?userId='+this.sharedData.userData.Id+"&profileId="+this.sharedData.currentProfile.Id+"&searchMovies="+searchMovies+"&searchTvSeries="+searchTvSeries;
       this.restProvider.executeSinovadApiService(HttpMethodType.GET,path).then((response:SinovadApiGenericResponse) => {
         var itemsGroupList:ItemsGroup[]=response.Data;
         this.itemsGroupList=itemsGroupList;
@@ -111,7 +111,7 @@ export class HorizontalItemListPage extends ParentComponent implements OnInit {
     }
 
     public continueVideoByItem(item:Item){
-      var path=item.TvSerieId?"/videos/GetTvSerieDetail?accountId="+this.sharedData.accountData.Id+"&tvSerieId="+item.TvSerieId:"/videos/GetMovieDetail?movieId="+item.MovieId
+      var path=item.TvSerieId?"/videos/GetTvSerieDetail?userId="+this.sharedData.userData.Id+"&tvSerieId="+item.TvSerieId:"/videos/GetMovieDetail?movieId="+item.MovieId
       this.restProvider.executeSinovadApiService(HttpMethodType.GET,path).then((response:SinovadApiGenericResponse) => {
         let detail:ItemDetail=response.Data;
         detail.Item=item;
@@ -135,7 +135,7 @@ export class HorizontalItemListPage extends ParentComponent implements OnInit {
     }
 
     public getTvSerieDetail(item:Item){
-      var path="/videos/GetTvSerieDetail?accountId="+this.sharedData.accountData.Id+"&tvSerieId="+item.TvSerieId;
+      var path="/videos/GetTvSerieDetail?userId="+this.sharedData.userData.Id+"&tvSerieId="+item.TvSerieId;
       this.restProvider.executeSinovadApiService(HttpMethodType.GET,path).then((response:SinovadApiGenericResponse) => {
         let data:ItemDetail=response.Data;
         data.Item=item;

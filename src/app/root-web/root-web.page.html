@@ -1,5 +1,5 @@
 
-<div *ngIf="sharedData.currentToken!=undefined && sharedData.accountData!=undefined" class="sinovad-page-container">
+<div *ngIf="sharedData.currentToken!=undefined && sharedData.userData!=undefined" class="sinovad-page-container">
   <div #header>
     <app-header-web (goHome)="ShowInitial()" (selectOption)="onClickNavbarOption($event)" (logout)="logOut()" (showSplashScreen)="showSplashScreen=true"
      (logout)="logOut()"></app-header-web>
@@ -15,7 +15,7 @@
 
   </div>
 </div>
-<div *ngIf="sharedData.currentToken==undefined && sharedData.accountData==undefined" class="sinovad-page-container">
+<div *ngIf="sharedData.currentToken==undefined && sharedData.userData==undefined" class="sinovad-page-container">
   <router-outlet class="small" (activate)="onActivate($event)"></router-outlet>
 </div>
 

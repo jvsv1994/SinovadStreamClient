@@ -5,7 +5,7 @@
   <div #menuBodyContainer class="sinovad-menu-body-container" [style.height]="'100%'">
     <div #menu>
       <section id="menuContainer" #menuContainer class="sinovad-menu-container" [style.height]="'100%'" (click)="focusContainer(menuContainer,ref)" tabindex="0">
-        <app-sidebar-tv *ngIf="sharedData.accountData" (showProfiles)="showSplashScreen=false" (selectOption)="onClickMenuOption($event)"></app-sidebar-tv>
+        <app-sidebar-tv *ngIf="sharedData.userData" (showProfiles)="showSplashScreen=false" (selectOption)="onClickMenuOption($event)"></app-sidebar-tv>
       </section>
     </div>
     <section id="bodyContainer" #principalContainer class="sinovad-body-container" [style.width]="'calc(100% - '+menu.offsetWidth+'px)'" (click)="onClickBody()" tabindex="0">

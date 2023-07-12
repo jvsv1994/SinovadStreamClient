@@ -179,7 +179,7 @@ export class VideoPage extends ParentComponent implements OnInit,OnDestroy{
       this.showReplyVideoMessageBox=true;
       console.error(error);
     });
-    if(this.sharedData.accountData)
+    if(this.sharedData.userData)
     {
       window.setInterval(function() {
         ctx.ref.detectChanges();

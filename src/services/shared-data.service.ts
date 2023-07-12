@@ -9,14 +9,14 @@ export class SharedDataService {
 
   allOptions: any[];
   menuOptions: any[];
-  accountData: Account;
+  userData: Account;
   AdministratorRoleID: number=1;
   VisitatorRoleID: number=2;
   UserRoleID: number=3;
   currentVideo:BuilderVideo;
-  currentAccountServerData:any;
-  //urlSinovadBackEnd: string='http://localhost:53363';
-  urlSinovadBackEnd: string='http://www.sinovad.com';
+  currentMediaServerData:any;
+  urlSinovadBackEnd: string='http://localhost:53363';
+  //urlSinovadBackEnd: string='http://www.sinovad.com';
   storageMoviesBaseUrl: string='http://192.168.18.217:80/movies';
   storageAnimesBaseUrl: string='http://192.168.18.217:80/animes';
   storageSeriesBaseUrl: string='http://192.168.18.217:80/series';

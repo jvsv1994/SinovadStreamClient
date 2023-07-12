@@ -70,9 +70,9 @@ export class RootDesktopPage extends ParentComponent implements OnInit {
           console.error(error);
         });
       }
-      this.sharedData.currentAccountServerData=undefined;
+      this.sharedData.currentMediaServerData=undefined;
       this.sharedData.currentProfile=undefined;
-      this.sharedData.accountData=undefined;
+      this.sharedData.userData=undefined;
       this.sharedData.currentToken=undefined;
       localStorage.removeItem("apiKey");
       this.router.navigate([this.sharedData.platform,'landing'],{ skipLocationChange: false});

@@ -45,7 +45,7 @@ export class MovieDetailPage extends ParentComponent implements OnInit {
     }
 
     public getMovieDetail(movieId:number){
-      this.restProvider.executeSinovadApiService(HttpMethodType.GET,"/videos/GetMovieDataByAccount?accountId="+this.sharedData.accountData.Id+"&movieId="+movieId).then((response:SinovadApiGenericResponse) => {
+      this.restProvider.executeSinovadApiService(HttpMethodType.GET,"/videos/GetMovieDataByUser?userId="+this.sharedData.userData.Id+"&movieId="+movieId).then((response:SinovadApiGenericResponse) => {
         this.detail=response.Data;
       },error=>{
         console.error(error);
