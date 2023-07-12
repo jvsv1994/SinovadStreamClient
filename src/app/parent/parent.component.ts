@@ -3,8 +3,8 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { SharedDataService } from 'src/services/shared-data.service';
 import { EventsService } from 'src/services/events-service';
 import { RestProviderService } from 'src/services/rest-provider.service';
-import { CatalogEnum, HttpMethodType, ServerState } from '../Enums';
-import { MediaServer } from '../models/accountServer';
+import { CatalogEnum, HttpMethodType, MediaServerState } from '../Enums';
+import { MediaServer } from '../models/mediaServer';
 import { Item } from '../models/item';
 import { ItemDetail } from '../models/itemDetail';
 import { BuilderVideo } from '../models/builderVideo';
@@ -173,8 +173,7 @@ export class ParentComponent implements OnInit {
       UserId:this.sharedData.userData.Id,
       IpAddress:this.sharedData.configurationData.localIpAddress,
       HostUrl:this.sharedData.configurationData.currentHost,
-      StateCatalogId:CatalogEnum.ServerState,
-      StateCatalogDetailId:ServerState.Stopped
+      State:MediaServerState.Stopped
     }
     this.restProvider.executeSinovadApiService(HttpMethodType.POST,"/mediaServers/Create",acountServer).then((response) => {
       var path="/mediaServers/GetByUserAndIpAddressAsync?userId="+this.sharedData.userData.Id+"&ipAddress="+this.sharedData.configurationData.localIpAddress;

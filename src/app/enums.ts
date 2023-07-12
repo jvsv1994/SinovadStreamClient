@@ -1,14 +1,9 @@
 
-  export enum RolEnum{
-    Administrator=1,
-    User=2
-  }
-
   export enum CatalogEnum
   {
       TransmissionMethod = 1,
       Preset = 2,
-      ServerState = 3
+      MediaServerState = 3
   }
 
   export enum TransmissionMethod
@@ -24,7 +19,7 @@
       TvSerie = 2
   }
 
-  export enum ServerState
+  export enum MediaServerState
   {
       Started = 1,
       Stopped = 2
