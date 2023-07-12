@@ -8,7 +8,7 @@ import { HttpClient} from '@angular/common/http';
 import { CatalogEnum, HttpMethodType } from '../Enums';
 import { RestProviderService } from 'src/services/rest-provider.service';
 import { SinovadApiGenericResponse } from '../response/sinovadApiGenericResponse';
-import { TranscoderSettings } from '../models/transcodeSetting';
+import { TranscoderSettings } from '../models/transcoderSettings';
 
 declare var window;
 @Component({
@@ -95,7 +95,7 @@ export class TranscoderSettingssPage extends ParentComponent implements OnInit {
 
     public saveTrancodeSettings(){
       let methodType=this.currentTranscoderSettingss.Id>0?HttpMethodType.PUT:HttpMethodType.POST;
-      var path=this.currentTranscoderSettingss.Id>0?"/transcodeSettings/Update":"/transcodeSettings/Create";
+      var path=this.currentTranscoderSettingss.Id>0?"/transcoderSettings/Update":"/transcoderSettings/Create";
       this.restProvider.executeSinovadApiService(methodType,path,this.currentTranscoderSettingss).then((response) => {
         this.showSucessMessage=true;
       },error=>{
