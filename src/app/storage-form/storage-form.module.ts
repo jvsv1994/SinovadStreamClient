@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DirectoryChooserPageModule } from '../directory-chooser/directory-chooser.module';
 import { SharedModule } from 'src/shared.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { StorageFormPage } from './account-storage-form.page';
+import { StorageFormPage } from './storage-form.page';
 
 @NgModule({
     declarations: [

@@ -45,7 +45,7 @@
 </div>
 
 
-<app-account-storage-form *ngIf="showForm" (closeStorageFormWithChanges)="onCloseStorageFormWithChanges()" (closeStorageForm)="onCloseStorageForm()" [listMainDirectories]="listMainDirectories" [storage]="storage"></app-account-storage-form>
+<app-storage-form *ngIf="showForm" (closeStorageFormWithChanges)="onCloseStorageFormWithChanges()" (closeStorageForm)="onCloseStorageForm()" [listMainDirectories]="listMainDirectories" [storage]="storage"></app-storage-form>
 
 
 <div *ngIf="callSearchMediaLog" class="sinovad-searh-media-log-container">

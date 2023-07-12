@@ -13,9 +13,9 @@ import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 declare var window;
 @Component({
-  selector: 'app-account-storage-form',
-  templateUrl: './account-storage-form.page.html',
-  styleUrls: ['./account-storage-form.page.scss']
+  selector: 'app-storage-form',
+  templateUrl: './storage-form.page.html',
+  styleUrls: ['./storage-form.page.scss']
 })
 export class StorageFormPage extends ParentComponent implements OnInit {
 
