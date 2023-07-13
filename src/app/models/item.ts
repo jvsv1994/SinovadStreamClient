@@ -27,8 +27,8 @@ export class Item{
   public TvSerieGenreId:number;
   public GenreName:string;
   public IpAddress:string;
-  public HostUrl:string;
-  public HostState:number;
+  public MediaServerUrl:string;
+  public MediaServerState:number;
   public MediaType:number;
   public Created:Date;
   public LastModified:Date;

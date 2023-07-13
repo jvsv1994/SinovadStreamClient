@@ -62,7 +62,7 @@ export class ParentComponent implements OnInit {
     transcodeVideo.Title=item.Subtitle?item.Title+" "+item.Subtitle:item.Title;
     transcodeVideo.PhysicalPath=item.PhysicalPath;
     transcodeVideo.MediaServerId=item.MediaServerId;
-    transcodeVideo.HostUrl=item.HostUrl;
+    transcodeVideo.MediaServerUrl=item.MediaServerUrl;
     transcodeVideo.CurrentTime=item.CurrentTime;
     transcodeVideo.ProcessGUID=processGUID;
     if(transcodeVideo.CurrentTime)
@@ -102,7 +102,7 @@ export class ParentComponent implements OnInit {
     transcodeVideo.Title=episode.TvSerieName+" "+"T"+episode.SeasonNumber+":E"+episode.EpisodeNumber+" "+episode.Name;
     transcodeVideo.PhysicalPath=episode.PhysicalPath;
     transcodeVideo.MediaServerId=episode.MediaServerId;
-    transcodeVideo.HostUrl=episode.HostUrl;
+    transcodeVideo.MediaServerUrl=episode.MediaServerUrl;
     transcodeVideo.ProcessGUID=processGUID;
     transcodeVideo.CurrentTime=0;
     if(transcodeVideo.CurrentTime)

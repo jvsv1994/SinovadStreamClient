@@ -23,7 +23,7 @@ export class Video{
   public CurrentEpisode:Episode;
   public CurrentSeason:Season;
   public ItemDetail:ItemDetail;
-  public HostUrl:string;
+  public MediaServerUrl:string;
   public CurrentTime:number;
 
 }

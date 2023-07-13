@@ -152,7 +152,7 @@ export class VideoPage extends ParentComponent implements OnInit,OnDestroy{
     let ctx=this;
     this.sharedData.listProcessGUIDs.push(this.builderVideo.TranscodePrepareVideo.ProcessGUID);
     this.builderVideo.LoadStatus=LoadVideoStatus.Empty;
-    let url=this.builderVideo.TranscodePrepareVideo.HostUrl+"/transcodeVideos/GetVideoData";
+    let url=this.builderVideo.TranscodePrepareVideo.MediaServerUrl+"/transcodeVideos/GetVideoData";
     this.restProvider.executeHttpMethodByUrl(HttpMethodType.POST,url,this.builderVideo.TranscodePrepareVideo).then((response) => {
       this.builderVideo.LoadStatus=LoadVideoStatus.Generated;
       const jsonString=hiBase64.decode(response);
@@ -203,7 +203,7 @@ export class VideoPage extends ParentComponent implements OnInit,OnDestroy{
     this.resetStream();
     this.sharedData.listProcessGUIDs.push(this.builderVideo.TranscodePrepareVideo.ProcessGUID);
     this.builderVideo.LoadStatus=LoadVideoStatus.Empty;
-    let url=this.builderVideo.TranscodePrepareVideo.HostUrl+"/transcodeVideos/GetVideoData";
+    let url=this.builderVideo.TranscodePrepareVideo.MediaServerUrl+"/transcodeVideos/GetVideoData";
     this.restProvider.executeHttpMethodByUrl(HttpMethodType.POST,url,this.builderVideo.TranscodePrepareVideo).then((response) => {
       this.builderVideo.LoadStatus=LoadVideoStatus.Generated;
       const jsonString=hiBase64.decode(response);
@@ -757,7 +757,7 @@ public onClickSlider(sliderContainer:any){
     this.builderVideo.TranscodePrepareVideo.TimeSpan=newVideoTime.toString();
     this.builderVideo.TranscodePrepareVideo.ProcessGUID=processGUID;
     this.builderVideo.LoadStatus=LoadVideoStatus.Empty;
-    let url=this.builderVideo.TranscodePrepareVideo.HostUrl+"/transcodeVideos/UpdateVideoData";
+    let url=this.builderVideo.TranscodePrepareVideo.MediaServerUrl+"/transcodeVideos/UpdateVideoData";
     this.restProvider.executeHttpMethodByUrl(HttpMethodType.POST,url,this.builderVideo.TranscodePrepareVideo).then((response) => {
       this.builderVideo.LoadStatus=LoadVideoStatus.Generated;
       const jsonString=hiBase64.decode(response);
@@ -780,7 +780,7 @@ public onClickSlider(sliderContainer:any){
 
   public deleteProcessesAndDirectories(){
     var guids=this.sharedData.listProcessGUIDs.join(",");
-    let url=this.builderVideo.TranscodePrepareVideo.HostUrl+"/transcodeVideos?guids="+guids;
+    let url=this.builderVideo.TranscodePrepareVideo.MediaServerUrl+"/transcodeVideos?guids="+guids;
     this.restProvider.executeHttpMethodByUrl(HttpMethodType.DELETE,url).then((response) => {
       const jsonString=hiBase64.decode(response);
       let listProcessDeletedGUIDs:string[]=JSON.parse(jsonString);

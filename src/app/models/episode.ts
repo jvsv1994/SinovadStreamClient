@@ -19,6 +19,6 @@ export class Episode{
   public TvSerieId:number;
   public TvSerieName:string;
   public EpisodeId:number;
-  public HostUrl:string;
+  public MediaServerUrl:string;
 
 }

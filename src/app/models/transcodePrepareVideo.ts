@@ -4,7 +4,7 @@ export class TranscodePrepareVideo{
 
   public Title: string;
   public VideoId: number;
-  public HostUrl: string;
+  public MediaServerUrl: string;
   public CurrentTime: number;
   public MediaServerId: number;
   public PhysicalPath: string;
