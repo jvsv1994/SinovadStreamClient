@@ -40,7 +40,7 @@ export class SideBarDesktopPage extends ParentComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    this.selectDefaultOption();
+    this.setSelectedOptionByPathname();
     let ctx=this;
     this.selectHomeUserOption.subscribe(event => {
       ctx.selectDefaultOption();
@@ -57,6 +57,19 @@ export class SideBarDesktopPage extends ParentComponent implements OnInit {
   public selectDefaultOption(){
     this.selectedSidebarModule=this.sharedData.listMenus[0];
     this.selectedSidebarOption=this.selectedSidebarModule.ChildMenus[0];
+    this.onClickSidebarOption(this.selectedSidebarOption,this.selectedSidebarModule);
+  }
+
+  public setSelectedOptionByPathname(){
+    this.sharedData.listMenus.forEach(menu => {
+      menu.ChildMenus.forEach(child => {
+        if(window.location.pathname.indexOf(child.Path)!=-1)
+        {
+          this.selectedSidebarModule=menu;
+          this.selectedSidebarOption=child;
+        }
+      });
+    });
   }
 
   public onClickModule(module:Menu){
@@ -77,7 +90,5 @@ export class SideBarDesktopPage extends ParentComponent implements OnInit {
       console.error(error);
     });
   }
-
-  public
 
 }

@@ -117,27 +117,15 @@ export class RootDesktopPage extends ParentComponent implements OnInit {
     }
 
     public ShowInitial(){
-      this.hideContent=true;
-      this.ref.detectChanges();
-      this.hideContent=false;
-      this.ref.detectChanges();
-      this.router.navigate([this.sharedData.platform,'home'],{ skipLocationChange: false});
-    }
-
-    public ShowSearch(){
-      this.hideContent=true;
-      this.ref.detectChanges();
-      this.hideContent=false;
-      this.router.navigate([this.sharedData.platform,'search'],{ skipLocationChange: false});
+      this.prepareRouterOutlet();
+      this.selectHomeUserOption.emit(true);
     }
 
     public onSearchMedia(searchText:string){
       if(searchText!=undefined && searchText!='')
       {
         this.unselectSidebarOption.emit(true);
-        this.hideContent=true;
-        this.ref.detectChanges();
-        this.hideContent=false;
+        this.prepareRouterOutlet();
         this.router.navigate([this.sharedData.platform,"search"],{queryParams:{text:searchText},skipLocationChange: false});
       }else{
         this.ShowInitial();
