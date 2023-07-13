@@ -15,8 +15,8 @@ export class SharedDataService {
   UserRoleID: number=3;
   currentVideo:BuilderVideo;
   currentMediaServerData:any;
-  urlSinovadBackEnd: string='http://localhost:53363';
-  //urlSinovadBackEnd: string='http://www.sinovad.com';
+  //urlSinovadBackEnd: string='http://localhost:53363';
+  urlSinovadBackEnd: string='http://www.sinovad.com';
   storageMoviesBaseUrl: string='http://192.168.18.217:80/movies';
   storageAnimesBaseUrl: string='http://192.168.18.217:80/animes';
   storageSeriesBaseUrl: string='http://192.168.18.217:80/series';
