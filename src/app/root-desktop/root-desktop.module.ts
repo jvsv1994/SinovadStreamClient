@@ -23,8 +23,9 @@ import { TvSeriesPage } from '../tvseries/tvseries.page';
 import { MoviesPage } from '../movies/movies.page';
 import { HomePage } from '../home/home.page';
 import { TranscoderSettingssPage } from '../transcode-settings/transcode-settings.page';
-import { ItemListPage } from '../item-list/item-list.page';
 import { ManageMediaPage } from '../manage-media/manage-media.page';
+import { MoviesMaintenancePage } from '../movies-maintenance/movies-maintenance.page';
+import { TvSeriesMaintenancePage } from '../tvseries-maintenance/tvseries-maintenance.page';
 
 const routes: Routes = [
   {
@@ -107,9 +108,14 @@ const routes: Routes = [
     loadChildren: () => import('../transcode-settings/transcode-settings.module').then(m => m.TranscoderSettingssPageModule)
   },
   {
-    path: 'desktop/management-items',
-    component: ItemListPage,
-    loadChildren: () => import('../item-list/item-list.module').then(m => m.ItemListPageModule)
+    path: 'desktop/movies-maintenance',
+    component: MoviesMaintenancePage,
+    loadChildren: () => import('../movies-maintenance/movies-maintenance.module').then(m => m.MoviesMaintenancePageModule)
+  },
+  {
+    path: 'desktop/tvseries-maintenance',
+    component: TvSeriesMaintenancePage,
+    loadChildren: () => import('../tvseries-maintenance/tvseries-maintenance.module').then(m => m.TvSeriesMaintenancePageModule)
   },
   {
     path: 'desktop',
