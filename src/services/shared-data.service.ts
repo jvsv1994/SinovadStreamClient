@@ -3,20 +3,19 @@ import { User } from 'src/app/models/user';
 import { BuilderVideo } from 'src/app/models/builderVideo';
 import { Configuration } from 'src/app/models/configuration';
 import { Profile } from 'src/app/models/profile';
+import { Menu } from 'src/app/models/menu';
 
 @Injectable({ providedIn: 'root' })
 export class SharedDataService {
 
-  allOptions: any[];
-  menuOptions: any[];
   userData: User;
   AdministratorRoleID: number=1;
   VisitatorRoleID: number=2;
   UserRoleID: number=3;
   currentVideo:BuilderVideo;
   currentMediaServerData:any;
-  //urlSinovadBackEnd: string='http://localhost:53363';
-  urlSinovadBackEnd: string='http://www.sinovad.com';
+  urlSinovadBackEnd: string='http://localhost:53363';
+  //urlSinovadBackEnd: string='http://www.sinovad.com';
   storageMoviesBaseUrl: string='http://192.168.18.217:80/movies';
   storageAnimesBaseUrl: string='http://192.168.18.217:80/animes';
   storageSeriesBaseUrl: string='http://192.168.18.217:80/series';
@@ -31,6 +30,7 @@ export class SharedDataService {
   configurationData:Configuration=new Configuration();
   platform:string;
   listProfiles:Profile[]=[];
+  listMenus:Menu[];
 
   constructor() {
 

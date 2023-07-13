@@ -6,11 +6,10 @@ import { EventsService } from 'src/services/events-service';
 import { ParentComponent } from '../parent/parent.component';
 import { HttpClient} from '@angular/common/http';
 import { RestProviderService } from 'src/services/rest-provider.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { HttpMethodType, MediaType } from '../enums';
+import { Router } from '@angular/router';
+import { HttpMethodType } from '../enums';
 import { ItemListPage } from '../item-list/item-list.page';
 import { ManageMediaPage } from '../manage-media/manage-media.page';
-import { SidebarOption } from '../models/sidebarOption';
 import { Profile } from '../models/profile';
 import { MoviesPage } from '../movies/movies.page';
 import { TvSeriesPage } from '../tvseries/tvseries.page';
@@ -19,6 +18,7 @@ import { TvSerieDetailPage } from '../tvserie-detail/tvserie-detail.page';
 import { MovieDetailPage } from '../movie-detail/movie-detail.page';
 import { ProfilesViewPage } from '../profiles-view/profiles-view.page';
 import { LoginPage } from '../login/login.page';
+import { Menu } from '../models/menu';
 
 @Component({
   selector: 'app-root-desktop',
@@ -34,14 +34,14 @@ export class RootDesktopPage extends ParentComponent implements OnInit {
   _window=window;
   currentMediaTypeID:number;
   title:string;
-  selectedSidebarOption:SidebarOption;
+  selectedSidebarOption:Menu;
   isCollapsedSidebar:boolean=false;
   selectHomeUserOption=new EventEmitter<boolean>();
   unselectSidebarOption=new EventEmitter<boolean>();
+  refreshSidebarOption=new EventEmitter<boolean>();
 
   constructor(
     public restProvider: RestProviderService,
-    private route:ActivatedRoute,
     private router: Router,
     public  ref:ChangeDetectorRef,
     public http: HttpClient,
@@ -82,29 +82,38 @@ export class RootDesktopPage extends ParentComponent implements OnInit {
       this.ref.detectChanges();
     }
 
-    public executeSearch(){
-
-    }
-
     public onClickToggleSidebarButton(){
       this.isCollapsedSidebar=!this.isCollapsedSidebar;
     }
 
-    public onClickSidebarOption(option:SidebarOption){
-      this.selectedSidebarOption=option;
-      this[option.method]();
-      if(this.isSmallDevice())
-      {
-        this.isCollapsedSidebar=true;
-      }
+    public onClickSidebarOption(option:Menu){
+      this.prepareRouterOutlet();
+      this.router.navigateByUrl("/"+this.sharedData.platform+option.Path).then((response) => {
+        this.selectedSidebarOption=option;
+        if(this.isSmallDevice())
+        {
+          this.isCollapsedSidebar=true;
+        }
+      },error=>{
+        console.error(error);
+      });
+    }
+
+
+    public prepareRouterOutlet(){
+      this.hideContent=true;
+      this.ref.detectChanges();
+      this.hideContent=false;
+      this.ref.detectChanges();
     }
 
     public refresh(){
-      if(this.selectedSidebarOption)
+      if(this.selectedSidebarOption!=undefined)
       {
-        this[this.selectedSidebarOption.method]();
+        this.prepareRouterOutlet();
+        this.refreshSidebarOption.emit(true);
+        this.router.navigateByUrl("/"+this.sharedData.platform+this.selectedSidebarOption.Path);
       }
-      this.ref.detectChanges();
     }
 
     public ShowInitial(){
@@ -113,22 +122,6 @@ export class RootDesktopPage extends ParentComponent implements OnInit {
       this.hideContent=false;
       this.ref.detectChanges();
       this.router.navigate([this.sharedData.platform,'home'],{ skipLocationChange: false});
-    }
-
-    public ShowSeries(){
-      this.hideContent=true;
-      this.ref.detectChanges();
-      this.hideContent=false;
-      this.ref.detectChanges();
-      this.router.navigate([this.sharedData.platform,'tvseries'],{ skipLocationChange: false});
-    }
-
-    public ShowMovies(){
-      this.hideContent=true;
-      this.ref.detectChanges();
-      this.hideContent=false;
-      this.ref.detectChanges();
-      this.router.navigate([this.sharedData.platform,'movies'],{ skipLocationChange: false});
     }
 
     public ShowSearch(){
@@ -155,39 +148,6 @@ export class RootDesktopPage extends ParentComponent implements OnInit {
       this.sharedData.currentVideo=undefined;
       this.ShowInitial();
       this.toggleVideo.emit(false);
-    }
-
-    public ShowStorage(){
-      this.hideContent=true;
-      this.ref.detectChanges();
-      this.hideContent=false;
-      this.router.navigate([this.sharedData.platform,'storage'],{ skipLocationChange: false});
-    }
-
-    public ShowTranscoderSettingss(){
-      this.hideContent=true;
-      this.ref.detectChanges();
-      this.hideContent=false;
-      this.router.navigate([this.sharedData.platform,'transcoding'],{ skipLocationChange: false});
-    }
-
-    public ShowManagementMovies(){
-      this.title="Películas";
-      this.currentMediaTypeID=MediaType.Movie;
-      this.showItemList();
-    }
-
-    public ShowManagementTvSeries(){
-      this.title="Series de TV";
-      this.currentMediaTypeID=MediaType.TvSerie;
-      this.showItemList();
-    }
-
-    public showItemList(){
-      this.hideContent=true;
-      this.ref.detectChanges();
-      this.hideContent=false;
-      this.router.navigate([this.sharedData.platform,'management-items'],{ skipLocationChange: false});
     }
 
     public onActivate(event:any){

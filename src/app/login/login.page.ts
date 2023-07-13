@@ -81,6 +81,7 @@ export class LoginPage extends ParentComponent implements OnInit {
       this.sharedData.currentToken=token;
       this.showSplashScreen.emit(true);
       this.getUser().then(res=>{
+        this.getMenus();
         this.getProfiles().then(res=>{
           this.router.navigate([this.sharedData.platform,'select-profile'],{ skipLocationChange: false});
         },error=>{

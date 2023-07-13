@@ -43,6 +43,7 @@ export class SinovadDesktopComponent extends ParentComponent implements OnInit {
       {
         this.sharedData.currentToken=localStorage.getItem('apiKey');
         this.getUser().then(res=>{
+          this.getMenus();
           this.getProfiles().then(response=>{
             this.showRootPage=true;
             if(window.location.pathname.startsWith("/desktop/"))

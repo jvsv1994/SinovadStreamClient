@@ -1,19 +1,19 @@
 
 <ul class="sinovad-sidebar-modules-list">
-  <ng-template ngFor let-module [ngForOf]="listModules">
+  <ng-template ngFor let-module [ngForOf]="sharedData.listMenus">
     <li class="sinovad-sidebar-module-element">
-      <button class="sinovad-sidebar-module-button" [ngClass]="{'active':selectedSidebarModule && module.index==selectedSidebarModule.index}" (click)="onClickModule(module)">
+      <button class="sinovad-sidebar-module-button" [ngClass]="{'active':selectedSidebarModule && module.Id==selectedSidebarModule.Id}" (click)="onClickModule(module)">
         <i *ngIf="module.isCollapsed" class="fa-solid fa-chevron-right"></i>
         <i *ngIf="!module.isCollapsed" class="fa-solid fa-chevron-down"></i>
-        <span class="ms-2">{{module.name}}</span>
+        <span class="ms-2">{{module.Title}}</span>
       </button>
       <div *ngIf="!module.isCollapsed">
         <ul class="sinovad-sidebar-options-list">
-          <ng-template ngFor let-option [ngForOf]="module.listOptions">
+          <ng-template ngFor let-option [ngForOf]="module.ChildMenus">
             <li class="sinovad-sidebar-option-element">
-            <a (click)="onClickSidebarOption(option,module)" [ngClass]="{'active':selectedSidebarOption && option.index==selectedSidebarOption.index}">
-              <i *ngIf="option.iconClass" class="{{option.iconClass}}"></i>
-              <span class="ms-2">{{option.name}}</span>
+            <a (click)="onClickSidebarOption(option,module)" [ngClass]="{'active':selectedSidebarOption && option.Id==selectedSidebarOption.Id}">
+              <i *ngIf="option.IconClass" class="{{option.IconClass}}"></i>
+              <span class="ms-2">{{option.Title}}</span>
             </a>
           </li>
           </ng-template>

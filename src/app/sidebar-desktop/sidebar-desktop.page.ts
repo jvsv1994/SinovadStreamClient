@@ -1,13 +1,13 @@
 
-import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SharedDataService } from 'src/services/shared-data.service';
 import { EventsService } from 'src/services/events-service';
 import { ParentComponent } from '../parent/parent.component';
 import { HttpClient } from '@angular/common/http';
 import { RestProviderService } from 'src/services/rest-provider.service';
-import { SidebarModule } from '../models/sidebarModule';
-import { SidebarOption } from '../models/sidebarOption';
+import { Menu } from '../models/menu';
+import { Router } from '@angular/router';
 
 declare var window;
 @Component({
@@ -19,75 +19,16 @@ export class SideBarDesktopPage extends ParentComponent implements OnInit {
 
   @Input() selectHomeUserOption:EventEmitter<boolean>;
   @Input() unselectSidebarOption:EventEmitter<boolean>;
-  @Input() isCollapsedSidebar:boolean;
-  @Output() selectOption=new EventEmitter();
-  listModules:any[]=[];
-  allModules:SidebarModule[]=[
-    {
-      index:1,
-      order:1,
-      name:"Media",
-      listOptions:[
-        {
-          index:1,
-          name:"Inicio",
-          method:"ShowInitial",
-          iconClass:"fa-solid fa-house"
-        },
-        {
-          index:2,
-          name:"Películas",
-          method:"ShowMovies",
-          iconClass:"fa-solid fa-film"
-        },
-        {
-          index:3,
-          name:"Series",
-          method:"ShowSeries",
-          iconClass:"fa-solid fa-tv"
-        }
-      ]
-    },{
-      index:2,
-      name:"Almacenamiento",
-      listOptions:[
-        {
-          index:5,
-          name:"Almacenamiento",
-          method:"ShowStorage",
-          iconClass:"fa-solid fa-database"
-        },
-        {
-          index:6,
-          name:"Transcodificación",
-          method:"ShowTranscoderSettingss",
-          iconClass:"fa-solid fa-database"
-        }
-      ]
-    },{
-      index:3,
-      order:3,
-      name:"Mantenimiento",
-      listOptions:[
-        {
-          index:7,
-          name:"Peliculas",
-          method:"ShowManagementMovies",
-          iconClass:"fa-solid fa-list-check"
-        },
-        {
-          index:8,
-          name:"Series",
-          method:"ShowManagementTvSeries",
-          iconClass:"fa-solid fa-list-check"
-        }
-      ]
-    }
-  ]
-  selectedSidebarOption:SidebarOption;
-  selectedSidebarModule:SidebarModule;
+  @Input() refreshSidebarOption=new EventEmitter<boolean>();
+  @Output() prepareRouterOutlet=new EventEmitter<boolean>();
+  @Output() hideSidebar=new EventEmitter<boolean>();
+
+
+  selectedSidebarOption:Menu;
+  selectedSidebarModule:Menu;
 
   constructor(
+    private router: Router,
     public  ref:ChangeDetectorRef,
     public restProvider: RestProviderService,
     public http: HttpClient,
@@ -99,7 +40,6 @@ export class SideBarDesktopPage extends ParentComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    this.listModules=this.allModules;
     this.selectDefaultOption();
     let ctx=this;
     this.selectHomeUserOption.subscribe(event => {
@@ -109,21 +49,35 @@ export class SideBarDesktopPage extends ParentComponent implements OnInit {
       ctx.selectedSidebarOption=undefined;
       ctx.selectedSidebarModule=undefined;
     });
+    this.refreshSidebarOption.subscribe(event => {
+      ctx.onClickSidebarOption(ctx.selectedSidebarOption,ctx.selectedSidebarModule);
+    });
   }
 
   public selectDefaultOption(){
-    this.selectedSidebarModule=this.listModules[0];
-    this.selectedSidebarOption=this.listModules[0].listOptions[0];
+    this.selectedSidebarModule=this.sharedData.listMenus[0];
+    this.selectedSidebarOption=this.selectedSidebarModule.ChildMenus[0];
   }
 
-  public onClickModule(module:SidebarModule){
+  public onClickModule(module:Menu){
     module.isCollapsed=!module.isCollapsed;
   }
 
-  public onClickSidebarOption(option:SidebarOption,module:SidebarModule){
-    this.selectedSidebarOption=option;
-    this.selectedSidebarModule=module;
-    this.selectOption.emit(this.selectedSidebarOption);
+  public onClickSidebarOption(option:Menu,module:Menu){
+    this.prepareRouterOutlet.emit(true);
+    let ctx=this;
+    this.router.navigateByUrl("/"+this.sharedData.platform+option.Path).then((response) => {
+      ctx.selectedSidebarOption=option;
+      ctx.selectedSidebarModule=module;
+      if(ctx.isSmallDevice)
+      {
+        ctx.hideSidebar.emit(true);
+      }
+    },error=>{
+      console.error(error);
+    });
   }
+
+  public
 
 }
