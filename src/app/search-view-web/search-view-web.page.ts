@@ -55,10 +55,10 @@ export class SearchViewWebPage extends ParentComponent implements OnInit {
     public onSelectItem(detail:ItemDetail){
       if(detail.Item.TvSerieId)
       {
-        this.router.navigate([this.sharedData.platform,'/tvseriedetail/'+detail.Item.TvSerieId],{ skipLocationChange: false});
+        this.router.navigateByUrl("/"+this.sharedData.platform+"/tvseriedetail/"+detail.Item.TvSerieId);
       }else if(detail.Item.MovieId)
       {
-        this.router.navigate([this.sharedData.platform,'/moviedetail/'+detail.Item.MovieId],{ skipLocationChange: false});
+        this.router.navigateByUrl("/"+this.sharedData.platform+"/moviedetail/"+detail.Item.MovieId);
       }
     }
 
