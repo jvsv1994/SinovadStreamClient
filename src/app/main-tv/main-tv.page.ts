@@ -77,7 +77,7 @@ export class MainTvPage extends ParentComponent implements OnInit {
     public logOut(){
       if(this.sharedData.configurationData.currentHost!=null)
       {
-        this.restProvider.executeSinovadStreamServerService(HttpMethodType.DELETE,'/main/DeleteHostData').then((response) => {
+        this.restProvider.executeSinovadStreamServerService(HttpMethodType.DELETE,'/main/DeleteMediaServerData').then((response) => {
 
         },error=>{
           console.error(error);

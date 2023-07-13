@@ -194,11 +194,11 @@ export class ParentComponent implements OnInit {
   }
 
   public saveApiKeyInMediaStreamHost(){
-    let hostData={
+    let mediaServerData={
       ApiKey:this.sharedData.currentToken,
       MediaServer:this.sharedData.currentMediaServerData
     }
-    this.restProvider.executeSinovadStreamServerService(HttpMethodType.POST,'/main/SaveMediaServerData',hostData).then((response) => {
+    this.restProvider.executeSinovadStreamServerService(HttpMethodType.POST,'/main/SaveMediaServerData',mediaServerData).then((response) => {
 
     },error=>{
       console.error(error);
