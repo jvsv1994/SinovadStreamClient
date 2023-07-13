@@ -5,7 +5,7 @@ import { SharedDataService } from 'src/services/shared-data.service';
 import { EventsService } from 'src/services/events-service';
 import { ParentComponent } from '../parent/parent.component';
 import { HttpClient} from '@angular/common/http';
-import { CatalogEnum, HttpMethodType } from '../Enums';
+import { CatalogEnum, HttpMethodType } from '../enums';
 import { RestProviderService } from 'src/services/rest-provider.service';
 import { SinovadApiGenericResponse } from '../response/sinovadApiGenericResponse';
 import { TranscoderSettings } from '../models/transcoderSettings';

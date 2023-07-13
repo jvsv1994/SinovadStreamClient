@@ -7,7 +7,7 @@ import { ParentComponent } from '../parent/parent.component';
 import { HttpClient} from '@angular/common/http';
 import { RestProviderService } from 'src/services/rest-provider.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MediaType } from '../Enums';
+import { MediaType } from '../enums';
 import { ItemDetail } from '../models/itemDetail';
 
 @Component({

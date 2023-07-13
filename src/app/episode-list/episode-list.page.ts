@@ -6,7 +6,7 @@ import { SharedDataService } from 'src/services/shared-data.service';
 import { EventsService } from 'src/services/events-service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { RestProviderService } from 'src/services/rest-provider.service';
-import { HttpMethodType } from '../Enums';
+import { HttpMethodType } from '../enums';
 import { Episode } from '../models/episode';
 import { Season } from '../models/season';
 import { TvProgram } from '../models/tvProgram';

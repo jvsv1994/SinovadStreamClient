@@ -5,7 +5,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { ParentComponent } from '../parent/parent.component';
 import { SharedDataService } from 'src/services/shared-data.service';
 import { EventsService } from 'src/services/events-service';
-import { HttpMethodType, MediaType } from '../Enums';
+import { HttpMethodType, MediaType } from '../enums';
 import { RestProviderService } from 'src/services/rest-provider.service';
 import { SinovadApiGenericResponse } from '../response/sinovadApiGenericResponse';
 import { SinovadApiPaginationResponse } from '../response/sinovadApiPaginationResponse';

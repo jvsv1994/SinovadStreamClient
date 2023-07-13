@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { SharedDataService } from './shared-data.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { HttpMethodType } from 'src/app/Enums';
+import { HttpMethodType } from 'src/app/enums';
 
 @Injectable({ providedIn: 'root' })
 export class RestProviderService {

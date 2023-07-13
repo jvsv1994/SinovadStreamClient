@@ -7,7 +7,7 @@ import { ParentComponent } from '../parent/parent.component';
 import { HttpClient} from '@angular/common/http';
 import { RestProviderService } from 'src/services/rest-provider.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HttpMethodType, MediaType } from '../Enums';
+import { HttpMethodType, MediaType } from '../enums';
 import { ItemListPage } from '../item-list/item-list.page';
 import { ManageMediaPage } from '../manage-media/manage-media.page';
 import { SidebarOption } from '../models/sidebarOption';

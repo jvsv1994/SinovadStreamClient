@@ -7,7 +7,7 @@ import { ParentComponent } from '../parent/parent.component';
 import { HttpClient} from '@angular/common/http';
 import { RestProviderService } from 'src/services/rest-provider.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HttpMethodType } from '../Enums';
+import { HttpMethodType } from '../enums';
 import { NavbarOption } from '../models/navbarOption';
 import { ProfilesViewPage } from '../profiles-view/profiles-view.page';
 import { Profile } from '../models/profile';

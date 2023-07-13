@@ -6,7 +6,7 @@ import { EventsService } from 'src/services/events-service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ParentComponent } from '../parent/parent.component';
 import { RestProviderService } from 'src/services/rest-provider.service';
-import { HttpMethodType } from '../Enums';
+import { HttpMethodType } from '../enums';
 import { Season } from '../models/season';
 import { TvProgram } from '../models/tvProgram';
 import { SinovadApiPaginationResponse } from '../response/sinovadApiPaginationResponse';

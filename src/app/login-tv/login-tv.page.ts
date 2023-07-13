@@ -7,7 +7,7 @@ import { ParentComponent } from '../parent/parent.component';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../models/user';
 import { RestProviderService } from 'src/services/rest-provider.service';
-import { HttpMethodType } from '../Enums';
+import { HttpMethodType } from '../enums';
 import { SinovadApiGenericResponse } from '../response/sinovadApiGenericResponse';
 import { Router } from '@angular/router';
 

@@ -5,7 +5,7 @@ import { SharedDataService } from 'src/services/shared-data.service';
 import { EventsService } from 'src/services/events-service';
 import { ParentComponent } from '../parent/parent.component';
 import { HttpClient } from '@angular/common/http';
-import { HttpMethodType } from '../Enums';
+import { HttpMethodType } from '../enums';
 import {v4 as uuid} from "uuid";
 import { RestProviderService } from 'src/services/rest-provider.service';
 import { Item } from '../models/item';

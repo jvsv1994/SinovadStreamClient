@@ -6,7 +6,7 @@ import { EventsService } from 'src/services/events-service';
 import { ParentComponent } from '../parent/parent.component';
 import { HttpClient } from '@angular/common/http';
 import { RestProviderService } from 'src/services/rest-provider.service';
-import { HttpMethodType } from '../Enums';
+import { HttpMethodType } from '../enums';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ValidateConfirmEmailTokenModel } from '../models/validateConfirmEmailTokenModel';
 import hiBase64 from 'hi-base64';

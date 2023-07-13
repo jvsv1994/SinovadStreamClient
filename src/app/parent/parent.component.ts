@@ -3,7 +3,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { SharedDataService } from 'src/services/shared-data.service';
 import { EventsService } from 'src/services/events-service';
 import { RestProviderService } from 'src/services/rest-provider.service';
-import { CatalogEnum, HttpMethodType, MediaServerState } from '../Enums';
+import { CatalogEnum, HttpMethodType, MediaServerState } from '../enums';
 import { MediaServer } from '../models/mediaServer';
 import { Item } from '../models/item';
 import { ItemDetail } from '../models/itemDetail';

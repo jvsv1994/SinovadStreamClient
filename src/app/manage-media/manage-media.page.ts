@@ -7,7 +7,7 @@ import { ParentComponent } from '../parent/parent.component';
 import { HttpClient} from '@angular/common/http';
 import {v4 as uuid} from "uuid";
 import { RestProviderService } from 'src/services/rest-provider.service';
-import { CatalogEnum, HttpMethodType, MediaType } from '../Enums';
+import { CatalogEnum, HttpMethodType, MediaType } from '../enums';
 import { Storage } from '../models/storage';
 import { SinovadApiGenericResponse } from '../response/sinovadApiGenericResponse';
 

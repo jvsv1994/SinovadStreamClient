@@ -8,7 +8,7 @@ import { HttpClient} from '@angular/common/http';
 import { RestProviderService } from 'src/services/rest-provider.service';
 import { TvProgram } from '../models/tvProgram';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { HttpMethodType, MediaType } from '../Enums';
+import { HttpMethodType, MediaType } from '../enums';
 import { Genre } from '../models/genre';
 import { SinovadApiGenericResponse } from '../response/sinovadApiGenericResponse';
 import { TvProgramGenre } from '../models/tvProgramGenre';

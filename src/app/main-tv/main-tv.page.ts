@@ -10,7 +10,7 @@ import { ItemDetail } from '../models/itemDetail';
 import { ItemViewPage } from '../item-view/item-view.page';
 import { HorizontalItemListPage } from '../horizontal-item-list/horizontal-item-list.page';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HttpMethodType, MediaType } from '../Enums';
+import { HttpMethodType, MediaType } from '../enums';
 import { SearchViewTvPage } from '../search-view-tv/search-view-tv.page';
 
 @Component({

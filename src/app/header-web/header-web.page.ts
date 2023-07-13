@@ -7,7 +7,7 @@ import { ParentComponent } from '../parent/parent.component';
 import { HttpClient } from '@angular/common/http';
 import { RestProviderService } from 'src/services/rest-provider.service';
 import { NavbarOption } from '../models/navbarOption';
-import { HttpMethodType } from '../Enums';
+import { HttpMethodType } from '../enums';
 import { SinovadApiGenericResponse } from '../response/sinovadApiGenericResponse';
 import { Profile } from '../models/profile';
 

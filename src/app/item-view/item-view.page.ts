@@ -6,7 +6,7 @@ import { EventsService } from 'src/services/events-service';
 import { ParentComponent } from '../parent/parent.component';
 import { FormBuilder } from '@angular/forms';
 import { HttpClient} from '@angular/common/http';
-import { MediaType } from '../Enums';
+import { MediaType } from '../enums';
 import { RestProviderService } from 'src/services/rest-provider.service';
 import { ItemDetail } from '../models/itemDetail';
 import { Episode } from '../models/episode';

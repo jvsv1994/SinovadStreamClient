@@ -9,7 +9,7 @@ import { EventsService } from 'src/services/events-service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { parse } from '@plussub/srt-vtt-parser';
 import Hls, { HlsConfig } from 'hls.js';
-import { HttpMethodType, LoadVideoStatus, VideoTransmissionType } from '../Enums';
+import { HttpMethodType, LoadVideoStatus, VideoTransmissionType } from '../enums';
 import { RestProviderService } from 'src/services/rest-provider.service';
 import { Episode } from '../models/episode';
 import { VideoProfile } from '../models/videoProfile';
