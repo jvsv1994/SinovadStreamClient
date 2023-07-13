@@ -26,6 +26,7 @@ import { TranscoderSettingssPage } from '../transcode-settings/transcode-setting
 import { ManageMediaPage } from '../manage-media/manage-media.page';
 import { MoviesMaintenancePage } from '../movies-maintenance/movies-maintenance.page';
 import { TvSeriesMaintenancePage } from '../tvseries-maintenance/tvseries-maintenance.page';
+import { GenresMaintenancePage } from '../genres-maintenance/genres-maintenance.page';
 
 const routes: Routes = [
   {
@@ -116,6 +117,11 @@ const routes: Routes = [
     path: 'desktop/tvseries-maintenance',
     component: TvSeriesMaintenancePage,
     loadChildren: () => import('../tvseries-maintenance/tvseries-maintenance.module').then(m => m.TvSeriesMaintenancePageModule)
+  },
+  {
+    path: 'desktop/genres-maintenance',
+    component: GenresMaintenancePage,
+    loadChildren: () => import('../genres-maintenance/genres-maintenance.module').then(m => m.GenresMaintenancePageModule)
   },
   {
     path: 'desktop',
