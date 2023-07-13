@@ -97,12 +97,12 @@ const routes: Routes = [
    loadChildren: () => import('../not-found/not-found.module').then(m => m.NotFoundPageModule)
   },
   {
-    path: 'desktop/storage',
+    path: 'desktop/storages',
     component: ManageMediaPage,
     loadChildren: () => import('../manage-media/manage-media.module').then(m => m.ManageMediaPageModule)
   },
   {
-    path: 'desktop/transcoding',
+    path: 'desktop/transcoder',
     component: TranscoderSettingssPage,
     loadChildren: () => import('../transcode-settings/transcode-settings.module').then(m => m.TranscoderSettingssPageModule)
   },
