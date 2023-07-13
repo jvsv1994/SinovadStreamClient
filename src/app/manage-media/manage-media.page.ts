@@ -169,8 +169,8 @@ export class ManageMediaPage extends ParentComponent implements OnInit,OnDestroy
       setTimeout(() => {
         ctx.searchingMediaInterval=window.setInterval(function() {
           ctx.getSearchMediaLog(logIdentifier);
-        }, 1000);
-      }, 500,ctx);
+        }, 2000);
+      }, 2000,ctx);
     }
 
     public getSearchMediaLog(logIdentifier:string){
