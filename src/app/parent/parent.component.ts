@@ -198,7 +198,7 @@ export class ParentComponent implements OnInit {
       ApiKey:this.sharedData.currentToken,
       MediaServer:this.sharedData.currentMediaServerData
     }
-    this.restProvider.executeSinovadStreamServerService(HttpMethodType.POST,'/main/SaveHosData',hostData).then((response) => {
+    this.restProvider.executeSinovadStreamServerService(HttpMethodType.POST,'/main/SaveMediaServerData',hostData).then((response) => {
 
     },error=>{
       console.error(error);
