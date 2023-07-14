@@ -7,7 +7,7 @@ import { ParentComponent } from '../parent/parent.component';
 import { HttpClient } from '@angular/common/http';
 import { RestProviderService } from 'src/services/rest-provider.service';
 import { HttpMethodType } from '../enums';
-import { RecoverPasswordModel } from '../models/recoverPasswordModel';
+import { RecoverPasswordModel } from '../../models/recoverPasswordModel';
 import { Router } from '@angular/router';
 
 declare var window;

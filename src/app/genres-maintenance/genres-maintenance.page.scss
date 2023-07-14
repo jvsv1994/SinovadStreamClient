@@ -16,3 +16,8 @@ label{
     background: #F7EEAE;
   }
 }
+
+.disable{
+  pointer-events: none;
+  opacity: 0.5;
+}

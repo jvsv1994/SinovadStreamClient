@@ -11,10 +11,10 @@ import { parse } from '@plussub/srt-vtt-parser';
 import Hls, { HlsConfig } from 'hls.js';
 import { HttpMethodType, LoadVideoStatus, VideoTransmissionType } from '../enums';
 import { RestProviderService } from 'src/services/rest-provider.service';
-import { Episode } from '../models/episode';
-import { VideoProfile } from '../models/videoProfile';
-import { BuilderVideo } from '../models/builderVideo';
-import { TranscodeRunVideo } from '../models/transcodeRunVideo';
+import { Episode } from '../../models/episode';
+import { VideoProfile } from '../../models/videoProfile';
+import { BuilderVideo } from '../../models/builderVideo';
+import { TranscodeRunVideo } from '../../models/transcodeRunVideo';
 @Component({
   selector: 'app-video',
   templateUrl: 'video.page.html',

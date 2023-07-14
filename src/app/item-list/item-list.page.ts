@@ -9,7 +9,7 @@ import { HttpMethodType, MediaType } from '../enums';
 import { RestProviderService } from 'src/services/rest-provider.service';
 import { SinovadApiGenericResponse } from '../response/sinovadApiGenericResponse';
 import { SinovadApiPaginationResponse } from '../response/sinovadApiPaginationResponse';
-import { TvProgram } from '../models/tvProgram';
+import { TvProgram } from '../../models/tvProgram';
 @Component({
   selector: 'app-item-list',
   templateUrl: 'item-list.page.html',

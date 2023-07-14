@@ -31,7 +31,7 @@
               <th role="button" scope="row" (click)="onClickItem($event,item)" (contextmenu)="onContextMenuItem($event,item)">{{getNewIndex(i,response.PageNumber,pageSize)}}</th>
               <td role="button" (click)="onClickItem($event,item)" (contextmenu)="onContextMenuItem($event,item)">{{item.Name}}</td>
               <td>
-                <button [ngClass]="{'disable':isItemDisableForEdit(item)}" type="button" class="btn btn-success btn-sm ms-20" data-toggle="tooltip" data-placement="bottom" title="Editar" (click)="editItem(item)">
+                <button type="button" class="btn btn-success btn-sm ms-20" data-toggle="tooltip" [ngClass]="{'disable':isItemDisableForEdit(item)}" data-placement="bottom" title="Editar" (click)="editItem(item)">
                   <i class="fa-solid fa-pen-to-square"></i>
                 </button>
               </td>
@@ -47,3 +47,5 @@
     </div>
   </div>
 </div>
+
+ <app-context-menu #contextMenu></app-context-menu>

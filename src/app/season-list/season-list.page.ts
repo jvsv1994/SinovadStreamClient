@@ -7,8 +7,8 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { ParentComponent } from '../parent/parent.component';
 import { RestProviderService } from 'src/services/rest-provider.service';
 import { HttpMethodType } from '../enums';
-import { Season } from '../models/season';
-import { TvProgram } from '../models/tvProgram';
+import { Season } from '../../models/season';
+import { TvProgram } from '../../models/tvProgram';
 import { SinovadApiPaginationResponse } from '../response/sinovadApiPaginationResponse';
 @Component({
   selector: 'app-season-list',

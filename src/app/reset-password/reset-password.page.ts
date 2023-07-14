@@ -7,8 +7,8 @@ import { ParentComponent } from '../parent/parent.component';
 import { HttpClient } from '@angular/common/http';
 import { RestProviderService } from 'src/services/rest-provider.service';
 import { HttpMethodType } from '../enums';
-import { ResetPasswordModel } from '../models/resetPasswordModel';
-import { ValidateResetPasswordTokenModel } from '../models/validateResetPasswordTokenModel';
+import { ResetPasswordModel } from '../../models/resetPasswordModel';
+import { ValidateResetPasswordTokenModel } from '../../models/validateResetPasswordTokenModel';
 import { ActivatedRoute, Router } from '@angular/router';
 import hiBase64 from 'hi-base64';
 

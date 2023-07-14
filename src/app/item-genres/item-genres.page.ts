@@ -6,10 +6,10 @@ import { EventsService } from 'src/services/events-service';
 import { ParentComponent } from '../parent/parent.component';
 import { HttpClient} from '@angular/common/http';
 import { RestProviderService } from 'src/services/rest-provider.service';
-import { TvProgram } from '../models/tvProgram';
+import { TvProgram } from '../../models/tvProgram';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Genre } from '../models/genre';
-import { TvProgramGenre } from '../models/tvProgramGenre';
+import { Genre } from '../../models/genre';
+import { TvProgramGenre } from '../../models/tvProgramGenre';
 
 @Component({
   selector: 'app-item-genres',

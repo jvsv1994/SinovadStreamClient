@@ -8,9 +8,9 @@ import { FormBuilder } from '@angular/forms';
 import { HttpClient} from '@angular/common/http';
 import { MediaType } from '../enums';
 import { RestProviderService } from 'src/services/rest-provider.service';
-import { ItemDetail } from '../models/itemDetail';
-import { Episode } from '../models/episode';
-import { Season } from '../models/season';
+import { ItemDetail } from '../../models/itemDetail';
+import { Episode } from '../../models/episode';
+import { Season } from '../../models/season';
 
 declare var window;
 @Component({

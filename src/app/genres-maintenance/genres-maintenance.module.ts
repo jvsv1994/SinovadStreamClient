@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/shared.module';
 import { GenresMaintenancePage } from './genres-maintenance.page';
 import { PaginationPageModule } from '../pagination/pagination.module';
+import { ContextMenuPageModule } from '../context-menu/context-menu.module';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { PaginationPageModule } from '../pagination/pagination.module';
       FormsModule,
       ReactiveFormsModule,
       SharedModule,
-      PaginationPageModule
+      PaginationPageModule,
+      ContextMenuPageModule
     ],
     exports: [GenresMaintenancePage]
 })

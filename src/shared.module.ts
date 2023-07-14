@@ -1,16 +1,17 @@
 import { NgModule } from '@angular/core';
 import { FormatDataPipe } from './pipes/format-data.pipe';
+import { ClickOutsideDirective } from './directives/click-outside-directive';
 
 @NgModule({
   imports: [
   ],
   declarations: [
-    FormatDataPipe
+    FormatDataPipe,ClickOutsideDirective
   ],
   providers: [
   ],
   exports: [
-    FormatDataPipe
+    FormatDataPipe,ClickOutsideDirective
   ]
 })
 export class SharedModule { }

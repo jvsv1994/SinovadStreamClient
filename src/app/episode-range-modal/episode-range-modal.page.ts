@@ -8,8 +8,8 @@ import { HttpClient} from '@angular/common/http';
 import { RestProviderService } from 'src/services/rest-provider.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { HttpMethodType} from '../enums';
-import { Season } from '../models/season';
-import { Episode } from '../models/episode';
+import { Season } from '../../models/season';
+import { Episode } from '../../models/episode';
 
 @Component({
   selector: 'app-episode-range-modal',

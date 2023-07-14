@@ -7,7 +7,7 @@ import { ParentComponent } from '../parent/parent.component';
 import { HttpClient} from '@angular/common/http';
 import { RestProviderService } from 'src/services/rest-provider.service';
 import { HttpMethodType } from '../enums';
-import { Profile } from '../models/profile';
+import { Profile } from '../../models/profile';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 declare var window;

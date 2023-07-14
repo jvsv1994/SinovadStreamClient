@@ -7,9 +7,9 @@ import { EventsService } from 'src/services/events-service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { RestProviderService } from 'src/services/rest-provider.service';
 import { HttpMethodType } from '../enums';
-import { Episode } from '../models/episode';
-import { Season } from '../models/season';
-import { TvProgram } from '../models/tvProgram';
+import { Episode } from '../../models/episode';
+import { Season } from '../../models/season';
+import { TvProgram } from '../../models/tvProgram';
 import { SinovadApiPaginationResponse } from '../response/sinovadApiPaginationResponse';
 @Component({
   selector: 'app-episode-list',

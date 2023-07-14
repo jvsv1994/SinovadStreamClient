@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { User } from 'src/app/models/user';
-import { BuilderVideo } from 'src/app/models/builderVideo';
-import { Configuration } from 'src/app/models/configuration';
-import { Profile } from 'src/app/models/profile';
-import { Menu } from 'src/app/models/menu';
+import { User } from 'src/models/user';
+import { BuilderVideo } from 'src/models/builderVideo';
+import { Configuration } from 'src/models/configuration';
+import { Profile } from 'src/models/profile';
+import { Menu } from 'src/models/menu';
 
 @Injectable({ providedIn: 'root' })
 export class SharedDataService {

@@ -6,10 +6,10 @@ import { EventsService } from 'src/services/events-service';
 import { ParentComponent } from '../parent/parent.component';
 import { HttpClient } from '@angular/common/http';
 import { RestProviderService } from 'src/services/rest-provider.service';
-import { NavbarOption } from '../models/navbarOption';
+import { NavbarOption } from '../../models/navbarOption';
 import { HttpMethodType } from '../enums';
 import { SinovadApiGenericResponse } from '../response/sinovadApiGenericResponse';
-import { Profile } from '../models/profile';
+import { Profile } from '../../models/profile';
 
 declare var window;
 @Component({

@@ -6,7 +6,7 @@ import { EventsService } from 'src/services/events-service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ParentComponent } from '../parent/parent.component';
 import { RestProviderService } from 'src/services/rest-provider.service';
-import { TvProgram } from '../models/tvProgram';
+import { TvProgram } from '../../models/tvProgram';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({

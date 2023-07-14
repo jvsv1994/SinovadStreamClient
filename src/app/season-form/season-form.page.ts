@@ -8,7 +8,7 @@ import { HttpClient} from '@angular/common/http';
 import { RestProviderService } from 'src/services/rest-provider.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { HttpMethodType} from '../enums';
-import { Season } from '../models/season';
+import { Season } from '../../models/season';
 
 @Component({
   selector: 'app-season-form',

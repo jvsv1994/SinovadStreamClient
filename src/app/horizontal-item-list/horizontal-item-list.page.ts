@@ -7,9 +7,9 @@ import { ParentComponent } from '../parent/parent.component';
 import { HttpClient } from '@angular/common/http';
 import { HttpMethodType, MediaType } from '../enums';
 import { RestProviderService } from 'src/services/rest-provider.service';
-import { Item } from '../models/item';
-import { ItemsGroup } from '../models/itemsGroup';
-import { ItemDetail } from '../models/itemDetail';
+import { Item } from '../../models/item';
+import { ItemsGroup } from '../../models/itemsGroup';
+import { ItemDetail } from '../../models/itemDetail';
 import { SinovadApiGenericResponse } from '../response/sinovadApiGenericResponse';
 
 declare var window;

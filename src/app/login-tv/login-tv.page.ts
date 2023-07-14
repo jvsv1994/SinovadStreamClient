@@ -5,7 +5,7 @@ import { SharedDataService } from 'src/services/shared-data.service';
 import { EventsService } from 'src/services/events-service';
 import { ParentComponent } from '../parent/parent.component';
 import { HttpClient } from '@angular/common/http';
-import { User } from '../models/user';
+import { User } from '../../models/user';
 import { RestProviderService } from 'src/services/rest-provider.service';
 import { HttpMethodType } from '../enums';
 import { SinovadApiGenericResponse } from '../response/sinovadApiGenericResponse';

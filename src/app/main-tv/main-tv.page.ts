@@ -6,7 +6,7 @@ import { EventsService } from 'src/services/events-service';
 import { ParentComponent } from '../parent/parent.component';
 import { HttpClient} from '@angular/common/http';
 import { RestProviderService } from 'src/services/rest-provider.service';
-import { ItemDetail } from '../models/itemDetail';
+import { ItemDetail } from '../../models/itemDetail';
 import { ItemViewPage } from '../item-view/item-view.page';
 import { HorizontalItemListPage } from '../horizontal-item-list/horizontal-item-list.page';
 import { ActivatedRoute, Router } from '@angular/router';

@@ -7,7 +7,7 @@ import { ParentComponent } from '../parent/parent.component';
 import { HttpClient} from '@angular/common/http';
 import { RestProviderService } from 'src/services/rest-provider.service';
 import { HttpMethodType } from '../enums';
-import { Storage } from '../models/storage';
+import { Storage } from '../../models/storage';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 

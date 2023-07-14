@@ -6,7 +6,7 @@ import { EventsService } from 'src/services/events-service';
 import { ParentComponent } from '../parent/parent.component';
 import { HttpClient } from '@angular/common/http';
 import { RestProviderService } from 'src/services/rest-provider.service';
-import { Menu } from '../models/menu';
+import { Menu } from '../../models/menu';
 import { Router } from '@angular/router';
 
 declare var window;

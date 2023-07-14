@@ -1,4 +1,4 @@
-import { MediaType } from "../enums";
+import { MediaType } from "../app/enums";
 
 
 export class Storage{

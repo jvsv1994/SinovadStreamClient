@@ -6,9 +6,9 @@ import { EventsService } from 'src/services/events-service';
 import { ParentComponent } from '../parent/parent.component';
 import { HttpClient } from '@angular/common/http';
 import { RestProviderService } from 'src/services/rest-provider.service';
-import { SidebarModule } from '../models/sidebarModule';
-import { Profile } from '../models/profile';
-import { SidebarOption } from '../models/sidebarOption';
+import { SidebarModule } from '../../models/sidebarModule';
+import { Profile } from '../../models/profile';
+import { SidebarOption } from '../../models/sidebarOption';
 
 declare var window;
 @Component({

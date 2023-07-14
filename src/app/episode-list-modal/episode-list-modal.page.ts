@@ -7,7 +7,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { ParentComponent } from '../parent/parent.component';
 import { RestProviderService } from 'src/services/rest-provider.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Season } from '../models/season';
+import { Season } from '../../models/season';
 
 @Component({
   selector: 'app-episode-list-modal',

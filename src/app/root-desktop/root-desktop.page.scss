@@ -57,37 +57,6 @@ button{
   height: 100%;
 }
 
-
-.sinovad-context-menu-item-list{
-  position: absolute;
-  z-index: 999999999;
-  background-color: #DCD8BB;
-  border: 1px solid black;
-  border-radius: 5px;
-}
-
-.sinovad-context-menu-option{
-  display: flex;
-  padding: 10px;
-  cursor: pointer;
-  color: black;
-  align-items: center;
-}
-
-.sinovad-context-menu-option:hover{
-  color: blue;
-}
-
-.sinovad-context-menu-option-icon{
-  display: block;
-}
-
-.sinovad-context-menu-option-text{
-  padding-left: 10px;
-  display: block;
-}
-
-
 .small{
   .sinovad-menu-container{
     position: absolute;

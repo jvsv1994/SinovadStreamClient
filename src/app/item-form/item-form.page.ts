@@ -6,12 +6,12 @@ import { EventsService } from 'src/services/events-service';
 import { ParentComponent } from '../parent/parent.component';
 import { HttpClient} from '@angular/common/http';
 import { RestProviderService } from 'src/services/rest-provider.service';
-import { TvProgram } from '../models/tvProgram';
+import { TvProgram } from '../../models/tvProgram';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { HttpMethodType, MediaType } from '../enums';
-import { Genre } from '../models/genre';
+import { Genre } from '../../models/genre';
 import { SinovadApiGenericResponse } from '../response/sinovadApiGenericResponse';
-import { TvProgramGenre } from '../models/tvProgramGenre';
+import { TvProgramGenre } from '../../models/tvProgramGenre';
 
 @Component({
   selector: 'app-item-form',

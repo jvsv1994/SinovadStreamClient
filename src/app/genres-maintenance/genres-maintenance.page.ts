@@ -1,5 +1,5 @@
 
-import { ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SharedDataService } from 'src/services/shared-data.service';
 import { EventsService } from 'src/services/events-service';
@@ -7,8 +7,9 @@ import { ParentComponent } from '../parent/parent.component';
 import { HttpClient} from '@angular/common/http';
 import { RestProviderService } from 'src/services/rest-provider.service';
 import { SinovadApiPaginationResponse } from '../response/sinovadApiPaginationResponse';
-import { Genre } from '../models/genre';
+import { Genre } from '../../models/genre';
 import { HttpMethodType } from '../enums';
+import { ContextMenuOption, ContextMenuPage } from '../context-menu/context-menu.page';
 
 @Component({
   selector: 'app-genres-maintenance',
@@ -17,11 +18,13 @@ import { HttpMethodType } from '../enums';
 })
 export class GenresMaintenancePage extends ParentComponent implements OnInit {
 
+  @ViewChild("contextMenu") contextMenu: ContextMenuPage;
   response:SinovadApiPaginationResponse;
   pageSize:number=10;
   listItems: Genre[];
   listSelectedItems:Genre[]=[];
   lastSelectedItem:Genre;
+  showContextMenu:boolean=false;
 
   constructor(
     public restProvider: RestProviderService,
@@ -131,14 +134,28 @@ export class GenresMaintenancePage extends ParentComponent implements OnInit {
       event.preventDefault();
       event.stopPropagation();
       this.onClickItem(event,item);
-      let listOptions=[];
-      listOptions.push({text:"Eliminar",key:"delete",icon:"remove.png"});
-      this.sharedData.contextMenuData={
-       parentPage:this,
-       left: event.clientX,
-       top:event.clientY,
-       listOptions:listOptions
+      let listOptions:ContextMenuOption[]=[];
+      if(!this.isItemDisableForEdit(item))
+      {
+        listOptions.push({text:"Eliminar",key:"delete",icon:"remove.png"});
       }
+      if(listOptions && listOptions.length>0)
+      {
+        this.renderContextMenuComponent(event.clientX,event.clientY,listOptions);
+      }
+    }
+
+    public onClickContextMenuOption(option:ContextMenuOption){
+      if(option.key=="delete")
+      {
+        console.log(option);
+      }
+    }
+
+    private renderContextMenuComponent(left:number,top:number,listOptions:any[]) {
+      this.contextMenu.show(left,top,listOptions).then((option:ContextMenuOption) => {
+        this.onClickContextMenuOption(option);
+      });
     }
 
     public isItemDisableForEdit(item:Genre){

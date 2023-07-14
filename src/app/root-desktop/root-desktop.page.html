@@ -34,15 +34,4 @@
 
 <app-splash-screen *ngIf="showSplashScreen"></app-splash-screen>
 
-<div *ngIf="sharedData.contextMenuData" class="sinovad-context-menu-item-list" [style.top]="sharedData.contextMenuData.top+'px'" [style.left]="sharedData.contextMenuData.left+'px'">
-  <ng-template ngFor let-option [ngForOf]="sharedData.contextMenuData.listOptions"  let-i="index">
-      <div class="sinovad-context-menu-option" [style.border-bottom]="option.showBorderBottom?'1px solid black':''" (click)="sharedData.contextMenuData.parentPage && sharedData.contextMenuData.parentPage.onClickContextMenuOption($event,option)">
-        <div class="sinovad-context-menu-option-icon">
-          <img [src]="option.icon | formatDataPipe : 'GetImageURLByKey'" style="width:24px;">
-        </div>
-        <div class="sinovad-context-menu-option-text">
-          {{option.text}}
-        </div>
-      </div>
-  </ng-template>
-</div>
+

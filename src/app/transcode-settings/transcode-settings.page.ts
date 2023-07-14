@@ -8,7 +8,7 @@ import { HttpClient} from '@angular/common/http';
 import { CatalogEnum, HttpMethodType } from '../enums';
 import { RestProviderService } from 'src/services/rest-provider.service';
 import { SinovadApiGenericResponse } from '../response/sinovadApiGenericResponse';
-import { TranscoderSettings } from '../models/transcoderSettings';
+import { TranscoderSettings } from '../../models/transcoderSettings';
 
 declare var window;
 @Component({
