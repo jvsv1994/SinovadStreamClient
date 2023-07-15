@@ -7,10 +7,10 @@ import { ParentComponent } from '../parent/parent.component';
 import { HttpClient} from '@angular/common/http';
 import { RestProviderService } from 'src/services/rest-provider.service';
 import { SinovadApiPaginationResponse } from '../response/sinovadApiPaginationResponse';
-import { Genre } from '../../models/genre';
 import { HttpMethodType } from '../enums';
 import { ContextMenuOption } from '../context-menu/contextMenuOption';
 import { ContextMenuPage } from '../context-menu/context-menu.page';
+import { Role } from 'src/models/role';
 
 @Component({
   selector: 'app-role-list',
@@ -22,9 +22,9 @@ export class RoleListPage extends ParentComponent implements OnInit {
   @ViewChild('contextMenuPage') contextMenuPage: ContextMenuPage;
   response:SinovadApiPaginationResponse;
   pageSize:number=10;
-  listItems: Genre[];
-  listSelectedItems:Genre[]=[];
-  lastSelectedItem:Genre;
+  listItems: Role[];
+  listSelectedItems:Role[]=[];
+  lastSelectedItem:Role;
   showContextMenu:boolean=false;
 
   constructor(
@@ -51,10 +51,9 @@ export class RoleListPage extends ParentComponent implements OnInit {
       this.executeGetAllItems(page,this.pageSize.toString());
     }
 
-
   public executeGetAllItems(page:string,take:string){
     var queryParams="?page="+page+"&take="+take;
-    var path="/genres/GetAllWithPaginationAsync"+queryParams;
+    var path="/roles/GetAllWithPaginationAsync"+queryParams;
     this.restProvider.executeSinovadApiService(HttpMethodType.GET,path).then((response:SinovadApiPaginationResponse) => {
       this.response=response;
       var data=response.Data;
@@ -78,7 +77,7 @@ export class RoleListPage extends ParentComponent implements OnInit {
       }
     }
 
-    public onClickItem(event:any,item:Genre)
+    public onClickItem(event:any,item:Role)
     {
       if(event.ctrlKey || event.shiftKey)
       {
@@ -126,11 +125,11 @@ export class RoleListPage extends ParentComponent implements OnInit {
 
     }
 
-    public editItem(item: Genre){
+    public editItem(item: Role){
 
     }
 
-    public onContextMenuItem(event:any,item:Genre)
+    public onContextMenuItem(event:any,item:Role)
     {
       event.preventDefault();
       event.stopPropagation();
@@ -138,12 +137,9 @@ export class RoleListPage extends ParentComponent implements OnInit {
       let listOptions:ContextMenuOption[]=[];
       /* if(!this.isItemDisableForEdit(item))
       { */
-        listOptions.push({text:"Eliminar",key:"delete",imageUrl:this.fdp.transform('remove.png', 'GetImageURLByKey')});
+        //listOptions.push({text:"Eliminar",key:"delete",imageUrl:this.fdp.transform('remove.png', 'GetImageURLByKey')});
       //}
-      if(listOptions && listOptions.length>0)
-      {
-        this.renderContextMenuComponent(event.clientX,event.clientY,listOptions);
-      }
+      this.renderContextMenuComponent(event.clientX,event.clientY,listOptions);
     }
 
     public onClickContextMenuOption(option:ContextMenuOption){
@@ -159,12 +155,7 @@ export class RoleListPage extends ParentComponent implements OnInit {
       });
     }
 
-    public isItemDisableForEdit(item:Genre){
-      if(item.TmdbId)
-      {
-        return true;
-      }else{
+    public isItemDisableForEdit(item:Role){
         return false;
-      }
     }
 }

@@ -29,6 +29,7 @@ import { TvSeriesMaintenancePage } from '../tvseries-maintenance/tvseries-mainte
 import { GenresMaintenancePage } from '../genres-maintenance/genres-maintenance.page';
 import { MenuListPage } from '../menu-list/menu-list.page';
 import { UserListPage } from '../user-list/user-list.page';
+import { RoleListPage } from '../role-list/role-list.page';
 
 const routes: Routes = [
   {
@@ -134,6 +135,11 @@ const routes: Routes = [
     path: 'desktop/user-list',
     component: UserListPage,
     loadChildren: () => import('../user-list/user-list.module').then(m => m.UserListPageModule)
+  },
+  {
+    path: 'desktop/role-list',
+    component: RoleListPage,
+    loadChildren: () => import('../role-list/role-list.module').then(m => m.RoleListPageModule)
   },
   {
     path: 'desktop',
