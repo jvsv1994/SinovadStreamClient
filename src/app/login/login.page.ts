@@ -44,7 +44,7 @@ export class LoginPage extends ParentComponent implements OnInit {
   ngOnInit(): void {
     if(localStorage.getItem('apiKey'))
     {
-      this.router.navigate([this.sharedData.platform,'home'],{ skipLocationChange: false});
+      this.router.navigateByUrl("/"+this.sharedData.platform+'/home');
     }
   }
 
@@ -70,10 +70,6 @@ export class LoginPage extends ParentComponent implements OnInit {
   }
 
   public login(){
-    if(localStorage.getItem('apiKey'))
-    {
-      this.router.navigate([this.sharedData.platform,'home'],{ skipLocationChange: false});
-    }
     this.showLoading=true;
     this.restProvider.executeSinovadApiService(HttpMethodType.POST,'/users/Login',this.user).then((response:SinovadApiGenericResponse) => {
       let token=response.Data;
@@ -98,11 +94,11 @@ export class LoginPage extends ParentComponent implements OnInit {
   }
 
   public onClose(){
-    this.router.navigate([this.sharedData.platform,'landing'],{ skipLocationChange: false});
+    this.router.navigateByUrl("/"+this.sharedData.platform+'/landing');
   }
 
   public showRecoverPasswordPage(){
-    this.router.navigate([this.sharedData.platform,'recover'],{ skipLocationChange: false});
+    this.router.navigateByUrl("/"+this.sharedData.platform+'/recover');
   }
 
 }
