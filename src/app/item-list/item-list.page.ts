@@ -181,10 +181,7 @@ export class ItemListPage extends ParentComponent implements OnInit{
     {
       listOptions.push({text:"Eliminar",key:"delete",iconClass:"fa-solid fa-trash"});
     }
-    if(listOptions && listOptions.length>0)
-    {
-      this.renderContextMenuComponent(event.clientX,event.clientY,listOptions);
-    }
+    this.renderContextMenuComponent(event.clientX,event.clientY,listOptions);
   }
 
   private renderContextMenuComponent(left:number,top:number,listOptions:ContextMenuOption[]) {
