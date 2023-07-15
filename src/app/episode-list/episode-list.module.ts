@@ -8,6 +8,7 @@ import { PaginationPageModule } from '../pagination/pagination.module';
 import { EpisodeFormPageModule } from '../episode-form/episode-form.module';
 import { EpisodeRangeModalPageModule } from '../episode-range-modal/episode-range-modal.module';
 import { ConfirmMessageModalPageModule } from '../confirm-message-modal/confirm-message-modal.module';
+import { ContextMenuPageModule } from '../context-menu/context-menu.module';
 
 @NgModule({
   imports: [
@@ -18,7 +19,8 @@ import { ConfirmMessageModalPageModule } from '../confirm-message-modal/confirm-
     PaginationPageModule,
     EpisodeFormPageModule,
     EpisodeRangeModalPageModule,
-    ConfirmMessageModalPageModule
+    ConfirmMessageModalPageModule,
+    ContextMenuPageModule
   ],
   declarations: [EpisodeListPage],
   exports: [EpisodeListPage]

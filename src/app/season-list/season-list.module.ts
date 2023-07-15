@@ -7,6 +7,7 @@ import { PaginationPageModule } from '../pagination/pagination.module';
 import { SeasonFormPageModule } from '../season-form/season-form.module';
 import { EpisodeListModalPageModule } from '../episode-list-modal/episode-list-modal.module';
 import { ConfirmMessageModalPageModule } from '../confirm-message-modal/confirm-message-modal.module';
+import { ContextMenuPageModule } from '../context-menu/context-menu.module';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { ConfirmMessageModalPageModule } from '../confirm-message-modal/confirm-
     EpisodeListModalPageModule,
     PaginationPageModule,
     SeasonFormPageModule,
-    ConfirmMessageModalPageModule
+    ConfirmMessageModalPageModule,
+    ContextMenuPageModule
   ],
   declarations: [SeasonListPage],
   exports: [SeasonListPage]

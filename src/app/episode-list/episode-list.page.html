@@ -64,6 +64,9 @@
 <app-confirm-message-modal *ngIf="showConfirmMessageBox" [message]="'Estas seguro que deseas eliminar estos registros ?'"
 (close)="showConfirmMessageBox=false" (confirm)="executeDeleteSelectedItems()"></app-confirm-message-modal>
 
+<app-context-menu #contextMenuPage></app-context-menu>
+
+
 <!-- <div *ngIf="showChangeSeasonForm" class="sinovad-popup-container">
   <div #content class="sinovad-form-popup-content">
     <div #header class="sinovad-popup-content-header">

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, HostListener, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { SharedDataService } from 'src/services/shared-data.service';
@@ -10,6 +10,8 @@ import { HttpMethodType } from '../enums';
 import { Season } from '../../models/season';
 import { TvProgram } from '../../models/tvProgram';
 import { SinovadApiPaginationResponse } from '../response/sinovadApiPaginationResponse';
+import { ContextMenuPage } from '../context-menu/context-menu.page';
+import { ContextMenuOption } from '../context-menu/contextMenuOption';
 @Component({
   selector: 'app-season-list',
   templateUrl: 'season-list.page.html',
@@ -17,6 +19,7 @@ import { SinovadApiPaginationResponse } from '../response/sinovadApiPaginationRe
 })
 export class SeasonListPage extends ParentComponent implements OnInit{
 
+  @ViewChild('contextMenuPage') contextMenuPage: ContextMenuPage;
   @Input() parentItem:TvProgram;
   _window=window;
   listItems: Season[]=[];
@@ -151,12 +154,14 @@ export class SeasonListPage extends ParentComponent implements OnInit{
     event.stopPropagation();
     this.onClickItem(event,item);
     let listOptions=[];
-    listOptions.push({text:"Ver",key:"view",icon:"view.png"});
-    listOptions.push({text:"Eliminar",key:"delete",icon:"remove.png"});
-
+    listOptions.push({text:"Ver",key:"view",imageUrl:this.fdp.transform('view.png', 'GetImageURLByKey')});
+    listOptions.push({text:"Eliminar",key:"delete",imageUrl:this.fdp.transform('remove.png', 'GetImageURLByKey')});
+    this.contextMenuPage.show("sinovadMainContainer",event.clientX,event.clientY,listOptions).then((option:ContextMenuOption) => {
+      this.onClickContextMenuOption(option);
+    });
   }
 
-  public onClickContextMenuOption(event:any,option:any){
+  public onClickContextMenuOption(option:any){
     if(option.key=="view")
     {
       this.showListEpisodesPopUp=true;

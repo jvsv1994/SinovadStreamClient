@@ -1,4 +1,4 @@
-import { Component, HostListener, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ParentComponent } from '../parent/parent.component';
@@ -11,6 +11,8 @@ import { Episode } from '../../models/episode';
 import { Season } from '../../models/season';
 import { TvProgram } from '../../models/tvProgram';
 import { SinovadApiPaginationResponse } from '../response/sinovadApiPaginationResponse';
+import { ContextMenuPage } from '../context-menu/context-menu.page';
+import { ContextMenuOption } from '../context-menu/contextMenuOption';
 @Component({
   selector: 'app-episode-list',
   templateUrl: 'episode-list.page.html',
@@ -18,6 +20,7 @@ import { SinovadApiPaginationResponse } from '../response/sinovadApiPaginationRe
 })
 export class EpisodeListPage extends ParentComponent implements OnInit{
 
+  @ViewChild('contextMenuPage') contextMenuPage: ContextMenuPage;
   @Input() parentItem:Season;
   _window=window;
   listItems: Episode[];
@@ -153,12 +156,13 @@ export class EpisodeListPage extends ParentComponent implements OnInit{
     event.stopPropagation();
     this.onClickItem(event,item);
     let listOptions=[];
-    listOptions.push({text:"Eliminar",key:"delete",icon:"remove.png"});
-    //listOptions.push({text:"Cambiar temporada",key:"changeSeason",icon:"change.png",showBorderBottom:true});
-
+    listOptions.push({text:"Eliminar",key:"delete",imageUrl:this.fdp.transform('remove.png', 'GetImageURLByKey')});
+    this.contextMenuPage.show("sinovadMainContainer",event.clientX,event.clientY,listOptions).then((option:ContextMenuOption) => {
+      this.onClickContextMenuOption(option);
+    });
   }
 
-  public onClickContextMenuOption(event:any,option:any){
+  public onClickContextMenuOption(option:any){
     if(option.key=="changeSeason")
     {
       this.showChangeSeasonForm=true;
