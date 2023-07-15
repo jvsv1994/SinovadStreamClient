@@ -4,8 +4,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/shared.module';
 import { PaginationPageModule } from '../pagination/pagination.module';
 import { ContextMenuPageModule } from '../context-menu/context-menu.module';
-import { MenuFormPageModule } from '../menu-form/menu-form.module';
 import { UserListPage } from './user-list.page';
+import { MediaServerListModalPageModule } from '../media-server-list-modal/media-server-list-modal.module';
 
 @NgModule({
     declarations: [
@@ -19,7 +19,7 @@ import { UserListPage } from './user-list.page';
       SharedModule,
       PaginationPageModule,
       ContextMenuPageModule,
-      MenuFormPageModule
+      MediaServerListModalPageModule
     ],
     exports: [UserListPage]
 })

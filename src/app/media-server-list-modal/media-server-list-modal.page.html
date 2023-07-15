@@ -1,0 +1,14 @@
+<ng-template #modalTarget let-modal>
+  <ng-template [ngIf]="parent!=undefined">
+    <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalCenteredScrollableTitle">{{parent.UserName}} : Servidores Multimedia</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="modal.dismiss()"></button>
+    </div>
+    <div class="modal-body">
+        <app-media-server-list [parentItem]="parent"></app-media-server-list>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="modal.dismiss()">Close</button>
+    </div>
+  </ng-template>
+</ng-template>

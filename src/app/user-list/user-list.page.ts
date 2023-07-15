@@ -1,5 +1,5 @@
 
-import { ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, OnInit, ViewChild} from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SharedDataService } from 'src/services/shared-data.service';
 import { EventsService } from 'src/services/events-service';
@@ -27,7 +27,7 @@ export class UserListPage extends ParentComponent implements OnInit {
   lastSelectedItem:User;
   showContextMenu:boolean=false;
   showPopUpForm:boolean=false;
-  menu:User;
+  showMediaServersModal:boolean=false;
 
   constructor(
     public restProvider: RestProviderService,
@@ -129,7 +129,6 @@ export class UserListPage extends ParentComponent implements OnInit {
     }
 
     public editItem(item: User){
-      this.menu=JSON.parse(JSON.stringify(item));
       this.showPopUpForm=true;
     }
 
@@ -139,7 +138,12 @@ export class UserListPage extends ParentComponent implements OnInit {
       event.stopPropagation();
       this.onClickItem(event,item);
       let listOptions:ContextMenuOption[]=[];
-      listOptions.push({text:"Servidores multimedia",iconClass:"fa-solid fa-server"});
+      var ctx=this;
+      var eventOnSelectOption=new EventEmitter<boolean>();
+      eventOnSelectOption.subscribe(event => {
+        ctx.showMediaServersModal=true;
+      });
+      listOptions.push({text:"Servidores multimedia",iconClass:"fa-solid fa-server",eventOnSelectOption:eventOnSelectOption});
       if(listOptions && listOptions.length>0)
       {
         this.renderContextMenuComponent(event.clientX,event.clientY,listOptions);

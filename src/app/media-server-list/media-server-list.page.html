@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row mt-4">
-    <h3>Usuarios</h3>
+    <h3>{{parentItem.UserName}} : Servidores multimedia</h3>
   </div>
   <div class="row mt-4">
     <div class="col-6 d-flex align-itsinovad-center">
@@ -18,20 +18,16 @@
         <thead>
           <tr>
             <th scope="col">N°</th>
-            <th scope="col">Username</th>
-            <th scope="col">Correo</th>
-            <th scope="col">Nombres</th>
-            <th scope="col">Apellidos</th>
+            <th scope="col">Ip Address</th>
+            <th scope="col">Url</th>
           </tr>
         </thead>
         <tbody>
           <ng-template ngFor let-item [ngForOf]="listItems" let-i="index">
             <tr [ngClass]="{'selected':listSelectedItems.indexOf(item)!=-1}">
               <th role="button" scope="row" (click)="onClickItem($event,item)" (contextmenu)="onContextMenuItem($event,item)">{{getNewIndex(i,response.PageNumber,pageSize)}}</th>
-              <td role="button" (click)="onClickItem($event,item)" (contextmenu)="onContextMenuItem($event,item)">{{item.UserName}}</td>
-              <td role="button" (click)="onClickItem($event,item)" (contextmenu)="onContextMenuItem($event,item)">{{item.Email}}</td>
-              <td role="button" (click)="onClickItem($event,item)" (contextmenu)="onContextMenuItem($event,item)">{{item.FirstName}}</td>
-              <td role="button" (click)="onClickItem($event,item)" (contextmenu)="onContextMenuItem($event,item)">{{item.LastName}}</td>
+              <td role="button" (click)="onClickItem($event,item)" (contextmenu)="onContextMenuItem($event,item)">{{item.IpAddress}}</td>
+              <td role="button" (click)="onClickItem($event,item)" (contextmenu)="onContextMenuItem($event,item)">{{item.Url}}</td>
             </tr>
           </ng-template>
         </tbody>
@@ -45,6 +41,7 @@
   </div>
 </div>
 
-<app-context-menu #contextMenuPage></app-context-menu>
+<app-confirm-message-modal *ngIf="showConfirmMessageBox" [message]="'Estas seguro que deseas eliminar estos registros ?'"
+(close)="showConfirmMessageBox=false" (confirm)="executeDeleteSelectedItems()"></app-confirm-message-modal>
 
-<app-media-server-list-modal *ngIf="showMediaServersModal" [parent]="lastSelectedItem" (close)="showMediaServersModal=false"></app-media-server-list-modal>
+<app-context-menu #contextMenuPage></app-context-menu>
