@@ -1,0 +1,23 @@
+
+h3{
+  color: white;
+}
+
+label{
+  color: white;
+}
+
+.selected{
+  background: #F7EEAE;
+  th{
+    background: #F7EEAE;
+  }
+  td{
+    background: #F7EEAE;
+  }
+}
+
+.disable{
+  pointer-events: none;
+  opacity: 0.5;
+}

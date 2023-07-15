@@ -27,6 +27,7 @@ import { ManageMediaPage } from '../manage-media/manage-media.page';
 import { MoviesMaintenancePage } from '../movies-maintenance/movies-maintenance.page';
 import { TvSeriesMaintenancePage } from '../tvseries-maintenance/tvseries-maintenance.page';
 import { GenresMaintenancePage } from '../genres-maintenance/genres-maintenance.page';
+import { MenuListPage } from '../menu-list/menu-list.page';
 
 const routes: Routes = [
   {
@@ -122,6 +123,11 @@ const routes: Routes = [
     path: 'desktop/genres-maintenance',
     component: GenresMaintenancePage,
     loadChildren: () => import('../genres-maintenance/genres-maintenance.module').then(m => m.GenresMaintenancePageModule)
+  },
+  {
+    path: 'desktop/options-maintenance',
+    component: MenuListPage,
+    loadChildren: () => import('../menu-list/menu-list.module').then(m => m.MenuListPageModule)
   },
   {
     path: 'desktop',

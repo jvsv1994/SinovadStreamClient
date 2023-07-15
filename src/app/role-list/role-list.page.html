@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="row mt-4">
+    <h3> Géneros</h3>
+  </div>
+  <div class="row mt-4">
+    <div class="col-6 d-flex align-itsinovad-center">
+      <div class="form-check mb-0">
+        <input id="flexCheckDefault" class="form-check-input" #checkbox type="checkbox" (change)="onChangeSelectAllCheckBox($event)">
+        <label class="form-check-label" for="flexCheckDefault">
+          Todos
+        </label>
+      </div>
+    </div>
+    <div class="col-6 text-end">
+      <button type="button" class="btn btn-primary" (click)="showItemForm()"><i class="fa-solid fa-circle-plus me-2" aria-hidden="true"></i>Agregar</button>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col-12">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">N°</th>
+            <th scope="col">Titulo</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-template ngFor let-item [ngForOf]="listItems" let-i="index">
+            <tr [ngClass]="{'selected':listSelectedItems.indexOf(item)!=-1}">
+              <th role="button" scope="row" (click)="onClickItem($event,item)" (contextmenu)="onContextMenuItem($event,item)">{{getNewIndex(i,response.PageNumber,pageSize)}}</th>
+              <td role="button" (click)="onClickItem($event,item)" (contextmenu)="onContextMenuItem($event,item)">{{item.Name}}</td>
+              <td>
+                <button type="button" class="btn btn-success btn-sm ms-20" data-toggle="tooltip" [ngClass]="{'disable':isItemDisableForEdit(item)}" data-placement="bottom" title="Editar" (click)="editItem(item)">
+                  <i class="fa-solid fa-pen-to-square"></i>
+                </button>
+              </td>
+            </tr>
+          </ng-template>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col-12">
+        <app-pagination *ngIf="response" [responsePagination]="response" (selectPage)="onSelectPage($event)"></app-pagination>
+    </div>
+  </div>
+</div>
+
+<app-context-menu #contextMenuPage></app-context-menu>
