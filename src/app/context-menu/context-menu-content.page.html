@@ -1,9 +1,8 @@
-<ng-template #contextMenuTarget let-contextMenu>
   <div  (clickOutside)="onClickOutside()" class="sinovad-context-menu-item-list" [style.top]="top+'px'" [style.left]="left+'px'">
     <ng-template ngFor let-option [ngForOf]="listOptions"  let-i="index">
         <div class="sinovad-context-menu-option" [style.border-bottom]="option.showBorderBottom?'1px solid black':''" (click)="onClickContextMenuOption(option)">
           <div class="sinovad-context-menu-option-icon">
-            <img [src]="option.icon | formatDataPipe : 'GetImageURLByKey'" style="width:24px;">
+            <img [src]="option.imageUrl" style="width:24px;">
           </div>
           <div class="sinovad-context-menu-option-text">
             {{option.text}}
@@ -11,4 +10,3 @@
         </div>
     </ng-template>
   </div>
-</ng-template>

@@ -9,7 +9,8 @@ import { RestProviderService } from 'src/services/rest-provider.service';
 import { SinovadApiPaginationResponse } from '../response/sinovadApiPaginationResponse';
 import { Genre } from '../../models/genre';
 import { HttpMethodType } from '../enums';
-import { ContextMenuOption, ContextMenuPage } from '../context-menu/context-menu.page';
+import { ContextMenuOption } from '../context-menu/contextMenuOption';
+import { ContextMenuPage } from '../context-menu/context-menu.page';
 
 @Component({
   selector: 'app-genres-maintenance',
@@ -18,7 +19,7 @@ import { ContextMenuOption, ContextMenuPage } from '../context-menu/context-menu
 })
 export class GenresMaintenancePage extends ParentComponent implements OnInit {
 
-  @ViewChild("contextMenu") contextMenu: ContextMenuPage;
+  @ViewChild('contextMenuPage') contextMenuPage: ContextMenuPage;
   response:SinovadApiPaginationResponse;
   pageSize:number=10;
   listItems: Genre[];
@@ -135,10 +136,10 @@ export class GenresMaintenancePage extends ParentComponent implements OnInit {
       event.stopPropagation();
       this.onClickItem(event,item);
       let listOptions:ContextMenuOption[]=[];
-      if(!this.isItemDisableForEdit(item))
-      {
-        listOptions.push({text:"Eliminar",key:"delete",icon:"remove.png"});
-      }
+      /* if(!this.isItemDisableForEdit(item))
+      { */
+        listOptions.push({text:"Eliminar",key:"delete",imageUrl:this.fdp.transform('remove.png', 'GetImageURLByKey')});
+      //}
       if(listOptions && listOptions.length>0)
       {
         this.renderContextMenuComponent(event.clientX,event.clientY,listOptions);
@@ -152,8 +153,8 @@ export class GenresMaintenancePage extends ParentComponent implements OnInit {
       }
     }
 
-    private renderContextMenuComponent(left:number,top:number,listOptions:any[]) {
-      this.contextMenu.show(left,top,listOptions).then((option:ContextMenuOption) => {
+    private renderContextMenuComponent(left:number,top:number,listOptions:ContextMenuOption[]) {
+      this.contextMenuPage.show("sinovadMainContainer",left,top,listOptions).then((option:ContextMenuOption) => {
         this.onClickContextMenuOption(option);
       });
     }

@@ -8,6 +8,7 @@ import { PaginationPageModule} from '../pagination/pagination.module';
 import { ItemFormPageModule } from '../item-form/item-form.module';
 import { SeasonListModalPageModule } from '../season-list-modal/season-list-modal.module';
 import { ConfirmMessageModalPageModule } from '../confirm-message-modal/confirm-message-modal.module';
+import { ContextMenuPageModule } from '../context-menu/context-menu.module';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { ConfirmMessageModalPageModule } from '../confirm-message-modal/confirm-
     PaginationPageModule,
     ItemFormPageModule,
     SeasonListModalPageModule,
-    ConfirmMessageModalPageModule
+    ConfirmMessageModalPageModule,
+    ContextMenuPageModule
   ],
   declarations: [ItemListPage],
   exports: [ItemListPage]

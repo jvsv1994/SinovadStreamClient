@@ -1,112 +1,57 @@
 
-import { ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, TemplateRef, ViewChild, ViewContainerRef} from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
-import { SharedDataService } from 'src/services/shared-data.service';
-import { EventsService } from 'src/services/events-service';
-import { HttpClient} from '@angular/common/http';
-import { RestProviderService } from 'src/services/rest-provider.service';
-import { Subscription } from 'rxjs';
 
-export class ContextMenuOption{
-  icon:string;
-  text:string;
-  key?:string;
-  showBorderBottom?:boolean;
-  eventOnSelectOption?:EventEmitter<boolean>;
-}
-
+import { ApplicationRef, Component, ComponentFactoryResolver, EmbeddedViewRef, Injector, ViewContainerRef, ViewRef} from '@angular/core';
+import { ContextMenuOption } from './contextMenuOption';
+import { ContextMenuContentPage } from './context-menu-content.page';
 @Component({
   selector: 'app-context-menu',
-  templateUrl: './context-menu.page.html',
-  styleUrls: ['./context-menu.page.scss']
+  template: ''
 })
-export class ContextMenuPage implements OnInit,OnDestroy {
+export class ContextMenuPage{
 
-  @ViewChild('contextMenuTarget', { read: TemplateRef }) contextMenuTarget:TemplateRef<any>;
+  lastViewRef:ViewRef;
 
-  left:number;
-  top:number;
-  listOptions:ContextMenuOption[];
-  hideContextMenu =new EventEmitter();
-  clickOption =new EventEmitter();
-  htmlContent:HTMLElement;
-  mainContainer:HTMLElement;
-  hideContextMenuSuscription:Subscription;
-  clickOptionSubscription:Subscription;
+  constructor(public viewContainerRef: ViewContainerRef,private factoryResolver: ComponentFactoryResolver, private injector: Injector,
+    private applicationRef: ApplicationRef
+  ) {
 
-  constructor(
-    public ref:ChangeDetectorRef,
-    public viewContainerRef: ViewContainerRef,
-    public restProvider: RestProviderService,
-    public http: HttpClient,
-    public events: EventsService,
-    public domSanitizer: DomSanitizer,
-    public sharedData: SharedDataService) {
+  }
 
-    }
+  public show(containerId:string,left:number,top:number,listOptions:ContextMenuOption[]):Promise<any>{
+    return new Promise((resolve, reject) => {
+      if(this.lastViewRef!=undefined)
+      {
+        this.applicationRef.detachView(this.lastViewRef);
+      }
 
-    ngOnInit(): void {
+      const factory = this.factoryResolver.resolveComponentFactory(ContextMenuContentPage);
 
-    }
+      const component = factory.create(this.injector);
+      // create an instance of the sample component
+      this.lastViewRef=component.hostView;
+      // since we need to modify inputs on the component, we extract the instance and make our changes
 
-    ngOnDestroy(): void {
-      this.hideContextMenu.emit(true);
-    }
+      // we attach the component instance to the angular application reference
+      // this step is necessary as it allows for our components view to be dirty-checked
+      this.applicationRef.attachView(component.hostView);
 
-    ngAfterViewInit(){
+      // the step we have been building to
+      // we pull the rendered node from the components host view
 
-    }
-
-    public onClickOutside(){
-      this.hideContextMenu.emit(true);
-    }
-
-    public onClickContextMenuOption(option:any){
-      this.clickOption.emit(option);
-    }
-
-    public show(left:number,top:number,listOptions:ContextMenuOption[]):Promise<any>{
-      return new Promise((resolve, reject) => {
-        if(this.mainContainer==undefined)
-        {
-          this.mainContainer=document.getElementById("sinovadMainContainer");
-        }
-        this.left=left;
-        this.top=top;
-        this.listOptions=listOptions;
-        if(this.mainContainer.contains(this.htmlContent))
-        {
-          this.hideContextMenu.emit(true);
-        }
-        setTimeout(() => {
-          var embeddedViewRef = this.viewContainerRef.createEmbeddedView(this.contextMenuTarget);
-          this.htmlContent=embeddedViewRef.rootNodes[0] as HTMLElement;
-          this.mainContainer.appendChild(this.htmlContent);
-          if(this.hideContextMenuSuscription!=undefined)
-          {
-            this.hideContextMenuSuscription.unsubscribe();
-          }
-          if(this.clickOptionSubscription!=undefined)
-          {
-            this.clickOptionSubscription.unsubscribe();
-          }
-          this.hideContextMenuSuscription=this.hideContextMenu.subscribe(event => {
-            if(this.mainContainer.contains(this.htmlContent))
-            {
-              this.mainContainer.removeChild(this.htmlContent);
-            }
-          });
-          this.clickOptionSubscription=this.clickOption.subscribe(event => {
-            if(this.mainContainer.contains(this.htmlContent))
-            {
-              this.mainContainer.removeChild(this.htmlContent);
-            }
-            resolve(event);
-          });
-        }, 50);
-
-
+      let ctx=this;
+      component.instance.left=left;
+      component.instance.top=top;
+      component.instance.listOptions=listOptions;
+      component.instance.clickOption.subscribe((option:ContextMenuOption) => {
+        ctx.applicationRef.detachView(component.hostView);
+        resolve(option);
       });
-    }
-
+      component.instance.hideContextMenu.subscribe(event => {
+        ctx.applicationRef.detachView(component.hostView);
+      });
+      const renderedHtml = (component.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;
+      var container=document.getElementById(containerId);
+      container.appendChild(renderedHtml);
+    });
+  }
 }

@@ -155,12 +155,7 @@ export class EpisodeListPage extends ParentComponent implements OnInit{
     let listOptions=[];
     listOptions.push({text:"Eliminar",key:"delete",icon:"remove.png"});
     //listOptions.push({text:"Cambiar temporada",key:"changeSeason",icon:"change.png",showBorderBottom:true});
-    this.sharedData.contextMenuData={
-     parentPage:this,
-     left: event.clientX,
-     top:event.clientY,
-     listOptions:listOptions
-    }
+
   }
 
   public onClickContextMenuOption(event:any,option:any){
@@ -172,7 +167,6 @@ export class EpisodeListPage extends ParentComponent implements OnInit{
     {
       this.deleteSelectedItems();
     }
-    this.sharedData.contextMenuData=undefined;
   }
 
   public onChangeSeason(event:any){

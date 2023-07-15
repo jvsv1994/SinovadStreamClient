@@ -1,20 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ContextMenuPage } from './context-menu.page';
+import { ContextMenuContentPage } from './context-menu-content.page';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/shared.module';
-import { ContextMenuPage } from './context-menu.page';
 
 @NgModule({
-    declarations: [
-        ContextMenuPage
-    ],
+    providers:[],
+    declarations: [ContextMenuPage,ContextMenuContentPage],
     imports: [
-        CommonModule,
-        FormsModule,
-        SharedModule,
-        ReactiveFormsModule
+      CommonModule,
+      FormsModule,
+      SharedModule,
+      ReactiveFormsModule
     ],
-    exports: [ContextMenuPage]
+    exports: [ContextMenuPage,ContextMenuContentPage]
 })
 export class ContextMenuPageModule {
 }

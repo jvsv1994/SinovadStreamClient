@@ -23,7 +23,6 @@ export class SharedDataService {
   urlEpisodeDataBase:string="https://www.themoviedb.org/t/p/w454_and_h254_bestv2";
   currentSelectedElement:any;
   currentActiveSection:any;
-  contextMenuData:any;
   listProcessGUIDs:String[]=[];
   currentToken:string;
   currentProfile:any;

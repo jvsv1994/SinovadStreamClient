@@ -1,4 +1,4 @@
-import { Component, HostListener, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -10,6 +10,8 @@ import { RestProviderService } from 'src/services/rest-provider.service';
 import { SinovadApiGenericResponse } from '../response/sinovadApiGenericResponse';
 import { SinovadApiPaginationResponse } from '../response/sinovadApiPaginationResponse';
 import { TvProgram } from '../../models/tvProgram';
+import { ContextMenuOption } from '../context-menu/contextMenuOption';
+import { ContextMenuPage } from '../context-menu/context-menu.page';
 @Component({
   selector: 'app-item-list',
   templateUrl: 'item-list.page.html',
@@ -17,6 +19,7 @@ import { TvProgram } from '../../models/tvProgram';
 })
 export class ItemListPage extends ParentComponent implements OnInit{
 
+  @ViewChild('contextMenuPage') contextMenuPage: ContextMenuPage;
   _window=window;
   @Input() currentMediaTypeID: number;
   @Input() title: string='';
@@ -169,21 +172,29 @@ export class ItemListPage extends ParentComponent implements OnInit{
     event.preventDefault();
     event.stopPropagation();
     this.onClickItem(event,item);
-    let listOptions=[];
+    let listOptions:ContextMenuOption[]=[];
     if(this.currentMediaTypeID==MediaType.TvSerie && !this.isItemDisableForEdit(item))
     {
-      listOptions.push({text:"Ver",key:"view",icon:"view.png"});
+      listOptions.push({text:"Ver",key:"view",imageUrl:this.fdp.transform('view.png', 'GetImageURLByKey')});
     }
-    listOptions.push({text:"Eliminar",key:"delete",icon:"remove.png"});
-    this.sharedData.contextMenuData={
-     parentPage:this,
-     left: event.clientX,
-     top:event.clientY,
-     listOptions:listOptions
+    if(!this.isItemDisableForEdit(item))
+    {
+      listOptions.push({text:"Eliminar",key:"delete",imageUrl:this.fdp.transform('remove.png', 'GetImageURLByKey')});
+    }
+    if(listOptions && listOptions.length>0)
+    {
+      this.renderContextMenuComponent(event.clientX,event.clientY,listOptions);
     }
   }
 
-  public onClickContextMenuOption(event:any,option:any){
+  private renderContextMenuComponent(left:number,top:number,listOptions:ContextMenuOption[]) {
+    this.contextMenuPage.show("sinovadMainContainer",left,top,listOptions).then((option:ContextMenuOption) => {
+      this.onClickContextMenuOption(option);
+    });
+  }
+
+
+  public onClickContextMenuOption(option:any){
     if(option.key=="view" && this.currentMediaTypeID==MediaType.TvSerie)
     {
       this.showListSeasonsPopUp=true;
@@ -192,7 +203,6 @@ export class ItemListPage extends ParentComponent implements OnInit{
     {
       this.deleteSelectedItems();
     }
-    this.sharedData.contextMenuData=undefined;
   }
 
   public getTitleWidth(){

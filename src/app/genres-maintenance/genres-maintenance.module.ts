@@ -6,11 +6,11 @@ import { GenresMaintenancePage } from './genres-maintenance.page';
 import { PaginationPageModule } from '../pagination/pagination.module';
 import { ContextMenuPageModule } from '../context-menu/context-menu.module';
 
-
 @NgModule({
     declarations: [
       GenresMaintenancePage
     ],
+    providers:[],
     imports: [
       CommonModule,
       FormsModule,
