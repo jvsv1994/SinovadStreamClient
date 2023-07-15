@@ -2,21 +2,23 @@
 .sinovad-context-menu-item-list{
   position: absolute;
   z-index: 999999999;
-  background-color: #DCD8BB;
-  border: 1px solid black;
   border-radius: 5px;
+  background: #131313;
+  border: 1px solid rgba(151, 151, 151, 0.34);
+  box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 18px 0px;
+  color: white;
 }
 
 .sinovad-context-menu-option{
   display: flex;
   padding: 10px;
   cursor: pointer;
-  color: black;
   align-items: center;
+  opacity: 0.8;
 }
 
 .sinovad-context-menu-option:hover{
-  color: blue;
+  opacity: 1;
 }
 
 .sinovad-context-menu-option-icon{

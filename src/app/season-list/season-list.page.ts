@@ -154,8 +154,8 @@ export class SeasonListPage extends ParentComponent implements OnInit{
     event.stopPropagation();
     this.onClickItem(event,item);
     let listOptions=[];
-    listOptions.push({text:"Ver",key:"view",imageUrl:this.fdp.transform('view.png', 'GetImageURLByKey')});
-    listOptions.push({text:"Eliminar",key:"delete",imageUrl:this.fdp.transform('remove.png', 'GetImageURLByKey')});
+    listOptions.push({text:"Ver",key:"view",iconClass:"fa-solid fa-eye"});
+    listOptions.push({text:"Eliminar",key:"delete",iconClass:"fa-solid fa-trash"});
     this.contextMenuPage.show("sinovadMainContainer",event.clientX,event.clientY,listOptions).then((option:ContextMenuOption) => {
       this.onClickContextMenuOption(option);
     });

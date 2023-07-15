@@ -1,0 +1,50 @@
+<div class="container">
+  <div class="row mt-4">
+    <h3>Usuarios</h3>
+  </div>
+  <div class="row mt-4">
+    <div class="col-6 d-flex align-itsinovad-center">
+      <div class="form-check mb-0">
+        <input id="flexCheckDefault" class="form-check-input" #checkbox type="checkbox" (change)="onChangeSelectAllCheckBox($event)">
+        <label class="form-check-label" for="flexCheckDefault">
+          Todos
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col-12">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">N°</th>
+            <th scope="col">Username</th>
+            <th scope="col">Correo</th>
+            <th scope="col">Nombres</th>
+            <th scope="col">Apellidos</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-template ngFor let-item [ngForOf]="listItems" let-i="index">
+            <tr [ngClass]="{'selected':listSelectedItems.indexOf(item)!=-1}">
+              <th role="button" scope="row" (click)="onClickItem($event,item)" (contextmenu)="onContextMenuItem($event,item)">{{getNewIndex(i,response.PageNumber,pageSize)}}</th>
+              <td role="button" (click)="onClickItem($event,item)" (contextmenu)="onContextMenuItem($event,item)">{{item.UserName}}</td>
+              <td role="button" (click)="onClickItem($event,item)" (contextmenu)="onContextMenuItem($event,item)">{{item.Email}}</td>
+              <td role="button" (click)="onClickItem($event,item)" (contextmenu)="onContextMenuItem($event,item)">{{item.FirstName}}</td>
+              <td role="button" (click)="onClickItem($event,item)" (contextmenu)="onContextMenuItem($event,item)">{{item.LastName}}</td>
+            </tr>
+          </ng-template>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col-12">
+        <app-pagination *ngIf="response" [responsePagination]="response" (selectPage)="onSelectPage($event)"></app-pagination>
+    </div>
+  </div>
+</div>
+
+<!-- <app-menu-form *ngIf="showPopUpForm" [menu]="menu" (close)="showPopUpForm=false" (closeWithChanges)="onSaveItem()"></app-menu-form>
+ -->
+<app-context-menu #contextMenuPage></app-context-menu>

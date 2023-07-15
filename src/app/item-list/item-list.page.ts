@@ -175,11 +175,11 @@ export class ItemListPage extends ParentComponent implements OnInit{
     let listOptions:ContextMenuOption[]=[];
     if(this.currentMediaTypeID==MediaType.TvSerie && !this.isItemDisableForEdit(item))
     {
-      listOptions.push({text:"Ver",key:"view",imageUrl:this.fdp.transform('view.png', 'GetImageURLByKey')});
+      listOptions.push({text:"Ver",key:"view",iconClass:"fa-solid fa-eye"});
     }
     if(!this.isItemDisableForEdit(item))
     {
-      listOptions.push({text:"Eliminar",key:"delete",imageUrl:this.fdp.transform('remove.png', 'GetImageURLByKey')});
+      listOptions.push({text:"Eliminar",key:"delete",iconClass:"fa-solid fa-trash"});
     }
     if(listOptions && listOptions.length>0)
     {

@@ -28,6 +28,7 @@ import { MoviesMaintenancePage } from '../movies-maintenance/movies-maintenance.
 import { TvSeriesMaintenancePage } from '../tvseries-maintenance/tvseries-maintenance.page';
 import { GenresMaintenancePage } from '../genres-maintenance/genres-maintenance.page';
 import { MenuListPage } from '../menu-list/menu-list.page';
+import { UserListPage } from '../user-list/user-list.page';
 
 const routes: Routes = [
   {
@@ -128,6 +129,11 @@ const routes: Routes = [
     path: 'desktop/menu-list',
     component: MenuListPage,
     loadChildren: () => import('../menu-list/menu-list.module').then(m => m.MenuListPageModule)
+  },
+  {
+    path: 'desktop/user-list',
+    component: UserListPage,
+    loadChildren: () => import('../user-list/user-list.module').then(m => m.UserListPageModule)
   },
   {
     path: 'desktop',
