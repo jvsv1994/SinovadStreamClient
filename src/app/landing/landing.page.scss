@@ -35,41 +35,6 @@
 }
 
 
-.sinovad-landing-form-content{
-  color: white;
-  padding: 40px;
-  .sinovad-landing-form-button-section{
-    button{
-      border: none;
-      width: 100%;
-      cursor: pointer;
-      color: white;
-      padding: 10px;
-      text-align: center;
-      border-radius: 5px;
-      font-size: 20px;
-      opacity: 0.8;
-      margin-bottom: 10px;
-    }
-    button.register{
-      background-color: #007bff;
-    }
-    button.login{
-      background-color: #2e303d;
-    }
-    button:hover{
-      opacity: 1;
-    }
-    button:focus-visible{
-      opacity: 1;
-    }
-    button:focus{
-      opacity: 1;
-    }
-  }
-
-}
-
 .sinovad-landing-title-container{
   width: 100%;
   font-size: 20px;
@@ -100,15 +65,44 @@
 }
 
 
-
 .sinovad-landing-form-content{
+  color: white;
+  padding: 40px;
   width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   margin-bottom: 300px;
-  button{
-    font-size: unset;
+  .sinovad-landing-form-button-section{
+    button{
+      border: none;
+      width: 100%;
+      cursor: pointer;
+      color: white;
+      padding: 10px;
+      text-align: center;
+      border-radius: 5px;
+      font-size: 14px;
+      opacity: 0.8;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+    button.register{
+      background-color: #007bff;
+    }
+    button.login{
+      background-color: #2e303d;
+    }
+    button:hover{
+      opacity: 1;
+    }
+    button:focus-visible{
+      opacity: 1;
+    }
+    button:focus{
+      opacity: 1;
+    }
   }
+
 }
