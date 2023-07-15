@@ -4,7 +4,8 @@
     MediaServerState = 1,
     MediaType = 2,
     VideoTransmissionType = 3,
-    TranscoderPreset = 4
+    TranscoderPreset = 4,
+    IconTypes = 5
   }
 
   export enum MediaServerState
@@ -36,6 +37,11 @@
     Slow=7,
     Slower=8,
     Veryslow=9
+  }
+
+  export enum IconType{
+    Image=1,
+    FontAwesome=2
   }
 
 

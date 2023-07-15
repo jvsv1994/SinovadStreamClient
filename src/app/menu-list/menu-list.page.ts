@@ -169,5 +169,6 @@ export class MenuListPage extends ParentComponent implements OnInit {
     public onSaveItem(){
       this.showPopUpForm=false;
       this.getAllItems();
+      this.getMenus();
     }
 }

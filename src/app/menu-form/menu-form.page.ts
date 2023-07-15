@@ -7,8 +7,10 @@ import { ParentComponent } from '../parent/parent.component';
 import { HttpClient} from '@angular/common/http';
 import { RestProviderService } from 'src/services/rest-provider.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { HttpMethodType} from '../enums';
+import { CatalogEnum, HttpMethodType} from '../enums';
 import { Menu } from 'src/models/menu';
+import { SinovadApiGenericResponse } from '../response/sinovadApiGenericResponse';
+import { CatalogDetail } from 'src/models/catalogDetail';
 
 @Component({
   selector: 'app-menu-form',
@@ -18,6 +20,8 @@ import { Menu } from 'src/models/menu';
 export class MenuFormPage extends ParentComponent implements OnInit {
 
   @Input() menu:Menu;
+  listMenus:Menu[];
+  listIconTypes:CatalogDetail[];
   @Output() close=new EventEmitter();
   @Output() closeWithChanges=new EventEmitter();
   @ViewChild('modalTarget') modalTarget: ElementRef;
@@ -34,6 +38,28 @@ export class MenuFormPage extends ParentComponent implements OnInit {
     }
 
     ngOnInit(): void {
+      this.getAllMenus();
+      this.getIconTypes();
+    }
+
+    private getAllMenus():void{
+      var path="/menus/GetAllAsync";
+      this.restProvider.executeSinovadApiService(HttpMethodType.GET,path).then((response:SinovadApiGenericResponse) => {
+        var data=response.Data;
+        this.listMenus=data;
+      },error=>{
+        console.error(error);
+      });
+    }
+
+    private getIconTypes():void{
+      var path="/catalogs/GetDetailsByCatalogAsync/"+CatalogEnum.IconTypes;
+      this.restProvider.executeSinovadApiService(HttpMethodType.GET,path).then((response:SinovadApiGenericResponse) => {
+        var data=response.Data;
+        this.listIconTypes=data;
+      },error=>{
+        console.error(error);
+      });
     }
 
     ngAfterViewInit(){
@@ -54,4 +80,12 @@ export class MenuFormPage extends ParentComponent implements OnInit {
       });
     }
 
+    public onChangeParent(event:any){
+      this.menu.ParentId=Number(event.target.value);
+    }
+
+    public onChangeIconType(event:any){
+      this.menu.IconTypeCatalogId=CatalogEnum.IconTypes;
+      this.menu.IconTypeCatalogDetailId=Number(event.target.value);
+    }
 }

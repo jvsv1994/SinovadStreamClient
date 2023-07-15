@@ -1,10 +1,10 @@
-import { CatalogDetail } from "./CatalogDetail";
+import { CatalogDetail } from "./catalogDetail";
 
 
 export class Catalog{
 
-  public Id: Number;
-  public Name:String;
+  public Id: number;
+  public Name:string;
   public ListCatalogDetail:CatalogDetail[];
 
 }

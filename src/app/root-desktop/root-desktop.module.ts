@@ -110,22 +110,22 @@ const routes: Routes = [
     loadChildren: () => import('../transcode-settings/transcode-settings.module').then(m => m.TranscoderSettingssPageModule)
   },
   {
-    path: 'desktop/movies-maintenance',
+    path: 'desktop/movie-list',
     component: MoviesMaintenancePage,
     loadChildren: () => import('../movies-maintenance/movies-maintenance.module').then(m => m.MoviesMaintenancePageModule)
   },
   {
-    path: 'desktop/tvseries-maintenance',
+    path: 'desktop/tvserie-list',
     component: TvSeriesMaintenancePage,
     loadChildren: () => import('../tvseries-maintenance/tvseries-maintenance.module').then(m => m.TvSeriesMaintenancePageModule)
   },
   {
-    path: 'desktop/genres-maintenance',
+    path: 'desktop/genre-list',
     component: GenresMaintenancePage,
     loadChildren: () => import('../genres-maintenance/genres-maintenance.module').then(m => m.GenresMaintenancePageModule)
   },
   {
-    path: 'desktop/options-maintenance',
+    path: 'desktop/menu-list',
     component: MenuListPage,
     loadChildren: () => import('../menu-list/menu-list.module').then(m => m.MenuListPageModule)
   },

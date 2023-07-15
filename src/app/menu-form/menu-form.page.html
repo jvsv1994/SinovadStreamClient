@@ -11,15 +11,37 @@
       </div>
       <div class="mb-3">
         <label for="path" class="form-label">Path</label>
-        <input id="path" class="form-control" [(ngModel)]="menu.Path"/>
+        <input id="path" class="form-control" type="text" [(ngModel)]="menu.Path"/>
+      </div>
+      <div class="mb-3">
+        <label for="iconType" class="form-label">Tipo de Ícono</label>
+        <select id="iconType" class="form-select" aria-label="Seleccionar" (change)="onChangeIconType($event)">
+          <ng-template ngFor let-iconType [ngForOf]="listIconTypes">
+            <option *ngIf="iconType.Id==menu.IconTypeCatalogDetailId" selected value="{{iconType.Id}}">{{iconType.Name}}</option>
+            <option *ngIf="iconType.Id!=menu.IconTypeCatalogDetailId" value="{{iconType.Id}}">{{iconType.Name}}</option>
+          </ng-template>
+        </select>
       </div>
       <div class="mb-3">
         <label for="iconClass" class="form-label">Icon Class</label>
-        <input id="iconClass" class="form-control" [(ngModel)]="menu.IconClass"/>
+        <input id="iconClass" class="form-control" type="text" [(ngModel)]="menu.IconClass"/>
       </div>
       <div class="mb-3">
         <label for="sortOrder" class="form-label">Número de Orden</label>
         <input id="sortOrder" class="form-control" type="number" [(ngModel)]="menu.SortOrder"/>
+      </div>
+      <div class="mb-3">
+        <label for="typeFormControlId" class="form-label">Padre</label>
+        <select id="typeFormControlId" class="form-select" aria-label="Seleccionar Padre" (change)="onChangeParent($event)">
+          <ng-template ngFor let-men [ngForOf]="listMenus">
+            <option *ngIf="men.Id!=menu.Id && men.Id==menu.ParentId" selected value="{{men.ParentId}}">{{men.Title}}</option>
+            <option *ngIf="men.Id!=menu.Id && men.Id!=menu.ParentId" value="{{men.ParentId}}">{{men.Title}}</option>
+          </ng-template>
+        </select>
+      </div>
+      <div class="mb-3 d-inline align-middle">
+        <label for="enabled" class="form-label">Activo</label>
+        <input id="enabled" class="form-check-input ms-2" type="checkbox" [(ngModel)]="menu.Enabled"/>
       </div>
     </div>
     <div class="modal-footer">
