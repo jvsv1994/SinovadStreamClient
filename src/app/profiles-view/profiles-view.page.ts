@@ -55,14 +55,7 @@ export class ProfilesViewPage extends ParentComponent implements OnInit {
     }
 
     ngAfterViewInit(){
-      if(this.showModal)
-      {
-        let ctx=this;
-        this.modalReference=this.modalService.open(this.modalTarget, {container:"#sinovadMainContainer",modalDialogClass:'modal-dialog modal-fullscreen',scrollable:true,ariaLabelledBy: 'exampleModalCenteredScrollableTitle'});
-        this.modalReference.shown.subscribe(event => {
-          ctx.initializeProfilesViewControls();
-        });
-      }
+
     }
 
 
@@ -76,8 +69,16 @@ export class ProfilesViewPage extends ParentComponent implements OnInit {
     public performGetProfiles(): Promise<any>{
       return new Promise((resolve, reject) => {
         this.getProfiles().then(response => {
-          this.showProfiles.emit(true);
-          this.loadedProfiles.emit(true);
+          if(this.showModal)
+          {
+            let ctx=this;
+            this.modalReference=this.modalService.open(this.modalTarget, {container:"#sinovadMainContainer",modalDialogClass:'modal-dialog modal-fullscreen',scrollable:true,ariaLabelledBy: 'exampleModalCenteredScrollableTitle'});
+            this.modalReference.shown.subscribe(event => {
+              ctx.initializeProfilesViewControls();
+              ctx.showProfiles.emit(true);
+              ctx.loadedProfiles.emit(true);
+            });
+          }
           resolve(true);
         },error=>{
           reject(error);

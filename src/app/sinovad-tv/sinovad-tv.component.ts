@@ -30,6 +30,10 @@ export class SinovadTvComponent extends ParentComponent implements OnInit {
     }
 
     public ngOnInit(): void {
+      if((<any>window).configurationData)
+      {
+        this.sharedData.configurationData=(<any>window).configurationData;
+      }
       this.sharedData.platform='tv';
       if(localStorage.getItem('apiKey'))
       {

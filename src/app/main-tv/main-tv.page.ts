@@ -87,6 +87,7 @@ export class MainTvPage extends ParentComponent implements OnInit {
       this.sharedData.currentProfile=undefined;
       this.sharedData.userData=undefined;
       this.sharedData.currentToken=undefined;
+      this.sharedData.listProfiles=[];
       localStorage.removeItem("apiKey");
       this.router.navigate([{ outlets: { rostp: ['logintv'] } }],{ skipLocationChange: false});
     }
