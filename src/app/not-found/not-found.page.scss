@@ -5,3 +5,28 @@
   background: black;
   color: white;
 }
+
+.sinovad-page-not-found-content{
+  margin-bottom: 100px;
+  padding: 10px;
+  .sinovad-logo-container{
+    margin-bottom: 20px;
+    img{
+      max-width: 350px;
+    }
+  }
+}
+
+
+
+@media only screen and (max-width: 767px) {
+  .sinovad-page-not-found-content{
+    margin-bottom: unset;
+    .sinovad-logo-container{
+      img{
+        max-width: 300px;
+      }
+    }
+  }
+}
+

@@ -44,7 +44,10 @@ export class ContextMenuPage{
       component.instance.listOptions=listOptions;
       component.instance.clickOption.subscribe((option:ContextMenuOption) => {
         ctx.applicationRef.detachView(component.hostView);
-        option.eventOnSelectOption.emit(true);
+        if(option.eventOnSelectOption)
+        {
+          option.eventOnSelectOption.emit(true);
+        }
         resolve(option);
       });
       component.instance.hideContextMenu.subscribe(event => {

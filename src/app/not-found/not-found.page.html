@@ -1,10 +1,12 @@
-<div class="d-flex align-itsinovad-center align-items-center justify-content-center vh-100">
-  <div class="text-center">
-      <h1 class="display-1 fw-bold">404</h1>
-      <p class="fs-3"> <span class="text-danger">Opps!</span> No encontramos la página que esta buscando</p>
+<div class="d-flex align-items-center justify-content-center vh-100">
+  <div class="sinovad-page-not-found-content text-center">
+      <div class="sinovad-logo-container">
+        <img [src]="'sinovad-stream-large-logo.png' | formatDataPipe : 'GetImageURLByKey'">
+      </div>
+      <p class="fs-3">No encontramos la página que esta buscando</p>
       <p class="lead">
           Has click en el siguiente boton para ir a la página de inicio de Sinovad Stream
       </p>
-      <button class="btn btn-primary" (click)="goHome()">Inicio</button>
+      <button class="btn btn-primary" (click)="goInitialPage()">Inicio</button>
   </div>
 </div>
