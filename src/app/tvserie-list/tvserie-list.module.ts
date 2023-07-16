@@ -3,12 +3,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/shared.module';
 import { ItemListPageModule } from '../item-list/item-list.module';
-import { TvSeriesMaintenancePage } from './tvseries-maintenance.page';
+import { TvSerieListPage } from './tvserie-list.page';
 
 
 @NgModule({
     declarations: [
-      TvSeriesMaintenancePage
+      TvSerieListPage
     ],
     imports: [
       CommonModule,
@@ -17,7 +17,7 @@ import { TvSeriesMaintenancePage } from './tvseries-maintenance.page';
       SharedModule,
       ItemListPageModule
     ],
-    exports: [TvSeriesMaintenancePage]
+    exports: [TvSerieListPage]
 })
-export class TvSeriesMaintenancePageModule {
+export class TvSerieListPageModule {
 }

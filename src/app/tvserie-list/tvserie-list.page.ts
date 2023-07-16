@@ -9,11 +9,11 @@ import { RestProviderService } from 'src/services/rest-provider.service';
 import { MediaType } from '../enums';
 
 @Component({
-  selector: 'app-tvseries-maintenance',
-  templateUrl: './tvseries-maintenance.page.html',
-  styleUrls: ['./tvseries-maintenance.page.scss']
+  selector: 'app-tvserie-list',
+  templateUrl: './tvserie-list.page.html',
+  styleUrls: ['./tvserie-list.page.scss']
 })
-export class TvSeriesMaintenancePage extends ParentComponent implements OnInit {
+export class TvSerieListPage extends ParentComponent implements OnInit {
 
   currentMediaTypeID:number;
   title:string;

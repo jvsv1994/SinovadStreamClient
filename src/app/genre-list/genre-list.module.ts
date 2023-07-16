@@ -2,13 +2,13 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/shared.module';
-import { GenresMaintenancePage } from './genres-maintenance.page';
 import { PaginationPageModule } from '../pagination/pagination.module';
 import { ContextMenuPageModule } from '../context-menu/context-menu.module';
+import { GenreListPage } from './genre-list.page';
 
 @NgModule({
     declarations: [
-      GenresMaintenancePage
+      GenreListPage
     ],
     providers:[],
     imports: [
@@ -19,7 +19,7 @@ import { ContextMenuPageModule } from '../context-menu/context-menu.module';
       PaginationPageModule,
       ContextMenuPageModule
     ],
-    exports: [GenresMaintenancePage]
+    exports: [GenreListPage]
 })
-export class GenresMaintenancePageModule {
+export class GenreListPageModule {
 }

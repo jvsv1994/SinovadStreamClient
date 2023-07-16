@@ -24,12 +24,12 @@ import { MoviesPage } from '../movies/movies.page';
 import { HomePage } from '../home/home.page';
 import { TranscoderSettingssPage } from '../transcode-settings/transcode-settings.page';
 import { ManageMediaPage } from '../manage-media/manage-media.page';
-import { MoviesMaintenancePage } from '../movies-maintenance/movies-maintenance.page';
-import { TvSeriesMaintenancePage } from '../tvseries-maintenance/tvseries-maintenance.page';
-import { GenresMaintenancePage } from '../genres-maintenance/genres-maintenance.page';
 import { MenuListPage } from '../menu-list/menu-list.page';
 import { UserListPage } from '../user-list/user-list.page';
 import { RoleListPage } from '../role-list/role-list.page';
+import { GenreListPage } from '../genre-list/genre-list.page';
+import { MovieListPage } from '../movie-list/movie-list.page';
+import { TvSerieListPage } from '../tvserie-list/tvserie-list.page';
 
 const routes: Routes = [
   {
@@ -113,18 +113,18 @@ const routes: Routes = [
   },
   {
     path: 'desktop/movie-list',
-    component: MoviesMaintenancePage,
-    loadChildren: () => import('../movies-maintenance/movies-maintenance.module').then(m => m.MoviesMaintenancePageModule)
+    component: MovieListPage,
+    loadChildren: () => import('../movie-list/movie-list.module').then(m => m.MovieListPageModule)
   },
   {
     path: 'desktop/tvserie-list',
-    component: TvSeriesMaintenancePage,
-    loadChildren: () => import('../tvseries-maintenance/tvseries-maintenance.module').then(m => m.TvSeriesMaintenancePageModule)
+    component: TvSerieListPage,
+    loadChildren: () => import('../tvserie-list/tvserie-list.module').then(m => m.TvSerieListPageModule)
   },
   {
     path: 'desktop/genre-list',
-    component: GenresMaintenancePage,
-    loadChildren: () => import('../genres-maintenance/genres-maintenance.module').then(m => m.GenresMaintenancePageModule)
+    component: GenreListPage,
+    loadChildren: () => import('../genre-list/genre-list.module').then(m => m.GenreListPageModule)
   },
   {
     path: 'desktop/menu-list',

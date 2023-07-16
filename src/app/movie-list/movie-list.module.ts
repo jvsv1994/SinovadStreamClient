@@ -2,13 +2,13 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/shared.module';
-import { MoviesMaintenancePage } from './movies-maintenance.page';
 import { ItemListPageModule } from '../item-list/item-list.module';
+import { MovieListPage } from './movie-list.page';
 
 
 @NgModule({
     declarations: [
-      MoviesMaintenancePage
+      MovieListPage
     ],
     imports: [
       CommonModule,
@@ -17,7 +17,7 @@ import { ItemListPageModule } from '../item-list/item-list.module';
       SharedModule,
       ItemListPageModule
     ],
-    exports: [MoviesMaintenancePage]
+    exports: [MovieListPage]
 })
-export class MoviesMaintenancePageModule {
+export class MovieListPageModule {
 }

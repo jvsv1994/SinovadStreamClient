@@ -13,11 +13,11 @@ import { ContextMenuOption } from '../context-menu/contextMenuOption';
 import { ContextMenuPage } from '../context-menu/context-menu.page';
 
 @Component({
-  selector: 'app-genres-maintenance',
-  templateUrl: './genres-maintenance.page.html',
-  styleUrls: ['./genres-maintenance.page.scss']
+  selector: 'app-genre-list',
+  templateUrl: './genre-list.page.html',
+  styleUrls: ['./genre-list.page.scss']
 })
-export class GenresMaintenancePage extends ParentComponent implements OnInit {
+export class GenreListPage extends ParentComponent implements OnInit {
 
   @ViewChild('contextMenuPage') contextMenuPage: ContextMenuPage;
   response:SinovadApiPaginationResponse;
