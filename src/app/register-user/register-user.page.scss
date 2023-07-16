@@ -32,7 +32,7 @@ button{
   box-sizing: border-box !important;
 }
 
-.sinovad-sinovad-form-container{
+.sinovad-container{
   width: 100%;
   height: 100%;
   color: white;
@@ -43,7 +43,7 @@ button{
 }
 
 
-.sinovad-form-content{
+.sinovad-form-container{
   color: white;
   padding: 40px;
   height: 100%;
@@ -57,23 +57,6 @@ button{
     margin-bottom: 20px;
   }
 
-  .sinovad-logo-container{
-    width: 100%;
-    font-size: 20px;
-    text-align: center;
-    font-weight: bold;
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-    img{
-      width: 100%;
-    }
-  }
-  .sinovad-form{
-    max-width: 300px;
-  }
   label{
     font-size: 16px;
   }

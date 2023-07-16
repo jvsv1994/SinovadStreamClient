@@ -3,8 +3,8 @@
     <img [src]="'back-screen.png' | formatDataPipe : 'GetImageURLByKey'">
   </button>
 </div>
-<section id="sinovad-form-container" class="sinovad-sinovad-form-container" [style.height]="'calc(100% - '+header.offsetHeight+'px)'">
-  <div class="sinovad-form-content">
+<section id="sinovad-form-container" class="sinovad-container" [style.height]="'calc(100% - '+header.offsetHeight+'px)'">
+  <div class="sinovad-form-container">
     <div class="sinovad-form" *ngIf="!showSuccessMessage">
       <div class="sinovad-logo-container">
         <img [src]="'sinovad-stream-large-logo.png' | formatDataPipe : 'GetImageURLByKey'">
@@ -14,7 +14,7 @@
       </div>
       <div class="mb-3">
         <label class="form-label">
-            Usuario
+            Correo electrónico
         </label>
         <div class="sinovad-form-textinput-container">
           <input type="text"  [(ngModel)]="registerUserModel.Email"/>
@@ -68,6 +68,9 @@
       </div>
     </div>
     <div *ngIf="showSuccessMessage">
+      <div class="sinovad-logo-container">
+        <img [src]="'sinovad-stream-large-logo.png' | formatDataPipe : 'GetImageURLByKey'">
+      </div>
       <h2>Registro de Usuario</h2>
       <p>Usuario registrado satistactoriamente, verifique su correo electrónico y active su cuenta por favor.</p>
     </div>

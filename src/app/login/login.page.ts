@@ -1,5 +1,5 @@
 
-import { ChangeDetectorRef, Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SharedDataService } from 'src/services/shared-data.service';
 import { EventsService } from 'src/services/events-service';
@@ -24,8 +24,6 @@ export class LoginPage extends ParentComponent implements OnInit {
   title: string;
   errorMessage: string;
   showLoading:boolean=false;
-  @ViewChild('loginFormContainer') loginFormContainer: ElementRef;
-  customKeyboardControlsEvent:any;
   user:User=new User();
   @Output() showSplashScreen =new EventEmitter();
 
@@ -49,7 +47,6 @@ export class LoginPage extends ParentComponent implements OnInit {
   }
 
   ngOnDestroy(){
-    this.loginFormContainer.nativeElement.removeEventListener('keydown',this.customKeyboardControlsEvent);
   }
 
   ngAfterViewInit(){
@@ -57,16 +54,7 @@ export class LoginPage extends ParentComponent implements OnInit {
   }
 
   public initializeLoginViewControls(){
-    if(this.customKeyboardControlsEvent)
-    {
-      this.loginFormContainer.nativeElement.removeEventListener('keydown',this.customKeyboardControlsEvent);
-    }
-    this.focusFullScreenContainer(this.loginFormContainer.nativeElement,this.ref);
-    let ctx=this;
-    this.customKeyboardControlsEvent=function onCustomKeyboardDown(event:any) {
-      ctx.setKeyboardActionsFullScreenPage(event,ctx.loginFormContainer.nativeElement,ctx.ref);
-    }
-    this.loginFormContainer.nativeElement.addEventListener('keydown',this.customKeyboardControlsEvent);
+
   }
 
   public login(){

@@ -3,9 +3,9 @@
     <img [src]="'back-screen.png' | formatDataPipe : 'GetImageURLByKey'">
   </button>
 </div>
-<section id="sinovad-form-container" #loginFormContainer class="sinovad-sinovad-form-container" [ngClass]="{'small':isSmallDevice()}" tabindex="0">
-  <div class="sinovad-form-content">
-    <div>
+<div class="sinovad-container">
+  <div class="sinovad-form-container">
+    <div class="sinovad-form">
       <div class="sinovad-logo-container">
         <img [src]="'sinovad-stream-large-logo.png' | formatDataPipe : 'GetImageURLByKey'">
       </div>
@@ -39,7 +39,7 @@
       </div>
     </div>
   </div>
-</section>
+</div>
 
 <div class="sinovad-spinner-container" *ngIf="showLoading">
   <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>

@@ -1,11 +1,13 @@
-<section id="sinovad-landing-container" class="sinovad-landing-container">
-  <div class="sinovad-landing-form-content">
-    <div>
-      <div class="sinovad-landing-title-container">
-        <!--<span class="first">S</span><span class="second">inovad stream</span>-->
+<section id="sinovad-container" class="sinovad-container">
+  <div class="sinovad-form-container">
+    <div class="sinovad-form">
+      <div class="sinovad-logo-container">
         <img [src]="'sinovad-stream-large-logo.png' | formatDataPipe : 'GetImageURLByKey'">
       </div>
-      <div class="sinovad-landing-form-button-section">
+<!--       <div class="sinovad-title-container">
+        <span class="first">S</span><span class="second">inovad stream</span>
+      </div> -->
+      <div class="sinovad-form-button-section">
         <button class="register" (click)="showRegisterPage()">REGÍSTRATE</button>
         <button class="login" (click)="showLoginPage()">INICIA SESIÓN</button>
       </div>
