@@ -29,7 +29,7 @@ export class SharedDataService {
   configurationData:Configuration=new Configuration();
   platform:string;
   listProfiles:Profile[]=[];
-  listMenus:Menu[];
+  listMenus:Menu[]=[];
 
   constructor() {
 

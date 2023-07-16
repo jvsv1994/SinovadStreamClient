@@ -34,7 +34,6 @@ export class RootDesktopPage extends ParentComponent implements OnInit {
   _window=window;
   currentMediaTypeID:number;
   title:string;
-  selectedSidebarOption:Menu;
   isCollapsedSidebar:boolean=false;
   selectHomeUserOption=new EventEmitter<boolean>();
   unselectSidebarOption=new EventEmitter<boolean>();
@@ -86,20 +85,6 @@ export class RootDesktopPage extends ParentComponent implements OnInit {
       this.isCollapsedSidebar=!this.isCollapsedSidebar;
     }
 
-    public onClickSidebarOption(option:Menu){
-      this.prepareRouterOutlet();
-      this.router.navigateByUrl("/"+this.sharedData.platform+option.Path).then((response) => {
-        this.selectedSidebarOption=option;
-        if(this.isSmallDevice())
-        {
-          this.isCollapsedSidebar=true;
-        }
-      },error=>{
-        console.error(error);
-      });
-    }
-
-
     public prepareRouterOutlet(){
       this.hideContent=true;
       this.ref.detectChanges();
@@ -108,17 +93,16 @@ export class RootDesktopPage extends ParentComponent implements OnInit {
     }
 
     public refresh(){
-      if(this.selectedSidebarOption!=undefined)
-      {
-        this.prepareRouterOutlet();
-        this.refreshSidebarOption.emit(true);
-        this.router.navigateByUrl("/"+this.sharedData.platform+this.selectedSidebarOption.Path);
-      }
+      this.refreshSidebarOption.emit(true);
     }
 
-    public ShowInitial(){
-      this.prepareRouterOutlet();
-      this.selectHomeUserOption.emit(true);
+    public showHome(){
+      this.router.navigateByUrl("/"+this.sharedData.platform+"/home").then((response) => {
+        this.prepareRouterOutlet();
+        this.selectHomeUserOption.emit(true);
+      },error=>{
+        console.error(error);
+      });
     }
 
     public onSearchMedia(searchText:string){
@@ -128,13 +112,13 @@ export class RootDesktopPage extends ParentComponent implements OnInit {
         this.prepareRouterOutlet();
         this.router.navigate([this.sharedData.platform,"search"],{queryParams:{text:searchText},skipLocationChange: false});
       }else{
-        this.ShowInitial();
+        this.showHome();
       }
     }
 
     public closeVideo(){
       this.sharedData.currentVideo=undefined;
-      this.ShowInitial();
+      this.showHome();
       this.toggleVideo.emit(false);
     }
 
@@ -150,7 +134,7 @@ export class RootDesktopPage extends ParentComponent implements OnInit {
       {
         event.selectProfile.subscribe((profile:Profile) => {
           ctx.sharedData.currentProfile=profile;
-          ctx.router.navigate([this.sharedData.platform,'home'],{ skipLocationChange: false});
+          ctx.showHome();
         });
         event.loadedProfiles.subscribe(event => {
           ctx.showSplashScreen=false;
@@ -171,7 +155,7 @@ export class RootDesktopPage extends ParentComponent implements OnInit {
       if(event instanceof ManageMediaPage)
       {
         event.showInitial.subscribe(event => {
-          ctx.ShowInitial();
+          ctx.showHome();
         });
       }
     }

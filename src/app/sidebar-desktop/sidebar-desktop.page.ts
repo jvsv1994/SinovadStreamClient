@@ -57,7 +57,6 @@ export class SideBarDesktopPage extends ParentComponent implements OnInit {
   public selectDefaultOption(){
     this.selectedSidebarModule=this.sharedData.listMenus[0];
     this.selectedSidebarOption=this.selectedSidebarModule.ChildMenus[0];
-    this.onClickSidebarOption(this.selectedSidebarOption,this.selectedSidebarModule);
   }
 
   public setSelectedOptionByPathname(){

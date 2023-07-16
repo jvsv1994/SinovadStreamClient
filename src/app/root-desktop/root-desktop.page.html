@@ -3,7 +3,7 @@
 
 <div *ngIf="sharedData.currentToken!=undefined && sharedData.userData!=undefined" class="sinovad-page-container" [ngClass]="{'small':isSmallDevice()}">
   <div #header>
-    <app-header-desktop (goHome)="ShowInitial()" (executeSearch)="onSearchMedia($event)" (toggleSidebar)="onClickToggleSidebarButton()" (showSplashScreen)="showSplashScreen=true" (logout)="logOut()" (showHomeUser)="ShowInitial()"
+    <app-header-desktop (goHome)="showHome()" (executeSearch)="onSearchMedia($event)" (toggleSidebar)="onClickToggleSidebarButton()" (showSplashScreen)="showSplashScreen=true" (logout)="logOut()" (showHomeUser)="showHome()"
     (logout)="logOut()"></app-header-desktop>
   </div>
   <div class="sinovad-menu-body-container" [style.height]="'calc(100% - '+(header.offsetHeight+footer.offsetHeight)+'px)'">
