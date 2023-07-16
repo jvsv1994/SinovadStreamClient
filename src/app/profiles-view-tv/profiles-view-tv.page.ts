@@ -8,7 +8,6 @@ import { HttpClient} from '@angular/common/http';
 import { RestProviderService } from 'src/services/rest-provider.service';
 import { Profile } from '../../models/profile';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { Router } from '@angular/router';
 
 declare var window;
 @Component({
@@ -24,7 +23,6 @@ export class ProfilesViewTvPage extends ParentComponent implements OnInit {
   currentTmpProfile:Profile;
   customKeyboardControlsEvent:any;
   profilesViewContainer: HTMLElement;
-  showProfilesInfo:boolean=false;
   @Output() selectProfile =new EventEmitter();
   @Output() showProfiles =new EventEmitter();
   @Output() loadedProfiles =new EventEmitter();
@@ -32,7 +30,6 @@ export class ProfilesViewTvPage extends ParentComponent implements OnInit {
   showModal:boolean=false;
 
   constructor(
-    private router: Router,
     private modalService: NgbModal,
     public restProvider: RestProviderService,
     private  ref:ChangeDetectorRef,
@@ -45,13 +42,8 @@ export class ProfilesViewTvPage extends ParentComponent implements OnInit {
     }
 
     ngOnInit(): void {
-      if(!localStorage.getItem('apiKey'))
-      {
-        this.router.navigate([this.sharedData.platform,'landing'],{ skipLocationChange: false});
-      }else{
-        this.showModal=true;
-        this.performGetProfiles();
-      }
+      this.showModal=true;
+      this.performGetProfiles();
     }
 
     ngAfterViewInit(){
@@ -118,12 +110,7 @@ export class ProfilesViewTvPage extends ParentComponent implements OnInit {
 
     public editProfile(profile:any){
       this.currentTmpProfile=JSON.parse(JSON.stringify(profile));
-      if(this.sharedData.platform=='tv')
-      {
-        this.showForm=true;
-      }else{
-        this.showProfilesInfo=true;
-      }
+      this.showForm=true;
     }
 
     public onSelectProfile(profile:any){
@@ -147,7 +134,6 @@ export class ProfilesViewTvPage extends ParentComponent implements OnInit {
 
     public onSaveProfile(){
       this.showForm=false;
-      this.showProfilesInfo=false;
       this.getProfiles().then(response => {
         this.ref.detectChanges();
         setTimeout(() => {

@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/shared.module';
-import { ProfilesInfoPageModule } from '../profiles-info/profiles-info.module';
 import { ProfileFormPageModule } from '../profile-form/profile-form.module';
 import { ProfilesViewTvPage } from './profiles-view-tv.page';
 
@@ -15,7 +14,6 @@ import { ProfilesViewTvPage } from './profiles-view-tv.page';
         FormsModule,
         ReactiveFormsModule,
         SharedModule,
-        ProfilesInfoPageModule,
         ProfileFormPageModule
     ],
     exports: [ProfilesViewTvPage]
