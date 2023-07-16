@@ -27,6 +27,7 @@ export class ProfilesViewPage extends ParentComponent implements OnInit {
   @Output() loadedProfiles =new EventEmitter();
   modalReference:NgbModalRef;
   showModal:boolean=false;
+  showNewPage:boolean=false;
 
   constructor(
     private router: Router,
@@ -91,7 +92,7 @@ export class ProfilesViewPage extends ParentComponent implements OnInit {
         FullName:"",
         UserId:this.sharedData.userData.Id
       };
-      this.showForm=true;
+      this.showNewPage=true;
     }
 
     public editProfile(profile:any){
@@ -115,10 +116,12 @@ export class ProfilesViewPage extends ParentComponent implements OnInit {
 
     public onCloseForm(){
       this.showForm=false;
+      this.showNewPage=false;
     }
 
     public onSaveProfile(){
       this.showForm=false;
+      this.showNewPage=false;
       this.getProfiles();
     }
 }

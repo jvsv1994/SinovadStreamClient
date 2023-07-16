@@ -1,0 +1,30 @@
+<ng-template #modalTarget let-modal>
+  <div class="sinovad-form-page-container">
+    <div class="sinovad-page-header">
+      <div class="sinovad-logo-container sinovaclient-left">
+        <img [src]="'sinovad-stream-large-logo.png' | formatDataPipe : 'GetImageURLByKey'">
+      </div>
+      <div class="sinovaclient-right">
+        <button class="cancel" (click)="close.emit(true)">CANCELAR</button>
+      </div>
+    </div>
+    <div class="sinovad-page-body">
+      <div class="sinovad-page-content">
+        <h2>Crear Perfil</h2>
+        <div class="mb-3">
+          <input type="text" [placeholder]="placeHolder" [(ngModel)]="currentTmpProfile.FullName">
+        </div>
+        <div class="mb-3">
+          <button class="save" (click)="saveProfile()">GUARDAR</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+
+
+
+
+
+

@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProfilesViewPage } from './profiles-view.page';
 import { SharedModule } from 'src/shared.module';
 import { ProfileFormPageModule } from '../profile-form/profile-form.module';
+import { ProfileNewPageModule } from '../profile-new/profile-new.module';
 
 @NgModule({
     declarations: [
@@ -14,7 +15,8 @@ import { ProfileFormPageModule } from '../profile-form/profile-form.module';
         FormsModule,
         ReactiveFormsModule,
         SharedModule,
-        ProfileFormPageModule
+        ProfileFormPageModule,
+        ProfileNewPageModule
     ],
     exports: [ProfilesViewPage]
 })
