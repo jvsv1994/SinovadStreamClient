@@ -1,19 +1,19 @@
 <div class="sinovad-back-button-container">
-  <button id="button_close_form" (click)="onClose()">
+  <button (click)="onClose()">
     <img [src]="'back-screen.png' | formatDataPipe : 'GetImageURLByKey'">
   </button>
 </div>
-<div>
-  <div class="sinovad-form-container">
-    <div>
+<div class="sinovad-container">
+  <div class="sinovad-message-container">
+    <div class="sinovad-message-content">
       <div class="sinovad-logo-container">
         <img [src]="'sinovad-stream-large-logo.png' | formatDataPipe : 'GetImageURLByKey'">
       </div>
-      <div class="sinovad-login-title-container">
+      <div class="sinovad-title-container">
         Confirmación de Email
       </div>
       <ng-template [ngIf]="showInvalidTokenMessage">
-        <div class="sinovad-login-form-error-message-container">
+        <div class="sinovad-form-error-message-container">
           <h2>{{errorMessage}}</h2>
         </div>
       </ng-template>

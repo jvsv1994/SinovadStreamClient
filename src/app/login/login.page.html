@@ -1,11 +1,11 @@
 <div class="sinovad-back-button-container">
-  <button id="button_close_form" (click)="onClose()">
+  <button (click)="onClose()">
     <img [src]="'back-screen.png' | formatDataPipe : 'GetImageURLByKey'">
   </button>
 </div>
 <div class="sinovad-container">
   <div class="sinovad-form-container">
-    <div class="sinovad-form">
+    <div class="sinovad-form-content">
       <div class="sinovad-logo-container">
         <img [src]="'sinovad-stream-large-logo.png' | formatDataPipe : 'GetImageURLByKey'">
       </div>

@@ -15,21 +15,10 @@
   display: flex;
 }
 
-.sinovad-login-form-back-button{
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 60px;
-  padding: 10px 15px 10px 15px;
-  cursor: pointer;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  img{
-    max-width: unset;
-    width: 100%;
-    height: 100%;
-  }
+.sinovad-form-error-message-container{
+  color: red;
+  text-align: center;
+  font-size: 17px;
+  white-space: pre-line;
 }
 
