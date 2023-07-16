@@ -1,5 +1,5 @@
 
-import { ChangeDetectorRef, Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SharedDataService } from 'src/services/shared-data.service';
 import { EventsService } from 'src/services/events-service';
@@ -35,7 +35,6 @@ export class ProfilesViewPage extends ParentComponent implements OnInit {
     private router: Router,
     private modalService: NgbModal,
     public restProvider: RestProviderService,
-    private  ref:ChangeDetectorRef,
     public http: HttpClient,
     public events: EventsService,
     public domSanitizer: DomSanitizer,
@@ -74,7 +73,6 @@ export class ProfilesViewPage extends ParentComponent implements OnInit {
             let ctx=this;
             this.modalReference=this.modalService.open(this.modalTarget, {container:"#sinovadMainContainer",modalDialogClass:'modal-dialog modal-fullscreen',scrollable:true,ariaLabelledBy: 'exampleModalCenteredScrollableTitle'});
             this.modalReference.shown.subscribe(event => {
-              ctx.initializeProfilesViewControls();
               ctx.showProfiles.emit(true);
               ctx.loadedProfiles.emit(true);
             });
@@ -84,20 +82,6 @@ export class ProfilesViewPage extends ParentComponent implements OnInit {
           reject(error);
         });
       });
-    }
-
-    public initializeProfilesViewControls(){
-      this.profilesViewContainer= document.getElementById("profilesViewSection");
-      if(this.customKeyboardControlsEvent)
-      {
-        this.profilesViewContainer.removeEventListener('keydown',this.customKeyboardControlsEvent);
-      }
-      this.focusFullScreenContainer(this.profilesViewContainer,this.ref);
-      let ctx=this;
-      this.customKeyboardControlsEvent=function onCustomKeyboardDown(event:any) {
-        ctx.setKeyboardActionsFullScreenPage(event,ctx.profilesViewContainer,ctx.ref);
-      }
-      this.profilesViewContainer.addEventListener('keydown',this.customKeyboardControlsEvent);
     }
 
     public changeToEditMode(){
@@ -118,12 +102,7 @@ export class ProfilesViewPage extends ParentComponent implements OnInit {
 
     public editProfile(profile:any){
       this.currentTmpProfile=JSON.parse(JSON.stringify(profile));
-      if(this.sharedData.platform=='tv')
-      {
-        this.showForm=true;
-      }else{
-        this.showProfilesInfo=true;
-      }
+      this.showProfilesInfo=true;
     }
 
     public onSelectProfile(profile:any){
@@ -142,19 +121,11 @@ export class ProfilesViewPage extends ParentComponent implements OnInit {
 
     public onCloseForm(){
       this.showForm=false;
-      this.initializeProfilesViewControls();
     }
 
     public onSaveProfile(){
       this.showForm=false;
       this.showProfilesInfo=false;
-      this.getProfiles().then(response => {
-        this.ref.detectChanges();
-        setTimeout(() => {
-          this.initializeProfilesViewControls();
-        }, 100);
-      },error=>{
-
-      });
+      this.getProfiles();
     }
 }

@@ -38,14 +38,23 @@ input{
   width: 100%;
   height: 100%;
   display: block;
-  padding-top: 40px;
+}
+.sinovad-page-header{
+  padding: 10px;
 }
 
-.sinovad-profiles-view-header{
-  font-size: 45px;
+.sinovad-logo-container{
+  img{
+    max-width: 200px;
+  }
+}
+
+.sinovad-profiles-view-title-container{
+  font-size: 32px;
   color: white;
   text-align: center;
   padding-bottom: 60px;
+  font-weight: bold;
 }
 
 .sinovad-profiles-view-body{
@@ -64,6 +73,7 @@ input{
     opacity: 0.8;
     padding: 0;
     margin-right: 20px;
+    width: 140px;
   }
   button:last-child{
     margin-right: 0px;
@@ -98,31 +108,29 @@ input{
     border: none;
     outline: none;
     opacity: 0.8;
-    padding: 10px 60px 10px 60px;
     background: lightslategrey;
-    color: whitesmoke;
-    font-size: 26px;
+    color: white;
+    font-size: 15px;
+    height: 48PX;
+    padding: 0px 24px;
+  }
+  button.ready{
+    background: #007bff;
   }
   button:hover{
-    background: white;
-    color: black;
     opacity: 1;
   }
   button:focus-visible{
-    background: white;
-    color: black;
     opacity: 1;
   }
   button:focus{
-    background: white;
-    color: black;
     opacity: 1;
   }
 }
 
 .sinovad-initials-profile{
-  width: 180px;
-  height: 180px;
+  width: 140px;
+  height: 140px;
   border-radius: 100px;
   border: none;
   display: flex;
@@ -132,6 +140,7 @@ input{
   background: blueviolet;
   color: white;
 }
+
 
 .sinovad-initials-profile.add{
   background: lightslategrey;
@@ -213,7 +222,7 @@ input{
 }
 
 :host.small{
-  .sinovad-profiles-view-header{
+  .sinovad-profiles-view-title-container{
     font-size: 23px;
     padding-bottom: 20px;
   }
