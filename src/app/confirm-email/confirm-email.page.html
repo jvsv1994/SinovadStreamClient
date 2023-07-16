@@ -13,9 +13,7 @@
         Confirmación de Email
       </div>
       <ng-template [ngIf]="showInvalidTokenMessage">
-        <div class="sinovad-form-error-message-container">
-          <h2>{{errorMessage}}</h2>
-        </div>
+        <h2 class="error">{{errorMessage}}</h2>
       </ng-template>
       <ng-template [ngIf]="showSuccessMessage">
         <h2>Su correo ha sido confirmado, ya puede iniciar sesión</h2>
