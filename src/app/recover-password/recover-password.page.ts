@@ -1,5 +1,5 @@
 
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SharedDataService } from 'src/services/shared-data.service';
 import { EventsService } from 'src/services/events-service';
@@ -22,7 +22,6 @@ export class RecoverPasswordPage extends ParentComponent implements OnInit {
   title: string;
   errorMessage: string;
   showLoading:boolean=false;
-  @ViewChild('recoverPasswordFormContainer') recoverPasswordFormContainer: ElementRef;
   customKeyboardControlsEvent:any;
   recoverPasswordModel=new RecoverPasswordModel();
   sendedConfirmationEmail:boolean=false;
