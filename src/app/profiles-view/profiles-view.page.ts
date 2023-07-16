@@ -148,7 +148,13 @@ export class ProfilesViewPage extends ParentComponent implements OnInit {
     public onSaveProfile(){
       this.showForm=false;
       this.showProfilesInfo=false;
-      this.initializeProfilesViewControls();
-      this.performGetProfiles();
+      this.getProfiles().then(response => {
+        this.ref.detectChanges();
+        setTimeout(() => {
+          this.initializeProfilesViewControls();
+        }, 100);
+      },error=>{
+
+      });
     }
 }
