@@ -1,6 +1,6 @@
 <ng-template [ngIf]="showModal">
   <ng-template #modalTarget let-modal>
-    <div id="profilesViewSection" class="sinovad-profiles-view-container sinovad-profiles-section">
+    <div class="sinovad-profiles-view-container sinovad-profiles-section">
       <div class="sinovad-profiles-view-content" #profilesViewContent>
         <div #profilesViewHeader class="sinovad-page-header">
           <div class="sinovad-logo-container">
@@ -55,8 +55,6 @@
     </div>
   </ng-template>
 </ng-template>
-
-<app-profiles-info *ngIf="showProfilesInfo" [currentTmpProfile]="currentTmpProfile" (closeWithChanges)="onSaveProfile()"></app-profiles-info>
 
 <app-profile-form *ngIf="showForm" [currentTmpProfile]="currentTmpProfile" (close)="onCloseForm()" (closeWithChanges)="onSaveProfile()"></app-profile-form>
 

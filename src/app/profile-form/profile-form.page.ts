@@ -18,18 +18,16 @@ declare var window;
 })
 export class ProfileFormPage extends ParentComponent implements OnInit {
 
-  @ViewChild('modalTarget') modalTarget: ElementRef;
-  customKeyboardProfileFormEvent:any;
-  profileFormContainer: HTMLElement;
-  @Input() currentTmpProfile:Profile;
   @Output() close =new EventEmitter();
   @Output() closeWithChanges =new EventEmitter();
+  @ViewChild('modalTarget') modalTarget: ElementRef;
+  @Input() currentTmpProfile:Profile;
+  @ViewChild('profileInfoModal') profileInfoModal: ElementRef;
   modalReference:NgbModalRef;
 
   constructor(
     private modalService: NgbModal,
     public restProvider: RestProviderService,
-    private  ref:ChangeDetectorRef,
     public http: HttpClient,
     public events: EventsService,
     public domSanitizer: DomSanitizer,
@@ -38,39 +36,8 @@ export class ProfileFormPage extends ParentComponent implements OnInit {
 
     }
 
-    ngOnDestroy(){
-      this.profileFormContainer.removeEventListener('keydown',this.customKeyboardProfileFormEvent);
-    }
-
     ngAfterViewInit(){
-      let ctx=this;
       this.modalReference=this.modalService.open(this.modalTarget, {container:"#sinovadMainContainer",modalDialogClass:'modal-dialog modal-fullscreen',scrollable:true,ariaLabelledBy: 'exampleModalCenteredScrollableTitle'});
-      this.modalReference.shown.subscribe(event => {
-        ctx.initializeProfileFormControls();
-      });
-    }
-
-    public initializeProfileFormControls(){
-      this.profileFormContainer= document.getElementById("profileFormSection");
-      if(this.customKeyboardProfileFormEvent)
-      {
-        this.profileFormContainer.removeEventListener('keydown',this.customKeyboardProfileFormEvent);
-      }
-      this.focusFullScreenContainer(this.profileFormContainer,this.ref);
-      let ctx=this;
-      this.customKeyboardProfileFormEvent=function onCustomKeyboardDown(event:any) {
-        ctx.setKeyboardActionsFullScreenPage(event,ctx.profileFormContainer,ctx.ref);
-      }
-      this.profileFormContainer.addEventListener('keydown',this.customKeyboardProfileFormEvent);
-    }
-
-    public onChangeProfileName(event:any){
-      this.currentTmpProfile.FullName=event.target.value;
-    }
-
-    public showKeyboard(input:any){
-      input.autofocus=true;
-      input.focus();
     }
 
     public saveProfile(){
@@ -84,9 +51,14 @@ export class ProfileFormPage extends ParentComponent implements OnInit {
       });
     }
 
-    public closeForm(){
-      this.modalReference.close();
-      this.close.emit(true);
+    public onClickDeleteButton(){
+      this.restProvider.executeSinovadApiService(HttpMethodType.DELETE,'/profiles/Delete/'+this.currentTmpProfile.Id).then((response) => {
+        this.modalReference.close();
+        this.closeWithChanges.emit(true);
+      },error=>{
+        console.error(error);
+      });
     }
+
 
 }

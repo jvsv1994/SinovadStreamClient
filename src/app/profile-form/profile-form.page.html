@@ -1,31 +1,25 @@
-
 <ng-template #modalTarget let-modal>
-  <section #profileFormContainer id="profileFormSection" class="sinovad-profile-form-container" tabindex="0">
-    <div class="sinovad-profiles-view-content">
-      <section id="profile_form_section_header" class="sinovad-profiles-view-header" tabindex="0">
-        <div class="sinovad-screen-back-container">
-          <div class="sinovad-screen-back-content">
-              <button id="button_close_form" (click)="closeForm()">
-                <img [src]="'back-screen.png' | formatDataPipe : 'GetImageURLByKey'">
-              </button>
-          </div>
-        </div>
-        <span *ngIf="!currentTmpProfile.Id">Escribe un nombre de perfil</span>
-        <span *ngIf="currentTmpProfile.Id">Editar nombre de perfil</span>
-      </section>
-      <section id="profile_form_section_body" class="sinovad-profile-form-input-container" tabindex="0">
-        <input #input type="text" id="button_name_profile" [value]="currentTmpProfile.FullName" placeholder="Nombre de Perfil" (click)="showKeyboard(input)" (change)="onChangeProfileName($event)">
-      </section>
-      <section id="profile_form_section_footer" class="sinovad-profile-form-footer" tabindex="0">
-        <button id="button_save_profile" (click)="saveProfile()">
-          GUARDAR
-        </button>
-      </section>
+  <div class="sinovad-form-page-container">
+    <div class="sinovad-page-header">
+      <div class="sinovad-logo-container sinovaclient-left">
+        <img [src]="'sinovad-stream-large-logo.png' | formatDataPipe : 'GetImageURLByKey'">
+      </div>
+      <div class="sinovaclient-right">
+        <button (click)="saveProfile()">Listo</button>
+      </div>
     </div>
-  </section>
+    <div class="sinovadclient-modal-content">
+      <div>
+        <h2 *ngIf="currentTmpProfile.Id>0">Editar Perfil</h2>
+        <h2 *ngIf="!currentTmpProfile.Id">Nuevo Perfil</h2>
+        <input type="text" [(ngModel)]="currentTmpProfile.FullName">
+      </div>
+    </div>
+    <div class="sinovaclient-footer-content">
+      <button *ngIf="currentTmpProfile && currentTmpProfile.Id>0 && !currentTmpProfile.Main" (click)="onClickDeleteButton()">Eliminar Perfil</button>
+    </div>
+  </div>
 </ng-template>
-
-
 
 
 

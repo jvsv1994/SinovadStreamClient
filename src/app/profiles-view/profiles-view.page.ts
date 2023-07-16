@@ -22,9 +22,6 @@ export class ProfilesViewPage extends ParentComponent implements OnInit {
   enableEditMode:boolean=false;
   showForm:boolean=false;
   currentTmpProfile:Profile;
-  customKeyboardControlsEvent:any;
-  profilesViewContainer: HTMLElement;
-  showProfilesInfo:boolean=false;
   @Output() selectProfile =new EventEmitter();
   @Output() showProfiles =new EventEmitter();
   @Output() loadedProfiles =new EventEmitter();
@@ -59,10 +56,7 @@ export class ProfilesViewPage extends ParentComponent implements OnInit {
 
 
     ngOnDestroy(){
-      if(this.profilesViewContainer!=undefined)
-      {
-        this.profilesViewContainer.removeEventListener('keydown',this.customKeyboardControlsEvent);
-      }
+
     }
 
     public performGetProfiles(): Promise<any>{
@@ -102,7 +96,7 @@ export class ProfilesViewPage extends ParentComponent implements OnInit {
 
     public editProfile(profile:any){
       this.currentTmpProfile=JSON.parse(JSON.stringify(profile));
-      this.showProfilesInfo=true;
+      this.showForm=true;
     }
 
     public onSelectProfile(profile:any){
@@ -125,7 +119,6 @@ export class ProfilesViewPage extends ParentComponent implements OnInit {
 
     public onSaveProfile(){
       this.showForm=false;
-      this.showProfilesInfo=false;
       this.getProfiles();
     }
 }
