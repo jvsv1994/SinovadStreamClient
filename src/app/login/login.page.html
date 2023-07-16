@@ -4,12 +4,12 @@
   </button>
 </div>
 <section id="sinovad-form-container" #loginFormContainer class="sinovad-sinovad-form-container" [ngClass]="{'small':isSmallDevice()}" tabindex="0">
-  <div class="sinovad-login-form-content">
+  <div class="sinovad-form-content">
     <div>
       <div class="sinovad-logo-container">
         <img [src]="'sinovad-stream-large-logo.png' | formatDataPipe : 'GetImageURLByKey'">
       </div>
-      <div class="sinovad-login-title-container">
+      <div class="sinovad-title-container">
         Inicia sesión
       </div>
       <div class="mb-3">
@@ -31,7 +31,7 @@
       <div class="mb-3">
         <button class="enter" (click)="login()">INGRESAR</button>
       </div>
-      <div class="sinovad-login-form-error-message-container">
+      <div class="sinovad-form-error-message-container">
         {{errorMessage}}
       </div>
       <div class="mb-3">

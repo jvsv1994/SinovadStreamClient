@@ -1,90 +1,69 @@
-<div class="sinovad-back-button-container">
+<div #header class="sinovad-back-button-container">
   <button id="button_close_form" (click)="onClose()">
     <img [src]="'back-screen.png' | formatDataPipe : 'GetImageURLByKey'">
   </button>
 </div>
-<section id="sinovad-form-container" class="sinovad-sinovad-form-container" [ngClass]="{'small':isSmallDevice()}" tabindex="0">
-  <div class="sinovad-login-form-content">
-    <div *ngIf="!showSuccessMessage">
-      <div class="sinovad-login-title-container">
+<section id="sinovad-form-container" class="sinovad-sinovad-form-container" [style.height]="'calc(100% - '+header.offsetHeight+'px)'">
+  <div class="sinovad-form-content">
+    <div class="sinovad-form" *ngIf="!showSuccessMessage">
+      <div class="sinovad-logo-container">
+        <img [src]="'sinovad-stream-large-logo.png' | formatDataPipe : 'GetImageURLByKey'">
+      </div>
+      <div class="sinovad-title-container">
         Regístrate
       </div>
-      <section id="sinovad-form-container-UserName-section" class="sinovad-login-form-caption-input-container" tabindex="0">
-        <div class="sinovad-form-caption-input-content">
-          <div class="sinovad-login-form-caption-container">
-            <span>
-              Correo electrónico
-            </span>
-          </div>
-          <div class="sinovad-form-textinput-container">
-            <input type="text" [(ngModel)]="registerUserModel.Email"/>
-          </div>
+      <div class="mb-3">
+        <label class="form-label">
+            Usuario
+        </label>
+        <div class="sinovad-form-textinput-container">
+          <input type="text"  [(ngModel)]="registerUserModel.Email"/>
         </div>
-      </section>
-      <section id="sinovad-form-container-UserName-section" class="sinovad-login-form-caption-input-container">
-        <div class="sinovad-form-caption-input-content">
-          <div class="sinovad-login-form-caption-container">
-            <span>
-              Nombres
-            </span>
-          </div>
-          <div class="sinovad-form-textinput-container">
-            <input type="text" [(ngModel)]="registerUserModel.FirstName"/>
-          </div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">
+          Nombres
+        </label>
+        <div class="sinovad-form-textinput-container">
+          <input type="text"  [(ngModel)]="registerUserModel.FirstName"/>
         </div>
-      </section>
-      <section id="sinovad-form-container-UserName-section" class="sinovad-login-form-caption-input-container">
-        <div class="sinovad-form-caption-input-content">
-          <div class="sinovad-login-form-caption-container">
-            <span>
-              Apellidos
-            </span>
-          </div>
-          <div class="sinovad-form-textinput-container">
-            <input type="text" [(ngModel)]="registerUserModel.LastName"/>
-          </div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">
+          Apellidos
+        </label>
+        <div class="sinovad-form-textinput-container">
+          <input type="text"  [(ngModel)]="registerUserModel.LastName"/>
         </div>
-      </section>
-      <section id="sinovad-form-container-UserName-section" class="sinovad-login-form-caption-input-container">
-        <div class="sinovad-form-caption-input-content">
-          <div class="sinovad-login-form-caption-container">
-            <span>
-              Usuario
-            </span>
-          </div>
-          <div class="sinovad-form-textinput-container">
-            <input type="text" [(ngModel)]="registerUserModel.UserName"/>
-          </div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">
+          Usuario
+        </label>
+        <div class="sinovad-form-textinput-container">
+          <input type="text"  [(ngModel)]="registerUserModel.UserName"/>
         </div>
-      </section>
-      <section id="sinovad-form-container-password-section" class="sinovad-login-form-caption-input-container">
-        <div class="sinovad-form-caption-input-content">
-          <div class="sinovad-login-form-caption-container">
-            <span>
-              Contraseña
-            </span>
-          </div>
-          <div class="sinovad-form-textinput-container">
-            <input id="password-input" type="password" [(ngModel)]="registerUserModel.Password"/>
-          </div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">
+          Contraseña
+        </label>
+        <div class="sinovad-form-textinput-container">
+          <input type="password" [(ngModel)]="registerUserModel.Password"/>
         </div>
-      </section>
-      <section id="sinovad-form-container-password-section" class="sinovad-login-form-caption-input-container">
-        <div class="sinovad-form-caption-input-content">
-          <div class="sinovad-login-form-caption-container">
-            <span>
-              Confirmar contraseña
-            </span>
-          </div>
-          <div class="sinovad-form-textinput-container">
-            <input id="password-input" type="password" [(ngModel)]="registerUserModel.ConfirmPassword"/>
-          </div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">
+          Confirmar contraseña
+        </label>
+        <div class="sinovad-form-textinput-container">
+          <input type="password" [(ngModel)]="registerUserModel.ConfirmPassword"/>
         </div>
-      </section>
-      <section id="sinovad-form-container-button-section" class="sinovad-login-form-button-section">
-        <button id="log-in-button" (click)="register()">Registrar</button>
-      </section>
-      <div class="sinovad-login-form-error-message-container">
+      </div>
+      <div class="mb-3">
+        <button class="register" (click)="register()">Registrar</button>
+      </div>
+      <div class="sinovad-form-error-message-container">
         {{errorMessage}}
       </div>
     </div>
