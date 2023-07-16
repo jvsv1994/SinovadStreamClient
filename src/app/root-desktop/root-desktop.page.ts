@@ -97,6 +97,10 @@ export class RootDesktopPage extends ParentComponent implements OnInit {
 
     public showHome(){
       this.router.navigateByUrl("/"+this.sharedData.platform+"/home").then((response) => {
+        if(this.isSmallDevice())
+        {
+          this.isCollapsedSidebar=true;
+        }
         this.prepareRouterOutlet();
         this.selectHomeUserOption.emit(true);
       },error=>{
