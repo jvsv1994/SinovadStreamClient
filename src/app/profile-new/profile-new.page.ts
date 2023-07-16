@@ -52,6 +52,11 @@ export class ProfileNewPage extends ParentComponent implements OnInit {
       });
     }
 
+    public onCloseProfileNew(){
+      this.modalReference.close();
+      this.close.emit(true);
+    }
+
     public onClickDeleteButton(){
       this.restProvider.executeSinovadApiService(HttpMethodType.DELETE,'/profiles/Delete/'+this.currentTmpProfile.Id).then((response) => {
         this.modalReference.close();
