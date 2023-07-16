@@ -30,6 +30,7 @@ export class SharedDataService {
   platform:string;
   listProfiles:Profile[]=[];
   listMenus:Menu[]=[];
+  pageNotFoundShowing:boolean=false;
 
   constructor() {
 

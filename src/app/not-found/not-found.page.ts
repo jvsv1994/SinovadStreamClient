@@ -28,11 +28,15 @@ export class NotFoundPage extends ParentComponent implements OnInit {
     }
 
   ngOnInit(): void {
-
+    this.sharedData.pageNotFoundShowing=true;
   }
 
   public goHome(){
-    this.router.navigate([this.sharedData.platform,'home'],{ skipLocationChange: false});
+    this.router.navigateByUrl("/"+this.sharedData.platform+"/home").then((response) => {
+      this.sharedData.pageNotFoundShowing=false;
+    },error=>{
+      console.error(error);
+    });
   }
 
 

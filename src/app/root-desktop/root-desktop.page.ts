@@ -18,7 +18,6 @@ import { TvSerieDetailPage } from '../tvserie-detail/tvserie-detail.page';
 import { MovieDetailPage } from '../movie-detail/movie-detail.page';
 import { ProfilesViewPage } from '../profiles-view/profiles-view.page';
 import { LoginPage } from '../login/login.page';
-import { Menu } from '../../models/menu';
 
 @Component({
   selector: 'app-root-desktop',
