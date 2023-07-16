@@ -1,0 +1,268 @@
+:host{
+  width: 100%;
+  height: 100%;
+}
+
+.sinovad-profiles-section{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: black;
+}
+
+button{
+  outline:none !important;
+  cursor: pointer !important;
+  box-sizing: border-box !important;
+}
+
+section{
+  outline: none;
+}
+
+input{
+  outline: none;
+}
+
+
+.sinovad-profiles-view-content{
+  width: 100%;
+  height: 100%;
+  display: block;
+  padding-top: 40px;
+}
+
+.sinovad-profiles-view-header{
+  font-size: 45px;
+  color: white;
+  text-align: center;
+  padding-bottom: 60px;
+}
+
+.sinovad-profiles-view-body{
+  overflow-y: auto;
+}
+
+.sinovad-initials-profile{
+  width: 180px;
+  height: 180px;
+  border-radius: 100px;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 80px;
+  background: blueviolet;
+  color: white;
+}
+
+.sinovad-initials-profile.add{
+  background: lightslategrey;
+  img{
+    width: 90px;
+  }
+}
+
+
+.sinovad-icon-edit-profile-container{
+  display: block;
+  position: relative;
+}
+
+.sinovad-icon-edit-profile-content{
+  display: block;
+  position: absolute;
+  right: 0;
+  top: -55px;
+  background: white;
+  border-radius: 25px;
+  padding: 10px;
+  border: none;
+  img{
+    width: 20px;
+  }
+}
+
+.sinovad-fullname-profile{
+  display: block;
+  color: white;
+  font-size: 30px;
+  padding-top: 10px;
+}
+
+
+.sinovad-profile-form-container{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: black;
+}
+
+
+.sinovad-profile-form-input-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  input{
+    height: 50px;
+    min-width: 60%;
+    font-size: 25px;
+    padding: 0px 16px 0px 16px;
+    border: none;
+    background: lightslategrey;
+    color: white;
+    opacity: 0.8;
+    border: 2px solid transparent;
+  }
+  input::placeholder {
+    color: white;
+  }
+  input:hover{
+    opacity: 1;
+    border: 2px solid white;
+  }
+  input:focus-visible{
+    opacity: 1;
+    border: 2px solid white;
+  }
+  input:focus{
+    opacity: 1;
+    border: 2px solid white;
+  }
+}
+
+
+.sinovad-profile-form-footer{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 60px;
+  height: 60px;
+  button{
+    border: none;
+    opacity: 0.8;
+    padding: 10px 90px 10px 90px;
+    background: red;
+    color: white;
+    font-size: 20px;
+  }
+  button:hover{
+    opacity: 1;
+    padding: 12px 94px 12px 94px;
+  }
+  button:focus-visible{
+    opacity: 1;
+    padding: 12px 94px 12px 94px;
+  }
+  button:focus{
+    opacity: 1;
+    padding: 12px 94px 12px 94px;
+  }
+}
+
+.sinovad-screen-back-container{
+  position: relative;
+}
+
+.sinovad-screen-back-content{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left:0;
+  button{
+    background: transparent;
+    border: none;
+    left: 0;
+    position: absolute;
+    margin-left: 20px;
+    opacity: 0.8;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    img{
+      width: 50px;
+    }
+  }
+  button:hover{
+    opacity: 1;
+    img{
+      width: 54px;
+    }
+  }
+  button:focus-visible{
+    opacity: 1;
+    img{
+      width: 54px;
+    }
+  }
+  button:focus{
+    opacity: 1;
+    img{
+      width: 54px;
+    }
+  }
+}
+
+:host.small{
+  .sinovad-profiles-view-header{
+    font-size: 23px;
+    padding-bottom: 20px;
+  }
+  .sinovad-profiles-view-footer{
+    padding-top: 20px;
+  }
+  .sinovad-profiles-view-footer{
+    button{
+      padding: 6px 20px 6px 20px;
+      font-size: 20px;
+    }
+  }
+  .sinovad-initials-profile{
+    width: 130px;
+    height: 130px;
+    font-size: 60px;
+  }
+  .sinovad-fullname-profile{
+    font-size: 23px;
+  }
+  .sinovad-profiles-view-list-container{
+    gap: 20px;
+    button{
+      margin-right: 0px;
+    }
+  }
+  .sinovad-screen-back-content{
+    button{
+      bottom: 2px;
+      margin-left: 0px;
+      height: unset;
+      padding: 0px;
+      img{
+        width: 40px;
+        height: 30px;
+      }
+    }
+  }
+  .sinovad-profile-form-input-container{
+    input{
+      font-size: 20px;
+    }
+  }
+  .sinovad-profile-form-footer{
+    margin-top: 10px;
+    button{
+      padding: 10px 30px 10px 30px;
+      font-size: 20px;
+    }
+  }
+}

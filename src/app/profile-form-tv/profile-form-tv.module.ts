@@ -2,21 +2,21 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/shared.module';
-import { ProfilesViewTvPage } from './profiles-view-tv.page';
-import { ProfileFormTvPageModule } from '../profile-form-tv/profile-form-tv.module';
+import { ProfilesInfoPageModule } from '../profiles-info/profiles-info.module';
+import { ProfileFormTvPage } from './profile-form-tv.page';
 
 @NgModule({
     declarations: [
-        ProfilesViewTvPage
+        ProfileFormTvPage
     ],
     imports: [
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
         SharedModule,
-        ProfileFormTvPageModule
+        ProfilesInfoPageModule
     ],
-    exports: [ProfilesViewTvPage]
+    exports: [ProfileFormTvPage]
 })
-export class ProfilesViewTvPageModule {
+export class ProfileFormTvPageModule {
 }
