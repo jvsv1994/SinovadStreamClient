@@ -73,10 +73,10 @@ export class ResetPasswordPage extends ParentComponent implements OnInit {
             console.error(error);
           });
         }else{
-          this.router.navigate([this.sharedData.platform,'home'],{ skipLocationChange: false});
+          this.showInvalidTokenMessage=true;
         }
       }catch(e){
-        this.router.navigate([this.sharedData.platform,'home'],{ skipLocationChange: false});
+        this.showInvalidTokenMessage=true;
       }
     }else{
       this.router.navigate([this.sharedData.platform,'home'],{ skipLocationChange: false});
