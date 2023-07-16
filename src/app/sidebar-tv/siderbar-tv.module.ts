@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/shared.module';
 import { SideBarTvPage } from './sidebar-tv.page';
-import { ProfilesViewPageModule } from '../profiles-view/profiles-view.module';
+import { ProfilesViewTvPageModule } from '../profiles-view-tv/profiles-view-tv.module';
 
 @NgModule({
     declarations: [
@@ -14,7 +14,7 @@ import { ProfilesViewPageModule } from '../profiles-view/profiles-view.module';
         FormsModule,
         SharedModule,
         ReactiveFormsModule,
-        ProfilesViewPageModule
+        ProfilesViewTvPageModule
     ],
     exports: [SideBarTvPage]
 })

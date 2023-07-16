@@ -29,6 +29,6 @@
     </div>
   </div>
 
-<app-profiles-view *ngIf="showProfilesView" (showProfiles)="showProfiles.emit(true)" (selectProfile)="onSelectProfile($event)" [ngClass]="{'small':isSmallDevice()}"></app-profiles-view>
+<app-profiles-view-tv *ngIf="showProfilesView" (showProfiles)="showProfiles.emit(true)" (selectProfile)="onSelectProfile($event)" [ngClass]="{'small':isSmallDevice()}"></app-profiles-view-tv>
 
 
