@@ -31,7 +31,7 @@ export class FormatDataPipe implements PipeTransform {
           {
             output = "assets/sound/"+input;
           }else{
-            output = this.sharedData.urlSinovadStreamWebApi+"/assets/sound/"+input;
+            output = this.sharedData.urlSinovadCdn+"/assets/sound/"+input;
           }
         }
         break;

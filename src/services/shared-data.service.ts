@@ -17,9 +17,6 @@ export class SharedDataService {
   //urlSinovadStreamWebApi: string='http://localhost:53363';
   urlSinovadStreamWebApi: string='http://streamapi.sinovad.com';
   urlSinovadCdn: string='http://cdn.sinovad.com/stream/web';
-  storageMoviesBaseUrl: string='http://192.168.18.217:80/movies';
-  storageAnimesBaseUrl: string='http://192.168.18.217:80/animes';
-  storageSeriesBaseUrl: string='http://192.168.18.217:80/series';
   originalUrlImagesMovieDataBase:String="https://image.tmdb.org/t/p/w600_and_h900_bestv2";
   urlEpisodeDataBase:string="https://www.themoviedb.org/t/p/w454_and_h254_bestv2";
   currentSelectedElement:any;
