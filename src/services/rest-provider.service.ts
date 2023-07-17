@@ -62,7 +62,7 @@ export class RestProviderService {
   }
 
   public executeSinovadApiService(methodType:HttpMethodType,routePath:string,body?:any): Promise<any>{
-    let link=this.sharedData.urlSinovadBackEnd+"/api/v1"+routePath;
+    let link=this.sharedData.urlSinovadStreamWebApi+"/api/v1"+routePath;
     return new Promise((resolve, reject) => {
       this.performExecuteMethod(methodType,link,body).then((response: any) => {
         resolve(JSON.parse(response));

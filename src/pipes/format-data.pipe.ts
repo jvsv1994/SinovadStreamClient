@@ -20,7 +20,7 @@ export class FormatDataPipe implements PipeTransform {
           {
             output = "assets/icon/"+input;
           }else{
-            output = this.sharedData.urlSinovadBackEnd+"/assets/icon/"+input;
+            output = this.sharedData.urlSinovadCdn+"/assets/icon/"+input;
           }
         }
         break;
@@ -31,7 +31,7 @@ export class FormatDataPipe implements PipeTransform {
           {
             output = "assets/sound/"+input;
           }else{
-            output = this.sharedData.urlSinovadBackEnd+"/assets/sound/"+input;
+            output = this.sharedData.urlSinovadStreamWebApi+"/assets/sound/"+input;
           }
         }
         break;
