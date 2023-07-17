@@ -81,7 +81,7 @@ export class SideBarDesktopPage extends ParentComponent implements OnInit {
     this.router.navigateByUrl("/"+this.sharedData.platform+option.Path).then((response) => {
       ctx.selectedSidebarOption=option;
       ctx.selectedSidebarModule=module;
-      if(ctx.isSmallDevice)
+      if(ctx.isSmallDevice())
       {
         ctx.hideSidebar.emit(true);
       }
