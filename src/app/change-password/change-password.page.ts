@@ -34,5 +34,9 @@ export class ChangePasswordPage extends ParentComponent implements OnInit {
 
     }
 
+    public changePasword(){
+
+    }
+
 
 }
