@@ -34,12 +34,13 @@ button{
   button{
     float: right;
     font-size: 20px;
-    padding: 12px 20px 12px 20px;
     background: #007bff;
     color: #f9f9f9;
     border-radius: 5px;
     border: none;
     opacity: 0.8;
+    height: 48px;
+    padding: 0px 24px;
   }
   button:hover{
     opacity: 1;
@@ -145,5 +146,47 @@ button{
    opacity: 1;
   }
 }
+
+
+@media only screen and (max-width: 767px) {
+  .sinovad-page-header{
+    .sinovad-logo-container{
+      img{
+        max-width: 170px;
+      }
+    }
+  }
+  .sinovad-page-container{
+    .sinovad-page-content{
+      .top-container{
+        text-align: center;
+      }
+      .bottom-container{
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        .first{
+          order: 2;
+        }
+        .second{
+          display: flex;
+          justify-content: center;
+          margin: 0px;
+          order: 1;
+          margin-bottom: 20px;
+          button{
+            .sinovad-initials-profile{
+              width: 140px;
+              height: 140px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+
 
 
