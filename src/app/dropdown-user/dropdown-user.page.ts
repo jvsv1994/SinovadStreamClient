@@ -41,13 +41,17 @@ export class DropDownUserPage extends ParentComponent implements OnInit {
 
   public onClickChangeProfileButton(){
     this.showSplashScreen.emit(true);
-    this.router.navigate([this.sharedData.platform,'select-profile'],{ skipLocationChange: false});
+    this.router.navigateByUrl("/"+this.sharedData.platform+'/select-profile')
   }
 
   public onSelectProfile(profile:Profile)
   {
     this.sharedData.currentProfile=profile;
     this.changeProfile.emit(true);
+  }
+
+  public onClickAccountOption(){
+    this.router.navigateByUrl("/"+this.sharedData.platform+'/account')
   }
 
 }

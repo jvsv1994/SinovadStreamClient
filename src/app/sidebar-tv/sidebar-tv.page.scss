@@ -39,7 +39,7 @@ button{
   opacity: 0.7;
   display: flex;
   align-items: center;
-  .sinovad-intials-profile{
+  .sinovad-initials-profile{
     width: 50px;
     height: 50px;
     border-radius: 25px;
@@ -57,7 +57,7 @@ button{
 }
 
 .sinovad-avatar-button:hover{
-  .sinovad-intials-profile{
+  .sinovad-initials-profile{
     border-color: white;
     border: 2px solid white;
   }
@@ -66,7 +66,7 @@ button{
 }
 
 .sinovad-avatar-button:focus-visible{
-  .sinovad-intials-profile{
+  .sinovad-initials-profile{
     border-color: white;
     border: 2px solid white;
   }
@@ -75,7 +75,7 @@ button{
 }
 
 .sinovad-avatar-button:focus{
-  .sinovad-intials-profile{
+  .sinovad-initials-profile{
     border-color: white !important;
     border: 2px solid white;
   }

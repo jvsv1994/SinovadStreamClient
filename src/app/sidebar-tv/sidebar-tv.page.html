@@ -1,7 +1,7 @@
   <div class="sinovad-avatar-container">
     <button #button id="avatar_button" class="sinovad-avatar-button" (click)="onClickAvatarButton()">
       <ng-template [ngIf]="sharedData.currentProfile">
-        <div class="sinovad-intials-profile">
+        <div class="sinovad-initials-profile">
           {{getInitials(sharedData.currentProfile)}}
         </div>
         <div class="sinovad-fullname-profile">
