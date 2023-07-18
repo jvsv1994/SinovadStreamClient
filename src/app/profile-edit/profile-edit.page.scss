@@ -94,7 +94,9 @@ button{
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 30px;
+            font-size: 80px;
+            background-color: lightslategrey;
+            color: white;
           }
           .sinovad-icon-edit-profile-container{
             display: block;
@@ -127,7 +129,7 @@ button{
 
 
 
-.sinovaclient-footer-content{
+.sinovad-delete-profile-button-container{
   display: flex;
   align-items: center;
   justify-content: center;
@@ -135,7 +137,12 @@ button{
   button{
     border:none;
     background-color: transparent;
-    color: #67bdff;
+    color: red;
+    opacity: 0.8;
+    font-size: 15px;
+  }
+  button:hover{
+   opacity: 1;
   }
 }
 

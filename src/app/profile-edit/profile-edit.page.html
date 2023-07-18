@@ -17,6 +17,9 @@
         <div class="bottom-container">
           <div class="first">
             <input type="text" [(ngModel)]="currentTmpProfile.FullName">
+            <div class="sinovad-delete-profile-button-container">
+              <button *ngIf="currentTmpProfile && currentTmpProfile.Id>0 && !currentTmpProfile.Main" (click)="onClickDeleteButton()">Eliminar Perfil</button>
+            </div>
           </div>
           <div class="second">
             <input #input type="file" accept=".png, .jpg" (change)="uploadAvatarImage($event)" style="display: none;" />
@@ -34,9 +37,6 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="sinovaclient-footer-content">
-      <button *ngIf="currentTmpProfile && currentTmpProfile.Id>0 && !currentTmpProfile.Main" (click)="onClickDeleteButton()">Eliminar Perfil</button>
     </div>
   </div>
 </ng-template>
