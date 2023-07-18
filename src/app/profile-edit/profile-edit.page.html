@@ -8,11 +8,31 @@
         <button (click)="saveProfile()">Listo</button>
       </div>
     </div>
-    <div class="sinovadclient-modal-content">
-      <div>
-        <h2 *ngIf="currentTmpProfile.Id>0">Editar Perfil</h2>
-        <h2 *ngIf="!currentTmpProfile.Id">Nuevo Perfil</h2>
-        <input type="text" [(ngModel)]="currentTmpProfile.FullName">
+    <div class="sinovad-page-container">
+      <div class="sinovad-page-content">
+        <div class="top-container">
+          <h2 class="title">Editar Perfil</h2>
+          <p *ngIf="currentTmpProfile && currentTmpProfile.Id>0 && currentTmpProfile.Main" class="subtitle">El perfil principal no se puede eliminar</p>
+        </div>
+        <div class="bottom-container">
+          <div class="first">
+            <input type="text" [(ngModel)]="currentTmpProfile.FullName">
+          </div>
+          <div class="second">
+            <input #input type="file" accept=".png, .jpg" (change)="uploadAvatarImage($event)" style="display: none;" />
+            <button (click)="input.click()">
+              <div *ngIf="currentTmpProfile.AvatarPath==undefined" class="sinovad-initials-profile">
+                {{getInitials(currentTmpProfile)}}
+              </div>
+              <img *ngIf="currentTmpProfile.AvatarPath!=undefined && !hideImage" class="sinovad-initials-profile" [attr.src]="currentTmpProfile.Id | formatDataPipe : 'GetAvatarImageURLByProfileId' | async">
+              <div class="sinovad-icon-edit-profile-container">
+                <div class="sinovad-icon-edit-profile-content">
+                  <img [src]="'edit-profile.png' | formatDataPipe : 'GetImageURLByKey' | async">
+                </div>
+              </div>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
     <div class="sinovaclient-footer-content">

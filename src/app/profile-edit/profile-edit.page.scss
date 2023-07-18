@@ -46,23 +46,86 @@ button{
   }
 }
 
-
-.sinovadclient-modal-content{
+.sinovad-page-container{
   display: flex;
-  align-items: center;
   justify-content: center;
-  h2{
-    color: white;
-    text-align: center;
-  }
-  input{
-    background-color: rgba(249, 249, 249, 0.1019607843);
-    color: white;
-    min-width: 200px;
-    padding: 10px 6px 10px 6px;
-    font-size: 20px;
+  margin-top: 100px;
+  .sinovad-page-content{
+    display: block;
+    .top-container{
+      text-align: left;
+      h2.title{
+        color: white;
+        font-size: 32px;
+      }
+      p.subtitle{
+        font-size: 15px;
+        color: #cacaca;
+      }
+    }
+    .bottom-container{
+      display: flex;
+      .first{
+        input{
+          background-color: #f9f9f91a;
+          color: white;
+          min-width: 200px;
+          font-size: 20px;
+          border-radius: 4px;
+          outline: none;
+          padding: 7px 12px;
+          border: 1px solid transparent;
+        }
+        input:focus{
+          border: 1px solid #dedede;
+        }
+      }
+      .second{
+        margin: 0px 0px 0px 75px;
+        button{
+          background: transparent;
+          border: none;
+          opacity: 0.8;
+          .sinovad-initials-profile{
+            width: 213px;
+            height: 213px;
+            border: 2px solid transparent;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+          }
+          .sinovad-icon-edit-profile-container{
+            display: block;
+            position: relative;
+          }
+          .sinovad-icon-edit-profile-content{
+            display: block;
+            position: absolute;
+            right: 0;
+            top: -55px;
+            background: white;
+            border-radius: 25px;
+            padding: 10px;
+            border: none;
+            img{
+              width: 20px;
+            }
+          }
+        }
+        button:hover{
+          opacity: 1;
+          .sinovad-initials-profile{
+            border: 2px solid white;
+          }
+        }
+      }
+    }
   }
 }
+
+
 
 .sinovaclient-footer-content{
   display: flex;

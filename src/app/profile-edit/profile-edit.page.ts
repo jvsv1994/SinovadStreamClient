@@ -4,11 +4,11 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { SharedDataService } from 'src/services/shared-data.service';
 import { EventsService } from 'src/services/events-service';
 import { ParentComponent } from '../parent/parent.component';
-import { HttpClient} from '@angular/common/http';
 import { RestProviderService } from 'src/services/rest-provider.service';
 import { HttpMethodType } from '../enums';
 import { Profile } from '../../models/profile';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { SinovadApiGenericResponse } from '../response/sinovadApiGenericResponse';
 
 declare var window;
 @Component({
@@ -24,11 +24,12 @@ export class ProfileEditPage extends ParentComponent implements OnInit {
   @Input() currentTmpProfile:Profile;
   @ViewChild('profileInfoModal') profileInfoModal: ElementRef;
   modalReference:NgbModalRef;
+  hideImage:boolean=false;
 
   constructor(
+    private ref:ChangeDetectorRef,
     private modalService: NgbModal,
     public restProvider: RestProviderService,
-    public http: HttpClient,
     public events: EventsService,
     public domSanitizer: DomSanitizer,
     public sharedData: SharedDataService) {
@@ -60,5 +61,28 @@ export class ProfileEditPage extends ParentComponent implements OnInit {
       });
     }
 
+    public uploadAvatarImage(event:any){
+      if(event.target.files && event.target.files.length>0)
+      {
+        let file:File =event.target.files[0];
+        var formData = new FormData();
+        formData.append("ProfileId",this.currentTmpProfile.Id.toString());
+        formData.append('File', file, file.name);
+        var url="/documents/UploadAvatarProfile";
+        this.restProvider.executeHttpPostMethodWithFormData(url,formData).then((response: any) => {
+          this.restProvider.executeSinovadApiService(HttpMethodType.GET,"/profiles/GetAsync/"+this.currentTmpProfile.Id).then((response: SinovadApiGenericResponse) => {
+             this.currentTmpProfile=response.Data;
+             this.hideImage=true;
+             setTimeout(() => {
+              this.hideImage=false;
+             }, 0);
+          },error=>{
+            console.error(error);
+          });
+        },error=>{
+          console.error(error);
+        });
+      }
+    }
 
 }

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { SharedDataService } from './shared-data.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { HttpMethodType } from 'src/app/enums';
+import { Form } from '@angular/forms';
 
 @Injectable({ providedIn: 'root' })
 export class RestProviderService {
@@ -127,6 +128,29 @@ export class RestProviderService {
         resolve(response);
       },error=>{
         console.error(error);
+        reject(error);
+      });
+    });
+  }
+
+  public executeHttpPostMethodWithFormData(routePath:string,formData:FormData): Promise<any>{
+    let link=this.sharedData.urlSinovadStreamWebApi+"/api/v1"+routePath;
+    return new Promise((resolve, reject) => {
+      let requestOptions:any={
+        responseType: 'text'
+      }
+      if(this.sharedData.currentToken)
+      {
+        let api_key = this.sharedData.currentToken;
+        const headers = new HttpHeaders({
+          'Accept': '*/*',
+          'Authorization': 'Bearer '+api_key
+        });
+        requestOptions.headers=headers;
+      }
+      this.http.post(link,formData,requestOptions).subscribe((response: any) => {
+        resolve(response);
+      },error=>{
         reject(error);
       });
     });
