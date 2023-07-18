@@ -2,21 +2,19 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/shared.module';
-import { AccountPage } from './account.page';
-import { ChangePasswordPageModule } from '../change-password/change-password.module';
+import { ChangePasswordPage } from './change-password.page';
 
 @NgModule({
     declarations: [
-      AccountPage
+      ChangePasswordPage
     ],
     imports: [
         CommonModule,
         FormsModule,
         SharedModule,
-        ReactiveFormsModule,
-        ChangePasswordPageModule
+        ReactiveFormsModule
     ],
-    exports: [AccountPage]
+    exports: [ChangePasswordPage]
 })
-export class AccountPageModule {
+export class ChangePasswordPageModule {
 }
