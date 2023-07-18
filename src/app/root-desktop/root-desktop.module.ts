@@ -30,6 +30,7 @@ import { RoleListPage } from '../role-list/role-list.page';
 import { GenreListPage } from '../genre-list/genre-list.page';
 import { MovieListPage } from '../movie-list/movie-list.page';
 import { TvSerieListPage } from '../tvserie-list/tvserie-list.page';
+import { AccountPage } from '../account/account.page';
 
 const routes: Routes = [
   {
@@ -140,6 +141,11 @@ const routes: Routes = [
     path: 'desktop/role-list',
     component: RoleListPage,
     loadChildren: () => import('../role-list/role-list.module').then(m => m.RoleListPageModule)
+  },
+  {
+    path: 'desktop/account',
+    component: AccountPage,
+    loadChildren: () => import('../account/account.module').then(m => m.AccountPageModule)
   },
   {
     path: 'desktop',
