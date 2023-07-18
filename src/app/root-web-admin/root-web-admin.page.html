@@ -3,14 +3,14 @@
 
 <div *ngIf="sharedData.currentToken!=undefined && sharedData.userData!=undefined && !sharedData.pageNotFoundShowing" class="sinovad-page-container" [ngClass]="{'small':isSmallDevice()}">
   <div #header>
-    <app-header-desktop (goHome)="showHome()" (executeSearch)="onSearchMedia($event)" (toggleSidebar)="onClickToggleSidebarButton()" (showSplashScreen)="showSplashScreen=true" (logout)="logOut()" (showHomeUser)="showHome()"
-    (logout)="logOut()"></app-header-desktop>
+    <app-header-web-admin (goHome)="showHome()" (executeSearch)="onSearchMedia($event)" (toggleSidebar)="onClickToggleSidebarButton()" (showSplashScreen)="showSplashScreen=true" (logout)="logOut()" (showHomeUser)="showHome()"
+    (logout)="logOut()"></app-header-web-admin>
   </div>
   <div class="sinovad-menu-body-container" [style.height]="'calc(100% - '+(header.offsetHeight+footer.offsetHeight)+'px)'">
     <div #menu>
       <section id="menuContainer" #menuContainer class="sinovad-menu-container" [style.width]="!isCollapsedSidebar?'230px':'0px'" [style.height]="'100%'" tabindex="0">
-        <app-sidebar-desktop (prepareRouterOutlet)="prepareRouterOutlet()" [unselectSidebarOption]="unselectSidebarOption" [selectHomeUserOption]="selectHomeUserOption"
-        (hideSidebar)="isCollapsedSidebar=true"></app-sidebar-desktop>
+        <app-sidebar-web-admin (prepareRouterOutlet)="prepareRouterOutlet()" [unselectSidebarOption]="unselectSidebarOption" [selectHomeUserOption]="selectHomeUserOption"
+        (hideSidebar)="isCollapsedSidebar=true"></app-sidebar-web-admin>
       </section>
     </div>
     <section id="bodyContainer" #principalContainer class="sinovad-body-container" [ngClass]="{'locked':isSmallDevice() && !isCollapsedSidebar}" [style.width]="'calc(100% - '+menu.offsetWidth+'px)'" tabindex="0">

@@ -20,11 +20,11 @@ import { ProfilesViewPage } from '../profiles-view/profiles-view.page';
 import { LoginPage } from '../login/login.page';
 
 @Component({
-  selector: 'app-root-desktop',
-  templateUrl: './root-desktop.page.html',
-  styleUrls: ['./root-desktop.page.scss']
+  selector: 'app-root-web-admin',
+  templateUrl: './root-web-admin.page.html',
+  styleUrls: ['./root-web-admin.page.scss']
 })
-export class RootDesktopPage extends ParentComponent implements OnInit {
+export class RootWebAdminPage extends ParentComponent implements OnInit {
 
   @Output() toggleVideo= new EventEmitter();
   showVideoPopUp:boolean=false;

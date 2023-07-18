@@ -9,8 +9,8 @@ import { SharedModule } from 'src/shared.module';
 import { FormsModule } from '@angular/forms';
 import { SinovadWebComponentModule } from './sinovad-web/sinovad-web.module';
 import { SinovadWebComponent } from './sinovad-web/sinovad-web.component';
-import { SinovadDesktopComponentModule } from './sinovad-desktop/sinovad-desktop.module';
-import { SinovadDesktopComponent } from './sinovad-desktop/sinovad-desktop.component';
+import { SinovadWebAdminComponentModule } from './sinovad-web-admin/sinovad-web-admin.module';
+import { SinovadWebAdminComponent } from './sinovad-web-admin/sinovad-web-admin.component';
 import { SinovadTvComponentModule } from './sinovad-tv/sinovad-tv.module';
 import { SinovadTvComponent } from './sinovad-tv/sinovad-tv.component';
 
@@ -26,7 +26,7 @@ import { SinovadTvComponent } from './sinovad-tv/sinovad-tv.component';
     HttpClientModule,
     SinovadWebComponentModule,
     SinovadTvComponentModule,
-    SinovadDesktopComponentModule,
+    SinovadWebAdminComponentModule,
     AppRoutingModule,
   ],
   bootstrap:[]
@@ -36,8 +36,8 @@ export class AppModule {
   ngDoBootstrap() {
       const sinovadWebComponent = createCustomElement(SinovadWebComponent, { injector: this.injector });
       customElements.define('app-sinovad-web', sinovadWebComponent);
-      const sinovadDesktopComponent = createCustomElement(SinovadDesktopComponent, { injector: this.injector });
-      customElements.define('app-sinovad-desktop', sinovadDesktopComponent);
+      const sinovadWebAdminComponent = createCustomElement(SinovadWebAdminComponent, { injector: this.injector });
+      customElements.define('app-sinovad-web-admin', sinovadWebAdminComponent);
       const sinovadTvComponent = createCustomElement(SinovadTvComponent, { injector: this.injector });
       customElements.define('app-sinovad-tv', sinovadTvComponent);
   }

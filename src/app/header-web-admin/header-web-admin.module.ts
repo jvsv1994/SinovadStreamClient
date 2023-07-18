@@ -2,21 +2,20 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/shared.module';
-import { SearchViewDesktopPage } from './search-view-desktop.page';
-import { VerticalItemListPageModule } from '../vertical-item-list/vertical-item-list.module';
-
+import { HeaderWebAdminPage } from './header-web-admin.page';
+import { DropDownUserPageModule } from '../dropdown-user/dropdown-user.module';
 @NgModule({
     declarations: [
-      SearchViewDesktopPage
+      HeaderWebAdminPage
     ],
     imports: [
         CommonModule,
         FormsModule,
         SharedModule,
-        ReactiveFormsModule,
-        VerticalItemListPageModule
+        DropDownUserPageModule,
+        ReactiveFormsModule
     ],
-    exports: [SearchViewDesktopPage]
+    exports: [HeaderWebAdminPage]
 })
-export class SearchViewDesktopPageModule {
+export class HeaderWebAdminPageModule {
 }

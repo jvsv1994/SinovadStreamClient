@@ -11,11 +11,11 @@ import { Router } from '@angular/router';
 
 declare var window;
 @Component({
-  selector: 'app-sidebar-desktop',
-  templateUrl: './sidebar-desktop.page.html',
-  styleUrls: ['./sidebar-desktop.page.scss']
+  selector: 'app-sidebar-web-admin',
+  templateUrl: './sidebar-web-admin.page.html',
+  styleUrls: ['./sidebar-web-admin.page.scss']
 })
-export class SideBarDesktopPage extends ParentComponent implements OnInit {
+export class SideBarWebAdminPage extends ParentComponent implements OnInit {
 
   @Input() selectHomeUserOption:EventEmitter<boolean>;
   @Input() unselectSidebarOption:EventEmitter<boolean>;

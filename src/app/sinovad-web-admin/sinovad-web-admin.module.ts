@@ -3,14 +3,14 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/shared.module';
 import { BrowserModule } from '@angular/platform-browser';
-import { SinovadDesktopComponent } from './sinovad-desktop.component';
-import { RootDesktopPageModule } from '../root-desktop/root-desktop.module';
+import { SinovadWebAdminComponent } from './sinovad-web-admin.component';
+import { RootWebAdminPageModule } from '../root-web-admin/root-web-admin.module';
 
 
 
 @NgModule({
     declarations: [
-      SinovadDesktopComponent
+      SinovadWebAdminComponent
     ],
     imports: [
         BrowserModule,
@@ -18,9 +18,9 @@ import { RootDesktopPageModule } from '../root-desktop/root-desktop.module';
         FormsModule,
         SharedModule,
         ReactiveFormsModule,
-        RootDesktopPageModule
+        RootWebAdminPageModule
     ],
-    exports: [SinovadDesktopComponent]
+    exports: [SinovadWebAdminComponent]
 })
-export class SinovadDesktopComponentModule {
+export class SinovadWebAdminComponentModule {
 }

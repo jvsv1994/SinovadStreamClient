@@ -61,7 +61,7 @@ export class SideBarTvPage extends ParentComponent implements OnInit {
     }/* ,{
       index:2,
       order:2,
-      onlyForDesktop:true,
+      onlyForWebAdmin:true,
       listOptions:[
         {
           index:5,
@@ -121,7 +121,7 @@ export class SideBarTvPage extends ParentComponent implements OnInit {
     {
       this.listModules=this.allModules;
     }else{
-      this.listModules=this.allModules.filter(m=>!m.onlyForDesktop);
+      this.listModules=this.allModules.filter(m=>!m.onlyForWebAdmin);
     } */
   }
 

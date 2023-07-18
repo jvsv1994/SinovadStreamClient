@@ -2,21 +2,21 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/shared.module';
-import { ProfilesViewPageModule } from '../profiles-view/profiles-view.module';
-import { SideBarDesktopPage } from './sidebar-desktop.page';
+import { SearchViewWebAdminPage } from './search-view-web-admin.page';
+import { VerticalItemListPageModule } from '../vertical-item-list/vertical-item-list.module';
 
 @NgModule({
     declarations: [
-        SideBarDesktopPage
+      SearchViewWebAdminPage
     ],
     imports: [
         CommonModule,
         FormsModule,
         SharedModule,
         ReactiveFormsModule,
-        ProfilesViewPageModule
+        VerticalItemListPageModule
     ],
-    exports: [SideBarDesktopPage]
+    exports: [SearchViewWebAdminPage]
 })
-export class SideBarDesktopPageModule {
+export class SearchViewWebAdminPageModule {
 }

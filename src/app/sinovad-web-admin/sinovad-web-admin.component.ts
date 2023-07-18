@@ -7,13 +7,13 @@ import { ParentComponent } from '../parent/parent.component';
 import { HttpClient } from '@angular/common/http';
 import { RestProviderService } from 'src/services/rest-provider.service';
 import { Router } from '@angular/router';
-import { RootDesktopPage } from '../root-desktop/root-desktop.page';
+import { RootWebAdminPage } from '../root-web-admin/root-web-admin.page';
 @Component({
-  selector: 'app-sinovad-desktop',
-  templateUrl: './sinovad-desktop.component.html',
-  styleUrls: ['./sinovad-desktop.component.scss']
+  selector: 'app-sinovad-web-admin',
+  templateUrl: './sinovad-web-admin.component.html',
+  styleUrls: ['./sinovad-web-admin.component.scss']
 })
-export class SinovadDesktopComponent extends ParentComponent implements OnInit {
+export class SinovadWebAdminComponent extends ParentComponent implements OnInit {
 
   @Output('togglevideo') togglevideo = new EventEmitter();
   @Output('instance') instance = new EventEmitter();
@@ -38,7 +38,7 @@ export class SinovadDesktopComponent extends ParentComponent implements OnInit {
       {
         this.sharedData.configurationData=(<any>window).configurationData;
       }
-      this.sharedData.platform="desktop";
+      this.sharedData.platform="web-admin";
       if(localStorage.getItem('apiKey'))
       {
         this.sharedData.currentToken=localStorage.getItem('apiKey');
@@ -46,15 +46,15 @@ export class SinovadDesktopComponent extends ParentComponent implements OnInit {
           this.getMenus();
           this.getProfiles().then(response=>{
             this.showRootPage=true;
-            if(window.location.pathname.startsWith("/desktop/"))
+            if(window.location.pathname.startsWith("/web-admin/"))
             {
               this.router.navigateByUrl(window.location.pathname).then((result: any) => {
 
               },error=>{
-                this.router.navigateByUrl("/desktop/404");
+                this.router.navigateByUrl("/web-admin/404");
               });
             }else{
-              this.router.navigateByUrl("/desktop/home");
+              this.router.navigateByUrl("/web-admin/home");
             }
           },error=>{
             console.error(error);
@@ -67,15 +67,15 @@ export class SinovadDesktopComponent extends ParentComponent implements OnInit {
         this.sharedData.currentToken=undefined;
         setTimeout(() => {
           this.showRootPage=true;
-          if(window.location.pathname.startsWith("/desktop/"))
+          if(window.location.pathname.startsWith("/web-admin/"))
           {
             this.router.navigateByUrl(window.location.pathname).then((result: any) => {
 
             },error=>{
-              this.router.navigateByUrl("/desktop/landing");
+              this.router.navigateByUrl("/web-admin/landing");
             });
           }else{
-            this.router.navigateByUrl("/desktop/landing");
+            this.router.navigateByUrl("/web-admin/landing");
           }
         }, 100);
       }
@@ -131,7 +131,7 @@ export class SinovadDesktopComponent extends ParentComponent implements OnInit {
   public onActivate(event:any)
   {
     let ctx=this;
-    if(event instanceof RootDesktopPage)
+    if(event instanceof RootWebAdminPage)
     {
       event.toggleVideo.subscribe(event => {
         ctx.executeToggleVideo(event);

@@ -11,11 +11,11 @@ import { Profile } from '../../models/profile';
 
 declare var window;
 @Component({
-  selector: 'app-header-desktop',
-  templateUrl: './header-desktop.page.html',
-  styleUrls: ['./header-desktop.page.scss']
+  selector: 'app-header-web-admin',
+  templateUrl: './header-web-admin.page.html',
+  styleUrls: ['./header-web-admin.page.scss']
 })
-export class HeaderDesktopPage extends ParentComponent implements OnInit {
+export class HeaderWebAdminPage extends ParentComponent implements OnInit {
 
   @ViewChild('searchTarget') searchTarget: ElementRef;
   customKeyboardEvent:any;
