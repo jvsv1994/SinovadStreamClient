@@ -14,8 +14,8 @@ export class SharedDataService {
   UserRoleID: number=3;
   currentVideo:BuilderVideo;
   currentMediaServerData:any;
-  //urlSinovadStreamWebApi: string='http://localhost:53363';
-  urlSinovadStreamWebApi: string='http://streamapi.sinovad.com';
+  urlSinovadStreamWebApi: string='http://localhost:53363';
+  //urlSinovadStreamWebApi: string='http://streamapi.sinovad.com';
   urlSinovadCdn: string='http://cdn.sinovad.com/stream/web';
   urlSinovadAvatarImage: string='http://streamapi.sinovad.com/api/v1/documents/GetAvatarProfile';
   originalUrlImagesMovieDataBase:String="https://image.tmdb.org/t/p/w600_and_h900_bestv2";

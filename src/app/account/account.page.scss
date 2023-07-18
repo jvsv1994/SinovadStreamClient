@@ -43,15 +43,14 @@
           transition: color .2s;
           -webkit-user-select: none;
           user-select: none;
+          opacity: 0.8;
         }
         button.edit{
-          color: #007bff;
-        }
-        button.cancel{
-          color: red;
+          color: white;
         }
         button:hover{
           color: white;
+          opacity: 1;
         }
       }
       .detail{

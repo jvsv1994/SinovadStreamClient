@@ -7,6 +7,8 @@ import { ParentComponent } from '../parent/parent.component';
 import { HttpClient} from '@angular/common/http';
 import { RestProviderService } from 'src/services/rest-provider.service';
 import { ChangePasswordModel } from 'src/models/changePasswordModel';
+import { HttpMethodType } from '../enums';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 
 declare var window;
 @Component({
@@ -16,11 +18,18 @@ declare var window;
 })
 export class ChangePasswordPage extends ParentComponent implements OnInit {
 
-
-  changePasswordData:ChangePasswordModel= new ChangePasswordModel();
+  serverErrorMessage:string=undefined;
+  changePasswordData:ChangePasswordModel;
   @Output() closeChangePassword=new EventEmitter();
+  changePasswordForm = this.formBuilder.group({
+    password: new FormControl("", [Validators.required]),
+    confirmPassword: new FormControl("", [Validators.required]),
+    currentPassword: new FormControl("", [Validators.required])
+  });
+  loading:boolean=false;
 
   constructor(
+    private formBuilder: FormBuilder,
     public restProvider: RestProviderService,
     public http: HttpClient,
     public events: EventsService,
@@ -35,7 +44,45 @@ export class ChangePasswordPage extends ParentComponent implements OnInit {
     }
 
     public changePasword(){
+      if(this.changePasswordForm.valid)
+      {
+        this.changePasswordData={
+          UserId:this.sharedData.userData.Id,
+          Password:this.changePasswordForm.value.password,
+          ConfirmPassword:this.changePasswordForm.value.confirmPassword,
+          CurrentPassword:this.changePasswordForm.value.currentPassword
+        }
+        this.loading=true;
+        this.restProvider.executeSinovadApiService(HttpMethodType.POST,'/users/ChangePassword',this.changePasswordData).then((result: any) => {
+          this.loading=false;
+          this.closeChangePassword.emit(true);
+        },error=>{
+          this.loading=false;
+          this.serverErrorMessage=error;
+          console.error(error);
+        });
+      }else{
+        this.serverErrorMessage=undefined;
+        this.changePasswordForm.markAllAsTouched();
+      }
+    }
 
+    public isInvalidFormControl(formControlKey:string){
+      if(this.changePasswordForm.controls[formControlKey].invalid && (this.changePasswordForm.controls[formControlKey].dirty || this.changePasswordForm.controls[formControlKey].touched))
+      {
+        return true;
+      }else{
+        return false;
+      }
+    }
+
+    public hasRequireErrorFormControl(formControlKey:string){
+      if(this.changePasswordForm.controls[formControlKey].errors.required)
+      {
+        return true;
+      }else{
+        return false;
+      }
     }
 
 
