@@ -4,8 +4,9 @@
       <i class="fa-solid fa-bars"></i>
     </a>
     <a class="sinovad-logo-button" (click)="goHome.emit(true)">
-      <span class="first-span">Sinovad</span>
-      <span class="second-span">Stream</span>
+      <img [src]="'sinovad-stream-large-logo.png' | formatDataPipe : 'GetImageURLByKey'">
+<!--       <span class="first-span">Sinovad</span>
+      <span class="second-span">Stream</span> -->
     </a>
     <div class="sinovad-custom-search" [ngClass]="{'focused':isFocusSearch && !isSmallDevice()}">
         <input #input type="text" [(ngModel)]="searchText" (change)="onChangeSearchValue()" (focus)="isFocusSearch=true" (blur)="isFocusSearch=false">

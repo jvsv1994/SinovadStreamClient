@@ -1,7 +1,7 @@
 <header>
   <nav>
     <a class="sinovad-logo-button" (click)="goHome.emit(true)">
-      <img [src]="'sinovad-logo.png' | formatDataPipe : 'GetImageURLByKey'">
+      <img [src]="'sinovad-stream-large-logo.png' | formatDataPipe : 'GetImageURLByKey'">
     </a>
     <ul class="sinovad-nav-list">
       <ng-template ngFor let-option [ngForOf]="navbarOptions">
