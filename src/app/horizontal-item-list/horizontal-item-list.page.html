@@ -14,7 +14,7 @@
           <div class="sinovad-list-itsinovad-row-container">
             <div style="width:0px;height:0px;">
               <div #scrollLeftButton class="sinovad-list-button-scroll-left" (click)="onClickButtonLeftScroll(itemsRowContainer,scrollLeftButton,scrollRightButton)">
-                <img [src]="'scroll-left.png' | formatDataPipe : 'GetImageURLByKey'">
+                <img [src]="'scroll-left.png' | formatDataPipe : 'GetImageURLByKey' | async">
               </div>
             </div>
             <div #itemsRowContainer class="sinovad-list-itsinovad-row" tabindex="0">
@@ -47,7 +47,7 @@
             </div>
             <div style="width:0px;height:0px;">
               <div #scrollRightButton class="sinovad-list-button-scroll-right" (click)="onClickButtonRightScroll(itemsRowContainer,scrollLeftButton,scrollRightButton)">
-                <img [src]="'scroll-right.png' | formatDataPipe : 'GetImageURLByKey'">
+                <img [src]="'scroll-right.png' | formatDataPipe : 'GetImageURLByKey' | async">
               </div>
             </div>
           </div>

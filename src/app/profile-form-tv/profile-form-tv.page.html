@@ -6,7 +6,7 @@
         <div class="sinovad-screen-back-container">
           <div class="sinovad-screen-back-content">
               <button id="button_close_form" (click)="closeForm()">
-                <img [src]="'back-screen.png' | formatDataPipe : 'GetImageURLByKey'">
+                <img [src]="'back-screen.png' | formatDataPipe : 'GetImageURLByKey' | async">
               </button>
           </div>
         </div>

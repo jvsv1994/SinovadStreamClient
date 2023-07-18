@@ -1,3 +1,4 @@
+import { SafeUrl } from "@angular/platform-browser";
 
 export class Profile{
 
@@ -7,4 +8,5 @@ export class Profile{
    Main?: Boolean;
    Pincode?: number;
    AvatarPath?: string;
+   BlobUrl?: SafeUrl;
 }

@@ -14,10 +14,10 @@
     <div class="col-6 text-end">
       <button class="btn me-2" (click)="input.click()">
         <input #input type="file" accept=".txt" (change)="onFileSelected($event)" style="display: none;" />
-        <img style="height:40px;" [src]="'upload.png'  | formatDataPipe : 'GetImageURLByKey'" title="Carga Masiva">
+        <img style="height:40px;" [src]="'upload.png'  | formatDataPipe : 'GetImageURLByKey' | async" title="Carga Masiva">
       </button>
       <button type="button" class="btn me-2" (click)="showEpisodeRangeForm()">
-        <img style="height:40px;" [src]="'rank-number.png'  | formatDataPipe : 'GetImageURLByKey'" title="Agregar por Rango de Números">
+        <img style="height:40px;" [src]="'rank-number.png'  | formatDataPipe : 'GetImageURLByKey' | async" title="Agregar por Rango de Números">
       </button>
       <button type="button" class="btn btn-primary" (click)="showItemForm()"><i class="fa-solid fa-circle-plus me-2" aria-hidden="true"></i>Agregar</button>
     </div>
@@ -71,7 +71,7 @@
   <div #content class="sinovad-form-popup-content">
     <div #header class="sinovad-popup-content-header">
       <div (click)="showChangeSeasonForm=false" class="sinovad-back-button-content">
-        <img [src]="'back_button_black.png' | formatDataPipe : 'GetImageURLByKey'" width="15px">
+        <img [src]="'back_button_black.png' | formatDataPipe : 'GetImageURLByKey' | async" width="15px">
       </div>
     </div>
     <div [style.max-height]="content.offsetHeight-header.offsetHeight-footer.offsetHeight+'px'" class="sinovad-form-popup-content-body">

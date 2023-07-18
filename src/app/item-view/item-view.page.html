@@ -57,7 +57,7 @@
           <img *ngIf="!startResize" style="display:none;" src (error)="onInitializeItemsRow(itemsRowContainer,scrollLeftButton,scrollRightButton)">
           <div style="width:0px;height:0px;">
             <div #scrollLeftButton class="sinovad-list-button-scroll-left" (click)="onClickButtonLeftScroll(itemsRowContainer,scrollLeftButton,scrollRightButton)">
-              <img [src]="'left.png' | formatDataPipe : 'GetImageURLByKey'">
+              <img [src]="'left.png' | formatDataPipe : 'GetImageURLByKey' | async">
             </div>
           </div>
           <div  #itemsRowContainer class="sinovad-list-itsinovad-row sinovad-section">
@@ -73,7 +73,7 @@
           </div>
           <div style="width:0px;height:0px;">
             <div #scrollRightButton class="sinovad-list-button-scroll-right" (click)="onClickButtonRightScroll(itemsRowContainer,scrollLeftButton,scrollRightButton)">
-              <img [src]="'right.png' | formatDataPipe : 'GetImageURLByKey'">
+              <img [src]="'right.png' | formatDataPipe : 'GetImageURLByKey' | async">
             </div>
           </div>
         </div>

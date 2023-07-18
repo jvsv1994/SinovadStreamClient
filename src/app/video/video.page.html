@@ -6,7 +6,7 @@
         <img style="display:none;" src (error)="initializeControlsContainer(controlsContainer)">
         <section id="videoHeaderSection" class="sinovad-video-header-section"  tabindex="0">
           <button id="backVideoButton" class="sinovad-video-control-button" (click)="closeVideo()">
-            <img [src]="'back-button-short.png' | formatDataPipe : 'GetImageURLByKey'">
+            <img [src]="'back-button-short.png' | formatDataPipe : 'GetImageURLByKey' | async">
           </button>
           <div class="sinovad-video-header-section-title-container">
             {{builderVideo.TranscodePrepareVideo.Title}}
@@ -39,22 +39,22 @@
             <section id="section_video_secondary_buttons" class="sinovad-full-screen-video-popup-episode-buttons-section sinovad-section" tabindex="0">
               <div class="sinovad-full-screen-video-popup-episode-buttons-section-left">
                 <button *ngIf="isEnablePreviousEpisodeButton()" id="previousButton" class="sinovad-video-control-button" (click)="goToPreviousEpisode()">
-                  <img [src]="'previous-episode.png' | formatDataPipe : 'GetImageURLByKey'" width="40px">
+                  <img [src]="'previous-episode.png' | formatDataPipe : 'GetImageURLByKey' | async" width="40px">
                 </button>
               </div>
               <div class="sinovad-full-screen-video-popup-episode-buttons-section-right">
                 <div style="display:flex;align-items: center;float: right;">
                   <button id="nextButton" *ngIf="isEnableNextEpisodeButton()" class="sinovad-video-control-button" (click)="goToNextEpisode()">
-                    <img [src]="'next-episode.png' | formatDataPipe : 'GetImageURLByKey'" width="40px">
+                    <img [src]="'next-episode.png' | formatDataPipe : 'GetImageURLByKey' | async" width="40px">
                   </button>
                   <button id="aspectRatio" class="sinovad-video-control-button " style="margin-left: 20px;" (click)="onChangeObjectContain()">
-                    <img [src]="'aspect-ratio.png' | formatDataPipe : 'GetImageURLByKey'" width="40px">
+                    <img [src]="'aspect-ratio.png' | formatDataPipe : 'GetImageURLByKey' | async" width="40px">
                   </button>
                   <button id="fullScreenButton" class="sinovad-video-control-button " style="margin-left: 20px;"  (click)="toggleFullScreenVideo()">
-                    <img [src]="'full-screen-video.png' | formatDataPipe : 'GetImageURLByKey'" width="30px">
+                    <img [src]="'full-screen-video.png' | formatDataPipe : 'GetImageURLByKey' | async" width="30px">
                   </button>
                   <button id="settingsOption" class="sinovad-video-control-button " style="margin-left: 20px;" (click)="showSettings()">
-                    <img [src]="'settings.png' | formatDataPipe : 'GetImageURLByKey'" width="36px">
+                    <img [src]="'settings.png' | formatDataPipe : 'GetImageURLByKey' | async" width="36px">
                   </button>
                 </div>
               </div>
@@ -63,18 +63,18 @@
               <div class="sinovad-full-screen-video-popup-footer-center">
                 <section id="section_video_principal_buttons" class="sinovad-full-screen-video-popup-footer-center-content" tabindex="0">
                   <button id="rewindButton" class="sinovad-video-control-button " (click)="rewindVideo()" style="margin-right: 25px;">
-                    <img [src]="'rewind.png' | formatDataPipe : 'GetImageURLByKey'" width="30px">
+                    <img [src]="'rewind.png' | formatDataPipe : 'GetImageURLByKey' | async" width="30px">
                   </button>
                   <button #playButton id="playButton" class="sinovad-video-control-button principal" *ngIf="!isPlayingVideo()" (click)="playOrPauseVideo()">
                     <img style="display:none;" src (error)="focusButton(playButton)">
-                    <img [src]="'play-video.png' | formatDataPipe : 'GetImageURLByKey'" width="30px">
+                    <img [src]="'play-video.png' | formatDataPipe : 'GetImageURLByKey' | async" width="30px">
                   </button>
                   <button #stopButton id="stopButton" class="sinovad-video-control-button principal" *ngIf="isPlayingVideo()" (click)="playOrPauseVideo()">
                     <img style="display:none;" src (error)="focusButton(stopButton)">
-                    <img [src]="'pause-video.png' | formatDataPipe : 'GetImageURLByKey'" width="30px">
+                    <img [src]="'pause-video.png' | formatDataPipe : 'GetImageURLByKey' | async" width="30px">
                   </button>
                   <button id="forwardButton" class="sinovad-video-control-button " (click)="forwardVideo()"  style="margin-left: 25px;">
-                    <img [src]="'forward.png' | formatDataPipe : 'GetImageURLByKey'" width="30px">
+                    <img [src]="'forward.png' | formatDataPipe : 'GetImageURLByKey' | async" width="30px">
                   </button>
                 </section>
               </div>
@@ -92,7 +92,7 @@
               <div class="sinovad-settings-section-container-left">
                 <div class="sinovad-settings-section-content-left">
                   <button id="closeSettings" class="sinovad-video-settings-button" (click)="hideSettings()">
-                    <img [src]="'back-button-short.png' | formatDataPipe : 'GetImageURLByKey'">
+                    <img [src]="'back-button-short.png' | formatDataPipe : 'GetImageURLByKey' | async">
                   </button>
                 </div>
               </div>

@@ -13,6 +13,7 @@ import {v4 as uuid} from "uuid";
 import { TranscodePrepareVideo } from '../../models/transcodePrepareVideo';
 import { SinovadApiGenericResponse } from '../response/sinovadApiGenericResponse';
 import { FormatDataPipe } from 'src/pipes/format-data.pipe';
+import { Profile } from 'src/models/profile';
 
 @Component({
   selector: 'app-parent',
@@ -22,7 +23,7 @@ import { FormatDataPipe } from 'src/pipes/format-data.pipe';
 
 export class ParentComponent implements OnInit {
 
-  fdp: FormatDataPipe = new FormatDataPipe(this.sharedData);
+  fdp: FormatDataPipe = new FormatDataPipe(this.domSanitizer,this.sharedData);
   constructor(
     public restProvider: RestProviderService,
     public events: EventsService,

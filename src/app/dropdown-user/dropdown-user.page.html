@@ -11,7 +11,8 @@
           <div *ngIf="sharedData.currentProfile.AvatarPath==undefined" class="sinovad-initials-profile">
             {{getInitials(sharedData.currentProfile)}}
           </div>
-          <img *ngIf="sharedData.currentProfile.AvatarPath" class="sinovad-initials-profile" [src]="sharedData.urlSinovadAvatarImage+'/'+sharedData.currentProfile.Id">
+          <img *ngIf="sharedData.currentProfile.AvatarPath!=undefined" class="sinovad-initials-profile"
+          [attr.src]="sharedData.currentProfile.Id | formatDataPipe : 'GetAvatarImageURLByProfileId' | async">
         </ng-template>
       </a>
     </li>
@@ -24,7 +25,7 @@
                 <div *ngIf="profile.AvatarPath==undefined" class="sinovad-initials-profile">
                   {{getInitials(profile)}}
                 </div>
-                <img *ngIf="profile.AvatarPath" class="sinovad-initials-profile" [src]="sharedData.urlSinovadAvatarImage+'/'+profile.Id">
+                <img *ngIf="profile.AvatarPath!=undefined" class="sinovad-initials-profile" [attr.src]="profile.Id | formatDataPipe : 'GetAvatarImageURLByProfileId' | async">
                 <span class="sinovad-fullname-profile text-truncate">
                   {{profile.FullName}}
                 </span>

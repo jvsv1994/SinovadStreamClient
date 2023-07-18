@@ -141,7 +141,7 @@ export class MenuListPage extends ParentComponent implements OnInit {
       let listOptions:ContextMenuOption[]=[];
       /* if(!this.isItemDisableForEdit(item))
       { */
-        //listOptions.push({text:"Eliminar",key:"delete",imageUrl:this.fdp.transform('remove.png', 'GetImageURLByKey')});
+        //listOptions.push({text:"Eliminar",key:"delete",imageUrl:this.fdp.transform('remove.png', 'GetImageURLByKey' | async)});
       //}
       if(listOptions && listOptions.length>0)
       {

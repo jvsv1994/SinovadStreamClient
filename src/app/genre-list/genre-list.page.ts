@@ -138,7 +138,7 @@ export class GenreListPage extends ParentComponent implements OnInit {
       let listOptions:ContextMenuOption[]=[];
       /* if(!this.isItemDisableForEdit(item))
       { */
-        listOptions.push({text:"Eliminar",key:"delete",imageUrl:this.fdp.transform('remove.png', 'GetImageURLByKey')});
+        listOptions.push({text:"Eliminar",key:"delete",iconClass:"fa-solid fa-trash"});
       //}
       if(listOptions && listOptions.length>0)
       {

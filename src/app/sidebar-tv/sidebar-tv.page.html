@@ -24,7 +24,7 @@
   <div class="sinovad-icon-container">
     <div class="sinovad-icon-content">
       <div>
-        <img [src]="'sinovad-logo.png' | formatDataPipe : 'GetImageURLByKey'">
+        <img [src]="'sinovad-logo.png' | formatDataPipe : 'GetImageURLByKey' | async">
       </div>
     </div>
   </div>

@@ -6,13 +6,13 @@
     <div>
       <section id="section_keyboard_first_row" class="sinovad-letters-first-raw-section" tabindex="0">
           <button id="space_bar" (click)="onClickSpaceBar()">
-            <img [src]="'space-bar.png' | formatDataPipe : 'GetImageURLByKey'" style="width:50px">
+            <img [src]="'space-bar.png' | formatDataPipe : 'GetImageURLByKey' | async" style="width:50px">
           </button>
           <button id="back_space" (click)="onClickBackSpace()">
-            <img [src]="'back-space.png' | formatDataPipe : 'GetImageURLByKey'" style="width:40px">
+            <img [src]="'back-space.png' | formatDataPipe : 'GetImageURLByKey' | async" style="width:40px">
           </button>
           <button id="clear_text"  (click)="clearSearchText()" >
-            <img [src]="'delete-search.png' | formatDataPipe : 'GetImageURLByKey'" style="width:40px">
+            <img [src]="'delete-search.png' | formatDataPipe : 'GetImageURLByKey' | async" style="width:40px">
           </button>
       </section>
       <ng-template ngFor let-row [ngForOf]="rowsLetters" let-index="index">

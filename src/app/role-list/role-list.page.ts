@@ -137,7 +137,7 @@ export class RoleListPage extends ParentComponent implements OnInit {
       let listOptions:ContextMenuOption[]=[];
       /* if(!this.isItemDisableForEdit(item))
       { */
-        //listOptions.push({text:"Eliminar",key:"delete",imageUrl:this.fdp.transform('remove.png', 'GetImageURLByKey')});
+        //listOptions.push({text:"Eliminar",key:"delete",imageUrl:this.fdp.transform('remove.png', 'GetImageURLByKey' | async)});
       //}
       this.renderContextMenuComponent(event.clientX,event.clientY,listOptions);
     }

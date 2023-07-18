@@ -2,7 +2,7 @@
   <div class="sinovad-login-form-content">
     <div>
       <div class="sinovad-logo-container">
-        <img [src]="'sinovad-stream-large-logo.png' | formatDataPipe : 'GetImageURLByKey'">
+        <img [src]="'sinovad-stream-large-logo.png' | formatDataPipe : 'GetImageURLByKey' | async">
       </div>
       <div class="sinovad-login-title-container">
         Inicia sesión

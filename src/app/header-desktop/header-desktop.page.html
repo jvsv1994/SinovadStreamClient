@@ -4,7 +4,7 @@
       <i class="fa-solid fa-bars"></i>
     </a>
     <a class="sinovad-logo-button" (click)="goHome.emit(true)">
-      <img [src]="'sinovad-stream-large-logo.png' | formatDataPipe : 'GetImageURLByKey'">
+      <img [src]="'sinovad-stream-large-logo.png' | formatDataPipe : 'GetImageURLByKey' | async">
 <!--       <span class="first-span">Sinovad</span>
       <span class="second-span">Stream</span> -->
     </a>
