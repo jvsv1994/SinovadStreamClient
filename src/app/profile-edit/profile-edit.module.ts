@@ -2,11 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/shared.module';
-import { ProfileFormPage } from './profile-form.page';
+import { ProfileEditPage } from './profile-edit.page';
 
 @NgModule({
     declarations: [
-        ProfileFormPage
+        ProfileEditPage
     ],
     imports: [
         CommonModule,
@@ -14,7 +14,7 @@ import { ProfileFormPage } from './profile-form.page';
         ReactiveFormsModule,
         SharedModule
     ],
-    exports: [ProfileFormPage]
+    exports: [ProfileEditPage]
 })
-export class ProfileFormPageModule {
+export class ProfileEditPageModule {
 }

@@ -57,7 +57,7 @@
   </ng-template>
 </ng-template>
 
-<app-profile-form *ngIf="showForm" [currentTmpProfile]="currentTmpProfile" (close)="onCloseForm()" (closeWithChanges)="onSaveProfile()"></app-profile-form>
+<app-profile-edit *ngIf="showForm" [currentTmpProfile]="currentTmpProfile" (close)="onCloseForm()" (closeWithChanges)="onSaveProfile()"></app-profile-edit>
 <app-profile-new *ngIf="showNewPage" [currentTmpProfile]="currentTmpProfile" (close)="onCloseForm()" (closeWithChanges)="onSaveProfile()"></app-profile-new>
 
 

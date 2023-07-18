@@ -12,11 +12,11 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 
 declare var window;
 @Component({
-  selector: 'app-profile-form',
-  templateUrl: './profile-form.page.html',
-  styleUrls: ['./profile-form.page.scss']
+  selector: 'app-profile-edit',
+  templateUrl: './profile-edit.page.html',
+  styleUrls: ['./profile-edit.page.scss']
 })
-export class ProfileFormPage extends ParentComponent implements OnInit {
+export class ProfileEditPage extends ParentComponent implements OnInit {
 
   @Output() close =new EventEmitter();
   @Output() closeWithChanges =new EventEmitter();
