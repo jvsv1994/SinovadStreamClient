@@ -46,7 +46,7 @@ export class SinovadWebComponent extends ParentComponent implements OnInit {
           this.getProfiles().then(response=>{
             this.showRootPage=true;
             this.ref.detectChanges();
-            this.router.navigateByUrl(window.location.pathname).then((result: any) => {
+            this.router.navigateByUrl(window.location.pathname+window.location.search).then((result: any) => {
 
             },error=>{
               this.router.navigateByUrl("/404");
