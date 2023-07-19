@@ -40,7 +40,6 @@ export class SideBarWebAdminPage extends ParentComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    this.setSelectedOptionByPathname();
     let ctx=this;
     this.selectHomeUserOption.subscribe(event => {
       ctx.selectDefaultOption();
@@ -52,6 +51,10 @@ export class SideBarWebAdminPage extends ParentComponent implements OnInit {
     this.refreshSidebarOption.subscribe(event => {
       ctx.onClickSidebarOption(ctx.selectedSidebarOption,ctx.selectedSidebarModule);
     });
+  }
+
+  ngAfterViewInit(){
+    this.setSelectedOptionByPathname();
   }
 
   public selectDefaultOption(){

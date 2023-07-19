@@ -1,7 +1,7 @@
 
 <div #mainContainer id="sinovadMainContainer" class="sinovad-main-container" [ngClass]="{'small':isSmallDevice()}">
-  <app-root-web *ngIf="!sharedData.configurationData.isAdminMode" (toggleVideo)="executeToggleVideo($event)"></app-root-web>
-  <app-root-web-admin *ngIf="sharedData.configurationData.isAdminMode" (toggleVideo)="executeToggleVideo($event)"></app-root-web-admin>
+  <app-root-web *ngIf="showRootPage && !sharedData.configurationData.isAdminMode" (toggleVideo)="executeToggleVideo($event)"></app-root-web>
+  <app-root-web-admin *ngIf="showRootPage && sharedData.configurationData.isAdminMode" (toggleVideo)="executeToggleVideo($event)"></app-root-web-admin>
 </div>
 
 <!-- <audio [src]="'sound_1.wav' | formatDataPipe : 'GetSoundUrlByKey'" #initialSound (ended)="onEndedAudio()">

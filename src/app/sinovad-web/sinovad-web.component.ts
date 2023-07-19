@@ -20,7 +20,7 @@ export class SinovadWebComponent extends ParentComponent implements OnInit {
   @ViewChild('mainContainer') mainContainer: ElementRef;
   @ViewChild('initialSound', {static: true}) initialSound: ElementRef;
   intervalAudio:any;
-  showRootPage:boolean=true;
+  showRootPage:boolean=false;
 
   constructor(
     private router: Router,
