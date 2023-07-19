@@ -112,8 +112,14 @@ export class RootWebAdminPage extends ParentComponent implements OnInit {
       if(searchText!=undefined && searchText!='')
       {
         this.unselectSidebarOption.emit(true);
-        this.prepareRouterOutlet();
-        this.router.navigate(["search"],{queryParams:{text:searchText},skipLocationChange: false});
+        this.hideContent=true;
+        this.ref.detectChanges();
+        this.router.navigateByUrl("/search?text="+searchText).then(res=>
+          {
+            this.hideContent=false;
+            this.ref.detectChanges();
+          }
+        );
       }else{
         this.showHome();
       }

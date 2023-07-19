@@ -26,11 +26,10 @@ import { LandingPage } from '../landing/landing.page';
 import { TvSerieDetailPage } from '../tvserie-detail/tvserie-detail.page';
 import { MovieDetailPage } from '../movie-detail/movie-detail.page';
 import { ProfilesViewPage } from '../profiles-view/profiles-view.page';
-import { SearchViewWebAdminPage } from '../search-view-web-admin/search-view-web-admin.page';
 import { TvSeriesPage } from '../tvseries/tvseries.page';
 import { MoviesPage } from '../movies/movies.page';
 import { HomePage } from '../home/home.page';
-import { SearchViewWebPage } from '../search-view-web/search-view-web.page';
+import { SearchViewRootPage } from '../search-view-root/search-view-root.page';
 
 const routes: Routes = [
   {
@@ -53,13 +52,8 @@ const routes: Routes = [
       },
       {
         path: 'search',
-        component: SearchViewWebPage,
-        loadChildren: () => import('../search-view-web/search-view-web.module').then(m => m.SearchViewWebPageModule)
-      },
-      {
-        path: 'search',
-        component: SearchViewWebAdminPage,
-        loadChildren: () => import('../search-view-web-admin/search-view-web-admin.module').then(m => m.SearchViewWebAdminPageModule)
+        component: SearchViewRootPage,
+        loadChildren: () => import('../search-view-root/search-view-root.module').then(m => m.SearchViewRootPageModule)
       },
       {
         path: 'select-profile',
@@ -158,12 +152,12 @@ const routes: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'web/home' // TODO change to home page eventually
+        redirectTo: 'home' // TODO change to home page eventually
       },
       {
         path: 'web',
         pathMatch: 'full',
-        redirectTo: 'web/home' // TODO change to home page eventually
+        redirectTo: 'home' // TODO change to home page eventually
       }
     ]
   }
