@@ -25,7 +25,6 @@ export class SharedDataService {
   currentToken:string;
   currentProfile:any;
   configurationData:Configuration=new Configuration();
-  platform:string;
   listProfiles:Profile[]=[];
   listMenus:Menu[]=[];
   pageNotFoundShowing:boolean=false;

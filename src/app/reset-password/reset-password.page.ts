@@ -47,7 +47,7 @@ export class ResetPasswordPage extends ParentComponent implements OnInit {
   ngOnInit(): void {
     if(localStorage.getItem('apiKey'))
     {
-      this.router.navigate([this.sharedData.platform,'home'],{ skipLocationChange: false});
+      this.router.navigate(['home'],{ skipLocationChange: false});
     }
     let base64Data = this.activeRoute.snapshot.params.base64Data;
     if(base64Data!=null)
@@ -79,7 +79,7 @@ export class ResetPasswordPage extends ParentComponent implements OnInit {
         this.showInvalidTokenMessage=true;
       }
     }else{
-      this.router.navigate([this.sharedData.platform,'home'],{ skipLocationChange: false});
+      this.router.navigate(['home'],{ skipLocationChange: false});
     }
   }
 
@@ -99,7 +99,7 @@ export class ResetPasswordPage extends ParentComponent implements OnInit {
   }
 
   public onClickCloseButton(){
-    this.router.navigate([this.sharedData.platform,'login'],{ skipLocationChange: false});
+    this.router.navigate(['login'],{ skipLocationChange: false});
   }
 
 }

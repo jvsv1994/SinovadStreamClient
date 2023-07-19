@@ -39,7 +39,7 @@ export class SearchViewWebAdminPage extends ParentComponent implements OnInit {
       {
         this.searchText=searchText;
       }else{
-        this.router.navigate([this.sharedData.platform,'home'],{ skipLocationChange: false});
+        this.router.navigate(['home'],{ skipLocationChange: false});
       }
     }
 
@@ -50,10 +50,10 @@ export class SearchViewWebAdminPage extends ParentComponent implements OnInit {
     public onSelectItem(detail:ItemDetail){
       if(detail.Item.TvSerieId)
       {
-        this.router.navigateByUrl("/"+this.sharedData.platform+"/tvseriedetail/"+detail.Item.TvSerieId);
+        this.router.navigateByUrl("/tvseriedetail/"+detail.Item.TvSerieId);
       }else if(detail.Item.MovieId)
       {
-        this.router.navigateByUrl("/"+this.sharedData.platform+"/moviedetail/"+detail.Item.MovieId);
+        this.router.navigateByUrl("/moviedetail/"+detail.Item.MovieId);
       }
     }
 

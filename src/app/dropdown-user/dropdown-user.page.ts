@@ -41,12 +41,12 @@ export class DropDownUserPage extends ParentComponent implements OnInit {
 
   public onClickChangeProfileButton(){
     this.showSplashScreen.emit(true);
-    this.router.navigateByUrl("/"+this.sharedData.platform+'/select-profile')
+    this.router.navigateByUrl('/select-profile')
   }
 
   public onClickEditProfilesButton(){
     this.showSplashScreen.emit(true);
-    this.router.navigateByUrl("/"+this.sharedData.platform+'/select-profile')
+    this.router.navigateByUrl('/select-profile')
   }
 
   public onSelectProfile(profile:Profile)
@@ -56,7 +56,7 @@ export class DropDownUserPage extends ParentComponent implements OnInit {
   }
 
   public onClickAccountOption(){
-    this.router.navigateByUrl("/"+this.sharedData.platform+'/account')
+    this.router.navigateByUrl('/account')
   }
 
 }

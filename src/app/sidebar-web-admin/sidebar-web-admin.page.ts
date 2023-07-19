@@ -78,7 +78,7 @@ export class SideBarWebAdminPage extends ParentComponent implements OnInit {
   public onClickSidebarOption(option:Menu,module:Menu){
     this.prepareRouterOutlet.emit(true);
     let ctx=this;
-    this.router.navigateByUrl("/"+this.sharedData.platform+option.Path).then((response) => {
+    this.router.navigateByUrl(option.Path).then((response) => {
       ctx.selectedSidebarOption=option;
       ctx.selectedSidebarModule=module;
       if(ctx.isSmallDevice())

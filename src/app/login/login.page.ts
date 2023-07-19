@@ -42,7 +42,7 @@ export class LoginPage extends ParentComponent implements OnInit {
   ngOnInit(): void {
     if(localStorage.getItem('apiKey'))
     {
-      this.router.navigateByUrl("/"+this.sharedData.platform+'/home');
+      this.router.navigateByUrl('/home');
     }
   }
 
@@ -67,7 +67,7 @@ export class LoginPage extends ParentComponent implements OnInit {
       this.getUser().then(res=>{
         this.getMenus();
         this.getProfiles().then(res=>{
-          this.router.navigate([this.sharedData.platform,'select-profile'],{ skipLocationChange: false});
+          this.router.navigate(['select-profile'],{ skipLocationChange: false});
         },error=>{
           console.error(error);
         });
@@ -82,11 +82,11 @@ export class LoginPage extends ParentComponent implements OnInit {
   }
 
   public onClose(){
-    this.router.navigateByUrl("/"+this.sharedData.platform+'/landing');
+    this.router.navigateByUrl('/landing');
   }
 
   public showRecoverPasswordPage(){
-    this.router.navigateByUrl("/"+this.sharedData.platform+'/recover');
+    this.router.navigateByUrl('/recover');
   }
 
 }

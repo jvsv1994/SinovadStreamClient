@@ -39,7 +39,7 @@ export class RecoverPasswordPage extends ParentComponent implements OnInit {
 
   public SendRecoverPasswordEmail(){
     this.showLoading=true;
-    this.recoverPasswordModel.ResetPasswordUrl=window.location.origin+"/"+this.sharedData.platform+"/reset";
+    this.recoverPasswordModel.ResetPasswordUrl=window.location.origin+"/reset";
     this.restProvider.executeSinovadApiService(HttpMethodType.POST,'/users/RecoverPassword',this.recoverPasswordModel).then((result: any) => {
       this.sendedConfirmationEmail=true;
       this.showLoading=false;
@@ -51,7 +51,7 @@ export class RecoverPasswordPage extends ParentComponent implements OnInit {
   }
 
   public onClose(){
-    this.router.navigate([this.sharedData.platform,'landing'],{ skipLocationChange: false});
+    this.router.navigate(['landing'],{ skipLocationChange: false});
   }
 
 }

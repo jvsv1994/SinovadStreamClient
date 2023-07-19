@@ -40,7 +40,7 @@ export class MovieDetailPage extends ParentComponent implements OnInit {
       {
         this.getMovieDetail(movieId);
       }else{
-        this.router.navigate([this.sharedData.platform,'404'],{ skipLocationChange: false});
+        this.router.navigate(['404'],{ skipLocationChange: false});
       }
     }
 
@@ -49,7 +49,7 @@ export class MovieDetailPage extends ParentComponent implements OnInit {
         this.detail=response.Data;
       },error=>{
         console.error(error);
-        this.router.navigate([this.sharedData.platform,'404'],{ skipLocationChange: false});
+        this.router.navigate(['404'],{ skipLocationChange: false});
       });
     }
 

@@ -5,4 +5,5 @@ export class Configuration{
    localIpAddress?: string;
    currentHost?: string;
    alwaysFullScreen?: boolean;
+   isAdminMode?:boolean;
 }

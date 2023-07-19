@@ -73,7 +73,7 @@ export class RootWebAdminPage extends ParentComponent implements OnInit {
       this.sharedData.userData=undefined;
       this.sharedData.currentToken=undefined;
       localStorage.removeItem("apiKey");
-      this.router.navigate([this.sharedData.platform,'landing'],{ skipLocationChange: false});
+      this.router.navigate(['landing'],{ skipLocationChange: false});
     }
 
     public toogleMenu(){
@@ -96,7 +96,7 @@ export class RootWebAdminPage extends ParentComponent implements OnInit {
     }
 
     public showHome(){
-      this.router.navigateByUrl("/"+this.sharedData.platform+"/home").then((response) => {
+      this.router.navigateByUrl("/home").then((response) => {
         if(this.isSmallDevice())
         {
           this.isCollapsedSidebar=true;
@@ -113,7 +113,7 @@ export class RootWebAdminPage extends ParentComponent implements OnInit {
       {
         this.unselectSidebarOption.emit(true);
         this.prepareRouterOutlet();
-        this.router.navigate([this.sharedData.platform,"search"],{queryParams:{text:searchText},skipLocationChange: false});
+        this.router.navigate(["search"],{queryParams:{text:searchText},skipLocationChange: false});
       }else{
         this.showHome();
       }

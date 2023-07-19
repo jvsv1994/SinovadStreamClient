@@ -40,12 +40,12 @@ export class RegisterUserPage extends ParentComponent implements OnInit {
     ngOnInit(): void {
       if(localStorage.getItem('apiKey'))
       {
-        this.router.navigate([this.sharedData.platform,'home'],{ skipLocationChange: false});
+        this.router.navigate(['home'],{ skipLocationChange: false});
       }
     }
 
     public register(){
-      this.registerUserModel.ConfirmEmailUrl=window.location.origin+"/"+this.sharedData.platform+"/confirm";
+      this.registerUserModel.ConfirmEmailUrl=window.location.origin+"/confirm";
       this.showLoading=true;
       this.restProvider.executeSinovadApiService(HttpMethodType.POST,'/users/Register',this.registerUserModel).then((response: any) => {
         console.log("Registrado exitosamente");
@@ -59,7 +59,7 @@ export class RegisterUserPage extends ParentComponent implements OnInit {
     }
 
     public onClose(){
-      this.router.navigate([this.sharedData.platform,'landing'],{ skipLocationChange: false});
+      this.router.navigate(['landing'],{ skipLocationChange: false});
     }
 
 }

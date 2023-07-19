@@ -40,16 +40,16 @@ export class LandingPage extends ParentComponent implements OnInit {
   ngOnInit(): void {
     if(localStorage.getItem('apiKey'))
     {
-      this.router.navigateByUrl("/"+this.sharedData.platform+'/home');
+      this.router.navigateByUrl('/home');
     }
   }
 
   public showLoginPage(){
-    this.router.navigateByUrl("/"+this.sharedData.platform+'/login');
+    this.router.navigateByUrl('/login');
   }
 
   public showRegisterPage(){
-    this.router.navigateByUrl("/"+this.sharedData.platform+'/register');
+    this.router.navigateByUrl('/register');
   }
 
 }

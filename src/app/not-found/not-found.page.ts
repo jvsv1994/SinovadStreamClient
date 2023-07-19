@@ -33,7 +33,7 @@ export class NotFoundPage extends ParentComponent implements OnInit {
 
   public goInitialPage(){
     var pagePath=this.sharedData.currentToken!=undefined?"/home":"/landing";
-    this.router.navigateByUrl("/"+this.sharedData.platform+pagePath).then((response) => {
+    this.router.navigateByUrl(pagePath).then((response) => {
       this.sharedData.pageNotFoundShowing=false;
     },error=>{
       console.error(error);

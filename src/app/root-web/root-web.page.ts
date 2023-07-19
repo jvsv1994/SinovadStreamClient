@@ -67,7 +67,7 @@ export class RootWebPage extends ParentComponent implements OnInit {
       this.sharedData.userData=undefined;
       this.sharedData.currentToken=undefined;
       localStorage.removeItem("apiKey");
-      this.router.navigate([this.sharedData.platform,'landing'],{ skipLocationChange: false});
+      this.router.navigate(['landing'],{ skipLocationChange: false});
     }
 
     public toogleMenu(){
@@ -96,7 +96,7 @@ export class RootWebPage extends ParentComponent implements OnInit {
       this.ref.detectChanges();
       this.hideContent=false;
       this.ref.detectChanges();
-      this.router.navigate([this.sharedData.platform,'home'],{ skipLocationChange: false});
+      this.router.navigate(['home'],{ skipLocationChange: false});
     }
 
     public ShowSeries(){
@@ -104,7 +104,7 @@ export class RootWebPage extends ParentComponent implements OnInit {
       this.ref.detectChanges();
       this.hideContent=false;
       this.ref.detectChanges();
-      this.router.navigate([this.sharedData.platform,'tvseries'],{ skipLocationChange: false});
+      this.router.navigate(['tvseries'],{ skipLocationChange: false});
     }
 
     public ShowMovies(){
@@ -112,14 +112,14 @@ export class RootWebPage extends ParentComponent implements OnInit {
       this.ref.detectChanges();
       this.hideContent=false;
       this.ref.detectChanges();
-      this.router.navigate([this.sharedData.platform,'movies'],{ skipLocationChange: false});
+      this.router.navigate(['movies'],{ skipLocationChange: false});
     }
 
     public ShowSearch(){
       this.hideContent=true;
       this.ref.detectChanges();
       this.hideContent=false;
-      this.router.navigate([this.sharedData.platform,'search'],{ skipLocationChange: false});
+      this.router.navigate(['search'],{ skipLocationChange: false});
     }
 
 
@@ -142,7 +142,7 @@ export class RootWebPage extends ParentComponent implements OnInit {
       {
         event.selectProfile.subscribe((profile:Profile) => {
           ctx.sharedData.currentProfile=profile;
-          ctx.router.navigate([this.sharedData.platform,'home'],{ skipLocationChange: false});
+          ctx.router.navigate(['home'],{ skipLocationChange: false});
         });
         event.loadedProfiles.subscribe((listProfiles:Profile[]) => {
           ctx.showSplashScreen=false;

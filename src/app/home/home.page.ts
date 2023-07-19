@@ -37,7 +37,7 @@ export class HomePage extends ParentComponent implements OnInit {
     public ngOnInit(): void {
       if(!localStorage.getItem('apiKey'))
       {
-        this.router.navigate([this.sharedData.platform,'landing'],{ skipLocationChange: false});
+        this.router.navigate(['landing'],{ skipLocationChange: false});
       }
       this.itemViewData=undefined;
       this.currentMediaTypeID=undefined;
@@ -46,10 +46,10 @@ export class HomePage extends ParentComponent implements OnInit {
     public onSelectItem(detail:ItemDetail){
       if(detail.Item.TvSerieId)
       {
-        this.router.navigateByUrl("/"+this.sharedData.platform+'/tvseriedetail/'+detail.Item.TvSerieId);
+        this.router.navigateByUrl('/tvseriedetail/'+detail.Item.TvSerieId);
       }else if(detail.Item.MovieId)
       {
-        this.router.navigateByUrl("/"+this.sharedData.platform+'/moviedetail/'+detail.Item.MovieId);
+        this.router.navigateByUrl('/moviedetail/'+detail.Item.MovieId);
       }
     }
 }

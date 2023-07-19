@@ -42,7 +42,7 @@ export class ConfirmEmailPage extends ParentComponent implements OnInit {
   ngOnInit(): void {
     if(localStorage.getItem('apiKey'))
     {
-      this.router.navigate([this.sharedData.platform,'home'],{ skipLocationChange: false});
+      this.router.navigate(['home'],{ skipLocationChange: false});
     }
     let base64Data = this.activeRoute.snapshot.params.base64Data;
     if(base64Data!=null)
@@ -66,18 +66,18 @@ export class ConfirmEmailPage extends ParentComponent implements OnInit {
             console.error(error);
           });
         }else{
-          this.router.navigate([this.sharedData.platform,'home'],{ skipLocationChange: false});
+          this.router.navigate(['home'],{ skipLocationChange: false});
         }
       }catch(e){
-        this.router.navigate([this.sharedData.platform,'home'],{ skipLocationChange: false});
+        this.router.navigate(['home'],{ skipLocationChange: false});
       }
     }else{
-      this.router.navigate([this.sharedData.platform,'home'],{ skipLocationChange: false});
+      this.router.navigate(['home'],{ skipLocationChange: false});
     }
   }
 
   public onClose(){
-    this.router.navigate([this.sharedData.platform,'login'],{ skipLocationChange: false});
+    this.router.navigate(['login'],{ skipLocationChange: false});
   }
 
 }

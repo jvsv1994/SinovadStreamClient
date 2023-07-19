@@ -40,6 +40,6 @@ export class TvSeriesPage extends ParentComponent implements OnInit {
     }
 
     public onSelectTvSerie(detail:ItemDetail){
-      this.router.navigateByUrl("/"+this.sharedData.platform+'/tvseriedetail/'+detail.Item.TvSerieId);
+      this.router.navigateByUrl('/tvseriedetail/'+detail.Item.TvSerieId);
     }
 }

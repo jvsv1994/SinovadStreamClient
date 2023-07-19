@@ -40,7 +40,7 @@ export class TvSerieDetailPage extends ParentComponent implements OnInit {
       {
         this.getTvSerieDetail(tvSerieId);
       }else{
-        this.router.navigate([this.sharedData.platform,'404'],{ skipLocationChange: false});
+        this.router.navigate(['404'],{ skipLocationChange: false});
       }
     }
 

@@ -40,7 +40,7 @@ export class MoviesPage extends ParentComponent implements OnInit {
     }
 
     public onSelectMovie(detail:ItemDetail){
-      this.router.navigateByUrl("/"+this.sharedData.platform+'/moviedetail/'+detail.Item.MovieId);
+      this.router.navigateByUrl('/moviedetail/'+detail.Item.MovieId);
     }
 
 }

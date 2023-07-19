@@ -34,7 +34,6 @@ export class SinovadTvComponent extends ParentComponent implements OnInit {
       {
         this.sharedData.configurationData=(<any>window).configurationData;
       }
-      this.sharedData.platform='tv';
       if(localStorage.getItem('apiKey'))
       {
         this.router.navigate([{ outlets: { rostp: ['maintv'] } }],{ relativeTo: this.route, skipLocationChange: true});

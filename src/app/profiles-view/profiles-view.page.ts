@@ -44,7 +44,7 @@ export class ProfilesViewPage extends ParentComponent implements OnInit {
     ngOnInit(): void {
       if(!localStorage.getItem('apiKey'))
       {
-        this.router.navigate([this.sharedData.platform,'landing'],{ skipLocationChange: false});
+        this.router.navigate(['landing'],{ skipLocationChange: false});
       }else{
         this.showModal=true;
         this.performGetProfiles();
