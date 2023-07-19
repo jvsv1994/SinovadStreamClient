@@ -54,7 +54,9 @@ export class SideBarWebAdminPage extends ParentComponent implements OnInit {
   }
 
   ngAfterViewInit(){
-    this.setSelectedOptionByPathname();
+    setTimeout(() => {
+      this.setSelectedOptionByPathname();
+    }, 500);
   }
 
   public selectDefaultOption(){
