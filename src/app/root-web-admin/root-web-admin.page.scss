@@ -46,10 +46,11 @@ button{
 }
 
 .sinovad-menu-container{
-  width: 230px;
-  display: block;
-  background: black;
-  overflow-y: auto;
+  //width: 230px;
+  //display: block;
+  background: #00000099;
+  //overflow-y: auto;
+  position: relative;
 }
 
 .sinovad-body-container{
@@ -59,8 +60,8 @@ button{
 
 .small{
   .sinovad-menu-container{
-    position: absolute;
-    z-index: 6;
+    //position: absolute;
+    //z-index: 6;
   }
 }
 

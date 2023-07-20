@@ -1,0 +1,25 @@
+  <div *ngIf="show" (clickOutside)="onClickOutside()" class="sinovad-drop-down-menu-item-list" [style.width]="dropDownMenuOptions.width+'px'"
+  [style.top]="dropDownMenuOptions.top+'px'" [style.left]="dropDownMenuOptions.left+'px'">
+    <ng-template ngFor let-item [ngForOf]="dropDownMenuOptions.listItems"  let-i="index">
+        <a class="sinovad-drop-down-menu-item-container" [ngClass]="{'selected':item.isSelected}" (click)="onClickDropDownMenuOption(item)">
+          <div class="sinovad-drop-down-menu-item-content">
+            <div class="left">
+              <div class="title">
+                {{item.title}}
+              </div>
+              <div class="subtitle">
+                {{item.subtitle}}
+              </div>
+            </div>
+            <div class="right">
+              <div class="selected-icon-container">
+                <i *ngIf="item.isSelected" class="fa-solid fa-check"></i>
+              </div>
+              <div class="icon-container">
+                <i class="{{item.iconClass}}"></i>
+              </div>
+            </div>
+          </div>
+        </a>
+    </ng-template>
+  </div>

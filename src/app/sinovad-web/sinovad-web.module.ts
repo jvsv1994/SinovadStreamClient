@@ -105,12 +105,12 @@ const routes: Routes = [
        loadChildren: () => import('../not-found/not-found.module').then(m => m.NotFoundPageModule)
       },
       {
-        path: 'storages',
+        path: 'settings/server/:serverGuid/manage/libraries',
         component: ManageMediaPage,
         loadChildren: () => import('../manage-media/manage-media.module').then(m => m.ManageMediaPageModule)
       },
       {
-        path: 'transcoder',
+        path: 'settings/server/:serverGuid/settings/transcoder',
         component: TranscoderSettingssPage,
         loadChildren: () => import('../transcode-settings/transcode-settings.module').then(m => m.TranscoderSettingssPageModule)
       },
@@ -145,7 +145,7 @@ const routes: Routes = [
         loadChildren: () => import('../role-list/role-list.module').then(m => m.RoleListPageModule)
       },
       {
-        path: 'account',
+        path: 'settings/account',
         component: AccountPage,
         loadChildren: () => import('../account/account.module').then(m => m.AccountPageModule)
       },

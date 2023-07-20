@@ -13,7 +13,6 @@ import {v4 as uuid} from "uuid";
 import { TranscodePrepareVideo } from '../../models/transcodePrepareVideo';
 import { SinovadApiGenericResponse } from '../response/sinovadApiGenericResponse';
 import { FormatDataPipe } from 'src/pipes/format-data.pipe';
-import { Profile } from 'src/models/profile';
 
 @Component({
   selector: 'app-parent',
@@ -37,6 +36,10 @@ export class ParentComponent implements OnInit {
   public getNewIndex(itemIndex:number,pageIndex:number,pageSize:number){
     var newIndex=(itemIndex+1)+((pageIndex-1)*pageSize);
     return newIndex;
+  }
+
+  public delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
   }
 
   public getTargetNumberValue(target:any):number{
@@ -154,6 +157,37 @@ export class ParentComponent implements OnInit {
         reject(error)
       });
     });
+  }
+
+
+  public getMediaServers(): Promise<any>{
+    return new Promise((resolve, reject) => {
+      this.restProvider.executeSinovadApiService(HttpMethodType.GET,'/mediaServers/GetAllByUserAsync/'+this.sharedData.userData.Id).then((response:SinovadApiGenericResponse) => {
+        let mediaServers=response.Data;
+        this.sharedData.mediaServers=mediaServers;
+        if(this.sharedData.mediaServers && this.sharedData.mediaServers.length>0)
+        {
+          this.sharedData.selectedMediaServer=this.sharedData.mediaServers[0];
+        }
+        resolve(true);
+      },error=>{
+        reject(error);
+      });
+    });
+  }
+
+  public validateMediaServer(mediaServerGuid:string){
+    if(this.sharedData.mediaServers && this.sharedData.mediaServers.length>0)
+    {
+      var index=this.sharedData.mediaServers.findIndex(x=>x.Guid==mediaServerGuid);
+      if(index!=-1)
+      {
+        this.sharedData.selectedMediaServer=this.sharedData.mediaServers[index];
+        return true;
+      }else{
+        return false;
+      }
+    }
   }
 
   public getProfiles(): Promise<any>{

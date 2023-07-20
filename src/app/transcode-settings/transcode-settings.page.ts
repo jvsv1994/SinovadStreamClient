@@ -9,6 +9,7 @@ import { CatalogEnum, HttpMethodType } from '../enums';
 import { RestProviderService } from 'src/services/rest-provider.service';
 import { SinovadApiGenericResponse } from '../response/sinovadApiGenericResponse';
 import { TranscoderSettings } from '../../models/transcoderSettings';
+import { ActivatedRoute, Router } from '@angular/router';
 
 declare var window;
 @Component({
@@ -35,6 +36,8 @@ export class TranscoderSettingssPage extends ParentComponent implements OnInit {
   showSucessMessage:boolean=false;
 
   constructor(
+    private router: Router,
+    public activeRoute: ActivatedRoute,
     public restProvider: RestProviderService,
     public http: HttpClient,
     public events: EventsService,
@@ -73,24 +76,35 @@ export class TranscoderSettingssPage extends ParentComponent implements OnInit {
 
     }
 
-    public getTranscoderSettingss(){
-      this.restProvider.executeSinovadApiService(HttpMethodType.GET,"/transcoderSettings/GetByMediaServerAsync/"+this.sharedData.currentMediaServerData.Id).then((response:SinovadApiGenericResponse) => {
-        this.currentTranscoderSettingss=response.Data;
-        if(this.currentTranscoderSettingss==undefined)
-        {
-          var currentTranscoderSettingss= new TranscoderSettings();
-          currentTranscoderSettingss.TemporaryFolder="";
-          currentTranscoderSettingss.ConstantRateFactor=18;
-          currentTranscoderSettingss.VideoTransmissionTypeCatalogId=CatalogEnum.VideoTransmissionType;
-          currentTranscoderSettingss.VideoTransmissionTypeCatalogDetailId=this.transmissionMethodList[0].Id;
-          currentTranscoderSettingss.PresetCatalogId=CatalogEnum.TranscoderPreset;
-          currentTranscoderSettingss.PresetCatalogDetailId=this.presetList[0].Id;
-          currentTranscoderSettingss.MediaServerId=this.sharedData.currentMediaServerData.Id;
-          this.currentTranscoderSettingss=currentTranscoderSettingss;
+    private async getTranscoderSettingss(){
+      if(this.sharedData.mediaServers && this.sharedData.mediaServers.length>0)
+      {
+        var mediaServerGuid=this.activeRoute.snapshot.params.serverGuid;
+        if(this.validateMediaServer(mediaServerGuid)){
+          this.restProvider.executeSinovadApiService(HttpMethodType.GET,"/transcoderSettings/GetByMediaServerGuidAsync/"+mediaServerGuid).then((response:SinovadApiGenericResponse) => {
+            this.currentTranscoderSettingss=response.Data;
+            if(this.currentTranscoderSettingss==undefined)
+            {
+              var currentTranscoderSettingss= new TranscoderSettings();
+              currentTranscoderSettingss.TemporaryFolder="";
+              currentTranscoderSettingss.ConstantRateFactor=18;
+              currentTranscoderSettingss.VideoTransmissionTypeCatalogId=CatalogEnum.VideoTransmissionType;
+              currentTranscoderSettingss.VideoTransmissionTypeCatalogDetailId=this.transmissionMethodList[0].Id;
+              currentTranscoderSettingss.PresetCatalogId=CatalogEnum.TranscoderPreset;
+              currentTranscoderSettingss.PresetCatalogDetailId=this.presetList[0].Id;
+              currentTranscoderSettingss.MediaServerId=this.sharedData.selectedMediaServer.Id;
+              this.currentTranscoderSettingss=currentTranscoderSettingss;
+            }
+          },error=>{
+            console.error(error);
+          });
+        }else{
+          this.router.navigateByUrl('/404')
         }
-      },error=>{
-        console.error(error);
-      });
+      }else{
+        await this.delay(100);
+        this.getTranscoderSettingss();
+      }
     }
 
     public saveTrancodeSettings(){

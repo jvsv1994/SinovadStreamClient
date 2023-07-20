@@ -6,4 +6,5 @@ export class SidebarOption{
    method?: string;
    iconClass?: string;
    platform?: string;
+   path?:string;
 }

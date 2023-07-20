@@ -8,6 +8,7 @@ import { SplashScreenPageModule } from '../splash-screen/splash-screen.module';
 import { HeaderWebAdminPageModule } from '../header-web-admin/header-web-admin.module';
 import { SideBarWebAdminPageModule } from '../sidebar-web-admin/siderbar-web-admin.module';
 import { RootWebAdminPage } from './root-web-admin.page';
+import { SidebarAccountPageModule } from '../sidebar-account/siderbar-account.module';
 @NgModule({
     declarations: [
       RootWebAdminPage
@@ -18,6 +19,7 @@ import { RootWebAdminPage } from './root-web-admin.page';
       VideoPageModule,
       HeaderWebAdminPageModule,
       SideBarWebAdminPageModule,
+      SidebarAccountPageModule,
       ReactiveFormsModule,
       SharedModule,
       SplashScreenPageModule,

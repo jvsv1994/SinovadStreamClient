@@ -1,0 +1,62 @@
+
+<div class="sidebar-container">
+  <div class="sidebar-content">
+      <div role="navigation">
+          <div class="sidebar-list-header-container">
+            <div class="sidebar-list-header-content">
+              {{sharedData.userData.FirstName}} {{sharedData.userData.LastName}}
+            </div>
+          </div>
+          <div class="sidebar-list-item-container">
+            <a [routerLink]="['/settings/account']">
+              <div class="sidebar-link-container">
+                <div class="sidebar-link-icon"></div>
+                <div class="sidebar-link-title">
+                  Cuenta
+                </div>
+              </div>
+            </a>
+          </div>
+      </div>
+      <button class="media-server-button" (click)="togleDropDownMediaServers($event)">
+        <div class="content">
+          <div class="left">
+              <span class="first">
+                  {{sharedData.selectedMediaServer.IpAddress}}
+              </span>
+              <i *ngIf="dropDownMenuPage.isShowing" class="fa-solid fa-caret-up"></i>
+              <i *ngIf="!dropDownMenuPage.isShowing" class="fa-solid fa-caret-down"></i>
+          </div>
+          <div class="right">
+
+          </div>
+        </div>
+      </button>
+      <ng-template [ngIf]="sharedData.currentMediaServerData && serverModules && serverModules.length>0">
+        <ng-template ngFor let-module [ngForOf]="serverModules">
+          <div role="navigation">
+            <div class="sidebar-list-header-container">
+              <div class="sidebar-list-header-content">
+                {{module.name}}
+              </div>
+            </div>
+            <ng-template ngFor let-option [ngForOf]="module.listOptions">
+              <div class="sidebar-list-item-container" [ngClass]="{'selected':selectedSidebarOption && selectedSidebarOption.index==option.index}">
+                <a [routerLink]="[option.path]">
+                  <div class="sidebar-link-container">
+                    <div class="sidebar-link-icon"></div>
+                    <div class="sidebar-link-title">
+                      {{option.name}}
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </ng-template>
+          </div>
+        </ng-template>
+      </ng-template>
+  </div>
+</div>
+
+<app-drop-down-menu #dropDownMenuPage></app-drop-down-menu>
+

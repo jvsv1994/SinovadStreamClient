@@ -2,6 +2,7 @@
 export class MediaServer{
 
   public Id?: number;
+  public Guid?:string;
   public IpAddress:string;
   public UserId: number;
   public StateCatalogId: number;

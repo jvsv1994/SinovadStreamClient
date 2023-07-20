@@ -1,0 +1,3 @@
+<ng-template #dropDownMenuContent let-dropDownMenuContentTemplate>
+    <app-drop-down-menu-content *ngIf="isShowing" [dropDownMenuOptions]="dropDownMenuOptions" (hideContextMenu)="onHide()" (clickItem)="onClickDropDownMenuItem($event)"></app-drop-down-menu-content>
+</ng-template>

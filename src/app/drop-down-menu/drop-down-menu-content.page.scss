@@ -1,0 +1,98 @@
+
+.sinovad-drop-down-menu-item-list{
+  position: absolute;
+  z-index: 999999999;
+  border-radius: 5px;
+  background: #131313;
+  border: 1px solid rgba(151, 151, 151, 0.34);
+  box-shadow: rgba(0, 0, 0, 0.5) 0px 0px 18px 0px;
+  color: white;
+}
+
+a.sinovad-drop-down-menu-item-container{
+  height: 60px;
+  padding: 8px 10px 8px 25px;
+  width: 100%;
+  word-wrap: break-word;
+  display: block;
+  font-size: 13px;
+  text-align: left;
+  -webkit-tap-highlight-color: transparent;
+  background: none;
+  border: 0;
+  border-radius: 0;
+  cursor: pointer;
+  line-height: inherit;
+  margin: 0;
+  outline: none;
+  text-decoration: none;
+  touch-action: manipulation;
+  transition: color .2s;
+  user-select: none;
+  color: hsla(0,0%,100%,.7);
+}
+
+a.sinovad-drop-down-menu-item-container.selected{
+  color: #007bff;
+}
+
+a.sinovad-drop-down-menu-item-container:hover{
+  color: white;
+  background-color: hsla(0,0%,100%,.08);
+}
+
+
+.sinovad-drop-down-menu-item-content{
+  align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: space-between;
+  width: 100%;
+  .left{
+    flex-grow: 1;
+    line-height: 1.5;
+    overflow: hidden;
+    .title{
+      max-width: 100%;
+      min-width: 0;
+      overflow: hidden!important;
+      text-overflow: ellipsis;
+      white-space: nowrap!important;
+      font-size: 13px;
+    }
+    .subtitle{
+      color: hsla(0,0%,100%,.3);
+      font-size: 12px;
+      max-width: 100%;
+      min-width: 0;
+      overflow: hidden!important;
+      text-overflow: ellipsis;
+      white-space: nowrap!important;
+    }
+  }
+  .right{
+    display: flex;
+    flex-shrink: 0;
+    .selected-icon-container{
+      fill: currentcolor;
+      display: inline-block;
+      height: 1em;
+      line-height: 1;
+      position: relative;
+      vertical-align: middle;
+      width: 1em;
+      font-size: 14px;
+      margin-left: 10px;
+      top: 0;
+      color: #007bff;
+      overflow: hidden;
+    }
+    .icon-container{
+      display: flex;
+      font-size: 13px;
+      margin-left: 10px;
+      margin-right: 10px;
+      color: #6b5;
+    }
+  }
+}

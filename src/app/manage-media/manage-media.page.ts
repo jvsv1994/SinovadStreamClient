@@ -10,6 +10,7 @@ import { RestProviderService } from 'src/services/rest-provider.service';
 import { CatalogEnum, HttpMethodType, MediaType } from '../enums';
 import { Storage } from '../../models/storage';
 import { SinovadApiGenericResponse } from '../response/sinovadApiGenericResponse';
+import { ActivatedRoute, Router } from '@angular/router';
 
 declare var window;
 @Component({
@@ -18,7 +19,6 @@ declare var window;
   styleUrls: ['./manage-media.page.scss']
 })
 export class ManageMediaPage extends ParentComponent implements OnInit,OnDestroy {
-
 
   @Output() showInitial =new EventEmitter();
   listMainDirectories:any[];
@@ -43,6 +43,8 @@ export class ManageMediaPage extends ParentComponent implements OnInit,OnDestroy
   showForm:boolean=false;
 
   constructor(
+    private router: Router,
+    public activeRoute: ActivatedRoute,
     public restProvider: RestProviderService,
     public http: HttpClient,
     public events: EventsService,
@@ -53,12 +55,12 @@ export class ManageMediaPage extends ParentComponent implements OnInit,OnDestroy
     }
 
     ngOnInit(): void {
-
+      this.getAllMainDirectories();
+      this.getStorages();
     }
 
     ngAfterViewInit(){
-      this.getAllMainDirectories();
-      this.getStorages();
+
     }
 
     ngOnDestroy(){
@@ -77,31 +79,43 @@ export class ManageMediaPage extends ParentComponent implements OnInit,OnDestroy
       });
     }
 
-    public getStorages(){
-      var path="/storages/GetAllWithPaginationByMediaServerAsync/"+this.sharedData.currentMediaServerData.Id;
-      this.restProvider.executeSinovadApiService(HttpMethodType.GET,path).then((response:SinovadApiGenericResponse) => {
-        let data=response.Data;
-        this.listStorages=data;
-        if(data && data.length>0)
+    public async getStorages(){
+      if(this.sharedData.mediaServers && this.sharedData.mediaServers.length>0)
+      {
+        var mediaServerGuid=this.activeRoute.snapshot.params.serverGuid;
+        if(this.validateMediaServer(mediaServerGuid))
         {
-          let storageMovies=data.find(item=>item.MediaType==1);
-          if(storageMovies)
-          {
-            this.storageMovies=storageMovies;
-          }else{
-            this.storageMovies.MediaServerId=this.sharedData.currentMediaServerData.Id;
-          }
-          let storageTvSeries=data.find(item=>item.MediaType==2);
-          if(storageTvSeries)
-          {
-            this.storageTvSeries=storageTvSeries;
-          }else{
-            this.storageTvSeries.MediaServerId=this.sharedData.currentMediaServerData.Id;
-          }
+          var path="/storages/GetAllWithPaginationByMediaServerAsync/"+this.sharedData.selectedMediaServer.Id;
+          this.restProvider.executeSinovadApiService(HttpMethodType.GET,path).then((response:SinovadApiGenericResponse) => {
+            let data=response.Data;
+            this.listStorages=data;
+            if(data && data.length>0)
+            {
+              let storageMovies=data.find(item=>item.MediaType==1);
+              if(storageMovies)
+              {
+                this.storageMovies=storageMovies;
+              }else{
+                this.storageMovies.MediaServerId=this.sharedData.currentMediaServerData.Id;
+              }
+              let storageTvSeries=data.find(item=>item.MediaType==2);
+              if(storageTvSeries)
+              {
+                this.storageTvSeries=storageTvSeries;
+              }else{
+                this.storageTvSeries.MediaServerId=this.sharedData.currentMediaServerData.Id;
+              }
+            }
+          },error=>{
+            console.error(error);
+          });
+        }else{
+          this.router.navigateByUrl('/404')
         }
-      },error=>{
-        console.error(error);
-      });
+      }else{
+        await this.delay(100);
+        this.getStorages();
+      }
     }
 
     public openNewStorage(){

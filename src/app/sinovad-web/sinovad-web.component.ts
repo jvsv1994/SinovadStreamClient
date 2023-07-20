@@ -6,7 +6,7 @@ import { EventsService } from 'src/services/events-service';
 import { ParentComponent } from '../parent/parent.component';
 import { HttpClient } from '@angular/common/http';
 import { RestProviderService } from 'src/services/rest-provider.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RootWebPage } from '../root-web/root-web.page';
 @Component({
   selector: 'app-sinovad-web',
@@ -23,6 +23,7 @@ export class SinovadWebComponent extends ParentComponent implements OnInit {
   showRootPage:boolean=false;
 
   constructor(
+    private route: ActivatedRoute,
     private router: Router,
     public restProvider: RestProviderService,
     public ref: ChangeDetectorRef,
@@ -43,6 +44,7 @@ export class SinovadWebComponent extends ParentComponent implements OnInit {
         this.sharedData.currentToken=localStorage.getItem('apiKey');
         this.getUser().then(res=>{
           this.getMenus();
+          this.getMediaServers();
           this.getProfiles().then(response=>{
             this.showRootPage=true;
             this.ref.detectChanges();

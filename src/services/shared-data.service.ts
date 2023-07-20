@@ -4,6 +4,7 @@ import { BuilderVideo } from 'src/models/builderVideo';
 import { Configuration } from 'src/models/configuration';
 import { Profile } from 'src/models/profile';
 import { Menu } from 'src/models/menu';
+import { MediaServer } from 'src/models/mediaServer';
 
 @Injectable({ providedIn: 'root' })
 export class SharedDataService {
@@ -14,8 +15,8 @@ export class SharedDataService {
   UserRoleID: number=3;
   currentVideo:BuilderVideo;
   currentMediaServerData:any;
-  //urlSinovadStreamWebApi: string='http://localhost:53363';
-  urlSinovadStreamWebApi: string='http://streamapi.sinovad.com';
+  urlSinovadStreamWebApi: string='http://localhost:53363';
+  //urlSinovadStreamWebApi: string='http://streamapi.sinovad.com';
   urlSinovadCdn: string='http://cdn.sinovad.com/stream/web';
   originalUrlImagesMovieDataBase:String="https://image.tmdb.org/t/p/w600_and_h900_bestv2";
   urlEpisodeDataBase:string="https://www.themoviedb.org/t/p/w454_and_h254_bestv2";
@@ -28,6 +29,8 @@ export class SharedDataService {
   listProfiles:Profile[]=[];
   listMenus:Menu[]=[];
   pageNotFoundShowing:boolean=false;
+  mediaServers:MediaServer[]=[];
+  selectedMediaServer:MediaServer;
 
   constructor() {
 
