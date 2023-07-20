@@ -1,5 +1,5 @@
 
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SharedDataService } from 'src/services/shared-data.service';
 import { EventsService } from 'src/services/events-service';
@@ -10,6 +10,11 @@ import { RestProviderService } from 'src/services/rest-provider.service';
 import { SinovadApiGenericResponse } from '../response/sinovadApiGenericResponse';
 import { TranscoderSettings } from '../../models/transcoderSettings';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MediaServer } from 'src/models/mediaServer';
+import { CustomToastPage } from '../custom-toast/custom-toast.page';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { CatalogDetail } from 'src/models/catalogDetail';
+import { ToastType } from '../custom-toast/toastEnums';
 
 declare var window;
 @Component({
@@ -30,12 +35,16 @@ export class TranscoderSettingssPage extends ParentComponent implements OnInit {
 
   showingDirectoryTranscodeVideos:boolean;
 
-  transmissionMethodList:any[]=[];
-  presetList:any[]=[];
+  transmissionMethodList:CatalogDetail[]=[];
+  presetList:CatalogDetail[]=[];
   currentTranscoderSettingss:TranscoderSettings;
-  showSucessMessage:boolean=false;
+  mediaServer:MediaServer;
+  loading:boolean=false;
+  customForm:FormGroup;
+  @ViewChild('customToastPage') customToastPage: CustomToastPage;
 
   constructor(
+    private formBuilder: FormBuilder,
     private router: Router,
     public activeRoute: ActivatedRoute,
     public restProvider: RestProviderService,
@@ -50,6 +59,18 @@ export class TranscoderSettingssPage extends ParentComponent implements OnInit {
     ngOnInit(): void {
       this.getAllMainDirectories();
       this.getCatalogDetails();
+      this.getMediaServerData();
+    }
+
+    public async getMediaServerData(){
+      var mediaServerGuid=this.activeRoute.snapshot.params.serverGuid;
+      this.restProvider.executeSinovadApiService(HttpMethodType.GET,'/mediaServers/GetByGuidAsync/'+mediaServerGuid).then((response:SinovadApiGenericResponse) => {
+        this.sharedData.selectedMediaServer=response.Data;
+        this.mediaServer=this.sharedData.selectedMediaServer;
+        this.getTranscoderSettingss();
+      },error=>{
+        this.router.navigateByUrl('/404')
+      });
     }
 
     public getCatalogDetails(){
@@ -58,7 +79,6 @@ export class TranscoderSettingssPage extends ParentComponent implements OnInit {
         let data=response.Data;
         this.transmissionMethodList=data.filter(item=>item.CatalogId==CatalogEnum.VideoTransmissionType);
         this.presetList=data.filter(item=>item.CatalogId==CatalogEnum.TranscoderPreset);
-        this.getTranscoderSettingss();
       },error=>{
         console.error(error);
       });
@@ -76,9 +96,7 @@ export class TranscoderSettingssPage extends ParentComponent implements OnInit {
 
     }
 
-    private async getTranscoderSettingss(){
-      if(this.sharedData.mediaServers && this.sharedData.mediaServers.length>0)
-      {
+    private getTranscoderSettingss(){
         var mediaServerGuid=this.activeRoute.snapshot.params.serverGuid;
         if(this.validateMediaServer(mediaServerGuid)){
           this.restProvider.executeSinovadApiService(HttpMethodType.GET,"/transcoderSettings/GetByMediaServerGuidAsync/"+mediaServerGuid).then((response:SinovadApiGenericResponse) => {
@@ -95,26 +113,18 @@ export class TranscoderSettingssPage extends ParentComponent implements OnInit {
               currentTranscoderSettingss.MediaServerId=this.sharedData.selectedMediaServer.Id;
               this.currentTranscoderSettingss=currentTranscoderSettingss;
             }
+            this.customForm = this.formBuilder.group({
+              temporaryFolder: new FormControl(this.currentTranscoderSettingss.TemporaryFolder),
+              preset:new FormControl(this.currentTranscoderSettingss.PresetCatalogDetailId),
+              transmissionMethod:new FormControl(this.currentTranscoderSettingss.VideoTransmissionTypeCatalogDetailId),
+              constantRateFactor:new FormControl(this.currentTranscoderSettingss.ConstantRateFactor)
+            });
           },error=>{
             console.error(error);
           });
         }else{
           this.router.navigateByUrl('/404')
         }
-      }else{
-        await this.delay(100);
-        this.getTranscoderSettingss();
-      }
-    }
-
-    public saveTrancodeSettings(){
-      let methodType=this.currentTranscoderSettingss.Id>0?HttpMethodType.PUT:HttpMethodType.POST;
-      var path=this.currentTranscoderSettingss.Id>0?"/transcoderSettings/Update":"/transcoderSettings/Create";
-      this.restProvider.executeSinovadApiService(methodType,path,this.currentTranscoderSettingss).then((response) => {
-        this.showSucessMessage=true;
-      },error=>{
-        console.error(error);
-      });
     }
 
     public onChangeVideoTransmissionType(event:any){
@@ -130,9 +140,23 @@ export class TranscoderSettingssPage extends ParentComponent implements OnInit {
       this.showingDirectoryTranscodeVideos=false;
     }
 
-    @HostListener('window:resize', ['$event'])
-    onResize(event) {
-
+    public saveTranscoder(){
+      this.loading=true;
+      var transcoderSettings:TranscoderSettings=JSON.parse(JSON.stringify(this.currentTranscoderSettingss));
+      transcoderSettings.TemporaryFolder=this.customForm.value.temporaryFolder;
+      transcoderSettings.ConstantRateFactor=this.customForm.value.constantRateFactor;
+      transcoderSettings.VideoTransmissionTypeCatalogDetailId=this.customForm.value.transmissionMethod;
+      transcoderSettings.PresetCatalogDetailId=this.customForm.value.preset;
+      let methodType=this.currentTranscoderSettingss.Id>0?HttpMethodType.PUT:HttpMethodType.POST;
+      var path=this.currentTranscoderSettingss.Id>0?"/transcoderSettings/Update":"/transcoderSettings/Create";
+      this.restProvider.executeSinovadApiService(methodType,path,transcoderSettings).then((response) => {
+        this.loading=false;
+        this.getTranscoderSettingss();
+        this.customToastPage.show({containerId:"sinovadMainContainer",displayTime:2000,message:"Se guardaron los cambios satisfactoriamente",toastType:ToastType.Success});
+      },error=>{
+        this.loading=false;
+        console.error(error);
+      });
     }
 
 }

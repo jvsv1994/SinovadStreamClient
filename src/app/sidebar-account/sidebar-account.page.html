@@ -22,7 +22,7 @@
         <div class="content">
           <div class="left">
               <span class="first">
-                  {{sharedData.selectedMediaServer.IpAddress}}
+                {{sharedData.selectedMediaServer.FamilyName?sharedData.selectedMediaServer.FamilyName:sharedData.selectedMediaServer.DeviceName}}
               </span>
               <i *ngIf="dropDownMenuPage.isShowing" class="fa-solid fa-caret-up"></i>
               <i *ngIf="!dropDownMenuPage.isShowing" class="fa-solid fa-caret-down"></i>
