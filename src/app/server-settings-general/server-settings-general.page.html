@@ -22,7 +22,7 @@
                         <p class="help-block">Este nombre se usará para que otros ordenadores identifiquen este servidor en tu red. Si lo dejas en blanco se usará el nombre del equipo.</p>
                     </div>
                     <div class="form-footer">
-                        <button type="submit" class="save">
+                        <button type="submit" class="save" [ngClass]="{'load':loading,'disable':customForm.pristine || customForm.invalid}">
                           <div class="loading">
 
                           </div>

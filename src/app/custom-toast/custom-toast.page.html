@@ -1,14 +1,10 @@
 <ng-template #toastContent let-toast>
-  <div *ngIf="isShowing" class="toast-box-container">
-    <div class="toast-box-corent">
-      <div class="toast-box">
-        <div class="toast" [ngClass]="{'success':toastOptions.toastType==toastType().Success,'info':toastOptions.toastType==toastType().Info,'error':toastOptions.toastType==toastType().Error}">
-          <i *ngIf="toastOptions.toastType==toastType().Success" class="fa-solid fa-circle-check"></i>
-          <i *ngIf="toastOptions.toastType==toastType().Info" class="fa-solid fa-circle-info"></i>
-          <i *ngIf="toastOptions.toastType==toastType().Error" class="fa-solid fa-circle-xmark"></i>
-          <span>{{toastOptions.message}}</span>
-        </div>
+    <div *ngIf="isShowing" class="toast-box">
+      <div class="toast" [ngClass]="{'success':toastOptions.toastType==toastType().Success,'info':toastOptions.toastType==toastType().Info,'error':toastOptions.toastType==toastType().Error}">
+        <i *ngIf="toastOptions.toastType==toastType().Success" class="fa-solid fa-circle-check"></i>
+        <i *ngIf="toastOptions.toastType==toastType().Info" class="fa-solid fa-circle-info"></i>
+        <i *ngIf="toastOptions.toastType==toastType().Error" class="fa-solid fa-circle-xmark"></i>
+        <span>{{toastOptions.message}}</span>
       </div>
     </div>
-  </div>
 </ng-template>
