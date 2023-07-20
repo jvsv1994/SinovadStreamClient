@@ -1,17 +1,18 @@
 
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SharedDataService } from 'src/services/shared-data.service';
 import { EventsService } from 'src/services/events-service';
 import { ParentComponent } from '../parent/parent.component';
 import { HttpClient} from '@angular/common/http';
-import { CatalogEnum, HttpMethodType } from '../enums';
+import { HttpMethodType } from '../enums';
 import { RestProviderService } from 'src/services/rest-provider.service';
 import { SinovadApiGenericResponse } from '../response/sinovadApiGenericResponse';
-import { TranscoderSettings } from '../../models/transcoderSettings';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MediaServer } from 'src/models/mediaServer';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { CustomToastPage } from '../custom-toast/custom-toast.page';
+import { ToastType } from '../custom-toast/toastEnums';
 
 declare var window;
 @Component({
@@ -23,6 +24,7 @@ export class ServerSettingsGeneralPage extends ParentComponent implements OnInit
 
   customForm = this.formBuilder.group({});
   mediaServer:MediaServer;
+  @ViewChild('customToastPage') customToastPage: CustomToastPage;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -67,6 +69,7 @@ export class ServerSettingsGeneralPage extends ParentComponent implements OnInit
       this.restProvider.executeSinovadApiService(HttpMethodType.PUT,path,mediaServer).then((response) => {
         this.getMediaServers();
         this.getMediaServerData();
+        this.customToastPage.show({containerId:"serverSettinsPageContainer",displayTime:2000,message:"Se guardaron los cambios satisfactoriamente",toastType:ToastType.Success});
       },error=>{
         console.error(error);
       });

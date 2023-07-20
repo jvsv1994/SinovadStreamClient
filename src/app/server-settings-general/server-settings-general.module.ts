@@ -5,6 +5,7 @@ import { DirectoryChooserPageModule } from '../directory-chooser/directory-choos
 import { SharedModule } from 'src/shared.module';
 import { SuccessMessageModalPageModule } from '../success-message-modal/success-message-modal.module';
 import { ServerSettingsGeneralPage } from './server-settings-general.page';
+import { CustomToastPageModule } from '../custom-toast/custom-toast.module';
 
 @NgModule({
     declarations: [
@@ -16,7 +17,8 @@ import { ServerSettingsGeneralPage } from './server-settings-general.page';
         DirectoryChooserPageModule,
         SuccessMessageModalPageModule,
         SharedModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        CustomToastPageModule
     ],
     exports: [ServerSettingsGeneralPage]
 })
