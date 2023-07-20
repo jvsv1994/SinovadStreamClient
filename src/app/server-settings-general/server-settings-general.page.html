@@ -1,0 +1,40 @@
+<div *ngIf="mediaServer" class="sinovad-page-container">
+  <h2>{{mediaServer.FamilyName?mediaServer.FamilyName:mediaServer.DeviceName}} - General</h2>
+  <div>
+    <div class="server-settings-container">
+      <div class="settings-row">
+          <div class="pane-region">
+            <div class="form-group">
+                <div class="remote-access-mapping">
+                    <span class="mapping-label">Privado</span>
+                    <span class="mapping-address">
+                      <span class="mapping-value">{{mediaServer.Url}}</span>
+                  <!--     <span class="mapping-separator">:</span>
+                      <span class="mapping-value"></span> -->
+                    </span>
+                </div>
+            </div>
+            <div class="form-group">
+                <form [formGroup]="customForm" (ngSubmit)="updateMediaServer()"class="server-settings-form">
+                    <div class="form-group">
+                        <label class="control-label">Nombre Familiar</label>
+                        <input class="form-control" type="text" formControlName="familyName" [placeholder]="mediaServer.FamilyName?mediaServer.FamilyName:mediaServer.DeviceName" />
+                        <p class="help-block">Este nombre se usará para que otros ordenadores identifiquen este servidor en tu red. Si lo dejas en blanco se usará el nombre del equipo.</p>
+                    </div>
+                    <div class="form-footer">
+                        <button type="submit" class="save">
+                          <div class="loading">
+
+                          </div>
+                          <span class="btn-label">Guardar cambios</span>
+                        </button>
+                        <span class="form-message"></span>
+                    </div>
+                </form>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+
+</div>

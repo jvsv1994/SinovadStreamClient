@@ -30,6 +30,7 @@ import { TvSeriesPage } from '../tvseries/tvseries.page';
 import { MoviesPage } from '../movies/movies.page';
 import { HomePage } from '../home/home.page';
 import { SearchViewRootPage } from '../search-view-root/search-view-root.page';
+import { ServerSettingsGeneralPage } from '../server-settings-general/server-settings-general.page';
 
 const routes: Routes = [
   {
@@ -103,6 +104,11 @@ const routes: Routes = [
       {path: '404',
        component: NotFoundPage,
        loadChildren: () => import('../not-found/not-found.module').then(m => m.NotFoundPageModule)
+      },
+      {
+        path: 'settings/server/:serverGuid/settings/general',
+        component: ServerSettingsGeneralPage,
+        loadChildren: () => import('../server-settings-general/server-settings-general.module').then(m => m.ServerSettingsGeneralPageModule)
       },
       {
         path: 'settings/server/:serverGuid/manage/libraries',

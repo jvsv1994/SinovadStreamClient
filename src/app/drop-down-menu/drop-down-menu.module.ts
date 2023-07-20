@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/shared.module';
 import { DropDownMenuPage } from './drop-down-menu.page';
 import { DropDownMenuContentPage } from './drop-down-menu-content.page';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
     providers:[],
@@ -12,7 +13,8 @@ import { DropDownMenuContentPage } from './drop-down-menu-content.page';
       CommonModule,
       FormsModule,
       SharedModule,
-      ReactiveFormsModule
+      ReactiveFormsModule,
+      RouterModule
     ],
     exports: [DropDownMenuPage,DropDownMenuContentPage]
 })

@@ -147,18 +147,10 @@ export class SidebarAccountPage extends ParentComponent implements OnInit {
     console.log(rect);
     let listItems:DropDownMenuItem[]=[];
     this.sharedData.mediaServers.forEach(element => {
-      var eventOnSelectItem=new EventEmitter<boolean>();
-      eventOnSelectItem.subscribe(event => {
-        this.onClickMediaServer(element);
-      });
-      listItems.push({title:element.IpAddress,subtitle:"Funcionando",iconClass:"fa-solid fa-thumbs-up",isSelected:this.sharedData.selectedMediaServer.Id==element.Id?true:false,eventOnSelectItem:eventOnSelectItem});
+      listItems.push({title:element.IpAddress,subtitle:"Funcionando",iconClass:"fa-solid fa-thumbs-up",
+      path:"/settings/server/"+element.Guid+"/settings/general",isSelected:this.sharedData.selectedMediaServer.Id==element.Id?true:false});
     });
     this.dropDownMenuPage.show({containerId:"sinovadMainContainer",left:rect.left,width:rect.width,top:rect.top+rect.height,listItems:listItems});
-  }
-
-  public onClickMediaServer(mediaServer:MediaServer)
-  {
-    this.sharedData.selectedMediaServer=mediaServer;
   }
 
 }

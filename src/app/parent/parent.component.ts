@@ -190,6 +190,20 @@ export class ParentComponent implements OnInit {
     }
   }
 
+  public getMediaServer(mediaServerGuid:string){
+    if(this.sharedData.mediaServers && this.sharedData.mediaServers.length>0)
+    {
+      var index=this.sharedData.mediaServers.findIndex(x=>x.Guid==mediaServerGuid);
+      if(index!=-1)
+      {
+        this.sharedData.selectedMediaServer=this.sharedData.mediaServers[index];
+        return true;
+      }else{
+        return false;
+      }
+    }
+  }
+
   public getProfiles(): Promise<any>{
     return new Promise((resolve, reject) => {
       this.restProvider.executeSinovadApiService(HttpMethodType.GET,'/profiles/GetAllWithPaginationByUserAsync/'+this.sharedData.userData.Id).then((response:SinovadApiGenericResponse) => {
@@ -252,7 +266,7 @@ export class ParentComponent implements OnInit {
   }
 
   public isSmallDevice(){
-    if(window.innerWidth<=1023)
+    if(window.innerWidth<=768)
     {
       return true;
     }else{

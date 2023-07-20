@@ -9,6 +9,7 @@ import { Subscription } from 'rxjs';
 import { ParentComponent } from '../parent/parent.component';
 import { DropDownMenuItem } from './dropDownMenuItem';
 import { DropDownMenuOptions } from './dropDownMenuOptions';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-drop-down-menu-content',
@@ -27,6 +28,7 @@ export class DropDownMenuContentPage extends ParentComponent implements OnInit,O
   @Input() dropDownMenuOptions:DropDownMenuOptions;
 
   constructor(
+    private router: Router,
     public ref:ChangeDetectorRef,
     public viewContainerRef: ViewContainerRef,
     public restProvider: RestProviderService,
@@ -61,7 +63,7 @@ export class DropDownMenuContentPage extends ParentComponent implements OnInit,O
 
     public onClickDropDownMenuOption(option:DropDownMenuItem){
       this.clickItem.emit(option);
-      option.eventOnSelectItem.emit(true);
+      this.router.navigateByUrl(option.path);
     }
 
 }

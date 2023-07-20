@@ -10,5 +10,6 @@ export class DropDownMenuItem{
   imageUrl?:string;
   iconClass?:string;
   isSelected?:boolean;
+  path?:string;
   eventOnSelectItem?:EventEmitter<boolean>;
 }
