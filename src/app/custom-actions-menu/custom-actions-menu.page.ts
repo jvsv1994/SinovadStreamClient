@@ -1,6 +1,7 @@
 
 import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output, TemplateRef, ViewChild, ViewContainerRef} from '@angular/core';
 import { CustomActionsMenuOptions } from './customActionsOptions';
+import { CustomActionsMenuItem } from './customActionsMenuItem';
 
 @Component({
   selector: 'app-custom-actions-menu',
@@ -54,6 +55,11 @@ export class CustomActionsMenuPage implements OnInit {
       }
       this.isShowing=false;
       this.ref.detectChanges();
+    }
+
+    public onSelectItem(item:CustomActionsMenuItem){
+      this.hide();
+      item.eventOnSelectItem.emit();
     }
 
 }

@@ -25,51 +25,6 @@
       </div>
     </div>
   </ng-template>
-
-
-<!--   <div>
-    <div class="server-settings-container">
-      <div class="settings-row">
-          <div class="pane-region">
-            <div class="sinovad-storage-container">
-              <section class="sinovad-storage-principal-section">
-                <div class="container">
-                  <div class="row mt-4">
-                    <div class="col-12">
-                      <table class="table table-bordered">
-                        <thead>
-                          <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Path</th>
-                            <th scope="col">Type</th>
-                            <th scope="col">Actions</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <ng-template ngFor let-storage [ngForOf]="listStorages" let-i="index">
-                            <tr>
-                              <th scope="row">{{i+1}}</th>
-                              <td>{{storage.PhysicalPath}}</td>
-                              <td>{{storage.MediaTypeCatalogDetailId==1?'Movies':'Tv Series'}}</td>
-                              <td>
-                                <button style="margin-left: 20px;" type="button" class="btn btn-primary" data-toggle="tooltip" data-placement="bottom" title="Sincronizar" (click)="updateStorageVideos(storage)"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
-                                <button style="margin-left: 20px;" type="button" class="btn btn-success" data-toggle="tooltip" data-placement="bottom" title="Editar" (click)="editStorage(storage)"><i class="fa-solid fa-pen-to-square"></i></button>
-                                <button style="margin-left: 20px;" type="button" class="btn btn-danger" data-toggle="tooltip" data-placement="bottom" title="Eliminar" (click)="deleteStorage(storage)"><i class="fa-sharp fa-solid fa-trash"></i></button>
-                              </td>
-                            </tr>
-                          </ng-template>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-              </section>
-            </div>
-          </div>
-      </div>
-    </div>
-  </div> -->
-
 </div>
 
 <app-custom-actions-menu #customActionsMenuPage (onHide)="onHideCustomActionsMenu()"></app-custom-actions-menu>

@@ -147,10 +147,12 @@ export class ManageMediaPage extends ParentComponent implements OnInit,OnDestroy
 
     public onCloseStorageForm(){
       this.showForm=false;
+      this.currentLibrary=undefined;
     }
 
     public onCloseStorageFormWithChanges(){
       this.showForm=false;
+      this.currentLibrary=undefined;
       this.getStorages();
     }
 
@@ -213,16 +215,29 @@ export class ManageMediaPage extends ParentComponent implements OnInit,OnDestroy
 
    public showActions(event:any,library:Storage){
       this.currentLibrary=library;
+      var currentLibrary=JSON.parse(JSON.stringify(library));
       var target=event.currentTarget;
       var listItems:CustomActionsMenuItem[]=[];
-      listItems.push({title:"Editar biblioteca"});
-      listItems.push({title:"Buscar archivos en la biblioteca"});
-      listItems.push({title:"Eliminar biblioteca"});
+      var eventOnEdit:EventEmitter<boolean>=new EventEmitter();
+      eventOnEdit.subscribe(res=>{
+          this.editStorage(currentLibrary);
+      });
+      listItems.push({title:"Editar biblioteca",iconClass:"fa-solid fa-pen-to-square",eventOnSelectItem:eventOnEdit});
+      var eventOnSearch:EventEmitter<boolean>=new EventEmitter();
+      eventOnSearch.subscribe(res=>{
+          this.updateStorageVideos(currentLibrary);
+      });
+      listItems.push({title:"Buscar archivos en la biblioteca",iconClass:"fa-solid fa-magnifying-glass-plus",eventOnSelectItem:eventOnSearch});
+      var eventOnDelete:EventEmitter<boolean>=new EventEmitter();
+      eventOnDelete.subscribe(res=>{
+          this.deleteStorage(currentLibrary);
+      });
+      listItems.push({title:"Eliminar biblioteca",iconClass:"fa-sharp fa-solid fa-trash",eventOnSelectItem:eventOnDelete});
       this.customActionsMenuPage.show({target:target,containerId:"sinovadMainContainer",listItems:listItems});
    }
 
    public onHideCustomActionsMenu(){
-    this.currentLibrary=undefined;
+      this.currentLibrary=undefined;
    }
 
 }
