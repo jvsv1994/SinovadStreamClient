@@ -7,12 +7,13 @@ import { ParentComponent } from '../parent/parent.component';
 import { HttpClient } from '@angular/common/http';
 import { RestProviderService } from 'src/services/rest-provider.service';
 import { Menu } from '../../models/menu';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SidebarModule } from 'src/models/sidebarModule';
 import { SidebarOption } from 'src/models/sidebarOption';
 import { DropDownMenuPage } from '../drop-down-menu/drop-down-menu.page';
 import { DropDownMenuItem } from '../drop-down-menu/dropDownMenuItem';
 import { DropDownMenuOptions } from '../drop-down-menu/dropDownMenuOptions';
+import { MediaServer } from 'src/models/mediaServer';
 
 declare var window;
 @Component({
@@ -22,6 +23,7 @@ declare var window;
 })
 export class SidebarAccountPage extends ParentComponent implements OnInit {
 
+  mediaServer:MediaServer;
   @Output() prepareRouterOutlet=new EventEmitter<boolean>();
   @Output() hideSidebar=new EventEmitter<boolean>();
   @ViewChild('dropDownMenuPage') dropDownMenuPage: DropDownMenuPage;
@@ -74,6 +76,7 @@ export class SidebarAccountPage extends ParentComponent implements OnInit {
   ]
 
   constructor(
+    public activeRoute: ActivatedRoute,
     private router: Router,
     public  ref:ChangeDetectorRef,
     public restProvider: RestProviderService,
@@ -86,11 +89,27 @@ export class SidebarAccountPage extends ParentComponent implements OnInit {
     }
 
   ngOnInit(): void {
-
+    this.setSelectedMediaServer();
   }
 
-  ngAfterViewInit(){
+  public setSelectedMediaServer(){
+    if(this.activeRoute.firstChild.firstChild.snapshot.params.serverGuid)
+    {
+      var mediaServerGuid=this.activeRoute.firstChild.firstChild.snapshot.params.serverGuid;
+      var selectedMediaServer=this.sharedData.mediaServers.find(x=>x.Guid==mediaServerGuid);
+      if(selectedMediaServer)
+      {
+        this.sharedData.selectedMediaServer=selectedMediaServer;
+      }
+    }
+    if(this.sharedData.selectedMediaServer==undefined && this.sharedData.mediaServers && this.sharedData.mediaServers.length>0)
+    {
+      this.sharedData.selectedMediaServer=this.sharedData.mediaServers[0];
+    }
+  }
 
+
+  ngAfterViewInit(){
   }
 
 

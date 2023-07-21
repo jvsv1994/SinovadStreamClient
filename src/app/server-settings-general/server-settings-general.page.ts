@@ -1,5 +1,5 @@
 
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SharedDataService } from 'src/services/shared-data.service';
 import { EventsService } from 'src/services/events-service';
@@ -50,8 +50,11 @@ export class ServerSettingsGeneralPage extends ParentComponent implements OnInit
     public async getMediaServerData(){
       var mediaServerGuid=this.activeRoute.snapshot.params.serverGuid;
       this.restProvider.executeSinovadApiService(HttpMethodType.GET,'/mediaServers/GetByGuidAsync/'+mediaServerGuid).then((response:SinovadApiGenericResponse) => {
-        this.sharedData.selectedMediaServer=response.Data;
-        this.mediaServer=this.sharedData.selectedMediaServer;
+        var mediaServer=response.Data;
+        var selectedMediaServer=this.sharedData.mediaServers.find(x=>x.Id==mediaServer.Id);
+        mediaServer.isSecureConnection=selectedMediaServer.isSecureConnection;
+        this.sharedData.selectedMediaServer=mediaServer;
+        this.mediaServer=mediaServer;
         this.customForm = this.formBuilder.group({
           familyName: new FormControl(this.mediaServer.FamilyName)
         });

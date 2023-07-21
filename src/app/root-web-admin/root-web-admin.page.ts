@@ -6,7 +6,7 @@ import { EventsService } from 'src/services/events-service';
 import { ParentComponent } from '../parent/parent.component';
 import { HttpClient} from '@angular/common/http';
 import { RestProviderService } from 'src/services/rest-provider.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpMethodType } from '../enums';
 import { ItemListPage } from '../item-list/item-list.page';
 import { ManageMediaPage } from '../manage-media/manage-media.page';
@@ -18,6 +18,8 @@ import { TvSerieDetailPage } from '../tvserie-detail/tvserie-detail.page';
 import { MovieDetailPage } from '../movie-detail/movie-detail.page';
 import { ProfilesViewPage } from '../profiles-view/profiles-view.page';
 import { LoginPage } from '../login/login.page';
+import { TranscoderSettingssPage } from '../transcode-settings/transcode-settings.page';
+import { ServerSettingsGeneralPage } from '../server-settings-general/server-settings-general.page';
 
 @Component({
   selector: 'app-root-web-admin',
@@ -37,8 +39,10 @@ export class RootWebAdminPage extends ParentComponent implements OnInit {
   selectHomeUserOption=new EventEmitter<boolean>();
   unselectSidebarOption=new EventEmitter<boolean>();
   refreshSidebarOption=new EventEmitter<boolean>();
+  showSidebarAccount:boolean=false;
 
   constructor(
+    public route: ActivatedRoute,
     public restProvider: RestProviderService,
     private router: Router,
     public  ref:ChangeDetectorRef,
@@ -65,7 +69,6 @@ export class RootWebAdminPage extends ParentComponent implements OnInit {
       },error=>{
         console.error(error);
       });
-      this.sharedData.selectedMediaServer=undefined;
       this.sharedData.currentProfile=undefined;
       this.sharedData.userData=undefined;
       this.sharedData.currentToken=undefined;
@@ -130,6 +133,7 @@ export class RootWebAdminPage extends ParentComponent implements OnInit {
 
     public onActivate(event:any){
       let ctx=this;
+      this.showSidebarAccount=true;
       if(event instanceof MoviesPage || event instanceof TvSeriesPage || event instanceof HomePage || event instanceof MovieDetailPage || event instanceof TvSerieDetailPage)
       {
         event.toggleVideo.subscribe(event => {
@@ -157,6 +161,14 @@ export class RootWebAdminPage extends ParentComponent implements OnInit {
         event.currentMediaTypeID=ctx.currentMediaTypeID;
         event.title=this.title;
         ctx.ref.detectChanges();
+      }
+      if(event instanceof TranscoderSettingssPage)
+      {
+
+      }
+      if(event instanceof ServerSettingsGeneralPage)
+      {
+
       }
       if(event instanceof ManageMediaPage)
       {

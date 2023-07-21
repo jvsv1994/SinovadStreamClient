@@ -1,5 +1,5 @@
 
-import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SharedDataService } from 'src/services/shared-data.service';
 import { EventsService } from 'src/services/events-service';
@@ -23,7 +23,6 @@ declare var window;
   styleUrls: ['./transcode-settings.page.scss']
 })
 export class TranscoderSettingssPage extends ParentComponent implements OnInit {
-
 
   listMainDirectories:any[];
 
@@ -57,20 +56,8 @@ export class TranscoderSettingssPage extends ParentComponent implements OnInit {
     }
 
     ngOnInit(): void {
-      this.getAllMainDirectories();
       this.getCatalogDetails();
       this.getMediaServerData();
-    }
-
-    public async getMediaServerData(){
-      var mediaServerGuid=this.activeRoute.snapshot.params.serverGuid;
-      this.restProvider.executeSinovadApiService(HttpMethodType.GET,'/mediaServers/GetByGuidAsync/'+mediaServerGuid).then((response:SinovadApiGenericResponse) => {
-        this.sharedData.selectedMediaServer=response.Data;
-        this.mediaServer=this.sharedData.selectedMediaServer;
-        this.getTranscoderSettingss();
-      },error=>{
-        this.router.navigateByUrl('/404')
-      });
     }
 
     public getCatalogDetails(){
@@ -96,35 +83,45 @@ export class TranscoderSettingssPage extends ParentComponent implements OnInit {
 
     }
 
+    public async getMediaServerData(){
+      var mediaServerGuid=this.activeRoute.snapshot.params.serverGuid;
+      this.restProvider.executeSinovadApiService(HttpMethodType.GET,'/mediaServers/GetByGuidAsync/'+mediaServerGuid).then((response:SinovadApiGenericResponse) => {
+        var mediaServer=response.Data;
+        var selectedMediaServer=this.sharedData.mediaServers.find(x=>x.Id==mediaServer.Id);
+        mediaServer.isSecureConnection=selectedMediaServer.isSecureConnection;
+        this.sharedData.selectedMediaServer=mediaServer;
+        this.mediaServer=mediaServer;
+        this.getAllMainDirectories();
+        this.getTranscoderSettingss();
+      },error=>{
+        this.router.navigateByUrl('/404')
+      });
+    }
+
     private getTranscoderSettingss(){
-        var mediaServerGuid=this.activeRoute.snapshot.params.serverGuid;
-        if(this.validateMediaServer(mediaServerGuid)){
-          this.restProvider.executeSinovadApiService(HttpMethodType.GET,"/transcoderSettings/GetByMediaServerGuidAsync/"+mediaServerGuid).then((response:SinovadApiGenericResponse) => {
-            this.currentTranscoderSettingss=response.Data;
-            if(this.currentTranscoderSettingss==undefined)
-            {
-              var currentTranscoderSettingss= new TranscoderSettings();
-              currentTranscoderSettingss.TemporaryFolder="";
-              currentTranscoderSettingss.ConstantRateFactor=18;
-              currentTranscoderSettingss.VideoTransmissionTypeCatalogId=CatalogEnum.VideoTransmissionType;
-              currentTranscoderSettingss.VideoTransmissionTypeCatalogDetailId=this.transmissionMethodList[0].Id;
-              currentTranscoderSettingss.PresetCatalogId=CatalogEnum.TranscoderPreset;
-              currentTranscoderSettingss.PresetCatalogDetailId=this.presetList[0].Id;
-              currentTranscoderSettingss.MediaServerId=this.sharedData.selectedMediaServer.Id;
-              this.currentTranscoderSettingss=currentTranscoderSettingss;
-            }
-            this.customForm = this.formBuilder.group({
-              temporaryFolder: new FormControl(this.currentTranscoderSettingss.TemporaryFolder),
-              preset:new FormControl(this.currentTranscoderSettingss.PresetCatalogDetailId),
-              transmissionMethod:new FormControl(this.currentTranscoderSettingss.VideoTransmissionTypeCatalogDetailId),
-              constantRateFactor:new FormControl(this.currentTranscoderSettingss.ConstantRateFactor)
-            });
-          },error=>{
-            console.error(error);
-          });
-        }else{
-          this.router.navigateByUrl('/404')
-        }
+      this.restProvider.executeSinovadApiService(HttpMethodType.GET,"/transcoderSettings/GetByMediaServerGuidAsync/"+this.mediaServer.Guid).then((response:SinovadApiGenericResponse) => {
+      this.currentTranscoderSettingss=response.Data;
+      if(this.currentTranscoderSettingss==undefined)
+      {
+        var currentTranscoderSettingss= new TranscoderSettings();
+        currentTranscoderSettingss.TemporaryFolder="";
+        currentTranscoderSettingss.ConstantRateFactor=18;
+        currentTranscoderSettingss.VideoTransmissionTypeCatalogId=CatalogEnum.VideoTransmissionType;
+        currentTranscoderSettingss.VideoTransmissionTypeCatalogDetailId=this.transmissionMethodList[0].Id;
+        currentTranscoderSettingss.PresetCatalogId=CatalogEnum.TranscoderPreset;
+        currentTranscoderSettingss.PresetCatalogDetailId=this.presetList[0].Id;
+        currentTranscoderSettingss.MediaServerId=this.sharedData.selectedMediaServer.Id;
+        this.currentTranscoderSettingss=currentTranscoderSettingss;
+      }
+      this.customForm = this.formBuilder.group({
+        temporaryFolder: new FormControl(this.currentTranscoderSettingss.TemporaryFolder),
+        preset:new FormControl(this.currentTranscoderSettingss.PresetCatalogDetailId),
+        transmissionMethod:new FormControl(this.currentTranscoderSettingss.VideoTransmissionTypeCatalogDetailId),
+        constantRateFactor:new FormControl(this.currentTranscoderSettingss.ConstantRateFactor)
+      });
+    },error=>{
+      console.error(error);
+    });
     }
 
     public onSaveDirectoryTranscodedVideos(path:string){

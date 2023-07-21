@@ -135,7 +135,6 @@ export class ParentComponent implements OnInit {
             var path="/mediaServers/GetByUserAndIpAddressAsync?userId="+this.sharedData.userData.Id+"&ipAddress="+this.sharedData.configurationData.localIpAddress;
             this.restProvider.executeSinovadApiService(HttpMethodType.GET,path).then((response:SinovadApiGenericResponse) => {
               let data=response.Data;
-              this.sharedData.selectedMediaServer=data;
               if(this.sharedData.selectedMediaServer==undefined)
               {
                 this.saveMediaServer();
@@ -167,10 +166,7 @@ export class ParentComponent implements OnInit {
       this.restProvider.executeSinovadApiService(HttpMethodType.GET,'/mediaServers/GetAllByUserAsync/'+this.sharedData.userData.Id).then((response:SinovadApiGenericResponse) => {
         let mediaServers=response.Data;
         this.sharedData.mediaServers=mediaServers;
-        if(this.sharedData.mediaServers && this.sharedData.mediaServers.length>0)
-        {
-          this.sharedData.selectedMediaServer=this.sharedData.mediaServers[0];
-        }
+        this.checkSecureConnectionMediaServers();
         resolve(true);
       },error=>{
         reject(error);
@@ -182,39 +178,14 @@ export class ParentComponent implements OnInit {
     this.sharedData.mediaServers.forEach(mediaServer => {
       this.restProvider.executeHttpMethodByUrl(HttpMethodType.GET,mediaServer.Url).then((response) => {
           mediaServer.isSecureConnection=true;
-          this.sharedData.selectedMediaServer=this.sharedData.mediaServers.find(ele=>ele.Id==this.sharedData.selectedMediaServer.Id);
+          if(this.sharedData.selectedMediaServer==undefined)
+          {
+            this.sharedData.selectedMediaServer=this.sharedData.mediaServers.find(ele=>ele.Id==mediaServer.Id);
+          }
       },error=>{
         mediaServer.isSecureConnection=false;
       });
     });
-  }
-
-  public validateMediaServer(mediaServerGuid:string){
-    if(this.sharedData.mediaServers && this.sharedData.mediaServers.length>0)
-    {
-      var index=this.sharedData.mediaServers.findIndex(x=>x.Guid==mediaServerGuid);
-      if(index!=-1)
-      {
-        this.sharedData.selectedMediaServer=this.sharedData.mediaServers[index];
-        return true;
-      }else{
-        return false;
-      }
-    }
-  }
-
-  public getMediaServer(mediaServerGuid:string){
-    if(this.sharedData.mediaServers && this.sharedData.mediaServers.length>0)
-    {
-      var index=this.sharedData.mediaServers.findIndex(x=>x.Guid==mediaServerGuid);
-      if(index!=-1)
-      {
-        this.sharedData.selectedMediaServer=this.sharedData.mediaServers[index];
-        return true;
-      }else{
-        return false;
-      }
-    }
   }
 
   public getProfiles(): Promise<any>{
@@ -253,7 +224,6 @@ export class ParentComponent implements OnInit {
       var path="/mediaServers/GetByUserAndIpAddressAsync?userId="+this.sharedData.userData.Id+"&ipAddress="+this.sharedData.selectedMediaServer.IpAddress;
       this.restProvider.executeSinovadApiService(HttpMethodType.GET,path).then((response:SinovadApiGenericResponse) => {
         let data=response.Data;
-        this.sharedData.selectedMediaServer=data;
         this.saveApiKeyInMediaStreamHost();
       },error=>{
         console.error(error);

@@ -11,7 +11,7 @@
       <section id="menuContainer" #menuContainer class="sinovad-menu-container" [style.height]="'100%'" tabindex="0">
         <!--<app-sidebar-web-admin (prepareRouterOutlet)="prepareRouterOutlet()" [unselectSidebarOption]="unselectSidebarOption" [selectHomeUserOption]="selectHomeUserOption"
         (hideSidebar)="isCollapsedSidebar=true"></app-sidebar-web-admin>-->
-        <app-sidebar-account></app-sidebar-account>
+        <app-sidebar-account *ngIf="showSidebarAccount"></app-sidebar-account>
       </section>
     </div>
     <section id="bodyContainer" #principalContainer class="sinovad-body-container" [ngClass]="{'locked':isSmallDevice() && !isCollapsedSidebar}" [style.width]="'calc(100% - '+menu.offsetWidth+'px)'" tabindex="0">
