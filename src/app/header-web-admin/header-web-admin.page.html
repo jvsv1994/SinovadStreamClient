@@ -1,6 +1,9 @@
 <header>
   <nav>
-    <a class="sinovad-toggle-sidebar-button" (click)="toggleSidebar.emit(true)">
+    <a *ngIf="showingSidebarAccount" class="sinovad-toggle-sidebar-button" (click)="onClickHomeOption()">
+      <i class="fa-solid fa-house"></i>
+    </a>
+    <a *ngIf="!showingSidebarAccount" class="sinovad-toggle-sidebar-button" (click)="toggleSidebar.emit(true)">
       <i class="fa-solid fa-bars"></i>
     </a>
     <a class="sinovad-logo-button" (click)="goHome.emit(true)">

@@ -8,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
 import { RestProviderService } from 'src/services/rest-provider.service';
 import { NavbarOption } from '../../models/navbarOption';
 import { Profile } from '../../models/profile';
+import { Router } from '@angular/router';
 
 declare var window;
 @Component({
@@ -30,8 +31,10 @@ export class HeaderWebAdminPage extends ParentComponent implements OnInit {
   isFocusSearch:boolean=false;
   showDropDown:boolean=false;
   showNavbarSearch:boolean=false;
+  @Input() showingSidebarAccount:boolean;
 
   constructor(
+    private router: Router,
     public restProvider: RestProviderService,
     public http: HttpClient,
     public events: EventsService,
@@ -63,6 +66,10 @@ export class HeaderWebAdminPage extends ParentComponent implements OnInit {
         this.showDropDown=false;
       }
     })
+  }
+
+  public onClickHomeOption(){
+    this.router.navigateByUrl("/home");
   }
 
   public onClickOption(option:NavbarOption){

@@ -20,6 +20,7 @@ import { ProfilesViewPage } from '../profiles-view/profiles-view.page';
 import { LoginPage } from '../login/login.page';
 import { TranscoderSettingssPage } from '../transcode-settings/transcode-settings.page';
 import { ServerSettingsGeneralPage } from '../server-settings-general/server-settings-general.page';
+import { AccountPage } from '../account/account.page';
 
 @Component({
   selector: 'app-root-web-admin',
@@ -39,7 +40,7 @@ export class RootWebAdminPage extends ParentComponent implements OnInit {
   selectHomeUserOption=new EventEmitter<boolean>();
   unselectSidebarOption=new EventEmitter<boolean>();
   refreshSidebarOption=new EventEmitter<boolean>();
-  showSidebarAccount:boolean=false;
+  showingSidebarAccount:boolean=false;
 
   constructor(
     public route: ActivatedRoute,
@@ -96,6 +97,7 @@ export class RootWebAdminPage extends ParentComponent implements OnInit {
     }
 
     public showHome(){
+      this.showingSidebarAccount=false;
       this.router.navigateByUrl("/home").then((response) => {
         if(this.isSmallDevice())
         {
@@ -133,15 +135,16 @@ export class RootWebAdminPage extends ParentComponent implements OnInit {
 
     public onActivate(event:any){
       let ctx=this;
-      this.showSidebarAccount=true;
       if(event instanceof MoviesPage || event instanceof TvSeriesPage || event instanceof HomePage || event instanceof MovieDetailPage || event instanceof TvSerieDetailPage)
       {
+        this.showingSidebarAccount=false;
         event.toggleVideo.subscribe(event => {
           ctx.toggleVideo.emit(event);
         });
       }
       if(event instanceof ProfilesViewPage)
       {
+        this.showingSidebarAccount=false;
         event.selectProfile.subscribe((profile:Profile) => {
           ctx.sharedData.currentProfile=profile;
           ctx.showHome();
@@ -158,20 +161,26 @@ export class RootWebAdminPage extends ParentComponent implements OnInit {
       }
       if(event instanceof ItemListPage)
       {
+        this.showingSidebarAccount=false;
         event.currentMediaTypeID=ctx.currentMediaTypeID;
         event.title=this.title;
         ctx.ref.detectChanges();
       }
+      if(event instanceof AccountPage)
+      {
+        this.showingSidebarAccount=true;
+      }
       if(event instanceof TranscoderSettingssPage)
       {
-
+        this.showingSidebarAccount=true;
       }
       if(event instanceof ServerSettingsGeneralPage)
       {
-
+        this.showingSidebarAccount=true;
       }
       if(event instanceof ManageMediaPage)
       {
+        this.showingSidebarAccount=true;
         event.showInitial.subscribe(event => {
           ctx.showHome();
         });
