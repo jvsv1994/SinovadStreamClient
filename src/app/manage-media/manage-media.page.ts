@@ -14,6 +14,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MediaServer } from 'src/models/mediaServer';
 import { CustomActionsMenuPage } from '../custom-actions-menu/custom-actions-menu.page';
 import { CustomActionsMenuItem } from '../custom-actions-menu/customActionsMenuItem';
+import { ConfirmDeleteMessageBoxPage } from '../confirm-delete-message-box/confirm-delete-message-box.page';
 
 declare var window;
 @Component({
@@ -46,6 +47,7 @@ export class ManageMediaPage extends ParentComponent implements OnInit,OnDestroy
   showForm:boolean=false;
   mediaServer:MediaServer;
   @ViewChild('customActionsMenuPage') customActionsMenuPage: CustomActionsMenuPage;
+  @ViewChild('confirmDeleteMessageBoxPage') confirmDeleteMessageBoxPage: ConfirmDeleteMessageBoxPage;
 
   constructor(
     private router: Router,
@@ -137,6 +139,16 @@ export class ManageMediaPage extends ParentComponent implements OnInit,OnDestroy
     }
 
     public deleteStorage(storage:Storage){
+      var confirmEvent:EventEmitter<any>= new EventEmitter();
+      confirmEvent.subscribe(res=>{
+        this.executeDeleteStorage(storage);
+      });
+      this.confirmDeleteMessageBoxPage.show({containerId:"sinovadMainContainer",title:"Eliminar biblioteca",
+      message:"La biblioteca '"+storage.Name+"' será eliminada de este servidor. Tus archivos multimedia no se verán afectados. Esto no se puede deshacer. ¿Continuar?",
+      accordMessage:"Si, eliminar la biblioteca '"+storage.Name+"'",confirmEvent:confirmEvent});
+    }
+
+    private executeDeleteStorage(storage:Storage){
       var path="/storages/Delete/"+storage.Id;
       this.restProvider.executeSinovadApiService(HttpMethodType.DELETE,path).then((response:SinovadApiGenericResponse) => {
         this.getStorages();

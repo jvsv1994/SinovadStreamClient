@@ -1,0 +1,32 @@
+<ng-template #template let-template>
+    <div *ngIf="isShowing" class="modal-container">
+      <div class="modal-backdrop">
+        <div class="modal-small">
+          <div class="modal-content">
+            <button class="modal-content-close-button" (click)="hide()">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="modal-header">
+                {{options.title}}
+            </div>
+            <div class="confirm-modal-body">
+              <div class="inner-modal-body">
+                  <p>{{options.message}}</p>
+                  <label class="confirm-modal-accord-label">
+                    <input #checkBox class="confirm-message-accord-input" type="checkbox">{{options.accordMessage}}
+                  </label>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <div class="modal-footer-button-bar">
+                  <button class="confirm-modal-button cancel">Cancelar</button>
+                  <button class="confirm-modal-button confirm" [ngClass]="{'disabled':!checkBox.checked}">
+                    <span class="spinner-button-label" (click)="confirmDelete()">Eliminar</span>
+                  </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</ng-template>
