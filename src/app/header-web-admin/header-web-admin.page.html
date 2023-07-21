@@ -1,12 +1,12 @@
 <header>
   <nav>
-    <a class="sinovad-toggle-sidebar-button" (click)="onClickToggleSidebarButton()">
+    <a class="nav-button-icon-container toggle" (click)="onClickToggleSidebarButton()">
       <i class="fa-solid fa-bars"></i>
     </a>
-    <a *ngIf="showingSidebarAccount || showingSidebarAdminMode" class="sinovad-toggle-sidebar-button" (click)="onClickHomeOption()">
+    <a *ngIf="showingSidebarAccount || showingSidebarAdminMode" class="nav-button-icon-container home" [routerLink]="['/home']">
       <i class="fa-solid fa-house"></i>
     </a>
-    <a class="sinovad-logo-button" (click)="goHome.emit(true)">
+    <a class="sinovad-logo-button" [routerLink]="['/home']">
       <img [src]="'sinovad-stream-large-logo.png' | formatDataPipe : 'GetImageURLByKey' | async">
 <!--       <span class="first-span">Sinovad</span>
       <span class="second-span">Stream</span> -->

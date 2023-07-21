@@ -1,6 +1,22 @@
 :host{
 
 }
+
+.nav-button-icon-container{
+  padding: 0px;
+  border: none;
+  margin-left: 30px;
+  cursor: pointer;
+  color: white;
+  font-size: 24px;
+  opacity: 0.7;
+  display: none;
+}
+
+.nav-button-icon-container.home{
+  display: block;
+}
+
 .sinovad-logo-button{
   padding: 0px;
   border: none;
@@ -53,18 +69,7 @@
   border: 2px solid #007bff;
 }
 
-.sinovad-toggle-sidebar-button{
-  padding: 0px;
-  border: none;
-  margin-left: 30px;
-  cursor: pointer;
-  color: white;
-  font-size: 24px;
-  opacity: 0.7;
-  display: none;
-}
-
-.sinovad-toggle-sidebar-button:hover{
+.nav-button-icon-container:hover{
   opacity: 1;
 }
 
@@ -191,8 +196,11 @@ nav{
       width: 110px;
     }
   }
-  .sinovad-toggle-sidebar-button{
+  .nav-button-icon-container.toggle{
     display: block;
+  }
+  .nav-button-icon-container.home{
+    display: none;
   }
 }
 

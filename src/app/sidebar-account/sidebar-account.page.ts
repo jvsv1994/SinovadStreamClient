@@ -25,7 +25,7 @@ export class SidebarAccountPage extends ParentComponent implements OnInit {
 
   mediaServer:MediaServer;
   @Output() prepareRouterOutlet=new EventEmitter<boolean>();
-  @Output() hideSidebar=new EventEmitter<boolean>();
+  @Output() collapseSidebar=new EventEmitter();
   @ViewChild('dropDownMenuPage') dropDownMenuPage: DropDownMenuPage;
   @ViewChild('mediaServerButton') mediaServerButton:ElementRef ;
   serverModules:SidebarModule[]=[
@@ -122,19 +122,6 @@ export class SidebarAccountPage extends ParentComponent implements OnInit {
     module.isCollapsed=!module.isCollapsed;
   }
 
-  public onClickSidebarOption(option:SidebarOption,module:SidebarModule){
-    this.prepareRouterOutlet.emit(true);
-    let ctx=this;
-    this.router.navigateByUrl(option.path).then((response) => {
-      if(ctx.isSmallDevice())
-      {
-        ctx.hideSidebar.emit(true);
-      }
-    },error=>{
-      console.error(error);
-    });
-  }
-
 
   public togleDropDownMediaServers(event:any){
 
@@ -184,6 +171,12 @@ export class SidebarAccountPage extends ParentComponent implements OnInit {
       return true;
     }
     return false;
+  }
+
+  public onClickOutsideSidebar(){
+    setTimeout(() => {
+      this.collapseSidebar.emit(true);
+    }, 250);
   }
 
 }

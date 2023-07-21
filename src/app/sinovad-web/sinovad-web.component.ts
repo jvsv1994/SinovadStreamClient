@@ -7,7 +7,7 @@ import { ParentComponent } from '../parent/parent.component';
 import { HttpClient } from '@angular/common/http';
 import { RestProviderService } from 'src/services/rest-provider.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { RootWebPage } from '../root-web/root-web.page';
+import { RootWebAdminPage } from '../root-web-admin/root-web-admin.page';
 @Component({
   selector: 'app-sinovad-web',
   templateUrl: './sinovad-web.component.html',
@@ -162,7 +162,7 @@ export class SinovadWebComponent extends ParentComponent implements OnInit,OnDes
   public onActivate(event:any)
   {
     let ctx=this;
-    if(event instanceof RootWebPage)
+    if(event instanceof RootWebAdminPage)
     {
       event.toggleVideo.subscribe(event => {
         ctx.executeToggleVideo(event);

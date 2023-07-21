@@ -4,7 +4,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/shared.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { SinovadWebComponent } from './sinovad-web.component';
-import { RootWebPageModule } from '../root-web/root-web.module';
 import { RootWebAdminPageModule } from '../root-web-admin/root-web-admin.module';
 import { RouterModule, Routes } from '@angular/router';
 import { AccountPage } from '../account/account.page';
@@ -178,7 +177,6 @@ const routes: Routes = [
         FormsModule,
         SharedModule,
         ReactiveFormsModule,
-        RootWebPageModule,
         RootWebAdminPageModule,
         RouterModule.forChild(routes)
     ],

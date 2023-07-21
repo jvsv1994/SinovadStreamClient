@@ -21,8 +21,7 @@ export class SideBarWebAdminPage extends ParentComponent implements OnInit {
   @Input() unselectSidebarOption:EventEmitter<boolean>;
   @Input() refreshSidebarOption=new EventEmitter<boolean>();
   @Output() prepareRouterOutlet=new EventEmitter<boolean>();
-  @Output() hideSidebar=new EventEmitter<boolean>();
-
+  @Output() collapseSidebar=new EventEmitter();
 
   selectedSidebarOption:Menu;
   selectedSidebarModule:Menu;
@@ -88,11 +87,17 @@ export class SideBarWebAdminPage extends ParentComponent implements OnInit {
       ctx.selectedSidebarModule=module;
       if(ctx.isSmallDevice())
       {
-        ctx.hideSidebar.emit(true);
+        ctx.collapseSidebar.emit(true);
       }
     },error=>{
       console.error(error);
     });
+  }
+
+  public onClickOutsideSidebar(){
+    setTimeout(() => {
+      this.collapseSidebar.emit(true);
+    }, 250);
   }
 
 }

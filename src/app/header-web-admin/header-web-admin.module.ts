@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/shared.module';
 import { HeaderWebAdminPage } from './header-web-admin.page';
 import { DropDownUserPageModule } from '../dropdown-user/dropdown-user.module';
+import { RouterModule } from '@angular/router';
 @NgModule({
     declarations: [
       HeaderWebAdminPage
@@ -13,7 +14,8 @@ import { DropDownUserPageModule } from '../dropdown-user/dropdown-user.module';
         FormsModule,
         SharedModule,
         DropDownUserPageModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        RouterModule
     ],
     exports: [HeaderWebAdminPage]
 })
