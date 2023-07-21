@@ -60,4 +60,8 @@ export class DropDownUserPage extends ParentComponent implements OnInit {
     this.router.navigateByUrl('/settings/account')
   }
 
+  public onClickAdminMode(){
+    this.router.navigateByUrl(this.sharedData.listMenus[0].ChildMenus[0].Path)
+  }
+
 }

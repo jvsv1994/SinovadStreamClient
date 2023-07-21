@@ -1,0 +1,29 @@
+
+<ul class="sinovad-sidebar-modules-list">
+  <ng-template ngFor let-poption [ngForOf]="mediaOptions">
+    <li class="sinovad-sidebar-module-element">
+      <button class="sinovad-sidebar-module-button" [routerLink]="[poption.Path]" [ngClass]="{'active':selectedSidebarModule && poption.Id==selectedSidebarModule.Id}">
+        <i *ngIf="!poption.IconClass && poption.isCollapsed" class="fa-solid fa-chevron-right"></i>
+        <i *ngIf="!poption.IconClass && !poption.isCollapsed" class="fa-solid fa-chevron-down"></i>
+        <i *ngIf="poption.IconClass" class="{{poption.IconClass}}"></i>
+        <span class="ms-2">{{poption.Title}}</span>
+      </button>
+      <div *ngIf="!poption.isCollapsed">
+        <ul class="sinovad-sidebar-options-list">
+          <ng-template ngFor let-option [ngForOf]="poption.ChildMenus">
+            <li class="sinovad-sidebar-option-element">
+            <a (click)="onClickSidebarOption(option,poption)" [ngClass]="{'active':selectedSidebarOption && option.Id==selectedSidebarOption.Id}">
+              <i *ngIf="option.IconClass" class="{{option.IconClass}}"></i>
+              <span class="ms-2">{{option.Title}}</span>
+            </a>
+          </li>
+          </ng-template>
+        </ul>
+      </div>
+    </li>
+  </ng-template>
+</ul>
+
+
+
+

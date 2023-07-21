@@ -21,6 +21,12 @@ import { LoginPage } from '../login/login.page';
 import { TranscoderSettingssPage } from '../transcode-settings/transcode-settings.page';
 import { ServerSettingsGeneralPage } from '../server-settings-general/server-settings-general.page';
 import { AccountPage } from '../account/account.page';
+import { MenuListPage } from '../menu-list/menu-list.page';
+import { TvSerieListPage } from '../tvserie-list/tvserie-list.page';
+import { MovieListPage } from '../movie-list/movie-list.page';
+import { GenreListPage } from '../genre-list/genre-list.page';
+import { UserListPage } from '../user-list/user-list.page';
+import { RoleListPage } from '../role-list/role-list.page';
 
 @Component({
   selector: 'app-root-web-admin',
@@ -41,7 +47,8 @@ export class RootWebAdminPage extends ParentComponent implements OnInit {
   unselectSidebarOption=new EventEmitter<boolean>();
   refreshSidebarOption=new EventEmitter<boolean>();
   showingSidebarAccount:boolean=false;
-  showingAdminMode:boolean=false;
+  showingSidebarAdminMode:boolean=false;
+  showingSidebarMedia:boolean=false;
 
   constructor(
     public route: ActivatedRoute,
@@ -98,8 +105,9 @@ export class RootWebAdminPage extends ParentComponent implements OnInit {
     }
 
     public showAdminMode(){
-      this.showingAdminMode=true;
+      this.showingSidebarAdminMode=true;
       this.showingSidebarAccount=false;
+      this.showingSidebarMedia=false;
     }
 
     public showHome(){
@@ -143,16 +151,18 @@ export class RootWebAdminPage extends ParentComponent implements OnInit {
       let ctx=this;
       if(event instanceof MoviesPage || event instanceof TvSeriesPage || event instanceof HomePage || event instanceof MovieDetailPage || event instanceof TvSerieDetailPage)
       {
+        this.showingSidebarMedia=true;
         this.showingSidebarAccount=false;
-        this.showingAdminMode=false;
+        this.showingSidebarAdminMode=false;
         event.toggleVideo.subscribe(event => {
           ctx.toggleVideo.emit(event);
         });
       }
       if(event instanceof ProfilesViewPage)
       {
+        this.showingSidebarMedia=true;
         this.showingSidebarAccount=false;
-        this.showingAdminMode=false;
+        this.showingSidebarAdminMode=false;
         event.selectProfile.subscribe((profile:Profile) => {
           ctx.sharedData.currentProfile=profile;
           ctx.showHome();
@@ -167,36 +177,47 @@ export class RootWebAdminPage extends ParentComponent implements OnInit {
           ctx.showSplashScreen=true;
         });
       }
-      if(event instanceof ItemListPage)
-      {
-        this.showingSidebarAccount=false;
-        this.showingAdminMode=true;
-        event.currentMediaTypeID=ctx.currentMediaTypeID;
-        event.title=this.title;
-        ctx.ref.detectChanges();
-      }
       if(event instanceof AccountPage)
       {
         this.showingSidebarAccount=true;
-        this.showingAdminMode=false;
+        this.showingSidebarAdminMode=false;
+        this.showingSidebarMedia=false;
       }
       if(event instanceof TranscoderSettingssPage)
       {
         this.showingSidebarAccount=true;
-        this.showingAdminMode=false;
+        this.showingSidebarAdminMode=false;
+        this.showingSidebarMedia=false;
       }
       if(event instanceof ServerSettingsGeneralPage)
       {
         this.showingSidebarAccount=true;
-        this.showingAdminMode=false;
+        this.showingSidebarAdminMode=false;
+        this.showingSidebarMedia=false;
       }
       if(event instanceof ManageMediaPage)
       {
         this.showingSidebarAccount=true;
-        this.showingAdminMode=false;
+        this.showingSidebarAdminMode=false;
+        this.showingSidebarMedia=false;
         event.showInitial.subscribe(event => {
           ctx.showHome();
         });
+      }
+      if(event instanceof ItemListPage)
+      {
+        this.showingSidebarAccount=false;
+        this.showingSidebarAdminMode=true;
+        this.showingSidebarMedia=false;
+        event.currentMediaTypeID=ctx.currentMediaTypeID;
+        event.title=this.title;
+        ctx.ref.detectChanges();
+      }
+      if(event instanceof MenuListPage || event instanceof TvSerieListPage || event instanceof MovieListPage || event instanceof GenreListPage || event instanceof UserListPage || event instanceof RoleListPage)
+      {
+        this.showingSidebarAccount=false;
+        this.showingSidebarAdminMode=true;
+        this.showingSidebarMedia=false;
       }
     }
 }

@@ -33,6 +33,7 @@ export class HeaderWebAdminPage extends ParentComponent implements OnInit {
   showDropDown:boolean=false;
   showNavbarSearch:boolean=false;
   @Input() showingSidebarAccount:boolean;
+  @Input() showingSidebarAdminMode:boolean;
 
   constructor(
     private router: Router,

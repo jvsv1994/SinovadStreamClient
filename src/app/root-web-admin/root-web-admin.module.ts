@@ -9,6 +9,7 @@ import { HeaderWebAdminPageModule } from '../header-web-admin/header-web-admin.m
 import { SideBarWebAdminPageModule } from '../sidebar-web-admin/siderbar-web-admin.module';
 import { RootWebAdminPage } from './root-web-admin.page';
 import { SidebarAccountPageModule } from '../sidebar-account/siderbar-account.module';
+import { SidebarMediaPageModule } from '../sidebar-media/siderbar-media.module';
 @NgModule({
     declarations: [
       RootWebAdminPage
@@ -20,6 +21,7 @@ import { SidebarAccountPageModule } from '../sidebar-account/siderbar-account.mo
       HeaderWebAdminPageModule,
       SideBarWebAdminPageModule,
       SidebarAccountPageModule,
+      SidebarMediaPageModule,
       ReactiveFormsModule,
       SharedModule,
       SplashScreenPageModule,
