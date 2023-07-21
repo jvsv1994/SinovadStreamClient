@@ -26,6 +26,9 @@ export class DropDownMenuContentPage extends ParentComponent implements OnInit,O
   clickOptionSubscription:Subscription;
   show:boolean=false;
   @Input() dropDownMenuOptions:DropDownMenuOptions;
+  @Input() top:number;
+  @Input() left:number;
+  @Input() width:number;
 
   constructor(
     private router: Router,

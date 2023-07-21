@@ -49,7 +49,7 @@ export class SinovadWebComponent extends ParentComponent implements OnInit,OnDes
           this.getMediaServers().then(res=>{
             this.intervalCheckMediaServers=window.setInterval(function() {
               ctx.checkSecureConnectionMediaServers();
-            }, 3000);
+            }, 5000);
           });
           this.getProfiles().then(response=>{
             this.showRootPage=true;

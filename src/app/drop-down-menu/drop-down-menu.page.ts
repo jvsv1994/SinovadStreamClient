@@ -16,6 +16,9 @@ export class DropDownMenuPage{
   isShowing:boolean=false;
   container:HTMLElement;
   renderedHtml:HTMLElement;
+  left:number;
+  width:number;
+  top:number;
 
   constructor(
     public ref:ChangeDetectorRef,
@@ -24,11 +27,14 @@ export class DropDownMenuPage{
 
   }
 
-  public show(dropDownMenuOptions:DropDownMenuOptions){
+  public show(){
     this.isShowing=true;
     this.ref.detectChanges();
-    this.dropDownMenuOptions=dropDownMenuOptions;
-    this.container=document.getElementById(dropDownMenuOptions.containerId);
+    const rect = this.dropDownMenuOptions.target.getBoundingClientRect();
+    this.left=rect.left;
+    this.top=rect.top+rect.height;
+    this.width=rect.width;
+    this.container=document.getElementById(this.dropDownMenuOptions.containerId);
     var embeddedViewRef=this.viewContainerRef.createEmbeddedView(this.dropDownMenuContent);
     this.renderedHtml=embeddedViewRef.rootNodes[0] as HTMLElement;
     this.container.appendChild(this.renderedHtml);

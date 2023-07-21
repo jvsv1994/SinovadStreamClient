@@ -1,5 +1,5 @@
 
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SharedDataService } from 'src/services/shared-data.service';
 import { EventsService } from 'src/services/events-service';
@@ -12,6 +12,7 @@ import { SidebarModule } from 'src/models/sidebarModule';
 import { SidebarOption } from 'src/models/sidebarOption';
 import { DropDownMenuPage } from '../drop-down-menu/drop-down-menu.page';
 import { DropDownMenuItem } from '../drop-down-menu/dropDownMenuItem';
+import { DropDownMenuOptions } from '../drop-down-menu/dropDownMenuOptions';
 
 declare var window;
 @Component({
@@ -24,6 +25,7 @@ export class SidebarAccountPage extends ParentComponent implements OnInit {
   @Output() prepareRouterOutlet=new EventEmitter<boolean>();
   @Output() hideSidebar=new EventEmitter<boolean>();
   @ViewChild('dropDownMenuPage') dropDownMenuPage: DropDownMenuPage;
+  @ViewChild('mediaServerButton') mediaServerButton:ElementRef ;
   serverModules:SidebarModule[]=[
   /*   {
       index:1,
@@ -122,15 +124,22 @@ export class SidebarAccountPage extends ParentComponent implements OnInit {
   }
 
   public showMediaServerMenuOptions(event:any){
-    var target=event.currentTarget;
-    const rect = target.getBoundingClientRect();
-    console.log(rect);
-    let listItems:DropDownMenuItem[]=[];
-    this.sharedData.mediaServers.forEach(element => {
-      listItems.push({title:element.FamilyName?element.FamilyName:element.DeviceName,subtitle:"Funcionando",iconClass:"fa-solid fa-thumbs-up",
-      path:"/settings/server/"+element.Guid+"/settings/general",isSelected:this.sharedData.selectedMediaServer.Id==element.Id?true:false});
-    });
-    this.dropDownMenuPage.show({containerId:"sinovadMainContainer",left:rect.left,width:rect.width,top:rect.top+rect.height,listItems:listItems});
+    this.dropDownMenuPage.show();
+  }
+
+  public getDropDownMenuOptions():DropDownMenuOptions{
+    var options:DropDownMenuOptions=undefined;
+    if(this.mediaServerButton)
+    {
+      let listItems:DropDownMenuItem[]=[];
+      this.sharedData.mediaServers.forEach(element => {
+        listItems.push({title:element.FamilyName?element.FamilyName:element.DeviceName,subtitle:element.isSecureConnection?"Funcionando":'No disponible',
+        iconClass:element.isSecureConnection?"fa-solid fa-lock icon-secure":"fa-solid fa-triangle-exclamation icon-alert",
+        path:"/settings/server/"+element.Guid+"/settings/general",isSelected:this.sharedData.selectedMediaServer.Id==element.Id?true:false});
+      });
+      var options:DropDownMenuOptions={containerId:"sinovadMainContainer",target:this.mediaServerButton.nativeElement,listItems:listItems};
+    }
+    return options;
   }
 
   public isSelectedSidebarOption(option:SidebarOption){
