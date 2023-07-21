@@ -1,5 +1,32 @@
 <div *ngIf="mediaServer" id="serverSettinsPageContainer" class="sinovad-page-container">
   <h2>{{mediaServer.FamilyName?mediaServer.FamilyName:mediaServer.DeviceName}} - Bibliotecas</h2>
+  <div class="manage-libraries-header">
+    <div class="manage-libraries-count">{{listStorages?listStorages.length:''}} bibliotecas</div>
+    <button (click)="openNewStorage()">Añadir biblioteca</button>
+    <button (click)="updateVideoInAllStorages()">Buscar archivos en biblioteca</button>
+  </div>
+  <ng-template ngFor let-storage [ngForOf]="listStorages" let-i="index">
+    <div class="manage-library-summary-row">
+      <div class="manage-library-summary-overlay">
+        <div class="manage-library-icon-container">
+          <i *ngIf="storage.MediaTypeCatalogDetailId==1" class="fa-solid fa-film"></i>
+          <i *ngIf="storage.MediaTypeCatalogDetailId==2" class="fa-solid fa-tv"></i>
+        </div>
+        <a>{{storage.Name}}</a>
+        <div class="manage-library-summary-actions">
+          <div class="manage-library-summary-header">
+              <button class="manage-library-summary-action">
+                  <span class="manage-library-summary-header-icon">
+                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                  </span>
+              </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+
+
   <div>
     <div class="server-settings-container">
       <div class="settings-row">
@@ -7,14 +34,6 @@
             <div class="sinovad-storage-container">
               <section class="sinovad-storage-principal-section">
                 <div class="container">
-                  <div class="row mt-4">
-                    <div class="col-4">
-                      <button class="btn btn-primary" (click)="openNewStorage()">Agregar</button>
-                    </div>
-                    <div class="col-8 text-end">
-                      <button class="btn btn-primary" (click)="updateVideoInAllStorages()">Sincronizar todo</button>
-                    </div>
-                  </div>
                   <div class="row mt-4">
                     <div class="col-12">
                       <table class="table table-bordered">
