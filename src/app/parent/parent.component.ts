@@ -128,6 +128,8 @@ export class ParentComponent implements OnInit {
           this.sharedData.currentToken=undefined;
           localStorage.removeItem("apiKey");
         }else{
+          resolve(true);
+          /*
           if(this.sharedData.configurationData.localIpAddress)
           {
             var path="/mediaServers/GetByUserAndIpAddressAsync?userId="+this.sharedData.userData.Id+"&ipAddress="+this.sharedData.configurationData.localIpAddress;
@@ -150,7 +152,7 @@ export class ParentComponent implements OnInit {
             });
           }else{
             resolve(true);
-          }
+          }*/
         }
       },error=>{
         console.error(error);

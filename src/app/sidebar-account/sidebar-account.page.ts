@@ -12,7 +12,6 @@ import { SidebarModule } from 'src/models/sidebarModule';
 import { SidebarOption } from 'src/models/sidebarOption';
 import { DropDownMenuPage } from '../drop-down-menu/drop-down-menu.page';
 import { DropDownMenuItem } from '../drop-down-menu/dropDownMenuItem';
-import { MediaServer } from 'src/models/mediaServer';
 
 declare var window;
 @Component({
@@ -25,8 +24,6 @@ export class SidebarAccountPage extends ParentComponent implements OnInit {
   @Output() prepareRouterOutlet=new EventEmitter<boolean>();
   @Output() hideSidebar=new EventEmitter<boolean>();
   @ViewChild('dropDownMenuPage') dropDownMenuPage: DropDownMenuPage;
-  selectedSidebarOption:SidebarOption;
-  selectedSidebarModule:SidebarModule;
   serverModules:SidebarModule[]=[
   /*   {
       index:1,
@@ -87,33 +84,17 @@ export class SidebarAccountPage extends ParentComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    this.replaceMediaServerGuidInPaths();
+
   }
 
   ngAfterViewInit(){
 
   }
 
-  private async replaceMediaServerGuidInPaths(){
-    if(this.sharedData.selectedMediaServer!=undefined)
-    {
-      this.serverModules.forEach(module => {
-        module.listOptions.forEach(option => {
-          if(option.path.indexOf(window.location.pathname)!=-1)
-          {
-            this.selectedSidebarOption=option;
-            this.selectedSidebarModule=module;
-          }
-        });
-      });
-    }else{
-        await this.delay(100);
-        this.replaceMediaServerGuidInPaths();
-    }
-  }
 
   public getOptionPath(option:SidebarOption){
-    return option.path.replace("{serverGuid}",this.sharedData.selectedMediaServer.Guid);
+    var path=option.path;
+    return path.replace("{serverGuid}",this.sharedData.selectedMediaServer.Guid);
   }
 
   public onClickModule(module:Menu){
@@ -124,8 +105,6 @@ export class SidebarAccountPage extends ParentComponent implements OnInit {
     this.prepareRouterOutlet.emit(true);
     let ctx=this;
     this.router.navigateByUrl(option.path).then((response) => {
-      ctx.selectedSidebarModule=module;
-      ctx.selectedSidebarOption=option;
       if(ctx.isSmallDevice())
       {
         ctx.hideSidebar.emit(true);
@@ -152,6 +131,31 @@ export class SidebarAccountPage extends ParentComponent implements OnInit {
       path:"/settings/server/"+element.Guid+"/settings/general",isSelected:this.sharedData.selectedMediaServer.Id==element.Id?true:false});
     });
     this.dropDownMenuPage.show({containerId:"sinovadMainContainer",left:rect.left,width:rect.width,top:rect.top+rect.height,listItems:listItems});
+  }
+
+  public isSelectedSidebarOption(option:SidebarOption){
+    var path=this.getOptionPath(option);
+    if(path.indexOf(window.location.pathname)!=-1)
+    {
+      return true;
+    }
+    return false;
+  }
+
+  public isSelectedAccountOption(){
+    if('/settings/account'.indexOf(window.location.pathname)!=-1)
+    {
+      return true;
+    }
+    return false;
+  }
+
+  public isSelectedServerOption(){
+    if(window.location.pathname.startsWith('/settings/server'))
+    {
+      return true;
+    }
+    return false;
   }
 
 }
