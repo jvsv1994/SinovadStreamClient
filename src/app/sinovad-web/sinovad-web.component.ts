@@ -1,5 +1,5 @@
 
-import { ChangeDetectorRef, Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SharedDataService } from 'src/services/shared-data.service';
 import { EventsService } from 'src/services/events-service';
@@ -13,13 +13,14 @@ import { RootWebPage } from '../root-web/root-web.page';
   templateUrl: './sinovad-web.component.html',
   styleUrls: ['./sinovad-web.component.scss']
 })
-export class SinovadWebComponent extends ParentComponent implements OnInit {
+export class SinovadWebComponent extends ParentComponent implements OnInit,OnDestroy {
 
   @Output('togglevideo') togglevideo = new EventEmitter();
   @Output('instance') instance = new EventEmitter();
   @ViewChild('mainContainer') mainContainer: ElementRef;
   @ViewChild('initialSound', {static: true}) initialSound: ElementRef;
   intervalAudio:any;
+  intervalCheckMediaServers:any;
   showRootPage:boolean=false;
 
   constructor(
@@ -35,6 +36,7 @@ export class SinovadWebComponent extends ParentComponent implements OnInit {
     }
 
     public ngOnInit(): void {
+      var ctx=this;
       if((<any>window).configurationData)
       {
         this.sharedData.configurationData=(<any>window).configurationData;
@@ -44,7 +46,11 @@ export class SinovadWebComponent extends ParentComponent implements OnInit {
         this.sharedData.currentToken=localStorage.getItem('apiKey');
         this.getUser().then(res=>{
           this.getMenus();
-          this.getMediaServers();
+          this.getMediaServers().then(res=>{
+            this.intervalCheckMediaServers=window.setInterval(function() {
+              ctx.checkSecureConnectionMediaServers();
+            }, 3000);
+          });
           this.getProfiles().then(response=>{
             this.showRootPage=true;
             this.ref.detectChanges();
@@ -82,6 +88,12 @@ export class SinovadWebComponent extends ParentComponent implements OnInit {
       }, 1);*/
     }
 
+    public ngOnDestroy(): void {
+      if(this.intervalCheckMediaServers)
+      {
+        window.clearInterval(this.intervalCheckMediaServers);
+      }
+    }
 
     public executeAudio(){
       //this.initialSound.nativeElement.play();

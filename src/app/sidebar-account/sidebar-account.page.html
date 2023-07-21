@@ -27,8 +27,9 @@
               <i *ngIf="dropDownMenuPage.isShowing" class="fa-solid fa-caret-up"></i>
               <i *ngIf="!dropDownMenuPage.isShowing" class="fa-solid fa-caret-down"></i>
           </div>
-          <div class="right">
-
+          <div class="server-settings-menu-button-icon" [ngClass]="{'icon-secure':sharedData.selectedMediaServer.isSecureConnection,'icon-alert':!sharedData.selectedMediaServer.isSecureConnection}">
+            <i *ngIf="sharedData.selectedMediaServer.isSecureConnection" class="fa-solid fa-lock"></i>
+            <i *ngIf="!sharedData.selectedMediaServer.isSecureConnection" class="fa-solid fa-triangle-exclamation"></i>
           </div>
         </div>
       </button>

@@ -10,4 +10,5 @@ export class MediaServer{
   public Port?:number;
   public FamilyName?:string;
   public DeviceName?:string;
+  public isSecureConnection?:boolean;
 }

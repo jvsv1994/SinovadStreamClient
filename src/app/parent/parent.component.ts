@@ -178,6 +178,17 @@ export class ParentComponent implements OnInit {
     });
   }
 
+  public checkSecureConnectionMediaServers(){
+    this.sharedData.mediaServers.forEach(mediaServer => {
+      this.restProvider.executeHttpMethodByUrl(HttpMethodType.GET,mediaServer.Url).then((response) => {
+          mediaServer.isSecureConnection=true;
+          this.sharedData.selectedMediaServer=this.sharedData.mediaServers.find(ele=>ele.Id==this.sharedData.selectedMediaServer.Id);
+      },error=>{
+        mediaServer.isSecureConnection=false;
+      });
+    });
+  }
+
   public validateMediaServer(mediaServerGuid:string){
     if(this.sharedData.mediaServers && this.sharedData.mediaServers.length>0)
     {
