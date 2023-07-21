@@ -127,14 +127,6 @@ export class TranscoderSettingssPage extends ParentComponent implements OnInit {
         }
     }
 
-    public onChangeVideoTransmissionType(event:any){
-      this.currentTranscoderSettingss.VideoTransmissionTypeCatalogDetailId=Number(event.target.value);
-    }
-
-    public onChangePreset(event:any){
-      this.currentTranscoderSettingss.PresetCatalogDetailId=Number(event.target.value);
-    }
-
     public onSaveDirectoryTranscodedVideos(path:string){
       this.currentTranscoderSettingss.TemporaryFolder=path;
       this.showingDirectoryTranscodeVideos=false;

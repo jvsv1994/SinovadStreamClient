@@ -133,8 +133,8 @@ export class ParentComponent implements OnInit {
             var path="/mediaServers/GetByUserAndIpAddressAsync?userId="+this.sharedData.userData.Id+"&ipAddress="+this.sharedData.configurationData.localIpAddress;
             this.restProvider.executeSinovadApiService(HttpMethodType.GET,path).then((response:SinovadApiGenericResponse) => {
               let data=response.Data;
-              this.sharedData.currentMediaServerData=data;
-              if(this.sharedData.currentMediaServerData==undefined)
+              this.sharedData.selectedMediaServer=data;
+              if(this.sharedData.selectedMediaServer==undefined)
               {
                 this.saveMediaServer();
               }else{
@@ -240,7 +240,7 @@ export class ParentComponent implements OnInit {
       var path="/mediaServers/GetByUserAndIpAddressAsync?userId="+this.sharedData.userData.Id+"&ipAddress="+this.sharedData.configurationData.localIpAddress;
       this.restProvider.executeSinovadApiService(HttpMethodType.GET,path).then((response:SinovadApiGenericResponse) => {
         let data=response.Data;
-        this.sharedData.currentMediaServerData=data;
+        this.sharedData.selectedMediaServer=data;
         if(this.sharedData.configurationData.currentHost)
         {
           this.saveApiKeyInMediaStreamHost();
@@ -256,7 +256,7 @@ export class ParentComponent implements OnInit {
   public saveApiKeyInMediaStreamHost(){
     let mediaServerData={
       ApiKey:this.sharedData.currentToken,
-      MediaServer:this.sharedData.currentMediaServerData
+      MediaServer:this.sharedData.selectedMediaServer
     }
     this.restProvider.executeSinovadStreamServerService(HttpMethodType.POST,'/main/SaveMediaServerData',mediaServerData).then((response) => {
 

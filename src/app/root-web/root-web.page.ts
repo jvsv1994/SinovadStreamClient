@@ -62,7 +62,7 @@ export class RootWebPage extends ParentComponent implements OnInit {
           console.error(error);
         });
       }
-      this.sharedData.currentMediaServerData=undefined;
+      this.sharedData.selectedMediaServer=undefined;
       this.sharedData.currentProfile=undefined;
       this.sharedData.userData=undefined;
       this.sharedData.currentToken=undefined;

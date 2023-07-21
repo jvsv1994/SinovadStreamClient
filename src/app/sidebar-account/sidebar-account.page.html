@@ -32,7 +32,7 @@
           </div>
         </div>
       </button>
-      <ng-template [ngIf]="sharedData.currentMediaServerData && serverModules && serverModules.length>0">
+      <ng-template [ngIf]="sharedData.selectedMediaServer && serverModules && serverModules.length>0">
         <ng-template ngFor let-module [ngForOf]="serverModules">
           <div role="navigation">
             <div class="sidebar-list-header-container">
@@ -42,7 +42,7 @@
             </div>
             <ng-template ngFor let-option [ngForOf]="module.listOptions">
               <div class="sidebar-list-item-container" [ngClass]="{'selected':selectedSidebarOption && selectedSidebarOption.index==option.index}">
-                <a [routerLink]="[option.path]">
+                <a [routerLink]="[getOptionPath(option)]">
                   <div class="sidebar-link-container">
                     <div class="sidebar-link-icon"></div>
                     <div class="sidebar-link-title">

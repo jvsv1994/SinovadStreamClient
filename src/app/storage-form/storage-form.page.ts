@@ -63,7 +63,7 @@ export class StorageFormPage extends ParentComponent implements OnInit {
     }
 
     public saveStorage(){
-      this.storage.MediaServerId=this.sharedData.currentMediaServerData.Id;
+      this.storage.MediaServerId=this.sharedData.selectedMediaServer.Id;
       let methodType=this.storage.Id>0?HttpMethodType.PUT:HttpMethodType.POST;
       var path=this.storage.Id>0?"/storages/Update":"/storages/Create";
       this.restProvider.executeSinovadApiService(methodType,path,this.storage).then((response) => {

@@ -99,7 +99,6 @@ export class SidebarAccountPage extends ParentComponent implements OnInit {
     {
       this.serverModules.forEach(module => {
         module.listOptions.forEach(option => {
-          option.path=option.path.replace("{serverGuid}",this.sharedData.selectedMediaServer.Guid);
           if(option.path.indexOf(window.location.pathname)!=-1)
           {
             this.selectedSidebarOption=option;
@@ -113,7 +112,9 @@ export class SidebarAccountPage extends ParentComponent implements OnInit {
     }
   }
 
-
+  public getOptionPath(option:SidebarOption){
+    return option.path.replace("{serverGuid}",this.sharedData.selectedMediaServer.Guid);
+  }
 
   public onClickModule(module:Menu){
     module.isCollapsed=!module.isCollapsed;

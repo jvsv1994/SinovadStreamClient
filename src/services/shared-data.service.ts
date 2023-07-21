@@ -14,7 +14,6 @@ export class SharedDataService {
   VisitatorRoleID: number=2;
   UserRoleID: number=3;
   currentVideo:BuilderVideo;
-  currentMediaServerData:any;
   urlSinovadStreamWebApi: string='http://localhost:53363';
   //urlSinovadStreamWebApi: string='http://streamapi.sinovad.com';
   urlSinovadCdn: string='http://cdn.sinovad.com/stream/web';

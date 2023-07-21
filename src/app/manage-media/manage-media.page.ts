@@ -11,6 +11,7 @@ import { CatalogEnum, HttpMethodType, MediaType } from '../enums';
 import { Storage } from '../../models/storage';
 import { SinovadApiGenericResponse } from '../response/sinovadApiGenericResponse';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MediaServer } from 'src/models/mediaServer';
 
 declare var window;
 @Component({
@@ -41,6 +42,7 @@ export class ManageMediaPage extends ParentComponent implements OnInit,OnDestroy
   storage:Storage;
 
   showForm:boolean=false;
+  mediaServer:MediaServer;
 
   constructor(
     private router: Router,
@@ -55,8 +57,8 @@ export class ManageMediaPage extends ParentComponent implements OnInit,OnDestroy
     }
 
     ngOnInit(): void {
+      this.getMediaServerData();
       this.getAllMainDirectories();
-      this.getStorages();
     }
 
     ngAfterViewInit(){
@@ -79,48 +81,47 @@ export class ManageMediaPage extends ParentComponent implements OnInit,OnDestroy
       });
     }
 
-    public async getStorages(){
-      if(this.sharedData.mediaServers && this.sharedData.mediaServers.length>0)
-      {
-        var mediaServerGuid=this.activeRoute.snapshot.params.serverGuid;
-        if(this.validateMediaServer(mediaServerGuid))
-        {
-          var path="/storages/GetAllWithPaginationByMediaServerAsync/"+this.sharedData.selectedMediaServer.Id;
-          this.restProvider.executeSinovadApiService(HttpMethodType.GET,path).then((response:SinovadApiGenericResponse) => {
-            let data=response.Data;
-            this.listStorages=data;
-            if(data && data.length>0)
-            {
-              let storageMovies=data.find(item=>item.MediaType==1);
-              if(storageMovies)
-              {
-                this.storageMovies=storageMovies;
-              }else{
-                this.storageMovies.MediaServerId=this.sharedData.currentMediaServerData.Id;
-              }
-              let storageTvSeries=data.find(item=>item.MediaType==2);
-              if(storageTvSeries)
-              {
-                this.storageTvSeries=storageTvSeries;
-              }else{
-                this.storageTvSeries.MediaServerId=this.sharedData.currentMediaServerData.Id;
-              }
-            }
-          },error=>{
-            console.error(error);
-          });
-        }else{
-          this.router.navigateByUrl('/404')
-        }
-      }else{
-        await this.delay(100);
+    public async getMediaServerData(){
+      var mediaServerGuid=this.activeRoute.snapshot.params.serverGuid;
+      this.restProvider.executeSinovadApiService(HttpMethodType.GET,'/mediaServers/GetByGuidAsync/'+mediaServerGuid).then((response:SinovadApiGenericResponse) => {
+        this.sharedData.selectedMediaServer=response.Data;
+        this.mediaServer=this.sharedData.selectedMediaServer;
         this.getStorages();
-      }
+      },error=>{
+        this.router.navigateByUrl('/404')
+      });
+    }
+
+    public getStorages(){
+      var path="/storages/GetAllWithPaginationByMediaServerAsync/"+this.mediaServer.Id;
+      this.restProvider.executeSinovadApiService(HttpMethodType.GET,path).then((response:SinovadApiGenericResponse) => {
+        let data=response.Data;
+        this.listStorages=data;
+        if(data && data.length>0)
+        {
+          let storageMovies=data.find(item=>item.MediaType==1);
+          if(storageMovies)
+          {
+            this.storageMovies=storageMovies;
+          }else{
+            this.storageMovies.MediaServerId=this.sharedData.selectedMediaServer.Id;
+          }
+          let storageTvSeries=data.find(item=>item.MediaType==2);
+          if(storageTvSeries)
+          {
+            this.storageTvSeries=storageTvSeries;
+          }else{
+            this.storageTvSeries.MediaServerId=this.sharedData.selectedMediaServer.Id;
+          }
+        }
+      },error=>{
+        console.error(error);
+      });
     }
 
     public openNewStorage(){
       let storage= new Storage();
-      storage.MediaServerId=this.sharedData.currentMediaServerData.Id;
+      storage.MediaServerId=this.sharedData.selectedMediaServer.Id;
       storage.MediaTypeCatalogId=CatalogEnum.MediaType;
       storage.MediaTypeCatalogDetailId=MediaType.Movie;
       this.storage=storage;
