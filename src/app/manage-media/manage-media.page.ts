@@ -63,7 +63,6 @@ export class ManageMediaPage extends ParentComponent implements OnInit,OnDestroy
 
     ngOnInit(): void {
       this.getMediaServerData();
-      this.getAllMainDirectories();
     }
 
     ngAfterViewInit(){
@@ -91,6 +90,7 @@ export class ManageMediaPage extends ParentComponent implements OnInit,OnDestroy
       this.restProvider.executeSinovadApiService(HttpMethodType.GET,'/mediaServers/GetByGuidAsync/'+mediaServerGuid).then((response:SinovadApiGenericResponse) => {
         this.sharedData.selectedMediaServer=response.Data;
         this.mediaServer=this.sharedData.selectedMediaServer;
+        this.getAllMainDirectories();
         this.getStorages();
       },error=>{
         this.router.navigateByUrl('/404')

@@ -54,14 +54,11 @@ export class RootWebPage extends ParentComponent implements OnInit {
     }
 
     public logOut(){
-      if(this.sharedData.configurationData.currentHost!=null)
-      {
-        this.restProvider.executeSinovadStreamServerService(HttpMethodType.DELETE,'/main/DeleteMediaServerData').then((response) => {
+      this.restProvider.executeSinovadStreamServerService(HttpMethodType.DELETE,'/main/DeleteMediaServerData').then((response) => {
 
-        },error=>{
-          console.error(error);
-        });
-      }
+      },error=>{
+        console.error(error);
+      });
       this.sharedData.selectedMediaServer=undefined;
       this.sharedData.currentProfile=undefined;
       this.sharedData.userData=undefined;
