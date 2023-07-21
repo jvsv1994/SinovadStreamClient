@@ -34,17 +34,22 @@
         </ng-template>
       </ng-template>
       <li class="sinovad-avatar-item">
-        <a id="log_out_button" (click)="onClickEditProfilesButton()">
+        <a (click)="onClickEditProfilesButton()">
           <span>Editar perfiles</span>
         </a>
       </li>
       <li class="sinovad-avatar-item">
-        <a id="log_out_button" (click)="onClickAccountOption()">
+        <a (click)="onClickAccountOption()">
           <span>Cuenta</span>
         </a>
       </li>
       <li class="sinovad-avatar-item">
-        <a id="log_out_button" (click)="logout.emit(true)">
+        <a id="log_out_button" (click)="showAdminMode.emit(true)">
+          <span>Modo administrador</span>
+        </a>
+      </li>
+      <li class="sinovad-avatar-item">
+        <a (click)="logout.emit(true)">
           <span>Cerrar Sesión</span>
         </a>
       </li>

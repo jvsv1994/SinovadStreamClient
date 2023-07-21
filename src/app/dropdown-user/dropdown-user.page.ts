@@ -17,6 +17,7 @@ declare var window;
 })
 export class DropDownUserPage extends ParentComponent implements OnInit {
 
+  @Output() showAdminMode =new EventEmitter();
   @Output() showSplashScreen =new EventEmitter();
   @Output() changeProfile =new EventEmitter();
   @Output() logout =new EventEmitter();

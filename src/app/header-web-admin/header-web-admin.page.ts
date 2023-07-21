@@ -27,6 +27,7 @@ export class HeaderWebAdminPage extends ParentComponent implements OnInit {
   @Output() logout =new EventEmitter();
   @Output() executeSearch =new EventEmitter();
   @Output() toggleMenu =new EventEmitter();
+  @Output() showAdminMode =new EventEmitter();
   searchText:string='';
   isFocusSearch:boolean=false;
   showDropDown:boolean=false;

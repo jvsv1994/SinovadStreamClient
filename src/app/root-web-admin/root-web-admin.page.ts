@@ -41,6 +41,7 @@ export class RootWebAdminPage extends ParentComponent implements OnInit {
   unselectSidebarOption=new EventEmitter<boolean>();
   refreshSidebarOption=new EventEmitter<boolean>();
   showingSidebarAccount:boolean=false;
+  showingAdminMode:boolean=false;
 
   constructor(
     public route: ActivatedRoute,
@@ -96,6 +97,11 @@ export class RootWebAdminPage extends ParentComponent implements OnInit {
       this.refreshSidebarOption.emit(true);
     }
 
+    public showAdminMode(){
+      this.showingAdminMode=true;
+      this.showingSidebarAccount=false;
+    }
+
     public showHome(){
       this.showingSidebarAccount=false;
       this.router.navigateByUrl("/home").then((response) => {
@@ -138,6 +144,7 @@ export class RootWebAdminPage extends ParentComponent implements OnInit {
       if(event instanceof MoviesPage || event instanceof TvSeriesPage || event instanceof HomePage || event instanceof MovieDetailPage || event instanceof TvSerieDetailPage)
       {
         this.showingSidebarAccount=false;
+        this.showingAdminMode=false;
         event.toggleVideo.subscribe(event => {
           ctx.toggleVideo.emit(event);
         });
@@ -145,6 +152,7 @@ export class RootWebAdminPage extends ParentComponent implements OnInit {
       if(event instanceof ProfilesViewPage)
       {
         this.showingSidebarAccount=false;
+        this.showingAdminMode=false;
         event.selectProfile.subscribe((profile:Profile) => {
           ctx.sharedData.currentProfile=profile;
           ctx.showHome();
@@ -162,6 +170,7 @@ export class RootWebAdminPage extends ParentComponent implements OnInit {
       if(event instanceof ItemListPage)
       {
         this.showingSidebarAccount=false;
+        this.showingAdminMode=true;
         event.currentMediaTypeID=ctx.currentMediaTypeID;
         event.title=this.title;
         ctx.ref.detectChanges();
@@ -169,18 +178,22 @@ export class RootWebAdminPage extends ParentComponent implements OnInit {
       if(event instanceof AccountPage)
       {
         this.showingSidebarAccount=true;
+        this.showingAdminMode=false;
       }
       if(event instanceof TranscoderSettingssPage)
       {
         this.showingSidebarAccount=true;
+        this.showingAdminMode=false;
       }
       if(event instanceof ServerSettingsGeneralPage)
       {
         this.showingSidebarAccount=true;
+        this.showingAdminMode=false;
       }
       if(event instanceof ManageMediaPage)
       {
         this.showingSidebarAccount=true;
+        this.showingAdminMode=false;
         event.showInitial.subscribe(event => {
           ctx.showHome();
         });

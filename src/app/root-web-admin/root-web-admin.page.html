@@ -3,13 +3,13 @@
 
 <div *ngIf="sharedData.currentToken!=undefined && sharedData.userData!=undefined && !sharedData.pageNotFoundShowing" class="sinovad-page-container" [ngClass]="{'small':isSmallDevice()}">
   <div #header>
-    <app-header-web-admin [showingSidebarAccount]="showingSidebarAccount" (goHome)="showHome()" (executeSearch)="onSearchMedia($event)" (toggleSidebar)="onClickToggleSidebarButton()" (showSplashScreen)="showSplashScreen=true" (logout)="logOut()" (showHomeUser)="showHome()"
+    <app-header-web-admin (showAdminMode)="showAdminMode()" [showingSidebarAccount]="showingSidebarAccount" (goHome)="showHome()" (executeSearch)="onSearchMedia($event)" (toggleSidebar)="onClickToggleSidebarButton()" (showSplashScreen)="showSplashScreen=true" (logout)="logOut()" (showHomeUser)="showHome()"
     (logout)="logOut()"></app-header-web-admin>
   </div>
   <div class="sinovad-menu-body-container" [style.height]="'calc(100% - '+(header.offsetHeight+footer.offsetHeight)+'px)'">
     <div #menu>
       <section *ngIf="!isCollapsedSidebar" id="menuContainer" #menuContainer class="sinovad-menu-container" [style.height]="'100%'" tabindex="0">
-        <app-sidebar-web-admin *ngIf="!showingSidebarAccount" (prepareRouterOutlet)="prepareRouterOutlet()" [unselectSidebarOption]="unselectSidebarOption" [selectHomeUserOption]="selectHomeUserOption"
+        <app-sidebar-web-admin *ngIf="showingAdminMode" (prepareRouterOutlet)="prepareRouterOutlet()" [unselectSidebarOption]="unselectSidebarOption" [selectHomeUserOption]="selectHomeUserOption"
         (hideSidebar)="isCollapsedSidebar=true"></app-sidebar-web-admin>
         <app-sidebar-account *ngIf="showingSidebarAccount"></app-sidebar-account>
       </section>
