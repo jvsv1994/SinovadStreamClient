@@ -1,63 +1,67 @@
 
-<div class="sidebar-container">
-  <div class="sidebar-content">
-      <div role="navigation">
-          <div class="sidebar-list-header-container">
-            <div class="sidebar-list-header-content">
-              {{sharedData.userData.FirstName}} {{sharedData.userData.LastName}}
-            </div>
-          </div>
-          <div class="sidebar-list-item-container" [ngClass]="{'selected':isSelectedAccountOption()}">
-            <a [routerLink]="['/settings/account']">
-              <div class="sidebar-link-container">
-                <div class="sidebar-link-icon"></div>
-                <div class="sidebar-link-title">
-                  Cuenta
-                </div>
-              </div>
-            </a>
-          </div>
-      </div>
-      <button #mediaServerButton class="media-server-button" (click)="togleDropDownMediaServers($event)" [ngClass]="{'selected':isSelectedServerOption()}">
-        <div class="content">
-          <div class="left">
-              <span class="first">
-                {{sharedData.selectedMediaServer.FamilyName?sharedData.selectedMediaServer.FamilyName:sharedData.selectedMediaServer.DeviceName}}
-              </span>
-              <i *ngIf="dropDownMenuPage.isShowing" class="fa-solid fa-caret-up"></i>
-              <i *ngIf="!dropDownMenuPage.isShowing" class="fa-solid fa-caret-down"></i>
-          </div>
-          <div class="server-settings-menu-button-icon" [ngClass]="{'icon-secure':sharedData.selectedMediaServer.isSecureConnection,'icon-alert':!sharedData.selectedMediaServer.isSecureConnection}">
-            <i *ngIf="sharedData.selectedMediaServer.isSecureConnection" class="fa-solid fa-lock"></i>
-            <i *ngIf="!sharedData.selectedMediaServer.isSecureConnection" class="fa-solid fa-triangle-exclamation"></i>
-          </div>
-        </div>
-      </button>
-      <ng-template [ngIf]="sharedData.selectedMediaServer && serverModules && serverModules.length>0">
-        <ng-template ngFor let-module [ngForOf]="serverModules">
-          <div role="navigation">
+<div class="sidebar-backdrop">
+  <div class="sidebar-container">
+    <div class="sidebar-content">
+        <div role="navigation">
             <div class="sidebar-list-header-container">
               <div class="sidebar-list-header-content">
-                {{module.name}}
+                {{sharedData.userData.FirstName}} {{sharedData.userData.LastName}}
               </div>
             </div>
-            <ng-template ngFor let-option [ngForOf]="module.listOptions">
-              <div class="sidebar-list-item-container" [ngClass]="{'selected':isSelectedSidebarOption(option)}">
-                <a [routerLink]="[getOptionPath(option)]">
-                  <div class="sidebar-link-container">
-                    <div class="sidebar-link-icon"></div>
-                    <div class="sidebar-link-title">
-                      {{option.name}}
-                    </div>
+            <div class="sidebar-list-item-container" [ngClass]="{'selected':isSelectedAccountOption()}">
+              <a [routerLink]="['/settings/account']">
+                <div class="sidebar-link-container">
+                  <div class="sidebar-link-icon"></div>
+                  <div class="sidebar-link-title">
+                    Cuenta
                   </div>
-                </a>
-              </div>
-            </ng-template>
+                </div>
+              </a>
+            </div>
+        </div>
+        <button #mediaServerButton class="media-server-button" (click)="togleDropDownMediaServers($event)" [ngClass]="{'selected':isSelectedServerOption()}">
+          <div class="content">
+            <div class="left">
+                <span class="first">
+                  {{sharedData.selectedMediaServer.FamilyName?sharedData.selectedMediaServer.FamilyName:sharedData.selectedMediaServer.DeviceName}}
+                </span>
+                <i *ngIf="dropDownMenuPage.isShowing" class="fa-solid fa-caret-up"></i>
+                <i *ngIf="!dropDownMenuPage.isShowing" class="fa-solid fa-caret-down"></i>
+            </div>
+            <div class="server-settings-menu-button-icon" [ngClass]="{'icon-secure':sharedData.selectedMediaServer.isSecureConnection,'icon-alert':!sharedData.selectedMediaServer.isSecureConnection}">
+              <i *ngIf="sharedData.selectedMediaServer.isSecureConnection" class="fa-solid fa-lock"></i>
+              <i *ngIf="!sharedData.selectedMediaServer.isSecureConnection" class="fa-solid fa-triangle-exclamation"></i>
+            </div>
           </div>
+        </button>
+        <ng-template [ngIf]="sharedData.selectedMediaServer && serverModules && serverModules.length>0">
+          <ng-template ngFor let-module [ngForOf]="serverModules">
+            <div role="navigation">
+              <div class="sidebar-list-header-container">
+                <div class="sidebar-list-header-content">
+                  {{module.name}}
+                </div>
+              </div>
+              <ng-template ngFor let-option [ngForOf]="module.listOptions">
+                <div class="sidebar-list-item-container" [ngClass]="{'selected':isSelectedSidebarOption(option)}">
+                  <a [routerLink]="[getOptionPath(option)]">
+                    <div class="sidebar-link-container">
+                      <div class="sidebar-link-icon"></div>
+                      <div class="sidebar-link-title">
+                        {{option.name}}
+                      </div>
+                    </div>
+                  </a>
+                </div>
+              </ng-template>
+            </div>
+          </ng-template>
         </ng-template>
-      </ng-template>
+    </div>
   </div>
 </div>
+
+
 
 <app-drop-down-menu #dropDownMenuPage [dropDownMenuOptions]="getDropDownMenuOptions()"></app-drop-down-menu>
 
