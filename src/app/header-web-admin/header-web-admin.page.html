@@ -3,7 +3,7 @@
     <a *ngIf="showingSidebarAccount || showingSidebarAdminMode" class="sinovad-toggle-sidebar-button" (click)="onClickHomeOption()">
       <i class="fa-solid fa-house"></i>
     </a>
-    <a *ngIf="!showingSidebarAccount && !showingSidebarAdminMode" class="sinovad-toggle-sidebar-button" (click)="toggleSidebar.emit(true)">
+    <a *ngIf="!showingSidebarAccount && !showingSidebarAdminMode" class="sinovad-toggle-sidebar-button" (click)="onClickToggleSidebarButton()">
       <i class="fa-solid fa-bars"></i>
     </a>
     <a class="sinovad-logo-button" (click)="goHome.emit(true)">

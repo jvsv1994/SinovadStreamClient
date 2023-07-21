@@ -93,4 +93,10 @@ export class HeaderWebAdminPage extends ParentComponent implements OnInit {
     this.searchText="";
   }
 
+  public onClickToggleSidebarButton(){
+    setTimeout(() => {
+        this.toggleSidebar.emit(true);
+    }, 250);
+  }
+
 }

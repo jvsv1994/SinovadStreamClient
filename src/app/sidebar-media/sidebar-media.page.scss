@@ -1,3 +1,9 @@
+.sidebar-backdrop{
+  width: 240px;
+  height: 100%;
+  background: #0c0d11;
+}
+
 .sinovad-sidebar-modules-list{
   display: block;
   padding: 10px 10px 10px 20px;
@@ -58,4 +64,14 @@
   }
 
 }
+
+@media only screen and (max-width: 767px) {
+  .sidebar-backdrop{
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 999;
+  }
+}
+
 

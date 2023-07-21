@@ -17,8 +17,7 @@ declare var window;
 })
 export class SidebarMediaPage extends ParentComponent implements OnInit {
 
-  selectedSidebarOption:Menu;
-  selectedSidebarModule:Menu;
+  @Output() collapseSidebar=new EventEmitter();
   mediaOptions:Menu[]=[
     {
       Id:1,
@@ -40,6 +39,7 @@ export class SidebarMediaPage extends ParentComponent implements OnInit {
       IconClass:"fa-solid fa-tv"
     }
   ]
+
 
   constructor(
     private router: Router,
@@ -76,6 +76,20 @@ export class SidebarMediaPage extends ParentComponent implements OnInit {
     },error=>{
       console.error(error);
     });
+  }
+
+  public isSelectedMenu(option:Menu){
+    if(option.Path.indexOf(window.location.pathname)!=-1)
+    {
+      return true;
+    }
+    return false;
+  }
+
+  public onClickOutsideSidebar(){
+    setTimeout(() => {
+      this.collapseSidebar.emit(true);
+    }, 250);
   }
 
 }
