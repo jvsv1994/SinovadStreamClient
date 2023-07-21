@@ -6,6 +6,7 @@ import { DirectoryChooserPageModule } from '../directory-chooser/directory-choos
 import { SharedModule } from 'src/shared.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { StorageFormPageModule } from '../storage-form/storage-form.module';
+import { CustomActionsMenuPageModule } from '../custom-actions-menu/custom-actions-menu.module';
 
 @NgModule({
     declarations: [
@@ -18,7 +19,8 @@ import { StorageFormPageModule } from '../storage-form/storage-form.module';
         SharedModule,
         ReactiveFormsModule,
         NgbModule,
-        StorageFormPageModule
+        StorageFormPageModule,
+        CustomActionsMenuPageModule
     ],
     exports: [ManageMediaPage]
 })

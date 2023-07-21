@@ -6,7 +6,7 @@
     <button (click)="updateVideoInAllStorages()">Buscar archivos en biblioteca</button>
   </div>
   <ng-template ngFor let-storage [ngForOf]="listStorages" let-i="index">
-    <div class="manage-library-summary-row">
+    <div class="manage-library-summary-row" [ngClass]="{'selected':currentLibrary && currentLibrary.Id==storage.Id}">
       <div class="manage-library-summary-overlay">
         <div class="manage-library-icon-container">
           <i *ngIf="storage.MediaTypeCatalogDetailId==1" class="fa-solid fa-film"></i>
@@ -15,7 +15,7 @@
         <a>{{storage.Name}}</a>
         <div class="manage-library-summary-actions">
           <div class="manage-library-summary-header">
-              <button class="manage-library-summary-action">
+              <button class="manage-library-summary-action" (click)="showActions($event,storage)">
                   <span class="manage-library-summary-header-icon">
                     <i class="fa-solid fa-ellipsis-vertical"></i>
                   </span>
@@ -27,7 +27,7 @@
   </ng-template>
 
 
-  <div>
+<!--   <div>
     <div class="server-settings-container">
       <div class="settings-row">
           <div class="pane-region">
@@ -68,11 +68,14 @@
           </div>
       </div>
     </div>
-  </div>
+  </div> -->
 
 </div>
 
-<app-storage-form *ngIf="showForm" (closeStorageFormWithChanges)="onCloseStorageFormWithChanges()" (closeStorageForm)="onCloseStorageForm()" [listMainDirectories]="listMainDirectories" [storage]="storage"></app-storage-form>
+<app-custom-actions-menu #customActionsMenuPage (onHide)="onHideCustomActionsMenu()"></app-custom-actions-menu>
+
+<app-storage-form *ngIf="showForm" (closeStorageFormWithChanges)="onCloseStorageFormWithChanges()" (closeStorageForm)="onCloseStorageForm()"
+[listMainDirectories]="listMainDirectories" [storage]="currentLibrary"></app-storage-form>
 
 
 <div *ngIf="callSearchMediaLog" class="sinovad-searh-media-log-container">

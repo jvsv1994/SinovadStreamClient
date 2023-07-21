@@ -1,5 +1,5 @@
 
-import { Component, EventEmitter, HostListener, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SharedDataService } from 'src/services/shared-data.service';
 import { EventsService } from 'src/services/events-service';
@@ -12,6 +12,8 @@ import { Storage } from '../../models/storage';
 import { SinovadApiGenericResponse } from '../response/sinovadApiGenericResponse';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MediaServer } from 'src/models/mediaServer';
+import { CustomActionsMenuPage } from '../custom-actions-menu/custom-actions-menu.page';
+import { CustomActionsMenuItem } from '../custom-actions-menu/customActionsMenuItem';
 
 declare var window;
 @Component({
@@ -39,10 +41,11 @@ export class ManageMediaPage extends ParentComponent implements OnInit,OnDestroy
   searchingMediaInterval:any;
   listStorages:Storage[];
 
-  storage:Storage;
+  currentLibrary:Storage;
 
   showForm:boolean=false;
   mediaServer:MediaServer;
+  @ViewChild('customActionsMenuPage') customActionsMenuPage: CustomActionsMenuPage;
 
   constructor(
     private router: Router,
@@ -124,12 +127,12 @@ export class ManageMediaPage extends ParentComponent implements OnInit,OnDestroy
       storage.MediaServerId=this.sharedData.selectedMediaServer.Id;
       storage.MediaTypeCatalogId=CatalogEnum.MediaType;
       storage.MediaTypeCatalogDetailId=MediaType.Movie;
-      this.storage=storage;
+      this.currentLibrary=storage;
       this.showForm=true;
     }
 
     public editStorage(storage:Storage){
-      this.storage=JSON.parse(JSON.stringify(storage));
+      this.currentLibrary=JSON.parse(JSON.stringify(storage));
       this.showForm=true;
     }
 
@@ -208,9 +211,18 @@ export class ManageMediaPage extends ParentComponent implements OnInit,OnDestroy
       });
     }
 
-    @HostListener('window:resize', ['$event'])
-    onResize(event) {
+   public showActions(event:any,library:Storage){
+      this.currentLibrary=library;
+      var target=event.currentTarget;
+      var listItems:CustomActionsMenuItem[]=[];
+      listItems.push({title:"Editar biblioteca"});
+      listItems.push({title:"Buscar archivos en la biblioteca"});
+      listItems.push({title:"Eliminar biblioteca"});
+      this.customActionsMenuPage.show({target:target,containerId:"sinovadMainContainer",listItems:listItems});
+   }
 
-    }
+   public onHideCustomActionsMenu(){
+    this.currentLibrary=undefined;
+   }
 
 }

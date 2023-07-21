@@ -87,16 +87,18 @@ a{
   display: flex;
   flex: 1;
   justify-content: flex-end;
-  opacity: 0;
+  opacity: 1;
 }
 
 
 .manage-library-summary-row:hover{
   background-color: hsla(0,0%,100%,.06);
   color: #fff;
-  .manage-library-summary-actions{
-    opacity: 1;
-  }
+}
+
+.manage-library-summary-row.selected{
+  background-color: hsla(0,0%,100%,.06);
+  color: #fff;
 }
 
 .manage-library-summary-header{

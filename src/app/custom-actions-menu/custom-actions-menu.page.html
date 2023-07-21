@@ -1,0 +1,11 @@
+<ng-template #contentTemplate let-content>
+  <div *ngIf="isShowing" class="custom-actions-menu-container">
+    <div class="custom-actions-menu-content" (clickOutside)="hide()" [style.top]="top+'px'" [style.right]="right+'px'">
+        <div class="custom-actions-menu-scroller">
+          <ng-template ngFor let-item [ngForOf]="options.listItems"  let-i="index">
+            <button class="menu-item">{{item.title}}</button>
+          </ng-template>
+        </div>
+    </div>
+  </div>
+</ng-template>
