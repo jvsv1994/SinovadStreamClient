@@ -11,11 +11,11 @@ import { Router } from '@angular/router';
 
 declare var window;
 @Component({
-  selector: 'app-sidebar-web-admin',
-  templateUrl: './sidebar-web-admin.page.html',
-  styleUrls: ['./sidebar-web-admin.page.scss']
+  selector: 'app-sidebar-administrator',
+  templateUrl: './sidebar-administrator.page.html',
+  styleUrls: ['./sidebar-administrator.page.scss']
 })
-export class SideBarWebAdminPage extends ParentComponent implements OnInit {
+export class SidebarAdministratorPage extends ParentComponent implements OnInit {
 
   @Input() selectHomeUserOption:EventEmitter<boolean>;
   @Input() unselectSidebarOption:EventEmitter<boolean>;
@@ -47,9 +47,6 @@ export class SideBarWebAdminPage extends ParentComponent implements OnInit {
       ctx.selectedSidebarOption=undefined;
       ctx.selectedSidebarModule=undefined;
     });
-    this.refreshSidebarOption.subscribe(event => {
-      ctx.onClickSidebarOption(ctx.selectedSidebarOption,ctx.selectedSidebarModule);
-    });
   }
 
   ngAfterViewInit(){
@@ -75,29 +72,24 @@ export class SideBarWebAdminPage extends ParentComponent implements OnInit {
     });
   }
 
-  public onClickModule(module:Menu){
+  public onClickModule(module:Menu,event:any){
+    event.preventDefault();
+    event.stopPropagation();
     module.isCollapsed=!module.isCollapsed;
-  }
-
-  public onClickSidebarOption(option:Menu,module:Menu){
-    this.prepareRouterOutlet.emit(true);
-    let ctx=this;
-    this.router.navigateByUrl(option.Path).then((response) => {
-      ctx.selectedSidebarOption=option;
-      ctx.selectedSidebarModule=module;
-      if(ctx.isSmallDevice())
-      {
-        ctx.collapseSidebar.emit(true);
-      }
-    },error=>{
-      console.error(error);
-    });
   }
 
   public onClickOutsideSidebar(){
     setTimeout(() => {
       this.collapseSidebar.emit(true);
     }, 250);
+  }
+
+  public isSelectedMenu(option:Menu){
+    if(option.Path.indexOf(window.location.pathname)!=-1)
+    {
+      return true;
+    }
+    return false;
   }
 
 }

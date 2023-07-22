@@ -6,10 +6,10 @@ import { SharedModule } from 'src/shared.module';
 import { VideoPageModule } from '../video/video.module';
 import { SplashScreenPageModule } from '../splash-screen/splash-screen.module';
 import { HeaderWebAdminPageModule } from '../header-web-admin/header-web-admin.module';
-import { SideBarWebAdminPageModule } from '../sidebar-web-admin/siderbar-web-admin.module';
 import { RootWebAdminPage } from './root-web-admin.page';
 import { SidebarAccountPageModule } from '../sidebar-account/siderbar-account.module';
 import { SidebarMediaPageModule } from '../sidebar-media/siderbar-media.module';
+import { SidebarAdministratorPageModule } from '../sidebar-administrator/siderbar-administrator.module';
 @NgModule({
     declarations: [
       RootWebAdminPage
@@ -19,7 +19,7 @@ import { SidebarMediaPageModule } from '../sidebar-media/siderbar-media.module';
       FormsModule,
       VideoPageModule,
       HeaderWebAdminPageModule,
-      SideBarWebAdminPageModule,
+      SidebarAdministratorPageModule,
       SidebarAccountPageModule,
       SidebarMediaPageModule,
       ReactiveFormsModule,

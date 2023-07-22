@@ -13,7 +13,7 @@
           <ul class="sinovad-sidebar-options-list">
             <ng-template ngFor let-option [ngForOf]="poption.ChildMenus">
               <li class="sinovad-sidebar-option-element">
-              <a (click)="onClickSidebarOption(option,poption)" [ngClass]="{'active':isSelectedMenu(poption)}">
+              <a [routerLink]="[option.Path]" [ngClass]="{'active':isSelectedMenu(poption)}">
                 <i *ngIf="option.IconClass" class="{{option.IconClass}}"></i>
                 <span class="ms-2">{{option.Title}}</span>
               </a>

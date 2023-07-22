@@ -3,20 +3,22 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/shared.module';
 import { ProfilesViewPageModule } from '../profiles-view/profiles-view.module';
-import { SideBarWebAdminPage } from './sidebar-web-admin.page';
+import { SidebarAdministratorPage } from './sidebar-administrator.page';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
     declarations: [
-        SideBarWebAdminPage
+      SidebarAdministratorPage
     ],
     imports: [
         CommonModule,
         FormsModule,
         SharedModule,
         ReactiveFormsModule,
-        ProfilesViewPageModule
+        ProfilesViewPageModule,
+        RouterModule
     ],
-    exports: [SideBarWebAdminPage]
+    exports: [SidebarAdministratorPage]
 })
-export class SideBarWebAdminPageModule {
+export class SidebarAdministratorPageModule {
 }
