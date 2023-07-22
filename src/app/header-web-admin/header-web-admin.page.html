@@ -1,6 +1,6 @@
 <header>
   <nav>
-    <a class="nav-button-icon-container toggle" (click)="onClickToggleSidebarButton()">
+    <a class="nav-button-icon-container toggle" (click)="onClickToggleSidebarButton($event)">
       <i class="fa-solid fa-bars"></i>
     </a>
     <a *ngIf="showingSidebarAccount || showingSidebarAdminMode" class="nav-button-icon-container home" [routerLink]="['/home']">

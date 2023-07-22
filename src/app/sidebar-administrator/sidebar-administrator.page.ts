@@ -78,10 +78,10 @@ export class SidebarAdministratorPage extends ParentComponent implements OnInit 
     module.isCollapsed=!module.isCollapsed;
   }
 
-  public onClickOutsideSidebar(){
-    setTimeout(() => {
-      this.collapseSidebar.emit(true);
-    }, 250);
+  public onClickOutsideSidebar(event:any){
+    event.preventDefault();
+    event.stopPropagation();
+    this.collapseSidebar.emit(true);
   }
 
   public isSelectedMenu(option:Menu){

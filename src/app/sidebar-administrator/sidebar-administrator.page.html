@@ -1,5 +1,5 @@
 
-<div class="sidebar-backdrop" (clickOutside)="onClickOutsideSidebar()">
+<div class="sidebar-backdrop" (clickOutside)="onClickOutsideSidebar($event)">
   <ul class="sinovad-sidebar-modules-list">
     <ng-template ngFor let-module [ngForOf]="sharedData.listMenus">
       <li class="sinovad-sidebar-module-element">
