@@ -86,10 +86,10 @@ export class SidebarMediaPage extends ParentComponent implements OnInit {
     return false;
   }
 
-  public onClickOutsideSidebar(){
-    setTimeout(() => {
-      this.collapseSidebar.emit(true);
-    }, 250);
+  public onClickOutsideSidebar(event:any){
+    event.preventDefault();
+    event.stopPropagation();
+    this.collapseSidebar.emit(true);
   }
 
 }

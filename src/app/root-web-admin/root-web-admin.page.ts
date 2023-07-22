@@ -149,6 +149,7 @@ export class RootWebAdminPage extends ParentComponent implements OnInit {
 
     public onActivate(event:any){
       let ctx=this;
+      this.isCollapsedSidebar=true;
       if(event instanceof MoviesPage || event instanceof TvSeriesPage || event instanceof HomePage || event instanceof MovieDetailPage || event instanceof TvSerieDetailPage)
       {
         this.showingSidebarMedia=true;
