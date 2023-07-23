@@ -19,7 +19,7 @@
               </a>
             </div>
         </div>
-        <button #mediaServerButton class="media-server-button" (click)="togleDropDownMediaServers($event)" [ngClass]="{'selected':isSelectedServerOption()}">
+        <button *ngIf="sharedData.selectedMediaServer" #mediaServerButton class="media-server-button" (click)="togleDropDownMediaServers($event)" [ngClass]="{'selected':isSelectedServerOption()}">
           <div class="content">
             <div class="left">
                 <span class="first">
