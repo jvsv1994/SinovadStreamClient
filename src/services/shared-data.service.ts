@@ -19,7 +19,7 @@ export class SharedDataService {
   currentSelectedElement:any;
   currentActiveSection:any;
   listProcessGUIDs:String[]=[];
-  currentToken:string;
+  apiToken:string;
   currentProfile:any;
   configurationData:Configuration=new Configuration();
   listProfiles:Profile[]=[];

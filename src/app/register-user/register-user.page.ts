@@ -38,7 +38,7 @@ export class RegisterUserPage extends ParentComponent implements OnInit {
     }
 
     ngOnInit(): void {
-      if(localStorage.getItem('apiKey'))
+      if(localStorage.getItem('apiToken'))
       {
         this.router.navigate(['home'],{ skipLocationChange: false});
       }

@@ -1,7 +1,7 @@
 
 
 
-<div *ngIf="sharedData.currentToken!=undefined && sharedData.userData!=undefined && !sharedData.pageNotFoundShowing" class="sinovad-page-container" [ngClass]="{'small':isSmallDevice()}">
+<div *ngIf="sharedData.apiToken!=undefined && sharedData.userData!=undefined && !sharedData.pageNotFoundShowing" class="sinovad-page-container" [ngClass]="{'small':isSmallDevice()}">
   <div #header>
     <app-header-web-admin (showAdminMode)="showAdminMode()" [showingSidebarAccount]="showingSidebarAccount" [showingSidebarAdminMode]="showingSidebarAdminMode"
     (goHome)="showHome()" (executeSearch)="onSearchMedia($event)" (toggleSidebar)="onClickToggleSidebarButton()"
@@ -30,7 +30,7 @@
   </div>
 </div>
 
-<div *ngIf="(sharedData.currentToken==undefined && sharedData.userData==undefined) || sharedData.pageNotFoundShowing" class="sinovad-page-container">
+<div *ngIf="(sharedData.apiToken==undefined && sharedData.userData==undefined) || sharedData.pageNotFoundShowing" class="sinovad-page-container">
   <router-outlet class="small" (activate)="onActivate($event)"></router-outlet>
 </div>
 

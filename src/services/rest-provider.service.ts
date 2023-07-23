@@ -18,9 +18,9 @@ export class RestProviderService {
       let requestOptions:any={
         responseType: 'text'
       }
-      if(this.sharedData.currentToken)
+      if(this.sharedData.apiToken)
       {
-        let api_key = this.sharedData.currentToken;
+        let api_key = this.sharedData.apiToken;
         const headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'Authorization': 'Bearer '+api_key
@@ -97,10 +97,10 @@ export class RestProviderService {
         }
         if(error.status==401)
         {
-          if(this.sharedData.currentToken)
+          if(this.sharedData.apiToken)
           {
-            this.sharedData.currentToken=undefined;
-            localStorage.removeItem('apiKey');
+            this.sharedData.apiToken=undefined;
+            localStorage.removeItem('apiToken');
             (<any>window).location.href = '/';
           }
         }
@@ -141,9 +141,9 @@ export class RestProviderService {
       let requestOptions:any={
         responseType: 'text'
       }
-      if(this.sharedData.currentToken)
+      if(this.sharedData.apiToken)
       {
-        let api_key = this.sharedData.currentToken;
+        let api_key = this.sharedData.apiToken;
         const headers = new HttpHeaders({
           'Accept': '*/*',
           'Authorization': 'Bearer '+api_key

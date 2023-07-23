@@ -40,7 +40,7 @@ export class LoginPage extends ParentComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    if(localStorage.getItem('apiKey'))
+    if(localStorage.getItem('apiToken'))
     {
       this.router.navigateByUrl('/home');
     }
@@ -61,8 +61,8 @@ export class LoginPage extends ParentComponent implements OnInit {
     this.showLoading=true;
     this.restProvider.executeSinovadApiService(HttpMethodType.POST,'/users/Login',this.user).then((response:SinovadApiGenericResponse) => {
       let token=response.Data;
-      localStorage.setItem('apiKey',token);
-      this.sharedData.currentToken=token;
+      localStorage.setItem('apiToken',token);
+      this.sharedData.apiToken=token;
       this.showSplashScreen.emit(true);
       this.getUser().then(res=>{
         this.getMenus();

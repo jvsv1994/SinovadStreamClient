@@ -35,7 +35,7 @@ export class HomePage extends ParentComponent implements OnInit {
     }
 
     public ngOnInit(): void {
-      if(!localStorage.getItem('apiKey'))
+      if(!localStorage.getItem('apiToken'))
       {
         this.router.navigate(['landing'],{ skipLocationChange: false});
       }

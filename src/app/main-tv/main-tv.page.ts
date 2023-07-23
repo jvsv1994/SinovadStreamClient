@@ -54,7 +54,7 @@ export class MainTvPage extends ParentComponent implements OnInit {
 
 
     public ngOnInit(): void {
-      this.sharedData.currentToken=localStorage.getItem('apiKey');
+      this.sharedData.apiToken=localStorage.getItem('apiToken');
       this.getUser().then(res=>{
 
       },error=>{
@@ -77,9 +77,9 @@ export class MainTvPage extends ParentComponent implements OnInit {
     public logOut(){
       this.sharedData.currentProfile=undefined;
       this.sharedData.userData=undefined;
-      this.sharedData.currentToken=undefined;
+      this.sharedData.apiToken=undefined;
       this.sharedData.listProfiles=[];
-      localStorage.removeItem("apiKey");
+      localStorage.removeItem("apiToken");
       this.router.navigate([{ outlets: { rostp: ['logintv'] } }],{ skipLocationChange: false});
     }
 

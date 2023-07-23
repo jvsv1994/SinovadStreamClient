@@ -125,8 +125,8 @@ export class ParentComponent implements OnInit {
         this.sharedData.userData=data;
         if(this.sharedData.userData==null)
         {
-          this.sharedData.currentToken=undefined;
-          localStorage.removeItem("apiKey");
+          this.sharedData.apiToken=undefined;
+          localStorage.removeItem("apiToken");
         }else{
           resolve(true);
         }

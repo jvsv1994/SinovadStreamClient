@@ -69,7 +69,7 @@ export class LoginTvPage extends ParentComponent implements OnInit {
     this.showLoading=true;
     this.restProvider.executeSinovadApiService(HttpMethodType.POST,'/users/Login',this.user).then((response:SinovadApiGenericResponse) => {
       let token=response.Data;
-      localStorage.setItem('apiKey',token);
+      localStorage.setItem('apiToken',token);
       this.router.navigate([{ outlets: { rostp: ['maintv'] } }],{ skipLocationChange: false});
     },error=>{
       this.showLoading=false;

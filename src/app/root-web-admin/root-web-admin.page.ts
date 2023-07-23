@@ -75,8 +75,8 @@ export class RootWebAdminPage extends ParentComponent implements OnInit {
     public logOut(){
       this.sharedData.currentProfile=undefined;
       this.sharedData.userData=undefined;
-      this.sharedData.currentToken=undefined;
-      localStorage.removeItem("apiKey");
+      this.sharedData.apiToken=undefined;
+      localStorage.removeItem("apiToken");
       this.router.navigate(['landing'],{ skipLocationChange: false});
     }
 
