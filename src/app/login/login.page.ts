@@ -66,6 +66,7 @@ export class LoginPage extends ParentComponent implements OnInit {
       this.showSplashScreen.emit(true);
       this.getUser().then(res=>{
         this.getMenus();
+        this.getMediaServers();
         this.getProfiles().then(res=>{
           this.router.navigate(['select-profile'],{ skipLocationChange: false});
         },error=>{

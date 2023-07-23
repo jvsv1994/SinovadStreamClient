@@ -41,16 +41,15 @@ export class SinovadWebComponent extends ParentComponent implements OnInit,OnDes
       {
         this.sharedData.configurationData=(<any>window).configurationData;
       }
+      this.intervalCheckMediaServers=window.setInterval(function() {
+        ctx.checkSecureConnectionMediaServers();
+      }, 15000);
       if(localStorage.getItem('apiKey'))
       {
         this.sharedData.currentToken=localStorage.getItem('apiKey');
         this.getUser().then(res=>{
           this.getMenus();
-          this.getMediaServers().then(res=>{
-            this.intervalCheckMediaServers=window.setInterval(function() {
-              ctx.checkSecureConnectionMediaServers();
-            }, 15000);
-          });
+          this.getMediaServers();
           this.getProfiles().then(response=>{
             this.showRootPage=true;
             this.ref.detectChanges();

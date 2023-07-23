@@ -152,17 +152,20 @@ export class ParentComponent implements OnInit {
   }
 
   public checkSecureConnectionMediaServers(){
-    this.sharedData.mediaServers.forEach(mediaServer => {
-      this.restProvider.executeHttpMethodByUrl(HttpMethodType.GET,mediaServer.Url).then((response) => {
-          mediaServer.isSecureConnection=true;
-          if(this.sharedData.selectedMediaServer==undefined)
-          {
-            this.sharedData.selectedMediaServer=this.sharedData.mediaServers.find(ele=>ele.Id==mediaServer.Id);
-          }
-      },error=>{
-        mediaServer.isSecureConnection=false;
+    if(this.sharedData.mediaServers!=null && this.sharedData.mediaServers.length>0)
+    {
+      this.sharedData.mediaServers.forEach(mediaServer => {
+        this.restProvider.executeHttpMethodByUrl(HttpMethodType.GET,mediaServer.Url).then((response) => {
+            mediaServer.isSecureConnection=true;
+            if(this.sharedData.selectedMediaServer==undefined)
+            {
+              this.sharedData.selectedMediaServer=this.sharedData.mediaServers.find(ele=>ele.Id==mediaServer.Id);
+            }
+        },error=>{
+          mediaServer.isSecureConnection=false;
+        });
       });
-    });
+    }
   }
 
   public getProfiles(): Promise<any>{
