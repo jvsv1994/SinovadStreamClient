@@ -73,11 +73,6 @@ export class RootWebAdminPage extends ParentComponent implements OnInit {
     }
 
     public logOut(){
-      this.restProvider.executeSinovadStreamServerService(HttpMethodType.DELETE,'/main/DeleteMediaServerData').then((response) => {
-
-      },error=>{
-        console.error(error);
-      });
       this.sharedData.currentProfile=undefined;
       this.sharedData.userData=undefined;
       this.sharedData.currentToken=undefined;
