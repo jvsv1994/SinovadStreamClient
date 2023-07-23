@@ -35,6 +35,15 @@ export class SinovadWebComponent extends ParentComponent implements OnInit,OnDes
     }
 
     public ngOnInit(): void {
+      const queryString = window.location.search;
+      if (queryString != "") {
+          const urlParams = new URLSearchParams(queryString);
+          var apiToken = urlParams.get('apiToken');
+          if(apiToken!=null)
+          {
+            localStorage.setItem('apiToken',apiToken);
+          }
+      }
       var ctx=this;
       if((<any>window).configurationData)
       {
