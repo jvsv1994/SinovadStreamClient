@@ -141,7 +141,6 @@ export class ParentComponent implements OnInit {
               }else{
                 if(this.sharedData.configurationData.localIpAddress)
                 {
-                  this.saveApiKeyInMediaStreamHost();
                 }
               }
               resolve(true);
@@ -224,22 +223,9 @@ export class ParentComponent implements OnInit {
       var path="/mediaServers/GetByUserAndIpAddressAsync?userId="+this.sharedData.userData.Id+"&ipAddress="+this.sharedData.selectedMediaServer.IpAddress;
       this.restProvider.executeSinovadApiService(HttpMethodType.GET,path).then((response:SinovadApiGenericResponse) => {
         let data=response.Data;
-        this.saveApiKeyInMediaStreamHost();
       },error=>{
         console.error(error);
       });
-    },error=>{
-      console.error(error);
-    });
-  }
-
-  public saveApiKeyInMediaStreamHost(){
-    let mediaServerData={
-      ApiKey:this.sharedData.currentToken,
-      MediaServer:this.sharedData.selectedMediaServer
-    }
-    this.restProvider.executeSinovadStreamServerService(HttpMethodType.POST,'/main/SaveMediaServerData',mediaServerData).then((response) => {
-
     },error=>{
       console.error(error);
     });
