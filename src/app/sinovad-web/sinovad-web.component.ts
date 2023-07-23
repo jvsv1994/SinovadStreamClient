@@ -6,7 +6,7 @@ import { EventsService } from 'src/services/events-service';
 import { ParentComponent } from '../parent/parent.component';
 import { HttpClient } from '@angular/common/http';
 import { RestProviderService } from 'src/services/rest-provider.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { RootWebAdminPage } from '../root-web-admin/root-web-admin.page';
 @Component({
   selector: 'app-sinovad-web',
@@ -24,7 +24,6 @@ export class SinovadWebComponent extends ParentComponent implements OnInit,OnDes
   showRootPage:boolean=false;
 
   constructor(
-    private route: ActivatedRoute,
     private router: Router,
     public restProvider: RestProviderService,
     public ref: ChangeDetectorRef,
