@@ -10,9 +10,6 @@ import { MediaServer } from 'src/models/mediaServer';
 export class SharedDataService {
 
   userData: User;
-  AdministratorRoleID: number=1;
-  VisitatorRoleID: number=2;
-  UserRoleID: number=3;
   currentVideo:BuilderVideo;
   //urlSinovadStreamWebApi: string='http://localhost:53363';
   urlSinovadStreamWebApi: string='http://streamapi.sinovad.com';

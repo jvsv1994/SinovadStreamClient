@@ -129,28 +129,6 @@ export class ParentComponent implements OnInit {
           localStorage.removeItem("apiKey");
         }else{
           resolve(true);
-          /*
-          if(this.sharedData.configurationData.localIpAddress)
-          {
-            var path="/mediaServers/GetByUserAndIpAddressAsync?userId="+this.sharedData.userData.Id+"&ipAddress="+this.sharedData.configurationData.localIpAddress;
-            this.restProvider.executeSinovadApiService(HttpMethodType.GET,path).then((response:SinovadApiGenericResponse) => {
-              let data=response.Data;
-              if(this.sharedData.selectedMediaServer==undefined)
-              {
-                this.saveMediaServer();
-              }else{
-                if(this.sharedData.configurationData.localIpAddress)
-                {
-                }
-              }
-              resolve(true);
-            },error=>{
-              console.error(error);
-              reject(error)
-            });
-          }else{
-            resolve(true);
-          }*/
         }
       },error=>{
         console.error(error);
@@ -208,26 +186,6 @@ export class ParentComponent implements OnInit {
       },error=>{
         reject(error);
       });
-    });
-  }
-
-  public saveMediaServer(){
-    let acountServer:MediaServer={
-      UserId:this.sharedData.userData.Id,
-      IpAddress:this.sharedData.selectedMediaServer.IpAddress,
-      Url:this.sharedData.selectedMediaServer.Url,
-      StateCatalogId:CatalogEnum.MediaServerState,
-      StateCatalogDetailId:MediaServerState.Stopped
-    }
-    this.restProvider.executeSinovadApiService(HttpMethodType.POST,"/mediaServers/Create",acountServer).then((response) => {
-      var path="/mediaServers/GetByUserAndIpAddressAsync?userId="+this.sharedData.userData.Id+"&ipAddress="+this.sharedData.selectedMediaServer.IpAddress;
-      this.restProvider.executeSinovadApiService(HttpMethodType.GET,path).then((response:SinovadApiGenericResponse) => {
-        let data=response.Data;
-      },error=>{
-        console.error(error);
-      });
-    },error=>{
-      console.error(error);
     });
   }
 
