@@ -7,31 +7,14 @@ button{
 .sinovad-episode-button{
   width: 100%;
   cursor: pointer;
-  font-size: 25px;
   display: flex;
   border-radius: 5px;
-  height: 300px;
   margin-bottom: 15px;
   padding: 0px;
+  border: none;
+  background: transparent;
 }
 
-.sinovad-episode-button:hover{
-  .sinovad-episode-detail-section{
-    color: #007bff;
-  }
-}
-
-.sinovad-episode-button:focus-visible{
-  .sinovad-episode-detail-section{
-    color: #007bff;
-  }
-}
-
-.sinovad-episode-button:focus{
-  .sinovad-episode-detail-section{
-    color: #007bff !important;
-  }
-}
 
 .sinovad-overview-section{
   font-size: 20px;
@@ -58,19 +41,15 @@ button{
 
 .sinovad-episode-image-section{
   display: block;
-  img{
-    height: 300px;
-  }
 }
 
 .sinovad-episode-detail-section{
   display: block;
-  background-color: white;
-  color: black;
+  background-color: transparent;
+  color: white;
   padding: 20px;
   text-align: left;
   width: 100%;
-  height: 300px;
 }
 
 .sinovad-video-container{
@@ -120,39 +99,6 @@ button{
   padding-top: 20px;
 }
 
-.sinovad-item-view-summary-container{
-  position: relative;
-  width: fit-content;
-  font-size: 30px;
-  color: white;
-  padding-left: 20px;
-  padding-top: 20px;
-  padding-bottom: 20px;
-}
-
-.sinovad-item-view-principal-button-container{
-  position: relative;
-  width: fit-content;
-  font-size: 25px;
-  color: white;
-  padding-left: 20px;
-  padding-top: 20px;
-  button{
-    padding: 10px 20px 10px 20px;
-    border-radius: 5px;
-    margin-right: 10px;
-  }
-  button:hover{
-    color: #007bff;
-  }
-  button:focus-visible{
-    color: #007bff;
-  }
-  button:focus{
-    color: #007bff !important;
-  }
-}
-
 .sinovad-item-view-background-container{
   position: relative;
   img{
@@ -167,12 +113,13 @@ button{
   width: 100%;
   font-size: 20px;
   color: white;
+  padding-right: 20px;
   padding-left: 20px;
   padding-top: 20px;
   font-weight: bold;
 }
 
-.sinovad-list-itsinovad-row-container{
+.sinovad-list-row-container{
   display: flex;
   padding-top: 10px;
   padding-bottom: 10px;
@@ -220,13 +167,13 @@ button{
   display: block;
 }
 
-.sinovad-list-itsinovad-row{
+.sinovad-list-row{
   display: block;
   overflow-x: auto;
   width: 100%;
 }
 
-.sinovad-list-itsinovad-content{
+.sinovad-list-content{
   display: flex;
 }
 
@@ -278,5 +225,208 @@ button{
   }
   .sinovad-list-button-scroll-left{
     display: none !important;
+  }
+}
+
+.sinovad-item-view-title-container{
+  font-size: 30px;
+}
+.sinovad-item-view-subtitle-container{
+  font-size: 14px;
+}
+.sinovad-episode-image-section{
+  img{
+    height: 200px;
+    border: 4px solid transparent;
+  }
+}
+
+.sinovad-episode-button:hover{
+  .sinovad-episode-image-section{
+    img{
+      border: 4px solid #007bff;
+      height: 205px;
+    }
+  }
+}
+
+.sinovad-episode-button:focus-visible{
+  .sinovad-episode-image-section{
+    img{
+      border: 4px solid #007bff;
+      height: 205px;
+    }
+  }
+}
+
+.sinovad-episode-button:focus{
+  .sinovad-episode-image-section{
+    img{
+      border: 4px solid #007bff;
+      height: 205px;
+    }
+  }
+}
+
+
+.sinovad-episode-title-section{
+  font-size: 15px;
+}
+.sinovad-overview-section{
+  font-size: 13px;
+  -webkit-line-clamp: 7;
+}
+.sinovad-season-button{
+  font-size: 20px;
+}
+
+.sinovad-item-view-principal-button-container{
+  position: relative;
+  width: fit-content;
+  font-size: 25px;
+  color: white;
+  padding-left: 20px;
+  padding-top: 20px;
+  button{
+    font-size: 16px;
+    border: none;
+    background: white;
+    color: black;
+    font-weight: 700;
+    padding: 8px 20px 8px 20px;
+    border-radius: 5px;
+    margin-right: 10px;
+  }
+  button:hover{
+    background: #007bff;
+    color: #fff;
+  }
+  button:focus-visible{
+    background: #007bff;
+    color: #fff;
+  }
+  button:focus{
+    background: #007bff;
+    color: #fff;
+  }
+}
+
+.sinovad-item-view-summary-container{
+  position: relative;
+  width: fit-content;
+  color: white;
+  padding-left: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  font-size: 16px;
+  padding-right: 20px;
+}
+
+//for screens with 2k resolution and up
+@media only screen and (min-width: 2048px) {
+  .sinovad-item-view-summary-container{
+    font-size: 30px;
+  }
+  .sinovad-item-view-principal-button-container{
+    button{
+      font-size: 25px;
+    }
+  }
+  .sinovad-item-view-title-container{
+    font-size: 50px;
+  }
+  .sinovad-item-view-subtitle-container{
+    font-size: 25px;
+  }
+  .sinovad-episode-image-section{
+    img{
+      height: 300px;
+    }
+  }
+  .sinovad-episode-title-section{
+    font-size: 25px;
+  }
+  .sinovad-overview-section{
+    font-size: 20px;
+    -webkit-line-clamp: 10;
+  }
+  .sinovad-season-button{
+    font-size: 25px;
+  }
+
+}
+
+//for small devices
+@media only screen and (max-width: 767px) {
+  .sinovad-episode-button{
+    display: block;
+    text-align: left;
+    margin-bottom: 20px;
+  }
+  .sinovad-episode-detail-section{
+    padding: 0px 8px 0px 8px;
+  }
+  .sinovad-episode-image-section{
+    margin-bottom: 10px;
+    img{
+      height: unset;
+      width: 100%;
+      max-height: 410px;
+      object-fit: cover;
+      object-position: top;
+    }
+  }
+  .sinovad-episode-title-section{
+    -webkit-line-clamp: 2;
+  }
+
+  .sinovad-episode-button:hover{
+    .sinovad-episode-image-section{
+      img{
+        height: unset;
+      }
+    }
+  }
+
+  .sinovad-episode-button:focus-visible{
+    .sinovad-episode-image-section{
+      img{
+        height: unset;
+      }
+    }
+  }
+
+  .sinovad-episode-button:focus{
+    .sinovad-episode-image-section{
+      img{
+        height: unset;
+      }
+    }
+  }
+}
+
+
+//for extra small devices
+@media only screen and (max-width: 575px) {
+  .sinovad-episode-image-section{
+    img{
+      max-height: 320px;
+    }
+  }
+}
+
+@media only screen and (max-width: 475px) {
+  .sinovad-episode-image-section{
+    img{
+      max-height: 260px;
+    }
+  }
+}
+
+@media only screen and (max-width: 375px) {
+  .sinovad-episode-image-section{
+    img{
+      max-height: 200px;
+    }
   }
 }

@@ -42,7 +42,10 @@
             <button id="continue_play" class="" (click)="continueVideo()">Continuar viendo</button>
           </ng-template>
           <ng-template [ngIf]="!itemUserData">
-            <button id ="play_now" class="" (click)="showVideo()">Ver ahora</button>
+            <button id ="play_now" class="" (click)="showVideo()">
+              <i class="fa-solid fa-play me-1"></i>
+              Ver ahora
+            </button>
           </ng-template>
         </ng-template>
       </section>
@@ -53,15 +56,15 @@
         <div>
           EPISODIOS
         </div>
-        <div class="sinovad-list-itsinovad-row-container">
+        <div class="sinovad-list-row-container">
           <img *ngIf="!startResize" style="display:none;" src (error)="onInitializeItemsRow(itemsRowContainer,scrollLeftButton,scrollRightButton)">
           <div style="width:0px;height:0px;">
             <div #scrollLeftButton class="sinovad-list-button-scroll-left" (click)="onClickButtonLeftScroll(itemsRowContainer,scrollLeftButton,scrollRightButton)">
               <img [src]="'left.png' | formatDataPipe : 'GetImageURLByKey' | async">
             </div>
           </div>
-          <div  #itemsRowContainer class="sinovad-list-itsinovad-row sinovad-section">
-            <section id="section_seasons" #content class="sinovad-list-itsinovad-content">
+          <div  #itemsRowContainer class="sinovad-list-row sinovad-section">
+            <section id="section_seasons" #content class="sinovad-list-content">
               <ng-template ngFor let-item [ngForOf]="detail.ListSeasons">
                 <div class="sinovad-season-container">
                   <button id="section_season_{{item.SeasonNumber}}" class="sinovad-season-button " [ngClass]="{'selected':item.SeasonNumber==detail.CurrentSeason.SeasonNumber}" (click)="onClickSeason(item)">
