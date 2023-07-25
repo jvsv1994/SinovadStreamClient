@@ -67,23 +67,6 @@ export class ChangePasswordPage extends ParentComponent implements OnInit {
       }
     }
 
-    public isInvalidFormControl(formControlKey:string){
-      if(this.changePasswordForm.controls[formControlKey].invalid && (this.changePasswordForm.controls[formControlKey].dirty || this.changePasswordForm.controls[formControlKey].touched))
-      {
-        return true;
-      }else{
-        return false;
-      }
-    }
-
-    public hasRequireErrorFormControl(formControlKey:string){
-      if(this.changePasswordForm.controls[formControlKey].errors.required)
-      {
-        return true;
-      }else{
-        return false;
-      }
-    }
 
 
 }

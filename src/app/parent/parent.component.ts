@@ -13,6 +13,7 @@ import {v4 as uuid} from "uuid";
 import { TranscodePrepareVideo } from '../../models/transcodePrepareVideo';
 import { SinovadApiGenericResponse } from '../response/sinovadApiGenericResponse';
 import { FormatDataPipe } from 'src/pipes/format-data.pipe';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-parent',
@@ -31,6 +32,33 @@ export class ParentComponent implements OnInit {
 
   ngOnInit(): void {
 
+  }
+
+  public isInvalidFormControl(formGroup:FormGroup,formControlKey:string){
+    if(formGroup.controls[formControlKey].invalid && (formGroup.controls[formControlKey].dirty || formGroup.controls[formControlKey].touched))
+    {
+      return true;
+    }else{
+      return false;
+    }
+  }
+
+  public hasRequireErrorFormControl(formGroup:FormGroup,formControlKey:string){
+    if(formGroup.controls[formControlKey].errors.required)
+    {
+      return true;
+    }else{
+      return false;
+    }
+  }
+
+  public hasErrorPatternFormControl(formGroup:FormGroup,formControlKey:string){
+    if(formGroup.controls[formControlKey].errors.pattern)
+    {
+      return true;
+    }else{
+      return false;
+    }
   }
 
   public getNewIndex(itemIndex:number,pageIndex:number,pageSize:number){

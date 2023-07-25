@@ -3,80 +3,102 @@
     <img [src]="'back-screen.png' | formatDataPipe : 'GetImageURLByKey' | async">
   </button>
 </div>
-<div class="sinovad-container" [style.height]="'calc(100% - '+header.offsetHeight+'px)'">
-  <div *ngIf="!showSuccessMessage" class="sinovad-form-container">
-    <div class="sinovad-form-content">
-      <div class="sinovad-logo-container">
-        <img [src]="'sinovad-stream-large-logo.png' | formatDataPipe : 'GetImageURLByKey' | async">
-      </div>
-      <div class="sinovad-title-container">
-        Regístrate
-      </div>
-      <div class="mb-3">
-        <label class="form-label">
-            Correo electrónico
-        </label>
-        <div class="sinovad-form-textinput-container">
-          <input type="text"  [(ngModel)]="registerUserModel.Email"/>
+<div class="sinovad-container">
+  <div class="sinovad-form-backdrop">
+    <div *ngIf="!showSuccessMessage" class="sinovad-form-container">
+      <form [formGroup]="registerUserForm" (ngSubmit)="register()" class="sinovad-form-content">
+        <div class="sinovad-logo-container">
+          <img [src]="'sinovad-stream-large-logo.png' | formatDataPipe : 'GetImageURLByKey' | async">
         </div>
-      </div>
-      <div class="mb-3">
-        <label class="form-label">
-          Nombres
-        </label>
-        <div class="sinovad-form-textinput-container">
-          <input type="text"  [(ngModel)]="registerUserModel.FirstName"/>
+        <div class="sinovad-title-container">
+          Regístrate
         </div>
-      </div>
-      <div class="mb-3">
-        <label class="form-label">
-          Apellidos
-        </label>
-        <div class="sinovad-form-textinput-container">
-          <input type="text"  [(ngModel)]="registerUserModel.LastName"/>
+        <div class="mb-3" [ngClass]="{'error':isInvalidFormControl(registerUserForm,'email')}">
+          <label class="form-label">
+              Correo electrónico
+          </label>
+          <div class="sinovad-form-textinput-container">
+            <input type="text"  formControlName="email"/>
+            <label class="sinovad-form-invalid-input-message" *ngIf="isInvalidFormControl(registerUserForm,'email')">
+              <i class="fa-solid fa-circle-exclamation me-2"></i>
+              {{hasRequireErrorFormControl(registerUserForm,'email')? 'Confirma que hayas agregado el email correctamente':
+              hasErrorPatternFormControl(registerUserForm,'email')?'Confirma que hayas agregado un email con formato válido':''}}
+            </label>
+          </div>
         </div>
-      </div>
-      <div class="mb-3">
-        <label class="form-label">
-          Usuario
-        </label>
-        <div class="sinovad-form-textinput-container">
-          <input type="text"  [(ngModel)]="registerUserModel.UserName"/>
+        <div class="mb-3" [ngClass]="{'error':isInvalidFormControl(registerUserForm,'firstName')}">
+          <label class="form-label">
+            Nombres
+          </label>
+          <div class="sinovad-form-textinput-container">
+            <input type="text" formControlName="firstName"/>
+            <label class="sinovad-form-invalid-input-message" *ngIf="isInvalidFormControl(registerUserForm,'firstName') && hasRequireErrorFormControl(registerUserForm,'firstName')">
+              <i class="fa-solid fa-circle-exclamation me-2"></i>Confirma que hayas agregado los nombres correctamente
+            </label>
+          </div>
         </div>
-      </div>
-      <div class="mb-3">
-        <label class="form-label">
-          Contraseña
-        </label>
-        <div class="sinovad-form-textinput-container">
-          <input type="password" [(ngModel)]="registerUserModel.Password"/>
+        <div class="mb-3" [ngClass]="{'error':isInvalidFormControl(registerUserForm,'lastName')}">
+          <label class="form-label">
+            Apellidos
+          </label>
+          <div class="sinovad-form-textinput-container">
+            <input type="text" formControlName="lastName"/>
+            <label class="sinovad-form-invalid-input-message" *ngIf="isInvalidFormControl(registerUserForm,'lastName') && hasRequireErrorFormControl(registerUserForm,'lastName')">
+              <i class="fa-solid fa-circle-exclamation me-2"></i>Confirma que hayas agregado los apellidos correctamente
+            </label>
+          </div>
         </div>
-      </div>
-      <div class="mb-3">
-        <label class="form-label">
-          Confirmar contraseña
-        </label>
-        <div class="sinovad-form-textinput-container">
-          <input type="password" [(ngModel)]="registerUserModel.ConfirmPassword"/>
+        <div class="mb-3" [ngClass]="{'error':isInvalidFormControl(registerUserForm,'username')}">
+          <label class="form-label">
+            Usuario
+          </label>
+          <div class="sinovad-form-textinput-container">
+            <input type="text" formControlName="username"/>
+            <label class="sinovad-form-invalid-input-message" *ngIf="isInvalidFormControl(registerUserForm,'username') && hasRequireErrorFormControl(registerUserForm,'username')">
+              <i class="fa-solid fa-circle-exclamation me-2"></i>Confirma que hayas agregado el usuario correctamente
+            </label>
+          </div>
         </div>
-      </div>
-      <div class="mb-3">
-        <button class="register" (click)="register()">Registrar</button>
-      </div>
-      <div class="sinovad-form-error-message-container">
-        {{errorMessage}}
-      </div>
+        <div class="mb-3" [ngClass]="{'error':isInvalidFormControl(registerUserForm,'password')}">
+          <label class="form-label">
+            Contraseña
+          </label>
+          <div class="sinovad-form-textinput-container">
+            <input type="password" formControlName="password"/>
+            <label class="sinovad-form-invalid-input-message" *ngIf="isInvalidFormControl(registerUserForm,'password') && hasRequireErrorFormControl(registerUserForm,'password')">
+              <i class="fa-solid fa-circle-exclamation me-2"></i>Confirma que hayas agregado el password correctamente
+            </label>
+          </div>
+        </div>
+        <div class="mb-3" [ngClass]="{'error':isInvalidFormControl(registerUserForm,'confirmPassword')}">
+          <label class="form-label">
+            Confirmar contraseña
+          </label>
+          <div class="sinovad-form-textinput-container">
+            <input type="password" formControlName="confirmPassword"/>
+            <label class="sinovad-form-invalid-input-message" *ngIf="isInvalidFormControl(registerUserForm,'confirmPassword') && hasRequireErrorFormControl(registerUserForm,'confirmPassword')">
+              <i class="fa-solid fa-circle-exclamation me-2"></i>Confirma que hayas agregado la confirmación del password correctamente
+            </label>
+          </div>
+        </div>
+        <div class="mb-3">
+          <button type="submit" class="register" [ngClass]="{'disable':showLoading}">Registrar</button>
+        </div>
+        <div class="sinovad-form-error-message-container">
+          {{errorMessage}}
+        </div>
+      </form>
     </div>
-  </div>
-  <div *ngIf="showSuccessMessage" class="sinovad-message-container">
-    <div class="sinovad-message-content">
-      <div class="sinovad-logo-container">
-        <img [src]="'sinovad-stream-large-logo.png' | formatDataPipe : 'GetImageURLByKey' | async">
+    <div *ngIf="showSuccessMessage" class="sinovad-message-container">
+      <div class="sinovad-message-content">
+        <div class="sinovad-logo-container">
+          <img [src]="'sinovad-stream-large-logo.png' | formatDataPipe : 'GetImageURLByKey' | async">
+        </div>
+        <div class="sinovad-title-container">
+          Registro de Usuario
+        </div>
+        <h2>Usuario registrado satistactoriamente, verifique su correo electrónico y active su cuenta por favor.</h2>
       </div>
-      <div class="sinovad-title-container">
-        Registro de Usuario
-      </div>
-      <h2>Usuario registrado satistactoriamente, verifique su correo electrónico y active su cuenta por favor.</h2>
     </div>
   </div>
 </div>
