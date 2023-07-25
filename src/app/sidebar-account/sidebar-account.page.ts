@@ -174,8 +174,6 @@ export class SidebarAccountPage extends ParentComponent implements OnInit {
   }
 
   public onClickOutsideSidebar(event:any){
-    event.preventDefault();
-    event.stopPropagation();
     this.collapseSidebar.emit(true);
   }
 
