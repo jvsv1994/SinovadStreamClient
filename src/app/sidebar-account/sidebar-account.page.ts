@@ -139,7 +139,7 @@ export class SidebarAccountPage extends ParentComponent implements OnInit {
     {
       let listItems:DropDownMenuItem[]=[];
       this.sharedData.mediaServers.forEach(element => {
-        listItems.push({title:element.FamilyName?element.FamilyName:element.DeviceName,subtitle:element.isSecureConnection?"Funcionando":'No disponible',
+        listItems.push({title:element.FamilyName?element.FamilyName:element.DeviceName,subtitle:element.isSecureConnection?"Conexión exitosa":'Sin conexión',
         iconClass:element.isSecureConnection?"fa-solid fa-lock icon-secure":"fa-solid fa-triangle-exclamation icon-alert",
         path:"/settings/server/"+element.Guid+"/settings/general",isSelected:this.sharedData.selectedMediaServer.Id==element.Id?true:false});
       });

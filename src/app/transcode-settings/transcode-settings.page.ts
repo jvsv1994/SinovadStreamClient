@@ -148,4 +148,11 @@ export class TranscoderSettingssPage extends ParentComponent implements OnInit {
       });
     }
 
+    public showChooserDirectory(){
+      if(this.listMainDirectories && this.listMainDirectories.length>0)
+      {
+        this.showingDirectoryTranscodeVideos=true;
+      }
+    }
+
 }

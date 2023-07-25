@@ -82,6 +82,13 @@ export class StorageFormPage extends ParentComponent implements OnInit {
       this.showChooserDirectory=false;
     }
 
+    public showChooserDirectoryModal(){
+      if(this.listMainDirectories && this.listMainDirectories.length>0)
+      {
+        this.showChooserDirectory=true;
+      }
+    }
+
     @HostListener('window:resize', ['$event'])
     onResize(event) {
 
