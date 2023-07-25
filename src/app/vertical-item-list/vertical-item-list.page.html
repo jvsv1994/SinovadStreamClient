@@ -1,14 +1,14 @@
 
-<div #itemListContainer class="sinovad-vertical-list-itsinovad-content" [style.height]="'100%'">
-  <div class="sinovad-vertical-list-itsinovad-second-content">
+<div #itemListContainer class="sinovad-vertical-list-content" [style.height]="'100%'">
+  <div class="sinovad-vertical-list-second-content">
     <ng-template ngFor let-group [ngForOf]="listGroupItems" let-index="index">
       <section id="section_search_{{index}}" tabindex="0">
-        <div class="sinovad-list-itsinovad-row-container">
-          <div #itemsRowContainer class="sinovad-list-itsinovad-row" tabindex="0">
-            <div #content class="sinovad-list-itsinovad-content">
+        <div class="sinovad-list-row-container">
+          <div #itemsRowContainer class="sinovad-list-row" tabindex="0">
+            <div #content class="sinovad-list-content">
               <ng-template ngFor let-item [ngForOf]="group">
                 <div class="sinovad-item-container">
-                  <button id="item_{{item.TvSerieId?item.TvSerie_ID:item.MovieId}}_{{item.MediaType}}" (click)="onClickItem(item)" class="sinovad-item-button  sinovad-item-button-vertical">
+                  <button id="item_{{item.TvSerieId?item.TvSerie_ID:item.MovieId}}_{{item.MediaType}}" (click)="onClickItem(item)" class="sinovad-item-button-vertical">
                       <img referrerpolicy="no-referrer" [src]="getUrlByItemMovieDataBase(item)">
                   </button>
                   <div *ngIf="!item.Subtitle" class="sinovad-item-caption-container">

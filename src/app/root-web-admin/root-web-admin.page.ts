@@ -27,6 +27,7 @@ import { MovieListPage } from '../movie-list/movie-list.page';
 import { GenreListPage } from '../genre-list/genre-list.page';
 import { UserListPage } from '../user-list/user-list.page';
 import { RoleListPage } from '../role-list/role-list.page';
+import { SearchViewRootPage } from '../search-view-root/search-view-root.page';
 
 @Component({
   selector: 'app-root-web-admin',
@@ -145,6 +146,13 @@ export class RootWebAdminPage extends ParentComponent implements OnInit {
     public onActivate(event:any){
       let ctx=this;
       this.isCollapsedSidebar=true;
+
+      if(event instanceof SearchViewRootPage)
+      {
+        this.showingSidebarMedia=true;
+        this.showingSidebarAccount=false;
+        this.showingSidebarAdminMode=false;
+      }
       if(event instanceof MoviesPage || event instanceof TvSeriesPage || event instanceof HomePage || event instanceof MovieDetailPage || event instanceof TvSerieDetailPage)
       {
         this.showingSidebarMedia=true;

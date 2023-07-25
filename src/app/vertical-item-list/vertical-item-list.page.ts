@@ -73,7 +73,7 @@ export class VerticalItemListPage extends ParentComponent implements OnInit {
     public buildGroupItems(originalListItems:Item[]){
       if(originalListItems && originalListItems.length>0)
       {
-        let referenceWidth=this.isSmallDevice()?180:250;
+        let referenceWidth=window.innerWidth>=2048?250:180;
         var numberOfObjects=Math.floor((this.container.nativeElement.offsetWidth/referenceWidth));
         var groupedProducts = originalListItems.reduce((acc, elem, index) => {
           var rowNum = Math.floor(index/numberOfObjects) + 1
