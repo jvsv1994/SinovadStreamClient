@@ -61,7 +61,7 @@ button{
   font-weight: bold;
 }
 
-.sinovadclient-itsinovad-section{
+.sinovadclient-section{
   margin: 10px;
 }
 
@@ -82,7 +82,7 @@ button{
   font-family: sans-serif;
 }
 
-.sinovad-vertical-list-itsinovad-container{
+.sinovad-vertical-list-container{
   display: block;
   height: 100%;
   width: 100%;
@@ -118,19 +118,19 @@ button{
   font-family: sans-serif;
 }
 
-.sinovad-list-itsinovad-container{
+.sinovad-list-container{
   padding: 20px 20px 20px 20px;
   overflow-x: hidden;
   overflow-y: auto;
   outline: none;
 }
 
-.sinovad-list-itsinovad-content{
+.sinovad-list-content{
   display: flex;
 }
 
 
-.sinovad-list-itsinovad-row{
+.sinovad-list-row{
   display: block;
   overflow-x: auto;
   outline: none;
@@ -152,7 +152,7 @@ button{
   }
 }
 
-.sinovad-list-itsinovad-row-title{
+.sinovad-list-row-title{
   font-size: 25px;
   color: white;
   padding: 0px;
@@ -160,7 +160,7 @@ button{
   font-family: sans-serif;
 }
 
-.sinovad-list-itsinovad-row-container{
+.sinovad-list-row-container{
   display: flex;
   padding-top: 10px;
   padding-bottom: 10px;
@@ -287,7 +287,7 @@ button{
 .sinovad-item-caption-container{
   font-size: 14px;
 }
-.sinovad-list-itsinovad-row-title{
+.sinovad-list-row-title{
   font-size: 20px;
 }
 
@@ -300,7 +300,7 @@ button{
   .sinovad-item-caption-container{
     font-size: 20px;
   }
-  .sinovad-list-itsinovad-row-title{
+  .sinovad-list-row-title{
     font-size: 25px;
   }
   .sinovad-item-button-vertical{

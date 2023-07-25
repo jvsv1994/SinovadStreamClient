@@ -5,20 +5,20 @@
         {{title}}
       </div>
     </div>
-    <div class="sinovad-list-itsinovad-container sinovad-custom-container" [style.height]="title?'calc(100% - 50px)':'100%'">
+    <div class="sinovad-list-container sinovad-custom-container" [style.height]="title?'calc(100% - 50px)':'100%'">
       <ng-template ngFor let-group [ngForOf]="itemsGroupList">
         <section id="section_{{group.Id}}" *ngIf="group.ListItems && group.ListItems.length>0" tabindex="0">
-          <div class="sinovad-list-itsinovad-row-title">
+          <div class="sinovad-list-row-title">
             <span>{{group.Name}}</span>
           </div>
-          <div class="sinovad-list-itsinovad-row-container">
+          <div class="sinovad-list-row-container">
             <div style="width:0px;height:0px;">
               <div #scrollLeftButton class="sinovad-list-button-scroll-left" (click)="onClickButtonLeftScroll(itemsRowContainer,scrollLeftButton,scrollRightButton)">
                 <img [src]="'scroll-left.png' | formatDataPipe : 'GetImageURLByKey' | async">
               </div>
             </div>
-            <div #itemsRowContainer class="sinovad-list-itsinovad-row" tabindex="0">
-              <div #content class="sinovad-list-itsinovad-content">
+            <div #itemsRowContainer class="sinovad-list-row" tabindex="0">
+              <div #content class="sinovad-list-content">
                 <ng-template ngFor let-item [ngForOf]="group.ListItems">
                   <div class="sinovad-item-container">
                     <button #itemContainer id="item_{{item.TvSerieId?item.TvSerieId:item.MovieId}}_{{item.MediaType}}" class="sinovad-item-button-vertical" (click)="onClickItem(item)">
