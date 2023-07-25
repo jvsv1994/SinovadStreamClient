@@ -12,7 +12,7 @@ export class SharedDataService {
   userData: User;
   currentVideo:BuilderVideo;
   //urlSinovadStreamWebApi: string='http://localhost:53363';
-  urlSinovadStreamWebApi: string='http://streamapi.sinovad.com';
+  urlSinovadStreamWebApi: string='https://streamapi.sinovad.com';
   urlSinovadCdn: string='http://cdn.sinovad.com/stream/web';
   originalUrlImagesMovieDataBase:String="https://image.tmdb.org/t/p/w600_and_h900_bestv2";
   urlEpisodeDataBase:string="https://www.themoviedb.org/t/p/w454_and_h254_bestv2";
