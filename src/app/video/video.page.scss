@@ -151,18 +151,8 @@ video.small::cue {
   display: flex;
   width: 100%;
   background: rgba(0, 0, 0, 0.5);
-  button{
-    height: 60px;
-    display: flex;
-    align-items: center;
-    width: 70px;
-    justify-content: center;
-    cursor: pointer;
-    img{
-      width: 30px;
-      height: 40px;
-    }
-  }
+  padding-left: 10px;
+  padding-top: 10px;
 }
 
 .sinovad-full-screen-video-popup-footer{
@@ -176,7 +166,12 @@ video.small::cue {
   background: rgba(0, 0, 0, 0.5);
 }
 
-.solitv-progress-bar{
+.sinovad-progress-bar-container{
+  width: 100%;
+  outline: none;
+}
+
+.sinovad-progress-bar{
   background: transparent;
   height: 40px;
   pointer-events: auto;
@@ -184,23 +179,45 @@ video.small::cue {
   width: 100%;
   display: flex;
   align-items: center;
-  padding-left: 4px;
-  padding-right: 4px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border: none;
+  border-radius: 0;
+  outline: none;
+  background: transparent;
+  opacity: 0.7;
 }
 
-.solitv-slider-container{
+.sinovad-progress-bar:hover{
+  opacity: 1;
+}
+
+.sinovad-progress-bar:focus{
+  opacity: 1;
+}
+
+.sinovad-progress-bar:focus-visible{
+  opacity: 1;
+}
+
+.sinovad-slider-container{
   box-sizing: border-box;
   cursor: pointer;
   height: 100%;
-
   pointer-events: auto;
   position: relative;
   touch-action: none;
   padding-left: 8px;
   padding-right: 8px;
+  border: none;
+  border-radius: 0;
+  outline: none;
+  background: transparent;
 }
 
-.solitv-slider-content{
+
+
+.sinovad-slider-content{
   height: 100%;
   padding-top: 20px;
   cursor: pointer;
@@ -234,37 +251,12 @@ video.small::cue {
   width: 0%;
 }
 
-.sinovad-video-control-button{
-  color: white;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  opacity: 0.9;
-  img{
-    max-width: unset;
-  }
-}
-
-.sinovad-video-control-button:hover{
-  background: #007bff;
-}
-
-.sinovad-video-control-button:focus-visible{
-  background: #007bff;
-}
-
-.sinovad-video-control-button:focus{
-  background: #007bff !important;
-}
 
 
 .sinovad-settings-options-header-section{
   display: flex;
+  margin-left: 10px;
+  margin-top: 10px;
 }
 
 .sinovad-settings-section-container-left{
@@ -278,36 +270,6 @@ video.small::cue {
   position: relative;
 }
 
-.sinovad-video-settings-button{
-  color: white;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 70px;
-  height: 60px;
-  opacity: 0.9;
-  img{
-    max-width: unset;
-    width: 30px;
-    height: 40px;
-  }
-}
-
-
-.sinovad-video-settings-button:hover{
-  background: #007bff !important;
-}
-
-.sinovad-video-settings-button:focus-visible{
-  background: #007bff !important;
-}
-
-.sinovad-video-settings-button:focus{
-  background: #007bff !important;
-}
 
 
 .sinovad-video-container{
@@ -405,7 +367,6 @@ video.small::cue {
 .sinovad-video-header-section-title-container{
   display: flex;
   align-items: center;
-  font-size: 35px;
   color: white;
   justify-content: center;
   width:100%;
@@ -448,8 +409,51 @@ video.small::cue {
   }
 }
 
-:host.small{
+
+.sinovad-video-header-section-title-container{
+  font-size: 25px;
+}
+
+
+.sinovad-video-control-button{
+  color: white;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  opacity: 0.9;
+  font-size: 25px;
+  border-radius: 100px;
+  min-width: 45px;
+}
+
+.sinovad-video-control-button:hover{
+  background: white;
+  color: black;
+  opacity: 1;
+}
+
+.sinovad-video-control-button:focus-visible{
+  background: white;
+  color: black;
+  opacity: 1;
+}
+
+.sinovad-video-control-button:focus{
+  background: white;
+  color: black;
+  opacity: 1;
+}
+
+//for screens with 2k resolution and up
+@media only screen and (min-width: 2048px) {
+  .sinovad-video-control-button{
+    font-size: 35px;
+  }
   .sinovad-video-header-section-title-container{
-    font-size: 25px;
+    font-size: 35px;
   }
 }

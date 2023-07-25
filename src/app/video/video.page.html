@@ -6,7 +6,7 @@
         <img style="display:none;" src (error)="initializeControlsContainer(controlsContainer)">
         <section id="videoHeaderSection" class="sinovad-video-header-section"  tabindex="0">
           <button id="backVideoButton" class="sinovad-video-control-button" (click)="closeVideo()">
-            <img [src]="'back-button-short.png' | formatDataPipe : 'GetImageURLByKey' | async">
+            <i class="fa-solid fa-chevron-left"></i>
           </button>
           <div class="sinovad-video-header-section-title-container">
             {{builderVideo.TranscodePrepareVideo.Title}}
@@ -14,47 +14,49 @@
         </section>
         <div class="sinovad-full-screen-video-popup-footer">
           <div style="width:100%">
-            <div class="solitv-progress-bar">
-              <div #controlLeft [style.visibility]="showControls?'':'hidden'" class="sinovad-current-time">
-                {{getVideoTime()}}
-              </div>
-              <div class="solitv-slider-container" [style.width]="'calc(100% - '+(controlLeft.offsetWidth+controlRight.offsetWidth)+'px)'">
-                <div class="solitv-slider-content" tabindex="-1" (contextmenu)="!isMobileDevice() && onClickSlider(sliderContainer)" (click)="onClickSlider(sliderContainer)" (touchend)="isMobileDevice() && onClickSlider(sliderContainer)" (touchstart)="isMobileDevice() && onTouchStartSlider($event,sliderContainer,controlLeft)" (touchmove)="isMobileDevice() && onTouchMoveSlider($event,sliderContainer,controlLeft)" (mousedown)="onMouseDownSlider($event,sliderContainer)" (mousemove)="onMouseMoveSlider($event,sliderContainer)">
-                  <div #silderFills class="sinovad-slider-fills">
-                  </div>
-                  <div style="width: 0px;">
-                    <div #sliderContainer class="sinovad-slider-fills-progress-container" [style.width]="silderFills.offsetWidth+'px'">
-                      <div #sliderContainer class="sinovad-slider-fills-progress-content">
-                        <div #silderProgress class="sinovad-slider-fills-progress" [style.width]="getSliderPogressWidth()">
+            <section id="section_progress_bar" class="sinovad-progress-bar-container">
+              <button id="sliderButton" class="sinovad-progress-bar">
+                <div #controlLeft [style.visibility]="showControls?'':'hidden'" class="sinovad-current-time">
+                  {{getVideoTime()}}
+                </div>
+                <div class="sinovad-slider-container" [style.width]="'calc(100% - '+(controlLeft.offsetWidth+controlRight.offsetWidth)+'px)'">
+                  <div class="sinovad-slider-content" tabindex="-1" (contextmenu)="!isMobileDevice() && onClickSlider(sliderContainer)" (click)="onClickSlider(sliderContainer)" (touchend)="isMobileDevice() && onClickSlider(sliderContainer)" (touchstart)="isMobileDevice() && onTouchStartSlider($event,sliderContainer,controlLeft)" (touchmove)="isMobileDevice() && onTouchMoveSlider($event,sliderContainer,controlLeft)" (mousedown)="onMouseDownSlider($event,sliderContainer)" (mousemove)="onMouseMoveSlider($event,sliderContainer)">
+                    <div #silderFills class="sinovad-slider-fills">
+                    </div>
+                    <div style="width: 0px;">
+                      <div #sliderContainer class="sinovad-slider-fills-progress-container" [style.width]="silderFills.offsetWidth+'px'">
+                        <div #sliderContainer class="sinovad-slider-fills-progress-content">
+                          <div #silderProgress class="sinovad-slider-fills-progress" [style.width]="getSliderPogressWidth()">
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div #controlRight [style.visibility]="showControls?'':'hidden'" class="sinovad-current-time">
-                {{getDurationTime()}}
-              </div>
-            </div>
+                <div #controlRight [style.visibility]="showControls?'':'hidden'" class="sinovad-current-time">
+                  {{getDurationTime()}}
+                </div>
+              </button>
+            </section>
             <section id="section_video_secondary_buttons" class="sinovad-full-screen-video-popup-episode-buttons-section sinovad-section" tabindex="0">
               <div class="sinovad-full-screen-video-popup-episode-buttons-section-left">
                 <button *ngIf="isEnablePreviousEpisodeButton()" id="previousButton" class="sinovad-video-control-button" (click)="goToPreviousEpisode()">
-                  <img [src]="'previous-episode.png' | formatDataPipe : 'GetImageURLByKey' | async" width="40px">
+                  <i class="fa-solid fa-backward-step"></i>
                 </button>
               </div>
               <div class="sinovad-full-screen-video-popup-episode-buttons-section-right">
                 <div style="display:flex;align-items: center;float: right;">
                   <button id="nextButton" *ngIf="isEnableNextEpisodeButton()" class="sinovad-video-control-button" (click)="goToNextEpisode()">
-                    <img [src]="'next-episode.png' | formatDataPipe : 'GetImageURLByKey' | async" width="40px">
+                    <i class="fa-solid fa-forward-step"></i>
                   </button>
                   <button id="aspectRatio" class="sinovad-video-control-button " style="margin-left: 20px;" (click)="onChangeObjectContain()">
-                    <img [src]="'aspect-ratio.png' | formatDataPipe : 'GetImageURLByKey' | async" width="40px">
+                    <i class="fa-solid fa-maximize"></i>
                   </button>
                   <button id="fullScreenButton" class="sinovad-video-control-button " style="margin-left: 20px;"  (click)="toggleFullScreenVideo()">
-                    <img [src]="'full-screen-video.png' | formatDataPipe : 'GetImageURLByKey' | async" width="30px">
+                    <i class="fa-solid fa-expand"></i>
                   </button>
                   <button id="settingsOption" class="sinovad-video-control-button " style="margin-left: 20px;" (click)="showSettings()">
-                    <img [src]="'settings.png' | formatDataPipe : 'GetImageURLByKey' | async" width="36px">
+                    <i class="fa-solid fa-gear"></i>
                   </button>
                 </div>
               </div>
@@ -63,18 +65,18 @@
               <div class="sinovad-full-screen-video-popup-footer-center">
                 <section id="section_video_principal_buttons" class="sinovad-full-screen-video-popup-footer-center-content" tabindex="0">
                   <button id="rewindButton" class="sinovad-video-control-button " (click)="rewindVideo()" style="margin-right: 25px;">
-                    <img [src]="'rewind.png' | formatDataPipe : 'GetImageURLByKey' | async" width="30px">
+                    <i class="fa-solid fa-rotate-left"></i>
                   </button>
                   <button #playButton id="playButton" class="sinovad-video-control-button principal" *ngIf="!isPlayingVideo()" (click)="playOrPauseVideo()">
                     <img style="display:none;" src (error)="focusButton(playButton)">
-                    <img [src]="'play-video.png' | formatDataPipe : 'GetImageURLByKey' | async" width="30px">
+                    <i class="fa-solid fa-play"></i>
                   </button>
                   <button #stopButton id="stopButton" class="sinovad-video-control-button principal" *ngIf="isPlayingVideo()" (click)="playOrPauseVideo()">
                     <img style="display:none;" src (error)="focusButton(stopButton)">
-                    <img [src]="'pause-video.png' | formatDataPipe : 'GetImageURLByKey' | async" width="30px">
+                    <i class="fa-solid fa-pause"></i>
                   </button>
                   <button id="forwardButton" class="sinovad-video-control-button " (click)="forwardVideo()"  style="margin-left: 25px;">
-                    <img [src]="'forward.png' | formatDataPipe : 'GetImageURLByKey' | async" width="30px">
+                    <i class="fa-solid fa-rotate-right"></i>
                   </button>
                 </section>
               </div>
@@ -91,8 +93,8 @@
             <section id="section_settings_back_button" class="sinovad-settings-options-header-section" tabindex="0">
               <div class="sinovad-settings-section-container-left">
                 <div class="sinovad-settings-section-content-left">
-                  <button id="closeSettings" class="sinovad-video-settings-button" (click)="hideSettings()">
-                    <img [src]="'back-button-short.png' | formatDataPipe : 'GetImageURLByKey' | async">
+                  <button id="closeSettings" class="sinovad-video-control-button" (click)="hideSettings()">
+                    <i class="fa-solid fa-chevron-left"></i>
                   </button>
                 </div>
               </div>

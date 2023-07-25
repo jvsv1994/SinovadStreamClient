@@ -458,7 +458,7 @@ export class VideoPage extends ParentComponent implements OnInit,OnDestroy{
           this.sharedData.currentSelectedElement=element;
           element.focus();
         }else{
-          if(this.sharedData.currentSelectedElement.id=="forwardButton")
+          if(this.sharedData.currentSelectedElement.id=="sliderButton")
           {
             this.forwardVideo();
           }
@@ -477,7 +477,7 @@ export class VideoPage extends ParentComponent implements OnInit,OnDestroy{
           this.sharedData.currentSelectedElement=element;
           element.focus();
         }else{
-          if(this.sharedData.currentSelectedElement.id=="rewindButton")
+          if(this.sharedData.currentSelectedElement.id=="sliderButton")
           {
             this.rewindVideo();
           }
