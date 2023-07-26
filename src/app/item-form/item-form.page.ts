@@ -12,6 +12,7 @@ import { HttpMethodType, MediaType } from '../enums';
 import { Genre } from '../../models/genre';
 import { SinovadApiGenericResponse } from '../response/sinovadApiGenericResponse';
 import { TvProgramGenre } from '../../models/tvProgramGenre';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-item-form',
@@ -29,8 +30,10 @@ export class ItemFormPage extends ParentComponent implements OnInit {
   @ViewChild('modalTarget') modalTarget: ElementRef;
   showGenresPopUp:boolean=false;
   listAllGenresPopUp:Genre[];
+  itemForm:FormGroup;
 
   constructor(
+    private formBuilder: FormBuilder,
     private modalService: NgbModal,
     public restProvider: RestProviderService,
     public http: HttpClient,
@@ -70,6 +73,17 @@ export class ItemFormPage extends ParentComponent implements OnInit {
 
     ngOnInit(): void {
       this.getGenres();
+      this.itemForm = this.formBuilder.group({
+        title: new FormControl(this.tvProgram.Title),
+        name:new FormControl(this.tvProgram.Name),
+        releaseDate:new FormControl(this.formatDate(this.tvProgram.ReleaseDate)),
+        firstAirDate:new FormControl(this.formatDate(this.tvProgram.FirstAirDate)),
+        lastAirDate:new FormControl(this.formatDate(this.tvProgram.LastAirDate)),
+        directors:new FormControl(this.tvProgram.Directors),
+        actors:new FormControl(this.tvProgram.Actors),
+        overview:new FormControl(this.tvProgram.Overview),
+        posterPath:new FormControl(this.tvProgram.PosterPath)
+      });
     }
 
     ngAfterViewInit(){
@@ -90,36 +104,29 @@ export class ItemFormPage extends ParentComponent implements OnInit {
     }
 
     public saveItem(){
-      if(this.currentMediaTypeID==MediaType.Movie)
+      if(this.itemForm.valid)
       {
-        this.saveMovie();
+        var tvProgram:TvProgram=JSON.parse(JSON.stringify(this.tvProgram));
+        tvProgram.Title=this.itemForm.value.title;
+        tvProgram.Name=this.itemForm.value.name;
+        tvProgram.ReleaseDate=this.itemForm.value.releaseDate;
+        tvProgram.FirstAirDate=this.itemForm.value.firstAirDate;
+        tvProgram.LastAirDate=this.itemForm.value.lastAirDate;
+        tvProgram.Directors=this.itemForm.value.directors;
+        tvProgram.Actors=this.itemForm.value.actors;
+        tvProgram.Overview=this.itemForm.value.overview;
+        tvProgram.PosterPath=this.itemForm.value.posterPath;
+        let movieTypePath=this.currentMediaTypeID==MediaType.Movie?'movies':'tvseries';
+        let methodType=this.tvProgram.Id>0?HttpMethodType.PUT:HttpMethodType.POST;
+        var path=this.tvProgram.Id>0?"/"+movieTypePath+"/Update":"/"+movieTypePath+"/Create";
+        this.restProvider.executeSinovadApiService(methodType,path,tvProgram).then((response) => {
+          this.closeFormWithChanges.emit(true);
+        },error=>{
+          console.error(error);
+        });
+      }else{
+        this.itemForm.markAllAsTouched();
       }
-      if(this.currentMediaTypeID==MediaType.TvSerie)
-      {
-        this.saveTvSerie();
-      }
-    }
-
-    public saveMovie(){
-      let body: any=this.tvProgram;
-      let methodType=this.tvProgram.Id>0?HttpMethodType.PUT:HttpMethodType.POST;
-      var path=this.tvProgram.Id>0?"/movies/Update":"/movies/Create";
-      this.restProvider.executeSinovadApiService(methodType,path,body).then((response) => {
-        this.closeFormWithChanges.emit(true);
-      },error=>{
-        console.error(error);
-      });
-    }
-
-    public saveTvSerie(){
-      let body: any=this.tvProgram;
-      let methodType=this.tvProgram.Id>0?HttpMethodType.PUT:HttpMethodType.POST;
-      var path=this.tvProgram.Id>0?"/tvseries/Update":"/tvseries/Create";
-      this.restProvider.executeSinovadApiService(methodType,path,body).then((response) => {
-        this.closeFormWithChanges.emit(true);
-      },error=>{
-        console.error(error);
-      });
     }
 
     public showListGenresPopUp(){
