@@ -1,5 +1,5 @@
 
-import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SharedDataService } from 'src/services/shared-data.service';
 import { EventsService } from 'src/services/events-service';
@@ -10,6 +10,7 @@ import { RestProviderService } from 'src/services/rest-provider.service';
 import { HttpMethodType } from '../enums';
 import { SinovadApiGenericResponse } from '../response/sinovadApiGenericResponse';
 import { Router } from '@angular/router';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 
 declare var window;
 @Component({
@@ -26,11 +27,15 @@ export class LoginPage extends ParentComponent implements OnInit {
   showLoading:boolean=false;
   user:User=new User();
   @Output() showSplashScreen =new EventEmitter();
+  loginForm = this.formBuilder.group({
+    username: new FormControl("", [Validators.required]),
+    password: new FormControl("", [Validators.required])
+  });
 
   constructor(
+    private formBuilder: FormBuilder,
     private router: Router,
     public restProvider: RestProviderService,
-    private  ref:ChangeDetectorRef,
     public http: HttpClient,
     public events: EventsService,
     public domSanitizer: DomSanitizer,
@@ -58,28 +63,38 @@ export class LoginPage extends ParentComponent implements OnInit {
   }
 
   public login(){
-    this.showLoading=true;
-    this.restProvider.executeSinovadApiService(HttpMethodType.POST,'/users/Login',this.user).then((response:SinovadApiGenericResponse) => {
-      let token=response.Data;
-      localStorage.setItem('apiToken',token);
-      this.sharedData.apiToken=token;
-      this.showSplashScreen.emit(true);
-      this.getUser().then(res=>{
-        this.getMenus();
-        this.getMediaServers();
-        this.getProfiles().then(res=>{
-          this.router.navigate(['select-profile'],{ skipLocationChange: false});
+    if(this.loginForm.valid)
+    {
+      this.user={
+        UserName:this.loginForm.value.username,
+        Password:this.loginForm.value.password
+      }
+      this.showLoading=true;
+      this.restProvider.executeSinovadApiService(HttpMethodType.POST,'/users/Login',this.user).then((response:SinovadApiGenericResponse) => {
+        let token=response.Data;
+        localStorage.setItem('apiToken',token);
+        this.sharedData.apiToken=token;
+        this.showSplashScreen.emit(true);
+        this.getUser().then(res=>{
+          this.getMenus();
+          this.getMediaServers();
+          this.getProfiles().then(res=>{
+            this.router.navigate(['select-profile'],{ skipLocationChange: false});
+          },error=>{
+            console.error(error);
+          });
         },error=>{
           console.error(error);
         });
       },error=>{
+        this.showLoading=false;
+        this.errorMessage=error;
         console.error(error);
       });
-    },error=>{
-      this.showLoading=false;
-      this.errorMessage=error;
-      console.error(error);
-    });
+    }else{
+      this.errorMessage=undefined;
+      this.loginForm.markAllAsTouched();
+    }
   }
 
   public onClose(){

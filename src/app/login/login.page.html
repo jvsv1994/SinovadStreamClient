@@ -5,7 +5,7 @@
 </div>
 <div class="sinovad-container">
   <div class="sinovad-form-container">
-    <div class="sinovad-form-content">
+    <form [formGroup]="loginForm" (ngSubmit)="login()" class="sinovad-form-content">
       <div class="sinovad-logo-container">
         <img [src]="'sinovad-stream-large-logo.png' | formatDataPipe : 'GetImageURLByKey' | async">
       </div>
@@ -17,7 +17,10 @@
             Usuario
         </label>
         <div class="sinovad-form-textinput-container">
-          <input id="UserName-input" #UserName type="text" [(ngModel)]="user.UserName"/>
+          <input type="text" formControlName="username"/>
+          <label class="sinovad-form-invalid-input-message" *ngIf="isInvalidFormControl(loginForm,'username') && hasRequireErrorFormControl(loginForm,'username')">
+            <i class="fa-solid fa-circle-exclamation me-2"></i>Confirma que hayas agregado el usuario correctamente
+          </label>
         </div>
       </div>
       <div class="mb-3">
@@ -25,19 +28,22 @@
           Contraseña
         </label>
         <div class="sinovad-form-textinput-container">
-          <input id="password-input" #password type="password" [(ngModel)]="user.Password"/>
+          <input #password type="password" formControlName="password"/>
+          <label class="sinovad-form-invalid-input-message" *ngIf="isInvalidFormControl(loginForm,'password') && hasRequireErrorFormControl(loginForm,'password')">
+            <i class="fa-solid fa-circle-exclamation me-2"></i>Confirma que hayas agregado la contraseña correctamente
+          </label>
         </div>
       </div>
       <div class="mb-3">
-        <button class="enter" (click)="login()">INGRESAR</button>
+        <button type="submit" class="enter" [ngClass]="{'disable':showLoading}">INGRESAR</button>
       </div>
       <div class="sinovad-form-error-message-container">
         {{errorMessage}}
       </div>
       <div class="mb-3">
-        <button class="recover" (click)="showRecoverPasswordPage()">OLVIDASTE TU CONTRASEÑA?</button>
+        <button class="recover" (click)="showRecoverPasswordPage()" [ngClass]="{'disable':showLoading}">OLVIDASTE TU CONTRASEÑA?</button>
       </div>
-    </div>
+    </form>
   </div>
 </div>
 
