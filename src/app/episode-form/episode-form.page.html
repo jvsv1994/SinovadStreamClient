@@ -1,26 +1,28 @@
 <ng-template #modalTarget let-modal>
   <ng-template [ngIf]="episode!=undefined">
-    <div class="modal-header">
-      <h5 class="modal-title">{{episode.Id>0?'Editar':'Nuevo'}}</h5>
-      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="modal.dismiss()"></button>
-    </div>
-    <div class="modal-body">
-      <div class="mb-3">
-        <label for="name" class="form-label">Título</label>
-        <textarea id="name" class="form-control" [(ngModel)]="episode.Title"></textarea>
+    <form [formGroup]="episodeForm" (ngSubmit)="modal.close()">
+      <div class="modal-header">
+        <h5 class="modal-title">{{episode.Id>0?'Editar':'Nuevo'}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="modal.dismiss()"></button>
       </div>
-      <div class="mb-3">
-        <label for="seasonNumber" class="form-label">Número</label>
-        <input id="seasonNumber" class="form-control" type="number" [(ngModel)]="episode.EpisodeNumber"/>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label for="title" class="form-label">Título</label>
+          <textarea id="title" class="form-control" formControlName="title"></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="episodeNumber" class="form-label">Número</label>
+          <input id="episodeNumber" class="form-control" type="number" formControlName="episodeNumber"/>
+        </div>
+        <div class="mb-3">
+          <label for="summary" class="form-label">Resumen</label>
+          <textarea id="summary" class="form-control" formControlName="summary"></textarea>
+        </div>
       </div>
-      <div class="mb-3">
-        <label for="name" class="form-label">Resumen</label>
-        <textarea id="name" class="form-control" [(ngModel)]="episode.Summary"></textarea>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="modal.dismiss()">Close</button>
+        <button type="submit" class="btn btn-primary">Guardar</button>
       </div>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="modal.dismiss()">Close</button>
-      <button type="button" class="btn btn-primary" (click)="modal.close()">Guardar</button>
-    </div>
+    </form>
   </ng-template>
 </ng-template>
