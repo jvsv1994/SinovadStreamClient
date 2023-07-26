@@ -64,7 +64,7 @@ export class ProfilesViewTvPage extends ParentComponent implements OnInit {
           if(this.showModal)
           {
             let ctx=this;
-            this.modalReference=this.modalService.open(this.modalTarget, {container:"#sinovadMainContainer",modalDialogClass:'modal-dialog modal-fullscreen',scrollable:true,ariaLabelledBy: 'exampleModalCenteredScrollableTitle'});
+            this.modalReference=this.modalService.open(this.modalTarget, {container:"#sinovadMainContainer",modalDialogClass:'modal-dialog modal-fullscreen',scrollable:true,backdrop: 'static'});
             this.modalReference.shown.subscribe(event => {
               ctx.initializeProfilesViewControls();
               ctx.showProfiles.emit(true);

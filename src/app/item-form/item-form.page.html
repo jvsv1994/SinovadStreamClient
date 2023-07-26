@@ -2,7 +2,7 @@
   <ng-template [ngIf]="tvProgram!=undefined">
     <form [formGroup]="itemForm" (ngSubmit)="modal.close()">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalCenteredScrollableTitle">{{tvProgram.Id>0?'Editar':'Nuevo'}}</h5>
+        <h5 class="modal-title">{{tvProgram.Id>0?'Editar':'Nuevo'}}</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="modal.dismiss()"></button>
       </div>
       <div class="modal-body">

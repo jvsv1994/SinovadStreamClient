@@ -44,7 +44,7 @@ export class ProfileFormTvPage extends ParentComponent implements OnInit {
 
     ngAfterViewInit(){
       let ctx=this;
-      this.modalReference=this.modalService.open(this.modalTarget, {container:"#sinovadMainContainer",modalDialogClass:'modal-dialog modal-fullscreen',scrollable:true,ariaLabelledBy: 'exampleModalCenteredScrollableTitle'});
+      this.modalReference=this.modalService.open(this.modalTarget, {container:"#sinovadMainContainer",modalDialogClass:'modal-dialog modal-fullscreen',scrollable:true,backdrop: 'static'});
       this.modalReference.shown.subscribe(event => {
         ctx.initializeProfileFormControls();
       });

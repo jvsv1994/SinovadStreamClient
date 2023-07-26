@@ -55,7 +55,7 @@ export class StorageFormPage extends ParentComponent implements OnInit {
     }
 
     ngAfterViewInit(){
-      this.modalService.open(this.storageModalTarget,{container:"#sinovadMainContainer",modalDialogClass:'modal-dialog modal-dialog-centered modal-dialog-scrollable',scrollable:true,ariaLabelledBy: 'exampleModalCenteredScrollableTitle'}).result.then((result) => {
+      this.modalService.open(this.storageModalTarget,{container:"#sinovadMainContainer",modalDialogClass:'modal-dialog modal-dialog-centered modal-dialog-scrollable',scrollable:true,backdrop: 'static'}).result.then((result) => {
         this.saveStorage();
       }, (reason) => {
         this.closeStorageForm.emit(true);

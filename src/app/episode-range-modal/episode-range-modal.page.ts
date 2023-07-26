@@ -40,7 +40,7 @@ export class EpisodeRangeModalPage extends ParentComponent implements OnInit {
     }
 
     ngAfterViewInit(){
-      this.modalService.open(this.modalTarget, {container:"#sinovadMainContainer",modalDialogClass:'modal-dialog modal-dialog-centered modal-dialog-scrollable',scrollable:true,ariaLabelledBy: 'exampleModalCenteredScrollableTitle'}).result.then((result) => {
+      this.modalService.open(this.modalTarget, {container:"#sinovadMainContainer",modalDialogClass:'modal-dialog modal-dialog-centered modal-dialog-scrollable',scrollable:true,backdrop: 'static'}).result.then((result) => {
         this.save();
       }, (reason) => {
         this.close.emit(true);

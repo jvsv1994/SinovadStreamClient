@@ -38,7 +38,7 @@ export class ProfileEditPage extends ParentComponent implements OnInit {
     }
 
     ngAfterViewInit(){
-      this.modalReference=this.modalService.open(this.modalTarget, {container:"#sinovadMainContainer",modalDialogClass:'modal-dialog modal-fullscreen',scrollable:true,ariaLabelledBy: 'exampleModalCenteredScrollableTitle'});
+      this.modalReference=this.modalService.open(this.modalTarget, {container:"#sinovadMainContainer",modalDialogClass:'modal-dialog modal-fullscreen',scrollable:true,backdrop: 'static'});
     }
 
     public saveProfile(){

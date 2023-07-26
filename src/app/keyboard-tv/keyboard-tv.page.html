@@ -11,7 +11,7 @@
           <button id="back_space" (click)="onClickBackSpace()">
             <img [src]="'back-space.png' | formatDataPipe : 'GetImageURLByKey' | async" style="width:40px">
           </button>
-          <button id="clear_text"  (click)="clearSearchText()" >
+          <button id="clear_text"  (click)="clearSearchText()">
             <img [src]="'delete-search.png' | formatDataPipe : 'GetImageURLByKey' | async" style="width:40px">
           </button>
       </section>
