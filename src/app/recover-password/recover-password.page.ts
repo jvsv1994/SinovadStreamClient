@@ -9,6 +9,7 @@ import { RestProviderService } from 'src/services/rest-provider.service';
 import { HttpMethodType } from '../enums';
 import { RecoverPasswordModel } from '../../models/recoverPasswordModel';
 import { Router } from '@angular/router';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 
 declare var window;
 @Component({
@@ -25,8 +26,12 @@ export class RecoverPasswordPage extends ParentComponent implements OnInit {
   customKeyboardControlsEvent:any;
   recoverPasswordModel=new RecoverPasswordModel();
   sendedConfirmationEmail:boolean=false;
+  recoverPasswordForm = this.formBuilder.group({
+    email: new FormControl("", [Validators.required,Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")])
+  });
 
   constructor(
+    private formBuilder: FormBuilder,
     private router: Router,
     public restProvider: RestProviderService,
     public http: HttpClient,
@@ -38,16 +43,25 @@ export class RecoverPasswordPage extends ParentComponent implements OnInit {
     }
 
   public SendRecoverPasswordEmail(){
-    this.showLoading=true;
-    this.recoverPasswordModel.ResetPasswordUrl=window.location.origin+"/reset";
-    this.restProvider.executeSinovadApiService(HttpMethodType.POST,'/users/RecoverPassword',this.recoverPasswordModel).then((result: any) => {
-      this.sendedConfirmationEmail=true;
-      this.showLoading=false;
-    },error=>{
-      this.showLoading=false;
-      this.errorMessage=error;
-      console.error(error);
-    });
+    if(this.recoverPasswordForm.valid)
+    {
+      this.recoverPasswordModel={
+        Email:this.recoverPasswordForm.value.email,
+        ResetPasswordUrl:window.location.origin+"/reset"
+      }
+      this.showLoading=true;
+      this.restProvider.executeSinovadApiService(HttpMethodType.POST,'/users/RecoverPassword',this.recoverPasswordModel).then((result: any) => {
+        this.sendedConfirmationEmail=true;
+        this.showLoading=false;
+      },error=>{
+        this.showLoading=false;
+        this.errorMessage=error;
+        console.error(error);
+      });
+    }else{
+      this.errorMessage=undefined;
+      this.recoverPasswordForm.markAllAsTouched();
+    }
   }
 
   public onClose(){
