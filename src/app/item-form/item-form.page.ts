@@ -90,7 +90,9 @@ export class ItemFormPage extends ParentComponent implements OnInit {
     }
 
     ngAfterViewInit(){
-      this.modalService.open(this.modalTarget, {container:"#sinovadMainContainer",modalDialogClass:'modal-dialog modal-fullscreen-sm-down modal-dialog-centered modal-dialog-scrollable',scrollable:true,ariaLabelledBy: 'exampleModalCenteredScrollableTitle'}).result.then((result) => {
+      this.modalService.open(this.modalTarget, {container:"#sinovadMainContainer",
+      modalDialogClass:'modal-dialog modal-fullscreen-md-down modal-dialog-centered modal-dialog-scrollable',
+      scrollable:true,backdrop:'static'}).result.then((result) => {
         this.saveItem();
       }, (reason) => {
         this.closeForm.emit(true);

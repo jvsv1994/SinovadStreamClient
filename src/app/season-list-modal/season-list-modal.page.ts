@@ -37,7 +37,9 @@ export class SeasonListModalPage extends ParentComponent implements OnInit{
   }
 
   ngAfterViewInit(){
-    this.modalService.open(this.modalTarget, {container:"#sinovadMainContainer",modalDialogClass:'modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable',scrollable:true,ariaLabelledBy: 'exampleModalCenteredScrollableTitle'}).result.then((result) => {
+    this.modalService.open(this.modalTarget, {container:"#sinovadMainContainer",
+    modalDialogClass:'modal-dialog modal-fullscreen-md-down modal-xl modal-dialog-centered modal-dialog-scrollable modal-list',
+    scrollable:true,backdrop:'static'}).result.then((result) => {
     }, (reason) => {
       this.close.emit(true);
     });
