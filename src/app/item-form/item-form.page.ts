@@ -13,6 +13,8 @@ import { Genre } from '../../models/genre';
 import { SinovadApiGenericResponse } from '../response/sinovadApiGenericResponse';
 import { TvProgramGenre } from '../../models/tvProgramGenre';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { CustomToastPage } from '../custom-toast/custom-toast.page';
+import { ToastType } from '../custom-toast/toastEnums';
 
 @Component({
   selector: 'app-item-form',
@@ -28,6 +30,7 @@ export class ItemFormPage extends ParentComponent implements OnInit {
 
   showChooserDirectory:boolean=false;
   @ViewChild('modalTarget') modalTarget: ElementRef;
+  @ViewChild('customToastPage') customToastPage: CustomToastPage;
   showGenresPopUp:boolean=false;
   listAllGenresPopUp:Genre[];
   itemForm:FormGroup;
@@ -87,7 +90,7 @@ export class ItemFormPage extends ParentComponent implements OnInit {
     }
 
     ngAfterViewInit(){
-      this.modalService.open(this.modalTarget, {container:"#sinovadMainContainer",modalDialogClass:'modal-dialog modal-dialog-centered modal-dialog-scrollable',scrollable:true,ariaLabelledBy: 'exampleModalCenteredScrollableTitle'}).result.then((result) => {
+      this.modalService.open(this.modalTarget, {container:"#sinovadMainContainer",modalDialogClass:'modal-dialog modal-fullscreen-sm-down modal-dialog-centered modal-dialog-scrollable',scrollable:true,ariaLabelledBy: 'exampleModalCenteredScrollableTitle'}).result.then((result) => {
         this.saveItem();
       }, (reason) => {
         this.closeForm.emit(true);
@@ -122,6 +125,7 @@ export class ItemFormPage extends ParentComponent implements OnInit {
         this.restProvider.executeSinovadApiService(methodType,path,tvProgram).then((response) => {
           this.closeFormWithChanges.emit(true);
         },error=>{
+          this.customToastPage.show({containerId:"sinovadMainContainer",displayTime:2000,message:error,toastType:ToastType.Error});
           console.error(error);
         });
       }else{

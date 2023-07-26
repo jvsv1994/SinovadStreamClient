@@ -9,6 +9,7 @@ import { ItemFormPageModule } from '../item-form/item-form.module';
 import { SeasonListModalPageModule } from '../season-list-modal/season-list-modal.module';
 import { ConfirmMessageModalPageModule } from '../confirm-message-modal/confirm-message-modal.module';
 import { ContextMenuPageModule } from '../context-menu/context-menu.module';
+import { CustomToastPageModule } from '../custom-toast/custom-toast.module';
 
 @NgModule({
   imports: [
@@ -21,7 +22,8 @@ import { ContextMenuPageModule } from '../context-menu/context-menu.module';
     ItemFormPageModule,
     SeasonListModalPageModule,
     ConfirmMessageModalPageModule,
-    ContextMenuPageModule
+    ContextMenuPageModule,
+    CustomToastPageModule
   ],
   declarations: [ItemListPage],
   exports: [ItemListPage]
