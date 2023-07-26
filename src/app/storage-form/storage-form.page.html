@@ -1,32 +1,33 @@
 <ng-template #storageModalTarget let-modal>
   <ng-template [ngIf]="storage!=undefined">
-    <div class="modal-header">
-      <h5 class="modal-title">{{storage.Id>0?'Editar Almacenamiento':'Nuevo Almacenamiento'}}</h5>
-      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="modal.dismiss()"></button>
-    </div>
-    <div class="modal-body">
-      <div class="mb-3">
-        <label for="name" class="form-label">Nombre</label>
-        <input id="name" class="form-control" type="text" [(ngModel)]="storage.Name"/>
+    <form [formGroup]="libraryForm" (ngSubmit)="modal.close()">
+      <div class="modal-header">
+        <h5 class="modal-title">{{storage.Id>0?'Editar Almacenamiento':'Nuevo Almacenamiento'}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="modal.dismiss()"></button>
       </div>
-      <div class="mb-3">
-        <label for="typeFormControlId" class="form-label">Tipo</label>
-        <select id="typeFormControlId" class="form-select" aria-label="Seleccionar Tipo" (change)="onChangeMediaType($event)">
-          <ng-template ngFor let-mt [ngForOf]="mediaTypes">
-            <option *ngIf="mt.Id==storage.MediaTypeCatalogDetailId" selected value="{{mt.Id}}">{{mt.Name}}</option>
-            <option *ngIf="mt.Id!=storage.MediaTypeCatalogDetailId" value="{{mt.Id}}">{{mt.Name}}</option>
-          </ng-template>
-        </select>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label for="name" class="form-label">Nombre</label>
+          <input id="name" class="form-control" type="text" formControlName="name" />
+        </div>
+        <div class="mb-3">
+          <label for="typeFormControlId" class="form-label">Tipo</label>
+          <select id="typeFormControlId" class="form-select" aria-label="Seleccionar Tipo" formControlName="mediaType">
+            <ng-template ngFor let-mt [ngForOf]="mediaTypes">
+              <option [ngValue]="mt.Id">{{mt.Name}}</option>
+            </ng-template>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="directoryFormControlId" class="form-label">Directorio</label>
+          <input id="directoryFormControlId" class="form-control" readonly  formControlName="physicalPath" (click)="showChooserDirectoryModal()">
+        </div>
       </div>
-      <div class="mb-3">
-        <label for="directoryFormControlId" class="form-label">Directorio</label>
-        <input id="directoryFormControlId" class="form-control" readonly  [(ngModel)]="storage.PhysicalPath" (click)="showChooserDirectoryModal()">
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="modal.dismiss()">Close</button>
+        <button type="submit" class="btn btn-primary">Guardar</button>
       </div>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="modal.dismiss()">Close</button>
-      <button type="button" class="btn btn-primary" (click)="modal.close()">Guardar</button>
-    </div>
+    </form>
   </ng-template>
 </ng-template>
 <app-directory-chooser *ngIf="showChooserDirectory" [listMainDirectories]="listMainDirectories"

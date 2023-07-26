@@ -9,6 +9,7 @@ import { RestProviderService } from 'src/services/rest-provider.service';
 import { HttpMethodType } from '../enums';
 import { Storage } from '../../models/storage';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 
 declare var window;
@@ -27,6 +28,7 @@ export class StorageFormPage extends ParentComponent implements OnInit {
 
   showChooserDirectory:boolean=false;
   @ViewChild('storageModalTarget') storageModalTarget: ElementRef;
+  libraryForm:FormGroup;
 
   mediaTypes=[
     {
@@ -40,6 +42,7 @@ export class StorageFormPage extends ParentComponent implements OnInit {
   ]
 
   constructor(
+    private formBuilder: FormBuilder,
     private modalService: NgbModal,
     public restProvider: RestProviderService,
     public http: HttpClient,
@@ -51,11 +54,15 @@ export class StorageFormPage extends ParentComponent implements OnInit {
     }
 
     ngOnInit(): void {
-
+      this.libraryForm = this.formBuilder.group({
+        name:new FormControl(this.storage.Name),
+        mediaType: new FormControl(this.storage.MediaTypeCatalogDetailId),
+        physicalPath:new FormControl(this.storage.PhysicalPath)
+      });
     }
 
     ngAfterViewInit(){
-      this.modalService.open(this.storageModalTarget,{container:"#sinovadMainContainer",modalDialogClass:'modal-dialog modal-dialog-centered modal-dialog-scrollable',scrollable:true,backdrop: 'static'}).result.then((result) => {
+      this.modalService.open(this.storageModalTarget,{container:"#sinovadMainContainer",modalDialogClass:'modal-dialog modal-fullscreen-md-down modal-dialog-centered modal-dialog-scrollable',scrollable:true,backdrop: 'static'}).result.then((result) => {
         this.saveStorage();
       }, (reason) => {
         this.closeStorageForm.emit(true);
@@ -63,14 +70,23 @@ export class StorageFormPage extends ParentComponent implements OnInit {
     }
 
     public saveStorage(){
-      this.storage.MediaServerId=this.sharedData.selectedMediaServer.Id;
-      let methodType=this.storage.Id>0?HttpMethodType.PUT:HttpMethodType.POST;
-      var path=this.storage.Id>0?"/storages/Update":"/storages/Create";
-      this.restProvider.executeSinovadApiService(methodType,path,this.storage).then((response) => {
-        this.closeStorageFormWithChanges.emit(true);
-      },error=>{
-        console.error(error);
-      });
+      if(this.libraryForm.valid)
+      {
+        var storage:Storage=JSON.parse(JSON.stringify(this.storage));
+        storage.Name=this.libraryForm.value.name;
+        storage.MediaTypeCatalogDetailId=this.libraryForm.value.mediaType;
+        storage.PhysicalPath=this.libraryForm.value.physicalPath;
+        storage.MediaServerId=this.sharedData.selectedMediaServer.Id;
+        let methodType=this.storage.Id>0?HttpMethodType.PUT:HttpMethodType.POST;
+        var path=this.storage.Id>0?"/storages/Update":"/storages/Create";
+        this.restProvider.executeSinovadApiService(methodType,path,storage).then((response) => {
+          this.closeStorageFormWithChanges.emit(true);
+        },error=>{
+          console.error(error);
+        });
+      }else{
+        this.libraryForm.markAllAsTouched();
+      }
     }
 
     public onChangeMediaType(event:any){
@@ -78,7 +94,7 @@ export class StorageFormPage extends ParentComponent implements OnInit {
     }
 
     public onSelectDirectory(event:any){
-      this.storage.PhysicalPath=event;
+      this.libraryForm.controls.physicalPath.setValue(event);
       this.showChooserDirectory=false;
     }
 

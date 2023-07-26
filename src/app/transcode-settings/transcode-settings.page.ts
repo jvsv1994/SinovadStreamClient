@@ -125,7 +125,7 @@ export class TranscoderSettingssPage extends ParentComponent implements OnInit {
     }
 
     public onSaveDirectoryTranscodedVideos(path:string){
-      this.currentTranscoderSettingss.TemporaryFolder=path;
+      this.customForm.controls.temporaryFolder.setValue(path);
       this.showingDirectoryTranscodeVideos=false;
     }
 
