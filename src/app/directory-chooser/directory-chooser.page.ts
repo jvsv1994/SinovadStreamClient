@@ -43,7 +43,9 @@ export class DirectoryChooserPage extends ParentComponent implements OnInit {
     }
 
     ngAfterViewInit(){
-      this.modalService.open(this.directoryChooserModelTarget, {container:"#sinovadMainContainer",modalDialogClass:'modal-dialog modal-dialog-centered modal-dialog-scrollable',ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      this.modalService.open(this.directoryChooserModelTarget, {container:"#sinovadMainContainer",
+      modalDialogClass:'modal-dialog modal-fullscreen-md-down modal-dialog-centered modal-dialog-scrollable',
+      ariaLabelledBy: 'modal-basic-title',backdrop: 'static'}).result.then((result) => {
         this.saveDirectory();
       }, (reason) => {
         this.closeChooserDirectory.emit(true);
