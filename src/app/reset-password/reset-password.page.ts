@@ -11,6 +11,7 @@ import { ResetPasswordModel } from '../../models/resetPasswordModel';
 import { ValidateResetPasswordTokenModel } from '../../models/validateResetPasswordTokenModel';
 import { ActivatedRoute, Router } from '@angular/router';
 import hiBase64 from 'hi-base64';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 
 declare var window;
 @Component({
@@ -31,8 +32,13 @@ export class ResetPasswordPage extends ParentComponent implements OnInit {
   showResetPasswordSuccessMessage:boolean=false;
   resetPasswordToken:string;
   userId:string;
+  resetPasswordForm = this.formBuilder.group({
+    password: new FormControl("", [Validators.required]),
+    confirmPassword: new FormControl("", [Validators.required])
+  });
 
   constructor(
+    private formBuilder: FormBuilder,
     private router: Router,
     public activeRoute: ActivatedRoute,
     public restProvider: RestProviderService,
@@ -84,18 +90,28 @@ export class ResetPasswordPage extends ParentComponent implements OnInit {
   }
 
   public confirm(){
-    this.showLoading=true;
-    this.resetPasswordModel.ResetPasswordToken=this.resetPasswordToken;
-    this.resetPasswordModel.UserId=this.userId;
-    this.restProvider.executeSinovadApiService(HttpMethodType.POST,'/users/ResetPassword',this.resetPasswordModel).then((result: any) => {
-      this.showResetPasswordSuccessMessage=true;
-      this.showResetPasswordForm=false;
-      this.showLoading=false;
-    },error=>{
-      this.showLoading=false;
-      this.errorMessage=error;
-      console.error(error);
-    });
+    if(this.resetPasswordForm.valid)
+    {
+      this.showLoading=true;
+      this.resetPasswordModel={
+        ResetPasswordToken:this.resetPasswordToken,
+        UserId:this.userId,
+        Password:this.resetPasswordForm.value.password,
+        ConfirmPassword:this.resetPasswordForm.value.confirmPassword
+      }
+      this.restProvider.executeSinovadApiService(HttpMethodType.POST,'/users/ResetPassword',this.resetPasswordModel).then((result: any) => {
+        this.showResetPasswordSuccessMessage=true;
+        this.showResetPasswordForm=false;
+        this.showLoading=false;
+      },error=>{
+        this.showLoading=false;
+        this.errorMessage=error;
+        console.error(error);
+      });
+    }else{
+      this.errorMessage=undefined;
+      this.resetPasswordForm.markAllAsTouched();
+    }
   }
 
   public onClickCloseButton(){
