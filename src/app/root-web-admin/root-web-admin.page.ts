@@ -1,5 +1,5 @@
 
-import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output} from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SharedDataService } from 'src/services/shared-data.service';
 import { ParentComponent } from '../parent/parent.component';
@@ -26,13 +26,16 @@ import { GenreListPage } from '../genre-list/genre-list.page';
 import { UserListPage } from '../user-list/user-list.page';
 import { RoleListPage } from '../role-list/role-list.page';
 import { SearchViewRootPage } from '../search-view-root/search-view-root.page';
+import { BuilderVideo } from 'src/models/builderVideo';
+import { VideoEvent, VideoService } from 'src/services/video.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root-web-admin',
   templateUrl: './root-web-admin.page.html',
   styleUrls: ['./root-web-admin.page.scss']
 })
-export class RootWebAdminPage extends ParentComponent implements OnInit {
+export class RootWebAdminPage extends ParentComponent implements OnInit,OnDestroy {
 
   @Output() toggleVideo= new EventEmitter();
   showVideoPopUp:boolean=false;
@@ -48,8 +51,11 @@ export class RootWebAdminPage extends ParentComponent implements OnInit {
   showingSidebarAccount:boolean=false;
   showingSidebarAdminMode:boolean=false;
   showingSidebarMedia:boolean=false;
+  currentVideo:BuilderVideo;
+  subscriptionVideo:Subscription;
 
   constructor(
+    public videoService: VideoService,
     public route: ActivatedRoute,
     public restProvider: RestProviderService,
     private router: Router,
@@ -58,7 +64,16 @@ export class RootWebAdminPage extends ParentComponent implements OnInit {
     public domSanitizer: DomSanitizer,
     public sharedData: SharedDataService) {
       super(restProvider,domSanitizer,sharedData)
-
+      this.subscriptionVideo=this.videoService.getVideoEvent().subscribe((videoEvent:VideoEvent)=>{
+          if(videoEvent.isShowing)
+          {
+            this.currentVideo=videoEvent.builderVideo;
+            this.toggleVideo.emit(true);
+          }else{
+            this.currentVideo=undefined;
+            this.toggleVideo.emit(false);
+          }
+      });
     }
 
     public showVideoInFullScreen(){
@@ -68,6 +83,10 @@ export class RootWebAdminPage extends ParentComponent implements OnInit {
 
     public ngOnInit(): void {
 
+    }
+
+    public ngOnDestroy(): void {
+      this.subscriptionVideo.unsubscribe();
     }
 
     public logOut(){
@@ -135,7 +154,7 @@ export class RootWebAdminPage extends ParentComponent implements OnInit {
     }
 
     public closeVideo(){
-      this.sharedData.currentVideo=undefined;
+      this.currentVideo=undefined;
       this.showHome();
       this.toggleVideo.emit(false);
     }
@@ -155,9 +174,6 @@ export class RootWebAdminPage extends ParentComponent implements OnInit {
         this.showingSidebarMedia=true;
         this.showingSidebarAccount=false;
         this.showingSidebarAdminMode=false;
-        event.toggleVideo.subscribe(event => {
-          ctx.toggleVideo.emit(event);
-        });
       }
       if(event instanceof ProfilesViewPage)
       {

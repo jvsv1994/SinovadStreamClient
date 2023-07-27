@@ -10,6 +10,7 @@ import { Item } from '../../models/item';
 import { ItemsGroup } from '../../models/itemsGroup';
 import { ItemDetail } from '../../models/itemDetail';
 import { SinovadApiGenericResponse } from '../response/sinovadApiGenericResponse';
+import { VideoService } from 'src/services/video.service';
 
 declare var window;
 @Component({
@@ -19,7 +20,6 @@ declare var window;
 })
 export class HorizontalItemListPage extends ParentComponent implements OnInit {
 
-  @Output() toggleVideo =new EventEmitter();
   @Output() showItemView =new EventEmitter();
   @Output() focus =new EventEmitter();
   showLoadingApp:boolean=true;
@@ -30,6 +30,7 @@ export class HorizontalItemListPage extends ParentComponent implements OnInit {
   _window=window;
 
   constructor(
+    private videoService:VideoService,
     public restProvider: RestProviderService,
     private  ref:ChangeDetectorRef,
     public http: HttpClient,
@@ -114,9 +115,7 @@ export class HorizontalItemListPage extends ParentComponent implements OnInit {
         let detail:ItemDetail=response.Data;
         detail.Item=item;
         var builderVideo= this.CreateBuilderVideoFromItem(item,detail);
-        this.sharedData.currentVideo=builderVideo;
-        this.toggleVideo.emit(true);
-        this.ref.detectChanges();
+        this.videoService.showVideo({isShowing:true,builderVideo:builderVideo});
       },error=>{
         console.error(error);
       });
@@ -167,12 +166,6 @@ export class HorizontalItemListPage extends ParentComponent implements OnInit {
     }
 
     public ngOnInit(): void {
-    }
-
-    public closeVideo(){
-      this.sharedData.currentVideo=undefined;
-      this.toggleVideo.emit(false);
-      this.ref.detectChanges();
     }
 
 }

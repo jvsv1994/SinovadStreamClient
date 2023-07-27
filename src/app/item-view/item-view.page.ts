@@ -9,6 +9,7 @@ import { RestProviderService } from 'src/services/rest-provider.service';
 import { ItemDetail } from '../../models/itemDetail';
 import { Episode } from '../../models/episode';
 import { Season } from '../../models/season';
+import { VideoService } from 'src/services/video.service';
 
 declare var window;
 @Component({
@@ -26,9 +27,9 @@ export class ItemViewPage extends ParentComponent implements OnInit {
   itemUserData:any;
   listEpisodePreference:any[];
   lastEpisodeWatched:any;
-  @Output() toggleVideo =new EventEmitter();
 
   constructor(
+    private videoService:VideoService,
     public restProvider: RestProviderService,
     private  ref:ChangeDetectorRef,
     public http: HttpClient,
@@ -122,8 +123,7 @@ export class ItemViewPage extends ParentComponent implements OnInit {
     }
 
     public getVideosByItem(){
-      this.sharedData.currentVideo=this.CreateBuilderVideoFromItem(this.detail.Item,this.detail);
-      this.toggleVideo.emit(true);
+      this.videoService.showVideo({isShowing:true,builderVideo:this.CreateBuilderVideoFromItem(this.detail.Item,this.detail)});
     }
 
     public onClickSeason(item:Season){
@@ -135,7 +135,7 @@ export class ItemViewPage extends ParentComponent implements OnInit {
     }
 
     public getVideoByEpisode(episode:Episode){
-      this.sharedData.currentVideo=this.CreateBuilderVideoFromEpisode(episode,this.detail);
+      this.videoService.showVideo({isShowing:true,builderVideo:this.CreateBuilderVideoFromEpisode(episode,this.detail)});
     }
 
 

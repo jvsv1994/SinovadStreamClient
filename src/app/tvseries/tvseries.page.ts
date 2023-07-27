@@ -16,7 +16,6 @@ import { ItemDetail } from '../../models/itemDetail';
 })
 export class TvSeriesPage extends ParentComponent implements OnInit {
 
-  @Output() toggleVideo =new EventEmitter();
   currentMediaTypeID:number;
   title:string;
 

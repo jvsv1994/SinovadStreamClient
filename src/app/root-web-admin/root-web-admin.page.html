@@ -34,8 +34,8 @@
   <router-outlet class="small" (activate)="onActivate($event)"></router-outlet>
 </div>
 
-<section *ngIf="sharedData.currentVideo" class="sinovad-container-video">
-  <app-video [ngClass]="{'small':isSmallDevice()}" (fullscreen)="showVideoInFullScreen()" [builderVideo]="sharedData.currentVideo" (outputCloseVideo)="closeVideo()"></app-video>
+<section *ngIf="currentVideo" class="sinovad-container-video">
+  <app-video [ngClass]="{'small':isSmallDevice()}" (fullscreen)="showVideoInFullScreen()" [builderVideo]="currentVideo" (outputCloseVideo)="closeVideo()"></app-video>
 </section>
 
 <app-splash-screen *ngIf="showSplashScreen"></app-splash-screen>

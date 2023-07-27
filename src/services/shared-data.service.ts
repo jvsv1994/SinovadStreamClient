@@ -10,7 +10,6 @@ import { MediaServer } from 'src/models/mediaServer';
 export class SharedDataService {
 
   userData: User;
-  currentVideo:BuilderVideo;
   //urlSinovadStreamWebApi: string='http://localhost:53363';
   urlSinovadStreamWebApi: string='https://streamapi.sinovad.com';
   urlSinovadCdn: string='https://resources.sinovad.com/stream/web';

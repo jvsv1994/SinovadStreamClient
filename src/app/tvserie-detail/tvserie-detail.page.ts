@@ -18,7 +18,6 @@ declare var window;
 })
 export class TvSerieDetailPage extends ParentComponent implements OnInit {
 
-  @Output() toggleVideo =new EventEmitter();
   detail:ItemDetail;
 
   constructor(

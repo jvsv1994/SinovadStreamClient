@@ -1,5 +1,5 @@
 
-import { ChangeDetectorRef, Component, ElementRef, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SharedDataService } from 'src/services/shared-data.service';
 import { ParentComponent } from '../parent/parent.component';
@@ -11,13 +11,16 @@ import { HorizontalItemListPage } from '../horizontal-item-list/horizontal-item-
 import { ActivatedRoute, Router } from '@angular/router';
 import { MediaType } from '../enums';
 import { SearchViewTvPage } from '../search-view-tv/search-view-tv.page';
+import { BuilderVideo } from 'src/models/builderVideo';
+import { Subscription } from 'rxjs';
+import { VideoEvent, VideoService } from 'src/services/video.service';
 
 @Component({
   selector: 'app-main-tv',
   templateUrl: './main-tv.page.html',
   styleUrls: ['./main-tv.page.scss']
 })
-export class MainTvPage extends ParentComponent implements OnInit {
+export class MainTvPage extends ParentComponent implements OnInit,OnDestroy {
 
   @Output() fullScreen= new EventEmitter();
   @Output() toggleVideo= new EventEmitter();
@@ -33,8 +36,11 @@ export class MainTvPage extends ParentComponent implements OnInit {
   customKeyboardEventVerticalHorizontalContainer:any;
   @ViewChild('menuContainer') menuContainer: ElementRef;
   @ViewChild('principalContainer') principalContainer: ElementRef;
+  currentVideo:BuilderVideo;
+  subscriptionVideo:Subscription;
 
   constructor(
+    public videoService: VideoService,
     public restProvider: RestProviderService,
     private route:ActivatedRoute,
     private router: Router,
@@ -43,7 +49,16 @@ export class MainTvPage extends ParentComponent implements OnInit {
     public domSanitizer: DomSanitizer,
     public sharedData: SharedDataService) {
       super(restProvider,domSanitizer,sharedData)
-
+      this.subscriptionVideo=this.videoService.getVideoEvent().subscribe((videoEvent:VideoEvent)=>{
+        if(videoEvent.isShowing)
+        {
+          this.currentVideo=videoEvent.builderVideo;
+          this.toggleVideo.emit(true);
+        }else{
+          this.currentVideo=undefined;
+          this.toggleVideo.emit(false);
+        }
+    });
     }
 
     public showVideoInFullScreen(){
@@ -58,6 +73,10 @@ export class MainTvPage extends ParentComponent implements OnInit {
       },error=>{
         console.error(error);
       });
+    }
+
+    public ngOnDestroy():void{
+      this.subscriptionVideo.unsubscribe();
     }
 
     ngAfterViewInit(){
@@ -197,7 +216,7 @@ export class MainTvPage extends ParentComponent implements OnInit {
     }
 
     public closeVideo(){
-      this.sharedData.currentVideo=undefined;
+      this.currentVideo=undefined;
       this.showHorizontalItemList();
       this.toggleVideo.emit(false);
     }
@@ -230,9 +249,6 @@ export class MainTvPage extends ParentComponent implements OnInit {
       {
         event.currentMediaTypeID=this.currentMediaTypeID;
         event.title=this.title;
-        event.toggleVideo.subscribe(event => {
-          ctx.toggleVideo.emit(event);
-        });
         event.focus.subscribe(event => {
           this.focusInElementInContainer(ctx.principalContainer.nativeElement,ctx.ref);
         });
@@ -251,9 +267,6 @@ export class MainTvPage extends ParentComponent implements OnInit {
       if(event instanceof ItemViewPage)
       {
         event.detail=ctx.itemViewData;
-        event.toggleVideo.subscribe(event => {
-          ctx.toggleVideo.emit(event);
-        });
         ctx.ref.detectChanges();
         ctx.focusInElementInContainer(this.principalContainer.nativeElement,this.ref);
       }
