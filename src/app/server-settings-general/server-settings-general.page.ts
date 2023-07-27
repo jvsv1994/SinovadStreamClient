@@ -1,8 +1,7 @@
 
-import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SharedDataService } from 'src/services/shared-data.service';
-import { EventsService } from 'src/services/events-service';
 import { ParentComponent } from '../parent/parent.component';
 import { HttpClient} from '@angular/common/http';
 import { HttpMethodType } from '../enums';
@@ -10,7 +9,7 @@ import { RestProviderService } from 'src/services/rest-provider.service';
 import { SinovadApiGenericResponse } from '../response/sinovadApiGenericResponse';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MediaServer } from 'src/models/mediaServer';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormControl } from '@angular/forms';
 import { CustomToastPage } from '../custom-toast/custom-toast.page';
 import { ToastType } from '../custom-toast/toastEnums';
 
@@ -28,16 +27,14 @@ export class ServerSettingsGeneralPage extends ParentComponent implements OnInit
   loading:boolean=false;
 
   constructor(
-    private ref: ChangeDetectorRef,
     private formBuilder: FormBuilder,
     private router: Router,
     public activeRoute: ActivatedRoute,
     public restProvider: RestProviderService,
     public http: HttpClient,
-    public events: EventsService,
     public domSanitizer: DomSanitizer,
     public sharedData: SharedDataService) {
-      super(restProvider,events,domSanitizer,sharedData)
+      super(restProvider,domSanitizer,sharedData)
       this.router.routeReuseStrategy.shouldReuseRoute = function () {
         return false;
       };

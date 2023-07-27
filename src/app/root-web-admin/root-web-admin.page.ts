@@ -2,12 +2,10 @@
 import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output} from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SharedDataService } from 'src/services/shared-data.service';
-import { EventsService } from 'src/services/events-service';
 import { ParentComponent } from '../parent/parent.component';
 import { HttpClient} from '@angular/common/http';
 import { RestProviderService } from 'src/services/rest-provider.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HttpMethodType } from '../enums';
 import { ItemListPage } from '../item-list/item-list.page';
 import { ManageMediaPage } from '../manage-media/manage-media.page';
 import { Profile } from '../../models/profile';
@@ -57,10 +55,9 @@ export class RootWebAdminPage extends ParentComponent implements OnInit {
     private router: Router,
     public  ref:ChangeDetectorRef,
     public http: HttpClient,
-    public events: EventsService,
     public domSanitizer: DomSanitizer,
     public sharedData: SharedDataService) {
-      super(restProvider,events,domSanitizer,sharedData)
+      super(restProvider,domSanitizer,sharedData)
 
     }
 

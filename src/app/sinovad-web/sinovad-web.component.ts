@@ -2,11 +2,9 @@
 import { ChangeDetectorRef, Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SharedDataService } from 'src/services/shared-data.service';
-import { EventsService } from 'src/services/events-service';
 import { ParentComponent } from '../parent/parent.component';
 import { HttpClient } from '@angular/common/http';
 import { RestProviderService } from 'src/services/rest-provider.service';
-import { Router } from '@angular/router';
 import { RootWebAdminPage } from '../root-web-admin/root-web-admin.page';
 @Component({
   selector: 'app-sinovad-web',
@@ -24,14 +22,12 @@ export class SinovadWebComponent extends ParentComponent implements OnInit,OnDes
   showRootPage:boolean=false;
 
   constructor(
-    private router: Router,
     public restProvider: RestProviderService,
     public ref: ChangeDetectorRef,
     public http: HttpClient,
-    public events: EventsService,
     public domSanitizer: DomSanitizer,
     public sharedData: SharedDataService) {
-      super(restProvider,events,domSanitizer,sharedData)
+      super(restProvider,domSanitizer,sharedData)
     }
 
     public ngOnInit(): void {

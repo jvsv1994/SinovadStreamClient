@@ -2,7 +2,6 @@ import { ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular
 import { HttpClient} from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { SharedDataService } from 'src/services/shared-data.service';
-import { EventsService } from 'src/services/events-service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ParentComponent } from '../parent/parent.component';
 import { RestProviderService } from 'src/services/rest-provider.service';
@@ -35,12 +34,11 @@ export class MediaServerListPage extends ParentComponent implements OnInit{
   constructor(
     public restProvider: RestProviderService,
     public ref: ChangeDetectorRef,
-    public events: EventsService,
     public domSanitizer: DomSanitizer,
     public activeRoute: ActivatedRoute,
     public sharedData: SharedDataService,
     public http: HttpClient) {
-      super(restProvider,events,domSanitizer,sharedData)
+      super(restProvider,domSanitizer,sharedData)
 
   }
 

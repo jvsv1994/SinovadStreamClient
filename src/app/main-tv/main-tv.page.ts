@@ -2,7 +2,6 @@
 import { ChangeDetectorRef, Component, ElementRef, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SharedDataService } from 'src/services/shared-data.service';
-import { EventsService } from 'src/services/events-service';
 import { ParentComponent } from '../parent/parent.component';
 import { HttpClient} from '@angular/common/http';
 import { RestProviderService } from 'src/services/rest-provider.service';
@@ -10,7 +9,7 @@ import { ItemDetail } from '../../models/itemDetail';
 import { ItemViewPage } from '../item-view/item-view.page';
 import { HorizontalItemListPage } from '../horizontal-item-list/horizontal-item-list.page';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HttpMethodType, MediaType } from '../enums';
+import { MediaType } from '../enums';
 import { SearchViewTvPage } from '../search-view-tv/search-view-tv.page';
 
 @Component({
@@ -41,10 +40,9 @@ export class MainTvPage extends ParentComponent implements OnInit {
     private router: Router,
     public  ref:ChangeDetectorRef,
     public http: HttpClient,
-    public events: EventsService,
     public domSanitizer: DomSanitizer,
     public sharedData: SharedDataService) {
-      super(restProvider,events,domSanitizer,sharedData)
+      super(restProvider,domSanitizer,sharedData)
 
     }
 

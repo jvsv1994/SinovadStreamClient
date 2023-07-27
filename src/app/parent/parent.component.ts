@@ -1,10 +1,8 @@
 import { ChangeDetectorRef, Component, HostListener, OnInit} from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SharedDataService } from 'src/services/shared-data.service';
-import { EventsService } from 'src/services/events-service';
 import { RestProviderService } from 'src/services/rest-provider.service';
-import { CatalogEnum, HttpMethodType, MediaServerState } from '../enums';
-import { MediaServer } from '../../models/mediaServer';
+import { HttpMethodType } from '../enums';
 import { Item } from '../../models/item';
 import { ItemDetail } from '../../models/itemDetail';
 import { BuilderVideo } from '../../models/builderVideo';
@@ -26,7 +24,6 @@ export class ParentComponent implements OnInit {
   fdp: FormatDataPipe = new FormatDataPipe(this.domSanitizer,this.sharedData);
   constructor(
     public restProvider: RestProviderService,
-    public events: EventsService,
     public domSanitizer: DomSanitizer,
     public sharedData: SharedDataService) {}
 

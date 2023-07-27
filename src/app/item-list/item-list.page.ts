@@ -4,7 +4,6 @@ import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ParentComponent } from '../parent/parent.component';
 import { SharedDataService } from 'src/services/shared-data.service';
-import { EventsService } from 'src/services/events-service';
 import { HttpMethodType, MediaType } from '../enums';
 import { RestProviderService } from 'src/services/rest-provider.service';
 import { SinovadApiGenericResponse } from '../response/sinovadApiGenericResponse';
@@ -41,11 +40,10 @@ export class ItemListPage extends ParentComponent implements OnInit{
   constructor(
     public restProvider: RestProviderService,
     public activeRoute: ActivatedRoute,
-    public events: EventsService,
     public domSanitizer: DomSanitizer,
     public sharedData: SharedDataService,
     public http: HttpClient) {
-      super(restProvider,events,domSanitizer,sharedData)
+      super(restProvider,domSanitizer,sharedData)
 
   }
 

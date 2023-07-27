@@ -5,7 +5,6 @@ import {v4 as uuid} from "uuid";
 import hiBase64 from 'hi-base64';
 import { SharedDataService } from 'src/services/shared-data.service';
 import { ParentComponent } from '../parent/parent.component';
-import { EventsService } from 'src/services/events-service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { parse } from '@plussub/srt-vtt-parser';
 import Hls, { HlsConfig } from 'hls.js';
@@ -61,12 +60,11 @@ export class VideoPage extends ParentComponent implements OnInit,OnDestroy{
 
   constructor(
     public restProvider: RestProviderService,
-    public events: EventsService,
     public domSanitizer: DomSanitizer,
     public sharedData: SharedDataService,
     public ref: ChangeDetectorRef,
     public http: HttpClient) {
-      super(restProvider,events,domSanitizer,sharedData);
+      super(restProvider,domSanitizer,sharedData);
 
   }
 

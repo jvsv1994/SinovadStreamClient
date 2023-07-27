@@ -2,7 +2,6 @@
 import { ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, ViewContainerRef} from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SharedDataService } from 'src/services/shared-data.service';
-import { EventsService } from 'src/services/events-service';
 import { HttpClient} from '@angular/common/http';
 import { RestProviderService } from 'src/services/rest-provider.service';
 import { Subscription } from 'rxjs';
@@ -30,7 +29,6 @@ export class ContextMenuContentPage implements OnInit,OnDestroy {
     public viewContainerRef: ViewContainerRef,
     public restProvider: RestProviderService,
     public http: HttpClient,
-    public events: EventsService,
     public domSanitizer: DomSanitizer,
     public sharedData: SharedDataService) {
 

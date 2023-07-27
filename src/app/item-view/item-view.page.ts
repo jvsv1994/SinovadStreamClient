@@ -2,9 +2,7 @@
 import { ChangeDetectorRef, Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SharedDataService } from 'src/services/shared-data.service';
-import { EventsService } from 'src/services/events-service';
 import { ParentComponent } from '../parent/parent.component';
-import { FormBuilder } from '@angular/forms';
 import { HttpClient} from '@angular/common/http';
 import { MediaType } from '../enums';
 import { RestProviderService } from 'src/services/rest-provider.service';
@@ -34,11 +32,9 @@ export class ItemViewPage extends ParentComponent implements OnInit {
     public restProvider: RestProviderService,
     private  ref:ChangeDetectorRef,
     public http: HttpClient,
-    private fb: FormBuilder,
-    public events: EventsService,
     public domSanitizer: DomSanitizer,
     public sharedData: SharedDataService) {
-      super(restProvider,events,domSanitizer,sharedData)
+      super(restProvider,domSanitizer,sharedData)
 
     }
 
