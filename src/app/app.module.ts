@@ -26,7 +26,7 @@ import { SinovadTvComponent } from './sinovad-tv/sinovad-tv.component';
     SinovadTvComponentModule,
     AppRoutingModule,
   ],
-  bootstrap:[]
+  bootstrap:[SinovadWebComponent]
 })
 export class AppModule {
   constructor(private injector: Injector) {}

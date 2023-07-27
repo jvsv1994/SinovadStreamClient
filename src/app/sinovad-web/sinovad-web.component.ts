@@ -61,11 +61,7 @@ export class SinovadWebComponent extends ParentComponent implements OnInit,OnDes
           this.getProfiles().then(response=>{
             this.showRootPage=true;
             this.ref.detectChanges();
-            this.router.navigateByUrl(window.location.pathname+window.location.search).then((result: any) => {
 
-            },error=>{
-              this.router.navigateByUrl("/404");
-            });
           },error=>{
             console.error(error);
           });
@@ -78,11 +74,7 @@ export class SinovadWebComponent extends ParentComponent implements OnInit,OnDes
         setTimeout(() => {
           this.showRootPage=true;
           this.ref.detectChanges();
-          this.router.navigateByUrl(window.location.pathname).then((result: any) => {
 
-          },error=>{
-            this.router.navigateByUrl("/landing");
-          });
         }, 100);
       }
 
