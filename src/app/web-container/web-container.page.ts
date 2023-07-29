@@ -31,11 +31,11 @@ import { VideoEvent, VideoService } from 'src/services/video.service';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-root-web-admin',
-  templateUrl: './root-web-admin.page.html',
-  styleUrls: ['./root-web-admin.page.scss']
+  selector: 'app-web-container',
+  templateUrl: './web-container.page.html',
+  styleUrls: ['./web-container.page.scss']
 })
-export class RootWebAdminPage extends ParentComponent implements OnInit,OnDestroy {
+export class WebContainerPage extends ParentComponent implements OnInit,OnDestroy {
 
   @Output() toggleVideo= new EventEmitter();
   showVideoPopUp:boolean=false;

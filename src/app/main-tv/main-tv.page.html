@@ -17,7 +17,7 @@
 </div>
 
 <section *ngIf="currentVideo" class="sinovad-container-video">
-  <app-video [ngClass]="{'small':isSmallDevice()}" (fullscreen)="showVideoInFullScreen()" [builderVideo]="currentVideo" (outputCloseVideo)="closeVideo()"></app-video>
+  <app-video (fullscreen)="showVideoInFullScreen()" [builderVideo]="currentVideo" (outputCloseVideo)="closeVideo()"></app-video>
 </section>
 
 <app-splash-screen *ngIf="showSplashScreen"></app-splash-screen>

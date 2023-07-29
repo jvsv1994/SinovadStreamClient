@@ -1,11 +1,11 @@
 
-import { ChangeDetectorRef, Component, ElementRef, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SharedDataService } from 'src/services/shared-data.service';
 import { ParentComponent } from '../parent/parent.component';
 import { HttpClient } from '@angular/common/http';
 import { RestProviderService } from 'src/services/rest-provider.service';
-import { RootWebAdminPage } from '../root-web-admin/root-web-admin.page';
+import { WebContainerPage } from '../web-container/web-container.page';
 @Component({
   selector: 'app-sinovad-web',
   templateUrl: './sinovad-web.component.html',
@@ -13,11 +13,8 @@ import { RootWebAdminPage } from '../root-web-admin/root-web-admin.page';
 })
 export class SinovadWebComponent extends ParentComponent implements OnInit,OnDestroy {
 
-  @Output('togglevideo') togglevideo = new EventEmitter();
-  @Output('instance') instance = new EventEmitter();
   @ViewChild('mainContainer') mainContainer: ElementRef;
   @ViewChild('initialSound', {static: true}) initialSound: ElementRef;
-  intervalAudio:any;
   intervalCheckMediaServers:any;
   showRootPage:boolean=false;
 
@@ -73,14 +70,6 @@ export class SinovadWebComponent extends ParentComponent implements OnInit,OnDes
 
         }, 100);
       }
-
-      /*
-      this.intervalAudio=window.setInterval(function() {
-        if(ctx.initialSound && ctx.initialSound.nativeElement.paused)
-        {
-          ctx.executeAudio();
-        }
-      }, 1);*/
     }
 
     public ngOnDestroy(): void {
@@ -90,79 +79,56 @@ export class SinovadWebComponent extends ParentComponent implements OnInit,OnDes
       }
     }
 
-    public executeAudio(){
-      //this.initialSound.nativeElement.play();
+    ngAfterViewInit(){
+      let ctx=this;
+      let customClickEvent=function onCustomClick(event:any) {
+        if(ctx.sharedData.configurationData.alwaysFullScreen)
+        {
+          ctx.showPageInFullScreen();
+        }
+      }
+      window.addEventListener('click',customClickEvent);
     }
 
-    public onEndedAudio(){
-      //window.clearInterval(this.intervalAudio);
-    }
-
-    public refreshApp(){
-     /*  if(this.homePage)
+    public showPageInFullScreen(){
+      if(!document.fullscreenElement)
       {
-        this.homePage.refresh();
-      } */
-    }
-
-  ngAfterViewInit(){
-    setTimeout(() => {
-      this.instance.emit(this);
-    }, 250);
-    let ctx=this;
-    let customClickEvent=function onCustomClick(event:any) {
-      if(ctx.sharedData.configurationData.alwaysFullScreen)
-      {
-        ctx.showPageInFullScreen();
+        var vidContainer:any =  this.mainContainer.nativeElement;
+        if (vidContainer.requestFullScreen) {
+          vidContainer.requestFullScreen();
+        }else if (vidContainer.webkitRequestFullScreen) {
+          vidContainer.webkitRequestFullScreen();
+        }else{
+          vidContainer.mozRequestFullScreen();
+        }
+        this.mainContainer.nativeElement.click();
+        this.ref.detectChanges();
       }
     }
-    window.addEventListener('click',customClickEvent);
-  }
 
-  public showPageInFullScreen(){
-    if(!document.fullscreenElement)
-    {
-      var vidContainer:any =  this.mainContainer.nativeElement;
-      if (vidContainer.requestFullScreen) {
-        vidContainer.requestFullScreen();
-      }else if (vidContainer.webkitRequestFullScreen) {
-        vidContainer.webkitRequestFullScreen();
-      }else{
-        vidContainer.mozRequestFullScreen();
-      }/* else if(this.videoTarget.nativeElement.webkitRequestFullScreen) {
-        this.videoTarget.nativeElement.webkitRequestFullScreen();
-      } */
-      this.mainContainer.nativeElement.click();
-      this.ref.detectChanges();
-    }
-  }
-
-  public executeToggleVideo(show:boolean){
-    this.togglevideo.emit(show);
-    if(show)
-    {
-      this.showPageInFullScreen();
-    }else{
-      if(!this.sharedData.configurationData.alwaysFullScreen)
+    public executeToggleVideo(show:boolean){
+      if(show)
       {
-        if (document.fullscreenElement) {
-          document.exitFullscreen();
+        this.showPageInFullScreen();
+      }else{
+        if(!this.sharedData.configurationData.alwaysFullScreen)
+        {
+          if (document.fullscreenElement) {
+            document.exitFullscreen();
+          }
         }
       }
     }
-    //this.initialSound.nativeElement.pause();
-    //this.onEndedAudio();
-  }
 
-  public onActivate(event:any)
-  {
-    let ctx=this;
-    if(event instanceof RootWebAdminPage)
+    public onActivate(event:any)
     {
-      event.toggleVideo.subscribe(event => {
-        ctx.executeToggleVideo(event);
-      });
+      let ctx=this;
+      if(event instanceof WebContainerPage)
+      {
+        event.toggleVideo.subscribe(event => {
+          ctx.executeToggleVideo(event);
+        });
+      }
     }
-  }
 
 }

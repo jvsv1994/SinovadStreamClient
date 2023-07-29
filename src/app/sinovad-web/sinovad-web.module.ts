@@ -4,7 +4,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/shared.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { SinovadWebComponent } from './sinovad-web.component';
-import { RootWebAdminPageModule } from '../root-web-admin/root-web-admin.module';
 import { RouterModule, Routes } from '@angular/router';
 import { AccountPage } from '../account/account.page';
 import { RoleListPage } from '../role-list/role-list.page';
@@ -30,6 +29,7 @@ import { MoviesPage } from '../movies/movies.page';
 import { HomePage } from '../home/home.page';
 import { SearchViewRootPage } from '../search-view-root/search-view-root.page';
 import { ServerSettingsGeneralPage } from '../server-settings-general/server-settings-general.page';
+import { WebContainerPageModule } from '../web-container/web-container.module';
 
 const routes: Routes = [
   {
@@ -178,7 +178,7 @@ const routes: Routes = [
         FormsModule,
         SharedModule,
         ReactiveFormsModule,
-        RootWebAdminPageModule,
+        WebContainerPageModule,
         RouterModule.forChild(routes)
     ],
     exports: [SinovadWebComponent]

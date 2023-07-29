@@ -122,7 +122,7 @@
         </ng-template>
       </ng-template>
 
-      <video *ngIf="showVideoTarget" #videoTarget id="video" class="sinovad-custom-video" [ngClass]="{'small':isSmallDevice()}" (error)="onErrorVideo()" (loadedmetadata)="onLoadedMetadata()" (loadeddata)="onLoadedData()" (ended)="OnEndedVideo()">
+      <video *ngIf="showVideoTarget" #videoTarget id="video" class="sinovad-custom-video" (error)="onErrorVideo()" (loadedmetadata)="onLoadedMetadata()" (loadeddata)="onLoadedData()" (ended)="OnEndedVideo()">
       </video>
     </div>
   </div>

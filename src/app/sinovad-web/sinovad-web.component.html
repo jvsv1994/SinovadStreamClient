@@ -1,9 +1,4 @@
 
-<div #mainContainer id="sinovadMainContainer" class="sinovad-main-container" [ngClass]="{'small':isSmallDevice()}">
-  <app-root-web-admin *ngIf="showRootPage" (toggleVideo)="executeToggleVideo($event)"></app-root-web-admin>
+<div #mainContainer id="sinovadMainContainer" class="sinovad-main-container">
+  <app-web-container *ngIf="showRootPage" (toggleVideo)="executeToggleVideo($event)"></app-web-container>
 </div>
-
-<!-- <audio [src]="'sound_1.wav' | formatDataPipe : 'GetSoundUrlByKey'" #initialSound (ended)="onEndedAudio()">
-</audio>
-
- -->

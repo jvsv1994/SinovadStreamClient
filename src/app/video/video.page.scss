@@ -19,9 +19,6 @@ video::cue {
   text-shadow: 2px 2px black;
 }
 
-video.small::cue {
-  font-size: 25px;
-}
 
 .sinovad-loading-video{
   position: absolute;
@@ -457,3 +454,12 @@ video.small::cue {
     font-size: 35px;
   }
 }
+
+//for screens with 2k resolution and up
+@media only screen and (max-width: 767px) {
+  video::cue {
+    font-size: 25px;
+  }
+}
+
+

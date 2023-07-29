@@ -1,7 +1,7 @@
 
 
 
-<div *ngIf="sharedData.apiToken!=undefined && sharedData.userData!=undefined && !sharedData.pageNotFoundShowing" class="sinovad-page-container" [ngClass]="{'small':isSmallDevice()}">
+<div *ngIf="sharedData.apiToken!=undefined && sharedData.userData!=undefined && !sharedData.pageNotFoundShowing" class="sinovad-page-container">
   <div #header>
     <app-header-web-admin (showAdminMode)="showAdminMode()" [showingSidebarAccount]="showingSidebarAccount" [showingSidebarAdminMode]="showingSidebarAdminMode"
     (goHome)="showHome()" (executeSearch)="onSearchMedia($event)" (toggleSidebar)="onClickToggleSidebarButton()"
@@ -35,7 +35,7 @@
 </div>
 
 <section *ngIf="currentVideo" class="sinovad-container-video">
-  <app-video [ngClass]="{'small':isSmallDevice()}" (fullscreen)="showVideoInFullScreen()" [builderVideo]="currentVideo" (outputCloseVideo)="closeVideo()"></app-video>
+  <app-video (fullscreen)="showVideoInFullScreen()" [builderVideo]="currentVideo" (outputCloseVideo)="closeVideo()"></app-video>
 </section>
 
 <app-splash-screen *ngIf="showSplashScreen"></app-splash-screen>
