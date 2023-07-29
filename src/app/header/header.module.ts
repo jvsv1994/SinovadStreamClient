@@ -2,12 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/shared.module';
-import { HeaderWebAdminPage } from './header-web-admin.page';
 import { DropDownUserPageModule } from '../dropdown-user/dropdown-user.module';
 import { RouterModule } from '@angular/router';
+import { HeaderPage } from './header.page';
 @NgModule({
     declarations: [
-      HeaderWebAdminPage
+      HeaderPage
     ],
     imports: [
         CommonModule,
@@ -17,7 +17,7 @@ import { RouterModule } from '@angular/router';
         ReactiveFormsModule,
         RouterModule
     ],
-    exports: [HeaderWebAdminPage]
+    exports: [HeaderPage]
 })
-export class HeaderWebAdminPageModule {
+export class HeaderPageModule {
 }

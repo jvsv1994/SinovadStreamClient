@@ -11,11 +11,11 @@ import { Router } from '@angular/router';
 
 declare var window;
 @Component({
-  selector: 'app-header-web-admin',
-  templateUrl: './header-web-admin.page.html',
-  styleUrls: ['./header-web-admin.page.scss']
+  selector: 'app-header',
+  templateUrl: './header.page.html',
+  styleUrls: ['./header.page.scss']
 })
-export class HeaderWebAdminPage extends ParentComponent implements OnInit {
+export class HeaderPage extends ParentComponent implements OnInit {
 
   @ViewChild('searchTarget') searchTarget: ElementRef;
   customKeyboardEvent:any;
