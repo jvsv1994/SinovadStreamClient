@@ -57,6 +57,7 @@
   </ng-template>
 </ng-template>
 
+<app-custom-spinner [showLoading]="showLoading"></app-custom-spinner>
 <app-profile-edit *ngIf="showForm" [currentTmpProfile]="currentTmpProfile" (close)="onCloseForm()" (closeWithChanges)="onSaveProfile()"></app-profile-edit>
 <app-profile-new *ngIf="showNewPage" [currentTmpProfile]="currentTmpProfile" (close)="onCloseForm()" (closeWithChanges)="onSaveProfile()"></app-profile-new>
 

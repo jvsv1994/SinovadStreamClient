@@ -21,6 +21,7 @@ export class ProfilesViewPage extends ParentComponent implements OnInit {
   enableEditMode:boolean=false;
   showForm:boolean=false;
   currentTmpProfile:Profile;
+  showLoading:boolean=true;
   @Output() showProfiles =new EventEmitter();
   @Output() loadedProfiles =new EventEmitter();
   modalReference:NgbModalRef;
@@ -67,6 +68,7 @@ export class ProfilesViewPage extends ParentComponent implements OnInit {
             this.modalReference.shown.subscribe(event => {
               ctx.showProfiles.emit(true);
               ctx.loadedProfiles.emit(true);
+              ctx.showLoading=false;
             });
           }
           resolve(true);
