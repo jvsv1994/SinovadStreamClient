@@ -5,7 +5,6 @@ import { TranscoderSettingssPage } from './transcode-settings.page';
 import { DirectoryChooserPageModule } from '../directory-chooser/directory-chooser.module';
 import { SharedModule } from 'src/shared.module';
 import { SuccessMessageModalPageModule } from '../success-message-modal/success-message-modal.module';
-import { CustomToastPageModule } from '../custom-toast/custom-toast.module';
 
 @NgModule({
     declarations: [
@@ -17,8 +16,7 @@ import { CustomToastPageModule } from '../custom-toast/custom-toast.module';
         DirectoryChooserPageModule,
         SuccessMessageModalPageModule,
         SharedModule,
-        ReactiveFormsModule,
-        CustomToastPageModule
+        ReactiveFormsModule
     ],
     exports: [TranscoderSettingssPage]
 })

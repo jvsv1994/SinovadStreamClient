@@ -10,6 +10,7 @@ import { SidebarMediaPageModule } from '../sidebar-media/siderbar-media.module';
 import { SidebarAdministratorPageModule } from '../sidebar-administrator/siderbar-administrator.module';
 import { WebContainerPage } from './web-container.page';
 import { HeaderPageModule } from '../header/header.module';
+import { CustomToastPageModule } from '../custom-toast/custom-toast.module';
 @NgModule({
     declarations: [
       WebContainerPage
@@ -25,6 +26,7 @@ import { HeaderPageModule } from '../header/header.module';
       ReactiveFormsModule,
       SharedModule,
       SplashScreenPageModule,
+      CustomToastPageModule,
       RouterModule.forChild([])
     ],
     exports: [WebContainerPage]

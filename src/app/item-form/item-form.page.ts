@@ -12,8 +12,7 @@ import { Genre } from '../../models/genre';
 import { SinovadApiGenericResponse } from '../response/sinovadApiGenericResponse';
 import { TvProgramGenre } from '../../models/tvProgramGenre';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { CustomToastPage } from '../custom-toast/custom-toast.page';
-import { ToastType } from '../custom-toast/toastEnums';
+import { ToastService, ToastType } from 'src/services/toast.service';
 
 @Component({
   selector: 'app-item-form',
@@ -29,12 +28,12 @@ export class ItemFormPage extends ParentComponent implements OnInit {
 
   showChooserDirectory:boolean=false;
   @ViewChild('modalTarget') modalTarget: ElementRef;
-  @ViewChild('customToastPage') customToastPage: CustomToastPage;
   showGenresPopUp:boolean=false;
   listAllGenresPopUp:Genre[];
   itemForm:FormGroup;
 
   constructor(
+    private toastService:ToastService,
     private formBuilder: FormBuilder,
     private modalService: NgbModal,
     public restProvider: RestProviderService,
@@ -125,7 +124,7 @@ export class ItemFormPage extends ParentComponent implements OnInit {
         this.restProvider.executeSinovadApiService(methodType,path,tvProgram).then((response) => {
           this.closeFormWithChanges.emit(true);
         },error=>{
-          this.customToastPage.show({containerId:"sinovadMainContainer",displayTime:2000,message:error,toastType:ToastType.Error});
+          this.toastService.showToast({containerId:"sinovadMainContainer",displayTime:2000,message:error,toastType:ToastType.Error});
           console.error(error);
         });
       }else{

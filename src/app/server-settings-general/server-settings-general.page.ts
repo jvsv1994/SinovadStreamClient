@@ -1,5 +1,5 @@
 
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SharedDataService } from 'src/services/shared-data.service';
 import { ParentComponent } from '../parent/parent.component';
@@ -10,8 +10,7 @@ import { SinovadApiGenericResponse } from '../response/sinovadApiGenericResponse
 import { ActivatedRoute, Router } from '@angular/router';
 import { MediaServer } from 'src/models/mediaServer';
 import { FormBuilder, FormControl } from '@angular/forms';
-import { CustomToastPage } from '../custom-toast/custom-toast.page';
-import { ToastType } from '../custom-toast/toastEnums';
+import { ToastService, ToastType } from 'src/services/toast.service';
 
 declare var window;
 @Component({
@@ -23,10 +22,10 @@ export class ServerSettingsGeneralPage extends ParentComponent implements OnInit
 
   customForm = this.formBuilder.group({});
   mediaServer:MediaServer;
-  @ViewChild('customToastPage') customToastPage: CustomToastPage;
   loading:boolean=false;
 
   constructor(
+    private toastService:ToastService,
     private formBuilder: FormBuilder,
     private router: Router,
     public activeRoute: ActivatedRoute,
@@ -73,7 +72,7 @@ export class ServerSettingsGeneralPage extends ParentComponent implements OnInit
         this.loading=false;
         this.getMediaServers();
         this.getMediaServerData();
-        this.customToastPage.show({containerId:"sinovadMainContainer",displayTime:2000,message:"Se guardaron los cambios satisfactoriamente",toastType:ToastType.Success});
+        this.toastService.showToast({containerId:"sinovadMainContainer",displayTime:2000,message:"Se guardaron los cambios satisfactoriamente",toastType:ToastType.Success});
       },error=>{
         this.loading=false;
         console.error(error);

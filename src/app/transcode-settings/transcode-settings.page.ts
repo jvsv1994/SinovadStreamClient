@@ -1,5 +1,5 @@
 
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SharedDataService } from 'src/services/shared-data.service';
 import { ParentComponent } from '../parent/parent.component';
@@ -10,10 +10,9 @@ import { SinovadApiGenericResponse } from '../response/sinovadApiGenericResponse
 import { TranscoderSettings } from '../../models/transcoderSettings';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MediaServer } from 'src/models/mediaServer';
-import { CustomToastPage } from '../custom-toast/custom-toast.page';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { CatalogDetail } from 'src/models/catalogDetail';
-import { ToastType } from '../custom-toast/toastEnums';
+import { ToastService, ToastType } from 'src/services/toast.service';
 
 declare var window;
 @Component({
@@ -39,9 +38,9 @@ export class TranscoderSettingssPage extends ParentComponent implements OnInit {
   mediaServer:MediaServer;
   loading:boolean=false;
   customForm:FormGroup;
-  @ViewChild('customToastPage') customToastPage: CustomToastPage;
 
   constructor(
+    private toastService:ToastService,
     private formBuilder: FormBuilder,
     private router: Router,
     public activeRoute: ActivatedRoute,
@@ -139,7 +138,7 @@ export class TranscoderSettingssPage extends ParentComponent implements OnInit {
       this.restProvider.executeSinovadApiService(methodType,path,transcoderSettings).then((response) => {
         this.loading=false;
         this.getTranscoderSettingss();
-        this.customToastPage.show({containerId:"sinovadMainContainer",displayTime:2000,message:"Se guardaron los cambios satisfactoriamente",toastType:ToastType.Success});
+        this.toastService.showToast({containerId:"sinovadMainContainer",displayTime:2000,message:"Se guardaron los cambios satisfactoriamente",toastType:ToastType.Success});
       },error=>{
         this.loading=false;
         console.error(error);

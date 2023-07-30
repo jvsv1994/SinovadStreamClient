@@ -4,7 +4,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/shared.module';
 import { ItemFormPage } from './item-form.page';
 import { ItemGenresPageModule } from '../item-genres/item-genres.module';
-import { CustomToastPageModule } from '../custom-toast/custom-toast.module';
 
 @NgModule({
     declarations: [
@@ -15,8 +14,7 @@ import { CustomToastPageModule } from '../custom-toast/custom-toast.module';
         FormsModule,
         SharedModule,
         ReactiveFormsModule,
-        ItemGenresPageModule,
-        CustomToastPageModule
+        ItemGenresPageModule
     ],
     exports: [ItemFormPage]
 })
