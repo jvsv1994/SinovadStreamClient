@@ -56,48 +56,7 @@ export class SideBarTvPage extends ParentComponent implements OnInit {
           iconClass:"fa-solid fa-right-from-bracket"
         }
       ]
-    }/* ,{
-      index:2,
-      order:2,
-      onlyForWebAdmin:true,
-      listOptions:[
-        {
-          index:5,
-          Name:"Almacenamiento",
-          Method:"ShowStorage"
-        },
-        {
-          index:6,
-          Name:"Transcodificación",
-          Method:"ShowTranscoderSettingss"
-        }
-      ]
-    },{
-      index:3,
-      order:3,
-      listOptions:[
-        {
-          index:7,
-          Name:"Mantenimiento Peliculas",
-          Method:"ShowManagementMovies"
-        },
-        {
-          index:8,
-          Name:"Mantenimiento Tv Series",
-          Method:"ShowManagementTvSeries"
-        }
-      ]
-    },{
-      index:4,
-      order:4,
-      listOptions:[
-        {
-          index:9,
-          Name:"Cerrar Sesión",
-          Method:"logOut"
-        }
-      ]
-    } */
+    }
   ]
   selectedMenuOption:SidebarOption;
 
@@ -114,12 +73,6 @@ export class SideBarTvPage extends ParentComponent implements OnInit {
   ngOnInit(): void {
     this.listModules=this.allModules;
     this.showProfilesView=true;
-    /* if(this.sharedData.configurationData.currentHost!=undefined)
-    {
-      this.listModules=this.allModules;
-    }else{
-      this.listModules=this.allModules.filter(m=>!m.onlyForWebAdmin);
-    } */
   }
 
   public onClickAvatarButton(){
