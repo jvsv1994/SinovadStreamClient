@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RegisterUserPage } from './register-user.page';
 import { SharedModule } from 'src/shared.module';
+import { CustomSpinnerPageModule } from '../custom-spinner/custom-spinner.module';
 
 @NgModule({
     declarations: [
@@ -12,7 +13,8 @@ import { SharedModule } from 'src/shared.module';
         CommonModule,
         FormsModule,
         SharedModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        CustomSpinnerPageModule
     ],
     exports: [RegisterUserPage]
 })
