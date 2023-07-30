@@ -67,6 +67,7 @@ export class ProfilesViewTvPage extends ParentComponent implements OnInit {
               ctx.initializeProfilesViewControls();
               ctx.showProfiles.emit(true);
               ctx.loadedProfiles.emit(true);
+              ctx.sharedData.showSplashScreen=false;
             });
           }
           resolve(true);

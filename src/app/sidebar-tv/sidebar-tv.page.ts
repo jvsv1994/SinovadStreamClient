@@ -123,6 +123,7 @@ export class SideBarTvPage extends ParentComponent implements OnInit {
   }
 
   public onClickAvatarButton(){
+    this.sharedData.showSplashScreen=true;
     this.showProfilesView=true;
   }
 

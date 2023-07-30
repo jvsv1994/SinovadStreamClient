@@ -11,7 +11,6 @@ import { SinovadWebComponentModule } from './sinovad-web/sinovad-web.module';
 import { SinovadWebComponent } from './sinovad-web/sinovad-web.component';
 import { SinovadTvComponentModule } from './sinovad-tv/sinovad-tv.module';
 import { SinovadTvComponent } from './sinovad-tv/sinovad-tv.component';
-import { SplashScreenPageModule } from './splash-screen/splash-screen.module';
 
 @NgModule({
   declarations: [
@@ -27,7 +26,7 @@ import { SplashScreenPageModule } from './splash-screen/splash-screen.module';
     SinovadTvComponentModule,
     AppRoutingModule,
   ],
-  bootstrap:[SinovadWebComponent]
+  bootstrap:[SinovadTvComponent]
 })
 export class AppModule {
   constructor(private injector: Injector) {}

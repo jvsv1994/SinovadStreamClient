@@ -243,6 +243,7 @@ export class MainTvPage extends ParentComponent implements OnInit,OnDestroy {
     }
 
     public onActivate(event:any){
+      this.sharedData.showSplashScreen=false;
       let ctx=this;
       if(event instanceof HorizontalItemListPage)
       {
