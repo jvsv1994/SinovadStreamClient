@@ -1,9 +1,9 @@
 
 
-<div class="sinovad-user-dropdown">
+<div *ngIf="!sharedData.showSplashScreen" class="sinovad-user-dropdown">
   <ul class="sinovad-dropdown-list" role="menu">
     <li class="sinovad-avatar-item">
-      <a #button id="avatar_button" class="sinovad-avatar-button principal" (click)="onClickAvatarButton()">
+      <a #button id="avatar_button" class="sinovad-avatar-button principal">
         <ng-template [ngIf]="sharedData.currentProfile">
           <span class="sinovad-fullname-profile text-truncate">
             {{sharedData.currentProfile.FullName}}

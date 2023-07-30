@@ -25,7 +25,6 @@ export class LoginPage extends ParentComponent implements OnInit {
   errorMessage: string;
   showLoading:boolean=false;
   user:User=new User();
-  @Output() showSplashScreen =new EventEmitter();
   loginForm = this.formBuilder.group({
     username: new FormControl("", [Validators.required]),
     password: new FormControl("", [Validators.required])
@@ -72,7 +71,7 @@ export class LoginPage extends ParentComponent implements OnInit {
         let token=response.Data;
         localStorage.setItem('apiToken',token);
         this.sharedData.apiToken=token;
-        this.showSplashScreen.emit(true);
+        this.sharedData.showSplashScreen=true;
         this.getUser().then(res=>{
           this.getMenus();
           this.getMediaServers();

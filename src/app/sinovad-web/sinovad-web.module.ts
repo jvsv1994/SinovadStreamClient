@@ -30,6 +30,7 @@ import { HomePage } from '../home/home.page';
 import { SearchViewRootPage } from '../search-view-root/search-view-root.page';
 import { ServerSettingsGeneralPage } from '../server-settings-general/server-settings-general.page';
 import { WebContainerPageModule } from '../web-container/web-container.module';
+import { SplashScreenPageModule } from '../splash-screen/splash-screen.module';
 
 const routes: Routes = [
   {
@@ -179,6 +180,7 @@ const routes: Routes = [
         SharedModule,
         ReactiveFormsModule,
         WebContainerPageModule,
+        SplashScreenPageModule,
         RouterModule.forChild(routes)
     ],
     exports: [SinovadWebComponent]

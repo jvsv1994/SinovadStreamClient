@@ -4,7 +4,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from 'src/shared.module';
 import { VideoPageModule } from '../video/video.module';
-import { SplashScreenPageModule } from '../splash-screen/splash-screen.module';
 import { SidebarAccountPageModule } from '../sidebar-account/siderbar-account.module';
 import { SidebarMediaPageModule } from '../sidebar-media/siderbar-media.module';
 import { SidebarAdministratorPageModule } from '../sidebar-administrator/siderbar-administrator.module';
@@ -26,7 +25,6 @@ import { CustomSpinnerPageModule } from '../custom-spinner/custom-spinner.module
       SidebarMediaPageModule,
       ReactiveFormsModule,
       SharedModule,
-      SplashScreenPageModule,
       CustomToastPageModule,
       CustomSpinnerPageModule,
       RouterModule.forChild([])

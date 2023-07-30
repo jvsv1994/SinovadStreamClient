@@ -1,5 +1,5 @@
 
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SharedDataService } from 'src/services/shared-data.service';
 import { ParentComponent } from '../parent/parent.component';
@@ -17,11 +17,11 @@ declare var window;
 export class DropDownUserPage extends ParentComponent implements OnInit {
 
   @Output() showAdminMode =new EventEmitter();
-  @Output() showSplashScreen =new EventEmitter();
   @Output() changeProfile =new EventEmitter();
   @Output() logout =new EventEmitter();
 
   constructor(
+    private ref:ChangeDetectorRef,
     private router: Router,
     public restProvider: RestProviderService,
     public http: HttpClient,
@@ -34,17 +34,15 @@ export class DropDownUserPage extends ParentComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  public onClickAvatarButton(){
-
-  }
-
   public onClickChangeProfileButton(){
-    this.showSplashScreen.emit(true);
+    this.sharedData.showSplashScreen=true;
+    this.ref.detectChanges();
     this.router.navigateByUrl('/select-profile')
   }
 
   public onClickEditProfilesButton(){
-    this.showSplashScreen.emit(true);
+    this.sharedData.showSplashScreen=true;
+    this.ref.detectChanges();
     this.router.navigateByUrl('/select-profile')
   }
 

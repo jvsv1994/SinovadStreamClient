@@ -21,7 +21,6 @@ export class ProfilesViewPage extends ParentComponent implements OnInit {
   enableEditMode:boolean=false;
   showForm:boolean=false;
   currentTmpProfile:Profile;
-  @Output() selectProfile =new EventEmitter();
   @Output() showProfiles =new EventEmitter();
   @Output() loadedProfiles =new EventEmitter();
   modalReference:NgbModalRef;
@@ -109,7 +108,8 @@ export class ProfilesViewPage extends ParentComponent implements OnInit {
 
     public enterProfile(profile:any){
       this.modalReference.close();
-      this.selectProfile.emit(profile);
+      this.sharedData.currentProfile=profile;
+      this.router.navigateByUrl("/home");
     }
 
     public onCloseForm(){

@@ -11,6 +11,7 @@ import { SinovadWebComponentModule } from './sinovad-web/sinovad-web.module';
 import { SinovadWebComponent } from './sinovad-web/sinovad-web.component';
 import { SinovadTvComponentModule } from './sinovad-tv/sinovad-tv.module';
 import { SinovadTvComponent } from './sinovad-tv/sinovad-tv.component';
+import { SplashScreenPageModule } from './splash-screen/splash-screen.module';
 
 @NgModule({
   declarations: [

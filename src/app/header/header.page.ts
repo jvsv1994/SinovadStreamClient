@@ -22,7 +22,6 @@ export class HeaderPage extends ParentComponent implements OnInit {
   @Output() goHome =new EventEmitter();
   @Output() toggleSidebar =new EventEmitter();
   @Output() selectOption =new EventEmitter();
-  @Output() showSplashScreen =new EventEmitter();
   @Output() logout =new EventEmitter();
   @Output() executeSearch =new EventEmitter();
   @Output() toggleMenu =new EventEmitter();
@@ -83,7 +82,7 @@ export class HeaderPage extends ParentComponent implements OnInit {
   }
 
   public onClickChangeProfileButton(){
-    this.showSplashScreen.emit(true);
+    this.sharedData.showSplashScreen=true;
   }
 
   public onChangeSearchValue(){

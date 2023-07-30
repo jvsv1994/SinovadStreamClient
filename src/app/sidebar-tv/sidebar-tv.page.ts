@@ -17,7 +17,6 @@ declare var window;
 })
 export class SideBarTvPage extends ParentComponent implements OnInit {
 
-  @Output() showProfiles =new EventEmitter();
   @Output() selectOption=new EventEmitter();
   listModules:any[]=[];
   showProfilesView:boolean=false;

@@ -17,7 +17,7 @@
           <i class="fa-solid fa-magnifying-glass"></i>
         </button>
     </div>
-    <app-dropdown-user (showAdminMode)="showAdminMode.emit($event)" (logout)="logout.emit(true)" (changeProfile)="goHome.emit(true)" (showSplashScreen)="showSplashScreen.emit(true)"></app-dropdown-user>
+    <app-dropdown-user (showAdminMode)="showAdminMode.emit($event)" (logout)="logout.emit(true)" (changeProfile)="goHome.emit(true)"></app-dropdown-user>
   </nav>
   <div *ngIf="isSmallDevice() && showNavbarSearch" class="sinovad-navbar-search">
     <div class="sinovad-bottom-search" [ngClass]="{'focused':isFocusSearch}">

@@ -39,7 +39,6 @@ export class WebContainerPage extends ParentComponent implements OnInit,OnDestro
 
   @Output() toggleVideo= new EventEmitter();
   showVideoPopUp:boolean=false;
-  showSplashScreen:boolean=false;
   hideContent:boolean=false;
   _window=window;
   currentMediaTypeID:number;
@@ -162,7 +161,7 @@ export class WebContainerPage extends ParentComponent implements OnInit,OnDestro
     public onActivate(event:any){
       let ctx=this;
       this.isCollapsedSidebar=true;
-
+      this.sharedData.showSplashScreen=false;
       if(event instanceof SearchViewRootPage)
       {
         this.showingSidebarMedia=true;
@@ -180,19 +179,6 @@ export class WebContainerPage extends ParentComponent implements OnInit,OnDestro
         this.showingSidebarMedia=true;
         this.showingSidebarAccount=false;
         this.showingSidebarAdminMode=false;
-        event.selectProfile.subscribe((profile:Profile) => {
-          ctx.sharedData.currentProfile=profile;
-          ctx.showHome();
-        });
-        event.loadedProfiles.subscribe(event => {
-          ctx.showSplashScreen=false;
-        });
-      }
-      if(event instanceof LoginPage)
-      {
-        event.showSplashScreen.subscribe(event => {
-          ctx.showSplashScreen=true;
-        });
       }
       if(event instanceof AccountPage)
       {

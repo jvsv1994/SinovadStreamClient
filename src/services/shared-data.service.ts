@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { User } from 'src/models/user';
-import { BuilderVideo } from 'src/models/builderVideo';
 import { Configuration } from 'src/models/configuration';
 import { Profile } from 'src/models/profile';
 import { Menu } from 'src/models/menu';
@@ -9,6 +8,7 @@ import { MediaServer } from 'src/models/mediaServer';
 @Injectable({ providedIn: 'root' })
 export class SharedDataService {
 
+  showSplashScreen:boolean=true;
   userData: User;
   //urlSinovadStreamWebApi: string='http://localhost:53363';
   urlSinovadStreamWebApi: string='https://streamapi.sinovad.com';

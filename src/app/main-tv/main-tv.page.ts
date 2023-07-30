@@ -25,7 +25,6 @@ export class MainTvPage extends ParentComponent implements OnInit,OnDestroy {
   @Output() fullScreen= new EventEmitter();
   @Output() toggleVideo= new EventEmitter();
   showVideoPopUp:boolean=false;
-  showSplashScreen:boolean=true;
   itemViewData:ItemDetail;
   hideContent:boolean=false;
   _window=window;

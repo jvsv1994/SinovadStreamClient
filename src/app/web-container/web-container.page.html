@@ -5,7 +5,7 @@
   <div #header>
     <app-header (showAdminMode)="showAdminMode()" [showingSidebarAccount]="showingSidebarAccount" [showingSidebarAdminMode]="showingSidebarAdminMode"
     (goHome)="showHome()" (executeSearch)="onSearchMedia($event)" (toggleSidebar)="onClickToggleSidebarButton()"
-    (showSplashScreen)="showSplashScreen=true" (logout)="logOut()" (showHomeUser)="showHome()"
+    (logout)="logOut()" (showHomeUser)="showHome()"
     (logout)="logOut()"></app-header>
   </div>
   <div class="sinovad-menu-body-container" [style.height]="'calc(100% - '+(header.offsetHeight+footer.offsetHeight)+'px)'">
@@ -37,7 +37,5 @@
 <section *ngIf="currentVideo" class="sinovad-container-video">
   <app-video (fullscreen)="showVideoInFullScreen()" [builderVideo]="currentVideo" (outputCloseVideo)="closeVideo()"></app-video>
 </section>
-
-<app-splash-screen *ngIf="showSplashScreen"></app-splash-screen>
 
 <app-custom-toast></app-custom-toast>

@@ -1,7 +1,9 @@
-<div class="sinovad-splash-screen-container" #container>
-  <div style="text-align: center;">
-    <div class="spinner-grow" role="status">
-      <img [src]="'sinovad-stream-large-logo.png' | formatDataPipe : 'GetImageURLByKey' | async" [style.width]="(container.offsetWidth/3)+'px'">
+<div *ngIf="sharedData.showSplashScreen" class="splash-screen-container">
+  <div class="sinovad-splash-screen-container" #container>
+    <div style="text-align: center;">
+      <div class="spinner-grow" role="status">
+        <img [src]="'sinovad-stream-large-logo.png' | formatDataPipe : 'GetImageURLByKey' | async" [style.width]="(container.offsetWidth/3)+'px'">
+      </div>
     </div>
   </div>
 </div>
