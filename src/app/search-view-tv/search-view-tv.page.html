@@ -1,8 +1,0 @@
-<div #container class="sinovad-search-view-tv-container sinovad-custom-container">
-  <div #keyboardContainer>
-    <app-keyboard-tv (executeSearch)="onExecuteSearchFromKeyboard($event)"></app-keyboard-tv>
-  </div>
-  <div #itemListContainer [style.height]="'calc(100% - '+keyboardContainer.offsetHeight+'px)'">
-    <app-vertical-item-list (showItemView)="showItemView.emit(true)" [executeSearch]="executeSearch"></app-vertical-item-list>
-  </div>
-</div>

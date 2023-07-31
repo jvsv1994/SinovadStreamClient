@@ -9,8 +9,6 @@ import { SharedModule } from 'src/shared.module';
 import { FormsModule } from '@angular/forms';
 import { SinovadWebComponentModule } from './sinovad-web/sinovad-web.module';
 import { SinovadWebComponent } from './sinovad-web/sinovad-web.component';
-import { SinovadTvComponentModule } from './sinovad-tv/sinovad-tv.module';
-import { SinovadTvComponent } from './sinovad-tv/sinovad-tv.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +21,6 @@ import { SinovadTvComponent } from './sinovad-tv/sinovad-tv.component';
     SharedModule,
     HttpClientModule,
     SinovadWebComponentModule,
-    SinovadTvComponentModule,
     AppRoutingModule,
   ],
   bootstrap:[SinovadWebComponent]
@@ -33,8 +30,6 @@ export class AppModule {
   ngDoBootstrap() {
       const sinovadWebComponent = createCustomElement(SinovadWebComponent, { injector: this.injector });
       customElements.define('app-sinovad-web', sinovadWebComponent);
-      const sinovadTvComponent = createCustomElement(SinovadTvComponent, { injector: this.injector });
-      customElements.define('app-sinovad-tv', sinovadTvComponent);
   }
 
 }
