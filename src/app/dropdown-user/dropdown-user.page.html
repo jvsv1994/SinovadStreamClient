@@ -43,9 +43,9 @@
           <span>Cuenta</span>
         </a>
       </li>
-      <li class="sinovad-avatar-item">
+      <li *ngIf="sharedData.listMenus && sharedData.listMenus.length>0" class="sinovad-avatar-item">
         <a (click)="onClickAdminMode()">
-          <span>Modo administrador</span>
+          <span>Mantenimiento</span>
         </a>
       </li>
       <li class="sinovad-avatar-item">
