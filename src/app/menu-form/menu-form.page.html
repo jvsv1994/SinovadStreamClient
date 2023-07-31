@@ -1,52 +1,52 @@
 <ng-template #modalTarget let-modal>
   <ng-template [ngIf]="menu!=undefined">
-    <div class="modal-header">
-      <h5 class="modal-title">{{menu.Id>0?'Editar':'Nuevo'}}</h5>
-      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="modal.dismiss()"></button>
-    </div>
-    <div class="modal-body">
-      <div class="mb-3">
-        <label for="name" class="form-label">Título</label>
-        <textarea id="name" class="form-control" [(ngModel)]="menu.Title"></textarea>
+    <form [formGroup]="menuForm" (ngSubmit)="modal.close()">
+      <div class="modal-header">
+        <h5 class="modal-title">{{menu.Id>0?'Editar':'Nuevo'}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="modal.dismiss()"></button>
       </div>
-      <div class="mb-3">
-        <label for="path" class="form-label">Path</label>
-        <input id="path" class="form-control" type="text" [(ngModel)]="menu.Path"/>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label for="name" class="form-label">Título</label>
+          <textarea id="name" class="form-control" formControlName="title"></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="path" class="form-label">Path</label>
+          <input id="path" class="form-control" type="text" formControlName="path"/>
+        </div>
+        <div class="mb-3">
+          <label for="iconType" class="form-label">Tipo de Ícono</label>
+          <select id="iconType" class="form-select" aria-label="Seleccionar" formControlName="iconType">
+            <ng-template ngFor let-iconType [ngForOf]="listIconTypes">
+              <option [ngValue]="iconType.Id">{{iconType.Name}}</option>
+            </ng-template>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="iconClass" class="form-label">Icon Class</label>
+          <input id="iconClass" class="form-control" type="text" formControlName="iconClass"/>
+        </div>
+        <div class="mb-3">
+          <label for="sortOrder" class="form-label">Número de Orden</label>
+          <input id="sortOrder" class="form-control" type="number" formControlName="sortOrder"/>
+        </div>
+        <div class="mb-3">
+          <label for="typeFormControlId" class="form-label">Padre</label>
+          <select id="typeFormControlId" class="form-select" aria-label="Seleccionar Padre" formControlName="parentId">
+            <ng-template ngFor let-men [ngForOf]="listMenus">
+              <option [ngValue]="men.Id">{{men.Title}}</option>
+            </ng-template>
+          </select>
+        </div>
+        <div class="mb-3 d-inline align-middle">
+          <label for="enabled" class="form-label">Activo</label>
+          <input id="enabled" class="form-check-input ms-2" type="checkbox" formControlName="enabled"/>
+        </div>
       </div>
-      <div class="mb-3">
-        <label for="iconType" class="form-label">Tipo de Ícono</label>
-        <select id="iconType" class="form-select" aria-label="Seleccionar" (change)="onChangeIconType($event)">
-          <ng-template ngFor let-iconType [ngForOf]="listIconTypes">
-            <option *ngIf="iconType.Id==menu.IconTypeCatalogDetailId" selected value="{{iconType.Id}}">{{iconType.Name}}</option>
-            <option *ngIf="iconType.Id!=menu.IconTypeCatalogDetailId" value="{{iconType.Id}}">{{iconType.Name}}</option>
-          </ng-template>
-        </select>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="modal.dismiss()">Close</button>
+        <button type="submit" class="btn btn-primary">Guardar</button>
       </div>
-      <div class="mb-3">
-        <label for="iconClass" class="form-label">Icon Class</label>
-        <input id="iconClass" class="form-control" type="text" [(ngModel)]="menu.IconClass"/>
-      </div>
-      <div class="mb-3">
-        <label for="sortOrder" class="form-label">Número de Orden</label>
-        <input id="sortOrder" class="form-control" type="number" [(ngModel)]="menu.SortOrder"/>
-      </div>
-      <div class="mb-3">
-        <label for="typeFormControlId" class="form-label">Padre</label>
-        <select id="typeFormControlId" class="form-select" aria-label="Seleccionar Padre" (change)="onChangeParent($event)">
-          <ng-template ngFor let-men [ngForOf]="listMenus">
-            <option *ngIf="men.Id!=menu.Id && men.Id==menu.ParentId" selected value="{{men.ParentId}}">{{men.Title}}</option>
-            <option *ngIf="men.Id!=menu.Id && men.Id!=menu.ParentId" value="{{men.ParentId}}">{{men.Title}}</option>
-          </ng-template>
-        </select>
-      </div>
-      <div class="mb-3 d-inline align-middle">
-        <label for="enabled" class="form-label">Activo</label>
-        <input id="enabled" class="form-check-input ms-2" type="checkbox" [(ngModel)]="menu.Enabled"/>
-      </div>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="modal.dismiss()">Close</button>
-      <button type="button" class="btn btn-primary" (click)="modal.close()">Guardar</button>
-    </div>
+    </form>
   </ng-template>
 </ng-template>

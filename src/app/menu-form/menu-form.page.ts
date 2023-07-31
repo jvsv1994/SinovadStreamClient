@@ -10,6 +10,7 @@ import { CatalogEnum, HttpMethodType} from '../enums';
 import { Menu } from 'src/models/menu';
 import { SinovadApiGenericResponse } from '../response/sinovadApiGenericResponse';
 import { CatalogDetail } from 'src/models/catalogDetail';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-menu-form',
@@ -24,8 +25,10 @@ export class MenuFormPage extends ParentComponent implements OnInit {
   @Output() close=new EventEmitter();
   @Output() closeWithChanges=new EventEmitter();
   @ViewChild('modalTarget') modalTarget: ElementRef;
+  menuForm:FormGroup;
 
   constructor(
+    private formBuilder: FormBuilder,
     private modalService: NgbModal,
     public restProvider: RestProviderService,
     public http: HttpClient,
@@ -36,6 +39,15 @@ export class MenuFormPage extends ParentComponent implements OnInit {
     }
 
     ngOnInit(): void {
+      this.menuForm = this.formBuilder.group({
+        title:new FormControl(this.menu.Title),
+        path: new FormControl(this.menu.Path),
+        iconType:new FormControl(this.menu.IconTypeCatalogDetailId),
+        iconClass:new FormControl(this.menu.IconTypeCatalogDetailId),
+        sortOrder:new FormControl(this.menu.SortOrder),
+        parentId:new FormControl(this.menu.ParentId),
+        enabled:new FormControl(this.menu.Enabled)
+      });
       this.getAllMenus();
       this.getIconTypes();
     }
@@ -71,13 +83,26 @@ export class MenuFormPage extends ParentComponent implements OnInit {
     }
 
     public saveItem(){
-      let methodType=this.menu.Id>0?HttpMethodType.PUT:HttpMethodType.POST;
-      let path=this.menu.Id>0?"/menus/Update":"/menus/Create";
-      this.restProvider.executeSinovadApiService(methodType,path,this.menu).then((response: any) => {
-        this.closeWithChanges.emit(true);
-      },error=>{
-        console.error(error);
-      });
+      if(this.menuForm.valid)
+      {
+        var menu:Menu=JSON.parse(JSON.stringify(this.menu));
+        menu.Title=this.menuForm.value.title;
+        menu.Path=this.menuForm.value.path;
+        menu.IconClass=this.menuForm.value.iconClass;
+        menu.SortOrder=this.menuForm.value.sortOrder;
+        menu.IconTypeCatalogDetailId=this.menuForm.value.iconType;
+        menu.ParentId=this.menuForm.value.parentId;
+        menu.Enabled=this.menuForm.value.enabled;
+        let methodType=this.menu.Id>0?HttpMethodType.PUT:HttpMethodType.POST;
+        let path=this.menu.Id>0?"/menus/Update":"/menus/Create";
+        this.restProvider.executeSinovadApiService(methodType,path,menu).then((response: any) => {
+          this.closeWithChanges.emit(true);
+        },error=>{
+          console.error(error);
+        });
+      }else{
+        this.menuForm.markAllAsTouched();
+      }
     }
 
     public onChangeParent(event:any){
