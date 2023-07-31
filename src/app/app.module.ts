@@ -1,7 +1,6 @@
-import { Injector, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
-import { createCustomElement } from '@angular/elements';
 import { ParentComponent } from './parent/parent.component';
 import { BrowserModule} from '@angular/platform-browser';
 import { APP_BASE_HREF } from '@angular/common';
@@ -25,11 +24,4 @@ import { SinovadWebComponent } from './sinovad-web/sinovad-web.component';
   ],
   bootstrap:[SinovadWebComponent]
 })
-export class AppModule {
-  constructor(private injector: Injector) {}
-  ngDoBootstrap() {
-      const sinovadWebComponent = createCustomElement(SinovadWebComponent, { injector: this.injector });
-      customElements.define('app-sinovad-web', sinovadWebComponent);
-  }
-
-}
+export class AppModule {}

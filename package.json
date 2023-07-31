@@ -7,16 +7,13 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e",
-    "build:angular-elements": "ng build --configuration production --output-hashing=none && node angular-elements-build.js",
-    "build:angular-elements-dev": "node --max_old_space_size=4096 ./node_modules/@angular/cli/bin/ng build --configuration=development --output-hashing=none && node --max_old_space_size=4096 angular-elements-build-dev.js"
+    "e2e": "ng e2e"
   },
   "private": true,
   "dependencies": {
     "@angular/common": "13.2.0",
     "@angular/compiler": "13.2.0",
     "@angular/core": "13.2.0",
-    "@angular/elements": "13.2.0",
     "@angular/forms": "13.2.0",
     "@angular/platform-browser": "13.2.0",
     "@angular/platform-browser-dynamic": "13.2.0",
@@ -29,7 +26,6 @@
     "concat": "1.0.3",
     "core-js": "3.31.0",
     "dashjs": "4.5.2",
-    "document-register-element": "1.14.10",
     "fs-extra": "11.1.1",
     "hi-base64": "0.2.1",
     "hls.js": "1.4.8",
