@@ -8,6 +8,7 @@ import { SharedModule } from 'src/shared.module';
 import { FormsModule } from '@angular/forms';
 import { SinovadWebComponentModule } from './sinovad-web/sinovad-web.module';
 import { SinovadWebComponent } from './sinovad-web/sinovad-web.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { SinovadWebComponent } from './sinovad-web/sinovad-web.component';
     HttpClientModule,
     SinovadWebComponentModule,
     AppRoutingModule,
+    BrowserAnimationsModule,
   ],
   bootstrap:[SinovadWebComponent]
 })
