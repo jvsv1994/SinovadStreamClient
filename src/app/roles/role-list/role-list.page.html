@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="row mt-4">
+  <div class="row">
     <h3> Roles</h3>
   </div>
   <div *ngIf="!showLoading">
@@ -65,12 +65,11 @@
                 [pageSizeOptions]="[5, 10, 25, 100]"
                 aria-label="Seleccionar página">
         </mat-paginator>
-        <!--<app-pagination *ngIf="response" [responsePagination]="response" (selectPage)="onSelectPage($event)"></app-pagination>-->
       </div>
     </div>
   </div>
-  <div *ngIf="showLoading">
-    <app-custom-spinner [showLoading]="showLoading"></app-custom-spinner>
-  </div>
 </div>
-<app-context-menu #contextMenuPage></app-context-menu>
+
+<div *ngIf="showLoading">
+  <app-custom-spinner [showLoading]="showLoading"></app-custom-spinner>
+</div>
