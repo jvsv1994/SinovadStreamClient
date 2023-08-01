@@ -7,7 +7,8 @@ import { ContextMenuPageModule } from '../context-menu/context-menu.module';
 import { RoleFormPage } from './role-form/role-form.page';
 import { RoleListPage } from './role-list/role-list.page';
 import { RolesComponent } from './roles.component';
-import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { CustomSpinnerPageModule } from '../custom-spinner/custom-spinner.module';
 
 @NgModule({
     declarations: [
@@ -23,7 +24,8 @@ import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginato
       SharedModule,
       PaginationPageModule,
       ContextMenuPageModule,
-      MatPaginatorModule
+      MatPaginatorModule,
+      CustomSpinnerPageModule
     ],
     exports: [RoleListPage]
 })

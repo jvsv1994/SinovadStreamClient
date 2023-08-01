@@ -1,5 +1,5 @@
 
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SharedDataService } from 'src/services/shared-data.service';
 import { HttpClient} from '@angular/common/http';
@@ -30,6 +30,7 @@ export class RoleListPage extends ParentComponent implements OnInit,OnDestroy {
   lastSelectedItem:Role;
   showContextMenu:boolean=false;
   refreshSubscription$:Subscription;
+  showLoading:boolean=true;
 
   constructor(
     public matPaginatorIntl: MatPaginatorIntl,
@@ -105,6 +106,7 @@ export class RoleListPage extends ParentComponent implements OnInit,OnDestroy {
       this.response=response;
       var data=response.Data;
       this.listItems=data;
+      this.showLoading=false;
     },error=>{
       console.error(error);
     });
