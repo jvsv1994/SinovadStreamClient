@@ -12,6 +12,7 @@ import { ContextMenuOption } from 'src/app/context-menu/contextMenuOption';
 import { Role } from '../shared/role.model';
 import { RoleService } from '../shared/role.service';
 import { Subscription } from 'rxjs';
+import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-role-list',
@@ -22,7 +23,8 @@ export class RoleListPage extends ParentComponent implements OnInit,OnDestroy {
 
   @ViewChild('contextMenuPage') contextMenuPage: ContextMenuPage;
   response:SinovadApiPaginationResponse;
-  pageSize:number=10;
+  itemsPerPage:number=10;
+  currentPage:number=1;
   listItems: Role[];
   listSelectedItems:Role[]=[];
   lastSelectedItem:Role;
@@ -30,6 +32,7 @@ export class RoleListPage extends ParentComponent implements OnInit,OnDestroy {
   refreshSubscription$:Subscription;
 
   constructor(
+    public matPaginatorIntl: MatPaginatorIntl,
     private roleService:RoleService,
     public restProvider: RestProviderService,
     public  ref:ChangeDetectorRef,
@@ -41,9 +44,18 @@ export class RoleListPage extends ParentComponent implements OnInit,OnDestroy {
     }
 
     public ngOnInit(): void {
+      this.matPaginatorIntl.itemsPerPageLabel="Items por página";
+      this.matPaginatorIntl.previousPageLabel="Página anterior";
+      this.matPaginatorIntl.nextPageLabel="Página siguiente";
       this.refreshSubscription$=this.roleService.refreshListEvent.subscribe(event=>{
         this.getAllItems();
       });
+      this.getAllItems();
+    }
+
+    public onChangePaginator(event:PageEvent){
+      this.itemsPerPage=event.pageSize;
+      this.currentPage=event.pageIndex+1;
       this.getAllItems();
     }
 
@@ -79,12 +91,11 @@ export class RoleListPage extends ParentComponent implements OnInit,OnDestroy {
     }
 
     public getAllItems(){
-      var page=1;
-      this.executeGetAllItems(page.toString(),this.pageSize.toString());
+      this.executeGetAllItems(this.currentPage.toString(),this.itemsPerPage.toString());
     }
 
     public onSelectPage(page:string){
-      this.executeGetAllItems(page,this.pageSize.toString());
+      this.executeGetAllItems(page,this.itemsPerPage.toString());
     }
 
   public executeGetAllItems(page:string,take:string){
@@ -230,6 +241,7 @@ export class RoleListPage extends ParentComponent implements OnInit,OnDestroy {
 
     public showNewRol(){
       var role= new Role();
+      role.Enabled=true;
       this.roleService.showModal(role);
     }
 

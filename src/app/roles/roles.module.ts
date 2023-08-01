@@ -7,6 +7,7 @@ import { ContextMenuPageModule } from '../context-menu/context-menu.module';
 import { RoleFormPage } from './role-form/role-form.page';
 import { RoleListPage } from './role-list/role-list.page';
 import { RolesComponent } from './roles.component';
+import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
     declarations: [
@@ -21,7 +22,8 @@ import { RolesComponent } from './roles.component';
       ReactiveFormsModule,
       SharedModule,
       PaginationPageModule,
-      ContextMenuPageModule
+      ContextMenuPageModule,
+      MatPaginatorModule
     ],
     exports: [RoleListPage]
 })

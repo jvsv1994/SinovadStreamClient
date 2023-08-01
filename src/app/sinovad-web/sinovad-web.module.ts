@@ -30,7 +30,6 @@ import { SearchViewRootPage } from '../search-view-root/search-view-root.page';
 import { ServerSettingsGeneralPage } from '../server-settings-general/server-settings-general.page';
 import { WebContainerPageModule } from '../web-container/web-container.module';
 import { SplashScreenPageModule } from '../splash-screen/splash-screen.module';
-import { RoleListPage } from '../roles/role-list/role-list.page';
 import { RolesComponent } from '../roles/roles.component';
 
 const routes: Routes = [

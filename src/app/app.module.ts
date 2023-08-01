@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { SinovadWebComponentModule } from './sinovad-web/sinovad-web.module';
 import { SinovadWebComponent } from './sinovad-web/sinovad-web.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AngularMaterialModule } from '../shared/angular-material.module';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     SinovadWebComponentModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    AngularMaterialModule
   ],
   bootstrap:[SinovadWebComponent]
 })
 export class AppModule {}
+
+

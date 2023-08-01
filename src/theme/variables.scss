@@ -1,0 +1,28 @@
+// Ionic Variables and Theming. For more info, please see:
+// http://ionicframework.com/docs/theming/
+/** Ionic CSS Variables **/
+
+:root {
+  --mat-paginator-container-background-color: #1F212B;
+  --mat-paginator-container-text-color: rgba(255, 255, 255, 0.7);
+  --mat-paginator-enabled-icon-color: rgba(255, 255, 255, 0.7);
+  --mat-paginator-disabled-icon-color: #6e6f76;
+
+  --mat-select-panel-background-color: #1F212B;
+  --mat-select-enabled-trigger-text-color: rgba(255, 255, 255, 0.7);
+  --mat-select-disabled-trigger-text-color: rgba(255, 255, 255, 0.7);
+  --mat-select-placeholder-text-color: rgba(255, 255, 255, 0.7);
+  --mat-select-enabled-arrow-color: rgba(255, 255, 255, 0.7);
+  --mat-select-disabled-arrow-color: rgba(255, 255, 255, 0.7);
+  --mat-select-focused-arrow-color: rgba(255, 255, 255, 0.7);
+  --mat-select-invalid-arrow-color: rgba(244, 67, 54, 0.87);
+  --mat-toolbar-container-background-color: #1F212B;
+  --mat-toolbar-container-text-color: rgba(255, 255, 255, 0.7);
+
+  --mdc-list-list-item-selected-container-color:#1F212B;
+  --mat-option-label-text-color: rgba(255, 255, 255, 0.7);
+  --mat-option-selected-state-label-text-color: rgba(255, 255, 255, 0.7);
+  --mat-option-hover-state-layer-color: #2c2e37;
+  --mat-option-focus-state-layer-color: #2c2e37;
+  --mat-option-selected-state-layer-color: #2c2e37;
+}
