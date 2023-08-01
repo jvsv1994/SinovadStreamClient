@@ -8,15 +8,14 @@ label{
 }
 
 table.rounded-corners {
-  border-radius: 10px;
   border: none;
   overflow: hidden;
  }
 
 
 thead{
-  background-color: #007bff;
-  color: white;
+  background-color: transparent;
+  color: rgba(255, 255, 255, 0.7);
 }
 
 thead tr th{
@@ -24,7 +23,8 @@ thead tr th{
 }
 
 tbody{
-  background-color: white;
+  background-color:transparent;
+  color: rgba(255, 255, 255, 0.7);
 }
 
 tbody tr th{
@@ -33,6 +33,42 @@ tbody tr th{
 
 tbody tr td{
   padding: 0px 8px 0px 8px;
+}
+
+.checkbox-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  button.btn-selected-any-item{
+    height: 18px;
+    width: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border: 1px solid #767676;
+    border-radius: 3px;
+    cursor: pointer;
+    padding: 0px;
+    outline: none;
+  }
+  .horizontal-line{
+    background: #767676;
+    height: 1px;
+    width: 8px;
+  }
+}
+
+input[type='checkbox'] {
+   height: 18px;
+   width: 18px;
+   border: none;
+   outline: none;
+   border-radius: 10px;
+}
+
+tr:hover{
+  background-color: rgba(255, 255, 255, 0.06);
 }
 
 .selected{
@@ -60,18 +96,25 @@ button.action-button{
   padding: 8px 13px 8px 13px;
 }
 
+
+button.toolbar-button.add:hover{
+  color: #fff;
+  background-color: #ffffff26;
+}
+
+
 button.action-button.edit{
-  color: #007bff;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+button.action-button.remove{
+  color: rgba(255, 255, 255, 0.7);
 }
 
 button.action-button:hover{
-  background-color: #d4d4d4;
+  background-color: rgba(255, 255, 255, 0.08);
 }
 
 .container{
   max-width: 500px;
-}
-
-.selected button.action-button.edit:hover{
-  background-color: #85a8d0;
 }

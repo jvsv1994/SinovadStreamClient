@@ -4,15 +4,15 @@
   </div>
   <div class="row mt-4">
     <div class="col-6 d-flex align-items-center">
-      <div class="form-check mb-0">
-        <input id="flexCheckDefault" class="form-check-input" #checkbox type="checkbox" (change)="onChangeSelectAllCheckBox($event)">
-        <label class="form-check-label" for="flexCheckDefault">
-          Todos
-        </label>
-      </div>
+      <button type="button" class="action-button edit" (click)="showNewRol()" title="Agregar">
+        <i class="fa-solid fa-plus"></i>
+      </button>
+      <button type="button" class="action-button remove" [ngClass]="{'disable':listSelectedItems.length==0}" (click)="deleteSelectedItems()" title="Eliminar seleccionados">
+        <i class="fa-solid fa-trash"></i>
+      </button>
     </div>
     <div class="col-6 text-end">
-      <button type="button" class="btn btn-primary" (click)="showNewRol()"><i class="fa-solid fa-circle-plus me-2" aria-hidden="true"></i>Agregar</button>
+
     </div>
   </div>
   <div class="row mt-4">
@@ -20,19 +20,35 @@
       <table class="rounded-corners">
         <thead>
           <tr>
+            <th scope="col" style="width:50px;text-align: center;">
+              <div class="checkbox-container">
+                <button class="btn-selected-any-item" *ngIf="isSelectedAny()" (click)="unselectAll()">
+                  <div class="horizontal-line"></div>
+                </button>
+                <input *ngIf="isSelectedNothing() || isSelectedAll()" type="checkbox" [checked]="isSelectedAll()" (change)="onChangeSelectAllCheckBox($event)">
+              </div>
+            </th>
             <th scope="col" style="width:50px;text-align: center;">N°</th>
             <th scope="col" style="width:100%;text-align: left;">Título</th>
-            <th scope="col" style="width:50px;"></th>
+            <th scope="col" style="width:100px;"></th>
           </tr>
         </thead>
         <tbody>
           <ng-template ngFor let-item [ngForOf]="listItems" let-i="index">
-            <tr [ngClass]="{'selected':listSelectedItems.indexOf(item)!=-1}">
-              <th role="button" style="width:50px;text-align: center;" scope="row" (click)="onClickItem($event,item)" (contextmenu)="onContextMenuItem($event,item)">{{getNewIndex(i,response.PageNumber,pageSize)}}</th>
-              <td role="button" style="width:100%;text-align: left;" (click)="onClickItem($event,item)" (contextmenu)="onContextMenuItem($event,item)">{{item.Name}}</td>
-              <td>
-                <button type="button" class="action-button edit" data-toggle="tooltip" [ngClass]="{'disable':isItemDisableForEdit(item)}" data-placement="bottom" title="Editar" (click)="editItem(item)">
+            <tr>
+              <th style="width:50px;text-align: center;" scope="row">
+                <div class="checkbox-container">
+                  <input type="checkbox" [checked]="isCheckedItem(item)" (click)="onSelectItem($event,item)">
+                </div>
+              </th>
+              <th style="width:50px;text-align: center;" scope="row">{{getNewIndex(i,response.PageNumber,pageSize)}}</th>
+              <td style="width:100%;text-align: left;">{{item.Name}}</td>
+              <td style="width:100px;display: flex;">
+                <button type="button" class="action-button edit" data-toggle="tooltip" data-placement="bottom" title="Editar" (click)="editItem(item)">
                   <i class="fa-solid fa-pen-to-square"></i>
+                </button>
+                <button type="button" class="action-button remove" data-toggle="tooltip" data-placement="bottom" title="Eliminar" (click)="deleteItem(item)">
+                  <i class="fa-solid fa-trash"></i>
                 </button>
               </td>
             </tr>
