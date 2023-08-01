@@ -7,17 +7,32 @@ label{
   color: white;
 }
 
-thead tr th{
-  background-color: transparent;
-  color: white;
-}
+table.rounded-corners {
+  border-radius: 10px;
+  border: none;
+  overflow: hidden;
+ }
+
 
 thead{
   background-color: #007bff;
+  color: white;
 }
 
-tbody, td, tfoot, th, thead, tr{
-  border: none;
+thead tr th{
+  padding: 8px;
+}
+
+tbody{
+  background-color: white;
+}
+
+tbody tr th{
+  padding: 0px 8px 0px 8px;
+}
+
+tbody tr td{
+  padding: 0px 8px 0px 8px;
 }
 
 .selected{

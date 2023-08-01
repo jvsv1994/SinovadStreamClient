@@ -17,11 +17,11 @@
   </div>
   <div class="row mt-4">
     <div class="col-12">
-      <table class="table table-hover">
+      <table class="rounded-corners">
         <thead>
           <tr>
             <th scope="col" style="width:50px;text-align: center;">N°</th>
-            <th scope="col">Título</th>
+            <th scope="col" style="width:100%;text-align: left;">Título</th>
             <th scope="col" style="width:50px;"></th>
           </tr>
         </thead>
@@ -29,7 +29,7 @@
           <ng-template ngFor let-item [ngForOf]="listItems" let-i="index">
             <tr [ngClass]="{'selected':listSelectedItems.indexOf(item)!=-1}">
               <th role="button" style="width:50px;text-align: center;" scope="row" (click)="onClickItem($event,item)" (contextmenu)="onContextMenuItem($event,item)">{{getNewIndex(i,response.PageNumber,pageSize)}}</th>
-              <td role="button" (click)="onClickItem($event,item)" (contextmenu)="onContextMenuItem($event,item)">{{item.Name}}</td>
+              <td role="button" style="width:100%;text-align: left;" (click)="onClickItem($event,item)" (contextmenu)="onContextMenuItem($event,item)">{{item.Name}}</td>
               <td>
                 <button type="button" class="action-button edit" data-toggle="tooltip" [ngClass]="{'disable':isItemDisableForEdit(item)}" data-placement="bottom" title="Editar" (click)="editItem(item)">
                   <i class="fa-solid fa-pen-to-square"></i>
