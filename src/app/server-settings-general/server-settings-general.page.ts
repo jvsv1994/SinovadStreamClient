@@ -9,7 +9,7 @@ import { RestProviderService } from 'src/services/rest-provider.service';
 import { SinovadApiGenericResponse } from '../response/sinovadApiGenericResponse';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MediaServer } from 'src/models/mediaServer';
-import { FormBuilder, FormControl } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ToastService, ToastType } from 'src/services/toast.service';
 
 declare var window;
@@ -20,7 +20,7 @@ declare var window;
 })
 export class ServerSettingsGeneralPage extends ParentComponent implements OnInit {
 
-  customForm = this.formBuilder.group({});
+  customForm:FormGroup;
   mediaServer:MediaServer;
   loading:boolean=false;
 
