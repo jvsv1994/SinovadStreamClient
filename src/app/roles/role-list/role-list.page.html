@@ -12,26 +12,26 @@
       </div>
     </div>
     <div class="col-6 text-end">
-      <button type="button" class="btn btn-primary" (click)="showItemForm()"><i class="fa-solid fa-circle-plus me-2" aria-hidden="true"></i>Agregar</button>
+      <button type="button" class="btn btn-primary" (click)="showNewRol()"><i class="fa-solid fa-circle-plus me-2" aria-hidden="true"></i>Agregar</button>
     </div>
   </div>
   <div class="row mt-4">
     <div class="col-12">
-      <table class="table table-bordered">
+      <table class="table table-hover">
         <thead>
           <tr>
-            <th scope="col">N°</th>
-            <th scope="col">Titulo</th>
-            <th scope="col">Acciones</th>
+            <th scope="col" style="width:50px;text-align: center;">N°</th>
+            <th scope="col">Título</th>
+            <th scope="col" style="width:50px;"></th>
           </tr>
         </thead>
         <tbody>
           <ng-template ngFor let-item [ngForOf]="listItems" let-i="index">
             <tr [ngClass]="{'selected':listSelectedItems.indexOf(item)!=-1}">
-              <th role="button" scope="row" (click)="onClickItem($event,item)" (contextmenu)="onContextMenuItem($event,item)">{{getNewIndex(i,response.PageNumber,pageSize)}}</th>
+              <th role="button" style="width:50px;text-align: center;" scope="row" (click)="onClickItem($event,item)" (contextmenu)="onContextMenuItem($event,item)">{{getNewIndex(i,response.PageNumber,pageSize)}}</th>
               <td role="button" (click)="onClickItem($event,item)" (contextmenu)="onContextMenuItem($event,item)">{{item.Name}}</td>
               <td>
-                <button type="button" class="btn btn-success btn-sm ms-20" data-toggle="tooltip" [ngClass]="{'disable':isItemDisableForEdit(item)}" data-placement="bottom" title="Editar" (click)="editItem(item)">
+                <button type="button" class="action-button edit" data-toggle="tooltip" [ngClass]="{'disable':isItemDisableForEdit(item)}" data-placement="bottom" title="Editar" (click)="editItem(item)">
                   <i class="fa-solid fa-pen-to-square"></i>
                 </button>
               </td>
@@ -47,5 +47,4 @@
     </div>
   </div>
 </div>
-
 <app-context-menu #contextMenuPage></app-context-menu>

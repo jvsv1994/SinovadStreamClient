@@ -1,0 +1,62 @@
+
+h3{
+  color: white;
+}
+
+label{
+  color: white;
+}
+
+thead tr th{
+  background-color: transparent;
+  color: white;
+}
+
+thead{
+  background-color: #007bff;
+}
+
+tbody, td, tfoot, th, thead, tr{
+  border: none;
+}
+
+.selected{
+  background: #b8daff;
+  th{
+    background: #b8daff;
+    color: black;
+  }
+  td{
+    background: #b8daff;
+    color: black;
+  }
+}
+
+.disable{
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+button.action-button{
+  background-color: transparent;
+  border: none;
+  outline: none;
+  border-radius: 25px;
+  padding: 8px 13px 8px 13px;
+}
+
+button.action-button.edit{
+  color: #007bff;
+}
+
+button.action-button:hover{
+  background-color: #d4d4d4;
+}
+
+.container{
+  max-width: 500px;
+}
+
+.selected button.action-button.edit:hover{
+  background-color: #85a8d0;
+}

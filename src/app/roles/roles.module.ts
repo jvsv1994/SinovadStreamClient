@@ -4,11 +4,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/shared.module';
 import { PaginationPageModule } from '../pagination/pagination.module';
 import { ContextMenuPageModule } from '../context-menu/context-menu.module';
-import { RoleListPage } from './role-list.page';
+import { RoleFormPage } from './role-form/role-form.page';
+import { RoleListPage } from './role-list/role-list.page';
+import { RolesComponent } from './roles.component';
 
 @NgModule({
     declarations: [
-      RoleListPage
+      RolesComponent,
+      RoleListPage,
+      RoleFormPage
     ],
     providers:[],
     imports: [
@@ -21,5 +25,5 @@ import { RoleListPage } from './role-list.page';
     ],
     exports: [RoleListPage]
 })
-export class RoleListPageModule {
+export class RolesPageModule {
 }

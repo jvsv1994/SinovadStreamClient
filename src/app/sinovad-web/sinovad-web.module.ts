@@ -6,7 +6,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { SinovadWebComponent } from './sinovad-web.component';
 import { RouterModule, Routes } from '@angular/router';
 import { AccountPage } from '../account/account.page';
-import { RoleListPage } from '../role-list/role-list.page';
 import { UserListPage } from '../user-list/user-list.page';
 import { MenuListPage } from '../menu-list/menu-list.page';
 import { GenreListPage } from '../genre-list/genre-list.page';
@@ -31,6 +30,8 @@ import { SearchViewRootPage } from '../search-view-root/search-view-root.page';
 import { ServerSettingsGeneralPage } from '../server-settings-general/server-settings-general.page';
 import { WebContainerPageModule } from '../web-container/web-container.module';
 import { SplashScreenPageModule } from '../splash-screen/splash-screen.module';
+import { RoleListPage } from '../roles/role-list/role-list.page';
+import { RolesComponent } from '../roles/roles.component';
 
 const routes: Routes = [
   {
@@ -147,8 +148,8 @@ const routes: Routes = [
       },
       {
         path: 'role-list',
-        component: RoleListPage,
-        loadChildren: () => import('../role-list/role-list.module').then(m => m.RoleListPageModule)
+        component: RolesComponent,
+        loadChildren: () => import('../roles/roles.module').then(m => m.RolesPageModule)
       },
       {
         path: 'settings/account',

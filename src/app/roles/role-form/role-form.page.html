@@ -1,0 +1,26 @@
+<ng-template [ngIf]="role!=undefined">
+  <ng-template #modalTarget let-modal>
+      <form [formGroup]="roleForm" (ngSubmit)="modal.close()">
+        <div class="modal-header">
+          <h5 class="modal-title">{{role && role.Id>0?'Editar':'Nuevo'}}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="modal.dismiss()"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="name" class="form-label">Nombre</label>
+            <textarea id="name" class="form-control" formControlName="name"></textarea>
+          </div>
+          <div class="mb-3 d-inline align-middle">
+            <label for="enabled" class="form-label">Activo</label>
+            <input id="enabled" class="form-check-input ms-2" type="checkbox" formControlName="enabled"/>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="modal.dismiss()">Close</button>
+          <button type="submit" class="btn btn-primary">Guardar</button>
+        </div>
+      </form>
+  </ng-template>
+</ng-template>
+
+

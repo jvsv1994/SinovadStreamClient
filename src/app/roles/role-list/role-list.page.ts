@@ -1,22 +1,24 @@
 
-import { ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SharedDataService } from 'src/services/shared-data.service';
-import { ParentComponent } from '../parent/parent.component';
 import { HttpClient} from '@angular/common/http';
 import { RestProviderService } from 'src/services/rest-provider.service';
-import { SinovadApiPaginationResponse } from '../response/sinovadApiPaginationResponse';
-import { HttpMethodType } from '../enums';
-import { ContextMenuOption } from '../context-menu/contextMenuOption';
-import { ContextMenuPage } from '../context-menu/context-menu.page';
-import { Role } from 'src/models/role';
+import { ContextMenuPage } from 'src/app/context-menu/context-menu.page';
+import { SinovadApiPaginationResponse } from 'src/app/response/sinovadApiPaginationResponse';
+import { ParentComponent } from 'src/app/parent/parent.component';
+import { HttpMethodType } from 'src/app/enums';
+import { ContextMenuOption } from 'src/app/context-menu/contextMenuOption';
+import { Role } from '../shared/role.model';
+import { RoleService } from '../shared/role.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-role-list',
   templateUrl: './role-list.page.html',
   styleUrls: ['./role-list.page.scss']
 })
-export class RoleListPage extends ParentComponent implements OnInit {
+export class RoleListPage extends ParentComponent implements OnInit,OnDestroy {
 
   @ViewChild('contextMenuPage') contextMenuPage: ContextMenuPage;
   response:SinovadApiPaginationResponse;
@@ -25,8 +27,10 @@ export class RoleListPage extends ParentComponent implements OnInit {
   listSelectedItems:Role[]=[];
   lastSelectedItem:Role;
   showContextMenu:boolean=false;
+  refreshSubscription$:Subscription;
 
   constructor(
+    private roleService:RoleService,
     public restProvider: RestProviderService,
     public  ref:ChangeDetectorRef,
     public http: HttpClient,
@@ -37,7 +41,14 @@ export class RoleListPage extends ParentComponent implements OnInit {
     }
 
     public ngOnInit(): void {
+      this.refreshSubscription$=this.roleService.refreshListEvent.subscribe(event=>{
+        this.getAllItems();
+      });
       this.getAllItems();
+    }
+
+    public ngOnDestroy(): void {
+      this.refreshSubscription$.unsubscribe();
     }
 
     public getAllItems(){
@@ -119,12 +130,13 @@ export class RoleListPage extends ParentComponent implements OnInit {
       this.lastSelectedItem=item;
     }
 
-    public showItemForm(){
-
+    public showNewRol(){
+      var role= new Role();
+      this.roleService.showModal(role);
     }
 
-    public editItem(item: Role){
-
+    public editItem(role: Role){
+      this.roleService.showModal(role);
     }
 
     public onContextMenuItem(event:any,item:Role)
@@ -133,10 +145,7 @@ export class RoleListPage extends ParentComponent implements OnInit {
       event.stopPropagation();
       this.onClickItem(event,item);
       let listOptions:ContextMenuOption[]=[];
-      /* if(!this.isItemDisableForEdit(item))
-      { */
-        //listOptions.push({text:"Eliminar",key:"delete",imageUrl:this.fdp.transform('remove.png', 'GetImageURLByKey' | async)});
-      //}
+      listOptions.push({text:"Eliminar",key:"delete",iconClass:"fa-solid fa-trash"});
       this.renderContextMenuComponent(event.clientX,event.clientY,listOptions);
     }
 

@@ -8,14 +8,12 @@ import { RestProviderService } from 'src/services/rest-provider.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ItemListPage } from '../item-list/item-list.page';
 import { ManageMediaPage } from '../manage-media/manage-media.page';
-import { Profile } from '../../models/profile';
 import { MoviesPage } from '../movies/movies.page';
 import { TvSeriesPage } from '../tvseries/tvseries.page';
 import { HomePage } from '../home/home.page';
 import { TvSerieDetailPage } from '../tvserie-detail/tvserie-detail.page';
 import { MovieDetailPage } from '../movie-detail/movie-detail.page';
 import { ProfilesViewPage } from '../profiles-view/profiles-view.page';
-import { LoginPage } from '../login/login.page';
 import { TranscoderSettingssPage } from '../transcode-settings/transcode-settings.page';
 import { ServerSettingsGeneralPage } from '../server-settings-general/server-settings-general.page';
 import { AccountPage } from '../account/account.page';
@@ -24,11 +22,12 @@ import { TvSerieListPage } from '../tvserie-list/tvserie-list.page';
 import { MovieListPage } from '../movie-list/movie-list.page';
 import { GenreListPage } from '../genre-list/genre-list.page';
 import { UserListPage } from '../user-list/user-list.page';
-import { RoleListPage } from '../role-list/role-list.page';
 import { SearchViewRootPage } from '../search-view-root/search-view-root.page';
 import { BuilderVideo } from 'src/models/builderVideo';
 import { VideoEvent, VideoService } from 'src/services/video.service';
 import { Subscription } from 'rxjs';
+import { RoleListPage } from '../roles/role-list/role-list.page';
+import { RolesComponent } from '../roles/roles.component';
 
 @Component({
   selector: 'app-web-container',
@@ -216,7 +215,8 @@ export class WebContainerPage extends ParentComponent implements OnInit,OnDestro
         event.title=this.title;
         ctx.ref.detectChanges();
       }
-      if(event instanceof MenuListPage || event instanceof TvSerieListPage || event instanceof MovieListPage || event instanceof GenreListPage || event instanceof UserListPage || event instanceof RoleListPage)
+      if(event instanceof MenuListPage || event instanceof TvSerieListPage || event instanceof MovieListPage
+        || event instanceof GenreListPage || event instanceof UserListPage || event instanceof RolesComponent)
       {
         this.showingSidebarAccount=false;
         this.showingSidebarAdminMode=true;
