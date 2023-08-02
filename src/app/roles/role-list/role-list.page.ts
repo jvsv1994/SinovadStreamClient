@@ -11,7 +11,7 @@ import { RoleService } from '../shared/role.service';
 import { Subscription } from 'rxjs';
 import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { ToastService, ToastType } from 'src/app/shared/services/toast.service';
-import { MatDialog, MatDialogClose, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { CustomConfirmDialogComponent } from 'src/app/shared/components/custom-confirm-dialog/custom-confirm-dialog.component';
 import { ConfirmDeleteMessageBoxOptions } from 'src/app/confirm-delete-message-box/confirmDeleteMessageBoxOptions';
 
@@ -253,7 +253,7 @@ export class RoleListPage extends ParentComponent implements OnInit,OnDestroy {
     public showDeleteConfirmDialog(role:Role): void {
       var config = new MatDialogConfig<ConfirmDeleteMessageBoxOptions>();
       config.data={
-        title:'Eliminar rol',message:'¿Estas seguro que deseas eliminar el rol '+role.Name+'?',accordMessage:"Si, eliminar el rol '"+role.Name+"'"
+        title:'Eliminar rol',message:'¿Esta seguro que desea eliminar el rol '+role.Name+'?',accordMessage:"Si, eliminar el rol '"+role.Name+"'"
       }
       this.dialog.open(CustomConfirmDialogComponent,config).afterClosed().subscribe((confirm: boolean) => {
         if (confirm) {
@@ -274,7 +274,29 @@ export class RoleListPage extends ParentComponent implements OnInit,OnDestroy {
     }
 
     public deleteSelectedItems(){
+      if(this.listSelectedItems && this.listSelectedItems.length>0)
+      {
+        var config = new MatDialogConfig<ConfirmDeleteMessageBoxOptions>();
+        config.data={
+          title:"Eliminar roles",message:'¿Esta seguro que desea eliminar los registros seleccionados?',accordMessage:"Si, eliminar"
+        }
+        this.dialog.open(CustomConfirmDialogComponent,config).afterClosed().subscribe((confirm: boolean) => {
+          if (confirm) {
+            this.executeDeleteSelectedItems();
+          }
+        });
+      }
+    }
 
+    private executeDeleteSelectedItems(){
+      this.showLoading=true;
+      this.roleService.deleteItems(this.listSelectedItems).then(res=>{
+        this.toastService.showToast({message:"Se eliminaron los registros seleccionados satisfactoriamente",toastType:ToastType.Success});
+        this.getAllItems();
+      },(error)=>{
+        this.showLoading=false;
+        this.toastService.showToast({message:error,toastType:ToastType.Error});
+      });
     }
 
 }

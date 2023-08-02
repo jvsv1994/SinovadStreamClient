@@ -51,6 +51,25 @@ export class RoleService {
    });
   }
 
+  public deleteItems(listRoles:Role[]):Promise<SinovadApiGenericResponse>{
+    return new Promise((resolve, reject) => {
+      let listItemIds:number[]=[];
+      for(let i=0;i < listRoles.length;i++)
+      {
+        let item=listRoles[i];
+        listItemIds.push(item.Id);
+      }
+      var listIds=listItemIds.join(",");
+      var path="/roles/DeleteList/"+listIds;
+      this.restProvider.executeSinovadApiService(HttpMethodType.DELETE,path).then((response:SinovadApiGenericResponse) => {
+        resolve(response);
+      },error=>{
+        console.error(error);
+        reject(error);
+      });
+   });
+  }
+
 
 
 }
