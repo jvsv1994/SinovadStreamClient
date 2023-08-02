@@ -9,7 +9,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatTableModule} from '@angular/material/table';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
-
+import {MatSortModule} from '@angular/material/sort';
 @NgModule({
     declarations: [
       RolesComponent,
@@ -25,7 +25,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
       MatPaginatorModule,
       MatTableModule,
       MatInputModule,
-      MatFormFieldModule
+      MatFormFieldModule,
+      MatSortModule
     ],
     exports: [RoleListPage]
 })

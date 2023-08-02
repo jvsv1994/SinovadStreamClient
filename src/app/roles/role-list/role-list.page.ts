@@ -1,5 +1,5 @@
 
-import { ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SharedDataService } from 'src/app/shared/services/shared-data.service';
 import { HttpClient} from '@angular/common/http';
@@ -8,25 +8,28 @@ import { SinovadApiPaginationResponse } from 'src/app/response/sinovadApiPaginat
 import { Role } from '../shared/role.model';
 import { RoleService } from '../shared/role.service';
 import { Subscription } from 'rxjs';
-import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { ToastService, ToastType } from 'src/app/shared/services/toast.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ConfirmDialogOptions, CustomConfirmDialogComponent } from 'src/app/shared/components/custom-confirm-dialog/custom-confirm-dialog.component';
 import { CustomListGeneric } from 'src/app/shared/generics/custom-list.generic';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-role-list',
   templateUrl: './role-list.page.html',
   styleUrls: ['./role-list.page.scss']
 })
-export class RoleListPage extends CustomListGeneric<Role>  implements OnInit,OnDestroy {
+export class RoleListPage extends CustomListGeneric<Role>  implements OnInit,OnDestroy,AfterViewInit {
 
   showContextMenu:boolean=false;
   refreshSubscription$:Subscription;
   showLoading:boolean=true;
   displayedColumns: string[] = ['Select','Id', 'Name','Actions'];
-  dataSource=new MatTableDataSource();
+  dataSource=new MatTableDataSource<Role>;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(
     private dialog: MatDialog,
@@ -46,6 +49,9 @@ export class RoleListPage extends CustomListGeneric<Role>  implements OnInit,OnD
         this.getAllItems();
       });
       this.getAllItems();
+    }
+
+    ngAfterViewInit() {
     }
 
     public applyFilter(event: Event) {
@@ -85,6 +91,9 @@ export class RoleListPage extends CustomListGeneric<Role>  implements OnInit,OnD
         this.dataSource = new MatTableDataSource(this.listItems);
         this.listSelectedItems=[];
         this.showLoading=false;
+        this.ref.detectChanges();
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
       },error=>{
         this.showLoading=false;
       });
