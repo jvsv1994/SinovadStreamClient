@@ -21,7 +21,7 @@
           <div mat-dialog-actions class="modal-footer">
             <div class="modal-footer-button-bar">
                 <button class="confirm-modal-button cancel" (click)="closeDialog()">Cancelar</button>
-                <button class="confirm-modal-button confirm" (click)="confirmDialog()">
+                <button class="confirm-modal-button confirm" [ngClass]="{'disabled':!checkBox.checked}" (click)="confirmDialog()">
                   <span class="spinner-button-label">Eliminar</span>
                 </button>
             </div>
