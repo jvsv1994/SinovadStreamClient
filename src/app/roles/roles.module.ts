@@ -10,6 +10,8 @@ import {MatTableModule} from '@angular/material/table';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSortModule} from '@angular/material/sort';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+
 @NgModule({
     declarations: [
       RolesComponent,
@@ -26,7 +28,8 @@ import {MatSortModule} from '@angular/material/sort';
       MatTableModule,
       MatInputModule,
       MatFormFieldModule,
-      MatSortModule
+      MatSortModule,
+      MatCheckboxModule
     ],
     exports: [RoleListPage]
 })

@@ -84,7 +84,49 @@ $app-theme: mat.define-light-theme((
   border-color: rgba(255, 255, 255, 0.7) !important;
 }
 
-//Custom styles
+.mat-mdc-form-field-error{
+  font-size: 12px;
+}
+
+.mat-mdc-checkbox .mdc-form-field{
+  color: rgba(255, 255, 255, 0.7);
+}
+
+//override bootstrap styles
+
+.modal-header{
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.modal-body{
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.form-label{
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+//Custom styles for modal
+
+.modal-header .modal-close-button{
+  background-color: transparent;
+  border: none;
+  font-size: 23px;
+  border-radius: 25px;
+  padding: 4px 12px 4px 12px;
+}
+
+.modal-header .modal-close-button:hover{
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.modal-header .modal-close-button i{
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.form-field-full-width{
+  width: 100%;
+}
 
 .sinovad-back-button-container{
   margin-top: 10px;

@@ -1,18 +1,24 @@
 <ng-template [ngIf]="role!=undefined">
   <ng-template #modalTarget let-modal>
-      <form [formGroup]="roleForm" (ngSubmit)="saveItem()">
+      <form [formGroup]="roleFormGroup" (ngSubmit)="saveItem()" autocomplete="off">
         <div class="modal-header">
           <h5 class="modal-title">{{role && role.Id>0?'Editar':'Nuevo'}}</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+          <button class="modal-close-button" type="button" (click)="closeModal()">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
         </div>
         <div class="modal-body">
           <div class="mb-3">
-            <label for="name" class="form-label">Nombre</label>
-            <textarea id="name" class="form-control" formControlName="name"></textarea>
+            <mat-form-field class="form-field-full-width">
+              <mat-label>Nombre</mat-label>
+              <input id="name" matInput formControlName="name" [errorStateMatcher]="matcher"/>
+              <mat-error *ngIf="roleFormGroup.controls['name'].hasError('required')">
+                Nombre es <strong>requerido</strong>
+              </mat-error>
+            </mat-form-field>
           </div>
-          <div class="mb-3 d-inline align-middle">
-            <label for="enabled">Activo</label>
-            <input id="enabled" class="form-check-input ms-2" type="checkbox" formControlName="enabled"/>
+          <div class="mb-3">
+            <mat-checkbox formControlName="enabled">Activo</mat-checkbox>
           </div>
         </div>
         <div class="modal-footer">

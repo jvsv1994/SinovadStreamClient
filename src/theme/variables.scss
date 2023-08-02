@@ -3,6 +3,8 @@
 /** Ionic CSS Variables **/
 
 :root {
+
+    //override angular material variable values
   --mat-paginator-container-background-color: #1F212B;
   --mat-paginator-container-text-color: rgba(255, 255, 255, 0.7);
   --mat-paginator-enabled-icon-color: rgba(255, 255, 255, 0.7);
@@ -25,4 +27,27 @@
   --mat-option-hover-state-layer-color: #2c2e37;
   --mat-option-focus-state-layer-color: #2c2e37;
   --mat-option-selected-state-layer-color: #2c2e37;
+
+  //override bootstrap variable values
+
+  --bs-body-bg: #1F212B !important;
+  --bs-heading-color: rgba(255, 255, 255, 0.7) !important;
+  --bs-btn-close-color: rgba(255, 255, 255, 0.7) !important;
+
+  --mdc-checkbox-selected-focus-icon-color: #0d6efd;
+  --mdc-checkbox-selected-hover-icon-color: #0d6efd;
+  --mdc-checkbox-selected-icon-color: #0d6efd;
+  --mdc-checkbox-selected-pressed-icon-color: #0d6efd;
+  --mdc-checkbox-selected-focus-state-layer-color: #0d6efd;
+  --mdc-checkbox-selected-hover-state-layer-color: #0d6efd;
+  --mdc-checkbox-selected-pressed-state-layer-color: #0d6efd;
+
+  --mdc-checkbox-unselected-icon-color: rgba(255, 255, 255, 0.7) !important;
+  --mdc-checkbox-unselected-pressed-icon-color: rgba(255, 255, 255, 0.7) !important;
+  --mdc-checkbox-unselected-focus-icon-color: rgba(255, 255, 255, 0.7) !important;
+  --mdc-checkbox-unselected-hover-icon-color: rgba(255, 255, 255, 0.7) !important;
+  --mdc-checkbox-unselected-focus-state-layer-color: rgba(255, 255, 255, 0.7) !important;
+  --mdc-checkbox-unselected-hover-state-layer-color: rgba(255, 255, 255, 0.7) !important;
+  --mdc-checkbox-unselected-pressed-state-layer-color:rgba(255, 255, 255, 0.7) !important;
+
 }

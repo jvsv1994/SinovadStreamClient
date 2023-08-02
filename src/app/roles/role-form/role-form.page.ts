@@ -5,12 +5,21 @@ import { SharedDataService } from 'src/app/shared/services/shared-data.service';
 import { HttpClient} from '@angular/common/http';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ToastService, ToastType } from 'src/app/shared/services/toast.service';
 import { ParentComponent } from 'src/app/parent/parent.component';
 import { Role } from '../shared/role.model';
 import { RoleService } from '../shared/role.service';
 import { Subscription } from 'rxjs';
+import { ErrorStateMatcher } from '@angular/material/core';
+
+/** Error when invalid control is dirty, touched, or submitted. */
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    const isSubmitted = form && form.submitted;
+    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  }
+}
 
 @Component({
   selector: 'app-role-form',
@@ -21,10 +30,11 @@ export class RoleFormPage extends ParentComponent implements OnInit,OnDestroy {
 
   role:Role;
   @ViewChild('modalTarget') modalTarget: ElementRef;
-  roleForm:FormGroup;
+  roleFormGroup:FormGroup;
   showModalSubscription$:Subscription;
   modalRef:NgbModalRef;
   showLoading:boolean=false;
+  matcher = new MyErrorStateMatcher();
 
   constructor(
     private ref:ChangeDetectorRef,
@@ -51,8 +61,8 @@ export class RoleFormPage extends ParentComponent implements OnInit,OnDestroy {
 
     private displayModalRol(role:Role){
       this.role=role;
-      this.roleForm = this.formBuilder.group({
-        name: new FormControl(this.role.Name),
+      this.roleFormGroup = this.formBuilder.group({
+        name: new FormControl(this.role.Name, [Validators.required]),
         enabled:new FormControl(this.role.Enabled)
       });
       this.ref.detectChanges();
@@ -62,12 +72,12 @@ export class RoleFormPage extends ParentComponent implements OnInit,OnDestroy {
     }
 
     public saveItem(){
-      if(this.roleForm.valid)
+      if(this.roleFormGroup.valid)
       {
         this.showLoading=true;
         var role:Role=JSON.parse(JSON.stringify(this.role));
-        role.Name=this.roleForm.value.name;
-        role.Enabled=this.roleForm.value.enabled;
+        role.Name=this.roleFormGroup.value.name;
+        role.Enabled=this.roleFormGroup.value.enabled;
         this.roleService.saveItem(role).then((response) => {
           this.showLoading=false;
           this.role=undefined;
@@ -78,7 +88,7 @@ export class RoleFormPage extends ParentComponent implements OnInit,OnDestroy {
           this.toastService.showToast({message:error,toastType:ToastType.Error});
         });
       }else{
-        this.roleForm.markAllAsTouched();
+        this.roleFormGroup.markAllAsTouched();
       }
     }
 
