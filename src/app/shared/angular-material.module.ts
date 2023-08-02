@@ -3,16 +3,18 @@ import { CommonModule } from '@angular/common';
 
 // Angular Material
 import {MatPaginatorModule } from '@angular/material/paginator';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [],
   providers:[],
   imports: [
     CommonModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatDialogModule
   ],
   exports: [
-    MatPaginatorModule
+    MatPaginatorModule,MatDialogModule
   ]
 })
 export class AngularMaterialModule { }
