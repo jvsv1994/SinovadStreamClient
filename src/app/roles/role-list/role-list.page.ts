@@ -1,18 +1,16 @@
 
-import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SharedDataService } from 'src/services/shared-data.service';
 import { HttpClient} from '@angular/common/http';
 import { RestProviderService } from 'src/services/rest-provider.service';
-import { ContextMenuPage } from 'src/app/context-menu/context-menu.page';
 import { SinovadApiPaginationResponse } from 'src/app/response/sinovadApiPaginationResponse';
 import { ParentComponent } from 'src/app/parent/parent.component';
-import { HttpMethodType } from 'src/app/enums';
-import { ContextMenuOption } from 'src/app/context-menu/contextMenuOption';
 import { Role } from '../shared/role.model';
 import { RoleService } from '../shared/role.service';
 import { Subscription } from 'rxjs';
 import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
+import { ToastService, ToastType } from 'src/services/toast.service';
 
 @Component({
   selector: 'app-role-list',
@@ -21,8 +19,7 @@ import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 })
 export class RoleListPage extends ParentComponent implements OnInit,OnDestroy {
 
-  @ViewChild('contextMenuPage') contextMenuPage: ContextMenuPage;
-  response:SinovadApiPaginationResponse;
+  totalCount:number;
   itemsPerPage:number=10;
   currentPage:number=1;
   listItems: Role[];
@@ -33,6 +30,7 @@ export class RoleListPage extends ParentComponent implements OnInit,OnDestroy {
   showLoading:boolean=true;
 
   constructor(
+    public toastService:ToastService,
     public matPaginatorIntl: MatPaginatorIntl,
     private roleService:RoleService,
     public restProvider: RestProviderService,
@@ -90,28 +88,6 @@ export class RoleListPage extends ParentComponent implements OnInit,OnDestroy {
         return false;
       }
     }
-
-    public getAllItems(){
-      this.executeGetAllItems(this.currentPage.toString(),this.itemsPerPage.toString());
-    }
-
-    public onSelectPage(page:string){
-      this.executeGetAllItems(page,this.itemsPerPage.toString());
-    }
-
-  public executeGetAllItems(page:string,take:string){
-    var queryParams="?page="+page+"&take="+take;
-    var path="/roles/GetAllWithPaginationAsync"+queryParams;
-    this.restProvider.executeSinovadApiService(HttpMethodType.GET,path).then((response:SinovadApiPaginationResponse) => {
-      this.response=response;
-      var data=response.Data;
-      this.listItems=data;
-      this.showLoading=false;
-    },error=>{
-      console.error(error);
-    });
-  }
-
 
     public onChangeSelectAllCheckBox(event:any){
       if(event.target.checked)
@@ -251,38 +227,32 @@ export class RoleListPage extends ParentComponent implements OnInit,OnDestroy {
       this.roleService.showModal(role);
     }
 
-    public deleteItem(role:Role){
+    public getAllItems(){
+      this.showLoading=true;
+      this.roleService.getItems(this.currentPage,this.itemsPerPage).then((response:SinovadApiPaginationResponse) => {
+        var data=response.Data;
+        this.totalCount=response.TotalCount;
+        this.listItems=data;
+        this.listSelectedItems=[];
+        this.showLoading=false;
+      },error=>{
+        this.showLoading=false;
+      });
+    }
 
+    public deleteItem(role:Role){
+      this.showLoading=true;
+      this.roleService.deleteItem(role.Id).then(res=>{
+        this.toastService.showToast({message:"Se elimino el registro satisfactoriamente",toastType:ToastType.Success});
+        this.getAllItems();
+      },(error)=>{
+        this.showLoading=false;
+        this.toastService.showToast({message:error,toastType:ToastType.Error});
+      });
     }
 
     public deleteSelectedItems(){
 
     }
 
-    public onContextMenuItem(event:any,item:Role)
-    {
-      event.preventDefault();
-      event.stopPropagation();
-      this.onClickItem(event,item);
-      let listOptions:ContextMenuOption[]=[];
-      listOptions.push({text:"Eliminar",key:"delete",iconClass:"fa-solid fa-trash"});
-      this.renderContextMenuComponent(event.clientX,event.clientY,listOptions);
-    }
-
-    public onClickContextMenuOption(option:ContextMenuOption){
-      if(option.key=="delete")
-      {
-        console.log(option);
-      }
-    }
-
-    private renderContextMenuComponent(left:number,top:number,listOptions:ContextMenuOption[]) {
-      this.contextMenuPage.show("sinovadMainContainer",left,top,listOptions).then((option:ContextMenuOption) => {
-        this.onClickContextMenuOption(option);
-      });
-    }
-
-    public isItemDisableForEdit(item:Role){
-        return false;
-    }
 }

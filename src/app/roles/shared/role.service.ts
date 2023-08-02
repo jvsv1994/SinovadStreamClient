@@ -1,5 +1,9 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { Role } from './role.model';
+import { RestProviderService } from 'src/services/rest-provider.service';
+import { HttpMethodType } from 'src/app/enums';
+import { SinovadApiPaginationResponse } from 'src/app/response/sinovadApiPaginationResponse';
+import { SinovadApiGenericResponse } from 'src/app/response/sinovadApiGenericResponse';
 
 export declare type EventHandler = (...args: any[]) => any;
 
@@ -10,6 +14,7 @@ export class RoleService {
   refreshListEvent=new EventEmitter<boolean>();
 
   constructor(
+    private restProvider: RestProviderService,
   ) {
   }
 
@@ -20,6 +25,32 @@ export class RoleService {
   public refreshList(){
     this.refreshListEvent.emit(true);
   }
+
+  public getItems(pageNumber:number,itemsPerPage:number):Promise<SinovadApiPaginationResponse>{
+    return new Promise((resolve, reject) => {
+      var queryParams="?page="+pageNumber.toString()+"&take="+itemsPerPage.toString();
+      var path="/roles/GetAllWithPaginationAsync"+queryParams;
+      this.restProvider.executeSinovadApiService(HttpMethodType.GET,path).then((response:SinovadApiPaginationResponse) => {
+        resolve(response);
+      },error=>{
+        console.error(error);
+        reject(error);
+      });
+   });
+  }
+
+  public deleteItem(itemId:number):Promise<SinovadApiGenericResponse>{
+    return new Promise((resolve, reject) => {
+      var path="/roles/Delete/"+itemId;
+      this.restProvider.executeSinovadApiService(HttpMethodType.DELETE,path).then((response:SinovadApiGenericResponse) => {
+        resolve(response);
+      },error=>{
+        console.error(error);
+        reject(error);
+      });
+   });
+  }
+
 
 
 }

@@ -58,9 +58,10 @@
         </table>
       </div>
     </div>
-    <div *ngIf="response" class="row">
+    <div class="row">
       <div class="col-12">
-        <mat-paginator (page)="onChangePaginator($event)" [color]="'primary'" [length]="response.TotalCount"
+        <mat-paginator (page)="onChangePaginator($event)" [color]="'primary'" [length]="totalCount"
+                [pageIndex]="currentPage-1"
                 [pageSize]="itemsPerPage"
                 [pageSizeOptions]="[5, 10, 25, 100]"
                 aria-label="Seleccionar página">

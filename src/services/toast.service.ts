@@ -13,7 +13,7 @@ export enum ToastType
 export class ToastOptions{
   containerId?:string;
   message:string;
-  toastType?:ToastType;
+  toastType:ToastType;
   displayTime?:number;
 }
 

@@ -43,6 +43,14 @@ export class CustomToastPage implements OnInit,OnDestroy {
 
     private show(toastOptions:ToastOptions){
       this.toastOptions=toastOptions;
+      if(toastOptions.containerId==undefined)
+      {
+        toastOptions.containerId="sinovadMainContainer";
+      }
+      if(toastOptions.displayTime==undefined)
+      {
+        toastOptions.displayTime=2000;
+      }
       this.container=document.getElementById(toastOptions.containerId);
       var embeddedViewRef=this.viewContainerRef.createEmbeddedView(this.toastContent);
       this.renderedHtml=embeddedViewRef.rootNodes[0] as HTMLElement;
