@@ -15,8 +15,7 @@ import { CustomActionsMenuPage } from '../custom-actions-menu/custom-actions-men
 import { CustomActionsMenuItem } from '../custom-actions-menu/customActionsMenuItem';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ToastService, ToastType } from '../shared/services/toast.service';
-import { ConfirmDeleteMessageBoxOptions } from '../shared/components/custom-confirm-dialog/confirmDeleteMessageBoxOptions';
-import { CustomConfirmDialogComponent } from '../shared/components/custom-confirm-dialog/custom-confirm-dialog.component';
+import { ConfirmDialogOptions, CustomConfirmDialogComponent } from '../shared/components/custom-confirm-dialog/custom-confirm-dialog.component';
 
 declare var window;
 @Component({
@@ -144,7 +143,7 @@ export class ManageMediaPage extends ParentComponent implements OnInit,OnDestroy
     }
 
     public deleteStorage(storage:Storage){
-      var config = new MatDialogConfig<ConfirmDeleteMessageBoxOptions>();
+      var config = new MatDialogConfig<ConfirmDialogOptions>();
       config.data={
         title:"Eliminar biblioteca",message:"La biblioteca '"+storage.Name+"' será eliminada de este servidor. Tus archivos multimedia no se verán afectados. Esto no se puede deshacer. ¿Continuar?",
         accordMessage:"Si, eliminar la biblioteca '"+storage.Name+"'"

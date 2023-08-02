@@ -12,8 +12,7 @@ import { Subscription } from 'rxjs';
 import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { ToastService, ToastType } from 'src/app/shared/services/toast.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { CustomConfirmDialogComponent } from 'src/app/shared/components/custom-confirm-dialog/custom-confirm-dialog.component';
-import { ConfirmDeleteMessageBoxOptions } from 'src/app/shared/components/custom-confirm-dialog/confirmDeleteMessageBoxOptions';
+import { ConfirmDialogOptions, CustomConfirmDialogComponent } from 'src/app/shared/components/custom-confirm-dialog/custom-confirm-dialog.component';
 
 @Component({
   selector: 'app-role-list',
@@ -251,7 +250,7 @@ export class RoleListPage extends ParentComponent implements OnInit,OnDestroy {
     }
 
     public showDeleteConfirmDialog(role:Role): void {
-      var config = new MatDialogConfig<ConfirmDeleteMessageBoxOptions>();
+      var config = new MatDialogConfig<ConfirmDialogOptions>();
       config.data={
         title:'Eliminar rol',message:'¿Esta seguro que desea eliminar el rol '+role.Name+'?',accordMessage:"Si, eliminar el rol '"+role.Name+"'"
       }
@@ -276,7 +275,7 @@ export class RoleListPage extends ParentComponent implements OnInit,OnDestroy {
     public deleteSelectedItems(){
       if(this.listSelectedItems && this.listSelectedItems.length>0)
       {
-        var config = new MatDialogConfig<ConfirmDeleteMessageBoxOptions>();
+        var config = new MatDialogConfig<ConfirmDialogOptions>();
         config.data={
           title:"Eliminar roles",message:'¿Esta seguro que desea eliminar los registros seleccionados?',accordMessage:"Si, eliminar"
         }
