@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SharedModule } from 'src/shared.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { SinovadWebComponent } from './sinovad-web.component';
 import { RouterModule, Routes } from '@angular/router';
@@ -31,6 +30,7 @@ import { ServerSettingsGeneralPage } from '../server-settings-general/server-set
 import { WebContainerPageModule } from '../web-container/web-container.module';
 import { SplashScreenPageModule } from '../splash-screen/splash-screen.module';
 import { RolesComponent } from '../roles/roles.component';
+import { SharedModule } from '../shared/shared.module';
 
 const routes: Routes = [
   {

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ItemViewPage } from './item-view.page';
-import { SharedModule } from 'src/shared.module';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
     declarations: [

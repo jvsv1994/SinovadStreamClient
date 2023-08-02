@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { SharedDataService } from '../services/shared-data.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { SharedDataService } from 'src/services/shared-data.service';
 @Pipe({
     name: 'formatDataPipe'
 })

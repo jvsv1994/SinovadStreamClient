@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SharedModule } from 'src/shared.module';
+import { SharedModule } from '../shared/shared.module';
 import { SearchViewRootPage } from './search-view-root.page';
 import { SearchViewWebAdminPageModule } from '../search-view-web-admin/search-view-web-admin.module';
 

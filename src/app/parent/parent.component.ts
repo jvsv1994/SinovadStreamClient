@@ -10,8 +10,8 @@ import { Episode } from '../../models/episode';
 import {v4 as uuid} from "uuid";
 import { TranscodePrepareVideo } from '../../models/transcodePrepareVideo';
 import { SinovadApiGenericResponse } from '../response/sinovadApiGenericResponse';
-import { FormatDataPipe } from 'src/pipes/format-data.pipe';
 import { FormGroup } from '@angular/forms';
+import { FormatDataPipe } from '../shared/pipes/format-data.pipe';
 
 @Component({
   selector: 'app-parent',

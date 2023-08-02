@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SeasonListPage } from './season-list.page';
-import { SharedModule } from 'src/shared.module';
+import { SharedModule } from '../shared/shared.module';
 import { PaginationPageModule } from '../pagination/pagination.module';
 import { SeasonFormPageModule } from '../season-form/season-form.module';
 import { EpisodeListModalPageModule } from '../episode-list-modal/episode-list-modal.module';

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SharedModule } from 'src/shared.module';
+import { SharedModule } from '../shared/shared.module';
 import { RoleFormPage } from './role-form/role-form.page';
 import { RoleListPage } from './role-list/role-list.page';
 import { RolesComponent } from './roles.component';

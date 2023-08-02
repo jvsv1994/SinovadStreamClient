@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { SharedModule } from 'src/shared.module';
+import { SharedModule } from '../shared/shared.module';
 import { VideoPageModule } from '../video/video.module';
 import { SidebarAccountPageModule } from '../sidebar-account/siderbar-account.module';
 import { SidebarMediaPageModule } from '../sidebar-media/siderbar-media.module';

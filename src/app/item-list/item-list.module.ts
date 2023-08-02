@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ItemListPage } from './item-list.page';
 import { SeasonListPageModule } from '../season-list/season-list.module';
-import { SharedModule } from 'src/shared.module';
+import { SharedModule } from '../shared/shared.module';
 import { PaginationPageModule} from '../pagination/pagination.module';
 import { ItemFormPageModule } from '../item-form/item-form.module';
 import { SeasonListModalPageModule } from '../season-list-modal/season-list-modal.module';

@@ -4,12 +4,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { ParentComponent } from './parent/parent.component';
 import { BrowserModule} from '@angular/platform-browser';
 import { APP_BASE_HREF } from '@angular/common';
-import { SharedModule } from 'src/shared.module';
 import { FormsModule } from '@angular/forms';
 import { SinovadWebComponentModule } from './sinovad-web/sinovad-web.module';
 import { SinovadWebComponent } from './sinovad-web/sinovad-web.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AngularMaterialModule } from '../shared/angular-material.module';
+import { AngularMaterialModule } from './shared/angular-material.module';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [

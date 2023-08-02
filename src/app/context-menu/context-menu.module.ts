@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ContextMenuPage } from './context-menu.page';
 import { ContextMenuContentPage } from './context-menu-content.page';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SharedModule } from 'src/shared.module';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
     providers:[],

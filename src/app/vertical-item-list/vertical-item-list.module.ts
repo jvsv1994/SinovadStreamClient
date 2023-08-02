@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { VideoPageModule } from '../video/video.module';
 import { VerticalItemListPage } from './vertical-item-list.page';
-import { SharedModule } from 'src/shared.module';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
     declarations: [
