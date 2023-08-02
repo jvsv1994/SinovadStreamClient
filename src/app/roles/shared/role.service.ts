@@ -39,6 +39,19 @@ export class RoleService {
    });
   }
 
+  public saveItem(role:Role):Promise<boolean>{
+    return new Promise((resolve, reject) => {
+      let methodType=role.Id>0?HttpMethodType.PUT:HttpMethodType.POST;
+      var path=role.Id>0?"/roles/Update":"/roles/Create";
+      this.restProvider.executeSinovadApiService(methodType,path,role).then((response) => {
+        this.refreshListEvent.emit(true);
+        resolve(true);
+      },error=>{
+        console.error(error);
+        reject(error);
+      });
+   });
+  }
   public deleteItem(itemId:number):Promise<SinovadApiGenericResponse>{
     return new Promise((resolve, reject) => {
       var path="/roles/Delete/"+itemId;

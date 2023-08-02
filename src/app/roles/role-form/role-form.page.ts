@@ -70,14 +70,11 @@ export class RoleFormPage extends ParentComponent implements OnInit,OnDestroy {
         var role:Role=JSON.parse(JSON.stringify(this.role));
         role.Name=this.roleForm.value.name;
         role.Enabled=this.roleForm.value.enabled;
-        let methodType=role.Id>0?HttpMethodType.PUT:HttpMethodType.POST;
-        var path=role.Id>0?"/roles/Update":"/roles/Create";
-        this.restProvider.executeSinovadApiService(methodType,path,role).then((response) => {
+        this.roleService.saveItem(role).then((response) => {
           this.role=undefined;
-          this.roleService.refreshListEvent.emit(true);
+          this.toastService.showToast({message:"Se guardo el rol satisfactoriamente",toastType:ToastType.Success});
         },error=>{
-          this.toastService.showToast({containerId:"sinovadMainContainer",displayTime:2000,message:error,toastType:ToastType.Error});
-          console.error(error);
+          this.toastService.showToast({message:error,toastType:ToastType.Error});
         });
       }else{
         this.roleForm.markAllAsTouched();
