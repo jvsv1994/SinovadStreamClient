@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ConfirmDeleteMessageBoxOptions } from 'src/app/confirm-delete-message-box/confirmDeleteMessageBoxOptions';
+import { ConfirmDeleteMessageBoxOptions } from './confirmDeleteMessageBoxOptions';
 
 @Component({
   selector: 'app-custom-confirm-dialog',

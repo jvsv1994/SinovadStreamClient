@@ -7,7 +7,6 @@ import { SharedModule } from '../shared/shared.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { StorageFormPageModule } from '../storage-form/storage-form.module';
 import { CustomActionsMenuPageModule } from '../custom-actions-menu/custom-actions-menu.module';
-import { ConfirmDeleteMessageBoxPageModule } from '../confirm-delete-message-box/confirm-delete-message-box.module';
 
 @NgModule({
     declarations: [
@@ -21,8 +20,7 @@ import { ConfirmDeleteMessageBoxPageModule } from '../confirm-delete-message-box
         ReactiveFormsModule,
         NgbModule,
         StorageFormPageModule,
-        CustomActionsMenuPageModule,
-        ConfirmDeleteMessageBoxPageModule
+        CustomActionsMenuPageModule
     ],
     exports: [ManageMediaPage]
 })

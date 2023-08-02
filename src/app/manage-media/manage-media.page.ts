@@ -13,7 +13,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MediaServer } from 'src/models/mediaServer';
 import { CustomActionsMenuPage } from '../custom-actions-menu/custom-actions-menu.page';
 import { CustomActionsMenuItem } from '../custom-actions-menu/customActionsMenuItem';
-import { ConfirmDeleteMessageBoxPage } from '../confirm-delete-message-box/confirm-delete-message-box.page';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { ToastService } from '../shared/services/toast.service';
+import { ConfirmDeleteMessageBoxOptions } from '../shared/components/custom-confirm-dialog/confirmDeleteMessageBoxOptions';
+import { CustomConfirmDialogComponent } from '../shared/components/custom-confirm-dialog/custom-confirm-dialog.component';
 
 declare var window;
 @Component({
@@ -46,9 +49,10 @@ export class ManageMediaPage extends ParentComponent implements OnInit,OnDestroy
   showForm:boolean=false;
   mediaServer:MediaServer;
   @ViewChild('customActionsMenuPage') customActionsMenuPage: CustomActionsMenuPage;
-  @ViewChild('confirmDeleteMessageBoxPage') confirmDeleteMessageBoxPage: ConfirmDeleteMessageBoxPage;
 
   constructor(
+    private dialog: MatDialog,
+    private toastService:ToastService,
     private router: Router,
     public activeRoute: ActivatedRoute,
     public restProvider: RestProviderService,
@@ -140,13 +144,16 @@ export class ManageMediaPage extends ParentComponent implements OnInit,OnDestroy
     }
 
     public deleteStorage(storage:Storage){
-      var confirmEvent:EventEmitter<any>= new EventEmitter();
-      confirmEvent.subscribe(res=>{
-        this.executeDeleteStorage(storage);
+      var config = new MatDialogConfig<ConfirmDeleteMessageBoxOptions>();
+      config.data={
+        title:"Eliminar biblioteca",message:"La biblioteca '"+storage.Name+"' será eliminada de este servidor. Tus archivos multimedia no se verán afectados. Esto no se puede deshacer. ¿Continuar?",
+        accordMessage:"Si, eliminar la biblioteca '"+storage.Name+"'"
+      }
+      this.dialog.open(CustomConfirmDialogComponent,config).afterClosed().subscribe((confirm: boolean) => {
+        if (confirm) {
+          this.executeDeleteStorage(storage);
+        }
       });
-      this.confirmDeleteMessageBoxPage.show({containerId:"sinovadMainContainer",title:"Eliminar biblioteca",
-      message:"La biblioteca '"+storage.Name+"' será eliminada de este servidor. Tus archivos multimedia no se verán afectados. Esto no se puede deshacer. ¿Continuar?",
-      accordMessage:"Si, eliminar la biblioteca '"+storage.Name+"'",confirmEvent:confirmEvent});
     }
 
     private executeDeleteStorage(storage:Storage){

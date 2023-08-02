@@ -13,7 +13,7 @@ import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { ToastService, ToastType } from 'src/app/shared/services/toast.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { CustomConfirmDialogComponent } from 'src/app/shared/components/custom-confirm-dialog/custom-confirm-dialog.component';
-import { ConfirmDeleteMessageBoxOptions } from 'src/app/confirm-delete-message-box/confirmDeleteMessageBoxOptions';
+import { ConfirmDeleteMessageBoxOptions } from 'src/app/shared/components/custom-confirm-dialog/confirmDeleteMessageBoxOptions';
 
 @Component({
   selector: 'app-role-list',
@@ -33,8 +33,8 @@ export class RoleListPage extends ParentComponent implements OnInit,OnDestroy {
   showLoading:boolean=true;
 
   constructor(
-    public dialog: MatDialog,
-    public toastService:ToastService,
+    private dialog: MatDialog,
+    private toastService:ToastService,
     public matPaginatorIntl: MatPaginatorIntl,
     private roleService:RoleService,
     public restProvider: RestProviderService,
