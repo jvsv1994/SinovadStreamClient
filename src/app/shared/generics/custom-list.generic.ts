@@ -1,3 +1,4 @@
+import { MatPaginatorIntl, PageEvent } from "@angular/material/paginator";
 
 
 
@@ -12,8 +13,17 @@ lastSelectedItem:T;
 keyName='Id';
 
 constructor(
+  public matPaginatorIntl: MatPaginatorIntl
 ) {
+  this.matPaginatorIntl.itemsPerPageLabel="Items por página";
+  this.matPaginatorIntl.previousPageLabel="Página anterior";
+  this.matPaginatorIntl.nextPageLabel="Página siguiente";
 }
+
+  public updatePageData(event:PageEvent){
+    this.itemsPerPage=event.pageSize;
+    this.currentPage=event.pageIndex+1;
+  }
 
   public isSelectedAll(){
 

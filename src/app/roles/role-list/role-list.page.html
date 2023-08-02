@@ -5,7 +5,7 @@
   <div *ngIf="!showLoading">
     <div class="row">
       <div class="col-6 d-flex align-items-center">
-        <button type="button" class="action-button edit" (click)="showNewRol()" title="Agregar">
+        <button type="button" class="action-button edit" (click)="showNewItem()" title="Agregar">
           <i class="fa-solid fa-plus"></i>
         </button>
         <button type="button" class="action-button remove" [ngClass]="{'disable':listSelectedItems.length==0}" (click)="deleteSelectedItems()" title="Eliminar seleccionados">

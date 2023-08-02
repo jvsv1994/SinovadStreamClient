@@ -35,22 +35,13 @@ export class RoleListPage extends CustomListGeneric<Role>  implements OnInit,OnD
     public http: HttpClient,
     public domSanitizer: DomSanitizer,
     public sharedData: SharedDataService) {
-      super();
+      super(matPaginatorIntl);
     }
 
     public ngOnInit(): void {
-      this.matPaginatorIntl.itemsPerPageLabel="Items por página";
-      this.matPaginatorIntl.previousPageLabel="Página anterior";
-      this.matPaginatorIntl.nextPageLabel="Página siguiente";
       this.refreshSubscription$=this.roleService.refreshListEvent.subscribe(event=>{
         this.getAllItems();
       });
-      this.getAllItems();
-    }
-
-    public onChangePaginator(event:PageEvent){
-      this.itemsPerPage=event.pageSize;
-      this.currentPage=event.pageIndex+1;
       this.getAllItems();
     }
 
@@ -58,7 +49,14 @@ export class RoleListPage extends CustomListGeneric<Role>  implements OnInit,OnD
       this.refreshSubscription$.unsubscribe();
     }
 
-    public showNewRol(){
+    public onChangePaginator(event:PageEvent){
+      this.updatePageData(event);
+      this.getAllItems();
+    }
+
+    //Show Modal Section
+
+    public showNewItem(){
       var role= new Role();
       role.Enabled=true;
       this.roleService.showModal(role);
@@ -67,6 +65,8 @@ export class RoleListPage extends CustomListGeneric<Role>  implements OnInit,OnD
     public editItem(role: Role){
       this.roleService.showModal(role);
     }
+
+    //Get Data Section
 
     public getAllItems(){
       this.showLoading=true;
@@ -82,12 +82,9 @@ export class RoleListPage extends CustomListGeneric<Role>  implements OnInit,OnD
     }
 
 
+    //Delete Section
 
     public deleteItem(role:Role){
-      this.showDeleteConfirmDialog(role);
-    }
-
-    public showDeleteConfirmDialog(role:Role): void {
       var config = new MatDialogConfig<ConfirmDialogOptions>();
       config.data={
         title:'Eliminar rol',message:'¿Esta seguro que desea eliminar el rol '+role.Name+'?',accordMessage:"Si, eliminar el rol '"+role.Name+"'"
@@ -109,6 +106,8 @@ export class RoleListPage extends CustomListGeneric<Role>  implements OnInit,OnD
         this.toastService.showToast({message:error,toastType:ToastType.Error});
       });
     }
+
+    //Delete List Section
 
     public deleteSelectedItems(){
       if(this.listSelectedItems && this.listSelectedItems.length>0)
