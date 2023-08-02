@@ -1,8 +1,33 @@
-<h1 mat-dialog-title>Confirmación</h1>
-<div mat-dialog-content>
-    <p>{{mensaje}}</p>
+
+<div class="modal-container">
+  <div class="modal-dialog" role="document">
+    <div class="modal-backdrop">
+      <div class="modal-small">
+        <div class="modal-content">
+          <button class="modal-content-close-button" (click)="closeDialog()">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+          <div mat-dialog-title class="modal-header">
+           {{options.title}}
+          </div>
+          <div  mat-dialog-content class="confirm-modal-body">
+            <div class="inner-modal-body">
+                <p>{{options.message}}</p>
+                <label class="confirm-modal-accord-label">
+                  <input #checkBox class="confirm-message-accord-input" type="checkbox">{{options.accordMessage}}
+                </label>
+            </div>
+          </div>
+          <div mat-dialog-actions class="modal-footer">
+            <div class="modal-footer-button-bar">
+                <button class="confirm-modal-button cancel" (click)="closeDialog()">Cancelar</button>
+                <button class="confirm-modal-button confirm" (click)="confirmDialog()">
+                  <span class="spinner-button-label">Eliminar</span>
+                </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 </div>
-<div mat-dialog-actions>
-    <button mat-button (click)="closeDialog()">No</button>
-    <button mat-button (click)="confirmDialog()" cdkFocusInitial>Sí</button>
-</div>
+

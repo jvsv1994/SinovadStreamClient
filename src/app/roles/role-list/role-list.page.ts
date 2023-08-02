@@ -11,6 +11,9 @@ import { RoleService } from '../shared/role.service';
 import { Subscription } from 'rxjs';
 import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { ToastService, ToastType } from 'src/app/shared/services/toast.service';
+import { MatDialog, MatDialogClose, MatDialogConfig } from '@angular/material/dialog';
+import { CustomConfirmDialogComponent } from 'src/app/shared/components/custom-confirm-dialog/custom-confirm-dialog.component';
+import { ConfirmDeleteMessageBoxOptions } from 'src/app/confirm-delete-message-box/confirmDeleteMessageBoxOptions';
 
 @Component({
   selector: 'app-role-list',
@@ -30,6 +33,7 @@ export class RoleListPage extends ParentComponent implements OnInit,OnDestroy {
   showLoading:boolean=true;
 
   constructor(
+    public dialog: MatDialog,
     public toastService:ToastService,
     public matPaginatorIntl: MatPaginatorIntl,
     private roleService:RoleService,
@@ -240,7 +244,25 @@ export class RoleListPage extends ParentComponent implements OnInit,OnDestroy {
       });
     }
 
+
+
     public deleteItem(role:Role){
+      this.showDeleteConfirmDialog(role);
+    }
+
+    public showDeleteConfirmDialog(role:Role): void {
+      var config = new MatDialogConfig<ConfirmDeleteMessageBoxOptions>();
+      config.data={
+        title:'Eliminar rol',message:'¿Estas seguro que deseas eliminar el rol '+role.Name+'?',accordMessage:"Si, eliminar el rol '"+role.Name+"'"
+      }
+      this.dialog.open(CustomConfirmDialogComponent,config).afterClosed().subscribe((confirm: boolean) => {
+        if (confirm) {
+          this.executeDeleteItem(role);
+        }
+      });
+    }
+
+    private executeDeleteItem(role:Role){
       this.showLoading=true;
       this.roleService.deleteItem(role.Id).then(res=>{
         this.toastService.showToast({message:"Se elimino el registro satisfactoriamente",toastType:ToastType.Success});
