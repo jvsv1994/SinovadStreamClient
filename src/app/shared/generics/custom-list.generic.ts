@@ -1,4 +1,6 @@
 
+
+
 export class CustomListGeneric<T>{
 
 totalCount:number;
@@ -7,10 +9,10 @@ currentPage:number=1;
 listItems:T[]=[];
 listSelectedItems:T[]=[];
 lastSelectedItem:T;
+keyName='Id';
 
 constructor(
 ) {
-
 }
 
   public isSelectedAll(){
@@ -65,7 +67,7 @@ constructor(
   public onSelectItem(event:any,item:T)
   {
     let addItems:boolean=false;
-    let index=this.listSelectedItems.findIndex(ele=>ele["Id"]==item["Id"]);
+    let index=this.listSelectedItems.findIndex(ele=>ele[this.keyName]==item[this.keyName]);
     if(index!=-1)
     {
       this.listSelectedItems.splice(index,1);
@@ -103,7 +105,7 @@ constructor(
         if(listItemsToUnselect && listItemsToUnselect.length>0)
         {
           listItemsToUnselect.forEach(element => {
-            let index=this.listSelectedItems.findIndex(item=>item["Id"]==element["Id"]);
+            let index=this.listSelectedItems.findIndex(item=>item[this.keyName]==element[this.keyName]);
             if(index!=-1)
             {
               this.listSelectedItems.splice(index,1);
@@ -116,7 +118,7 @@ constructor(
   }
 
   public isCheckedItem(item:T){
-    let index=this.listSelectedItems.findIndex(ele=>ele["Id"]==item["Id"]);
+    let index=this.listSelectedItems.findIndex(ele=>ele[this.keyName]==item[this.keyName]);
     if(index!=-1)
     {
       return true;
