@@ -35,6 +35,18 @@ $app-theme: mat.define-light-theme((
 
 // override angular material styles
 
+.mat-mdc-table{
+  background-color: transparent;
+}
+
+.mdc-data-table__header-cell{
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.mdc-data-table__cell{
+  color: rgba(255, 255, 255, 0.7);
+}
+
 .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__leading, .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__notch, .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__trailing
 {
   border-color: rgba(255, 255, 255, 0.7) !important;

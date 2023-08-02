@@ -13,6 +13,7 @@ import { ToastService, ToastType } from 'src/app/shared/services/toast.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ConfirmDialogOptions, CustomConfirmDialogComponent } from 'src/app/shared/components/custom-confirm-dialog/custom-confirm-dialog.component';
 import { CustomListGeneric } from 'src/app/shared/generics/custom-list.generic';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-role-list',
@@ -24,6 +25,7 @@ export class RoleListPage extends CustomListGeneric<Role>  implements OnInit,OnD
   showContextMenu:boolean=false;
   refreshSubscription$:Subscription;
   showLoading:boolean=true;
+  displayedColumns: string[] = ['Select','Id', 'Name','Actions'];
 
   constructor(
     private dialog: MatDialog,

@@ -7,11 +7,10 @@ label{
   color: white;
 }
 
-table.rounded-corners {
+table {
   border: none;
   overflow: hidden;
  }
-
 
 thead{
   background-color: transparent;
@@ -122,4 +121,15 @@ button.action-button:hover{
   padding-bottom: 20px;
   padding-top: 20px;
   min-height: 100%;
+}
+
+@media only screen and (max-width: 375px) {
+  .container{
+    padding-left: 6px;
+    padding-right: 6px;
+  }
+  h3{
+    display: flex;
+    justify-content: center;
+  }
 }

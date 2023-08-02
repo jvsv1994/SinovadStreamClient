@@ -137,7 +137,7 @@ constructor(
     }
   }
 
-  public getNewIndex(itemIndex:number,pageIndex:number,pageSize:number){
+  public getElementNumber(itemIndex:number,pageIndex:number,pageSize:number){
     var newIndex=(itemIndex+1)+((pageIndex-1)*pageSize);
     return newIndex;
   }
