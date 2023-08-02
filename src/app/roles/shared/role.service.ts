@@ -1,7 +1,7 @@
 import { EventEmitter, Injectable } from '@angular/core';
 import { Role } from './role.model';
-import { RestProviderService } from 'src/services/rest-provider.service';
-import { HttpMethodType } from 'src/app/enums';
+import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
+import { HttpMethodType } from 'src/app/shared/enums';
 import { SinovadApiPaginationResponse } from 'src/app/response/sinovadApiPaginationResponse';
 import { SinovadApiGenericResponse } from 'src/app/response/sinovadApiGenericResponse';
 

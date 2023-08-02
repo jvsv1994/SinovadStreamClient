@@ -1,12 +1,12 @@
 
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { SharedDataService } from 'src/services/shared-data.service';
+import { SharedDataService } from 'src/app/shared/services/shared-data.service';
 import { ParentComponent } from '../parent/parent.component';
 import { HttpClient} from '@angular/common/http';
-import { RestProviderService } from 'src/services/rest-provider.service';
+import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { CatalogEnum, HttpMethodType} from '../enums';
+import { CatalogEnum, HttpMethodType} from 'src/app/shared/enums';
 import { Menu } from 'src/models/menu';
 import { SinovadApiGenericResponse } from '../response/sinovadApiGenericResponse';
 import { CatalogDetail } from 'src/models/catalogDetail';

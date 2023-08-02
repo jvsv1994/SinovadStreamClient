@@ -1,7 +1,7 @@
 
 import { ChangeDetectorRef, Component, OnDestroy, OnInit, TemplateRef, ViewChild, ViewContainerRef} from '@angular/core';
 import { Subscription } from 'rxjs';
-import { ToastOptions, ToastService, ToastType } from 'src/services/toast.service';
+import { ToastOptions, ToastService, ToastType } from 'src/app/shared/services/toast.service';
 
 @Component({
   selector: 'app-custom-toast',

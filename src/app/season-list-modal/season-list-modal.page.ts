@@ -1,10 +1,10 @@
 import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
-import { SharedDataService } from 'src/services/shared-data.service';
+import { SharedDataService } from 'src/app/shared/services/shared-data.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ParentComponent } from '../parent/parent.component';
-import { RestProviderService } from 'src/services/rest-provider.service';
+import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { TvProgram } from '../../models/tvProgram';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 

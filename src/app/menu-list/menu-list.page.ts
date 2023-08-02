@@ -1,12 +1,12 @@
 
 import { ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { SharedDataService } from 'src/services/shared-data.service';
+import { SharedDataService } from 'src/app/shared/services/shared-data.service';
 import { ParentComponent } from '../parent/parent.component';
 import { HttpClient} from '@angular/common/http';
-import { RestProviderService } from 'src/services/rest-provider.service';
+import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { SinovadApiPaginationResponse } from '../response/sinovadApiPaginationResponse';
-import { HttpMethodType } from '../enums';
+import { HttpMethodType } from 'src/app/shared/enums';
 import { ContextMenuOption } from '../context-menu/contextMenuOption';
 import { ContextMenuPage } from '../context-menu/context-menu.page';
 import { Menu } from 'src/models/menu';

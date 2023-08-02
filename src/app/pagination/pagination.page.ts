@@ -1,10 +1,10 @@
 
 import { Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { SharedDataService } from 'src/services/shared-data.service';
+import { SharedDataService } from 'src/app/shared/services/shared-data.service';
 import { ParentComponent } from '../parent/parent.component';
 import { HttpClient} from '@angular/common/http';
-import { RestProviderService } from 'src/services/rest-provider.service';
+import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { SinovadApiPaginationResponse } from '../response/sinovadApiPaginationResponse';
 import { PaginationItem } from '../../models/paginationPage';
 

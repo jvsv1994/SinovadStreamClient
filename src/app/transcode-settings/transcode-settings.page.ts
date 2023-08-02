@@ -1,18 +1,18 @@
 
 import { Component, OnInit} from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { SharedDataService } from 'src/services/shared-data.service';
+import { SharedDataService } from 'src/app/shared/services/shared-data.service';
 import { ParentComponent } from '../parent/parent.component';
 import { HttpClient} from '@angular/common/http';
-import { CatalogEnum, HttpMethodType } from '../enums';
-import { RestProviderService } from 'src/services/rest-provider.service';
+import { CatalogEnum, HttpMethodType } from 'src/app/shared/enums';
+import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { SinovadApiGenericResponse } from '../response/sinovadApiGenericResponse';
 import { TranscoderSettings } from '../../models/transcoderSettings';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MediaServer } from 'src/models/mediaServer';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { CatalogDetail } from 'src/models/catalogDetail';
-import { ToastService, ToastType } from 'src/services/toast.service';
+import { ToastService, ToastType } from 'src/app/shared/services/toast.service';
 
 declare var window;
 @Component({

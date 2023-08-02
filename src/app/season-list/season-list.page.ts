@@ -1,11 +1,11 @@
 import { ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
-import { SharedDataService } from 'src/services/shared-data.service';
+import { SharedDataService } from 'src/app/shared/services/shared-data.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ParentComponent } from '../parent/parent.component';
-import { RestProviderService } from 'src/services/rest-provider.service';
-import { HttpMethodType } from '../enums';
+import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
+import { HttpMethodType } from 'src/app/shared/enums';
 import { Season } from '../../models/season';
 import { TvProgram } from '../../models/tvProgram';
 import { SinovadApiPaginationResponse } from '../response/sinovadApiPaginationResponse';

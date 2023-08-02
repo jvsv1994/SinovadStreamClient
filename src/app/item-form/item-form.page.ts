@@ -1,18 +1,18 @@
 
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { SharedDataService } from 'src/services/shared-data.service';
+import { SharedDataService } from 'src/app/shared/services/shared-data.service';
 import { ParentComponent } from '../parent/parent.component';
 import { HttpClient} from '@angular/common/http';
-import { RestProviderService } from 'src/services/rest-provider.service';
+import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { TvProgram } from '../../models/tvProgram';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { HttpMethodType, MediaType } from '../enums';
+import { HttpMethodType, MediaType } from 'src/app/shared/enums';
 import { Genre } from '../../models/genre';
 import { SinovadApiGenericResponse } from '../response/sinovadApiGenericResponse';
 import { TvProgramGenre } from '../../models/tvProgramGenre';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { ToastService, ToastType } from 'src/services/toast.service';
+import { ToastService, ToastType } from 'src/app/shared/services/toast.service';
 
 @Component({
   selector: 'app-item-form',

@@ -1,16 +1,16 @@
 
 import { ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { SharedDataService } from 'src/services/shared-data.service';
+import { SharedDataService } from 'src/app/shared/services/shared-data.service';
 import { HttpClient} from '@angular/common/http';
-import { RestProviderService } from 'src/services/rest-provider.service';
+import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { SinovadApiPaginationResponse } from 'src/app/response/sinovadApiPaginationResponse';
 import { ParentComponent } from 'src/app/parent/parent.component';
 import { Role } from '../shared/role.model';
 import { RoleService } from '../shared/role.service';
 import { Subscription } from 'rxjs';
 import { MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
-import { ToastService, ToastType } from 'src/services/toast.service';
+import { ToastService, ToastType } from 'src/app/shared/services/toast.service';
 
 @Component({
   selector: 'app-role-list',

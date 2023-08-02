@@ -1,4 +1,4 @@
-import { LoadVideoStatus } from "../app/enums";
+import { LoadVideoStatus } from "src/app/shared/enums";
 import { ItemDetail } from "./itemDetail";
 import { TranscodePrepareVideo } from "./transcodePrepareVideo";
 import { TranscodeRunVideo } from "./transcodeRunVideo";

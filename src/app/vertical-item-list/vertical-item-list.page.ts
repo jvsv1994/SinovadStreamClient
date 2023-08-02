@@ -1,12 +1,12 @@
 
 import { Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { SharedDataService } from 'src/services/shared-data.service';
+import { SharedDataService } from 'src/app/shared/services/shared-data.service';
 import { ParentComponent } from '../parent/parent.component';
 import { HttpClient } from '@angular/common/http';
-import { HttpMethodType } from '../enums';
+import { HttpMethodType } from 'src/app/shared/enums';
 import {v4 as uuid} from "uuid";
-import { RestProviderService } from 'src/services/rest-provider.service';
+import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { Item } from '../../models/item';
 import { ItemDetail } from '../../models/itemDetail';
 import { SinovadApiGenericResponse } from '../response/sinovadApiGenericResponse';

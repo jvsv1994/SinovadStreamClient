@@ -1,9 +1,9 @@
 
 import { ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, ViewContainerRef} from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { SharedDataService } from 'src/services/shared-data.service';
+import { SharedDataService } from 'src/app/shared/services/shared-data.service';
 import { HttpClient} from '@angular/common/http';
-import { RestProviderService } from 'src/services/rest-provider.service';
+import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { Subscription } from 'rxjs';
 import { ContextMenuOption } from './contextMenuOption';
 

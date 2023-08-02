@@ -1,11 +1,11 @@
 
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { SharedDataService } from 'src/services/shared-data.service';
+import { SharedDataService } from 'src/app/shared/services/shared-data.service';
 import { ParentComponent } from '../parent/parent.component';
 import { HttpClient } from '@angular/common/http';
-import { RestProviderService } from 'src/services/rest-provider.service';
-import { HttpMethodType } from '../enums';
+import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
+import { HttpMethodType } from 'src/app/shared/enums';
 import { ResetPasswordModel } from '../../models/resetPasswordModel';
 import { ValidateResetPasswordTokenModel } from '../../models/validateResetPasswordTokenModel';
 import { ActivatedRoute, Router } from '@angular/router';

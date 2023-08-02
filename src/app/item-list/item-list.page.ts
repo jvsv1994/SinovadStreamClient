@@ -3,15 +3,15 @@ import { HttpClient} from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ParentComponent } from '../parent/parent.component';
-import { SharedDataService } from 'src/services/shared-data.service';
-import { HttpMethodType, MediaType } from '../enums';
-import { RestProviderService } from 'src/services/rest-provider.service';
+import { SharedDataService } from 'src/app/shared/services/shared-data.service';
+import { HttpMethodType, MediaType } from 'src/app/shared/enums';
+import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { SinovadApiGenericResponse } from '../response/sinovadApiGenericResponse';
 import { SinovadApiPaginationResponse } from '../response/sinovadApiPaginationResponse';
 import { TvProgram } from '../../models/tvProgram';
 import { ContextMenuOption } from '../context-menu/contextMenuOption';
 import { ContextMenuPage } from '../context-menu/context-menu.page';
-import { ToastService, ToastType } from 'src/services/toast.service';
+import { ToastService, ToastType } from 'src/app/shared/services/toast.service';
 @Component({
   selector: 'app-item-list',
   templateUrl: 'item-list.page.html',

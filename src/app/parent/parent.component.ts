@@ -1,8 +1,8 @@
 import { ChangeDetectorRef, Component, HostListener, OnInit} from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { SharedDataService } from 'src/services/shared-data.service';
-import { RestProviderService } from 'src/services/rest-provider.service';
-import { HttpMethodType } from '../enums';
+import { SharedDataService } from 'src/app/shared/services/shared-data.service';
+import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
+import { HttpMethodType } from 'src/app/shared/enums';
 import { Item } from '../../models/item';
 import { ItemDetail } from '../../models/itemDetail';
 import { BuilderVideo } from '../../models/builderVideo';

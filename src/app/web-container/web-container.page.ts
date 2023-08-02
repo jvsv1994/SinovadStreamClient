@@ -1,10 +1,10 @@
 
 import { ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { SharedDataService } from 'src/services/shared-data.service';
+import { SharedDataService } from 'src/app/shared/services/shared-data.service';
 import { ParentComponent } from '../parent/parent.component';
 import { HttpClient} from '@angular/common/http';
-import { RestProviderService } from 'src/services/rest-provider.service';
+import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ItemListPage } from '../item-list/item-list.page';
 import { ManageMediaPage } from '../manage-media/manage-media.page';
@@ -24,7 +24,7 @@ import { GenreListPage } from '../genre-list/genre-list.page';
 import { UserListPage } from '../user-list/user-list.page';
 import { SearchViewRootPage } from '../search-view-root/search-view-root.page';
 import { BuilderVideo } from 'src/models/builderVideo';
-import { VideoEvent, VideoService } from 'src/services/video.service';
+import { VideoEvent, VideoService } from 'src/app/shared/services/video.service';
 import { Subscription } from 'rxjs';
 import { RoleListPage } from '../roles/role-list/role-list.page';
 import { RolesComponent } from '../roles/roles.component';

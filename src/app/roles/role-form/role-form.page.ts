@@ -1,14 +1,14 @@
 
 import { ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { SharedDataService } from 'src/services/shared-data.service';
+import { SharedDataService } from 'src/app/shared/services/shared-data.service';
 import { HttpClient} from '@angular/common/http';
-import { RestProviderService } from 'src/services/rest-provider.service';
+import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { ToastService, ToastType } from 'src/services/toast.service';
+import { ToastService, ToastType } from 'src/app/shared/services/toast.service';
 import { ParentComponent } from 'src/app/parent/parent.component';
-import { HttpMethodType } from 'src/app/enums';
+import { HttpMethodType } from 'src/app/shared/enums';
 import { Role } from '../shared/role.model';
 import { RoleService } from '../shared/role.service';
 import { Subscription } from 'rxjs';
