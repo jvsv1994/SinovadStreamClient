@@ -6,7 +6,6 @@ import { RoleFormPage } from './role-form/role-form.page';
 import { RoleListPage } from './role-list/role-list.page';
 import { RolesComponent } from './roles.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { CustomSpinnerPageModule } from '../custom-spinner/custom-spinner.module';
 
 @NgModule({
     declarations: [
@@ -20,8 +19,7 @@ import { CustomSpinnerPageModule } from '../custom-spinner/custom-spinner.module
       FormsModule,
       ReactiveFormsModule,
       SharedModule,
-      MatPaginatorModule,
-      CustomSpinnerPageModule
+      MatPaginatorModule
     ],
     exports: [RoleListPage]
 })

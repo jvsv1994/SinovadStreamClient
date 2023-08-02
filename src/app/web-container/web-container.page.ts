@@ -26,7 +26,6 @@ import { SearchViewRootPage } from '../search-view-root/search-view-root.page';
 import { BuilderVideo } from 'src/models/builderVideo';
 import { VideoEvent, VideoService } from 'src/app/shared/services/video.service';
 import { Subscription } from 'rxjs';
-import { RoleListPage } from '../roles/role-list/role-list.page';
 import { RolesComponent } from '../roles/roles.component';
 
 @Component({

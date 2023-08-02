@@ -5,7 +5,6 @@ import { ProfilesViewPage } from './profiles-view.page';
 import { SharedModule } from '../shared/shared.module';
 import { ProfileNewPageModule } from '../profile-new/profile-new.module';
 import { ProfileEditPageModule } from '../profile-edit/profile-edit.module';
-import { CustomSpinnerPageModule } from '../custom-spinner/custom-spinner.module';
 
 @NgModule({
     declarations: [
@@ -17,8 +16,7 @@ import { CustomSpinnerPageModule } from '../custom-spinner/custom-spinner.module
         ReactiveFormsModule,
         SharedModule,
         ProfileEditPageModule,
-        ProfileNewPageModule,
-        CustomSpinnerPageModule
+        ProfileNewPageModule
     ],
     exports: [ProfilesViewPage]
 })

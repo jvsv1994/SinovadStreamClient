@@ -9,8 +9,6 @@ import { SidebarMediaPageModule } from '../sidebar-media/siderbar-media.module';
 import { SidebarAdministratorPageModule } from '../sidebar-administrator/siderbar-administrator.module';
 import { WebContainerPage } from './web-container.page';
 import { HeaderPageModule } from '../header/header.module';
-import { CustomToastPageModule } from '../custom-toast/custom-toast.module';
-import { CustomSpinnerPageModule } from '../custom-spinner/custom-spinner.module';
 @NgModule({
     declarations: [
       WebContainerPage
@@ -25,8 +23,6 @@ import { CustomSpinnerPageModule } from '../custom-spinner/custom-spinner.module
       SidebarMediaPageModule,
       ReactiveFormsModule,
       SharedModule,
-      CustomToastPageModule,
-      CustomSpinnerPageModule,
       RouterModule.forChild([])
     ],
     exports: [WebContainerPage]

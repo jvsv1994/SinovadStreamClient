@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { ResetPasswordPage } from './reset-password.page';
-import { CustomSpinnerPageModule } from '../custom-spinner/custom-spinner.module';
 @NgModule({
     declarations: [
       ResetPasswordPage
@@ -12,8 +11,7 @@ import { CustomSpinnerPageModule } from '../custom-spinner/custom-spinner.module
         CommonModule,
         FormsModule,
         SharedModule,
-        ReactiveFormsModule,
-        CustomSpinnerPageModule
+        ReactiveFormsModule
     ],
     exports: [ResetPasswordPage]
 })
