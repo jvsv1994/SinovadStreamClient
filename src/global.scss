@@ -47,6 +47,34 @@ $app-theme: mat.define-light-theme((
   color: rgba(255, 255, 255, 0.7);
 }
 
+.mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__input{
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.mdc-text-field .mdc-text-field__input{
+  caret-color: rgba(255, 255, 255, 0.7);
+}
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-line-ripple::before {
+  border-bottom-color: rgba(255, 255, 255, 0.7);
+}
+
+.mdc-text-field--filled .mdc-line-ripple::after{
+  border-bottom-color: transparent;
+}
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled):hover .mdc-line-ripple::before{
+  border-bottom-color: rgba(255, 255, 255, 0.7);
+}
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled){
+  background-color: transparent;
+}
+
+.mdc-text-field:not(.mdc-text-field--disabled) .mdc-floating-label{
+  color: rgba(255, 255, 255, 0.7);
+}
+
 .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__leading, .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__notch, .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__trailing
 {
   border-color: rgba(255, 255, 255, 0.7) !important;

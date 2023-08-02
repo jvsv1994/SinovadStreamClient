@@ -26,6 +26,7 @@ export class RoleListPage extends CustomListGeneric<Role>  implements OnInit,OnD
   refreshSubscription$:Subscription;
   showLoading:boolean=true;
   displayedColumns: string[] = ['Select','Id', 'Name','Actions'];
+  dataSource=new MatTableDataSource();
 
   constructor(
     private dialog: MatDialog,
@@ -45,6 +46,11 @@ export class RoleListPage extends CustomListGeneric<Role>  implements OnInit,OnD
         this.getAllItems();
       });
       this.getAllItems();
+    }
+
+    public applyFilter(event: Event) {
+      const filterValue = (event.target as HTMLInputElement).value;
+      this.dataSource.filter = filterValue.trim().toLowerCase();
     }
 
     public ngOnDestroy(): void {
@@ -76,6 +82,7 @@ export class RoleListPage extends CustomListGeneric<Role>  implements OnInit,OnD
         var data=response.Data;
         this.totalCount=response.TotalCount;
         this.listItems=data;
+        this.dataSource = new MatTableDataSource(this.listItems);
         this.listSelectedItems=[];
         this.showLoading=false;
       },error=>{

@@ -7,6 +7,8 @@ import { RoleListPage } from './role-list/role-list.page';
 import { RolesComponent } from './roles.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatTableModule} from '@angular/material/table';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 @NgModule({
     declarations: [
@@ -21,7 +23,9 @@ import {MatTableModule} from '@angular/material/table';
       ReactiveFormsModule,
       SharedModule,
       MatPaginatorModule,
-      MatTableModule
+      MatTableModule,
+      MatInputModule,
+      MatFormFieldModule
     ],
     exports: [RoleListPage]
 })

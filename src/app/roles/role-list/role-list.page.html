@@ -18,7 +18,11 @@
     </div>
     <div class="row">
       <div class="col-12">
-        <table mat-table [dataSource]="listItems" class="mat-elevation-z8">
+        <mat-form-field>
+          <mat-label>Buscar</mat-label>
+          <input matInput (keyup)="applyFilter($event)" #input>
+        </mat-form-field>
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
           <ng-container matColumnDef="Select">
             <th mat-header-cell *matHeaderCellDef style="width:50px;text-align: center;">
               <div class="checkbox-container">

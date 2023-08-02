@@ -3,6 +3,11 @@ h3{
   color: white;
 }
 
+.mat-mdc-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
 label{
   color: white;
 }
@@ -10,6 +15,7 @@ label{
 table {
   border: none;
   overflow: hidden;
+  width: 100%;
  }
 
 thead{
