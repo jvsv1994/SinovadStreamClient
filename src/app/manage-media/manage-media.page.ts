@@ -14,7 +14,7 @@ import { MediaServer } from 'src/models/mediaServer';
 import { CustomActionsMenuPage } from '../custom-actions-menu/custom-actions-menu.page';
 import { CustomActionsMenuItem } from '../custom-actions-menu/customActionsMenuItem';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { ToastService } from '../shared/services/toast.service';
+import { ToastService, ToastType } from '../shared/services/toast.service';
 import { ConfirmDeleteMessageBoxOptions } from '../shared/components/custom-confirm-dialog/confirmDeleteMessageBoxOptions';
 import { CustomConfirmDialogComponent } from '../shared/components/custom-confirm-dialog/custom-confirm-dialog.component';
 
@@ -159,9 +159,11 @@ export class ManageMediaPage extends ParentComponent implements OnInit,OnDestroy
     private executeDeleteStorage(storage:Storage){
       var path="/storages/Delete/"+storage.Id;
       this.restProvider.executeSinovadApiService(HttpMethodType.DELETE,path).then((response:SinovadApiGenericResponse) => {
+        this.toastService.showToast({message:"Se eliminó la biblioteca satisfactoriamente",toastType:ToastType.Success});
         this.getStorages();
       },error=>{
         console.error(error);
+        this.toastService.showToast({message:error,toastType:ToastType.Error});
       });
     }
 
