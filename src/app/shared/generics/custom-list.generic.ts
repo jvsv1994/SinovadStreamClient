@@ -13,6 +13,8 @@ lastSelectedItem:T;
 keyName='Id';
 sortBy="Id";
 sortDirection="asc";
+searchText="";
+searchBy="";
 
 constructor(
   public matPaginatorIntl: MatPaginatorIntl

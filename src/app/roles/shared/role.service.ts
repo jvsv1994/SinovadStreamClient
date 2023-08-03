@@ -26,9 +26,9 @@ export class RoleService {
     this.refreshListEvent.emit(true);
   }
 
-  public getItems(pageNumber:number,itemsPerPage:number,sortBy:string,sortDirection:string):Promise<SinovadApiPaginationResponse>{
+  public getItems(pageNumber:number,itemsPerPage:number,sortBy:string,sortDirection:string,searchText:string,searchBy:string):Promise<SinovadApiPaginationResponse>{
     return new Promise((resolve, reject) => {
-      var queryParams="?page="+pageNumber.toString()+"&take="+itemsPerPage.toString()+"&sortBy="+sortBy+"&sortDirection="+sortDirection;
+      var queryParams="?page="+pageNumber.toString()+"&take="+itemsPerPage.toString()+"&sortBy="+sortBy+"&sortDirection="+sortDirection+"&searchText="+searchText+"&searchBy="+searchBy;
       var path="/roles/GetAllWithPaginationAsync"+queryParams;
       this.restProvider.executeSinovadApiService(HttpMethodType.GET,path).then((response:SinovadApiPaginationResponse) => {
         resolve(response);

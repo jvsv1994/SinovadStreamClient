@@ -74,12 +74,16 @@ export class RoleListPage extends CustomListGeneric<Role>  implements OnInit,OnD
         start:"asc",
         disableClear:true
       });
+      this.searchBy="Name";
       this.dataSource.sort = this.sort;
     }
 
     public applyFilter(event: Event) {
       const filterValue = (event.target as HTMLInputElement).value;
-      this.dataSource.filter = filterValue.trim().toLowerCase();
+      //this.dataSource.filter = filterValue.trim().toLowerCase();
+      this.searchText=filterValue.trim().toLowerCase();
+      this.currentPage=1;
+      this.getAllItems();
     }
 
     public ngOnDestroy(): void {
@@ -102,7 +106,7 @@ export class RoleListPage extends CustomListGeneric<Role>  implements OnInit,OnD
 
     public getAllItems(){
       this.showLoading=true;
-      this.roleService.getItems(this.currentPage,this.itemsPerPage,this.sortBy,this.sortDirection).then((response:SinovadApiPaginationResponse) => {
+      this.roleService.getItems(this.currentPage,this.itemsPerPage,this.sortBy,this.sortDirection,this.searchText,this.searchBy).then((response:SinovadApiPaginationResponse) => {
         this.showLoading=false;
         var data=response.Data;
         this.totalCount=response.TotalCount;
