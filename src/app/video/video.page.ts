@@ -36,12 +36,11 @@ export class VideoPage extends ParentComponent implements OnInit,OnDestroy{
   @ViewChild('settingsContainer') settingsContainer: ElementRef;
   @ViewChild('videoPrincipalContainer') videoPrincipalContainer: ElementRef;
   @ViewChild('videoTarget') videoTarget: ElementRef;
-
-  currentInterval:any;
+  detectChangesInterval:any;
+  updateVideoProfileInterval:any;
   currentSubtitleData:any[]=undefined;
   haveError:boolean=false;
   currentEpisode:any={};
-  intervalVideoTime:any;
   lastTmpVideoTime:number;
   dashMediaPlayer:Dash.MediaPlayerClass;
   lastClickSeekButton:Date=new Date();
@@ -57,6 +56,7 @@ export class VideoPage extends ParentComponent implements OnInit,OnDestroy{
   showVideoTarget:boolean=false;
   loadedData:boolean=false;
   showReplyVideoMessageBox:boolean=false;
+  beforeUnloadFunction:any=false;
 
   constructor(
     public restProvider: RestProviderService,
@@ -66,6 +66,78 @@ export class VideoPage extends ParentComponent implements OnInit,OnDestroy{
     public http: HttpClient) {
       super(restProvider,domSanitizer,sharedData);
 
+  }
+
+  ngOnInit(): void {
+    let ctx=this;
+    this.customMouseOutEvent=function onCustomMouseOut(event:any) {
+      if(ctx.sliderContainer && ctx.sliderContainer.startMove)
+      {
+        ctx.onClickSlider(ctx.sliderContainer);
+      }
+    }
+    window.addEventListener('click',this.customMouseOutEvent);
+    this.beforeUnloadFunction=function onUnload(event:any) {
+      ctx.deleteAllProcessesAndDirectories();
+    }
+    window.addEventListener('beforeunload',this.beforeUnloadFunction);
+    this.detectChangesInterval=window.setInterval(function() {
+      ctx.ref.detectChanges();
+    }, 0);
+    this.updateVideoProfileInterval=window.setInterval(function() {
+        ctx.UpdateVideoProfile();
+    }, 10000);
+    this.initializeVideoData();
+  }
+
+  ngOnDestroy(): void {
+    if(this.dashMediaPlayer)
+    {
+      this.dashMediaPlayer.reset();
+      this.dashMediaPlayer.destroy();
+    }
+    if(this.hls)
+    {
+      this.hls.detachMedia();
+      this.hls.destroy();
+    }
+    if(this.detectChangesInterval)
+    {
+      window.clearInterval(this.detectChangesInterval);
+    }
+    if(this.updateVideoProfileInterval)
+    {
+      window.clearInterval(this.updateVideoProfileInterval);
+    }
+    if(this.customMouseOutEvent)
+    {
+      window.removeEventListener('click',this.customMouseOutEvent);
+    }
+    if(this.beforeUnloadFunction)
+    {
+      window.removeEventListener('beforeunload',this.beforeUnloadFunction);
+    }
+  }
+
+  public initializeVideoData(){
+    this.sharedData.listProcessGUIDs.push(this.builderVideo.TranscodePrepareVideo.ProcessGUID);
+    this.builderVideo.LoadStatus=LoadVideoStatus.Empty;
+    let url=this.builderVideo.TranscodePrepareVideo.MediaServerUrl+"/transcodeVideos/GetVideoData";
+    this.restProvider.executeHttpMethodByUrl(HttpMethodType.POST,url,this.builderVideo.TranscodePrepareVideo).then((response) => {
+      this.builderVideo.LoadStatus=LoadVideoStatus.Generated;
+      const jsonString=hiBase64.decode(response);
+      let transcodeRunVideo:TranscodeRunVideo=JSON.parse(jsonString);
+      this.builderVideo.TranscodeRunVideo=transcodeRunVideo;
+      this.builderVideo.TranscodePrepareVideo=transcodeRunVideo.TranscodePrepareVideo;
+      this.initializeStreams();
+      setTimeout(() => {
+        this.executeHideControls();
+      }, 1000);
+      this.onInitializeVideo();
+    },error=>{
+      this.showReplyVideoMessageBox=true;
+      console.error(error);
+    });
   }
 
   public onTouchVideoContainer(target?:any){
@@ -143,48 +215,6 @@ export class VideoPage extends ParentComponent implements OnInit,OnDestroy{
           }
         }
       }
-    }
-  }
-
-  public initializeVideoData(){
-    let ctx=this;
-    this.sharedData.listProcessGUIDs.push(this.builderVideo.TranscodePrepareVideo.ProcessGUID);
-    this.builderVideo.LoadStatus=LoadVideoStatus.Empty;
-    let url=this.builderVideo.TranscodePrepareVideo.MediaServerUrl+"/transcodeVideos/GetVideoData";
-    this.restProvider.executeHttpMethodByUrl(HttpMethodType.POST,url,this.builderVideo.TranscodePrepareVideo).then((response) => {
-      this.builderVideo.LoadStatus=LoadVideoStatus.Generated;
-      const jsonString=hiBase64.decode(response);
-      let transcodeRunVideo:TranscodeRunVideo=JSON.parse(jsonString);
-      this.builderVideo.TranscodeRunVideo=transcodeRunVideo;
-      this.builderVideo.TranscodePrepareVideo=transcodeRunVideo.TranscodePrepareVideo;
-      this.initializeStreams();
-      this.customMouseOutEvent=function onCustomMouseOut(event:any) {
-        if(ctx.sliderContainer && ctx.sliderContainer.startMove)
-        {
-          ctx.onClickSlider(ctx.sliderContainer);
-        }
-      }
-      window.addEventListener('click',this.customMouseOutEvent);
-      setTimeout(() => {
-        this.executeHideControls();
-      }, 1000);
-      let customUnloadFunction=function onUnload(event:any) {
-        ctx.deleteAllProcessesAndDirectories();
-      }
-      window.addEventListener('beforeunload',customUnloadFunction);
-      this.onInitializeVideo();
-    },error=>{
-      this.showReplyVideoMessageBox=true;
-      console.error(error);
-    });
-    if(this.sharedData.userData)
-    {
-      window.setInterval(function() {
-        ctx.ref.detectChanges();
-      }, 0);
-      this.currentInterval=window.setInterval(function() {
-          ctx.UpdateVideoProfile();
-      }, 10000);
     }
   }
 
@@ -417,14 +447,6 @@ export class VideoPage extends ParentComponent implements OnInit,OnDestroy{
   }
 
   public closeVideo(){
-    if(this.currentInterval)
-    {
-      window.clearInterval(this.currentInterval);
-    }
-    if(this.intervalVideoTime)
-    {
-      window.clearInterval(this.intervalVideoTime);
-    }
     this.deleteAllProcessesAndDirectories();
     this.outputCloseVideo.emit(true);
   }
@@ -640,11 +662,6 @@ export class VideoPage extends ParentComponent implements OnInit,OnDestroy{
         console.error(error);
       });
     }
-  }
-
-
-  ngOnInit(): void {
-    this.initializeVideoData();
   }
 
   public executeHideControls(){
@@ -1232,19 +1249,7 @@ public onClickSlider(sliderContainer:any){
     }
   }
 
-  ngOnDestroy(): void {
-    if(this.dashMediaPlayer)
-    {
-      this.dashMediaPlayer.reset();
-      this.dashMediaPlayer.destroy();
-    }
-    if(this.hls)
-    {
-      this.hls.detachMedia();
-      this.hls.destroy();
-    }
-    window.removeEventListener('click',this.customMouseOutEvent);
-  }
+
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
