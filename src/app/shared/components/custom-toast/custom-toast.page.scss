@@ -1,52 +1,27 @@
-.toast-box-container{
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left:0;
-}
 
-.toast-box-content{
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-
-.toast-box{
-  position: absolute;
-  bottom: 30px;
-  display: flex;
-  overflow: hidden;
-  padding: 20px;
-  width: 100%;
-  justify-content: center;
-}
-
-.toast{
-  width: 400px;
-  height: 80px;
-  background: #fff;
+.custom-toast{
+  background: transparent;
   font-weight: 500;
-  margin:15px 0;
-  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
 }
 
-.toast i{
-  margin: 0 20px;
-  font-size: 35px;
+.custom-toast i{
+  margin: 0px;
+  font-size: 23px;
 }
 
-.toast.success i{
+.custom-toast.success i{
   color: green;
 }
 
-.toast.error i{
+.custom-toast.error i{
   color: red;
 }
 
-.toast.info i{
+.custom-toast.info i{
   color: blue;
 }
 

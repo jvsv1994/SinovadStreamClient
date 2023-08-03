@@ -1,36 +1,24 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+import { CustomToastPage, ToastOptions, ToastType } from '../components/custom-toast/custom-toast.page';
 
 export declare type EventHandler = (...args: any[]) => any;
 
-export enum ToastType
-{
-  Success = 1,
-  Error = 2,
-  Info = 3
-}
-
-export class ToastOptions{
-  containerId?:string;
-  message:string;
-  toastType:ToastType;
-  displayTime?:number;
-}
-
 @Injectable({ providedIn: 'root' })
-export class ToastService {
+export class SnackBarService {
 
-  public toast$ = new Subject<ToastOptions>();
   constructor(
-  ) {
+    private snackBar: MatSnackBar) {
+    }
+
+  public showSnackBar(message:string,toastType:ToastType){
+    var config = new MatSnackBarConfig<ToastOptions>();
+    config.duration=2000;
+    config.data={
+      message:message,toastType:toastType
+    }
+    this.snackBar.openFromComponent(CustomToastPage,config);
   }
 
-  public showToast(event:ToastOptions):void{
-    this.toast$.next(event);
-  };
-
-  public getToastEvent():Observable<ToastOptions>{
-    return this.toast$.asObservable();
-  }
 
 }

@@ -11,12 +11,12 @@ import { CustomSpinnerPage } from './components/custom-spinner/custom-spinner.pa
     CommonModule
   ],
   declarations: [
-    FormatDataPipe,ClickOutsideDirective,CustomConfirmDialogComponent,CustomToastPage,CustomSpinnerPage
+    FormatDataPipe,ClickOutsideDirective,CustomConfirmDialogComponent,CustomSpinnerPage
   ],
   providers: [
   ],
   exports: [
-    FormatDataPipe,ClickOutsideDirective,CustomConfirmDialogComponent,CustomToastPage,CustomSpinnerPage
+    FormatDataPipe,ClickOutsideDirective,CustomConfirmDialogComponent,CustomSpinnerPage
   ]
 })
 export class SharedModule { }

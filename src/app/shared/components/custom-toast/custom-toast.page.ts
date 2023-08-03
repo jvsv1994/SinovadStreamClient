@@ -1,74 +1,38 @@
 
-import { ChangeDetectorRef, Component, OnDestroy, OnInit, TemplateRef, ViewChild, ViewContainerRef} from '@angular/core';
-import { Subscription } from 'rxjs';
-import { ToastOptions, ToastService, ToastType } from 'src/app/shared/services/toast.service';
+import { CommonModule } from '@angular/common';
+import { Component, Inject, inject} from '@angular/core';
+import { MAT_SNACK_BAR_DATA, MatSnackBarModule, MatSnackBarRef } from '@angular/material/snack-bar';
+
+export enum ToastType
+{
+  Success = 1,
+  Error = 2,
+  Info = 3
+}
+
+export class ToastOptions{
+  containerId?:string;
+  message:string;
+  toastType:ToastType;
+  displayTime?:number;
+}
 
 @Component({
   selector: 'app-custom-toast',
   templateUrl: './custom-toast.page.html',
-  styleUrls: ['./custom-toast.page.scss']
+  styleUrls: ['./custom-toast.page.scss'],
+  standalone: true,
+  imports: [MatSnackBarModule,CommonModule]
 })
-export class CustomToastPage implements OnInit,OnDestroy {
-
-  @ViewChild('toastContent') toastContent: TemplateRef<any>;
-  toastOptions:ToastOptions;
-  container:HTMLElement;
-  renderedHtml:HTMLElement;
-  isShowing:boolean=false;
-  subscriptionToast:Subscription;
-
+export class CustomToastPage{
+  snackBarRef = inject(MatSnackBarRef);
   constructor(
-    private toastService:ToastService,
-    public ref:ChangeDetectorRef,
-    public viewContainerRef: ViewContainerRef) {
-      this.subscriptionToast=this.toastService.getToastEvent().subscribe((toastOptions:ToastOptions)=>{
-        this.show(toastOptions);
-      });
-    }
-
-    ngOnInit(): void {
-    }
-
-    public ngOnDestroy(): void {
-      this.subscriptionToast.unsubscribe();
-    }
-
-    ngAfterViewInit(){
+    @Inject(MAT_SNACK_BAR_DATA) public toastOptions: ToastOptions) {
 
     }
 
     public toastType(): typeof ToastType {
       return ToastType;
-    }
-
-    private show(toastOptions:ToastOptions){
-      this.toastOptions=toastOptions;
-      if(toastOptions.containerId==undefined)
-      {
-        toastOptions.containerId="sinovadMainContainer";
-      }
-      if(toastOptions.displayTime==undefined)
-      {
-        toastOptions.displayTime=2000;
-      }
-      this.container=document.getElementById(toastOptions.containerId);
-      var embeddedViewRef=this.viewContainerRef.createEmbeddedView(this.toastContent);
-      this.renderedHtml=embeddedViewRef.rootNodes[0] as HTMLElement;
-      this.container.appendChild(this.renderedHtml);
-      this.isShowing=true;
-      this.ref.detectChanges();
-      setTimeout(() => {
-        this.hideToast();
-      }, toastOptions.displayTime);
-    }
-
-    private hideToast(){
-      if(this.container.contains(this.renderedHtml))
-      {
-        this.container.removeChild(this.renderedHtml);
-      }
-      this.isShowing=false;
-      this.ref.detectChanges();
     }
 
 }

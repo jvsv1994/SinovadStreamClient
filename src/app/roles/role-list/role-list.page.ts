@@ -9,12 +9,13 @@ import { Role } from '../shared/role.model';
 import { RoleService } from '../shared/role.service';
 import { Subscription } from 'rxjs';
 import { MatPaginator, MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
-import { ToastService, ToastType } from 'src/app/shared/services/toast.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ConfirmDialogOptions, CustomConfirmDialogComponent } from 'src/app/shared/components/custom-confirm-dialog/custom-confirm-dialog.component';
 import { CustomListGeneric } from 'src/app/shared/generics/custom-list.generic';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
+import { ToastType } from 'src/app/shared/components/custom-toast/custom-toast.page';
+import { SnackBarService } from 'src/app/shared/services/toast.service';
 
 @Component({
   selector: 'app-role-list',
@@ -33,8 +34,8 @@ export class RoleListPage extends CustomListGeneric<Role>  implements OnInit,OnD
 
   constructor(
     private dialog: MatDialog,
-    private toastService:ToastService,
     public matPaginatorIntl: MatPaginatorIntl,
+    private snackbarService:SnackBarService,
     private roleService:RoleService,
     public restProvider: RestProviderService,
     public  ref:ChangeDetectorRef,
@@ -117,11 +118,11 @@ export class RoleListPage extends CustomListGeneric<Role>  implements OnInit,OnD
     private executeDeleteItem(role:Role){
       this.showLoading=true;
       this.roleService.deleteItem(role.Id).then(res=>{
-        this.toastService.showToast({message:"Se elimino el registro satisfactoriamente",toastType:ToastType.Success});
+        this.snackbarService.showSnackBar("Se elimino el registro satisfactoriamente",ToastType.Success);
         this.getAllItems();
       },(error)=>{
         this.showLoading=false;
-        this.toastService.showToast({message:error,toastType:ToastType.Error});
+        this.snackbarService.showSnackBar(error,ToastType.Error);
       });
     }
 
@@ -145,11 +146,11 @@ export class RoleListPage extends CustomListGeneric<Role>  implements OnInit,OnD
     private executeDeleteSelectedItems(){
       this.showLoading=true;
       this.roleService.deleteItems(this.listSelectedItems).then(res=>{
-        this.toastService.showToast({message:"Se eliminaron los registros seleccionados satisfactoriamente",toastType:ToastType.Success});
+        //this.SnackBarService.showToast({message:"Se eliminaron los registros seleccionados satisfactoriamente",toastType:ToastType.Success});
         this.getAllItems();
       },(error)=>{
         this.showLoading=false;
-        this.toastService.showToast({message:error,toastType:ToastType.Error});
+        //this.SnackBarService.showToast({message:error,toastType:ToastType.Error});
       });
     }
 

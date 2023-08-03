@@ -10,7 +10,7 @@ import { SinovadApiGenericResponse } from '../response/sinovadApiGenericResponse
 import { ActivatedRoute, Router } from '@angular/router';
 import { MediaServer } from 'src/models/mediaServer';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { ToastService, ToastType } from 'src/app/shared/services/toast.service';
+import { SnackBarService } from 'src/app/shared/services/toast.service';
 
 declare var window;
 @Component({
@@ -25,7 +25,7 @@ export class ServerSettingsGeneralPage extends ParentComponent implements OnInit
   loading:boolean=false;
 
   constructor(
-    private toastService:ToastService,
+    private SnackBarService:SnackBarService,
     private formBuilder: FormBuilder,
     private router: Router,
     public activeRoute: ActivatedRoute,
@@ -72,7 +72,7 @@ export class ServerSettingsGeneralPage extends ParentComponent implements OnInit
         this.loading=false;
         this.getMediaServers();
         this.getMediaServerData();
-        this.toastService.showToast({containerId:"sinovadMainContainer",displayTime:2000,message:"Se guardaron los cambios satisfactoriamente",toastType:ToastType.Success});
+        //this.SnackBarService.showToast({containerId:"sinovadMainContainer",displayTime:2000,message:"Se guardaron los cambios satisfactoriamente",toastType:ToastType.Success});
       },error=>{
         this.loading=false;
         console.error(error);

@@ -11,7 +11,7 @@ import { SinovadApiPaginationResponse } from '../response/sinovadApiPaginationRe
 import { TvProgram } from '../../models/tvProgram';
 import { ContextMenuOption } from '../context-menu/contextMenuOption';
 import { ContextMenuPage } from '../context-menu/context-menu.page';
-import { ToastService, ToastType } from 'src/app/shared/services/toast.service';
+import { SnackBarService } from 'src/app/shared/services/toast.service';
 @Component({
   selector: 'app-item-list',
   templateUrl: 'item-list.page.html',
@@ -36,7 +36,7 @@ export class ItemListPage extends ParentComponent implements OnInit{
   showConfirmMessageBox:boolean=false;
 
   constructor(
-    private toastService:ToastService,
+    private SnackBarService:SnackBarService,
     public restProvider: RestProviderService,
     public activeRoute: ActivatedRoute,
     public domSanitizer: DomSanitizer,
@@ -163,7 +163,7 @@ export class ItemListPage extends ParentComponent implements OnInit{
   }
 
   public onSaveItem(){
-    this.toastService.showToast({containerId:"sinovadMainContainer",displayTime:2000,message:"Se guardaron los cambios satisfactoriamente",toastType:ToastType.Success});
+    //this.SnackBarService.showToast({containerId:"sinovadMainContainer",displayTime:2000,message:"Se guardaron los cambios satisfactoriamente",toastType:ToastType.Success});
     this.showPopUpForm=false;
     this.getAllItems();
   }

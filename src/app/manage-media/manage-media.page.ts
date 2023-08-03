@@ -14,7 +14,7 @@ import { MediaServer } from 'src/models/mediaServer';
 import { CustomActionsMenuPage } from '../custom-actions-menu/custom-actions-menu.page';
 import { CustomActionsMenuItem } from '../custom-actions-menu/customActionsMenuItem';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { ToastService, ToastType } from '../shared/services/toast.service';
+import { SnackBarService } from '../shared/services/toast.service';
 import { ConfirmDialogOptions, CustomConfirmDialogComponent } from '../shared/components/custom-confirm-dialog/custom-confirm-dialog.component';
 
 declare var window;
@@ -51,7 +51,7 @@ export class ManageMediaPage extends ParentComponent implements OnInit,OnDestroy
 
   constructor(
     private dialog: MatDialog,
-    private toastService:ToastService,
+    private SnackBarService:SnackBarService,
     private router: Router,
     public activeRoute: ActivatedRoute,
     public restProvider: RestProviderService,
@@ -158,11 +158,11 @@ export class ManageMediaPage extends ParentComponent implements OnInit,OnDestroy
     private executeDeleteStorage(storage:Storage){
       var path="/storages/Delete/"+storage.Id;
       this.restProvider.executeSinovadApiService(HttpMethodType.DELETE,path).then((response:SinovadApiGenericResponse) => {
-        this.toastService.showToast({message:"Se eliminó la biblioteca satisfactoriamente",toastType:ToastType.Success});
+        //this.SnackBarService.showToast({message:"Se eliminó la biblioteca satisfactoriamente",toastType:ToastType.Success});
         this.getStorages();
       },error=>{
         console.error(error);
-        this.toastService.showToast({message:error,toastType:ToastType.Error});
+        //this.SnackBarService.showToast({message:error,toastType:ToastType.Error});
       });
     }
 

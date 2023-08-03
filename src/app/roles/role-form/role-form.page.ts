@@ -5,21 +5,14 @@ import { SharedDataService } from 'src/app/shared/services/shared-data.service';
 import { HttpClient} from '@angular/common/http';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
-import { ToastService, ToastType } from 'src/app/shared/services/toast.service';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ParentComponent } from 'src/app/parent/parent.component';
 import { Role } from '../shared/role.model';
 import { RoleService } from '../shared/role.service';
 import { Subscription } from 'rxjs';
-import { ErrorStateMatcher } from '@angular/material/core';
-
-/** Error when invalid control is dirty, touched, or submitted. */
-export class MyErrorStateMatcher implements ErrorStateMatcher {
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-    const isSubmitted = form && form.submitted;
-    return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
-  }
-}
+import { MyErrorStateMatcher } from 'src/app/shared/custom-error-state-matcher';
+import { ToastType } from 'src/app/shared/components/custom-toast/custom-toast.page';
+import { SnackBarService } from 'src/app/shared/services/toast.service';
 
 @Component({
   selector: 'app-role-form',
@@ -37,9 +30,9 @@ export class RoleFormPage extends ParentComponent implements OnInit,OnDestroy {
   matcher = new MyErrorStateMatcher();
 
   constructor(
+    private snackbarService:SnackBarService,
     private ref:ChangeDetectorRef,
     private roleService:RoleService,
-    private toastService:ToastService,
     private formBuilder: FormBuilder,
     private modalService: NgbModal,
     public restProvider: RestProviderService,
@@ -81,11 +74,11 @@ export class RoleFormPage extends ParentComponent implements OnInit,OnDestroy {
         this.roleService.saveItem(role).then((response) => {
           this.showLoading=false;
           this.role=undefined;
-          this.toastService.showToast({message:"Se guardo el rol satisfactoriamente",toastType:ToastType.Success});
+          this.snackbarService.showSnackBar("Se guardo el rol satisfactoriamente",ToastType.Success);
           this.modalRef.close();
         },error=>{
           this.showLoading=false;
-          this.toastService.showToast({message:error,toastType:ToastType.Error});
+          this.snackbarService.showSnackBar(error,ToastType.Error);
         });
       }else{
         this.roleFormGroup.markAllAsTouched();
