@@ -1,9 +1,0 @@
-
-<div class="custom-toast" [ngClass]="{'success':toastOptions.toastType==toastType().Success,'info':toastOptions.toastType==toastType().Info,'error':toastOptions.toastType==toastType().Error}">
-    <i *ngIf="toastOptions.toastType==toastType().Success" class="fa-solid fa-circle-check me-2"></i>
-    <i *ngIf="toastOptions.toastType==toastType().Info" class="fa-solid fa-circle-info me-2"></i>
-    <i *ngIf="toastOptions.toastType==toastType().Error" class="fa-solid fa-circle-xmark me-2"></i>
-    {{toastOptions.message}}
-</div>
-
-

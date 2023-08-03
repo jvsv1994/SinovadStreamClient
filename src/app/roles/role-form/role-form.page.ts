@@ -11,8 +11,8 @@ import { Role } from '../shared/role.model';
 import { RoleService } from '../shared/role.service';
 import { Subscription } from 'rxjs';
 import { MyErrorStateMatcher } from 'src/app/shared/custom-error-state-matcher';
-import { ToastType } from 'src/app/shared/components/custom-toast/custom-toast.page';
 import { SnackBarService } from 'src/app/shared/services/toast.service';
+import { SnackBarType } from 'src/app/shared/components/custom-snack-bar/custom-snack-bar.component';
 
 @Component({
   selector: 'app-role-form',
@@ -74,11 +74,11 @@ export class RoleFormPage extends ParentComponent implements OnInit,OnDestroy {
         this.roleService.saveItem(role).then((response) => {
           this.showLoading=false;
           this.role=undefined;
-          this.snackbarService.showSnackBar("Se guardo el rol satisfactoriamente",ToastType.Success);
+          this.snackbarService.showSnackBar("Se guardo el rol satisfactoriamente",SnackBarType.Success);
           this.modalRef.close();
         },error=>{
           this.showLoading=false;
-          this.snackbarService.showSnackBar(error,ToastType.Error);
+          this.snackbarService.showSnackBar(error,SnackBarType.Error);
         });
       }else{
         this.roleFormGroup.markAllAsTouched();

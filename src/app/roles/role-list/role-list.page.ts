@@ -14,8 +14,8 @@ import { ConfirmDialogOptions, CustomConfirmDialogComponent } from 'src/app/shar
 import { CustomListGeneric } from 'src/app/shared/generics/custom-list.generic';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
-import { ToastType } from 'src/app/shared/components/custom-toast/custom-toast.page';
 import { SnackBarService } from 'src/app/shared/services/toast.service';
+import { SnackBarType } from 'src/app/shared/components/custom-snack-bar/custom-snack-bar.component';
 
 @Component({
   selector: 'app-role-list',
@@ -118,11 +118,11 @@ export class RoleListPage extends CustomListGeneric<Role>  implements OnInit,OnD
     private executeDeleteItem(role:Role){
       this.showLoading=true;
       this.roleService.deleteItem(role.Id).then(res=>{
-        this.snackbarService.showSnackBar("Se elimino el registro satisfactoriamente",ToastType.Success);
+        this.snackbarService.showSnackBar("Se elimino el registro satisfactoriamente",SnackBarType.Success);
         this.getAllItems();
       },(error)=>{
         this.showLoading=false;
-        this.snackbarService.showSnackBar(error,ToastType.Error);
+        this.snackbarService.showSnackBar(error,SnackBarType.Error);
       });
     }
 

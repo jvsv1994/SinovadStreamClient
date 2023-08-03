@@ -3,36 +3,36 @@ import { CommonModule } from '@angular/common';
 import { Component, Inject, inject} from '@angular/core';
 import { MAT_SNACK_BAR_DATA, MatSnackBarModule, MatSnackBarRef } from '@angular/material/snack-bar';
 
-export enum ToastType
+export enum SnackBarType
 {
   Success = 1,
   Error = 2,
   Info = 3
 }
 
-export class ToastOptions{
+export class SnackBarOptions{
   containerId?:string;
   message:string;
-  toastType:ToastType;
+  snackBarType:SnackBarType;
   displayTime?:number;
 }
 
 @Component({
-  selector: 'app-custom-toast',
-  templateUrl: './custom-toast.page.html',
-  styleUrls: ['./custom-toast.page.scss'],
+  selector: 'app-custom-snack-bar',
+  templateUrl: './custom-snack-bar.component.html',
+  styleUrls: ['./custom-snack-bar.component.scss'],
   standalone: true,
   imports: [MatSnackBarModule,CommonModule]
 })
-export class CustomToastPage{
+export class CustomSnackBarComponent{
   snackBarRef = inject(MatSnackBarRef);
   constructor(
-    @Inject(MAT_SNACK_BAR_DATA) public toastOptions: ToastOptions) {
+    @Inject(MAT_SNACK_BAR_DATA) public toastOptions: SnackBarOptions) {
 
     }
 
-    public toastType(): typeof ToastType {
-      return ToastType;
+    public SnackBarType(): typeof SnackBarType {
+      return SnackBarType;
     }
 
 }

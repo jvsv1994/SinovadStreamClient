@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
-import { CustomToastPage, ToastOptions, ToastType } from '../components/custom-toast/custom-toast.page';
+import { CustomSnackBarComponent, SnackBarOptions, SnackBarType } from '../components/custom-snack-bar/custom-snack-bar.component';
 
 export declare type EventHandler = (...args: any[]) => any;
 
@@ -11,13 +11,13 @@ export class SnackBarService {
     private snackBar: MatSnackBar) {
     }
 
-  public showSnackBar(message:string,toastType:ToastType){
-    var config = new MatSnackBarConfig<ToastOptions>();
+  public showSnackBar(message:string,SnackBarType:SnackBarType){
+    var config = new MatSnackBarConfig<SnackBarOptions>();
     config.duration=2000;
     config.data={
-      message:message,toastType:toastType
+      message:message,snackBarType:SnackBarType
     }
-    this.snackBar.openFromComponent(CustomToastPage,config);
+    this.snackBar.openFromComponent(CustomSnackBarComponent,config);
   }
 
 
