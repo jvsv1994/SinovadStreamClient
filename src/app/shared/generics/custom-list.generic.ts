@@ -1,20 +1,22 @@
+import { SelectionModel } from "@angular/cdk/collections";
 import { MatPaginatorIntl, PageEvent } from "@angular/material/paginator";
+import { MatTableDataSource } from "@angular/material/table";
 
 
 
 export class CustomListGeneric<T>{
 
+dataSource=new MatTableDataSource<T>;
+selection = new SelectionModel<T>(true, []);
 totalCount:number;
 itemsPerPage:number=10;
 currentPage:number=1;
 listItems:T[]=[];
-listSelectedItems:T[]=[];
-lastSelectedItem:T;
-keyName='Id';
 sortBy="Id";
 sortDirection="asc";
 searchText="";
 searchBy="";
+lastSelectedItem:T;
 
 constructor(
   public matPaginatorIntl: MatPaginatorIntl
@@ -24,126 +26,79 @@ constructor(
   this.matPaginatorIntl.nextPageLabel="Página siguiente";
 }
 
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
+  }
+
+  toggleAllRows() {
+    if (this.isAllSelected()) {
+      this.selection.clear();
+      return;
+    }
+    this.selection.select(...this.dataSource.data);
+  }
+
   public updatePageData(event:PageEvent){
     this.itemsPerPage=event.pageSize;
     this.currentPage=event.pageIndex+1;
   }
 
-  public isSelectedAll(){
-
-    if(this.listSelectedItems.length>0 && this.listSelectedItems.length==this.listItems.length)
-    {
-      return true;
-    }else{
-      return false;
-    }
+  public getElementNumber(itemIndex:number,pageIndex:number,pageSize:number){
+    var newIndex=(itemIndex+1)+((pageIndex-1)*pageSize);
+    return newIndex;
   }
 
-  public isSelectedAny(){
-    if(this.listSelectedItems.length>0 && this.listSelectedItems.length<this.listItems.length)
-    {
-      return true;
-    }else{
-      return false;
-    }
-  }
-
-  public isSelectedNothing(){
-    if(this.listSelectedItems.length==0)
-    {
-      return true;
-    }else{
-      return false;
-    }
-  }
-
-  public onChangeSelectAllCheckBox(event:any){
-    if(event.target.checked)
-    {
-      this.selectAll();
-    }else{
-      this.unselectAll();
-    }
-  }
-
-  public selectAll(){
-    for(let i=0;i < this.listItems.length;i++)
-    {
-      let item=this.listItems[i];
-      this.listSelectedItems.push(item);
-    }
-  }
-
-  public unselectAll(){
-    this.listSelectedItems=[];
-  }
-
-  public onSelectItem(event:any,item:T)
+  public onChangeCheckValue(event:any,item:T)
   {
-    let addItems:boolean=false;
-    let index=this.listSelectedItems.findIndex(ele=>ele[this.keyName]==item[this.keyName]);
-    if(index!=-1)
+    let addItems:boolean=event.target.checked;
+    if(addItems)
     {
-      this.listSelectedItems.splice(index,1);
-      addItems=false;
+      this.selection.select(item);
     }else{
-      this.listSelectedItems.push(item);
-      addItems=true;
+      this.selection.deselect(item);
     }
     if(event.shiftKey && this.lastSelectedItem)
     {
       let lastSelectedItemIndex=0
-      if(this.listSelectedItems.length>0 && this.lastSelectedItem)
+      if(this.selection.hasValue() && this.lastSelectedItem)
       {
         lastSelectedItemIndex=this.listItems.indexOf(this.lastSelectedItem);
       }
       let currentIndex=this.listItems.indexOf(item);
       if(addItems)
       {
+        var listItemsToSelect=[];
         if(currentIndex>=lastSelectedItemIndex)
         {
-          let listItemsToAdd=this.listItems.filter(item=>this.listItems.indexOf(item)<=currentIndex && this.listItems.indexOf(item)>=lastSelectedItemIndex && !this.isCheckedItem(item));
-          this.listSelectedItems=this.listSelectedItems.concat(listItemsToAdd);
+          listItemsToSelect=this.listItems.filter(item=>this.listItems.indexOf(item)<=currentIndex && this.listItems.indexOf(item)>=lastSelectedItemIndex
+          && !this.selection.isSelected(item));
         }else{
-          let listItemsToAdd=this.listItems.filter(item=>this.listItems.indexOf(item)>=currentIndex && this.listItems.indexOf(item)<=lastSelectedItemIndex && !this.isCheckedItem(item));
-          this.listSelectedItems=this.listSelectedItems.concat(listItemsToAdd);
+          listItemsToSelect=this.listItems.filter(item=>this.listItems.indexOf(item)>=currentIndex && this.listItems.indexOf(item)<=lastSelectedItemIndex
+          && !this.selection.isSelected(item));
+        }
+        if(listItemsToSelect && listItemsToSelect.length>0)
+        {
+          this.selection.select(...listItemsToSelect);
         }
       }else{
         let listItemsToUnselect=[];
         if(currentIndex>=lastSelectedItemIndex)
         {
-          listItemsToUnselect=this.listItems.filter(item=>this.listItems.indexOf(item)<=currentIndex && this.listItems.indexOf(item)>=lastSelectedItemIndex && this.isCheckedItem(item));
+          listItemsToUnselect=this.listItems.filter(item=>this.listItems.indexOf(item)<=currentIndex && this.listItems.indexOf(item)>=lastSelectedItemIndex
+           && this.selection.isSelected(item));
         }else{
-          listItemsToUnselect=this.listItems.filter(item=>this.listItems.indexOf(item)>=currentIndex && this.listItems.indexOf(item)<=lastSelectedItemIndex && this.isCheckedItem(item));
+          listItemsToUnselect=this.listItems.filter(item=>this.listItems.indexOf(item)>=currentIndex && this.listItems.indexOf(item)<=lastSelectedItemIndex
+           && this.selection.isSelected(item));
         }
         if(listItemsToUnselect && listItemsToUnselect.length>0)
         {
-          listItemsToUnselect.forEach(element => {
-            let index=this.listSelectedItems.findIndex(item=>item[this.keyName]==element[this.keyName]);
-            if(index!=-1)
-            {
-              this.listSelectedItems.splice(index,1);
-            }
-          });
+          this.selection.deselect(...listItemsToUnselect);
         }
       }
     }
     this.lastSelectedItem=item;
-  }
-
-  public isCheckedItem(item:T){
-    let index=this.listSelectedItems.findIndex(ele=>ele[this.keyName]==item[this.keyName]);
-    if(index!=-1)
-    {
-      return true;
-    }else{
-      return false;
-    }
-  }
-
-  public getElementNumber(itemIndex:number,pageIndex:number,pageSize:number){
-    var newIndex=(itemIndex+1)+((pageIndex-1)*pageSize);
-    return newIndex;
   }
 
 }

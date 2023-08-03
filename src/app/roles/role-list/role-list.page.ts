@@ -27,7 +27,6 @@ export class RoleListPage extends CustomListGeneric<Role>  implements OnInit,OnD
   refreshSubscription$:Subscription;
   showLoading:boolean=true;
   displayedColumns: string[] = ['Select','Id', 'Name','Actions'];
-  dataSource=new MatTableDataSource<Role>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
@@ -112,7 +111,7 @@ export class RoleListPage extends CustomListGeneric<Role>  implements OnInit,OnD
         this.totalCount=response.TotalCount;
         this.listItems=data;
         this.dataSource = new MatTableDataSource(this.listItems);
-        this.listSelectedItems=[];
+        this.selection.clear();
         this.paginator.length=this.totalCount;
         this.paginator.pageIndex=this.currentPage-1;
         this.paginator.pageSize=this.itemsPerPage;
@@ -150,7 +149,7 @@ export class RoleListPage extends CustomListGeneric<Role>  implements OnInit,OnD
     //Delete List Section
 
     public deleteSelectedItems(){
-      if(this.listSelectedItems && this.listSelectedItems.length>0)
+      if(this.selection.hasValue())
       {
         var config = new MatDialogConfig<ConfirmDialogOptions>();
         config.data={
@@ -166,7 +165,7 @@ export class RoleListPage extends CustomListGeneric<Role>  implements OnInit,OnD
 
     private executeDeleteSelectedItems(){
       this.showLoading=true;
-      this.roleService.deleteItems(this.listSelectedItems).then(res=>{
+      this.roleService.deleteItems(this.selection.selected).then(res=>{
         this.snackbarService.showSnackBar("Se eliminaron los registros seleccionados satisfactoriamente",SnackBarType.Success);
         this.getAllItems();
       },(error)=>{
