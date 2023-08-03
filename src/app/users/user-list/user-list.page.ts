@@ -22,7 +22,6 @@ import { SnackBarType } from 'src/app/shared/components/custom-snack-bar/custom-
 export class UserListPage extends CustomListGeneric<User> implements OnInit {
 
 
-  displayedColumns: string[] = ['Id', 'UserName','Email','FirstName','LastName'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
@@ -178,10 +177,20 @@ export class UserListPage extends CustomListGeneric<User> implements OnInit {
       });
     }
 
+    //Displayed Columns Section
 
-
-
-
+    public getDisplayedColumns(){
+      if(window.innerWidth>600)
+      {
+        return ['Id', 'UserName','Email','FirstName','LastName'];
+      }else if(window.innerWidth>475){
+        return ['Id', 'UserName','Email','LastName'];
+      }else if(window.innerWidth>375){
+        return ['Id', 'UserName','Email'];
+      }{
+        return ['Id', 'UserName'];
+      }
+    }
 
     public onContextMenuItem(event:any,item:User)
     {
