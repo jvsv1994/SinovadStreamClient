@@ -35,6 +35,11 @@ $app-theme: mat.define-light-theme((
 
 // override angular material styles
 
+.mat-mdc-form-field {
+  font-size: 16px;
+  width: 100%;
+}
+
 .mat-mdc-table{
   background-color: transparent;
 }
@@ -132,6 +137,62 @@ $app-theme: mat.define-light-theme((
 .modal-header .modal-close-button i{
   color: rgba(255, 255, 255, 0.7);
 }
+
+//custom styles
+
+.custom-list-container{
+  max-width: 600px !important;
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+  padding-bottom: 20px !important;
+  padding-top: 20px !important;
+  min-height: 100% !important;
+}
+
+.custom-list-title{
+  color: white;
+}
+
+table {
+  border: none;
+  overflow: hidden;
+  width: 100%;
+}
+
+.row h3{
+  color: white;
+}
+
+button.action-button{
+  background-color: transparent;
+  border: none;
+  outline: none;
+  border-radius: 25px;
+  padding: 8px 13px 8px 13px;
+}
+
+button.toolbar-button.add:hover{
+  color: #fff;
+  background-color: #ffffff26;
+}
+
+button.action-button.edit{
+  color: rgba(255, 255, 255, 0.7);
+}
+
+button.action-button.remove{
+  color: rgba(255, 255, 255, 0.7);
+}
+
+button.action-button:hover{
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.disable{
+  pointer-events: none;
+  opacity: 0.5;
+}
+
 
 .form-field-full-width{
   width: 100%;
@@ -509,6 +570,17 @@ section{
     h2{
       font-size: 16px !important;
     }
+  }
+}
+
+@media only screen and (max-width: 375px) {
+  .custom-list-container{
+    padding-left: 6px !important;
+    padding-right: 6px !important;
+  }
+  .custom-list-title{
+    display: flex !important;
+    justify-content: center !important;
   }
 }
 

@@ -143,7 +143,7 @@ const routes: Routes = [
       {
         path: 'user-list',
         component: UserListPage,
-        loadChildren: () => import('../users/user-list/user-list.module').then(m => m.UserListPageModule)
+        loadChildren: () => import('../users/users.module').then(m => m.UsersModule)
       },
       {
         path: 'role-list',

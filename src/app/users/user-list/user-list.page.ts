@@ -1,22 +1,30 @@
 
-import { ChangeDetectorRef, Component, EventEmitter, OnInit, ViewChild} from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
-import { SharedDataService } from 'src/app/shared/services/shared-data.service';
-import { HttpClient} from '@angular/common/http';
-import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
-import { HttpMethodType } from 'src/app/shared/enums';
+import { Component, EventEmitter, OnInit, ViewChild} from '@angular/core';
 import { SinovadApiPaginationResponse } from 'src/app/response/sinovadApiPaginationResponse';
 import { User } from '../shared/user.model';
 import { ContextMenuPage } from 'src/app/context-menu/context-menu.page';
-import { ParentComponent } from 'src/app/parent/parent.component';
 import { ContextMenuOption } from 'src/app/context-menu/contextMenuOption';
+import { CustomListGeneric } from 'src/app/shared/generics/custom-list.generic';
+import { MatPaginator, MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
+import { MatSort, Sort } from '@angular/material/sort';
+import { UserService } from '../shared/user.service';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { ConfirmDialogOptions, CustomConfirmDialogComponent } from 'src/app/shared/components/custom-confirm-dialog/custom-confirm-dialog.component';
+import { SnackBarService } from 'src/app/shared/services/snack-bar.service';
+import { SnackBarType } from 'src/app/shared/components/custom-snack-bar/custom-snack-bar.component';
 
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.page.html',
   styleUrls: ['./user-list.page.scss']
 })
-export class UserListPage extends ParentComponent implements OnInit {
+export class UserListPage extends CustomListGeneric<User> implements OnInit {
+
+
+  displayedColumns: string[] = ['Id', 'UserName','Email','FirstName','LastName'];
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   @ViewChild('contextMenuPage') contextMenuPage: ContextMenuPage;
   response:SinovadApiPaginationResponse;
@@ -29,112 +37,156 @@ export class UserListPage extends ParentComponent implements OnInit {
   showMediaServersModal:boolean=false;
 
   constructor(
-    public restProvider: RestProviderService,
-    public  ref:ChangeDetectorRef,
-    public http: HttpClient,
-    public domSanitizer: DomSanitizer,
-    public sharedData: SharedDataService) {
-      super(restProvider,domSanitizer,sharedData)
+    private dialog: MatDialog,
+    private userService:UserService,
+    public matPaginatorIntl: MatPaginatorIntl,
+    private snackbarService:SnackBarService) {
+      super(matPaginatorIntl)
 
     }
 
     public ngOnInit(): void {
+      this.refreshSubscription$=this.userService.refreshListEvent.subscribe(event=>{
+        this.getAllItems();
+      });
+    }
+
+    public ngOnDestroy(): void {
+      this.refreshSubscription$.unsubscribe();
+    }
+
+    ngAfterViewInit() {
+      //Initialize Paginator
+      this.paginator.page.subscribe((event:PageEvent) => {
+          this.updatePageData(event);
+          this.getAllItems();
+        }
+      );
+      this.dataSource.paginator = this.paginator;
+
+      //Initialize Sort
+      this.sort.sortChange.subscribe((sort:Sort) => {
+        this.currentPage=1;
+        this.sortBy=sort.active;
+        this.sortDirection=sort.direction;
+        this.getAllItems();
+      });
+      this.sortBy="UserName";
+      this.sortDirection="asc";
+      this.sort.disableClear=true;
+      this.sort.sort({
+        id:"UserName",
+        start:"asc",
+        disableClear:true
+      });
+      this.searchBy="UserName";
+      this.dataSource.sort = this.sort;
+    }
+
+    //Apply Filters Section
+
+    public applyFilter(event: Event) {
+      const filterValue = (event.target as HTMLInputElement).value;
+      this.searchText=filterValue.trim().toLowerCase();
+      this.currentPage=1;
       this.getAllItems();
     }
 
+    //Show Modal Section
+
+    public showNewItem(){
+      var user= new User();
+      user.Active=true;
+      this.userService.showModal(user);
+    }
+
+    public editItem(user: User){
+      this.userService.showModal(user);
+    }
+
+
+    //Get Data Section
+
     public getAllItems(){
-      var page=1;
-      this.executeGetAllItems(page.toString(),this.pageSize.toString());
+      this.showLoading=true;
+      this.userService.getItems(this.currentPage,this.itemsPerPage,this.sortBy,this.sortDirection,this.searchText,this.searchBy).then((response:SinovadApiPaginationResponse) => {
+        this.showLoading=false;
+        var data=response.Data;
+        this.totalCount=response.TotalCount;
+        this.listItems=data;
+        this.dataSource = new MatTableDataSource(this.listItems);
+        this.selection.clear();
+        this.paginator.length=this.totalCount;
+        this.paginator.pageIndex=this.currentPage-1;
+        this.paginator.pageSize=this.itemsPerPage;
+      },error=>{
+        this.showLoading=false;
+      });
     }
 
-    public onSelectPage(page:string){
-      this.executeGetAllItems(page,this.pageSize.toString());
-    }
 
+    //Delete Section
 
-  public executeGetAllItems(page:string,take:string){
-    var queryParams="?page="+page+"&take="+take;
-    var path="/users/GetAllWithPaginationAsync"+queryParams;
-    this.restProvider.executeSinovadApiService(HttpMethodType.GET,path).then((response:SinovadApiPaginationResponse) => {
-      this.response=response;
-      var data=response.Data;
-      this.listItems=data;
-    },error=>{
-      console.error(error);
-    });
-  }
-
-
-    public onChangeSelectAllCheckBox(event:any){
-      if(event.target.checked)
-      {
-        for(let i=0;i < this.listItems.length;i++)
-        {
-          let item=this.listItems[i];
-          this.listSelectedItems.push(item);
+    public deleteItem(user:User){
+      var config = new MatDialogConfig<ConfirmDialogOptions>();
+      config.data={
+        title:'Eliminar rol',message:'¿Esta seguro que desea eliminar el usuario '+user.UserName+'?',accordMessage:"Si, eliminar el usuario '"+user.UserName+"'"
+      }
+      this.dialog.open(CustomConfirmDialogComponent,config).afterClosed().subscribe((confirm: boolean) => {
+        if (confirm) {
+          this.executeDeleteItem(user);
         }
-      }else{
-        this.listSelectedItems=[];
+      });
+    }
+
+    private executeDeleteItem(user:User){
+      this.showLoading=true;
+      this.userService.deleteItem(user.Id).then(res=>{
+        this.snackbarService.showSnackBar("Se elimino el registro satisfactoriamente",SnackBarType.Success);
+        this.getAllItems();
+      },(error)=>{
+        this.showLoading=false;
+        this.snackbarService.showSnackBar(error,SnackBarType.Error);
+      });
+    }
+
+    //Delete List Section
+
+    public deleteSelectedItems(){
+      if(this.selection.hasValue())
+      {
+        var config = new MatDialogConfig<ConfirmDialogOptions>();
+        config.data={
+          title:"Eliminar roles",message:'¿Esta seguro que desea eliminar los registros seleccionados?',accordMessage:"Si, eliminar"
+        }
+        this.dialog.open(CustomConfirmDialogComponent,config).afterClosed().subscribe((confirm: boolean) => {
+          if (confirm) {
+            this.executeDeleteSelectedItems();
+          }
+        });
       }
     }
 
-    public onClickItem(event:any,item:User)
-    {
-      if(event.ctrlKey || event.shiftKey)
-      {
-        if(event.ctrlKey)
-        {
-          if(this.listSelectedItems.indexOf(item)!=-1)
-          {
-            this.listSelectedItems.splice(this.listSelectedItems.indexOf(item),1)
-          }else{
-            this.listSelectedItems.push(item);
-          }
-        }else{
-          let lastSelectedItemIndex=0
-          if(this.listSelectedItems.length>0 && this.lastSelectedItem)
-          {
-            lastSelectedItemIndex=this.listItems.indexOf(this.lastSelectedItem);
-          }
-          let currentIndex=this.listItems.indexOf(item);
-          if(currentIndex>=lastSelectedItemIndex)
-          {
-            let listItemsToAdd=this.listItems.filter(item=>this.listItems.indexOf(item)<=currentIndex && this.listItems.indexOf(item)>=lastSelectedItemIndex && this.listSelectedItems.indexOf(item)==-1);
-            this.listSelectedItems=this.listSelectedItems.concat(listItemsToAdd);
-          }else{
-            let listItemsToAdd=this.listItems.filter(item=>this.listItems.indexOf(item)>=currentIndex && this.listItems.indexOf(item)<=lastSelectedItemIndex && this.listSelectedItems.indexOf(item)==-1);
-            this.listSelectedItems=this.listSelectedItems.concat(listItemsToAdd);
-          }
-        }
-      }else{
-        if(event.type=="contextmenu")
-        {
-          if(this.listSelectedItems.indexOf(item)==-1)
-          {
-            this.listSelectedItems=[];
-            this.listSelectedItems.push(item);
-          }
-        }else{
-          this.listSelectedItems=[];
-          this.listSelectedItems.push(item);
-        }
-      }
-      this.lastSelectedItem=item;
+    private executeDeleteSelectedItems(){
+      this.showLoading=true;
+      this.userService.deleteItems(this.selection.selected).then(res=>{
+        this.snackbarService.showSnackBar("Se eliminaron los registros seleccionados satisfactoriamente",SnackBarType.Success);
+        this.getAllItems();
+      },(error)=>{
+        this.showLoading=false;
+        this.snackbarService.showSnackBar(error,SnackBarType.Error);
+      });
     }
 
-    public showItemForm(){
 
-    }
 
-    public editItem(item: User){
-      this.showPopUpForm=true;
-    }
+
+
 
     public onContextMenuItem(event:any,item:User)
     {
       event.preventDefault();
       event.stopPropagation();
-      this.onClickItem(event,item);
       let listOptions:ContextMenuOption[]=[];
       var ctx=this;
       var eventOnSelectOption=new EventEmitter<boolean>();
@@ -148,26 +200,11 @@ export class UserListPage extends ParentComponent implements OnInit {
       }
     }
 
-    public onClickContextMenuOption(option:ContextMenuOption){
-      if(option.key=="delete")
-      {
-        console.log(option);
-      }
-    }
 
     private renderContextMenuComponent(left:number,top:number,listOptions:ContextMenuOption[]) {
       this.contextMenuPage.show("sinovadMainContainer",left,top,listOptions).then((option:ContextMenuOption) => {
-        this.onClickContextMenuOption(option);
+
       });
     }
 
-    public isItemDisableForEdit(item:User){
-        return false;
-    }
-
-    public onSaveItem(){
-      this.showPopUpForm=false;
-      this.getAllItems();
-      this.getMenus();
-    }
 }

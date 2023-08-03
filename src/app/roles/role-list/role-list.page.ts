@@ -1,13 +1,8 @@
 
-import { AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
-import { SharedDataService } from 'src/app/shared/services/shared-data.service';
-import { HttpClient} from '@angular/common/http';
-import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import { SinovadApiPaginationResponse } from 'src/app/response/sinovadApiPaginationResponse';
 import { Role } from '../shared/role.model';
 import { RoleService } from '../shared/role.service';
-import { Subscription } from 'rxjs';
 import { MatPaginator, MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ConfirmDialogOptions, CustomConfirmDialogComponent } from 'src/app/shared/components/custom-confirm-dialog/custom-confirm-dialog.component';
@@ -23,8 +18,6 @@ import { SnackBarType } from 'src/app/shared/components/custom-snack-bar/custom-
 })
 export class RoleListPage extends CustomListGeneric<Role>  implements OnInit,OnDestroy,AfterViewInit {
 
-  refreshSubscription$:Subscription;
-  showLoading:boolean=true;
   displayedColumns: string[] = ['Select','Id', 'Name','Actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -33,12 +26,7 @@ export class RoleListPage extends CustomListGeneric<Role>  implements OnInit,OnD
     private dialog: MatDialog,
     public matPaginatorIntl: MatPaginatorIntl,
     private snackbarService:SnackBarService,
-    private roleService:RoleService,
-    public restProvider: RestProviderService,
-    public  ref:ChangeDetectorRef,
-    public http: HttpClient,
-    public domSanitizer: DomSanitizer,
-    public sharedData: SharedDataService) {
+    private roleService:RoleService) {
       super(matPaginatorIntl);
     }
 
@@ -46,6 +34,10 @@ export class RoleListPage extends CustomListGeneric<Role>  implements OnInit,OnD
       this.refreshSubscription$=this.roleService.refreshListEvent.subscribe(event=>{
         this.getAllItems();
       });
+    }
+
+    public ngOnDestroy(): void {
+      this.refreshSubscription$.unsubscribe();
     }
 
     ngAfterViewInit() {
@@ -76,16 +68,13 @@ export class RoleListPage extends CustomListGeneric<Role>  implements OnInit,OnD
       this.dataSource.sort = this.sort;
     }
 
+    //Apply Filters Section
+
     public applyFilter(event: Event) {
       const filterValue = (event.target as HTMLInputElement).value;
-      //this.dataSource.filter = filterValue.trim().toLowerCase();
       this.searchText=filterValue.trim().toLowerCase();
       this.currentPage=1;
       this.getAllItems();
-    }
-
-    public ngOnDestroy(): void {
-      this.refreshSubscription$.unsubscribe();
     }
 
     //Show Modal Section
