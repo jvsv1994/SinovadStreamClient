@@ -14,7 +14,7 @@ import { MediaServer } from 'src/models/mediaServer';
 import { CustomActionsMenuPage } from '../custom-actions-menu/custom-actions-menu.page';
 import { CustomActionsMenuItem } from '../custom-actions-menu/customActionsMenuItem';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { SnackBarService } from '../shared/services/toast.service';
+import { SnackBarService } from '../shared/services/snack-bar.service';
 import { ConfirmDialogOptions, CustomConfirmDialogComponent } from '../shared/components/custom-confirm-dialog/custom-confirm-dialog.component';
 
 declare var window;

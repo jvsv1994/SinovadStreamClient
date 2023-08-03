@@ -10,7 +10,7 @@ import { SinovadApiGenericResponse } from '../response/sinovadApiGenericResponse
 import { ActivatedRoute, Router } from '@angular/router';
 import { MediaServer } from 'src/models/mediaServer';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { SnackBarService } from 'src/app/shared/services/toast.service';
+import { SnackBarService } from 'src/app/shared/services/snack-bar.service';
 
 declare var window;
 @Component({

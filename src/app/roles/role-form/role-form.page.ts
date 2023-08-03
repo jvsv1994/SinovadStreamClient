@@ -11,7 +11,7 @@ import { Role } from '../shared/role.model';
 import { RoleService } from '../shared/role.service';
 import { Subscription } from 'rxjs';
 import { MyErrorStateMatcher } from 'src/app/shared/custom-error-state-matcher';
-import { SnackBarService } from 'src/app/shared/services/toast.service';
+import { SnackBarService } from 'src/app/shared/services/snack-bar.service';
 import { SnackBarType } from 'src/app/shared/components/custom-snack-bar/custom-snack-bar.component';
 
 @Component({

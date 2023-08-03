@@ -11,7 +11,7 @@ import { SinovadApiPaginationResponse } from '../response/sinovadApiPaginationRe
 import { TvProgram } from '../../models/tvProgram';
 import { ContextMenuOption } from '../context-menu/contextMenuOption';
 import { ContextMenuPage } from '../context-menu/context-menu.page';
-import { SnackBarService } from 'src/app/shared/services/toast.service';
+import { SnackBarService } from 'src/app/shared/services/snack-bar.service';
 @Component({
   selector: 'app-item-list',
   templateUrl: 'item-list.page.html',

@@ -12,7 +12,7 @@ import { Genre } from '../../models/genre';
 import { SinovadApiGenericResponse } from '../response/sinovadApiGenericResponse';
 import { TvProgramGenre } from '../../models/tvProgramGenre';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { SnackBarService } from 'src/app/shared/services/toast.service';
+import { SnackBarService } from 'src/app/shared/services/snack-bar.service';
 
 @Component({
   selector: 'app-item-form',

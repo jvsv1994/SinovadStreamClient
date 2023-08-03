@@ -14,7 +14,7 @@ import { ConfirmDialogOptions, CustomConfirmDialogComponent } from 'src/app/shar
 import { CustomListGeneric } from 'src/app/shared/generics/custom-list.generic';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
-import { SnackBarService } from 'src/app/shared/services/toast.service';
+import { SnackBarService } from 'src/app/shared/services/snack-bar.service';
 import { SnackBarType } from 'src/app/shared/components/custom-snack-bar/custom-snack-bar.component';
 
 @Component({
