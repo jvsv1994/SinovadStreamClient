@@ -146,11 +146,11 @@ export class RoleListPage extends CustomListGeneric<Role>  implements OnInit,OnD
     private executeDeleteSelectedItems(){
       this.showLoading=true;
       this.roleService.deleteItems(this.listSelectedItems).then(res=>{
-        //this.SnackBarService.showToast({message:"Se eliminaron los registros seleccionados satisfactoriamente",toastType:ToastType.Success});
+        this.snackbarService.showSnackBar("Se eliminaron los registros seleccionados satisfactoriamente",SnackBarType.Success);
         this.getAllItems();
       },(error)=>{
         this.showLoading=false;
-        //this.SnackBarService.showToast({message:error,toastType:ToastType.Error});
+        this.snackbarService.showSnackBar(error,SnackBarType.Error);
       });
     }
 

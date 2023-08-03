@@ -11,6 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MediaServer } from 'src/models/mediaServer';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { SnackBarService } from 'src/app/shared/services/snack-bar.service';
+import { SnackBarType } from '../shared/components/custom-snack-bar/custom-snack-bar.component';
 
 declare var window;
 @Component({
@@ -25,7 +26,7 @@ export class ServerSettingsGeneralPage extends ParentComponent implements OnInit
   loading:boolean=false;
 
   constructor(
-    private SnackBarService:SnackBarService,
+    private snackBarService:SnackBarService,
     private formBuilder: FormBuilder,
     private router: Router,
     public activeRoute: ActivatedRoute,
@@ -72,7 +73,7 @@ export class ServerSettingsGeneralPage extends ParentComponent implements OnInit
         this.loading=false;
         this.getMediaServers();
         this.getMediaServerData();
-        //this.SnackBarService.showToast({containerId:"sinovadMainContainer",displayTime:2000,message:"Se guardaron los cambios satisfactoriamente",toastType:ToastType.Success});
+        this.snackBarService.showSnackBar("Se guardaron los cambios satisfactoriamente",SnackBarType.Success);
       },error=>{
         this.loading=false;
         console.error(error);

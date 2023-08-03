@@ -13,6 +13,7 @@ import { SinovadApiGenericResponse } from '../response/sinovadApiGenericResponse
 import { TvProgramGenre } from '../../models/tvProgramGenre';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { SnackBarService } from 'src/app/shared/services/snack-bar.service';
+import { SnackBarType } from '../shared/components/custom-snack-bar/custom-snack-bar.component';
 
 @Component({
   selector: 'app-item-form',
@@ -33,7 +34,7 @@ export class ItemFormPage extends ParentComponent implements OnInit {
   itemForm:FormGroup;
 
   constructor(
-    private SnackBarService:SnackBarService,
+    private snackBarService:SnackBarService,
     private formBuilder: FormBuilder,
     private modalService: NgbModal,
     public restProvider: RestProviderService,
@@ -124,7 +125,7 @@ export class ItemFormPage extends ParentComponent implements OnInit {
         this.restProvider.executeSinovadApiService(methodType,path,tvProgram).then((response) => {
           this.closeFormWithChanges.emit(true);
         },error=>{
-          //this.SnackBarService.showToast({containerId:"sinovadMainContainer",displayTime:2000,message:error,toastType:ToastType.Error});
+          this.snackBarService.showSnackBar(error,SnackBarType.Error);
           console.error(error);
         });
       }else{

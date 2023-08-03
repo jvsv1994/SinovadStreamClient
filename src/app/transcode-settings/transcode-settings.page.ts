@@ -13,6 +13,7 @@ import { MediaServer } from 'src/models/mediaServer';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { CatalogDetail } from 'src/models/catalogDetail';
 import { SnackBarService } from 'src/app/shared/services/snack-bar.service';
+import { SnackBarType } from '../shared/components/custom-snack-bar/custom-snack-bar.component';
 
 declare var window;
 @Component({
@@ -40,7 +41,7 @@ export class TranscoderSettingssPage extends ParentComponent implements OnInit {
   customForm:FormGroup;
 
   constructor(
-    private SnackBarService:SnackBarService,
+    private snackBarService:SnackBarService,
     private formBuilder: FormBuilder,
     private router: Router,
     public activeRoute: ActivatedRoute,
@@ -138,9 +139,10 @@ export class TranscoderSettingssPage extends ParentComponent implements OnInit {
       this.restProvider.executeSinovadApiService(methodType,path,transcoderSettings).then((response) => {
         this.loading=false;
         this.getTranscoderSettingss();
-        //this.SnackBarService.showToast({containerId:"sinovadMainContainer",displayTime:2000,message:"Se guardaron los cambios satisfactoriamente",toastType:ToastType.Success});
+        this.snackBarService.showSnackBar("Se guardaron los cambios satisfactoriamente",SnackBarType.Success);
       },error=>{
         this.loading=false;
+        this.snackBarService.showSnackBar(error,SnackBarType.Error);
         console.error(error);
       });
     }

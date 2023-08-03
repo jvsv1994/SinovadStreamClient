@@ -16,6 +16,7 @@ import { CustomActionsMenuItem } from '../custom-actions-menu/customActionsMenuI
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { SnackBarService } from '../shared/services/snack-bar.service';
 import { ConfirmDialogOptions, CustomConfirmDialogComponent } from '../shared/components/custom-confirm-dialog/custom-confirm-dialog.component';
+import { SnackBarType } from '../shared/components/custom-snack-bar/custom-snack-bar.component';
 
 declare var window;
 @Component({
@@ -51,7 +52,7 @@ export class ManageMediaPage extends ParentComponent implements OnInit,OnDestroy
 
   constructor(
     private dialog: MatDialog,
-    private SnackBarService:SnackBarService,
+    private snackBarService:SnackBarService,
     private router: Router,
     public activeRoute: ActivatedRoute,
     public restProvider: RestProviderService,
@@ -158,11 +159,11 @@ export class ManageMediaPage extends ParentComponent implements OnInit,OnDestroy
     private executeDeleteStorage(storage:Storage){
       var path="/storages/Delete/"+storage.Id;
       this.restProvider.executeSinovadApiService(HttpMethodType.DELETE,path).then((response:SinovadApiGenericResponse) => {
-        //this.SnackBarService.showToast({message:"Se eliminó la biblioteca satisfactoriamente",toastType:ToastType.Success});
+        this.snackBarService.showSnackBar("Se eliminó la biblioteca satisfactoriamente",SnackBarType.Success);
         this.getStorages();
       },error=>{
         console.error(error);
-        //this.SnackBarService.showToast({message:error,toastType:ToastType.Error});
+        this.snackBarService.showSnackBar(error,SnackBarType.Error);
       });
     }
 
