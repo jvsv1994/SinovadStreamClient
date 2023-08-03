@@ -13,10 +13,9 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ConfirmDialogOptions, CustomConfirmDialogComponent } from 'src/app/shared/components/custom-confirm-dialog/custom-confirm-dialog.component';
 import { CustomListGeneric } from 'src/app/shared/generics/custom-list.generic';
 import { MatTableDataSource } from '@angular/material/table';
-import { MatSort } from '@angular/material/sort';
+import { MatSort, Sort } from '@angular/material/sort';
 import { SnackBarService } from 'src/app/shared/services/snack-bar.service';
 import { SnackBarType } from 'src/app/shared/components/custom-snack-bar/custom-snack-bar.component';
-
 @Component({
   selector: 'app-role-list',
   templateUrl: './role-list.page.html',
@@ -49,10 +48,33 @@ export class RoleListPage extends CustomListGeneric<Role>  implements OnInit,OnD
       this.refreshSubscription$=this.roleService.refreshListEvent.subscribe(event=>{
         this.getAllItems();
       });
-      this.getAllItems();
     }
 
     ngAfterViewInit() {
+      //Initialize Paginator
+      this.paginator.page.subscribe((event:PageEvent) => {
+          this.updatePageData(event);
+          this.getAllItems();
+        }
+      );
+      this.dataSource.paginator = this.paginator;
+
+      //Initialize Sort
+      this.sort.sortChange.subscribe((sort:Sort) => {
+        this.currentPage=1;
+        this.sortBy=sort.active;
+        this.sortDirection=sort.direction;
+        this.getAllItems();
+      });
+      this.sortBy="Name";
+      this.sortDirection="asc";
+      this.sort.disableClear=true;
+      this.sort.sort({
+        id:"Name",
+        start:"asc",
+        disableClear:true
+      });
+      this.dataSource.sort = this.sort;
     }
 
     public applyFilter(event: Event) {
@@ -62,11 +84,6 @@ export class RoleListPage extends CustomListGeneric<Role>  implements OnInit,OnD
 
     public ngOnDestroy(): void {
       this.refreshSubscription$.unsubscribe();
-    }
-
-    public onChangePaginator(event:PageEvent){
-      this.updatePageData(event);
-      this.getAllItems();
     }
 
     //Show Modal Section
@@ -85,16 +102,16 @@ export class RoleListPage extends CustomListGeneric<Role>  implements OnInit,OnD
 
     public getAllItems(){
       this.showLoading=true;
-      this.roleService.getItems(this.currentPage,this.itemsPerPage).then((response:SinovadApiPaginationResponse) => {
+      this.roleService.getItems(this.currentPage,this.itemsPerPage,this.sortBy,this.sortDirection).then((response:SinovadApiPaginationResponse) => {
+        this.showLoading=false;
         var data=response.Data;
         this.totalCount=response.TotalCount;
         this.listItems=data;
         this.dataSource = new MatTableDataSource(this.listItems);
         this.listSelectedItems=[];
-        this.showLoading=false;
-        this.ref.detectChanges();
-        //this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
+        this.paginator.length=this.totalCount;
+        this.paginator.pageIndex=this.currentPage-1;
+        this.paginator.pageSize=this.itemsPerPage;
       },error=>{
         this.showLoading=false;
       });

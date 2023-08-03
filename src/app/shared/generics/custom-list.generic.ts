@@ -11,6 +11,8 @@ listItems:T[]=[];
 listSelectedItems:T[]=[];
 lastSelectedItem:T;
 keyName='Id';
+sortBy="Id";
+sortDirection="asc";
 
 constructor(
   public matPaginatorIntl: MatPaginatorIntl
