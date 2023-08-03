@@ -28,12 +28,6 @@
   --mat-option-focus-state-layer-color: #2c2e37;
   --mat-option-selected-state-layer-color: #2c2e37;
 
-  //override bootstrap variable values
-
-  --bs-body-bg: #1F212B !important;
-  --bs-heading-color: rgba(255, 255, 255, 0.7) !important;
-  --bs-btn-close-color: rgba(255, 255, 255, 0.7) !important;
-
   --mdc-checkbox-selected-focus-icon-color: #0d6efd;
   --mdc-checkbox-selected-hover-icon-color: #0d6efd;
   --mdc-checkbox-selected-icon-color: #0d6efd;
@@ -49,5 +43,12 @@
   --mdc-checkbox-unselected-focus-state-layer-color: rgba(255, 255, 255, 0.7) !important;
   --mdc-checkbox-unselected-hover-state-layer-color: rgba(255, 255, 255, 0.7) !important;
   --mdc-checkbox-unselected-pressed-state-layer-color:rgba(255, 255, 255, 0.7) !important;
+
+  //override bootstrap variable values
+
+  --bs-body-bg: #1F212B !important;
+  --bs-heading-color: rgba(255, 255, 255, 0.7) !important;
+  --bs-btn-close-color: rgba(255, 255, 255, 0.7) !important;
+  --bs-border-color:rgba(255, 255, 255, 0.7) !important;
 
 }

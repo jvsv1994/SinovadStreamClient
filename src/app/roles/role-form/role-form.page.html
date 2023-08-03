@@ -8,7 +8,6 @@
           </button>
         </div>
         <div class="modal-body">
-          <div class="mb-3">
             <mat-form-field class="form-field-full-width">
               <mat-label>Nombre</mat-label>
               <input id="name" matInput formControlName="name" [errorStateMatcher]="matcher"/>
@@ -16,14 +15,11 @@
                 Nombre es <strong>requerido</strong>
               </mat-error>
             </mat-form-field>
-          </div>
-          <div class="mb-3">
             <mat-checkbox formControlName="enabled">Activo</mat-checkbox>
-          </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeModal()">Close</button>
-          <button type="submit" class="btn btn-primary" [disabled]="showLoading">Guardar</button>
+          <button type="submit" class="btn btn-primary" [disabled]="showLoading || !roleFormGroup.valid">Guardar</button>
         </div>
       </form>
       <app-custom-spinner [showLoading]="showLoading"></app-custom-spinner>
