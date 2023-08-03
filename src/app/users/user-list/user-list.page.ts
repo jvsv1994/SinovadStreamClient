@@ -2,14 +2,14 @@
 import { ChangeDetectorRef, Component, EventEmitter, OnInit, ViewChild} from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SharedDataService } from 'src/app/shared/services/shared-data.service';
-import { ParentComponent } from '../parent/parent.component';
 import { HttpClient} from '@angular/common/http';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
-import { SinovadApiPaginationResponse } from '../response/sinovadApiPaginationResponse';
 import { HttpMethodType } from 'src/app/shared/enums';
-import { ContextMenuOption } from '../context-menu/contextMenuOption';
-import { ContextMenuPage } from '../context-menu/context-menu.page';
-import { User } from 'src/models/user';
+import { SinovadApiPaginationResponse } from 'src/app/response/sinovadApiPaginationResponse';
+import { User } from '../shared/user.model';
+import { ContextMenuPage } from 'src/app/context-menu/context-menu.page';
+import { ParentComponent } from 'src/app/parent/parent.component';
+import { ContextMenuOption } from 'src/app/context-menu/contextMenuOption';
 
 @Component({
   selector: 'app-user-list',

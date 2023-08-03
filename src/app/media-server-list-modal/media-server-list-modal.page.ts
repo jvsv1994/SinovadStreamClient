@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { SharedDataService } from 'src/app/shared/services/shared-data.service';
@@ -6,7 +6,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { ParentComponent } from '../parent/parent.component';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { User } from 'src/models/user';
+import { User } from '../users/shared/user.model';
 
 @Component({
   selector: 'app-media-server-list-modal',

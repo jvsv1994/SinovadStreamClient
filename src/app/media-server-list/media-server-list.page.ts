@@ -9,8 +9,8 @@ import { HttpMethodType } from 'src/app/shared/enums';
 import { SinovadApiPaginationResponse } from '../response/sinovadApiPaginationResponse';
 import { ContextMenuPage } from '../context-menu/context-menu.page';
 import { ContextMenuOption } from '../context-menu/contextMenuOption';
-import { User } from 'src/models/user';
 import { MediaServer } from 'src/models/mediaServer';
+import { User } from '../users/shared/user.model';
 @Component({
   selector: 'app-media-server-list',
   templateUrl: 'media-server-list.page.html',

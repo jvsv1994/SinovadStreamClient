@@ -21,12 +21,12 @@ import { MenuListPage } from '../menu-list/menu-list.page';
 import { TvSerieListPage } from '../tvserie-list/tvserie-list.page';
 import { MovieListPage } from '../movie-list/movie-list.page';
 import { GenreListPage } from '../genre-list/genre-list.page';
-import { UserListPage } from '../user-list/user-list.page';
 import { SearchViewRootPage } from '../search-view-root/search-view-root.page';
 import { BuilderVideo } from 'src/models/builderVideo';
 import { VideoEvent, VideoService } from 'src/app/shared/services/video.service';
 import { Subscription } from 'rxjs';
 import { RolesComponent } from '../roles/roles.component';
+import { UserListPage } from '../users/user-list/user-list.page';
 
 @Component({
   selector: 'app-web-container',
