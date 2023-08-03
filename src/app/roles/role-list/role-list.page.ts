@@ -23,7 +23,6 @@ import { SnackBarType } from 'src/app/shared/components/custom-snack-bar/custom-
 })
 export class RoleListPage extends CustomListGeneric<Role>  implements OnInit,OnDestroy,AfterViewInit {
 
-  showContextMenu:boolean=false;
   refreshSubscription$:Subscription;
   showLoading:boolean=true;
   displayedColumns: string[] = ['Select','Id', 'Name','Actions'];

@@ -71,48 +71,6 @@
             </table>
           </div>
         </div>
-
-
-
-<!--         <table class="rounded-corners">
-          <thead>
-            <tr>
-              <th scope="col" style="width:50px;text-align: center;">
-                <div class="checkbox-container">
-                  <button class="btn-selected-any-item" *ngIf="isSelectedAny()" (click)="unselectAll()">
-                    <div class="horizontal-line"></div>
-                  </button>
-                  <input *ngIf="isSelectedNothing() || isSelectedAll()" type="checkbox" [checked]="isSelectedAll()" (change)="onChangeSelectAllCheckBox($event)">
-                </div>
-              </th>
-              <th scope="col" style="width:50px;text-align: center;">N°</th>
-              <th scope="col" style="width:100%;text-align: left;">Título</th>
-              <th scope="col" style="width:100px;"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <ng-template ngFor let-item [ngForOf]="listItems" let-i="index">
-              <tr>
-                <th style="width:50px;text-align: center;" scope="row">
-                  <div class="checkbox-container">
-                    <input type="checkbox" [checked]="isCheckedItem(item)" (click)="onSelectItem($event,item)">
-                  </div>
-                </th>
-                <th style="width:50px;text-align: center;" scope="row">{{getElementNumber(i,currentPage,itemsPerPage)}}</th>
-                <td style="width:100%;text-align: left;">{{item.Name}}</td>
-                <td style="width:100px;display: flex;">
-                  <button type="button" class="action-button edit" data-toggle="tooltip" data-placement="bottom" title="Editar" (click)="editItem(item)">
-                    <i class="fa-solid fa-pen-to-square"></i>
-                  </button>
-                  <button type="button" class="action-button remove" data-toggle="tooltip" data-placement="bottom" title="Eliminar" (click)="deleteItem(item)">
-                    <i class="fa-solid fa-trash"></i>
-                  </button>
-                </td>
-              </tr>
-            </ng-template>
-          </tbody>
-        </table> -->
-
       </div>
     </div>
     <div class="row">
@@ -123,7 +81,3 @@
     </div>
   </div>
 </div>
-
-<!-- <div *ngIf="showLoading">
-  <app-custom-spinner [showLoading]="showLoading"></app-custom-spinner>
-</div> -->
