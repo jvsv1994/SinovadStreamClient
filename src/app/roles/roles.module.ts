@@ -12,7 +12,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSortModule} from '@angular/material/sort';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-
+import {MatTooltipModule} from '@angular/material/tooltip';
 @NgModule({
     declarations: [
       RolesComponent,
@@ -31,7 +31,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
       MatFormFieldModule,
       MatSortModule,
       MatCheckboxModule,
-      MatProgressSpinnerModule
+      MatProgressSpinnerModule,
+      MatTooltipModule
     ],
     exports: [RoleListPage]
 })

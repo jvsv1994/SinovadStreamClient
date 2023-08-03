@@ -5,10 +5,10 @@
   <div>
     <div class="row">
       <div class="col-6 d-flex align-items-center">
-        <button type="button" class="action-button edit" (click)="showNewItem()" title="Agregar">
+        <button type="button" class="action-button edit" (click)="showNewItem()" matTooltip="Agregar">
           <i class="fa-solid fa-plus"></i>
         </button>
-        <button type="button" class="action-button remove" [ngClass]="{'disable':!selection.hasValue()}" (click)="deleteSelectedItems()" title="Eliminar seleccionados">
+        <button type="button" class="action-button remove" [ngClass]="{'disable':!selection.hasValue()}" (click)="deleteSelectedItems()" matTooltip="Eliminar seleccionados">
           <i class="fa-solid fa-trash"></i>
         </button>
       </div>
@@ -54,10 +54,10 @@
                 <th mat-header-cell *matHeaderCellDef style="width:100px;"></th>
                 <td mat-cell *matCellDef="let element" style="width:100px;height: 100%;">
                   <div style="display: flex;align-items: center;justify-content: center;height: 100%;">
-                    <button type="button" class="action-button edit" data-toggle="tooltip" data-placement="bottom" title="Editar" (click)="editItem(element)">
+                    <button type="button" class="action-button edit" data-toggle="tooltip" data-placement="bottom" matTooltip="Editar" (click)="editItem(element)">
                       <i class="fa-solid fa-pen-to-square"></i>
                     </button>
-                    <button type="button" class="action-button remove" data-toggle="tooltip" data-placement="bottom" title="Eliminar" (click)="deleteItem(element)">
+                    <button type="button" class="action-button remove" data-toggle="tooltip" data-placement="bottom" matTooltip="Eliminar" (click)="deleteItem(element)">
                       <i class="fa-solid fa-trash"></i>
                     </button>
                   </div>
