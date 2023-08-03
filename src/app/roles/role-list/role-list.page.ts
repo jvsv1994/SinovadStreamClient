@@ -93,7 +93,7 @@ export class RoleListPage extends CustomListGeneric<Role>  implements OnInit,OnD
         this.listSelectedItems=[];
         this.showLoading=false;
         this.ref.detectChanges();
-        this.dataSource.paginator = this.paginator;
+        //this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
       },error=>{
         this.showLoading=false;
