@@ -92,6 +92,15 @@ $app-theme: mat.define-light-theme((
   color: rgba(255, 255, 255, 0.7);
 }
 
+.mat-mdc-progress-spinner {
+  --mdc-circular-progress-active-indicator-color: rgba(255, 255, 255, 0.7);;
+}
+
+.mat-mdc-no-data-row .mat-cell{
+  color: rgba(255, 255, 255, 0.7);
+  padding: 20px;
+}
+
 //override bootstrap styles
 
 .modal-header{
@@ -126,6 +135,34 @@ $app-theme: mat.define-light-theme((
 
 .form-field-full-width{
   width: 100%;
+}
+
+.loading-container{
+  position: relative;
+  top: 80px;
+}
+
+.loading-shade {
+  position: absolute;
+  top: 0px;
+  left: 0;
+  right: 0;
+  background: transparent;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.custom-container{
+  position: relative;
+}
+
+.custom-table-container {
+  position: relative;
+  overflow: auto;
+  min-height: 150px;
 }
 
 .sinovad-back-button-container{

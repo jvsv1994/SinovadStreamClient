@@ -22,46 +22,59 @@
           <mat-label>Buscar</mat-label>
           <input matInput (keyup)="applyFilter($event)" #input>
         </mat-form-field>
-        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8"  matSort>
-          <ng-container matColumnDef="Select">
-            <th mat-header-cell *matHeaderCellDef style="width:50px;text-align: center;">
-              <div class="checkbox-container">
-              <button class="btn-selected-any-item" *ngIf="isSelectedAny()" (click)="unselectAll()">
-                <div class="horizontal-line"></div>
-              </button>
-              <input *ngIf="isSelectedNothing() || isSelectedAll()" type="checkbox" [checked]="isSelectedAll()" (change)="onChangeSelectAllCheckBox($event)">
-            </div>
-            </th>
-            <td mat-cell *matCellDef="let element" style="width:50px;text-align: center;">
-              <div class="checkbox-container">
-                <input type="checkbox" [checked]="isCheckedItem(element)" (click)="onSelectItem($event,element)">
-              </div>
-            </td>
-          </ng-container>
-          <ng-container matColumnDef="Id">
-            <th mat-header-cell *matHeaderCellDef style="width:50px;text-align: center;">N°</th>
-            <td mat-cell *matCellDef="let element;let i = index" style="width:50px;text-align: center;"> {{getElementNumber(i,currentPage,itemsPerPage)}}</td>
-          </ng-container>
-          <ng-container matColumnDef="Name">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header style="width:100%;text-align: left;"> Nombre </th>
-            <td mat-cell *matCellDef="let element" style="width:100%;text-align: left;"> {{element.Name}} </td>
-          </ng-container>
-          <ng-container matColumnDef="Actions">
-            <th mat-header-cell *matHeaderCellDef style="width:100px;"></th>
-            <td mat-cell *matCellDef="let element" style="width:100px;height: 100%;">
-              <div style="display: flex;align-items: center;justify-content: center;height: 100%;">
-                <button type="button" class="action-button edit" data-toggle="tooltip" data-placement="bottom" title="Editar" (click)="editItem(element)">
-                  <i class="fa-solid fa-pen-to-square"></i>
-                </button>
-                <button type="button" class="action-button remove" data-toggle="tooltip" data-placement="bottom" title="Eliminar" (click)="deleteItem(element)">
-                  <i class="fa-solid fa-trash"></i>
-                </button>
-              </div>
-            </td>
-          </ng-container>
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
+
+        <div class="custom-container">
+          <div *ngIf="showLoading" class="loading-shade">
+            <mat-spinner></mat-spinner>
+          </div>
+          <div class="custom-table-container">
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8"  matSort>
+              <ng-container matColumnDef="Select">
+                <th mat-header-cell *matHeaderCellDef style="width:50px;text-align: center;">
+                  <div class="checkbox-container">
+                  <button class="btn-selected-any-item" *ngIf="isSelectedAny()" (click)="unselectAll()">
+                    <div class="horizontal-line"></div>
+                  </button>
+                  <input *ngIf="isSelectedNothing() || isSelectedAll()" type="checkbox" [checked]="isSelectedAll()" (change)="onChangeSelectAllCheckBox($event)">
+                </div>
+                </th>
+                <td mat-cell *matCellDef="let element" style="width:50px;text-align: center;">
+                  <div class="checkbox-container">
+                    <input type="checkbox" [checked]="isCheckedItem(element)" (click)="onSelectItem($event,element)">
+                  </div>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="Id">
+                <th mat-header-cell *matHeaderCellDef style="width:50px;text-align: center;">N°</th>
+                <td mat-cell *matCellDef="let element;let i = index" style="width:50px;text-align: center;"> {{getElementNumber(i,currentPage,itemsPerPage)}}</td>
+              </ng-container>
+              <ng-container matColumnDef="Name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header style="width:100%;text-align: left;"> Nombre </th>
+                <td mat-cell *matCellDef="let element" style="width:100%;text-align: left;"> {{element.Name}} </td>
+              </ng-container>
+              <ng-container matColumnDef="Actions">
+                <th mat-header-cell *matHeaderCellDef style="width:100px;"></th>
+                <td mat-cell *matCellDef="let element" style="width:100px;height: 100%;">
+                  <div style="display: flex;align-items: center;justify-content: center;height: 100%;">
+                    <button type="button" class="action-button edit" data-toggle="tooltip" data-placement="bottom" title="Editar" (click)="editItem(element)">
+                      <i class="fa-solid fa-pen-to-square"></i>
+                    </button>
+                    <button type="button" class="action-button remove" data-toggle="tooltip" data-placement="bottom" title="Eliminar" (click)="deleteItem(element)">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </div>
+                </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              <tr class="mat-row" *matNoDataRow>
+                <td *ngIf="!showLoading" class="mat-cell" colspan="4">No se encontraron datos</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+
 
 <!--         <table class="rounded-corners">
           <thead>
@@ -113,6 +126,6 @@
   </div>
 </div>
 
-<div *ngIf="showLoading">
+<!-- <div *ngIf="showLoading">
   <app-custom-spinner [showLoading]="showLoading"></app-custom-spinner>
-</div>
+</div> -->

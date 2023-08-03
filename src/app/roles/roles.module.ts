@@ -5,12 +5,13 @@ import { SharedModule } from '../shared/shared.module';
 import { RoleFormPage } from './role-form/role-form.page';
 import { RoleListPage } from './role-list/role-list.page';
 import { RolesComponent } from './roles.component';
-import { MatPaginatorModule } from '@angular/material/paginator';
+import {MatPaginatorModule } from '@angular/material/paginator';
 import {MatTableModule} from '@angular/material/table';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSortModule} from '@angular/material/sort';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @NgModule({
     declarations: [
@@ -29,7 +30,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
       MatInputModule,
       MatFormFieldModule,
       MatSortModule,
-      MatCheckboxModule
+      MatCheckboxModule,
+      MatProgressSpinnerModule
     ],
     exports: [RoleListPage]
 })
