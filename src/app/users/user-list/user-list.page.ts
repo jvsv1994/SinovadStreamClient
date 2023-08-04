@@ -26,13 +26,7 @@ export class UserListPage extends CustomListGeneric<User> implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   @ViewChild('contextMenuPage') contextMenuPage: ContextMenuPage;
-  response:SinovadApiPaginationResponse;
-  pageSize:number=10;
-  listItems: User[];
-  listSelectedItems:User[]=[];
-  lastSelectedItem:User;
   showContextMenu:boolean=false;
-  showPopUpForm:boolean=false;
   showMediaServersModal:boolean=false;
 
   constructor(
@@ -113,7 +107,7 @@ export class UserListPage extends CustomListGeneric<User> implements OnInit {
         var data=response.Data;
         this.totalCount=response.TotalCount;
         this.listItems=data;
-        this.dataSource = new MatTableDataSource(this.listItems);
+        this.dataSource = new MatTableDataSource(data);
         this.selection.clear();
         this.paginator.length=this.totalCount;
         this.paginator.pageIndex=this.currentPage-1;
@@ -192,8 +186,11 @@ export class UserListPage extends CustomListGeneric<User> implements OnInit {
       }
     }
 
-    public onContextMenuItem(event:any,item:User)
+    //Context Menu Section
+
+    public onContextMenuItem(event:any,user:User)
     {
+      this.lastSelectedItem=user;
       event.preventDefault();
       event.stopPropagation();
       let listOptions:ContextMenuOption[]=[];
@@ -205,12 +202,11 @@ export class UserListPage extends CustomListGeneric<User> implements OnInit {
       listOptions.push({text:"Servidores multimedia",iconClass:"fa-solid fa-server",eventOnSelectOption:eventOnSelectOption});
       if(listOptions && listOptions.length>0)
       {
-        this.renderContextMenuComponent(event.clientX,event.clientY,listOptions);
+        this.renderContextMenuComponent(event.clientX,event.clientY,listOptions,user);
       }
     }
 
-
-    private renderContextMenuComponent(left:number,top:number,listOptions:ContextMenuOption[]) {
+    private renderContextMenuComponent(left:number,top:number,listOptions:ContextMenuOption[],user:User) {
       this.contextMenuPage.show("sinovadMainContainer",left,top,listOptions).then((option:ContextMenuOption) => {
 
       });
