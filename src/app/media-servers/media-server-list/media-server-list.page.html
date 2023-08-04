@@ -36,10 +36,7 @@
   </div>
   <div class="row mt-4">
     <div class="col-12">
-        <app-pagination *ngIf="response" [responsePagination]="response" (selectPage)="onSelectPage($event)"></app-pagination>
     </div>
   </div>
 </div>
 
-<app-confirm-message-modal *ngIf="showConfirmMessageBox" [message]="'Estas seguro que deseas eliminar estos registros ?'"
-(close)="showConfirmMessageBox=false" (confirm)="executeDeleteSelectedItems()"></app-confirm-message-modal>

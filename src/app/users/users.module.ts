@@ -3,7 +3,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { UsersComponent } from './users.component';
 import { UserListPage } from './user-list/user-list.page';
-import { MediaServerListModalPageModule } from '../media-server-list-modal/media-server-list-modal.module';
+import { MediaServersModule } from '../media-servers/media-servers.module';
 
 @NgModule({
     declarations: [
@@ -15,7 +15,7 @@ import { MediaServerListModalPageModule } from '../media-server-list-modal/media
       FormsModule,
       ReactiveFormsModule,
       SharedModule,
-      MediaServerListModalPageModule
+      MediaServersModule
     ],
     exports: [UserListPage]
 })

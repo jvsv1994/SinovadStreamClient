@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { User } from '../users/shared/user.model';
+import { User } from 'src/app/users/shared/user.model';
 
 @Component({
   selector: 'app-media-server-list-modal',

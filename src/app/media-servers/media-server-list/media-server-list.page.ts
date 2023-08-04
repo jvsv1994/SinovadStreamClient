@@ -3,14 +3,14 @@ import { HttpClient} from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { SharedDataService } from 'src/app/shared/services/shared-data.service';
 import { DomSanitizer } from '@angular/platform-browser';
-import { ParentComponent } from '../parent/parent.component';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { HttpMethodType } from 'src/app/shared/enums';
-import { SinovadApiPaginationResponse } from '../response/sinovadApiPaginationResponse';
 import { MediaServer } from 'src/models/mediaServer';
-import { User } from '../users/shared/user.model';
-import { ContextMenuService } from '../shared/services/context-menu.service';
-import { ContextMenuOption } from '../shared/components/custom-context-menu/custom-context-menu.component';
+import { User } from 'src/app/users/shared/user.model';
+import { SinovadApiPaginationResponse } from 'src/app/response/sinovadApiPaginationResponse';
+import { ContextMenuService } from 'src/app/shared/services/context-menu.service';
+import { ParentComponent } from 'src/app/parent/parent.component';
+import { ContextMenuOption } from 'src/app/shared/components/custom-context-menu/custom-context-menu.component';
 @Component({
   selector: 'app-media-server-list',
   templateUrl: 'media-server-list.page.html',
