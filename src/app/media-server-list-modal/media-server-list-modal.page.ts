@@ -1,11 +1,5 @@
-import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { HttpClient} from '@angular/common/http';
-import { ActivatedRoute } from '@angular/router';
-import { SharedDataService } from 'src/app/shared/services/shared-data.service';
-import { DomSanitizer } from '@angular/platform-browser';
-import { ParentComponent } from '../parent/parent.component';
-import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Component, Input } from '@angular/core';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { User } from '../users/shared/user.model';
 
 @Component({
@@ -13,21 +7,13 @@ import { User } from '../users/shared/user.model';
   templateUrl: 'media-server-list-modal.page.html',
   styleUrls: ['media-server-list-modal.page.scss'],
 })
-export class MediaServerListModalPage extends ParentComponent implements OnInit{
+export class MediaServerListModalPage{
 
   @Input() parent:User;
-  @ViewChild('modalTarget') modalTarget: ElementRef;
-  @Output() close=new EventEmitter();;
 
   constructor(
-    private modalService: NgbModal,
-    public restProvider: RestProviderService,
-    public ref: ChangeDetectorRef,
-    public domSanitizer: DomSanitizer,
-    public activeRoute: ActivatedRoute,
-    public sharedData: SharedDataService,
-    public http: HttpClient) {
-      super(restProvider,domSanitizer,sharedData)
+    private activeModal: NgbActiveModal
+    ) {
 
   }
 
@@ -35,12 +21,11 @@ export class MediaServerListModalPage extends ParentComponent implements OnInit{
   }
 
   ngAfterViewInit(){
-    this.modalService.open(this.modalTarget, {container:"#sinovadMainContainer",
-    modalDialogClass:'modal-dialog modal-fullscreen-md-down modal-xl modal-dialog-centered modal-dialog-scrollable  modal-list',
-    scrollable:true,backdrop: 'static'}).result.then((result) => {
-    }, (reason) => {
-      this.close.emit(true);
-    });
+
+  }
+
+  public closeModal(){
+    this.activeModal.close();
   }
 
 

@@ -13,6 +13,8 @@ import { SnackBarService } from 'src/app/shared/services/snack-bar.service';
 import { SnackBarType } from 'src/app/shared/components/custom-snack-bar/custom-snack-bar.component';
 import { ContextMenuService } from 'src/app/shared/services/context-menu.service';
 import { ContextMenuOption } from 'src/app/shared/components/custom-context-menu/custom-context-menu.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { MediaServerListModalPage } from 'src/app/media-server-list-modal/media-server-list-modal.page';
 
 @Component({
   selector: 'app-user-list',
@@ -25,10 +27,8 @@ export class UserListPage extends CustomListGeneric<User> implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  showContextMenu:boolean=false;
-  showMediaServersModal:boolean=false;
-
   constructor(
+    private modalService: NgbModal,
     private contextMenuService:ContextMenuService,
     private dialog: MatDialog,
     private userService:UserService,
@@ -197,21 +197,30 @@ export class UserListPage extends CustomListGeneric<User> implements OnInit {
       listOptions.push({key:"ShowMediaServers",text:"Servidores multimedia",iconClass:"fa-solid fa-server"});
       if(listOptions && listOptions.length>0)
       {
-        this.renderContextMenuComponent(event.clientX,event.clientY,listOptions);
+        this.renderContextMenuComponent(event.clientX,event.clientY,listOptions,user);
       }
     }
 
-    private renderContextMenuComponent(left:number,top:number,listOptions:ContextMenuOption[]) {
-      var ctx=this;
+    private renderContextMenuComponent(left:number,top:number,listOptions:ContextMenuOption[],user:User) {
       this.contextMenuService.show("sinovadMainContainer",left,top,listOptions).then((option:ContextMenuOption) => {
         if(option.key=="ShowMediaServers")
         {
-          ctx.showMediaServersModal=true;
+          this.showMediaServerListModal(user);
         }
-        //ctx.lastSelectedItem=undefined;
       },()=>{
-        //ctx.lastSelectedItem=undefined;
+        this.lastSelectedItem=undefined;
       });
+    }
+
+    //Media Server List Modal Section
+
+    private showMediaServerListModal(user:User){
+      var ctx=this;
+      var ref=this.modalService.open(MediaServerListModalPage, {modalDialogClass:'modal-dialog modal-fullscreen-md-down modal-xl modal-dialog-centered modal-dialog-scrollable  modal-list',scrollable:true,backdrop: 'static'});
+      ref.componentInstance.parent=user;
+      ref.closed.subscribe(x=>{
+        ctx.lastSelectedItem=undefined;
+      })
     }
 
 }

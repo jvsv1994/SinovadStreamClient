@@ -108,6 +108,14 @@ $app-theme: mat.define-light-theme((
 
 //override bootstrap styles
 
+.modal-dialog-scrollable .modal-content{
+  height: 100%;
+}
+
+ngb-modal-window .component-host-scrollable {
+  height: 100%;
+}
+
 .modal-header{
   color: rgba(255, 255, 255, 0.7);
 }
