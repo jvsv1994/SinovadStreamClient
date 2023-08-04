@@ -110,6 +110,65 @@ $app-theme: mat.define-light-theme((
   z-index: 1056;
 }
 
+.mat-mdc-form-field-hint{
+  font-size: 12px;
+}
+
+.mat-datepicker-toggle, .mat-datepicker-content .mat-calendar-next-button, .mat-datepicker-content .mat-calendar-previous-button{
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.mat-datepicker-content{
+  color: rgba(255, 255, 255, 0.7);
+  background-color:#1F212B ;
+}
+
+.mat-calendar-body-cell-content, .mat-date-range-input-separator{
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.mat-mdc-button:not(:disabled) {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.mat-mdc-button.mat-unthemed {
+  --mdc-text-button-label-text-color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.mat-calendar-table-header, .mat-calendar-body-label {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.mat-calendar-arrow {
+  fill: rgba(255, 255, 255, 0.7) !important;
+}
+
+.mat-calendar-body-today:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical) {
+  border-color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.mat-calendar-body-cell:not(.mat-calendar-body-disabled):hover>.mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(.mat-calendar-body-comparison-identical) {
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+.mat-calendar-body-selected{
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.mat-mdc-button, .mat-mdc-outlined-button {
+  --mat-mdc-button-persistent-ripple-color: rgba(255, 255, 255, 0.08);
+  --mat-mdc-button-ripple-color: rgba(255, 255, 255, 0.08);
+}
+
+.mat-mdc-button:hover{
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.mat-mdc-icon-button:hover{
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
 //override bootstrap styles
 
 .modal-dialog-scrollable .modal-content{

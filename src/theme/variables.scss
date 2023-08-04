@@ -46,6 +46,9 @@
 
   --mdc-circular-progress-active-indicator-color:#0d6efd !important;
 
+  --mdc-icon-button-icon-color:rgba(255, 255, 255, 0.7) !important;
+
+  --mdc-text-button-label-text-color: rgba(255, 255, 255, 0.7) !important;
 
   //override bootstrap variable values
 
@@ -53,4 +56,6 @@
   --bs-heading-color: rgba(255, 255, 255, 0.7) !important;
   --bs-btn-close-color: rgba(255, 255, 255, 0.7) !important;
   --bs-border-color:rgba(255, 255, 255, 0.7) !important;
+
+
 }

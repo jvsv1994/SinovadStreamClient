@@ -12,8 +12,9 @@ import {MatSortModule} from '@angular/material/sort';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatTooltipModule} from '@angular/material/tooltip';
-import { MatOptionModule } from '@angular/material/core';
+import { MatNativeDateModule, MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 
 @NgModule({
@@ -32,7 +33,9 @@ import { MatSelectModule } from '@angular/material/select';
     MatProgressSpinnerModule,
     MatTooltipModule,
     MatOptionModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
   exports: [
     MatPaginatorModule,
@@ -46,7 +49,9 @@ import { MatSelectModule } from '@angular/material/select';
     MatProgressSpinnerModule,
     MatTooltipModule,
     MatOptionModule,
-    MatSelectModule
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ]
 })
 export class AngularMaterialModule { }

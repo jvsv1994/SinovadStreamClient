@@ -7,14 +7,20 @@
         </button>
       </div>
       <div class="modal-body">
-        <div class="mb-3">
-          <label for="title" class="form-label">Título</label>
-          <textarea id="title" class="form-control" formControlName="title"></textarea>
-        </div>
-        <div  class="mb-3">
-          <label for="releaseDate" class="form-label">Fecha Lanzamiento</label>
-          <input id="releaseDate" class="form-control" type="date" formControlName="releaseDate"/>
-        </div>
+        <mat-form-field class="form-field-full-width">
+          <mat-label>Título</mat-label>
+          <input id="title" matInput formControlName="title" [errorStateMatcher]="matcher"/>
+          <mat-error *ngIf="movieFormGroup.controls['title'].hasError('required')">
+            Título es <strong>requerido</strong>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Fecha de Lanzamiento</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="releaseDate">
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
         <div class="mb-3">
           <label for="directors" class="form-label">Directores</label>
           <textarea id="directors" class="form-control" formControlName="directors"></textarea>
