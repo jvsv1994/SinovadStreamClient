@@ -1,4 +1,4 @@
-import { Component, HostListener, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -9,10 +9,10 @@ import { RestProviderService } from 'src/app/shared/services/rest-provider.servi
 import { SinovadApiGenericResponse } from '../response/sinovadApiGenericResponse';
 import { SinovadApiPaginationResponse } from '../response/sinovadApiPaginationResponse';
 import { TvProgram } from '../../models/tvProgram';
-import { ContextMenuOption } from '../context-menu/contextMenuOption';
-import { ContextMenuPage } from '../context-menu/context-menu.page';
 import { SnackBarService } from 'src/app/shared/services/snack-bar.service';
 import { SnackBarType } from '../shared/components/custom-snack-bar/custom-snack-bar.component';
+import { ContextMenuService } from '../shared/services/context-menu.service';
+import { ContextMenuOption } from '../shared/components/custom-context-menu/custom-context-menu.component';
 @Component({
   selector: 'app-item-list',
   templateUrl: 'item-list.page.html',
@@ -20,7 +20,6 @@ import { SnackBarType } from '../shared/components/custom-snack-bar/custom-snack
 })
 export class ItemListPage extends ParentComponent implements OnInit{
 
-  @ViewChild('contextMenuPage') contextMenuPage: ContextMenuPage;
   _window=window;
   @Input() currentMediaTypeID: number;
   @Input() title: string='';
@@ -37,6 +36,7 @@ export class ItemListPage extends ParentComponent implements OnInit{
   showConfirmMessageBox:boolean=false;
 
   constructor(
+    private contextMenuService:ContextMenuService,
     private snackBarService:SnackBarService,
     public restProvider: RestProviderService,
     public activeRoute: ActivatedRoute,
@@ -187,7 +187,7 @@ export class ItemListPage extends ParentComponent implements OnInit{
   }
 
   private renderContextMenuComponent(left:number,top:number,listOptions:ContextMenuOption[]) {
-    this.contextMenuPage.show("sinovadMainContainer",left,top,listOptions).then((option:ContextMenuOption) => {
+    this.contextMenuService.show("sinovadMainContainer",left,top,listOptions).then((option:ContextMenuOption) => {
       this.onClickContextMenuOption(option);
     });
   }

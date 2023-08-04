@@ -6,7 +6,6 @@ import { PaginationPageModule } from '../pagination/pagination.module';
 import { SeasonFormPageModule } from '../season-form/season-form.module';
 import { EpisodeListModalPageModule } from '../episode-list-modal/episode-list-modal.module';
 import { ConfirmMessageModalPageModule } from '../confirm-message-modal/confirm-message-modal.module';
-import { ContextMenuPageModule } from '../context-menu/context-menu.module';
 import { MediaServerListPage } from './media-server-list.page';
 
 @NgModule({
@@ -18,8 +17,7 @@ import { MediaServerListPage } from './media-server-list.page';
     EpisodeListModalPageModule,
     PaginationPageModule,
     SeasonFormPageModule,
-    ConfirmMessageModalPageModule,
-    ContextMenuPageModule
+    ConfirmMessageModalPageModule
   ],
   declarations: [MediaServerListPage],
   exports: [MediaServerListPage]

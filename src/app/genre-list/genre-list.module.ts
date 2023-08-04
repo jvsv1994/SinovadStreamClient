@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { PaginationPageModule } from '../pagination/pagination.module';
-import { ContextMenuPageModule } from '../context-menu/context-menu.module';
 import { GenreListPage } from './genre-list.page';
 
 @NgModule({
@@ -16,8 +15,7 @@ import { GenreListPage } from './genre-list.page';
       FormsModule,
       ReactiveFormsModule,
       SharedModule,
-      PaginationPageModule,
-      ContextMenuPageModule
+      PaginationPageModule
     ],
     exports: [GenreListPage]
 })

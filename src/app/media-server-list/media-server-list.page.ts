@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { SharedDataService } from 'src/app/shared/services/shared-data.service';
@@ -7,10 +7,10 @@ import { ParentComponent } from '../parent/parent.component';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { HttpMethodType } from 'src/app/shared/enums';
 import { SinovadApiPaginationResponse } from '../response/sinovadApiPaginationResponse';
-import { ContextMenuPage } from '../context-menu/context-menu.page';
-import { ContextMenuOption } from '../context-menu/contextMenuOption';
 import { MediaServer } from 'src/models/mediaServer';
 import { User } from '../users/shared/user.model';
+import { ContextMenuService } from '../shared/services/context-menu.service';
+import { ContextMenuOption } from '../shared/components/custom-context-menu/custom-context-menu.component';
 @Component({
   selector: 'app-media-server-list',
   templateUrl: 'media-server-list.page.html',
@@ -18,7 +18,6 @@ import { User } from '../users/shared/user.model';
 })
 export class MediaServerListPage extends ParentComponent implements OnInit{
 
-  @ViewChild('contextMenuPage') contextMenuPage: ContextMenuPage;
   @Input() parentItem:User;
   _window=window;
   listItems: MediaServer[]=[];
@@ -32,6 +31,7 @@ export class MediaServerListPage extends ParentComponent implements OnInit{
   showConfirmMessageBox:boolean=false;
 
   constructor(
+    private contextMenuService:ContextMenuService,
     public restProvider: RestProviderService,
     public ref: ChangeDetectorRef,
     public domSanitizer: DomSanitizer,
@@ -152,7 +152,7 @@ export class MediaServerListPage extends ParentComponent implements OnInit{
     event.stopPropagation();
     this.onClickItem(event,item);
     let listOptions=[];
-    this.contextMenuPage.show("sinovadMainContainer",event.clientX,event.clientY,listOptions).then((option:ContextMenuOption) => {
+    this.contextMenuService.show("sinovadMainContainer",event.clientX,event.clientY,listOptions).then((option:ContextMenuOption) => {
       this.onClickContextMenuOption(option);
     });
   }

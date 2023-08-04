@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { SharedDataService } from 'src/app/shared/services/shared-data.service';
@@ -9,8 +9,8 @@ import { HttpMethodType } from 'src/app/shared/enums';
 import { Season } from '../../models/season';
 import { TvProgram } from '../../models/tvProgram';
 import { SinovadApiPaginationResponse } from '../response/sinovadApiPaginationResponse';
-import { ContextMenuPage } from '../context-menu/context-menu.page';
-import { ContextMenuOption } from '../context-menu/contextMenuOption';
+import { ContextMenuService } from '../shared/services/context-menu.service';
+import { ContextMenuOption } from '../shared/components/custom-context-menu/custom-context-menu.component';
 @Component({
   selector: 'app-season-list',
   templateUrl: 'season-list.page.html',
@@ -18,7 +18,6 @@ import { ContextMenuOption } from '../context-menu/contextMenuOption';
 })
 export class SeasonListPage extends ParentComponent implements OnInit{
 
-  @ViewChild('contextMenuPage') contextMenuPage: ContextMenuPage;
   @Input() parentItem:TvProgram;
   _window=window;
   listItems: Season[]=[];
@@ -32,6 +31,7 @@ export class SeasonListPage extends ParentComponent implements OnInit{
   showConfirmMessageBox:boolean=false;
 
   constructor(
+    private contextMenuService:ContextMenuService,
     public restProvider: RestProviderService,
     public ref: ChangeDetectorRef,
     public domSanitizer: DomSanitizer,
@@ -154,7 +154,7 @@ export class SeasonListPage extends ParentComponent implements OnInit{
     let listOptions=[];
     listOptions.push({text:"Ver",key:"view",iconClass:"fa-solid fa-eye"});
     listOptions.push({text:"Eliminar",key:"delete",iconClass:"fa-solid fa-trash"});
-    this.contextMenuPage.show("sinovadMainContainer",event.clientX,event.clientY,listOptions).then((option:ContextMenuOption) => {
+    this.contextMenuService.show("sinovadMainContainer",event.clientX,event.clientY,listOptions).then((option:ContextMenuOption) => {
       this.onClickContextMenuOption(option);
     });
   }

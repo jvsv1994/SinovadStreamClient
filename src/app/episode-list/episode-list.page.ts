@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { ParentComponent } from '../parent/parent.component';
@@ -10,8 +10,8 @@ import { Episode } from '../../models/episode';
 import { Season } from '../../models/season';
 import { TvProgram } from '../../models/tvProgram';
 import { SinovadApiPaginationResponse } from '../response/sinovadApiPaginationResponse';
-import { ContextMenuPage } from '../context-menu/context-menu.page';
-import { ContextMenuOption } from '../context-menu/contextMenuOption';
+import { ContextMenuService } from '../shared/services/context-menu.service';
+import { ContextMenuOption } from '../shared/components/custom-context-menu/custom-context-menu.component';
 @Component({
   selector: 'app-episode-list',
   templateUrl: 'episode-list.page.html',
@@ -19,7 +19,6 @@ import { ContextMenuOption } from '../context-menu/contextMenuOption';
 })
 export class EpisodeListPage extends ParentComponent implements OnInit{
 
-  @ViewChild('contextMenuPage') contextMenuPage: ContextMenuPage;
   @Input() parentItem:Season;
   _window=window;
   listItems: Episode[];
@@ -37,6 +36,7 @@ export class EpisodeListPage extends ParentComponent implements OnInit{
   showConfirmMessageBox:boolean=false;
 
   constructor(
+    private contextMenuService:ContextMenuService,
     public restProvider: RestProviderService,
     public domSanitizer: DomSanitizer,
     public activeRoute: ActivatedRoute,
@@ -155,7 +155,7 @@ export class EpisodeListPage extends ParentComponent implements OnInit{
     this.onClickItem(event,item);
     let listOptions=[];
     listOptions.push({text:"Eliminar",key:"delete",iconClass:"fa-solid fa-trash"});
-    this.contextMenuPage.show("sinovadMainContainer",event.clientX,event.clientY,listOptions).then((option:ContextMenuOption) => {
+    this.contextMenuService.show("sinovadMainContainer",event.clientX,event.clientY,listOptions).then((option:ContextMenuOption) => {
       this.onClickContextMenuOption(option);
     });
   }

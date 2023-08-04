@@ -1,5 +1,5 @@
 
-import { ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SharedDataService } from 'src/app/shared/services/shared-data.service';
 import { ParentComponent } from '../parent/parent.component';
@@ -7,9 +7,9 @@ import { HttpClient} from '@angular/common/http';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { SinovadApiPaginationResponse } from '../response/sinovadApiPaginationResponse';
 import { HttpMethodType } from 'src/app/shared/enums';
-import { ContextMenuOption } from '../context-menu/contextMenuOption';
-import { ContextMenuPage } from '../context-menu/context-menu.page';
 import { Menu } from 'src/models/menu';
+import { ContextMenuService } from '../shared/services/context-menu.service';
+import { ContextMenuOption } from '../shared/components/custom-context-menu/custom-context-menu.component';
 
 @Component({
   selector: 'app-menu-list',
@@ -18,7 +18,6 @@ import { Menu } from 'src/models/menu';
 })
 export class MenuListPage extends ParentComponent implements OnInit {
 
-  @ViewChild('contextMenuPage') contextMenuPage: ContextMenuPage;
   response:SinovadApiPaginationResponse;
   pageSize:number=10;
   listItems: Menu[];
@@ -29,6 +28,7 @@ export class MenuListPage extends ParentComponent implements OnInit {
   menu:Menu;
 
   constructor(
+    private contextMenuService:ContextMenuService,
     public restProvider: RestProviderService,
     public  ref:ChangeDetectorRef,
     public http: HttpClient,
@@ -155,7 +155,7 @@ export class MenuListPage extends ParentComponent implements OnInit {
     }
 
     private renderContextMenuComponent(left:number,top:number,listOptions:ContextMenuOption[]) {
-      this.contextMenuPage.show("sinovadMainContainer",left,top,listOptions).then((option:ContextMenuOption) => {
+      this.contextMenuService.show("sinovadMainContainer",left,top,listOptions).then((option:ContextMenuOption) => {
         this.onClickContextMenuOption(option);
       });
     }
