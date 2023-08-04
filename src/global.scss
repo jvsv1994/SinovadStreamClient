@@ -141,7 +141,7 @@ $app-theme: mat.define-light-theme((
 //custom styles
 
 .custom-list-container{
-  max-width: 600px !important;
+  max-width: 650px !important;
   padding-left: 20px !important;
   padding-right: 20px !important;
   padding-bottom: 20px !important;
@@ -157,6 +157,18 @@ table {
   border: none;
   overflow: hidden;
   width: 100%;
+}
+
+.custom-tr-hoverable{
+  cursor: pointer;
+}
+
+.custom-tr-hoverable:hover{
+  background-color: #2c2e37 !important;
+}
+
+.custom-tr-hoverable.active{
+  background-color: #2c2e37 !important;
 }
 
 .row h3{

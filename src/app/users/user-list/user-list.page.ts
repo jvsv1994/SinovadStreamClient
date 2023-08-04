@@ -194,21 +194,23 @@ export class UserListPage extends CustomListGeneric<User> implements OnInit {
       event.preventDefault();
       event.stopPropagation();
       let listOptions:ContextMenuOption[]=[];
-      var ctx=this;
-      var eventOnSelectOption=new EventEmitter<boolean>();
-      eventOnSelectOption.subscribe(event => {
-        ctx.showMediaServersModal=true;
-      });
-      listOptions.push({text:"Servidores multimedia",iconClass:"fa-solid fa-server",eventOnSelectOption:eventOnSelectOption});
+      listOptions.push({key:"ShowMediaServers",text:"Servidores multimedia",iconClass:"fa-solid fa-server"});
       if(listOptions && listOptions.length>0)
       {
-        this.renderContextMenuComponent(event.clientX,event.clientY,listOptions,user);
+        this.renderContextMenuComponent(event.clientX,event.clientY,listOptions);
       }
     }
 
-    private renderContextMenuComponent(left:number,top:number,listOptions:ContextMenuOption[],user:User) {
+    private renderContextMenuComponent(left:number,top:number,listOptions:ContextMenuOption[]) {
+      var ctx=this;
       this.contextMenuPage.show("sinovadMainContainer",left,top,listOptions).then((option:ContextMenuOption) => {
-
+        if(option.key=="ShowMediaServers")
+        {
+          ctx.showMediaServersModal=true;
+        }
+        //ctx.lastSelectedItem=undefined;
+      },()=>{
+        ctx.lastSelectedItem=undefined;
       });
     }
 

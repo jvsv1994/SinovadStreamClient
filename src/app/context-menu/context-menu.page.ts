@@ -52,6 +52,7 @@ export class ContextMenuPage{
       });
       component.instance.hideContextMenu.subscribe(event => {
         ctx.applicationRef.detachView(component.hostView);
+        reject(true);
       });
       const renderedHtml = (component.hostView as EmbeddedViewRef<any>).rootNodes[0] as HTMLElement;
       var container=document.getElementById(containerId);
