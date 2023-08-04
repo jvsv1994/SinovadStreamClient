@@ -21,7 +21,6 @@ import { SnackBarType } from 'src/app/shared/components/custom-snack-bar/custom-
 })
 export class MenuListPage extends CustomListGeneric<Menu> implements AfterViewInit {
 
-  displayedColumns: string[] = ['Select','Id', 'Title', 'Path', 'IconClass', 'SortOrder','Actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
@@ -167,6 +166,21 @@ export class MenuListPage extends CustomListGeneric<Menu> implements AfterViewIn
         this.showLoading=false;
         this.snackbarService.showSnackBar(error,SnackBarType.Error);
       });
+    }
+
+    //Displayed Columns Section
+
+    public getDisplayedColumns(){
+      if(window.innerWidth>975)
+      {
+        return ['Select','Id', 'Title', 'Path', 'IconClass', 'SortOrder','Actions'];
+      }else if(window.innerWidth>875){
+        return ['Select','Id', 'Title', 'Path', 'IconClass','Actions'];
+      }else if(window.innerWidth>495){
+        return ['Select','Id', 'Title', 'Path','Actions'];
+      }else{
+        return ['Select','Id', 'Title','Actions'];
+      }
     }
 
 }
