@@ -42,12 +42,12 @@ const routes: Routes = [
         loadChildren: () => import('../home/home.module').then(m => m.HomePageModule)
       },
       {
-        path: 'movies',
+        path: 'media/movies',
         component: MoviesPage,
         loadChildren: () => import('../movies/movies.module').then(m => m.MoviesPageModule)
       },
       {
-        path: 'tvseries',
+        path: 'media/tvseries',
         component: TvSeriesPage,
         loadChildren: () => import('../tvseries/tvseries.module').then(m => m.TvSeriesPageModule)
       },

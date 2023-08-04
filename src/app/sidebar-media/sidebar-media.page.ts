@@ -28,13 +28,13 @@ export class SidebarMediaPage extends ParentComponent implements OnInit {
       Id:2,
       SortOrder:2,
       Title:"Peliculas",
-      Path:"/movies",
+      Path:"/media/movies",
       IconClass:"fa-film fa-solid"
     },{
       Id:3,
       SortOrder:3,
       Title:"Series",
-      Path:"/tvseries",
+      Path:"/media/tvseries",
       IconClass:"fa-solid fa-tv"
     }
   ]
