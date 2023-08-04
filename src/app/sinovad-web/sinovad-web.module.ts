@@ -28,9 +28,9 @@ import { SearchViewRootPage } from '../search-view-root/search-view-root.page';
 import { ServerSettingsGeneralPage } from '../server-settings-general/server-settings-general.page';
 import { WebContainerPageModule } from '../web-container/web-container.module';
 import { SplashScreenPageModule } from '../splash-screen/splash-screen.module';
-import { RolesComponent } from '../roles/roles.component';
 import { SharedModule } from '../shared/shared.module';
 import { UserListPage } from '../users/user-list/user-list.page';
+import { RoleListPage } from '../roles/role-list/role-list.page';
 
 const routes: Routes = [
   {
@@ -147,7 +147,7 @@ const routes: Routes = [
       },
       {
         path: 'role-list',
-        component: RolesComponent,
+        component: RoleListPage,
         loadChildren: () => import('../roles/roles.module').then(m => m.RolesPageModule)
       },
       {

@@ -1,5 +1,4 @@
-<ng-template [ngIf]="role!=undefined">
-  <ng-template #modalTarget let-modal>
+<ng-template [ngIf]="role!=undefined && roleFormGroup">
       <form [formGroup]="roleFormGroup" (ngSubmit)="saveItem()" autocomplete="off">
         <div class="modal-header">
           <h5 class="modal-title">{{role && role.Id>0?'Editar':'Nuevo'}}</h5>
@@ -23,7 +22,6 @@
         </div>
       </form>
       <app-custom-spinner [showLoading]="showLoading"></app-custom-spinner>
-  </ng-template>
 </ng-template>
 
 

@@ -1,4 +1,4 @@
-import { EventEmitter, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Role } from './role.model';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { HttpMethodType } from 'src/app/shared/enums';
@@ -10,21 +10,11 @@ export declare type EventHandler = (...args: any[]) => any;
 @Injectable({ providedIn: 'root' })
 export class RoleService {
 
-  showFormModalEvent=new EventEmitter<Role>();
-  refreshListEvent=new EventEmitter<boolean>();
   lastCallGuid:string;
 
   constructor(
     private restProvider: RestProviderService,
   ) {
-  }
-
-  public showModal(role:Role){
-    this.showFormModalEvent.emit(role);
-  }
-
-  public refreshList(){
-    this.refreshListEvent.emit(true);
   }
 
   public getItems(pageNumber:number,itemsPerPage:number,sortBy:string,sortDirection:string,searchText:string,searchBy:string):Promise<SinovadApiPaginationResponse>{
@@ -50,7 +40,6 @@ export class RoleService {
       let methodType=role.Id>0?HttpMethodType.PUT:HttpMethodType.POST;
       var path=role.Id>0?"/roles/Update":"/roles/Create";
       this.restProvider.executeSinovadApiService(methodType,path,role).then((response) => {
-        this.refreshListEvent.emit(true);
         resolve(true);
       },error=>{
         console.error(error);

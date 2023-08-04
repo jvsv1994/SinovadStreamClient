@@ -1,5 +1,5 @@
 
-import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import { AfterViewInit, Component, ViewChild} from '@angular/core';
 import { SinovadApiPaginationResponse } from 'src/app/response/sinovadApiPaginationResponse';
 import { Role } from '../shared/role.model';
 import { RoleService } from '../shared/role.service';
@@ -11,33 +11,26 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort, Sort } from '@angular/material/sort';
 import { SnackBarService } from 'src/app/shared/services/snack-bar.service';
 import { SnackBarType } from 'src/app/shared/components/custom-snack-bar/custom-snack-bar.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { RoleFormPage } from '../role-form/role-form.page';
 @Component({
   selector: 'app-role-list',
   templateUrl: './role-list.page.html',
   styleUrls: ['./role-list.page.scss']
 })
-export class RoleListPage extends CustomListGeneric<Role>  implements OnInit,OnDestroy,AfterViewInit {
+export class RoleListPage extends CustomListGeneric<Role>  implements AfterViewInit {
 
   displayedColumns: string[] = ['Select','Id', 'Name','Actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(
+    private modalService: NgbModal,
     private dialog: MatDialog,
     public matPaginatorIntl: MatPaginatorIntl,
     private snackbarService:SnackBarService,
     private roleService:RoleService) {
       super(matPaginatorIntl);
-    }
-
-    public ngOnInit(): void {
-      this.refreshSubscription$=this.roleService.refreshListEvent.subscribe(event=>{
-        this.getAllItems();
-      });
-    }
-
-    public ngOnDestroy(): void {
-      this.refreshSubscription$.unsubscribe();
     }
 
     ngAfterViewInit() {
@@ -82,11 +75,21 @@ export class RoleListPage extends CustomListGeneric<Role>  implements OnInit,OnD
     public showNewItem(){
       var role= new Role();
       role.Enabled=true;
-      this.roleService.showModal(role);
+      this.showModalForm(role);
     }
 
     public editItem(role: Role){
-      this.roleService.showModal(role);
+      this.showModalForm(role);
+    }
+
+    public showModalForm(role:Role){
+      var ctx=this;
+      var ref=this.modalService.open(RoleFormPage, {container:"#sinovadMainContainer",
+      modalDialogClass:'modal-dialog modal-fullscreen-md-down modal-dialog-centered modal-dialog-scrollable',scrollable:true,backdrop: 'static'});
+      ref.componentInstance.role=role;
+      ref.closed.subscribe(x=>{
+        ctx.getAllItems();
+      })
     }
 
     //Get Data Section

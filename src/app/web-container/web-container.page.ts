@@ -25,8 +25,8 @@ import { SearchViewRootPage } from '../search-view-root/search-view-root.page';
 import { BuilderVideo } from 'src/models/builderVideo';
 import { VideoEvent, VideoService } from 'src/app/shared/services/video.service';
 import { Subscription } from 'rxjs';
-import { RolesComponent } from '../roles/roles.component';
 import { UserListPage } from '../users/user-list/user-list.page';
+import { RoleListPage } from '../roles/role-list/role-list.page';
 
 @Component({
   selector: 'app-web-container',
@@ -215,7 +215,7 @@ export class WebContainerPage extends ParentComponent implements OnInit,OnDestro
         ctx.ref.detectChanges();
       }
       if(event instanceof MenuListPage || event instanceof TvSerieListPage || event instanceof MovieListPage
-        || event instanceof GenreListPage || event instanceof UserListPage || event instanceof RolesComponent)
+        || event instanceof GenreListPage || event instanceof UserListPage || event instanceof RoleListPage)
       {
         this.showingSidebarAccount=false;
         this.showingSidebarAdminMode=true;
