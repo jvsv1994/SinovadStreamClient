@@ -1,50 +1,55 @@
-  <ng-template [ngIf]="menu!=undefined && menuForm">
-    <form [formGroup]="menuForm" (ngSubmit)="saveItem()" autocomplete="off">
+  <ng-template [ngIf]="menu!=undefined && menuFormGroup">
+    <form [formGroup]="menuFormGroup" (ngSubmit)="saveItem()" autocomplete="off">
       <div class="modal-header">
         <h5 class="modal-title">{{menu.Id>0?'Editar':'Nuevo'}}</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+        <button class="modal-close-button" type="button" (click)="closeModal()">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
       </div>
       <div class="modal-body">
-        <div class="mb-3">
-          <label for="name" class="form-label">Título</label>
-          <textarea id="name" class="form-control" formControlName="title"></textarea>
-        </div>
-        <div class="mb-3">
-          <label for="path" class="form-label">Path</label>
-          <input id="path" class="form-control" type="text" formControlName="path"/>
-        </div>
-        <div class="mb-3">
-          <label for="iconType" class="form-label">Tipo de Ícono</label>
-          <select id="iconType" class="form-select" aria-label="Seleccionar" formControlName="iconType">
-            <ng-template ngFor let-iconType [ngForOf]="listIconTypes">
-              <option [ngValue]="iconType.Id">{{iconType.Name}}</option>
-            </ng-template>
-          </select>
-        </div>
-        <div class="mb-3">
-          <label for="iconClass" class="form-label">Icon Class</label>
-          <input id="iconClass" class="form-control" type="text" formControlName="iconClass"/>
-        </div>
-        <div class="mb-3">
-          <label for="sortOrder" class="form-label">Número de Orden</label>
-          <input id="sortOrder" class="form-control" type="number" formControlName="sortOrder"/>
-        </div>
-        <div class="mb-3">
-          <label for="typeFormControlId" class="form-label">Padre</label>
-          <select id="typeFormControlId" class="form-select" aria-label="Seleccionar Padre" formControlName="parentId">
-            <ng-template ngFor let-men [ngForOf]="listMenus">
-              <option [ngValue]="men.Id">{{men.Title}}</option>
-            </ng-template>
-          </select>
-        </div>
-        <div class="mb-3 d-inline align-middle">
-          <label for="enabled" class="form-label">Activo</label>
-          <input id="enabled" class="form-check-input ms-2" type="checkbox" formControlName="enabled"/>
-        </div>
+        <mat-form-field class="form-field-full-width">
+          <mat-label>Título</mat-label>
+          <input id="title" matInput formControlName="title" [errorStateMatcher]="matcher"/>
+          <mat-error *ngIf="menuFormGroup.controls['title'].hasError('required')">
+            Título es <strong>requerido</strong>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="form-field-full-width">
+          <mat-label>Path</mat-label>
+          <input id="path" matInput formControlName="path"/>
+        </mat-form-field>
+        <mat-form-field class="form-field-full-width">
+          <mat-label>Número de Orden</mat-label>
+          <input id="sortOrder" type="number" matInput formControlName="sortOrder"/>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Tipo de Ícono</mat-label>
+          <mat-select formControlName="iconType">
+            <mat-option [value]="undefined">--</mat-option>
+            <mat-option *ngFor="let iconType of listIconTypes" [value]="iconType.Id">
+              {{iconType.Name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field class="form-field-full-width">
+          <mat-label>Icon Class</mat-label>
+          <input id="iconClass" matInput formControlName="iconClass"/>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Menu Padre</mat-label>
+          <mat-select formControlName="parentId">
+            <mat-option [value]="undefined">--</mat-option>
+            <mat-option *ngFor="let men of listMenus" [value]="men.Id">
+              {{men.Title}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-checkbox formControlName="enabled">Activo</mat-checkbox>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeModal()">Cerrar</button>
-        <button type="submit" class="btn btn-primary">Guardar</button>
+        <button type="submit" class="btn btn-primary" [disabled]="showLoading || !menuFormGroup.valid">Guardar</button>
       </div>
     </form>
+    <app-custom-spinner [showLoading]="showLoading"></app-custom-spinner>
   </ng-template>

@@ -12,6 +12,8 @@ import {MatSortModule} from '@angular/material/sort';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import { MatOptionModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
 
 
 @NgModule({
@@ -28,7 +30,9 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     MatSortModule,
     MatCheckboxModule,
     MatProgressSpinnerModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatOptionModule,
+    MatSelectModule
   ],
   exports: [
     MatPaginatorModule,
@@ -40,7 +44,9 @@ import {MatTooltipModule} from '@angular/material/tooltip';
     MatSortModule,
     MatCheckboxModule,
     MatProgressSpinnerModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatOptionModule,
+    MatSelectModule
   ]
 })
 export class AngularMaterialModule { }

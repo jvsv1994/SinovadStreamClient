@@ -3,7 +3,7 @@ import { AfterViewInit, Component, Input, OnInit} from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { CatalogEnum, HttpMethodType} from 'src/app/shared/enums';
 import { CatalogDetail } from 'src/models/catalogDetail';
-import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Menu } from '../shared/menu.model';
 import { SinovadApiGenericResponse } from 'src/app/response/sinovadApiGenericResponse';
 import { SnackBarService } from 'src/app/shared/services/snack-bar.service';
@@ -22,7 +22,7 @@ export class MenuFormPage implements OnInit,AfterViewInit{
   @Input() menu:Menu;
   listMenus:Menu[];
   listIconTypes:CatalogDetail[];
-  menuForm:FormGroup;
+  menuFormGroup:FormGroup;
   showLoading:boolean=false;
   matcher = new MyErrorStateMatcher();
 
@@ -45,7 +45,7 @@ export class MenuFormPage implements OnInit,AfterViewInit{
     private getAllMenus():void{
       this.menuService.getAllItems().then((response:SinovadApiGenericResponse) => {
         var data=response.Data;
-        this.listMenus=data;
+        this.listMenus=data.filter(ele=>ele.Id!=this.menu.Id);
       },error=>{
         console.error(error);
       });
@@ -64,11 +64,11 @@ export class MenuFormPage implements OnInit,AfterViewInit{
     //Build Form Group
 
     ngAfterViewInit(){
-      this.menuForm = this.formBuilder.group({
-        title:new FormControl(this.menu.Title),
+      this.menuFormGroup = this.formBuilder.group({
+        title:new FormControl(this.menu.Title, [Validators.required]),
         path: new FormControl(this.menu.Path),
         iconType:new FormControl(this.menu.IconTypeCatalogDetailId),
-        iconClass:new FormControl(this.menu.IconTypeCatalogDetailId),
+        iconClass:new FormControl(this.menu.IconClass),
         sortOrder:new FormControl(this.menu.SortOrder),
         parentId:new FormControl(this.menu.ParentId),
         enabled:new FormControl(this.menu.Enabled)
@@ -76,17 +76,24 @@ export class MenuFormPage implements OnInit,AfterViewInit{
     }
 
     public saveItem(){
-      if(this.menuForm.valid)
+      if(this.menuFormGroup.valid)
       {
         this.showLoading=true;
         var menu:Menu=JSON.parse(JSON.stringify(this.menu));
-        menu.Title=this.menuForm.value.title;
-        menu.Path=this.menuForm.value.path;
-        menu.IconClass=this.menuForm.value.iconClass;
-        menu.SortOrder=this.menuForm.value.sortOrder;
-        menu.IconTypeCatalogDetailId=this.menuForm.value.iconType;
-        menu.ParentId=this.menuForm.value.parentId;
-        menu.Enabled=this.menuForm.value.enabled;
+        menu.Title=this.menuFormGroup.value.title;
+        menu.Path=this.menuFormGroup.value.path;
+        menu.IconClass=this.menuFormGroup.value.iconClass;
+        menu.SortOrder=this.menuFormGroup.value.sortOrder;
+        if(this.menuFormGroup.value.iconType!=undefined)
+        {
+          menu.IconTypeCatalogId=CatalogEnum.IconTypes;
+          menu.IconTypeCatalogDetailId=this.menuFormGroup.value.iconType;
+        }else{
+          menu.IconTypeCatalogId=undefined;
+          menu.IconTypeCatalogDetailId=undefined;
+        }
+        menu.ParentId=this.menuFormGroup.value.parentId;
+        menu.Enabled=this.menuFormGroup.value.enabled;
         this.menuService.saveItem(menu).then((response: any) => {
           this.showLoading=false;
           this.snackbarService.showSnackBar("Se guardo el menu satisfactoriamente",SnackBarType.Success);
@@ -96,19 +103,9 @@ export class MenuFormPage implements OnInit,AfterViewInit{
           console.error(error);
         });
       }else{
-        this.menuForm.markAllAsTouched();
+        this.menuFormGroup.markAllAsTouched();
       }
     }
-
-    public onChangeParent(event:any){
-      this.menu.ParentId=Number(event.target.value);
-    }
-
-    public onChangeIconType(event:any){
-      this.menu.IconTypeCatalogId=CatalogEnum.IconTypes;
-      this.menu.IconTypeCatalogDetailId=Number(event.target.value);
-    }
-
 
     public closeModal(){
       this.activeModal.dismiss();
