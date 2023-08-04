@@ -7,7 +7,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { AccountPage } from '../account/account.page';
 import { GenreListPage } from '../genre-list/genre-list.page';
 import { TvSerieListPage } from '../tvserie-list/tvserie-list.page';
-import { MovieListPage } from '../movie-list/movie-list.page';
 import { TranscoderSettingssPage } from '../transcode-settings/transcode-settings.page';
 import { ManageMediaPage } from '../manage-media/manage-media.page';
 import { NotFoundPage } from '../not-found/not-found.page';
@@ -31,6 +30,7 @@ import { RoleListPage } from '../roles/role-list/role-list.page';
 import { MenuListPage } from '../menus/menu-list/menu-list.page';
 import { MediaMoviesPage } from '../media-movies/media-movies.page';
 import { MediaTvSeriesPage } from '../media-tvseries/media-tvseries.page';
+import { MovieListPage } from '../movies/movie-list/movie-list.page';
 
 const routes: Routes = [
   {
@@ -121,32 +121,32 @@ const routes: Routes = [
         loadChildren: () => import('../transcode-settings/transcode-settings.module').then(m => m.TranscoderSettingssPageModule)
       },
       {
-        path: 'movie-list',
+        path: 'manage/movies',
         component: MovieListPage,
-        loadChildren: () => import('../movie-list/movie-list.module').then(m => m.MovieListPageModule)
+        loadChildren: () => import('../movies/movies.module').then(m => m.MoviesModule)
       },
       {
-        path: 'tvserie-list',
+        path: 'manage/tvseries',
         component: TvSerieListPage,
         loadChildren: () => import('../tvserie-list/tvserie-list.module').then(m => m.TvSerieListPageModule)
       },
       {
-        path: 'genre-list',
+        path: 'manage/genres',
         component: GenreListPage,
         loadChildren: () => import('../genre-list/genre-list.module').then(m => m.GenreListPageModule)
       },
       {
-        path: 'menu-list',
+        path: 'manage/menus',
         component: MenuListPage,
         loadChildren: () => import('../menus/menus.module').then(m => m.MenusModule)
       },
       {
-        path: 'user-list',
+        path: 'manage/users',
         component: UserListPage,
         loadChildren: () => import('../users/users.module').then(m => m.UsersModule)
       },
       {
-        path: 'role-list',
+        path: 'manage/roles',
         component: RoleListPage,
         loadChildren: () => import('../roles/roles.module').then(m => m.RolesPageModule)
       },

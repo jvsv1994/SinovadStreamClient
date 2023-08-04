@@ -11,6 +11,7 @@ import { MenuService } from '../shared/menu.service';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { SnackBarType } from 'src/app/shared/components/custom-snack-bar/custom-snack-bar.component';
 import { MyErrorStateMatcher } from 'src/app/shared/custom-error-state-matcher';
+import { SharedDataService } from 'src/app/shared/services/shared-data.service';
 
 @Component({
   selector: 'app-menu-form',
@@ -20,13 +21,14 @@ import { MyErrorStateMatcher } from 'src/app/shared/custom-error-state-matcher';
 export class MenuFormPage implements OnInit,AfterViewInit{
 
   @Input() menu:Menu;
-  listMenus:Menu[];
+  listMenusSelectable:Menu[];
   listIconTypes:CatalogDetail[];
   menuFormGroup:FormGroup;
   showLoading:boolean=false;
   matcher = new MyErrorStateMatcher();
 
   constructor(
+    private sharedData:SharedDataService,
     private restProvider:RestProviderService,
     private formBuilder: FormBuilder,
     private activeModal: NgbActiveModal,
@@ -43,9 +45,9 @@ export class MenuFormPage implements OnInit,AfterViewInit{
     }
 
     private getAllMenus():void{
-      this.menuService.getAllItems().then((response:SinovadApiGenericResponse) => {
+      this.menuService.getAllMenus().then((response:SinovadApiGenericResponse) => {
         var data=response.Data;
-        this.listMenus=data.filter(ele=>ele.Id!=this.menu.Id);
+        this.listMenusSelectable=data.filter(ele=>ele.Id!=this.menu.Id);
       },error=>{
         console.error(error);
       });
@@ -97,6 +99,7 @@ export class MenuFormPage implements OnInit,AfterViewInit{
         this.menuService.saveItem(menu).then((response: any) => {
           this.showLoading=false;
           this.snackbarService.showSnackBar("Se guardo el menu satisfactoriamente",SnackBarType.Success);
+          this.menuService.getMenusByUser();
           this.activeModal.close();
         },error=>{
           this.showLoading=false;

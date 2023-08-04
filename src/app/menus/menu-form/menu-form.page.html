@@ -39,7 +39,7 @@
           <mat-label>Menu Padre</mat-label>
           <mat-select formControlName="parentId">
             <mat-option [value]="undefined">--</mat-option>
-            <mat-option *ngFor="let men of listMenus" [value]="men.Id">
+            <mat-option *ngFor="let men of listMenusSelectable" [value]="men.Id">
               {{men.Title}}
             </mat-option>
           </mat-select>

@@ -1,45 +1,20 @@
 import { Injectable } from '@angular/core';
-import { Menu } from './menu.model';
+import { Movie } from './movie.model';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { HttpMethodType } from 'src/app/shared/enums';
 import { SinovadApiPaginationResponse } from 'src/app/response/sinovadApiPaginationResponse';
 import { SinovadApiGenericResponse } from 'src/app/response/sinovadApiGenericResponse';
 import {v4 as uuid} from "uuid";
-import { SharedDataService } from 'src/app/shared/services/shared-data.service';
 export declare type EventHandler = (...args: any[]) => any;
 
 @Injectable({ providedIn: 'root' })
-export class MenuService {
+export class MovieService {
 
   lastCallGuid:string;
 
   constructor(
-    public sharedData:SharedDataService,
     private restProvider: RestProviderService,
   ) {
-  }
-
-  public getAllMenus(){
-    return new Promise((resolve, reject) => {
-      var path="/menus/GetAllAsync";
-      this.restProvider.executeSinovadApiService(HttpMethodType.GET,path).then((response:SinovadApiGenericResponse) => {
-        resolve(response);
-      },error=>{
-        console.error(error);
-        reject(error);
-      });
-   });
-  }
-
-  public getMenusByUser(): Promise<any>{
-    return new Promise((resolve, reject) => {
-      this.restProvider.executeSinovadApiService(HttpMethodType.GET,'/menus/GetByUserAsync/'+this.sharedData.userData.Id).then((response:SinovadApiGenericResponse) => {
-        this.sharedData.listMenus=response.Data;
-        resolve(true);
-      },error=>{
-        reject(error);
-      });
-    });
   }
 
   public getItems(pageNumber:number,itemsPerPage:number,sortBy:string,sortDirection:string,searchText:string,searchBy:string):Promise<SinovadApiPaginationResponse>{
@@ -47,7 +22,7 @@ export class MenuService {
       let callGuid=uuid();
       this.lastCallGuid=callGuid;
       var queryParams="?page="+pageNumber.toString()+"&take="+itemsPerPage.toString()+"&sortBy="+sortBy+"&sortDirection="+sortDirection+"&searchText="+searchText+"&searchBy="+searchBy;
-      var path="/menus/GetAllWithPaginationAsync"+queryParams;
+      var path="/movies/GetAllWithPaginationAsync"+queryParams;
       this.restProvider.executeSinovadApiService(HttpMethodType.GET,path).then((response:SinovadApiPaginationResponse) => {
         if(this.lastCallGuid==callGuid)
         {
@@ -60,11 +35,11 @@ export class MenuService {
    });
   }
 
-  public saveItem(menu:Menu):Promise<boolean>{
+  public saveItem(movie:Movie):Promise<boolean>{
     return new Promise((resolve, reject) => {
-      let methodType=menu.Id>0?HttpMethodType.PUT:HttpMethodType.POST;
-      var path=menu.Id>0?"/menus/Update":"/menus/Create";
-      this.restProvider.executeSinovadApiService(methodType,path,menu).then((response) => {
+      let methodType=movie.Id>0?HttpMethodType.PUT:HttpMethodType.POST;
+      var path=movie.Id>0?"/movies/Update":"/movies/Create";
+      this.restProvider.executeSinovadApiService(methodType,path,movie).then((response) => {
         resolve(true);
       },error=>{
         console.error(error);
@@ -74,7 +49,7 @@ export class MenuService {
   }
   public deleteItem(itemId:number):Promise<SinovadApiGenericResponse>{
     return new Promise((resolve, reject) => {
-      var path="/menus/Delete/"+itemId;
+      var path="/movies/Delete/"+itemId;
       this.restProvider.executeSinovadApiService(HttpMethodType.DELETE,path).then((response:SinovadApiGenericResponse) => {
         resolve(response);
       },error=>{
@@ -84,16 +59,16 @@ export class MenuService {
    });
   }
 
-  public deleteItems(listMenus:Menu[]):Promise<SinovadApiGenericResponse>{
+  public deleteItems(listMovies:Movie[]):Promise<SinovadApiGenericResponse>{
     return new Promise((resolve, reject) => {
       let listItemIds:number[]=[];
-      for(let i=0;i < listMenus.length;i++)
+      for(let i=0;i < listMovies.length;i++)
       {
-        let item=listMenus[i];
+        let item=listMovies[i];
         listItemIds.push(item.Id);
       }
       var listIds=listItemIds.join(",");
-      var path="/menus/DeleteList/"+listIds;
+      var path="/movies/DeleteList/"+listIds;
       this.restProvider.executeSinovadApiService(HttpMethodType.DELETE,path).then((response:SinovadApiGenericResponse) => {
         resolve(response);
       },error=>{

@@ -1,4 +1,4 @@
-import { MovieGenre } from "./movieGenre";
+import { MovieGenre } from "./movie-genre.model";
 
 export class Movie{
 
