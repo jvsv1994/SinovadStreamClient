@@ -7,7 +7,7 @@
           </button>
         </div>
         <div class="modal-body">
-            <mat-form-field class="form-field-full-width">
+            <mat-form-field>
               <mat-label>Nombre</mat-label>
               <input id="name" matInput formControlName="name" [errorStateMatcher]="matcher"/>
               <mat-error *ngIf="roleFormGroup.controls['name'].hasError('required')">

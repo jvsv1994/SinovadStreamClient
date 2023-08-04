@@ -211,6 +211,11 @@ ngb-modal-window .component-host-scrollable {
 
 //custom styles
 
+.custom-textarea-genres{
+  height: 50px !important;
+  cursor: pointer;
+}
+
 .custom-list-container{
   max-width: 650px !important;
   padding-left: 20px !important;
@@ -271,14 +276,13 @@ button.action-button:hover{
   background-color: rgba(255, 255, 255, 0.08);
 }
 
+textarea{
+  height: 100px !important;
+}
+
 .disable{
   pointer-events: none;
   opacity: 0.5;
-}
-
-
-.form-field-full-width{
-  width: 100%;
 }
 
 .loading-container{

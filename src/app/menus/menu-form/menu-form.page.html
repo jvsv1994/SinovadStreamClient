@@ -7,18 +7,18 @@
         </button>
       </div>
       <div class="modal-body">
-        <mat-form-field class="form-field-full-width">
+        <mat-form-field>
           <mat-label>Título</mat-label>
           <input id="title" matInput formControlName="title" [errorStateMatcher]="matcher"/>
           <mat-error *ngIf="menuFormGroup.controls['title'].hasError('required')">
             Título es <strong>requerido</strong>
           </mat-error>
         </mat-form-field>
-        <mat-form-field class="form-field-full-width">
+        <mat-form-field>
           <mat-label>Path</mat-label>
           <input id="path" matInput formControlName="path"/>
         </mat-form-field>
-        <mat-form-field class="form-field-full-width">
+        <mat-form-field>
           <mat-label>Número de Orden</mat-label>
           <input id="sortOrder" type="number" matInput formControlName="sortOrder"/>
         </mat-form-field>
@@ -31,7 +31,7 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
-        <mat-form-field class="form-field-full-width">
+        <mat-form-field>
           <mat-label>Icon Class</mat-label>
           <input id="iconClass" matInput formControlName="iconClass"/>
         </mat-form-field>

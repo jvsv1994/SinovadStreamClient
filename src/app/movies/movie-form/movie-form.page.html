@@ -7,7 +7,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <mat-form-field class="form-field-full-width">
+        <mat-form-field>
           <mat-label>Título</mat-label>
           <input id="title" matInput formControlName="title" [errorStateMatcher]="matcher"/>
           <mat-error *ngIf="movieFormGroup.controls['title'].hasError('required')">
@@ -21,26 +21,26 @@
           <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
-        <div class="mb-3">
-          <label for="directors" class="form-label">Directores</label>
-          <textarea id="directors" class="form-control" formControlName="directors"></textarea>
-        </div>
-        <div class="mb-3">
-          <label for="actors" class="form-label">Actores</label>
-          <textarea id="actors" class="form-control" formControlName="actors"></textarea>
-        </div>
-        <div class="mb-3">
-          <label for="summary" class="form-label">Resumen</label>
-          <textarea id="summary" class="form-control" formControlName="overview"></textarea>
-        </div>
-        <div class="mb-3">
-          <label for="genres" class="form-label">Géneros</label>
-          <textarea id="genres" class="form-control" readonly [value]="getSelectedGenres()" (click)="showListGenresPopUp()"></textarea>
-        </div>
-        <div class="mb-3">
-          <label for="posterPath" class="form-label">Imágen</label>
-          <textarea id="posterPath" class="form-control" formControlName="posterPath"></textarea>
-        </div>
+        <mat-form-field>
+          <mat-label>Géneros</mat-label>
+          <textarea class="custom-textarea-genres" matInput formControlName="selectedGenres" [readonly]="true" [value]="getSelectedGenres()" (click)="showListGenresPopUp()"></textarea>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Directores</mat-label>
+          <textarea matInput formControlName="directors"></textarea>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Actores</mat-label>
+          <textarea matInput formControlName="actors"></textarea>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Resumen</mat-label>
+          <textarea matInput formControlName="overview"></textarea>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Imágen</mat-label>
+          <textarea matInput formControlName="posterPath"></textarea>
+        </mat-form-field>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeModal()">Close</button>
