@@ -8,7 +8,6 @@ import { RestProviderService } from 'src/app/shared/services/rest-provider.servi
 import { ActivatedRoute, Router } from '@angular/router';
 import { ItemListPage } from '../item-list/item-list.page';
 import { ManageMediaPage } from '../manage-media/manage-media.page';
-import { TvSeriesPage } from '../tvseries/tvseries.page';
 import { HomePage } from '../home/home.page';
 import { TvSerieDetailPage } from '../tvserie-detail/tvserie-detail.page';
 import { MovieDetailPage } from '../movie-detail/movie-detail.page';
@@ -27,6 +26,7 @@ import { UserListPage } from '../users/user-list/user-list.page';
 import { RoleListPage } from '../roles/role-list/role-list.page';
 import { MenuListPage } from '../menus/menu-list/menu-list.page';
 import { MediaMoviesPage } from '../media-movies/media-movies.page';
+import { MediaTvSeriesPage } from '../media-tvseries/media-tvseries.page';
 
 @Component({
   selector: 'app-web-container',
@@ -166,7 +166,7 @@ export class WebContainerPage extends ParentComponent implements OnInit,OnDestro
         this.showingSidebarAccount=false;
         this.showingSidebarAdminMode=false;
       }
-      if(event instanceof MediaMoviesPage || event instanceof TvSeriesPage || event instanceof HomePage || event instanceof MovieDetailPage || event instanceof TvSerieDetailPage)
+      if(event instanceof MediaMoviesPage || event instanceof MediaTvSeriesPage || event instanceof HomePage || event instanceof MovieDetailPage || event instanceof TvSerieDetailPage)
       {
         this.showingSidebarMedia=true;
         this.showingSidebarAccount=false;

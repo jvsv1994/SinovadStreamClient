@@ -20,7 +20,6 @@ import { LandingPage } from '../landing/landing.page';
 import { TvSerieDetailPage } from '../tvserie-detail/tvserie-detail.page';
 import { MovieDetailPage } from '../movie-detail/movie-detail.page';
 import { ProfilesViewPage } from '../profiles-view/profiles-view.page';
-import { TvSeriesPage } from '../tvseries/tvseries.page';
 import { HomePage } from '../home/home.page';
 import { SearchViewRootPage } from '../search-view-root/search-view-root.page';
 import { ServerSettingsGeneralPage } from '../server-settings-general/server-settings-general.page';
@@ -31,6 +30,7 @@ import { UserListPage } from '../users/user-list/user-list.page';
 import { RoleListPage } from '../roles/role-list/role-list.page';
 import { MenuListPage } from '../menus/menu-list/menu-list.page';
 import { MediaMoviesPage } from '../media-movies/media-movies.page';
+import { MediaTvSeriesPage } from '../media-tvseries/media-tvseries.page';
 
 const routes: Routes = [
   {
@@ -48,8 +48,8 @@ const routes: Routes = [
       },
       {
         path: 'media/tvseries',
-        component: TvSeriesPage,
-        loadChildren: () => import('../tvseries/tvseries.module').then(m => m.TvSeriesPageModule)
+        component: MediaTvSeriesPage,
+        loadChildren: () => import('../media-tvseries/media-tvseries.module').then(m => m.MediaTvSeriesPageModule)
       },
       {
         path: 'search',

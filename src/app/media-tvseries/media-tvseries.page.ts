@@ -10,11 +10,11 @@ import { MediaType } from 'src/app/shared/enums';
 import { ItemDetail } from '../../models/itemDetail';
 
 @Component({
-  selector: 'app-tvseries',
-  templateUrl: './tvseries.page.html',
-  styleUrls: ['./tvseries.page.scss']
+  selector: 'app-media-tvseries',
+  templateUrl: './media-tvseries.page.html',
+  styleUrls: ['./media-tvseries.page.scss']
 })
-export class TvSeriesPage extends ParentComponent implements OnInit {
+export class MediaTvSeriesPage extends ParentComponent implements OnInit {
 
   currentMediaTypeID:number;
   title:string;
