@@ -12,7 +12,7 @@ import { SidebarOption } from 'src/models/sidebarOption';
 import { DropDownMenuPage } from '../drop-down-menu/drop-down-menu.page';
 import { DropDownMenuItem } from '../drop-down-menu/dropDownMenuItem';
 import { DropDownMenuOptions } from '../drop-down-menu/dropDownMenuOptions';
-import { MediaServer } from 'src/models/mediaServer';
+import { MediaServer } from '../media-servers/shared/media-server.model';
 
 declare var window;
 @Component({

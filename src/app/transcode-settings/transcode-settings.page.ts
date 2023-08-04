@@ -9,11 +9,11 @@ import { RestProviderService } from 'src/app/shared/services/rest-provider.servi
 import { SinovadApiGenericResponse } from '../response/sinovadApiGenericResponse';
 import { TranscoderSettings } from '../../models/transcoderSettings';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MediaServer } from 'src/models/mediaServer';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { CatalogDetail } from 'src/models/catalogDetail';
 import { SnackBarService } from 'src/app/shared/services/snack-bar.service';
 import { SnackBarType } from '../shared/components/custom-snack-bar/custom-snack-bar.component';
+import { MediaServer } from '../media-servers/shared/media-server.model';
 
 declare var window;
 @Component({

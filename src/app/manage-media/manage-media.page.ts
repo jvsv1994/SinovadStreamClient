@@ -10,13 +10,13 @@ import { CatalogEnum, HttpMethodType, MediaType } from 'src/app/shared/enums';
 import { Storage } from '../../models/storage';
 import { SinovadApiGenericResponse } from '../response/sinovadApiGenericResponse';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MediaServer } from 'src/models/mediaServer';
 import { CustomActionsMenuPage } from '../custom-actions-menu/custom-actions-menu.page';
 import { CustomActionsMenuItem } from '../custom-actions-menu/customActionsMenuItem';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { SnackBarService } from '../shared/services/snack-bar.service';
 import { ConfirmDialogOptions, CustomConfirmDialogComponent } from '../shared/components/custom-confirm-dialog/custom-confirm-dialog.component';
 import { SnackBarType } from '../shared/components/custom-snack-bar/custom-snack-bar.component';
+import { MediaServer } from '../media-servers/shared/media-server.model';
 
 declare var window;
 @Component({
