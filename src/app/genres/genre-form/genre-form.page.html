@@ -1,0 +1,27 @@
+<ng-template [ngIf]="genre!=undefined && genreFormGroup">
+  <form [formGroup]="genreFormGroup" (ngSubmit)="saveItem()" autocomplete="off">
+    <div class="modal-header">
+      <h5 class="modal-title">{{genre && genre.Id>0?'Editar':'Nuevo'}}</h5>
+      <button class="modal-close-button" type="button" (click)="closeModal()">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    <div class="modal-body">
+        <mat-form-field>
+          <mat-label>Nombre</mat-label>
+          <input id="name" matInput formControlName="name" [errorStateMatcher]="matcher"/>
+          <mat-error *ngIf="genreFormGroup.controls['name'].hasError('required')">
+            Nombre es <strong>requerido</strong>
+          </mat-error>
+        </mat-form-field>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeModal()">Close</button>
+      <button type="submit" class="btn btn-primary" [disabled]="showLoading || !genreFormGroup.valid">Guardar</button>
+    </div>
+  </form>
+  <app-custom-spinner [showLoading]="showLoading"></app-custom-spinner>
+</ng-template>
+
+
+

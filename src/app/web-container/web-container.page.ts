@@ -16,7 +16,7 @@ import { TranscoderSettingssPage } from '../transcode-settings/transcode-setting
 import { ServerSettingsGeneralPage } from '../server-settings-general/server-settings-general.page';
 import { AccountPage } from '../account/account.page';
 import { TvSerieListPage } from '../tvserie-list/tvserie-list.page';
-import { GenreListPage } from '../genre-list/genre-list.page';
+import { GenreListPage } from '../genres/genre-list/genre-list.page';
 import { SearchViewRootPage } from '../search-view-root/search-view-root.page';
 import { BuilderVideo } from 'src/models/builderVideo';
 import { VideoEvent, VideoService } from 'src/app/shared/services/video.service';
