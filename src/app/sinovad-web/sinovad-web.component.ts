@@ -93,16 +93,9 @@ export class SinovadWebComponent extends ParentComponent implements OnInit,OnDes
     public showPageInFullScreen(){
       if(!document.fullscreenElement)
       {
-        var vidContainer:any =  this.mainContainer.nativeElement;
-        if (vidContainer.requestFullScreen) {
-          vidContainer.requestFullScreen();
-        }else if (vidContainer.webkitRequestFullScreen) {
-          vidContainer.webkitRequestFullScreen();
-        }else{
-          vidContainer.mozRequestFullScreen();
+        if (document.body.requestFullscreen) {
+          document.body.requestFullscreen();
         }
-        this.mainContainer.nativeElement.click();
-        this.ref.detectChanges();
       }
     }
 
