@@ -43,8 +43,7 @@ export class MenuFormPage implements OnInit,AfterViewInit{
     }
 
     private getAllMenus():void{
-      var path="/menus/GetAllAsync";
-      this.restProvider.executeSinovadApiService(HttpMethodType.GET,path).then((response:SinovadApiGenericResponse) => {
+      this.menuService.getAllItems().then((response:SinovadApiGenericResponse) => {
         var data=response.Data;
         this.listMenus=data;
       },error=>{
