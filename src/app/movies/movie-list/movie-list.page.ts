@@ -172,9 +172,9 @@ export class MovieListPage extends CustomListGeneric<Movie> implements AfterView
     public getDisplayedColumns(){
       if(window.innerWidth>975)
       {
-        return ['Select','Id', 'Title', 'ReleaseDate', 'Actors', 'Directors', 'Genres','Actions'];
+        return ['Select','Id', 'Title', 'ReleaseDate', 'Actors', 'Directors','Actions'];
       }else if(window.innerWidth>875){
-        return ['Select','Id', 'Title', 'ReleaseDate', 'Actors','Directors','Actions'];
+        return ['Select','Id', 'Title', 'ReleaseDate', 'Actors','Actions'];
       }else if(window.innerWidth>495){
         return ['Select','Id', 'Title', 'ReleaseDate','Actions'];
       }else{

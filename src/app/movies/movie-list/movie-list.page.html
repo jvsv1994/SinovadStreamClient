@@ -51,20 +51,16 @@
                 <td mat-cell *matCellDef="let element" style="width:100%;text-align: left;"> {{element.Title}} </td>
               </ng-container>
               <ng-container matColumnDef="ReleaseDate">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header style="min-width:100px;text-align: left;">Fecha</th>
-                <td mat-cell *matCellDef="let element" style="min-width:140px;text-align: left;"> {{element.ReleaseDate}} </td>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header style="min-width:140px;text-align: left;">Fecha</th>
+                <td mat-cell *matCellDef="let element" style="min-width:140px;text-align: left;"> {{element.ReleaseDate | date: 'dd-MM-YYYY'}} </td>
               </ng-container>
               <ng-container matColumnDef="Actors">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header style="min-width:180px;text-align: left;">Actores</th>
-                <td mat-cell *matCellDef="let element" style="min-width:180px;text-align: left;"> {{element.Actors}} </td>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header style="max-width:120px;text-align: left;">Actores</th>
+                <td mat-cell *matCellDef="let element" style="max-width:120px;text-align: left;"> {{element.Actors}} </td>
               </ng-container>
               <ng-container matColumnDef="Directors">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header style="max-width:70px;text-align: left;">Directores</th>
-                <td mat-cell *matCellDef="let element" style="max-width:70px;text-align: left;"> {{element.Directors}} </td>
-              </ng-container>
-              <ng-container matColumnDef="Genres">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header style="max-width:70px;text-align: left;">Géneros</th>
-                <td mat-cell *matCellDef="let element" style="max-width:70px;text-align: left;"> {{element.Genres}} </td>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header style="max-width:120px;text-align: left;">Directores</th>
+                <td mat-cell *matCellDef="let element" style="max-width:120px;text-align: left;"> {{element.Directors}} </td>
               </ng-container>
               <ng-container matColumnDef="Actions">
                 <th mat-header-cell *matHeaderCellDef style="width:100px;"></th>
