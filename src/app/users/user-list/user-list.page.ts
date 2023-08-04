@@ -78,7 +78,7 @@ export class UserListPage extends CustomListGeneric<User> implements OnInit {
         start:"asc",
         disableClear:true
       });
-      this.searchBy="UserName";
+      this.searchBy="UserName|Email|FirstName|LastName";
       this.dataSource.sort = this.sort;
     }
 
