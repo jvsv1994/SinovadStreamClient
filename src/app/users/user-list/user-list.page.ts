@@ -1,9 +1,7 @@
 
-import { Component, EventEmitter, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild} from '@angular/core';
 import { SinovadApiPaginationResponse } from 'src/app/response/sinovadApiPaginationResponse';
 import { User } from '../shared/user.model';
-import { ContextMenuPage } from 'src/app/context-menu/context-menu.page';
-import { ContextMenuOption } from 'src/app/context-menu/contextMenuOption';
 import { CustomListGeneric } from 'src/app/shared/generics/custom-list.generic';
 import { MatPaginator, MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
@@ -13,6 +11,8 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ConfirmDialogOptions, CustomConfirmDialogComponent } from 'src/app/shared/components/custom-confirm-dialog/custom-confirm-dialog.component';
 import { SnackBarService } from 'src/app/shared/services/snack-bar.service';
 import { SnackBarType } from 'src/app/shared/components/custom-snack-bar/custom-snack-bar.component';
+import { ContextMenuService } from 'src/app/shared/services/context-menu.service';
+import { ContextMenuOption } from 'src/app/shared/components/custom-context-menu/custom-context-menu.component';
 
 @Component({
   selector: 'app-user-list',
@@ -25,11 +25,11 @@ export class UserListPage extends CustomListGeneric<User> implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  @ViewChild('contextMenuPage') contextMenuPage: ContextMenuPage;
   showContextMenu:boolean=false;
   showMediaServersModal:boolean=false;
 
   constructor(
+    private contextMenuService:ContextMenuService,
     private dialog: MatDialog,
     private userService:UserService,
     public matPaginatorIntl: MatPaginatorIntl,
@@ -203,14 +203,14 @@ export class UserListPage extends CustomListGeneric<User> implements OnInit {
 
     private renderContextMenuComponent(left:number,top:number,listOptions:ContextMenuOption[]) {
       var ctx=this;
-      this.contextMenuPage.show("sinovadMainContainer",left,top,listOptions).then((option:ContextMenuOption) => {
+      this.contextMenuService.show("sinovadMainContainer",left,top,listOptions).then((option:ContextMenuOption) => {
         if(option.key=="ShowMediaServers")
         {
           ctx.showMediaServersModal=true;
         }
         //ctx.lastSelectedItem=undefined;
       },()=>{
-        ctx.lastSelectedItem=undefined;
+        //ctx.lastSelectedItem=undefined;
       });
     }
 

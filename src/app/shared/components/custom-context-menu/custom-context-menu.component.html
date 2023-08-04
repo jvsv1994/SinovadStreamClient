@@ -1,0 +1,13 @@
+  <div  (clickOutside)="onClickOutside()" class="sinovad-context-menu-item-list" [style.top]="top+'px'" [style.left]="left+'px'">
+    <ng-template ngFor let-option [ngForOf]="listOptions"  let-i="index">
+        <div class="sinovad-context-menu-option" [style.border-bottom]="option.showBorderBottom?'1px solid black':''" (click)="onClickContextMenuOption(option)">
+          <div class="sinovad-context-menu-option-icon">
+            <img *ngIf="option.imageUrl" [src]="option.imageUrl" style="width:24px;">
+            <i *ngIf="option.iconClass" class="{{option.iconClass}}"></i>
+          </div>
+          <div class="sinovad-context-menu-option-text">
+            {{option.text}}
+          </div>
+        </div>
+    </ng-template>
+  </div>
