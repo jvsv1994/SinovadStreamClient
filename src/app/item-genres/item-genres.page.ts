@@ -7,8 +7,8 @@ import { HttpClient} from '@angular/common/http';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { TvProgram } from '../../models/tvProgram';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Genre } from '../../models/genre';
 import { TvProgramGenre } from '../../models/tvProgramGenre';
+import { Genre } from '../genres/shared/genre.model';
 
 @Component({
   selector: 'app-item-genres',

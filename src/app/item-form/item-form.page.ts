@@ -8,12 +8,12 @@ import { RestProviderService } from 'src/app/shared/services/rest-provider.servi
 import { TvProgram } from '../../models/tvProgram';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { HttpMethodType, MediaType } from 'src/app/shared/enums';
-import { Genre } from '../../models/genre';
 import { SinovadApiGenericResponse } from '../response/sinovadApiGenericResponse';
 import { TvProgramGenre } from '../../models/tvProgramGenre';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { SnackBarService } from 'src/app/shared/services/snack-bar.service';
 import { SnackBarType } from '../shared/components/custom-snack-bar/custom-snack-bar.component';
+import { Genre } from '../genres/shared/genre.model';
 
 @Component({
   selector: 'app-item-form',
