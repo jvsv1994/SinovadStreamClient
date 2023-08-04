@@ -106,6 +106,10 @@ $app-theme: mat.define-light-theme((
   padding: 20px;
 }
 
+.cdk-overlay-container {
+  z-index: 1056;
+}
+
 //override bootstrap styles
 
 .modal-dialog-scrollable .modal-content{

@@ -1,180 +1,177 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import { HttpClient} from '@angular/common/http';
-import { ActivatedRoute } from '@angular/router';
-import { SharedDataService } from 'src/app/shared/services/shared-data.service';
-import { DomSanitizer } from '@angular/platform-browser';
-import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
-import { HttpMethodType } from 'src/app/shared/enums';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { User } from 'src/app/users/shared/user.model';
 import { SinovadApiPaginationResponse } from 'src/app/response/sinovadApiPaginationResponse';
-import { ContextMenuService } from 'src/app/shared/services/context-menu.service';
-import { ParentComponent } from 'src/app/parent/parent.component';
-import { ContextMenuOption } from 'src/app/shared/components/custom-context-menu/custom-context-menu.component';
 import { MediaServer } from '../shared/media-server.model';
+import { MatSort, Sort } from '@angular/material/sort';
+import { MatPaginator, MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
+import { CustomListGeneric } from 'src/app/shared/generics/custom-list.generic';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { SnackBarService } from 'src/app/shared/services/snack-bar.service';
+import { MediaServerService } from '../shared/media-server.service';
+import { MatTableDataSource } from '@angular/material/table';
+import { ConfirmDialogOptions, CustomConfirmDialogComponent } from 'src/app/shared/components/custom-confirm-dialog/custom-confirm-dialog.component';
+import { SnackBarType } from 'src/app/shared/components/custom-snack-bar/custom-snack-bar.component';
 @Component({
   selector: 'app-media-server-list',
   templateUrl: 'media-server-list.page.html',
   styleUrls: ['media-server-list.page.scss'],
 })
-export class MediaServerListPage extends ParentComponent implements OnInit{
+export class MediaServerListPage extends CustomListGeneric<MediaServer> implements OnInit{
 
   @Input() parentItem:User;
-  _window=window;
-  listItems: MediaServer[]=[];
-  listSelectedItems:MediaServer[]=[];
-  showPopUpForm:boolean=false;
-  seasonData:MediaServer;
-  lastSelectedItem:MediaServer;
-  showListEpisodesPopUp:boolean=false;
-  response:SinovadApiPaginationResponse;
-  pageSize:number=10;
-  showConfirmMessageBox:boolean=false;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(
-    private contextMenuService:ContextMenuService,
-    public restProvider: RestProviderService,
-    public ref: ChangeDetectorRef,
-    public domSanitizer: DomSanitizer,
-    public activeRoute: ActivatedRoute,
-    public sharedData: SharedDataService,
-    public http: HttpClient) {
-      super(restProvider,domSanitizer,sharedData)
+    private dialog: MatDialog,
+    private mediaServerService:MediaServerService,
+    public matPaginatorIntl: MatPaginatorIntl,
+    private snackbarService:SnackBarService) {
+      super(matPaginatorIntl)
 
-  }
-
-  ngOnInit(): void {
-    this.getAllItems();
-  }
-
-  public executeGetAllItems(page:string,take:string){
-    var queryParams="?page="+page+"&take="+take;
-    var path='/mediaServers/GetAllWithPaginationByUserAsync/'+this.parentItem.Id+queryParams;
-    this.restProvider.executeSinovadApiService(HttpMethodType.GET,path).then((response:SinovadApiPaginationResponse) => {
-      this.response=response;
-      var data=response.Data;
-      this.listItems=data;
-    },error=>{
-      console.error(error);
-    });
-  }
-
-  public getAllItems(){
-    var page=1;
-    this.executeGetAllItems(page.toString(),this.pageSize.toString());
-  }
-
-  public onSelectPage(page:string){
-    this.executeGetAllItems(page,this.pageSize.toString());
-  }
-
-  public onChangeSelectAllCheckBox(event:any){
-    if(event.target.checked)
-    {
-      for(let i=0;i < this.listItems.length;i++)
-      {
-        let item=this.listItems[i];
-        this.listSelectedItems.push(item);
-      }
-    }else{
-      this.listSelectedItems=[];
     }
-  }
 
-  public executeDeleteSelectedItems(){
-    this.showConfirmMessageBox=false;
-    let listItemIds:number[]=[];
-    for(let i=0;i < this.listSelectedItems.length;i++)
-    {
-      let item=this.listSelectedItems[i];
-      listItemIds.push(item.Id);
+    public ngOnInit(): void {
+      this.refreshSubscription$=this.mediaServerService.refreshListEvent.subscribe(event=>{
+        this.getAllItems();
+      });
     }
-    var listIds=listItemIds.join(",");
-    this.restProvider.executeSinovadApiService(HttpMethodType.DELETE,'/seasons/DeleteList/'+listIds).then((response) => {
-      this.listSelectedItems=[];
+
+    public ngOnDestroy(): void {
+      this.refreshSubscription$.unsubscribe();
+    }
+
+    ngAfterViewInit() {
+      //Initialize Paginator
+      this.paginator.page.subscribe((event:PageEvent) => {
+          this.updatePageData(event);
+          this.getAllItems();
+        }
+      );
+      this.dataSource.paginator = this.paginator;
+
+      //Initialize Sort
+      this.sort.sortChange.subscribe((sort:Sort) => {
+        this.currentPage=1;
+        this.sortBy=sort.active;
+        this.sortDirection=sort.direction;
+        this.getAllItems();
+      });
+      this.sortBy="IpAddress";
+      this.sortDirection="asc";
+      this.sort.disableClear=true;
+      this.sort.sort({
+        id:"IpAddress",
+        start:"asc",
+        disableClear:true
+      });
+      this.searchBy="IpAddress|Port|FamilyName|DeviceName";
+      this.dataSource.sort = this.sort;
+    }
+
+    //Apply Filters Section
+
+    public applyFilter(event: Event) {
+      const filterValue = (event.target as HTMLInputElement).value;
+      this.searchText=filterValue.trim().toLowerCase();
+      this.currentPage=1;
       this.getAllItems();
-    },error=>{
-      console.error(error);
-    });
-  }
+    }
 
-  public deleteSelectedItems(){
-    this.showConfirmMessageBox=true;
-  }
+    //Show Modal Section
 
-  public onClickItem(event:any,item:any)
-  {
-    if(event.ctrlKey || event.shiftKey)
-    {
-      if(event.ctrlKey)
-      {
-        if(this.listSelectedItems.indexOf(item)!=-1)
-        {
-          this.listSelectedItems.splice(this.listSelectedItems.indexOf(item),1)
-        }else{
-          this.listSelectedItems.push(item);
+    public showNewItem(){
+      var item= new MediaServer();
+      this.mediaServerService.showModal(item);
+    }
+
+    public editItem(item: MediaServer){
+      this.mediaServerService.showModal(item);
+    }
+
+    //Get Data Section
+
+    public getAllItems(){
+      this.showLoading=true;
+      this.mediaServerService.getItems(this.parentItem.Id,this.currentPage,this.itemsPerPage,this.sortBy,this.sortDirection,this.searchText,this.searchBy).then((response:SinovadApiPaginationResponse) => {
+        this.showLoading=false;
+        var data=response.Data;
+        this.totalCount=response.TotalCount;
+        this.listItems=data;
+        this.dataSource = new MatTableDataSource(data);
+        this.selection.clear();
+        this.paginator.length=this.totalCount;
+        this.paginator.pageIndex=this.currentPage-1;
+        this.paginator.pageSize=this.itemsPerPage;
+      },error=>{
+        this.showLoading=false;
+      });
+    }
+
+       //Delete Section
+
+       public deleteItem(item:MediaServer){
+        var config = new MatDialogConfig<ConfirmDialogOptions>();
+        config.data={
+          title:'Eliminar rol',message:'¿Esta seguro que desea eliminar el servidor '+item.DeviceName+'?',accordMessage:"Si, eliminar el servidor '"+item.DeviceName+"'"
         }
-      }else{
-        let lastSelectedItemIndex=0
-        if(this.listSelectedItems.length>0 && this.lastSelectedItem)
+        this.dialog.open(CustomConfirmDialogComponent,config).afterClosed().subscribe((confirm: boolean) => {
+          if (confirm) {
+            this.executeDeleteItem(item);
+          }
+        });
+      }
+
+      private executeDeleteItem(item:MediaServer){
+        this.showLoading=true;
+        this.mediaServerService.deleteItem(item.Id).then(res=>{
+          this.snackbarService.showSnackBar("Se elimino el registro satisfactoriamente",SnackBarType.Success);
+          this.getAllItems();
+        },(error)=>{
+          this.showLoading=false;
+          this.snackbarService.showSnackBar(error,SnackBarType.Error);
+        });
+      }
+
+      //Delete List Section
+
+      public deleteSelectedItems(){
+        if(this.selection.hasValue())
         {
-          lastSelectedItemIndex=this.listItems.indexOf(this.lastSelectedItem);
-        }
-        let currentIndex=this.listItems.indexOf(item);
-        if(currentIndex>=lastSelectedItemIndex)
-        {
-          let listItemsToAdd=this.listItems.filter(item=>this.listItems.indexOf(item)<=currentIndex && this.listItems.indexOf(item)>=lastSelectedItemIndex && this.listSelectedItems.indexOf(item)==-1);
-          this.listSelectedItems=this.listSelectedItems.concat(listItemsToAdd);
-        }else{
-          let listItemsToAdd=this.listItems.filter(item=>this.listItems.indexOf(item)>=currentIndex && this.listItems.indexOf(item)<=lastSelectedItemIndex && this.listSelectedItems.indexOf(item)==-1);
-          this.listSelectedItems=this.listSelectedItems.concat(listItemsToAdd);
+          var config = new MatDialogConfig<ConfirmDialogOptions>();
+          config.data={
+            title:"Eliminar roles",message:'¿Esta seguro que desea eliminar los registros seleccionados?',accordMessage:"Si, eliminar"
+          }
+          this.dialog.open(CustomConfirmDialogComponent,config).afterClosed().subscribe((confirm: boolean) => {
+            if (confirm) {
+              this.executeDeleteSelectedItems();
+            }
+          });
         }
       }
-    }else{
-      if(event.type=="contextmenu")
-      {
-        if(this.listSelectedItems.indexOf(item)==-1)
-        {
-          this.listSelectedItems=[];
-          this.listSelectedItems.push(item);
-        }
-      }else{
-        this.listSelectedItems=[];
-        this.listSelectedItems.push(item);
+
+      private executeDeleteSelectedItems(){
+        this.showLoading=true;
+        this.mediaServerService.deleteItems(this.selection.selected).then(res=>{
+          this.snackbarService.showSnackBar("Se eliminaron los registros seleccionados satisfactoriamente",SnackBarType.Success);
+          this.getAllItems();
+        },(error)=>{
+          this.showLoading=false;
+          this.snackbarService.showSnackBar(error,SnackBarType.Error);
+        });
       }
-    }
-    this.lastSelectedItem=item;
-  }
 
+      //Displayed Columns Section
 
-  public onContextMenuItem(event:any,item:any)
-  {
-    event.preventDefault();
-    event.stopPropagation();
-    this.onClickItem(event,item);
-    let listOptions=[];
-    this.contextMenuService.show("sinovadMainContainer",event.clientX,event.clientY,listOptions).then((option:ContextMenuOption) => {
-      this.onClickContextMenuOption(option);
-    });
-  }
-
-  public onClickContextMenuOption(option:any){
-    if(option.key=="view")
-    {
-      this.showListEpisodesPopUp=true;
-    }
-    if(option.key=="delete")
-    {
-      this.deleteSelectedItems();
-    }
-  }
-
-  public showItemForm(){
-
-  }
-
-  public editItem(item: MediaServer){
-
-  }
-
+      public getDisplayedColumns(){
+        if(window.innerWidth>600)
+        {
+          return ['Id', 'DeviceName','FamilyName','IpAddress','Port'];
+        }else if(window.innerWidth>475){
+          return ['Id', 'DeviceName','FamilyName'];
+        }{
+          return ['Id', 'DeviceName'];
+        }
+      }
 
 }

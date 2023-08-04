@@ -1,41 +1,56 @@
-<div class="container">
-  <div class="row mt-4">
-    <h3>{{parentItem.UserName}} : Servidores multimedia</h3>
+<div class="container custom-list-container">
+  <div class="row">
+    <h3 class="custom-list-title">{{parentItem.UserName}} : Servidores multimedia</h3>
   </div>
-  <div class="row mt-4">
-    <div class="col-6 d-flex align-items-center">
-      <div class="form-check mb-0">
-        <input id="flexCheckDefault" class="form-check-input" #checkbox type="checkbox" (change)="onChangeSelectAllCheckBox($event)">
-        <label class="form-check-label" for="flexCheckDefault">
-          Todos
-        </label>
+  <div>
+    <div class="row">
+      <div class="col-12">
+        <mat-form-field>
+          <mat-label>Buscar</mat-label>
+          <input matInput (keyup)="applyFilter($event)" #input>
+        </mat-form-field>
+        <div class="custom-container">
+          <div *ngIf="showLoading" class="loading-shade">
+            <mat-spinner></mat-spinner>
+          </div>
+          <div class="custom-table-container">
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8"  matSort>
+              <ng-container matColumnDef="Id">
+                <th mat-header-cell *matHeaderCellDef style="width:50px;text-align: center;">N°</th>
+                <td mat-cell *matCellDef="let element;let i = index" style="width:50px;text-align: center;"> {{getElementNumber(i,currentPage,itemsPerPage)}}</td>
+              </ng-container>
+              <ng-container matColumnDef="DeviceName">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header style="width:calc(50% - 140px);text-align: left;">Nombre del dispositivo</th>
+                <td mat-cell *matCellDef="let element" style="width:calc(50% - 165px);text-align: left;"> {{element.DeviceName}} </td>
+              </ng-container>
+              <ng-container matColumnDef="FamilyName">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header style="width:calc(50% - 140px);text-align: left;">Nombre familiar</th>
+                <td mat-cell *matCellDef="let element" style="width:calc(50% - 165px);text-align: left;"> {{element.FamilyName}} </td>
+              </ng-container>
+              <ng-container matColumnDef="IpAddress">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header style="width:150px;text-align: left;">IP Privada</th>
+                <td mat-cell *matCellDef="let element" style="width:150px;text-align: left;"> {{element.IpAddress}} </td>
+              </ng-container>
+              <ng-container matColumnDef="Port">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header style="width:80px;text-align: left;">Puerto</th>
+                <td mat-cell *matCellDef="let element" style="width:80px;text-align: left;"> {{element.Port}} </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="getDisplayedColumns()"></tr>
+              <tr mat-row *matRowDef="let row; columns: getDisplayedColumns();"
+              class="custom-tr-hoverable"></tr>
+              <tr class="mat-row" *matNoDataRow>
+                <td *ngIf="!showLoading" class="mat-cell" colspan="4">No se encontraron datos</td>
+              </tr>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="row mt-4">
-    <div class="col-12">
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th scope="col">N°</th>
-            <th scope="col">Ip Address</th>
-            <th scope="col">Url</th>
-          </tr>
-        </thead>
-        <tbody>
-          <ng-template ngFor let-item [ngForOf]="listItems" let-i="index">
-            <tr [ngClass]="{'selected':listSelectedItems.indexOf(item)!=-1}">
-              <th role="button" scope="row" (click)="onClickItem($event,item)" (contextmenu)="onContextMenuItem($event,item)">{{getNewIndex(i,response.PageNumber,pageSize)}}</th>
-              <td role="button" (click)="onClickItem($event,item)" (contextmenu)="onContextMenuItem($event,item)">{{item.IpAddress}}</td>
-              <td role="button" (click)="onClickItem($event,item)" (contextmenu)="onContextMenuItem($event,item)">{{item.Url}}</td>
-            </tr>
-          </ng-template>
-        </tbody>
-      </table>
-    </div>
-  </div>
-  <div class="row mt-4">
-    <div class="col-12">
+    <div class="row">
+      <div class="col-12">
+        <mat-paginator [color]="'primary'" [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Seleccionar página">
+        </mat-paginator>
+      </div>
     </div>
   </div>
 </div>

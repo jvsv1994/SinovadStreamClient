@@ -216,7 +216,7 @@ export class UserListPage extends CustomListGeneric<User> implements OnInit {
 
     private showMediaServerListModal(user:User){
       var ctx=this;
-      var ref=this.modalService.open(MediaServerListModalPage, {modalDialogClass:'modal-dialog modal-fullscreen-md-down modal-xl modal-dialog-centered modal-dialog-scrollable  modal-list',scrollable:true,backdrop: 'static'});
+      var ref=this.modalService.open(MediaServerListModalPage, {container:"#sinovadMainContainer",modalDialogClass:'modal-dialog modal-fullscreen-md-down modal-xl modal-dialog-centered modal-dialog-scrollable  modal-list',scrollable:true,backdrop: 'static'});
       ref.componentInstance.parent=user;
       ref.closed.subscribe(x=>{
         ctx.lastSelectedItem=undefined;
