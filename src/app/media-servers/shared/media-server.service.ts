@@ -1,4 +1,4 @@
-import { EventEmitter, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { HttpMethodType } from 'src/app/shared/enums';
 import { SinovadApiPaginationResponse } from 'src/app/response/sinovadApiPaginationResponse';
@@ -10,21 +10,11 @@ export declare type EventHandler = (...args: any[]) => any;
 @Injectable({ providedIn: 'root' })
 export class MediaServerService {
 
-  showFormModalEvent=new EventEmitter<MediaServer>();
-  refreshListEvent=new EventEmitter<boolean>();
   lastCallGuid:string;
 
   constructor(
     private restProvider: RestProviderService,
   ) {
-  }
-
-  public showModal(item:MediaServer){
-    this.showFormModalEvent.emit(item);
-  }
-
-  public refreshList(){
-    this.refreshListEvent.emit(true);
   }
 
   public getItems(userId:number,pageNumber:number,itemsPerPage:number,sortBy:string,sortDirection:string,searchText:string,searchBy:string):Promise<SinovadApiPaginationResponse>{
@@ -50,7 +40,6 @@ export class MediaServerService {
       let methodType=item.Id>0?HttpMethodType.PUT:HttpMethodType.POST;
       var path=item.Id>0?"/mediaServers/Update":"/mediaServers/Create";
       this.restProvider.executeSinovadApiService(methodType,path,item).then((response) => {
-        this.refreshListEvent.emit(true);
         resolve(true);
       },error=>{
         console.error(error);

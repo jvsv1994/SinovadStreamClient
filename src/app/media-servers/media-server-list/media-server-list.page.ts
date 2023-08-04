@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { User } from 'src/app/users/shared/user.model';
 import { SinovadApiPaginationResponse } from 'src/app/response/sinovadApiPaginationResponse';
 import { MediaServer } from '../shared/media-server.model';
@@ -16,7 +16,7 @@ import { SnackBarType } from 'src/app/shared/components/custom-snack-bar/custom-
   templateUrl: 'media-server-list.page.html',
   styleUrls: ['media-server-list.page.scss'],
 })
-export class MediaServerListPage extends CustomListGeneric<MediaServer> implements OnInit{
+export class MediaServerListPage extends CustomListGeneric<MediaServer>{
 
   @Input() parentItem:User;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -29,16 +29,6 @@ export class MediaServerListPage extends CustomListGeneric<MediaServer> implemen
     private snackbarService:SnackBarService) {
       super(matPaginatorIntl)
 
-    }
-
-    public ngOnInit(): void {
-      this.refreshSubscription$=this.mediaServerService.refreshListEvent.subscribe(event=>{
-        this.getAllItems();
-      });
-    }
-
-    public ngOnDestroy(): void {
-      this.refreshSubscription$.unsubscribe();
     }
 
     ngAfterViewInit() {
@@ -76,17 +66,6 @@ export class MediaServerListPage extends CustomListGeneric<MediaServer> implemen
       this.searchText=filterValue.trim().toLowerCase();
       this.currentPage=1;
       this.getAllItems();
-    }
-
-    //Show Modal Section
-
-    public showNewItem(){
-      var item= new MediaServer();
-      this.mediaServerService.showModal(item);
-    }
-
-    public editItem(item: MediaServer){
-      this.mediaServerService.showModal(item);
     }
 
     //Get Data Section

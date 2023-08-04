@@ -1,5 +1,5 @@
 
-import { Component, OnInit, ViewChild} from '@angular/core';
+import { Component, ViewChild} from '@angular/core';
 import { SinovadApiPaginationResponse } from 'src/app/response/sinovadApiPaginationResponse';
 import { User } from '../shared/user.model';
 import { CustomListGeneric } from 'src/app/shared/generics/custom-list.generic';
@@ -21,7 +21,7 @@ import { MediaServerListModalPage } from 'src/app/media-servers/media-server-lis
   templateUrl: './user-list.page.html',
   styleUrls: ['./user-list.page.scss']
 })
-export class UserListPage extends CustomListGeneric<User> implements OnInit {
+export class UserListPage extends CustomListGeneric<User> {
 
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -36,16 +36,6 @@ export class UserListPage extends CustomListGeneric<User> implements OnInit {
     private snackbarService:SnackBarService) {
       super(matPaginatorIntl)
 
-    }
-
-    public ngOnInit(): void {
-      this.refreshSubscription$=this.userService.refreshListEvent.subscribe(event=>{
-        this.getAllItems();
-      });
-    }
-
-    public ngOnDestroy(): void {
-      this.refreshSubscription$.unsubscribe();
     }
 
     ngAfterViewInit() {
@@ -83,18 +73,6 @@ export class UserListPage extends CustomListGeneric<User> implements OnInit {
       this.searchText=filterValue.trim().toLowerCase();
       this.currentPage=1;
       this.getAllItems();
-    }
-
-    //Show Modal Section
-
-    public showNewItem(){
-      var user= new User();
-      user.Active=true;
-      this.userService.showModal(user);
-    }
-
-    public editItem(user: User){
-      this.userService.showModal(user);
     }
 
 

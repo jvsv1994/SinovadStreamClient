@@ -10,21 +10,11 @@ export declare type EventHandler = (...args: any[]) => any;
 @Injectable({ providedIn: 'root' })
 export class UserService {
 
-  showFormModalEvent=new EventEmitter<User>();
-  refreshListEvent=new EventEmitter<boolean>();
   lastCallGuid:string;
 
   constructor(
     private restProvider: RestProviderService,
   ) {
-  }
-
-  public showModal(user:User){
-    this.showFormModalEvent.emit(user);
-  }
-
-  public refreshList(){
-    this.refreshListEvent.emit(true);
   }
 
   public getItems(pageNumber:number,itemsPerPage:number,sortBy:string,sortDirection:string,searchText:string,searchBy:string):Promise<SinovadApiPaginationResponse>{
@@ -50,7 +40,6 @@ export class UserService {
       let methodType=user.Id>0?HttpMethodType.PUT:HttpMethodType.POST;
       var path=user.Id>0?"/users/Update":"/users/Create";
       this.restProvider.executeSinovadApiService(methodType,path,user).then((response) => {
-        this.refreshListEvent.emit(true);
         resolve(true);
       },error=>{
         console.error(error);

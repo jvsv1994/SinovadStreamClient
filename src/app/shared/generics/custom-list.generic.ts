@@ -1,10 +1,8 @@
 import { SelectionModel } from "@angular/cdk/collections";
 import { MatPaginatorIntl, PageEvent } from "@angular/material/paginator";
 import { MatTableDataSource } from "@angular/material/table";
-import { Subscription } from "rxjs";
 export class CustomListGeneric<T>{
 
-refreshSubscription$:Subscription;
 showLoading:boolean=true;
 dataSource=new MatTableDataSource<T>;
 selection = new SelectionModel<T>(true, []);
