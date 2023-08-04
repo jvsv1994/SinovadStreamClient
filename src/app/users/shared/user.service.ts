@@ -10,7 +10,7 @@ export declare type EventHandler = (...args: any[]) => any;
 @Injectable({ providedIn: 'root' })
 export class UserService {
 
-  showModalEvent=new EventEmitter<User>();
+  showFormModalEvent=new EventEmitter<User>();
   refreshListEvent=new EventEmitter<boolean>();
   lastCallGuid:string;
 
@@ -20,7 +20,7 @@ export class UserService {
   }
 
   public showModal(user:User){
-    this.showModalEvent.emit(user);
+    this.showFormModalEvent.emit(user);
   }
 
   public refreshList(){

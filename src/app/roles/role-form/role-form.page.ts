@@ -43,7 +43,7 @@ export class RoleFormPage extends ParentComponent implements OnInit,OnDestroy {
     }
 
     ngOnInit(): void {
-      this.showModalSubscription$=this.roleService.showModalEvent.subscribe(role=>{
+      this.showModalSubscription$=this.roleService.showFormModalEvent.subscribe(role=>{
         this.displayModalRol(role);
       });
     }
