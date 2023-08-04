@@ -17,7 +17,6 @@ import { ProfilesViewPage } from '../profiles-view/profiles-view.page';
 import { TranscoderSettingssPage } from '../transcode-settings/transcode-settings.page';
 import { ServerSettingsGeneralPage } from '../server-settings-general/server-settings-general.page';
 import { AccountPage } from '../account/account.page';
-import { MenuListPage } from '../menu-list/menu-list.page';
 import { TvSerieListPage } from '../tvserie-list/tvserie-list.page';
 import { MovieListPage } from '../movie-list/movie-list.page';
 import { GenreListPage } from '../genre-list/genre-list.page';
@@ -27,6 +26,7 @@ import { VideoEvent, VideoService } from 'src/app/shared/services/video.service'
 import { Subscription } from 'rxjs';
 import { UserListPage } from '../users/user-list/user-list.page';
 import { RoleListPage } from '../roles/role-list/role-list.page';
+import { MenuListPage } from '../menus/menu-list/menu-list.page';
 
 @Component({
   selector: 'app-web-container',

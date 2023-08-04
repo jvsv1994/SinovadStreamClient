@@ -5,7 +5,7 @@ import { SharedDataService } from 'src/app/shared/services/shared-data.service';
 import { ParentComponent } from '../parent/parent.component';
 import { HttpClient } from '@angular/common/http';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
-import { Menu } from '../../models/menu';
+import { Menu } from '../menus/shared/menu.model';
 
 declare var window;
 @Component({

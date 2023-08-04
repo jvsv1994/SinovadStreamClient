@@ -5,7 +5,6 @@ import { SharedDataService } from 'src/app/shared/services/shared-data.service';
 import { ParentComponent } from '../parent/parent.component';
 import { HttpClient } from '@angular/common/http';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
-import { Menu } from '../../models/menu';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SidebarModule } from 'src/models/sidebarModule';
 import { SidebarOption } from 'src/models/sidebarOption';
@@ -13,6 +12,7 @@ import { DropDownMenuPage } from '../drop-down-menu/drop-down-menu.page';
 import { DropDownMenuItem } from '../drop-down-menu/dropDownMenuItem';
 import { DropDownMenuOptions } from '../drop-down-menu/dropDownMenuOptions';
 import { MediaServer } from '../media-servers/shared/media-server.model';
+import { Menu } from '../menus/shared/menu.model';
 
 declare var window;
 @Component({

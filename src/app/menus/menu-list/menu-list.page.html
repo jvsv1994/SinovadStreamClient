@@ -1,0 +1,95 @@
+<div class="container custom-list-container">
+  <div class="row">
+    <h3 class="custom-list-title"> Menus</h3>
+  </div>
+  <div>
+    <div class="row">
+      <div class="col-6 d-flex align-items-center">
+        <button type="button" class="action-button edit" (click)="showNewItem()" matTooltip="Agregar">
+          <i class="fa-solid fa-plus"></i>
+        </button>
+        <button type="button" class="action-button remove" [ngClass]="{'disable':!selection.hasValue()}" (click)="deleteSelectedItems()" matTooltip="Eliminar seleccionados">
+          <i class="fa-solid fa-trash"></i>
+        </button>
+      </div>
+      <div class="col-6 text-end">
+
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <mat-form-field>
+          <mat-label>Buscar</mat-label>
+          <input matInput (keyup)="applyFilter($event)" #input>
+        </mat-form-field>
+
+        <div class="custom-container">
+          <div *ngIf="showLoading" class="loading-shade">
+            <mat-spinner></mat-spinner>
+          </div>
+          <div class="custom-table-container">
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8"  matSort>
+              <ng-container matColumnDef="Select">
+                <th mat-header-cell *matHeaderCellDef style="width:50px;text-align: center;">
+                  <mat-checkbox (change)="$event ? toggleAllRows() : null"
+                    [checked]="selection.hasValue() && isAllSelected()"
+                    [indeterminate]="selection.hasValue() && !isAllSelected()">
+                  </mat-checkbox>
+                </th>
+                <td mat-cell *matCellDef="let row" style="width:50px;text-align: center;">
+                  <mat-checkbox (click)="onChangeCheckValue($event,row)"
+                    [checked]="selection.isSelected(row)">
+                  </mat-checkbox>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="Id">
+                <th mat-header-cell *matHeaderCellDef style="width:50px;text-align: center;">N°</th>
+                <td mat-cell *matCellDef="let element;let i = index" style="width:50px;text-align: center;"> {{getElementNumber(i,currentPage,itemsPerPage)}}</td>
+              </ng-container>
+              <ng-container matColumnDef="Title">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header style="width:100%;text-align: left;"> Titulo </th>
+                <td mat-cell *matCellDef="let element" style="width:100%;text-align: left;"> {{element.Title}} </td>
+              </ng-container>
+              <ng-container matColumnDef="Path">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header style="width:100%;text-align: left;"> Path </th>
+                <td mat-cell *matCellDef="let element" style="width:100%;text-align: left;"> {{element.Path}} </td>
+              </ng-container>
+              <ng-container matColumnDef="IconClass">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header style="width:100%;text-align: left;"> Icon Class </th>
+                <td mat-cell *matCellDef="let element" style="width:100%;text-align: left;"> {{element.IconClass}} </td>
+              </ng-container>
+              <ng-container matColumnDef="SortOrder">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header style="width:100%;text-align: left;"> Número de Orden </th>
+                <td mat-cell *matCellDef="let element" style="width:100%;text-align: left;"> {{element.SortOrder}} </td>
+              </ng-container>
+              <ng-container matColumnDef="Actions">
+                <th mat-header-cell *matHeaderCellDef style="width:100px;"></th>
+                <td mat-cell *matCellDef="let element" style="width:100px;height: 100%;">
+                  <div style="display: flex;align-items: center;justify-content: center;height: 100%;">
+                    <button type="button" class="action-button edit" data-toggle="tooltip" data-placement="bottom" matTooltip="Editar" (click)="editItem(element)">
+                      <i class="fa-solid fa-pen-to-square"></i>
+                    </button>
+                    <button type="button" class="action-button remove" data-toggle="tooltip" data-placement="bottom" matTooltip="Eliminar" (click)="deleteItem(element)">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </div>
+                </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              <tr class="mat-row" *matNoDataRow>
+                <td *ngIf="!showLoading" class="mat-cell" colspan="4">No se encontraron datos</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <mat-paginator [color]="'primary'" [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Seleccionar página">
+        </mat-paginator>
+      </div>
+    </div>
+  </div>
+</div>

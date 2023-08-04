@@ -5,7 +5,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { SinovadWebComponent } from './sinovad-web.component';
 import { RouterModule, Routes } from '@angular/router';
 import { AccountPage } from '../account/account.page';
-import { MenuListPage } from '../menu-list/menu-list.page';
 import { GenreListPage } from '../genre-list/genre-list.page';
 import { TvSerieListPage } from '../tvserie-list/tvserie-list.page';
 import { MovieListPage } from '../movie-list/movie-list.page';
@@ -31,6 +30,7 @@ import { SplashScreenPageModule } from '../splash-screen/splash-screen.module';
 import { SharedModule } from '../shared/shared.module';
 import { UserListPage } from '../users/user-list/user-list.page';
 import { RoleListPage } from '../roles/role-list/role-list.page';
+import { MenuListPage } from '../menus/menu-list/menu-list.page';
 
 const routes: Routes = [
   {
@@ -138,7 +138,7 @@ const routes: Routes = [
       {
         path: 'menu-list',
         component: MenuListPage,
-        loadChildren: () => import('../menu-list/menu-list.module').then(m => m.MenuListPageModule)
+        loadChildren: () => import('../menus/menus.module').then(m => m.MenusModule)
       },
       {
         path: 'user-list',

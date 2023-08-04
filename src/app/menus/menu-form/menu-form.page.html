@@ -1,9 +1,8 @@
-<ng-template #modalTarget let-modal>
-  <ng-template [ngIf]="menu!=undefined">
-    <form [formGroup]="menuForm" (ngSubmit)="modal.close()">
+  <ng-template [ngIf]="menu!=undefined && menuForm">
+    <form [formGroup]="menuForm" (ngSubmit)="saveItem()" autocomplete="off">
       <div class="modal-header">
         <h5 class="modal-title">{{menu.Id>0?'Editar':'Nuevo'}}</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="modal.dismiss()"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
       </div>
       <div class="modal-body">
         <div class="mb-3">
@@ -44,9 +43,8 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="modal.dismiss()">Close</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeModal()">Cerrar</button>
         <button type="submit" class="btn btn-primary">Guardar</button>
       </div>
     </form>
   </ng-template>
-</ng-template>
