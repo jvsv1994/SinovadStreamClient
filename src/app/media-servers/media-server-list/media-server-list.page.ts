@@ -57,11 +57,11 @@ export class MediaServerListPage extends CustomListGeneric<MediaServer> implemen
         this.sortDirection=sort.direction;
         this.getAllItems();
       });
-      this.sortBy="IpAddress";
+      this.sortBy="DeviceName";
       this.sortDirection="asc";
       this.sort.disableClear=true;
       this.sort.sort({
-        id:"IpAddress",
+        id:"DeviceName",
         start:"asc",
         disableClear:true
       });

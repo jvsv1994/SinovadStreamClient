@@ -1,8 +1,10 @@
 
   <ng-template [ngIf]="parent!=undefined">
     <div class="modal-header">
-      <h5 class="modal-title">{{parent.UserName}} : Servidores Multimedia</h5>
-      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+      <h5 class="modal-title"></h5>
+      <button class="modal-close-button" type="button" (click)="closeModal()">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
     </div>
     <div class="modal-body">
         <app-media-server-list [parentItem]="parent"></app-media-server-list>
