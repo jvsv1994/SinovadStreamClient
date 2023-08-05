@@ -7,17 +7,18 @@ import { CustomSpinnerPage } from './components/custom-spinner/custom-spinner.pa
 import { AngularMaterialModule } from './angular-material.module';
 import { CustomContextMenuComponent } from './components/custom-context-menu/custom-context-menu.component';
 import { CustomDialogOptionsComponent } from './components/custom-dialog-options/custom-dialog-options.component';
+import { CustomPaginationComponent } from './components/custom-pagination/custom-pagination.component';
 @NgModule({
   imports: [
     CommonModule,AngularMaterialModule
   ],
   declarations: [
-    FormatDataPipe,ClickOutsideDirective,CustomConfirmDialogComponent,CustomSpinnerPage,CustomContextMenuComponent,CustomDialogOptionsComponent
+    FormatDataPipe,ClickOutsideDirective,CustomConfirmDialogComponent,CustomSpinnerPage,CustomContextMenuComponent,CustomDialogOptionsComponent,CustomPaginationComponent
   ],
   providers: [
   ],
   exports: [
-    FormatDataPipe,ClickOutsideDirective,CustomConfirmDialogComponent,CustomSpinnerPage,CustomContextMenuComponent,CommonModule,AngularMaterialModule,CustomDialogOptionsComponent
+    FormatDataPipe,ClickOutsideDirective,CustomConfirmDialogComponent,CustomSpinnerPage,CustomContextMenuComponent,CommonModule,AngularMaterialModule,CustomDialogOptionsComponent,CustomPaginationComponent
   ]
 })
 export class SharedModule { }
