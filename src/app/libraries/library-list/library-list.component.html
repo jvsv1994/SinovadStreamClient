@@ -1,11 +1,11 @@
 <div *ngIf="mediaServer" id="serverSettinsPageContainer" class="sinovad-page-container">
   <h2>{{mediaServer.FamilyName?mediaServer.FamilyName:mediaServer.DeviceName}} - Bibliotecas</h2>
   <div class="manage-libraries-header">
-    <div class="manage-libraries-count">{{listStorages?listStorages.length:''}} bibliotecas</div>
-    <button (click)="openNewStorage()">Añadir biblioteca</button>
-    <button (click)="updateVideoInAllStorages()">Buscar archivos en biblioteca</button>
+    <div class="manage-libraries-count">{{listLibraries?listLibraries.length:''}} bibliotecas</div>
+    <button (click)="openNewLibrary()">Añadir biblioteca</button>
+    <button (click)="updateVideoInAllLibraries()">Buscar archivos en biblioteca</button>
   </div>
-  <ng-template ngFor let-storage [ngForOf]="listStorages" let-i="index">
+  <ng-template ngFor let-storage [ngForOf]="listLibraries" let-i="index">
     <div class="manage-library-summary-row" [ngClass]="{'selected':currentLibrary && currentLibrary.Id==storage.Id}">
       <div class="manage-library-summary-overlay">
         <div class="manage-library-icon-container">

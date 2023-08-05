@@ -1,16 +1,11 @@
 
-import { Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { SharedDataService } from 'src/app/shared/services/shared-data.service';
-import { ParentComponent } from '../../parent/parent.component';
-import { HttpClient} from '@angular/common/http';
 import {v4 as uuid} from "uuid";
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
-import { CatalogEnum, HttpMethodType, MediaType } from 'src/app/shared/enums';
-import { Storage } from '../../../models/storage';
+import { HttpMethodType } from 'src/app/shared/enums';
 import { SinovadApiGenericResponse } from '../../response/sinovadApiGenericResponse';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CustomActionsMenuPage } from '../../custom-actions-menu/custom-actions-menu.page';
 import { CustomActionsMenuItem } from '../../custom-actions-menu/customActionsMenuItem';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { SnackBarService } from '../../shared/services/snack-bar.service';
@@ -29,27 +24,14 @@ declare var window;
   templateUrl: './library-list.component.html',
   styleUrls: ['./library-list.component.scss']
 })
-export class LibraryListComponent extends ParentComponent implements OnInit,OnDestroy {
+export class LibraryListComponent implements OnInit,OnDestroy {
 
   @Output() showInitial =new EventEmitter();
-
-  showingDirectoryMovies:boolean;
-
-  showingDirectoryTVSeries:boolean;
-
-  showingDirectoryTranscodeVideos:boolean;
-
-  storageMovies:Storage={MediaTypeCatalogId:CatalogEnum.MediaType,MediaTypeCatalogDetailId:MediaType.Movie,PhysicalPath:""};
-  storageTvSeries:Storage={MediaTypeCatalogId:CatalogEnum.MediaType,MediaTypeCatalogDetailId:MediaType.TvSerie,PhysicalPath:""};
-
   callSearchMediaLog:boolean=false;
   searchMediaLogContent:string="";
-
-  listStorages:Storage[];
-
-  currentLibrary:Storage;
-
+  listLibraries:Library[];
   mediaServer:MediaServer;
+  currentLibrary:Library;
 
   constructor(
     private modalService: NgbModal,
@@ -60,10 +42,7 @@ export class LibraryListComponent extends ParentComponent implements OnInit,OnDe
     private router: Router,
     public activeRoute: ActivatedRoute,
     public restProvider: RestProviderService,
-    public http: HttpClient,
-    public domSanitizer: DomSanitizer,
     public sharedData: SharedDataService) {
-      super(restProvider,domSanitizer,sharedData)
 
     }
 
@@ -96,24 +75,7 @@ export class LibraryListComponent extends ParentComponent implements OnInit,OnDe
     public getAllItems(){
       this.libraryService.getItems(this.mediaServer.Id,1,100,"Id","asc","","").then((response:SinovadApiGenericResponse) => {
         let data=response.Data;
-        this.listStorages=data;
-        if(data && data.length>0)
-        {
-          let storageMovies=data.find(item=>item.MediaType==1);
-          if(storageMovies)
-          {
-            this.storageMovies=storageMovies;
-          }else{
-            this.storageMovies.MediaServerId=this.sharedData.selectedMediaServer.Id;
-          }
-          let storageTvSeries=data.find(item=>item.MediaType==2);
-          if(storageTvSeries)
-          {
-            this.storageTvSeries=storageTvSeries;
-          }else{
-            this.storageTvSeries.MediaServerId=this.sharedData.selectedMediaServer.Id;
-          }
-        }
+        this.listLibraries=data;
       },error=>{
         console.error(error);
       });
@@ -121,13 +83,13 @@ export class LibraryListComponent extends ParentComponent implements OnInit,OnDe
 
     //Show Modal Form Section
 
-    public openNewStorage(){
+    public openNewLibrary(){
       let library= new Library();
       library.MediaServerId=this.sharedData.selectedMediaServer.Id;
       this.showModalForm(library);
     }
 
-    public editStorage(storage:Library){
+    public editLibrary(storage:Library){
       let library=JSON.parse(JSON.stringify(storage));
       this.showModalForm(library);
     }
@@ -142,7 +104,7 @@ export class LibraryListComponent extends ParentComponent implements OnInit,OnDe
       })
     }
 
-    public deleteStorage(storage:Storage){
+    public deleteLibrary(storage:Library){
       var config = new MatDialogConfig<ConfirmDialogOptions>();
       config.data={
         title:"Eliminar biblioteca",message:"La biblioteca '"+storage.Name+"' será eliminada de este servidor. Tus archivos multimedia no se verán afectados. Esto no se puede deshacer. ¿Continuar?",
@@ -150,12 +112,12 @@ export class LibraryListComponent extends ParentComponent implements OnInit,OnDe
       }
       this.dialog.open(CustomConfirmDialogComponent,config).afterClosed().subscribe((confirm: boolean) => {
         if (confirm) {
-          this.executeDeleteStorage(storage);
+          this.executeDeleteLibrary(storage);
         }
       });
     }
 
-    private executeDeleteStorage(storage:Storage){
+    private executeDeleteLibrary(storage:Library){
       var path="/storages/Delete/"+storage.Id;
       this.restProvider.executeSinovadApiService(HttpMethodType.DELETE,path).then((response:SinovadApiGenericResponse) => {
         this.snackBarService.showSnackBar("Se eliminó la biblioteca satisfactoriamente",SnackBarType.Success);
@@ -166,35 +128,26 @@ export class LibraryListComponent extends ParentComponent implements OnInit,OnDe
       });
     }
 
-    public onCloseStorageForm(){
-      this.currentLibrary=undefined;
-    }
-
-    public onCloseStorageFormWithChanges(){
-      this.currentLibrary=undefined;
-      this.getAllItems();
-    }
-
-    public updateStorageVideos(storage:Storage){
+    public updateLibraryVideos(storage:Library){
       if(storage.Id>0 && storage.PhysicalPath!=undefined && storage.PhysicalPath!="")
       {
-        var listStorages=[storage];
-        this.executeUpdateVideosInAllStorages(listStorages);
+        var listLibraries=[storage];
+        this.executeUpdateVideosInAllLibrarys(listLibraries);
       }
     }
 
-    public updateVideoInAllStorages(){
-       this.executeUpdateVideosInAllStorages(this.listStorages);
+    public updateVideoInAllLibraries(){
+       this.executeUpdateVideosInAllLibrarys(this.listLibraries);
     }
 
-    public executeUpdateVideosInAllStorages(listStorages:Storage[]){
+    public executeUpdateVideosInAllLibrarys(listLibraries:Library[]){
       let logIdentifier=uuid();
       this.callSearchMediaLog=true;
       let mediaRequest: any={
-        ListStorages:listStorages,
+        ListLibrarys:listLibraries,
         LogIdentifier:logIdentifier
       };
-      this.restProvider.executeSinovadStreamServerService(HttpMethodType.POST,'/medias/UpdateVideosInListStorages',mediaRequest).then((response) => {
+      this.restProvider.executeSinovadStreamServerService(HttpMethodType.POST,'/medias/UpdateVideosInListLibrarys',mediaRequest).then((response) => {
         this.callSearchMediaLog=false;
         this.showInitial.emit();
       },error=>{
@@ -203,24 +156,24 @@ export class LibraryListComponent extends ParentComponent implements OnInit,OnDe
     }
 
 
-   public showActions(event:any,library:Storage){
+   public showActions(event:any,library:Library){
       this.currentLibrary=library;
       var currentLibrary=JSON.parse(JSON.stringify(library));
       var target=event.currentTarget;
       var listItems:CustomActionsMenuItem[]=[];
       var eventOnEdit:EventEmitter<boolean>=new EventEmitter();
       eventOnEdit.subscribe(res=>{
-          this.editStorage(currentLibrary);
+          this.editLibrary(currentLibrary);
       });
       listItems.push({title:"Editar biblioteca",iconClass:"fa-solid fa-pen-to-square",eventOnSelectItem:eventOnEdit});
       var eventOnSearch:EventEmitter<boolean>=new EventEmitter();
       eventOnSearch.subscribe(res=>{
-          this.updateStorageVideos(currentLibrary);
+          this.updateLibraryVideos(currentLibrary);
       });
       listItems.push({title:"Buscar archivos en la biblioteca",iconClass:"fa-solid fa-magnifying-glass-plus",eventOnSelectItem:eventOnSearch});
       var eventOnDelete:EventEmitter<boolean>=new EventEmitter();
       eventOnDelete.subscribe(res=>{
-          this.deleteStorage(currentLibrary);
+          this.deleteLibrary(currentLibrary);
       });
       listItems.push({title:"Eliminar biblioteca",iconClass:"fa-sharp fa-solid fa-trash",eventOnSelectItem:eventOnDelete});
    }
