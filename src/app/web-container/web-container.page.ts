@@ -15,7 +15,6 @@ import { TranscoderSettingssPage } from '../transcode-settings/transcode-setting
 import { ServerSettingsGeneralPage } from '../server-settings-general/server-settings-general.page';
 import { AccountPage } from '../account/account.page';
 import { GenreListPage } from '../genres/genre-list/genre-list.page';
-import { SearchViewRootPage } from '../search-view-root/search-view-root.page';
 import { BuilderVideo } from 'src/models/builderVideo';
 import { VideoEvent, VideoService } from 'src/app/shared/services/video.service';
 import { Subscription } from 'rxjs';
@@ -26,6 +25,7 @@ import { MediaMoviesPage } from '../media-movies/media-movies.page';
 import { MediaTvSeriesPage } from '../media-tvseries/media-tvseries.page';
 import { MovieListPage } from '../movies/movie-list/movie-list.page';
 import { TvSerieListPage } from '../tvseries/tvserie-list/tvserie-list.page';
+import { SearchViewPage } from '../search-view/search-view.page';
 
 @Component({
   selector: 'app-web-container',
@@ -159,7 +159,7 @@ export class WebContainerPage extends ParentComponent implements OnInit,OnDestro
       let ctx=this;
       this.isCollapsedSidebar=true;
       this.sharedData.showSplashScreen=false;
-      if(event instanceof SearchViewRootPage)
+      if(event instanceof SearchViewPage)
       {
         this.showingSidebarMedia=true;
         this.showingSidebarAccount=false;

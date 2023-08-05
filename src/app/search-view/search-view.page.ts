@@ -10,11 +10,11 @@ import { ItemDetail } from '../../models/itemDetail';
 
 declare var window;
 @Component({
-  selector: 'app-search-view-web-admin',
-  templateUrl: './search-view-web-admin.page.html',
-  styleUrls: ['./search-view-web-admin.page.scss']
+  selector: 'app-search-view',
+  templateUrl: './search-view.page.html',
+  styleUrls: ['./search-view.page.scss']
 })
-export class SearchViewWebAdminPage extends ParentComponent implements OnInit {
+export class SearchViewPage extends ParentComponent implements OnInit {
 
   @Output() executeSearch =new EventEmitter();
   @Output() showItemView =new EventEmitter();

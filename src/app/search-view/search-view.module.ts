@@ -2,12 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
-import { SearchViewWebAdminPage } from './search-view-web-admin.page';
 import { VerticalItemListPageModule } from '../vertical-item-list/vertical-item-list.module';
+import { SearchViewPage } from './search-view.page';
 
 @NgModule({
     declarations: [
-      SearchViewWebAdminPage
+      SearchViewPage
     ],
     imports: [
         CommonModule,
@@ -16,7 +16,7 @@ import { VerticalItemListPageModule } from '../vertical-item-list/vertical-item-
         ReactiveFormsModule,
         VerticalItemListPageModule
     ],
-    exports: [SearchViewWebAdminPage]
+    exports: [SearchViewPage]
 })
-export class SearchViewWebAdminPageModule {
+export class SearchViewPageModule {
 }

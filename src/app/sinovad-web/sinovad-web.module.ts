@@ -19,7 +19,6 @@ import { TvSerieDetailPage } from '../tvserie-detail/tvserie-detail.page';
 import { MovieDetailPage } from '../movie-detail/movie-detail.page';
 import { ProfilesViewPage } from '../profiles-view/profiles-view.page';
 import { HomePage } from '../home/home.page';
-import { SearchViewRootPage } from '../search-view-root/search-view-root.page';
 import { ServerSettingsGeneralPage } from '../server-settings-general/server-settings-general.page';
 import { WebContainerPageModule } from '../web-container/web-container.module';
 import { SplashScreenPageModule } from '../splash-screen/splash-screen.module';
@@ -31,6 +30,7 @@ import { MediaMoviesPage } from '../media-movies/media-movies.page';
 import { MediaTvSeriesPage } from '../media-tvseries/media-tvseries.page';
 import { MovieListPage } from '../movies/movie-list/movie-list.page';
 import { TvSerieListPage } from '../tvseries/tvserie-list/tvserie-list.page';
+import { SearchViewPage } from '../search-view/search-view.page';
 
 const routes: Routes = [
   {
@@ -53,8 +53,8 @@ const routes: Routes = [
       },
       {
         path: 'search',
-        component: SearchViewRootPage,
-        loadChildren: () => import('../search-view-root/search-view-root.module').then(m => m.SearchViewRootPageModule)
+        component: SearchViewPage,
+        loadChildren: () => import('../search-view/search-view.module').then(m => m.SearchViewPageModule)
       },
       {
         path: 'select-profile',
