@@ -169,6 +169,13 @@ $app-theme: mat.define-light-theme((
   background-color: rgba(255, 255, 255, 0.08);
 }
 
+.mat-mdc-dialog-container {
+  --mdc-dialog-container-color: #2d2d2d !important;
+  --mdc-dialog-subhead-color: rgba(255, 255, 255, 0.7) !important;
+  --mdc-dialog-supporting-text-color: rgba(255, 255, 255, 0.7) !important;
+}
+
+
 //override bootstrap styles
 
 .modal-dialog-scrollable .modal-content{
@@ -210,6 +217,43 @@ ngb-modal-window .component-host-scrollable {
 }
 
 //custom styles
+
+.custom-dialog-message{
+  display: block;
+  padding: 0px 28px 0px 28px;
+  max-width: 360px;
+}
+
+.custom-dialog-options{
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.custom-dialog-button{
+  margin-left: 0;
+  min-width: 65px;
+  padding: 5px 20px;
+  background-color: hsla(0,0%,100%,.25);
+  border-radius: 4px;
+  color: #fff;
+  display: inline-block;
+  transition: background-color .2s,color .2s;
+  vertical-align: middle;
+  white-space: nowrap;
+  overflow: hidden;
+  text-align: center;
+  border: 0;
+  cursor: pointer;
+  margin: 0;
+  outline: none;
+}
+
+.custom-dialog-button:hover{
+  background-color: #ffffff26;
+  color: #fff;
+}
+
 
 .checkbox-cell{
   padding: 0px !important;

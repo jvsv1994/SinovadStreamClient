@@ -1,0 +1,15 @@
+<div class="modal-header">
+  <h5 class="modal-title">{{options.title}}</h5>
+</div>
+<div class="modal-body">
+  <div class="custom-dialog-message">
+    {{options.message}}
+  </div>
+</div>
+<div class="modal-footer">
+  <div class="custom-dialog-options">
+    <ng-template ngFor let-action [ngForOf]="options.actions">
+      <button type="button" class="custom-dialog-button" (click)="onClickDialogAction(action)">{{action.text}}</button>
+    </ng-template>
+  </div>
+</div>

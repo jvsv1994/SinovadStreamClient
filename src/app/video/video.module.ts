@@ -3,15 +3,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { VideoPage } from './video.page';
 import { SharedModule } from '../shared/shared.module';
-import { ConfirmMessageModalPageModule } from '../confirm-message-modal/confirm-message-modal.module';
-
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    SharedModule,
-    ConfirmMessageModalPageModule
+    SharedModule
   ],
   declarations: [VideoPage],
   exports: [VideoPage]

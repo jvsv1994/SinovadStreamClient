@@ -14,6 +14,8 @@ import { Episode } from '../../models/episode';
 import { VideoProfile } from '../../models/videoProfile';
 import { BuilderVideo } from '../../models/builderVideo';
 import { TranscodeRunVideo } from '../../models/transcodeRunVideo';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { CustomDialogOptionsComponent, DialogOption, DialogOptionsConfiguration } from '../shared/components/custom-dialog-options/custom-dialog-options.component';
 @Component({
   selector: 'app-video',
   templateUrl: 'video.page.html',
@@ -55,10 +57,10 @@ export class VideoPage extends ParentComponent implements OnInit,OnDestroy{
   hls:Hls;
   showVideoTarget:boolean=false;
   loadedData:boolean=false;
-  showReplyVideoMessageBox:boolean=false;
   beforeUnloadFunction:any=false;
 
   constructor(
+    private dialog: MatDialog,
     public restProvider: RestProviderService,
     public domSanitizer: DomSanitizer,
     public sharedData: SharedDataService,
@@ -135,7 +137,7 @@ export class VideoPage extends ParentComponent implements OnInit,OnDestroy{
       }, 1000);
       this.onInitializeVideo();
     },error=>{
-      this.showReplyVideoMessageBox=true;
+      this.showLoadVideoErrorActionsDialog();
       console.error(error);
     });
   }
@@ -241,7 +243,7 @@ export class VideoPage extends ParentComponent implements OnInit,OnDestroy{
       this.initializeStreams();
       this.getVideoSource();
     },error=>{
-      this.showReplyVideoMessageBox=true;
+      this.showLoadVideoErrorActionsDialog();
       console.error(error);
     });
   }
@@ -781,7 +783,7 @@ public onClickSlider(sliderContainer:any){
       this.updateAudioAndVideoList();
       this.getVideoSource();
     },error=>{
-      this.showReplyVideoMessageBox=true;
+      this.showLoadVideoErrorActionsDialog();
       console.error(error);
     });
   }
@@ -991,12 +993,10 @@ public onClickSlider(sliderContainer:any){
   }
 
   public onDeclineReplyVideo(){
-    this.showReplyVideoMessageBox=false;
     this.closeVideo();
   }
 
   public onConfirmReplyVideo(){
-    this.showReplyVideoMessageBox=false;
     if(this.getCurrentVideoTime()-2>=0)
     {
       this.lastRealVideoTime=this.getCurrentVideoTime()-2;
@@ -1016,7 +1016,6 @@ public onClickSlider(sliderContainer:any){
     console.log("onLoadedData");
     this.builderVideo.LoadStatus=LoadVideoStatus.LoadedData;
     this.loadedData=true;
-    this.showReplyVideoMessageBox=false;
     if(this.videoTarget)
     {
       this.videoTarget.nativeElement.currentTime=0;
@@ -1037,7 +1036,6 @@ public onClickSlider(sliderContainer:any){
   }
 
   public getVideoSource(){
-    let ctx=this;
     this.http.get(this.builderVideo.TranscodeRunVideo.VideoPath,{headers:undefined, responseType: 'blob' as 'json' }).subscribe((response:any) => {
       this.builderVideo.LoadStatus=LoadVideoStatus.Initialized;
       this.showVideoTarget=true;
@@ -1056,7 +1054,7 @@ public onClickSlider(sliderContainer:any){
       }
     },error=>{
       console.error(error);
-      ctx.showReplyVideoMessageBox=true;
+      this.showLoadVideoErrorActionsDialog();
     });
   }
 
@@ -1065,7 +1063,7 @@ public onClickSlider(sliderContainer:any){
     setTimeout(() => {
       if(ctx.builderVideo.LoadStatus!=LoadVideoStatus.LoadedData)
       {
-        ctx.showReplyVideoMessageBox=true;
+        ctx.showLoadVideoErrorActionsDialog();
       }
     }, 10000,ctx);
     this.showVideoInFullScreen();
@@ -1250,10 +1248,25 @@ public onClickSlider(sliderContainer:any){
   }
 
 
+  //dialog section
 
-  @HostListener('window:resize', ['$event'])
-  onResize(event) {
+  public showLoadVideoErrorActionsDialog(){
+    var config = new MatDialogConfig<DialogOptionsConfiguration>();
+    config.data={
+      title:"Mensaje",
+      message:this.getConfirmMessage(),
+      actions:[{text:"No",key:"No"},{text:"Si",key:"Si"}]
+    }
+    this.dialog.open(CustomDialogOptionsComponent,config).afterClosed().subscribe((action: DialogOption) => {
+        if(action.key=="Si")
+        {
+          this.onConfirmReplyVideo();
+        }
+        if(action.key=="No")
+        {
+          this.onDeclineReplyVideo();
+        }
+    });
   }
-
 
 }
