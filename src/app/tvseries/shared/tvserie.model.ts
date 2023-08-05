@@ -1,5 +1,5 @@
-import { Season } from "./season";
-import { TvSerieGenre } from "./tvSerieGenre";
+import { Season } from "src/models/season";
+import { TvSerieGenre } from "./tvserie-genre.model";
 
 export class TvSerie{
 

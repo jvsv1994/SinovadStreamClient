@@ -6,7 +6,6 @@ import { SinovadWebComponent } from './sinovad-web.component';
 import { RouterModule, Routes } from '@angular/router';
 import { AccountPage } from '../account/account.page';
 import { GenreListPage } from '../genres/genre-list/genre-list.page';
-import { TvSerieListPage } from '../tvserie-list/tvserie-list.page';
 import { TranscoderSettingssPage } from '../transcode-settings/transcode-settings.page';
 import { ManageMediaPage } from '../manage-media/manage-media.page';
 import { NotFoundPage } from '../not-found/not-found.page';
@@ -31,6 +30,7 @@ import { MenuListPage } from '../menus/menu-list/menu-list.page';
 import { MediaMoviesPage } from '../media-movies/media-movies.page';
 import { MediaTvSeriesPage } from '../media-tvseries/media-tvseries.page';
 import { MovieListPage } from '../movies/movie-list/movie-list.page';
+import { TvSerieListPage } from '../tvseries/tvserie-list/tvserie-list.page';
 
 const routes: Routes = [
   {
@@ -128,7 +128,7 @@ const routes: Routes = [
       {
         path: 'manage/tvseries',
         component: TvSerieListPage,
-        loadChildren: () => import('../tvserie-list/tvserie-list.module').then(m => m.TvSerieListPageModule)
+        loadChildren: () => import('../tvseries/tvseries.module').then(m => m.TvSeriesModule)
       },
       {
         path: 'manage/genres',

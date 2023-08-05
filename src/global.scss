@@ -211,6 +211,12 @@ ngb-modal-window .component-host-scrollable {
 
 //custom styles
 
+.text-truncate{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .custom-textarea-genres{
   height: 50px !important;
   cursor: pointer;

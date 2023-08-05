@@ -1,0 +1,94 @@
+import { Injectable } from '@angular/core';
+import { TvSerie } from './tvserie.model';
+import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
+import { HttpMethodType } from 'src/app/shared/enums';
+import { SinovadApiPaginationResponse } from 'src/app/response/sinovadApiPaginationResponse';
+import { SinovadApiGenericResponse } from 'src/app/response/sinovadApiGenericResponse';
+import {v4 as uuid} from "uuid";
+export declare type EventHandler = (...args: any[]) => any;
+
+@Injectable({ providedIn: 'root' })
+export class TvSerieService {
+
+  lastCallGuid:string;
+
+  constructor(
+    private restProvider: RestProviderService,
+  ) {
+  }
+
+  public getTvSerie(itemId:number):Promise<SinovadApiGenericResponse>{
+    return new Promise((resolve, reject) => {
+      this.restProvider.executeSinovadApiService(HttpMethodType.GET,"/tvseries/GetAsync/"+itemId).then((response:SinovadApiGenericResponse) => {
+        resolve(response);
+      },error=>{
+        console.error(error);
+        reject(error);
+      });
+    });
+  }
+
+  public getItems(pageNumber:number,itemsPerPage:number,sortBy:string,sortDirection:string,searchText:string,searchBy:string):Promise<SinovadApiPaginationResponse>{
+    return new Promise((resolve, reject) => {
+      let callGuid=uuid();
+      this.lastCallGuid=callGuid;
+      var queryParams="?page="+pageNumber.toString()+"&take="+itemsPerPage.toString()+"&sortBy="+sortBy+"&sortDirection="+sortDirection+"&searchText="+searchText+"&searchBy="+searchBy;
+      var path="/tvseries/GetAllWithPaginationAsync"+queryParams;
+      this.restProvider.executeSinovadApiService(HttpMethodType.GET,path).then((response:SinovadApiPaginationResponse) => {
+        if(this.lastCallGuid==callGuid)
+        {
+          resolve(response);
+        }
+      },error=>{
+        console.error(error);
+        reject(error);
+      });
+   });
+  }
+
+  public saveItem(tvserie:TvSerie):Promise<boolean>{
+    return new Promise((resolve, reject) => {
+      let methodType=tvserie.Id>0?HttpMethodType.PUT:HttpMethodType.POST;
+      var path=tvserie.Id>0?"/tvseries/Update":"/tvseries/Create";
+      this.restProvider.executeSinovadApiService(methodType,path,tvserie).then((response) => {
+        resolve(true);
+      },error=>{
+        console.error(error);
+        reject(error);
+      });
+   });
+  }
+  public deleteItem(itemId:number):Promise<SinovadApiGenericResponse>{
+    return new Promise((resolve, reject) => {
+      var path="/tvseries/Delete/"+itemId;
+      this.restProvider.executeSinovadApiService(HttpMethodType.DELETE,path).then((response:SinovadApiGenericResponse) => {
+        resolve(response);
+      },error=>{
+        console.error(error);
+        reject(error);
+      });
+   });
+  }
+
+  public deleteItems(listTvSeries:TvSerie[]):Promise<SinovadApiGenericResponse>{
+    return new Promise((resolve, reject) => {
+      let listItemIds:number[]=[];
+      for(let i=0;i < listTvSeries.length;i++)
+      {
+        let item=listTvSeries[i];
+        listItemIds.push(item.Id);
+      }
+      var listIds=listItemIds.join(",");
+      var path="/tvseries/DeleteList/"+listIds;
+      this.restProvider.executeSinovadApiService(HttpMethodType.DELETE,path).then((response:SinovadApiGenericResponse) => {
+        resolve(response);
+      },error=>{
+        console.error(error);
+        reject(error);
+      });
+   });
+  }
+
+
+
+}

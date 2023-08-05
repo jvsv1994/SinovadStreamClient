@@ -1,0 +1,61 @@
+  <ng-template [ngIf]="tvserie!=undefined && tvserieFormGroup">
+    <form [formGroup]="tvserieFormGroup" (ngSubmit)="saveItem()">
+      <div class="modal-header">
+        <h5 class="modal-title">{{tvserie.Id>0?'Editar':'Nuevo'}}</h5>
+        <button class="modal-close-button" type="button" (click)="closeModal()">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <mat-form-field>
+          <mat-label>Nombre</mat-label>
+          <input id="title" matInput formControlName="name" [errorStateMatcher]="matcher"/>
+          <mat-error *ngIf="tvserieFormGroup.controls['name'].hasError('required')">
+            Nombre es <strong>requerido</strong>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Primera fecha de emisión</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="firstAirDate">
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Última fecha de emisión</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="lastAirDate">
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Géneros</mat-label>
+          <textarea class="custom-textarea-genres" matInput formControlName="selectedGenres" [readonly]="true" (click)="showGenresSelectionModal()"></textarea>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Directores</mat-label>
+          <textarea matInput formControlName="directors"></textarea>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Actores</mat-label>
+          <textarea matInput formControlName="actors"></textarea>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Resumen</mat-label>
+          <textarea matInput formControlName="overview"></textarea>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Imágen</mat-label>
+          <textarea matInput formControlName="posterPath"></textarea>
+        </mat-form-field>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeModal()">Close</button>
+        <button type="submit" class="btn btn-primary" [disabled]="showLoading || !tvserieFormGroup.valid">Guardar</button>
+      </div>
+    </form>
+  </ng-template>
+
+
+<!-- <app-item-genres *ngIf="showGenresPopUp" [tvProgram]="tvProgram" [listAllGenresPopUp]="listAllGenresPopUp"
+(close)="showGenresPopUp=false" (closeWithChanges)="onCloseGenresPopUp($event)"></app-item-genres> -->

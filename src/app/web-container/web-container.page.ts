@@ -15,7 +15,6 @@ import { ProfilesViewPage } from '../profiles-view/profiles-view.page';
 import { TranscoderSettingssPage } from '../transcode-settings/transcode-settings.page';
 import { ServerSettingsGeneralPage } from '../server-settings-general/server-settings-general.page';
 import { AccountPage } from '../account/account.page';
-import { TvSerieListPage } from '../tvserie-list/tvserie-list.page';
 import { GenreListPage } from '../genres/genre-list/genre-list.page';
 import { SearchViewRootPage } from '../search-view-root/search-view-root.page';
 import { BuilderVideo } from 'src/models/builderVideo';
@@ -27,6 +26,7 @@ import { MenuListPage } from '../menus/menu-list/menu-list.page';
 import { MediaMoviesPage } from '../media-movies/media-movies.page';
 import { MediaTvSeriesPage } from '../media-tvseries/media-tvseries.page';
 import { MovieListPage } from '../movies/movie-list/movie-list.page';
+import { TvSerieListPage } from '../tvseries/tvserie-list/tvserie-list.page';
 
 @Component({
   selector: 'app-web-container',
