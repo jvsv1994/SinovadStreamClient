@@ -8,17 +8,18 @@ import { AngularMaterialModule } from './angular-material.module';
 import { CustomContextMenuComponent } from './components/custom-context-menu/custom-context-menu.component';
 import { CustomDialogOptionsComponent } from './components/custom-dialog-options/custom-dialog-options.component';
 import { CustomPaginationComponent } from './components/custom-pagination/custom-pagination.component';
+import { DirectoryChooserPage } from './components/directory-chooser/directory-chooser.page';
 @NgModule({
   imports: [
     CommonModule,AngularMaterialModule
   ],
   declarations: [
-    FormatDataPipe,ClickOutsideDirective,CustomConfirmDialogComponent,CustomSpinnerPage,CustomContextMenuComponent,CustomDialogOptionsComponent,CustomPaginationComponent
+    FormatDataPipe,ClickOutsideDirective,CustomConfirmDialogComponent,CustomSpinnerPage,CustomContextMenuComponent,CustomDialogOptionsComponent,CustomPaginationComponent,DirectoryChooserPage
   ],
   providers: [
   ],
   exports: [
-    FormatDataPipe,ClickOutsideDirective,CustomConfirmDialogComponent,CustomSpinnerPage,CustomContextMenuComponent,CommonModule,AngularMaterialModule,CustomDialogOptionsComponent,CustomPaginationComponent
+    FormatDataPipe,ClickOutsideDirective,CustomConfirmDialogComponent,CustomSpinnerPage,CustomContextMenuComponent,CommonModule,AngularMaterialModule,CustomDialogOptionsComponent,CustomPaginationComponent,DirectoryChooserPage
   ]
 })
 export class SharedModule { }

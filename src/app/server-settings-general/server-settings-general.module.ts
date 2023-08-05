@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { DirectoryChooserPageModule } from '../directory-chooser/directory-chooser.module';
 import { SharedModule } from '../shared/shared.module';
 import { ServerSettingsGeneralPage } from './server-settings-general.page';
 
@@ -12,7 +11,6 @@ import { ServerSettingsGeneralPage } from './server-settings-general.page';
     imports: [
         CommonModule,
         FormsModule,
-        DirectoryChooserPageModule,
         SharedModule,
         ReactiveFormsModule
     ],
