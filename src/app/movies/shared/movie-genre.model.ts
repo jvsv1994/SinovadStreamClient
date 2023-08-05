@@ -1,8 +1,8 @@
 
 export class MovieGenre{
 
-  public MovieId: Number;
-  public GenreId: Number;
-  public GenreName: String;
+  public MovieId: number;
+  public GenreId: number;
+  public GenreName: string;
 
 }

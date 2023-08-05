@@ -12,6 +12,9 @@ import { GenresSelectionModalComponent } from 'src/app/genres/genres-selection-m
 import { GenreService } from 'src/app/genres/shared/genre.service';
 import { Genre } from 'src/app/genres/shared/genre.model';
 import { SinovadApiGenericResponse } from 'src/app/response/sinovadApiGenericResponse';
+import { SelectionModel } from '@angular/cdk/collections';
+import { MovieGenre } from '../shared/movie-genre.model';
+import { SharedDataService } from 'src/app/shared/services/shared-data.service';
 
 @Component({
   selector: 'app-movie-form',
@@ -29,6 +32,7 @@ export class MovieFormPage implements OnInit{
   listGenres:Genre[];
 
   constructor(
+    private sharedDataService:SharedDataService,
     private modalService: NgbModal,
     private genreService:GenreService,
     private formBuilder: FormBuilder,
@@ -53,7 +57,7 @@ export class MovieFormPage implements OnInit{
     private buildFormGroup(){
       this.movieFormGroup = this.formBuilder.group({
         title:new FormControl(this.movie.Title,[Validators.required]),
-        releaseDate:new FormControl(this.formatDate(this.movie.ReleaseDate)),
+        releaseDate:new FormControl(this.sharedDataService.formatDate(this.movie.ReleaseDate)),
         directors:new FormControl(this.movie.Directors),
         actors:new FormControl(this.movie.Actors),
         overview:new FormControl(this.movie.Overview),
@@ -71,7 +75,6 @@ export class MovieFormPage implements OnInit{
         this.movieFormGroup.controls['selectedGenres'].patchValue(this.getSelectedGenres());
       })
     }
-
 
     //Save
 
@@ -98,23 +101,15 @@ export class MovieFormPage implements OnInit{
       }
     }
 
+    //Close Modal
+
     public closeModal(){
       this.activeModal.dismiss();
     }
 
-    //auxiliary methods
+    //Movie Genres Section
 
-    public formatDate(date:any) {
-      const d = new Date(date);
-      let month = '' + (d.getMonth() + 1);
-      let day = '' + d.getDate();
-      const year = d.getFullYear();
-      if (month.length < 2) month = '0' + month;
-      if (day.length < 2) day = '0' + day;
-      return [year, month, day].join('-');
-    }
-
-    public getSelectedGenres():string{
+    private getSelectedGenres():string{
       if(this.movie.ListItemGenres && this.movie.ListItemGenres.length>0)
       {
         var listGenres = this.movie.ListItemGenres.map(a => a.GenreName);
@@ -128,9 +123,24 @@ export class MovieFormPage implements OnInit{
       var ref=this.modalService.open(GenresSelectionModalComponent, {container:"#sinovadMainContainer",
       modalDialogClass:'modal-dialog modal-fullscreen-md-down modal-dialog-centered modal-dialog-scrollable',scrollable:true,backdrop: 'static'});
       ref.componentInstance.listAllGenres=this.listGenres;
-      ref.closed.subscribe((selectionGenres:Genre[])=>{
-
+      ref.componentInstance.selection= new SelectionModel<Genre>(true, this.getMovieGenres());
+      ref.closed.subscribe((selectedGenres:Genre[])=>{
+        ctx.setMovieGenres(selectedGenres);
       })
+    }
+
+    private getMovieGenres():Genre[]{
+      var listGenreIds = this.movie.ListItemGenres.map(a => a.GenreId);
+      return this.listGenres.filter(g=>listGenreIds.indexOf(g.Id)!=-1);
+    }
+
+    private setMovieGenres(genres:Genre[]):void{
+      var movieGenres:MovieGenre[]=[];
+      genres.forEach(genre => {
+        movieGenres.push({MovieId:this.movie.Id,GenreId:genre.Id,GenreName:genre.Name});
+      });
+      this.movie.ListItemGenres=movieGenres;
+      this.movieFormGroup.controls['selectedGenres'].patchValue(this.getSelectedGenres());
     }
 
 

@@ -2,6 +2,7 @@
 import { Component, Input} from '@angular/core';
 import { Genre } from '../shared/genre.model';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
   selector: 'app-genres-selection-modal',
@@ -10,14 +11,10 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class GenresSelectionModalComponent {
 
-  @Input() listSelectionGenres:Genre[];
   @Input() listAllGenres:Genre[];
+  @Input() selection:SelectionModel<Genre>;
 
   constructor(private activeModal: NgbActiveModal) {
-
-    }
-
-    ngAfterViewInit(){
 
     }
 
@@ -26,7 +23,18 @@ export class GenresSelectionModalComponent {
     }
 
     public onSaveSelection(){
-      this.activeModal.close(this.listSelectionGenres);
+      this.activeModal.close(this.selection.selected);
+    }
+
+    public onChangeCheckValue(event:any,item:Genre)
+    {
+      let addItems:boolean=event.target.checked;
+      if(addItems)
+      {
+        this.selection.select(item);
+      }else{
+        this.selection.deselect(item);
+      }
     }
 
 }

@@ -9,7 +9,7 @@
     </div>
     <div class="modal-body">
       <ng-template ngFor let-item [ngForOf]="listAllGenres"  let-i="index">
-        <p><mat-checkbox>{{item.Name}}</mat-checkbox></p>
+        <p><mat-checkbox (click)="onChangeCheckValue($event,item)" [checked]="selection.isSelected(item)">{{item.Name}}</mat-checkbox></p>
       </ng-template>
     </div>
     <div class="modal-footer">
