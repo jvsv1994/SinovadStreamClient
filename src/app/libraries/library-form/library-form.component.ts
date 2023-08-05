@@ -7,6 +7,7 @@ import { Library } from '../shared/library.model';
 import { MyErrorStateMatcher } from 'src/app/shared/custom-error-state-matcher';
 import { CatalogEnum } from 'src/app/shared/enums';
 import { SharedDataService } from 'src/app/shared/services/shared-data.service';
+import { DirectoryChooserPage } from 'src/app/shared/components/directory-chooser/directory-chooser.page';
 
 declare var window;
 @Component({
@@ -55,7 +56,7 @@ export class LibraryFormComponent implements OnInit {
         this.showLoading=true;
         var library:Library=JSON.parse(JSON.stringify(this.library));
         library.Name=this.libraryFormGroup.value.name;
-        library.MediaTypeCatalogDetailId=this.libraryFormGroup.value.mediaType;
+        library.MediaTypeCatalogDetailId=Number(this.libraryFormGroup.value.mediaType);
         library.MediaTypeCatalogId=CatalogEnum.MediaType;
         library.PhysicalPath=this.libraryFormGroup.value.physicalPath;
         library.MediaServerId=this.sharedDataService.selectedMediaServer.Id;
@@ -71,16 +72,14 @@ export class LibraryFormComponent implements OnInit {
       }
     }
 
-    public onChangeMediaType(event:any){
-      this.library.MediaTypeCatalogDetailId=Number(event.target.value);
-    }
-
-    public onSelectDirectory(event:any){
-      this.libraryFormGroup.controls.physicalPath.setValue(event);
-    }
-
     public showChooserDirectoryModal(){
-
+      var ctx=this;
+      var ref=this.modalService.open(DirectoryChooserPage, {container:"#sinovadMainContainer",
+      modalDialogClass:'modal-dialog modal-fullscreen-md-down modal-dialog-centered modal-dialog-scrollable',scrollable:true,backdrop: 'static'});
+      ref.componentInstance.mediaServer=this.sharedDataService.selectedMediaServer;
+      ref.closed.subscribe((directoryPath:string)=>{
+        ctx.libraryFormGroup.controls.physicalPath.setValue(directoryPath);
+      })
     }
 
     public closeModal(){
