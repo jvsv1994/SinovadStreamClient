@@ -58,7 +58,7 @@ export class EpisodeListPage extends CustomListGeneric<Episode>{
         start:"asc",
         disableClear:true
       });
-      this.searchBy="EpisodeNumber";
+      this.searchBy="EpisodeNumber|Title";
       this.dataSource.sort = this.sort;
     }
 
