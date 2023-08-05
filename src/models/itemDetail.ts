@@ -1,6 +1,6 @@
+import { Season } from "src/app/seasons/shared/season.model";
 import { Episode } from "./episode";
 import { Item } from "./item";
-import { Season } from "./season";
 
 export class ItemDetail{
 

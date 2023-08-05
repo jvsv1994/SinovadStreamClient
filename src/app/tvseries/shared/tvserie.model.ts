@@ -1,4 +1,4 @@
-import { Season } from "src/models/season";
+import { Season } from "src/app/seasons/shared/season.model";
 import { TvSerieGenre } from "./tvserie-genre.model";
 
 export class TvSerie{

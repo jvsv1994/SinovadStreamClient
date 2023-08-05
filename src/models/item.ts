@@ -1,6 +1,3 @@
-import { Season } from "./season";
-import { Episode } from "./episode";
-
 export class Item{
 
   public Title: string;

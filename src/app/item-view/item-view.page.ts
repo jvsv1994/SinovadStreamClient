@@ -8,8 +8,8 @@ import { MediaType } from 'src/app/shared/enums';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { ItemDetail } from '../../models/itemDetail';
 import { Episode } from '../../models/episode';
-import { Season } from '../../models/season';
 import { VideoService } from 'src/app/shared/services/video.service';
+import { Season } from '../seasons/shared/season.model';
 
 declare var window;
 @Component({
