@@ -1,8 +1,6 @@
 
 import { Component, OnInit} from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
 import { SharedDataService } from 'src/app/shared/services/shared-data.service';
-import { ParentComponent } from '../parent/parent.component';
 import { HttpClient} from '@angular/common/http';
 import { CatalogEnum, HttpMethodType } from 'src/app/shared/enums';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
@@ -14,6 +12,8 @@ import { CatalogDetail } from 'src/models/catalogDetail';
 import { SnackBarService } from 'src/app/shared/services/snack-bar.service';
 import { SnackBarType } from '../shared/components/custom-snack-bar/custom-snack-bar.component';
 import { MediaServer } from '../media-servers/shared/media-server.model';
+import { DirectoryChooserPage } from '../shared/components/directory-chooser/directory-chooser.page';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 declare var window;
 @Component({
@@ -21,17 +21,7 @@ declare var window;
   templateUrl: './transcode-settings.page.html',
   styleUrls: ['./transcode-settings.page.scss']
 })
-export class TranscoderSettingssPage extends ParentComponent implements OnInit {
-
-  listMainDirectories:any[];
-
-  showingDirectoryMovies:boolean;
-  directoryMovies:string="";
-
-  showingDirectoryTVSeries:boolean;
-  directoryTvSeries:string="";
-
-  showingDirectoryTranscodeVideos:boolean;
+export class TranscoderSettingssPage implements OnInit {
 
   transmissionMethodList:CatalogDetail[]=[];
   presetList:CatalogDetail[]=[];
@@ -41,15 +31,14 @@ export class TranscoderSettingssPage extends ParentComponent implements OnInit {
   customForm:FormGroup;
 
   constructor(
+    private modalService: NgbModal,
     private snackBarService:SnackBarService,
     private formBuilder: FormBuilder,
     private router: Router,
     public activeRoute: ActivatedRoute,
     public restProvider: RestProviderService,
     public http: HttpClient,
-    public domSanitizer: DomSanitizer,
-    public sharedData: SharedDataService) {
-      super(restProvider,domSanitizer,sharedData)
+    public sharedService: SharedDataService) {
 
     }
 
@@ -69,13 +58,6 @@ export class TranscoderSettingssPage extends ParentComponent implements OnInit {
       });
     }
 
-    public getAllMainDirectories(){
-      this.restProvider.executeSinovadStreamServerService(HttpMethodType.GET,"/directories").then((response) => {
-        this.listMainDirectories=JSON.parse(response);
-      },error=>{
-        console.error(error);
-      });
-    }
 
     ngAfterViewInit(){
 
@@ -85,11 +67,10 @@ export class TranscoderSettingssPage extends ParentComponent implements OnInit {
       var mediaServerGuid=this.activeRoute.snapshot.params.serverGuid;
       this.restProvider.executeSinovadApiService(HttpMethodType.GET,'/mediaServers/GetByGuidAsync/'+mediaServerGuid).then((response:SinovadApiGenericResponse) => {
         var mediaServer=response.Data;
-        var selectedMediaServer=this.sharedData.mediaServers.find(x=>x.Id==mediaServer.Id);
+        var selectedMediaServer=this.sharedService.mediaServers.find(x=>x.Id==mediaServer.Id);
         mediaServer.isSecureConnection=selectedMediaServer.isSecureConnection;
-        this.sharedData.selectedMediaServer=mediaServer;
+        this.sharedService.selectedMediaServer=mediaServer;
         this.mediaServer=mediaServer;
-        this.getAllMainDirectories();
         this.getTranscoderSettingss();
       },error=>{
         this.router.navigateByUrl('/404')
@@ -108,7 +89,7 @@ export class TranscoderSettingssPage extends ParentComponent implements OnInit {
         currentTranscoderSettingss.VideoTransmissionTypeCatalogDetailId=this.transmissionMethodList[0].Id;
         currentTranscoderSettingss.PresetCatalogId=CatalogEnum.TranscoderPreset;
         currentTranscoderSettingss.PresetCatalogDetailId=this.presetList[0].Id;
-        currentTranscoderSettingss.MediaServerId=this.sharedData.selectedMediaServer.Id;
+        currentTranscoderSettingss.MediaServerId=this.sharedService.selectedMediaServer.Id;
         this.currentTranscoderSettingss=currentTranscoderSettingss;
       }
       this.customForm = this.formBuilder.group({
@@ -120,11 +101,6 @@ export class TranscoderSettingssPage extends ParentComponent implements OnInit {
     },error=>{
       console.error(error);
     });
-    }
-
-    public onSaveDirectoryTranscodedVideos(path:string){
-      this.customForm.controls.temporaryFolder.setValue(path);
-      this.showingDirectoryTranscodeVideos=false;
     }
 
     public saveTranscoder(){
@@ -147,11 +123,14 @@ export class TranscoderSettingssPage extends ParentComponent implements OnInit {
       });
     }
 
-    public showChooserDirectory(){
-      if(this.listMainDirectories && this.listMainDirectories.length>0)
-      {
-        this.showingDirectoryTranscodeVideos=true;
-      }
+    public showChooserDirectoryModal(){
+      var ctx=this;
+      var ref=this.modalService.open(DirectoryChooserPage, {container:"#sinovadMainContainer",
+      modalDialogClass:'modal-dialog modal-fullscreen-md-down modal-dialog-centered modal-dialog-scrollable',scrollable:true,backdrop: 'static'});
+      ref.componentInstance.mediaServer=this.sharedService.selectedMediaServer;
+      ref.closed.subscribe((directoryPath:string)=>{
+        ctx.customForm.controls.temporaryFolder.setValue(directoryPath);
+        ctx.customForm.controls.temporaryFolder.markAsDirty();
+      })
     }
-
 }

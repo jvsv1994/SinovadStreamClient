@@ -1,5 +1,5 @@
 <div *ngIf="customForm" id="serverSettinsPageContainer" class="sinovad-page-container">
-  <h2>{{mediaServer.FamilyName?mediaServer.FamilyName:mediaServer.DeviceName}} - Transcoder</h2>
+  <h2>{{mediaServer.FamilyName?mediaServer.FamilyName:mediaServer.DeviceName}} - Transcodificador</h2>
   <div>
     <div class="server-settings-container">
       <div class="settings-row">
@@ -17,7 +17,7 @@
                   </div>
                     <div class="form-group">
                         <label class="control-label">Carpeta temporal para el transcodificador</label>
-                        <input class="form-control" readonly type="text" formControlName="temporaryFolder" (click)="showChooserDirectory()"/>
+                        <input class="form-control" readonly type="text" formControlName="temporaryFolder" style="cursor: pointer;" (click)="showChooserDirectoryModal()"/>
                         <p class="help-block">Carpeta que utilizará el codificador para los archivos temporales.</p>
                     </div>
                     <div class="form-group">
@@ -51,7 +51,3 @@
   </div>
 
 </div>
-
-<!-- <app-directory-chooser *ngIf="showingDirectoryTranscodeVideos" [listMainDirectories]="listMainDirectories"
-(outputSelectedSubdirectory)="onSaveDirectoryTranscodedVideos($event)" (closeChooserDirectory)="showingDirectoryTranscodeVideos=false"></app-directory-chooser>
- -->
