@@ -50,15 +50,15 @@ export class EpisodeListPage extends CustomListGeneric<Episode>{
         this.sortDirection=sort.direction;
         this.getAllItems();
       });
-      this.sortBy="Title";
+      this.sortBy="EpisodeNumber";
       this.sortDirection="asc";
       this.sort.disableClear=true;
       this.sort.sort({
-        id:"Title",
+        id:"EpisodeNumber",
         start:"asc",
         disableClear:true
       });
-      this.searchBy="Title";
+      this.searchBy="EpisodeNumber";
       this.dataSource.sort = this.sort;
     }
 
@@ -167,7 +167,7 @@ export class EpisodeListPage extends CustomListGeneric<Episode>{
       //Displayed Columns Section
 
       public getDisplayedColumns(){
-          return ['Select','Id', 'Title','Actions'];
+          return ['Select','EpisodeNumber', 'Title','Actions'];
       }
 
 
