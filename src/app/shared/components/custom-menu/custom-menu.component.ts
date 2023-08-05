@@ -1,6 +1,6 @@
 
 import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, Output} from '@angular/core';
-import { CustomActionsMenuItem, CustomActionsMenuOptions } from '../../services/custom-menu.service';
+import { CustomMenuItem, CustomMenuConfiguration } from '../../services/custom-menu.service';
 
 @Component({
   selector: 'app-custom-menu',
@@ -11,7 +11,7 @@ export class CustomMenuComponent implements AfterViewInit{
 
   @Output() hide=new EventEmitter();
   @Output() selectOption=new EventEmitter();;
-  @Input() options:CustomActionsMenuOptions;
+  @Input() options:CustomMenuConfiguration;
   @Input() right:number;
   @Input() top:number;
   showMenu:boolean=false;
@@ -30,7 +30,7 @@ export class CustomMenuComponent implements AfterViewInit{
     this.hide.emit(true);
   }
 
-  public onSelectItem(item:CustomActionsMenuItem){
+  public onSelectItem(item:CustomMenuItem){
     this.selectOption.emit(item);
   }
 

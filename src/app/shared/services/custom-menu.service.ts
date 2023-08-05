@@ -1,17 +1,17 @@
 import { ApplicationRef, ComponentFactoryResolver, EmbeddedViewRef, Injectable, Injector, ViewRef } from '@angular/core';
 import { EventEmitter } from "@angular/core";
 import { CustomMenuComponent } from '../components/custom-menu/custom-menu.component';
-export class CustomActionsMenuItem{
+export class CustomMenuItem{
   title:string;
   iconClass?:string;
   key?:string;
   eventOnSelectItem?:EventEmitter<boolean>;
 }
 
-export class CustomActionsMenuOptions{
+export class CustomMenuConfiguration{
   containerId?:string;
   target?:HTMLElement;
-  listItems:CustomActionsMenuItem[];
+  listItems:CustomMenuItem[];
 }
 
 export declare type EventHandler = (...args: any[]) => any;
@@ -25,7 +25,7 @@ export class CustomMenuService {
     private applicationRef: ApplicationRef) {
     }
 
-    public show(options:CustomActionsMenuOptions):Promise<any>{
+    public show(options:CustomMenuConfiguration):Promise<any>{
       return new Promise((resolve, reject) => {
         if(this.lastViewRef!=undefined)
         {
@@ -53,7 +53,7 @@ export class CustomMenuService {
         component.instance.options=options;
         component.instance.right=right;
         component.instance.top=top;
-        component.instance.selectOption.subscribe((option:CustomActionsMenuItem) => {
+        component.instance.selectOption.subscribe((option:CustomMenuItem) => {
           ctx.applicationRef.detachView(component.hostView);
           if(option.eventOnSelectItem)
           {

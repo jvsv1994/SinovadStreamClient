@@ -16,7 +16,7 @@ import { LibraryService } from '../shared/library.service';
 import { Library } from '../shared/library.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LibraryFormComponent } from '../library-form/library-form.component';
-import { CustomActionsMenuItem, CustomMenuService } from 'src/app/shared/services/custom-menu.service';
+import { CustomMenuItem, CustomMenuService } from 'src/app/shared/services/custom-menu.service';
 
 declare var window;
 @Component({
@@ -159,7 +159,7 @@ export class LibraryListComponent implements OnInit,OnDestroy {
       this.currentLibrary=library;
       var currentLibrary=JSON.parse(JSON.stringify(library));
       var target=event.currentTarget;
-      var listItems:CustomActionsMenuItem[]=[];
+      var listItems:CustomMenuItem[]=[];
       var eventOnEdit:EventEmitter<boolean>=new EventEmitter();
       eventOnEdit.subscribe(res=>{
           this.editLibrary(currentLibrary);
