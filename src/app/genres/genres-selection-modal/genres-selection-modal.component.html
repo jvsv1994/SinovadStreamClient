@@ -9,10 +9,7 @@
     </div>
     <div class="modal-body">
       <ng-template ngFor let-item [ngForOf]="listAllGenres"  let-i="index">
-        <div class="mb-3">
-          <label for="genre_{{i}}" class="form-label">{{item.Name}}</label>
-          <input id="genre_{{i}}" #checkbox type="checkbox" class="ms-2"/>
-        </div>
+        <p><mat-checkbox>{{item.Name}}</mat-checkbox></p>
       </ng-template>
     </div>
     <div class="modal-footer">
