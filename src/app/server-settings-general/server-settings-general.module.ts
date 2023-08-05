@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DirectoryChooserPageModule } from '../directory-chooser/directory-chooser.module';
 import { SharedModule } from '../shared/shared.module';
-import { SuccessMessageModalPageModule } from '../success-message-modal/success-message-modal.module';
 import { ServerSettingsGeneralPage } from './server-settings-general.page';
 
 @NgModule({
@@ -14,7 +13,6 @@ import { ServerSettingsGeneralPage } from './server-settings-general.page';
         CommonModule,
         FormsModule,
         DirectoryChooserPageModule,
-        SuccessMessageModalPageModule,
         SharedModule,
         ReactiveFormsModule
     ],
