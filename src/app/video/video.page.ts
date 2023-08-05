@@ -1252,6 +1252,7 @@ public onClickSlider(sliderContainer:any){
 
   public showLoadVideoErrorActionsDialog(){
     var config = new MatDialogConfig<DialogOptionsConfiguration>();
+    config.disableClose=true;
     config.data={
       title:"Mensaje",
       message:this.getConfirmMessage(),
