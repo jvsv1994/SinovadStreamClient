@@ -176,14 +176,10 @@ export class LibraryListComponent implements OnInit,OnDestroy {
       });
       listItems.push({title:"Eliminar biblioteca",iconClass:"fa-sharp fa-solid fa-trash",eventOnSelectItem:eventOnDelete});
       this.customMenuService.show({containerId:"sinovadMainContainer",listItems:listItems,target:target}).then(response=>{
-
+        this.currentLibrary=undefined;
       },reject=>{
-        this.currentLibrary=undefined
+        this.currentLibrary=undefined;
       });
-   }
-
-   public onHideCustomActionsMenu(){
-      this.currentLibrary=undefined;
    }
 
 }
