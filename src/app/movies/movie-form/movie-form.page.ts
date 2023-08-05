@@ -49,7 +49,12 @@ export class MovieFormPage implements OnInit{
       this.genreService.getAllGenres().then((response:SinovadApiGenericResponse)=>{
         this.listGenres=response.Data;
       })
-      this.getMovie();
+      if(this.movie.Id>0)
+      {
+        this.getMovie();
+      }else{
+        this.movie.ListItemGenres=[];
+      }
     }
 
     //Build Form Group
