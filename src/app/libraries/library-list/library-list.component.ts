@@ -127,33 +127,10 @@ export class LibraryListComponent implements OnInit,OnDestroy {
       });
     }
 
-    public updateLibraryVideos(library:Library){
-      if(library.Id>0 && library.PhysicalPath!=undefined && library.PhysicalPath!="")
-      {
-        var listLibraries=[library];
-        this.executeUpdateVideosInAllLibrarys(listLibraries);
-      }
-    }
 
-    public updateVideoInAllLibraries(){
-       this.executeUpdateVideosInAllLibrarys(this.listLibraries);
-    }
 
-    public executeUpdateVideosInAllLibrarys(listLibraries:Library[]){
-      let logIdentifier=uuid();
-      this.callSearchMediaLog=true;
-      let mediaRequest: any={
-        ListLibrarys:listLibraries,
-        LogIdentifier:logIdentifier
-      };
-      this.restProvider.executeSinovadStreamServerService(HttpMethodType.POST,'/medias/UpdateVideosInListLibrarys',mediaRequest).then((response) => {
-        this.callSearchMediaLog=false;
-        this.showInitial.emit();
-      },error=>{
-        console.error(error);
-      });
-    }
 
+    // actions section
 
    public showActions(event:any,library:Library){
       this.currentLibrary=library;
@@ -181,5 +158,35 @@ export class LibraryListComponent implements OnInit,OnDestroy {
         this.currentLibrary=undefined;
       });
    }
+
+
+   // Load libraries videos section
+
+  public updateLibraryVideos(library:Library){
+    if(library.Id>0 && library.PhysicalPath!=undefined && library.PhysicalPath!="")
+    {
+      var listLibraries=[library];
+      this.executeUpdateVideosInAllLibrarys(listLibraries);
+    }
+  }
+
+  public updateVideoInAllLibraries(){
+    this.executeUpdateVideosInAllLibrarys(this.listLibraries);
+  }
+
+  public executeUpdateVideosInAllLibrarys(listLibraries:Library[]){
+    let logIdentifier=uuid();
+    this.callSearchMediaLog=true;
+    let mediaRequest: any={
+      ListLibrarys:listLibraries,
+      LogIdentifier:logIdentifier
+    };
+    this.restProvider.executeSinovadStreamServerService(HttpMethodType.POST,'/medias/UpdateVideosInListLibrarys',mediaRequest).then((response) => {
+      this.callSearchMediaLog=false;
+      this.showInitial.emit();
+    },error=>{
+      console.error(error);
+    });
+  }
 
 }
