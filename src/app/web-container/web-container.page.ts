@@ -6,7 +6,6 @@ import { ParentComponent } from '../parent/parent.component';
 import { HttpClient} from '@angular/common/http';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ItemListPage } from '../item-list/item-list.page';
 import { ManageMediaPage } from '../manage-media/manage-media.page';
 import { HomePage } from '../home/home.page';
 import { TvSerieDetailPage } from '../tvserie-detail/tvserie-detail.page';
@@ -205,13 +204,11 @@ export class WebContainerPage extends ParentComponent implements OnInit,OnDestro
           ctx.showHome();
         });
       }
-      if(event instanceof ItemListPage)
+      if(event instanceof MovieListPage || event instanceof TvSerieListPage)
       {
         this.showingSidebarAccount=false;
         this.showingSidebarAdminMode=true;
         this.showingSidebarMedia=false;
-        event.currentMediaTypeID=ctx.currentMediaTypeID;
-        event.title=this.title;
         ctx.ref.detectChanges();
       }
       if(event instanceof MenuListPage || event instanceof TvSerieListPage || event instanceof MovieListPage

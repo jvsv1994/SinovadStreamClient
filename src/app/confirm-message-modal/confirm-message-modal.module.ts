@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
-import { ItemGenresPageModule } from '../item-genres/item-genres.module';
 import { ConfirmMessageModalPage } from './confirm-message-modal.page';
 @NgModule({
     declarations: [
@@ -12,8 +11,7 @@ import { ConfirmMessageModalPage } from './confirm-message-modal.page';
         CommonModule,
         FormsModule,
         SharedModule,
-        ReactiveFormsModule,
-        ItemGenresPageModule
+        ReactiveFormsModule
     ],
     exports: [ConfirmMessageModalPage]
 })
