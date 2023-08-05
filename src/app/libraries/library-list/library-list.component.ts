@@ -32,7 +32,6 @@ declare var window;
 export class LibraryListComponent extends ParentComponent implements OnInit,OnDestroy {
 
   @Output() showInitial =new EventEmitter();
-  listMainDirectories:any[];
 
   showingDirectoryMovies:boolean;
 
@@ -80,14 +79,6 @@ export class LibraryListComponent extends ParentComponent implements OnInit,OnDe
       this.callSearchMediaLog=false;
     }
 
-    public getAllMainDirectories(){
-      this.restProvider.executeSinovadStreamServerService(HttpMethodType.GET,"/directories").then((response) => {
-        this.listMainDirectories=JSON.parse(response);
-      },error=>{
-        console.error(error);
-      });
-    }
-
     public async getMediaServerData(){
       var mediaServerGuid=this.activeRoute.snapshot.params.serverGuid;
       this.mediaServerService.getMediaServerByGuid(mediaServerGuid).then((response:SinovadApiGenericResponse) => {
@@ -96,7 +87,6 @@ export class LibraryListComponent extends ParentComponent implements OnInit,OnDe
         mediaServer.isSecureConnection=selectedMediaServer.isSecureConnection;
         this.sharedData.selectedMediaServer=mediaServer;
         this.mediaServer=mediaServer;
-        this.getAllMainDirectories();
         this.getAllItems();
       },error=>{
         this.router.navigateByUrl('/404')
