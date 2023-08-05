@@ -23,7 +23,7 @@
         </mat-form-field>
         <mat-form-field>
           <mat-label>Géneros</mat-label>
-          <textarea class="custom-textarea-genres" matInput formControlName="selectedGenres" [readonly]="true" [value]="getSelectedGenres()" (click)="showListGenresPopUp()"></textarea>
+          <textarea class="custom-textarea-genres" matInput formControlName="selectedGenres" [readonly]="true" (click)="showGenresSelectionModal()"></textarea>
         </mat-form-field>
         <mat-form-field>
           <mat-label>Directores</mat-label>

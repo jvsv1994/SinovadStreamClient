@@ -17,6 +17,17 @@ export class MovieService {
   ) {
   }
 
+  public getMovie(itemId:number):Promise<SinovadApiGenericResponse>{
+    return new Promise((resolve, reject) => {
+      this.restProvider.executeSinovadApiService(HttpMethodType.GET,"/movies/GetAsync/"+itemId).then((response:SinovadApiGenericResponse) => {
+        resolve(response);
+      },error=>{
+        console.error(error);
+        reject(error);
+      });
+    });
+  }
+
   public getItems(pageNumber:number,itemsPerPage:number,sortBy:string,sortDirection:string,searchText:string,searchBy:string):Promise<SinovadApiPaginationResponse>{
     return new Promise((resolve, reject) => {
       let callGuid=uuid();
