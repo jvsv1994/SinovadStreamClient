@@ -185,4 +185,10 @@ export class TvSerieListPage extends CustomListGeneric<TvSerie> implements After
       }
     }
 
+    //Seasons modal section
+
+    public showSeasonListModal(tvserie:TvSerie){
+
+    }
+
 }
