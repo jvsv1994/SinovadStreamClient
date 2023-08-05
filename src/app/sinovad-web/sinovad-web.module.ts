@@ -7,7 +7,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { AccountPage } from '../account/account.page';
 import { GenreListPage } from '../genres/genre-list/genre-list.page';
 import { TranscoderSettingssPage } from '../transcode-settings/transcode-settings.page';
-import { ManageMediaPage } from '../manage-media/manage-media.page';
 import { NotFoundPage } from '../not-found/not-found.page';
 import { ConfirmEmailPage } from '../confirm-email/confirm-email.page';
 import { ResetPasswordPage } from '../reset-password/reset-password.page';
@@ -31,6 +30,7 @@ import { MediaTvSeriesPage } from '../media-tvseries/media-tvseries.page';
 import { MovieListPage } from '../movies/movie-list/movie-list.page';
 import { TvSerieListPage } from '../tvseries/tvserie-list/tvserie-list.page';
 import { SearchViewPage } from '../search-view/search-view.page';
+import { LibraryListComponent } from '../libraries/library-list/library-list.component';
 
 const routes: Routes = [
   {
@@ -112,8 +112,8 @@ const routes: Routes = [
       },
       {
         path: 'settings/server/:serverGuid/manage/libraries',
-        component: ManageMediaPage,
-        loadChildren: () => import('../manage-media/manage-media.module').then(m => m.ManageMediaPageModule)
+        component: LibraryListComponent,
+        loadChildren: () => import('../libraries/libraries.module').then(m => m.LibrariesModule)
       },
       {
         path: 'settings/server/:serverGuid/settings/transcoder',

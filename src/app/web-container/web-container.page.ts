@@ -6,7 +6,6 @@ import { ParentComponent } from '../parent/parent.component';
 import { HttpClient} from '@angular/common/http';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ManageMediaPage } from '../manage-media/manage-media.page';
 import { HomePage } from '../home/home.page';
 import { TvSerieDetailPage } from '../tvserie-detail/tvserie-detail.page';
 import { MovieDetailPage } from '../movie-detail/movie-detail.page';
@@ -26,6 +25,7 @@ import { MediaTvSeriesPage } from '../media-tvseries/media-tvseries.page';
 import { MovieListPage } from '../movies/movie-list/movie-list.page';
 import { TvSerieListPage } from '../tvseries/tvserie-list/tvserie-list.page';
 import { SearchViewPage } from '../search-view/search-view.page';
+import { LibraryListComponent } from '../libraries/library-list/library-list.component';
 
 @Component({
   selector: 'app-web-container',
@@ -195,7 +195,7 @@ export class WebContainerPage extends ParentComponent implements OnInit,OnDestro
         this.showingSidebarAdminMode=false;
         this.showingSidebarMedia=false;
       }
-      if(event instanceof ManageMediaPage)
+      if(event instanceof LibraryListComponent)
       {
         this.showingSidebarAccount=true;
         this.showingSidebarAdminMode=false;

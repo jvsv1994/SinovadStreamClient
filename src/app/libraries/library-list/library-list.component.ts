@@ -2,29 +2,29 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SharedDataService } from 'src/app/shared/services/shared-data.service';
-import { ParentComponent } from '../parent/parent.component';
+import { ParentComponent } from '../../parent/parent.component';
 import { HttpClient} from '@angular/common/http';
 import {v4 as uuid} from "uuid";
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { CatalogEnum, HttpMethodType, MediaType } from 'src/app/shared/enums';
-import { Storage } from '../../models/storage';
-import { SinovadApiGenericResponse } from '../response/sinovadApiGenericResponse';
+import { Storage } from '../../../models/storage';
+import { SinovadApiGenericResponse } from '../../response/sinovadApiGenericResponse';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CustomActionsMenuPage } from '../custom-actions-menu/custom-actions-menu.page';
-import { CustomActionsMenuItem } from '../custom-actions-menu/customActionsMenuItem';
+import { CustomActionsMenuPage } from '../../custom-actions-menu/custom-actions-menu.page';
+import { CustomActionsMenuItem } from '../../custom-actions-menu/customActionsMenuItem';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { SnackBarService } from '../shared/services/snack-bar.service';
-import { ConfirmDialogOptions, CustomConfirmDialogComponent } from '../shared/components/custom-confirm-dialog/custom-confirm-dialog.component';
-import { SnackBarType } from '../shared/components/custom-snack-bar/custom-snack-bar.component';
-import { MediaServer } from '../media-servers/shared/media-server.model';
+import { SnackBarService } from '../../shared/services/snack-bar.service';
+import { ConfirmDialogOptions, CustomConfirmDialogComponent } from '../../shared/components/custom-confirm-dialog/custom-confirm-dialog.component';
+import { SnackBarType } from '../../shared/components/custom-snack-bar/custom-snack-bar.component';
+import { MediaServer } from '../../media-servers/shared/media-server.model';
 
 declare var window;
 @Component({
-  selector: 'app-manage-media',
-  templateUrl: './manage-media.page.html',
-  styleUrls: ['./manage-media.page.scss']
+  selector: 'app-library-list',
+  templateUrl: './library-list.component.html',
+  styleUrls: ['./library-list.component.scss']
 })
-export class ManageMediaPage extends ParentComponent implements OnInit,OnDestroy {
+export class LibraryListComponent extends ParentComponent implements OnInit,OnDestroy {
 
   @Output() showInitial =new EventEmitter();
   listMainDirectories:any[];

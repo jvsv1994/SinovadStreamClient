@@ -2,22 +2,22 @@
 import { Component, ElementRef, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SharedDataService } from 'src/app/shared/services/shared-data.service';
-import { ParentComponent } from '../parent/parent.component';
+import { ParentComponent } from '../../parent/parent.component';
 import { HttpClient} from '@angular/common/http';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { HttpMethodType } from 'src/app/shared/enums';
-import { Storage } from '../../models/storage';
+import { Storage } from '../../../models/storage';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 
 declare var window;
 @Component({
-  selector: 'app-storage-form',
-  templateUrl: './storage-form.page.html',
-  styleUrls: ['./storage-form.page.scss']
+  selector: 'app-library-form',
+  templateUrl: './library-form.component.html',
+  styleUrls: ['./library-form.component.scss']
 })
-export class StorageFormPage extends ParentComponent implements OnInit {
+export class LibraryFormComponent extends ParentComponent implements OnInit {
 
 
   @Input() storage:Storage;
