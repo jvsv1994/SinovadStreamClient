@@ -89,9 +89,8 @@ export class LibraryListComponent implements OnInit,OnDestroy {
       this.showModalForm(library);
     }
 
-    public editLibrary(storage:Library){
-      let library=JSON.parse(JSON.stringify(storage));
-      this.showModalForm(library);
+    public editLibrary(library:Library){
+      this.showModalForm(JSON.parse(JSON.stringify(library)));
     }
 
     public showModalForm(library:Library){
@@ -104,22 +103,21 @@ export class LibraryListComponent implements OnInit,OnDestroy {
       })
     }
 
-    public deleteLibrary(storage:Library){
+    public deleteLibrary(library:Library){
       var config = new MatDialogConfig<ConfirmDialogOptions>();
       config.data={
-        title:"Eliminar biblioteca",message:"La biblioteca '"+storage.Name+"' será eliminada de este servidor. Tus archivos multimedia no se verán afectados. Esto no se puede deshacer. ¿Continuar?",
-        accordMessage:"Si, eliminar la biblioteca '"+storage.Name+"'"
+        title:"Eliminar biblioteca",message:"La biblioteca '"+library.Name+"' será eliminada de este servidor. Tus archivos multimedia no se verán afectados. Esto no se puede deshacer. ¿Continuar?",
+        accordMessage:"Si, eliminar la biblioteca '"+library.Name+"'"
       }
       this.dialog.open(CustomConfirmDialogComponent,config).afterClosed().subscribe((confirm: boolean) => {
         if (confirm) {
-          this.executeDeleteLibrary(storage);
+          this.executeDeleteLibrary(library);
         }
       });
     }
 
-    private executeDeleteLibrary(storage:Library){
-      var path="/storages/Delete/"+storage.Id;
-      this.restProvider.executeSinovadApiService(HttpMethodType.DELETE,path).then((response:SinovadApiGenericResponse) => {
+    private executeDeleteLibrary(library:Library){
+      this.libraryService.deleteItem(library.Id).then((response:SinovadApiGenericResponse) => {
         this.snackBarService.showSnackBar("Se eliminó la biblioteca satisfactoriamente",SnackBarType.Success);
         this.getAllItems();
       },error=>{
@@ -128,10 +126,10 @@ export class LibraryListComponent implements OnInit,OnDestroy {
       });
     }
 
-    public updateLibraryVideos(storage:Library){
-      if(storage.Id>0 && storage.PhysicalPath!=undefined && storage.PhysicalPath!="")
+    public updateLibraryVideos(library:Library){
+      if(library.Id>0 && library.PhysicalPath!=undefined && library.PhysicalPath!="")
       {
-        var listLibraries=[storage];
+        var listLibraries=[library];
         this.executeUpdateVideosInAllLibrarys(listLibraries);
       }
     }
