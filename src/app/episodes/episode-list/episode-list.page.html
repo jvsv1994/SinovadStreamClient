@@ -8,16 +8,16 @@
   </div>
   <div>
     <div class="row">
-      <div class="col-6 d-flex align-items-center">
+      <div class="col-12 d-flex align-items-center">
         <button type="button" class="action-button edit" (click)="showNewItem()" matTooltip="Agregar">
           <i class="fa-solid fa-plus"></i>
         </button>
         <button type="button" class="action-button remove" [ngClass]="{'disable':!selection.hasValue()}" (click)="deleteSelectedItems()" matTooltip="Eliminar seleccionados">
           <i class="fa-solid fa-trash"></i>
         </button>
-      </div>
-      <div class="col-6 text-end">
-
+        <button type="button" class="custom-toolbar-button" (click)="showEpisodeRangeModal()">
+            Agregar por Rango
+        </button>
       </div>
     </div>
     <div class="row">

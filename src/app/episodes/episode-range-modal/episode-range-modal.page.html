@@ -1,20 +1,30 @@
-<ng-template #modalTarget let-modal>
-    <div class="modal-header">
-      <h5 class="modal-title">Rango de Episodios</h5>
-      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="modal.dismiss()"></button>
-    </div>
-    <div class="modal-body">
-      <div class="mb-3">
-        <label for="seasonNumber" class="form-label">Desde</label>
-        <input id="seasonNumber" class="form-control" type="number" [(ngModel)]="initialEpisodeNumber"/>
+
+    <form *ngIf="formGroup" [formGroup]="formGroup" (ngSubmit)="save()">
+      <div class="modal-header">
+        <h5 class="modal-title">Rango de Episodios</h5>
+        <button class="modal-close-button" type="button" (click)="closeModal()">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
       </div>
-      <div class="mb-3">
-        <label for="seasonNumber" class="form-label">Hasta</label>
-        <input id="seasonNumber" class="form-control" type="number" [(ngModel)]="lastEpisodeNumber"/>
+      <div class="modal-body">
+        <mat-form-field>
+          <mat-label>Desde</mat-label>
+          <input type="number" matInput formControlName="initialEpisodeNumber"/>
+          <mat-error *ngIf="formGroup.controls['initialEpisodeNumber'].hasError('required')">
+            El campo es <strong>requerido</strong>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Hasta</mat-label>
+          <input type="number" matInput formControlName="lastEpisodeNumber"/>
+          <mat-error *ngIf="formGroup.controls['lastEpisodeNumber'].hasError('required')">
+            El campo es <strong>requerido</strong>
+          </mat-error>
+        </mat-form-field>
       </div>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="modal.dismiss()">Close</button>
-      <button type="button" class="btn btn-primary" (click)="modal.close()">Guardar</button>
-    </div>
-</ng-template>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeModal()">Close</button>
+        <button type="submit" class="btn btn-primary" [disabled]="showLoading || !formGroup.valid">Guardar</button>
+      </div>
+      <app-custom-spinner [showLoading]="showLoading"></app-custom-spinner>
+    </form>

@@ -13,6 +13,7 @@ import { SnackBarType } from 'src/app/shared/components/custom-snack-bar/custom-
 import { EpisodeFormPage } from '../episode-form/episode-form.page';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Season } from 'src/app/seasons/shared/season.model';
+import { EpisodeRangeModalPage } from '../episode-range-modal/episode-range-modal.page';
 @Component({
   selector: 'app-episode-list',
   templateUrl: 'episode-list.page.html',
@@ -170,5 +171,16 @@ export class EpisodeListPage extends CustomListGeneric<Episode>{
           return ['Select','EpisodeNumber', 'Title','Actions'];
       }
 
+      //Show Episode Range Modal
+
+      public showEpisodeRangeModal(){
+        var ctx=this;
+        var ref=this.modalService.open(EpisodeRangeModalPage, {container:"#sinovadMainContainer",
+        modalDialogClass:'modal-dialog modal-fullscreen-md-down modal-dialog-centered modal-dialog-scrollable',scrollable:true,backdrop: 'static'});
+        ref.componentInstance.parent=this.parentItem;
+        ref.closed.subscribe(x=>{
+          ctx.getAllItems();
+        })
+      }
 
 }

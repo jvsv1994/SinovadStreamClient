@@ -47,6 +47,19 @@ export class EpisodeService {
       });
    });
   }
+
+  public createList(listItems:Episode[]):Promise<boolean>{
+    return new Promise((resolve, reject) => {
+      this.restProvider.executeSinovadApiService(HttpMethodType.POST,'/episodes/CreateList',listItems).then((response) => {
+        resolve(true);
+      },error=>{
+        console.error(error);
+        reject(error);
+      });
+   });
+  }
+
+
   public deleteItem(itemId:number):Promise<SinovadApiGenericResponse>{
     return new Promise((resolve, reject) => {
       var path="/episodes/Delete/"+itemId;

@@ -1,65 +1,63 @@
 
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
-import { SharedDataService } from 'src/app/shared/services/shared-data.service';
-import { HttpClient} from '@angular/common/http';
-import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { HttpMethodType} from 'src/app/shared/enums';
-import { ParentComponent } from 'src/app/parent/parent.component';
-import { Season } from 'src/app/seasons/shared/season.model';
+import { Component, Input} from '@angular/core';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Episode } from '../shared/episode.model';
+import { EpisodeService } from '../shared/episode.service';
+import { Season } from 'src/app/seasons/shared/season.model';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MyErrorStateMatcher } from 'src/app/shared/custom-error-state-matcher';
 
 @Component({
   selector: 'app-episode-range-modal',
   templateUrl: './episode-range-modal.page.html',
   styleUrls: ['./episode-range-modal.page.scss']
 })
-export class EpisodeRangeModalPage extends ParentComponent implements OnInit {
+export class EpisodeRangeModalPage{
 
+  formGroup:FormGroup;
   @Input() parent:Season;
-  @Output() close=new EventEmitter();
-  @Output() closeWithChanges=new EventEmitter();
-  @ViewChild('modalTarget') modalTarget: ElementRef;
-  initialEpisodeNumber:number;
-  lastEpisodeNumber:number;
+  matcher = new MyErrorStateMatcher();
+  showLoading:boolean=false;
 
   constructor(
-    private modalService: NgbModal,
-    public restProvider: RestProviderService,
-    public http: HttpClient,
-    public domSanitizer: DomSanitizer,
-    public sharedData: SharedDataService) {
-      super(restProvider,domSanitizer,sharedData)
+    private formBuilder: FormBuilder,
+    private episodeService:EpisodeService,
+    private activeModal: NgbActiveModal) {}
 
-    }
-
-    ngOnInit(): void {
-    }
-
-    ngAfterViewInit(){
-      this.modalService.open(this.modalTarget, {container:"#sinovadMainContainer",modalDialogClass:'modal-dialog modal-dialog-centered modal-dialog-scrollable',scrollable:true,backdrop: 'static'}).result.then((result) => {
-        this.save();
-      }, (reason) => {
-        this.close.emit(true);
+    public ngAfterViewInit(){
+      this.formGroup = this.formBuilder.group({
+        initialEpisodeNumber:new FormControl('', [Validators.required]),
+        lastEpisodeNumber:new FormControl('', [Validators.required])
       });
     }
 
     public save(){
-      let listEpisodes:Episode[]=[];
-      for(let i=Number(this.initialEpisodeNumber);i <= Number(this.lastEpisodeNumber);i++)
+      if(this.formGroup.valid)
       {
-        var episode= new Episode();
-        episode.EpisodeNumber=i;
-        episode.SeasonId=this.parent.Id;
-        episode.Title="Episodio "+i;
-        listEpisodes.push(episode);
+        this.showLoading=true;
+        let listEpisodes:Episode[]=[];
+        for(let i=Number(this.formGroup.value.initialEpisodeNumber);i <= Number(this.formGroup.value.lastEpisodeNumber);i++)
+        {
+          var episode= new Episode();
+          episode.EpisodeNumber=i;
+          episode.SeasonId=this.parent.Id;
+          episode.Title="Episodio "+i;
+          listEpisodes.push(episode);
+        }
+        this.episodeService.createList(listEpisodes).then((response) => {
+          this.showLoading=false;
+          this.activeModal.close(true);
+        },error=>{
+          this.showLoading=false;
+          console.error(error);
+        });
+      }else{
+        this.formGroup.markAllAsTouched();
       }
-      this.restProvider.executeSinovadApiService(HttpMethodType.POST,'/episodes/CreateList',listEpisodes).then((response) => {
-        this.closeWithChanges.emit(true);
-      },error=>{
-        console.error(error);
-      });
+    }
+
+    public closeModal(){
+      this.activeModal.dismiss();
     }
 
 }
