@@ -1,0 +1,45 @@
+
+<!-- <div *ngIf="showChangeSeasonForm" class="sinovad-popup-container">
+  <div #content class="sinovad-form-popup-content">
+    <div #header class="sinovad-popup-content-header">
+      <div (click)="showChangeSeasonForm=false" class="sinovad-back-button-content">
+        <img [src]="'back_button_black.png' | formatDataPipe : 'GetImageURLByKey'" width="15px">
+      </div>
+    </div>
+    <div [style.max-height]="content.offsetHeight-header.offsetHeight-footer.offsetHeight+'px'" class="sinovad-form-popup-content-body">
+      <div class="sinovad-form-group">
+        <h3>Cambiar Temporada</h3>
+        <div class="sinovad-form-popup-caption-input-container">
+          <div class="sinovad-form-popup-caption-container">
+            <span>
+              Origen
+            </span>
+          </div>
+          <div class="sinovad-form-popup-input-container">
+            {{parentItem.SeasonNumber}}
+          </div>
+        </div>
+        <div class="sinovad-form-popup-caption-input-container">
+          <div class="sinovad-form-popup-caption-container">
+            <span>
+               Destino
+            </span>
+          </div>
+          <div class="sinovad-form-popup-input-container">
+            <select name="seasons" id="seasons" (change)="onChangeSeason($event)">
+              <ng-template ngFor let-season [ngForOf]="listSeasons"  let-i="index">
+                <option value="{{season.Id}}">{{season.SeasonNumber}}</option>
+              </ng-template>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div #footer class="sinovad-form-popup-content-footer">
+      <div class="sinovad-form-popup-save-button-container">
+        <button (click)="saveChangeSeason()">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+ -->

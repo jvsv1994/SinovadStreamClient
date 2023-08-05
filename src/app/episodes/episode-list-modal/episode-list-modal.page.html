@@ -1,0 +1,14 @@
+<ng-template [ngIf]="parent!=undefined">
+  <div class="modal-header">
+    <h5 class="modal-title">{{parent.Name}} :Episodios</h5>
+    <button class="modal-close-button" type="button" (click)="closeModal()">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+  </div>
+  <div class="modal-body">
+      <app-episode-list [parentItem]="parent"></app-episode-list>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeModal()">Close</button>
+  </div>
+</ng-template>

@@ -2,13 +2,13 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SharedDataService } from 'src/app/shared/services/shared-data.service';
-import { ParentComponent } from '../parent/parent.component';
 import { HttpClient} from '@angular/common/http';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { HttpMethodType} from 'src/app/shared/enums';
-import { Season } from '../../models/season';
-import { Episode } from '../../models/episode';
+import { ParentComponent } from 'src/app/parent/parent.component';
+import { Season } from 'src/app/seasons/shared/season.model';
+import { Episode } from '../shared/episode.model';
 
 @Component({
   selector: 'app-episode-range-modal',

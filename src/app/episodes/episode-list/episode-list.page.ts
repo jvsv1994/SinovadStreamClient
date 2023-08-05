@@ -1,34 +1,33 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { SinovadApiPaginationResponse } from 'src/app/response/sinovadApiPaginationResponse';
-import { Season } from '../shared/season.model';
+import { Episode } from '../shared/episode.model';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatPaginator, MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { CustomListGeneric } from 'src/app/shared/generics/custom-list.generic';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { SnackBarService } from 'src/app/shared/services/snack-bar.service';
-import { SeasonService } from '../shared/season.service';
+import { EpisodeService } from '../shared/episode.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { ConfirmDialogOptions, CustomConfirmDialogComponent } from 'src/app/shared/components/custom-confirm-dialog/custom-confirm-dialog.component';
 import { SnackBarType } from 'src/app/shared/components/custom-snack-bar/custom-snack-bar.component';
-import { SeasonFormPage } from '../season-form/season-form.page';
+import { EpisodeFormPage } from '../episode-form/episode-form.page';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { TvSerie } from 'src/app/tvseries/shared/tvserie.model';
-import { EpisodeListModalPage } from 'src/app/episodes/episode-list-modal/episode-list-modal.page';
+import { Season } from 'src/app/seasons/shared/season.model';
 @Component({
-  selector: 'app-season-list',
-  templateUrl: 'season-list.page.html',
-  styleUrls: ['season-list.page.scss'],
+  selector: 'app-episode-list',
+  templateUrl: 'episode-list.page.html',
+  styleUrls: ['episode-list.page.scss'],
 })
-export class SeasonListPage extends CustomListGeneric<Season>{
+export class EpisodeListPage extends CustomListGeneric<Episode>{
 
-  @Input() parentItem:TvSerie;
+  @Input() parentItem:Season;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(
     private modalService: NgbModal,
     private dialog: MatDialog,
-    private seasonService:SeasonService,
+    private episodeService:EpisodeService,
     public matPaginatorIntl: MatPaginatorIntl,
     private snackbarService:SnackBarService) {
       super(matPaginatorIntl)
@@ -51,15 +50,15 @@ export class SeasonListPage extends CustomListGeneric<Season>{
         this.sortDirection=sort.direction;
         this.getAllItems();
       });
-      this.sortBy="Name";
+      this.sortBy="Title";
       this.sortDirection="asc";
       this.sort.disableClear=true;
       this.sort.sort({
-        id:"Name",
+        id:"Title",
         start:"asc",
         disableClear:true
       });
-      this.searchBy="Name";
+      this.searchBy="Title";
       this.dataSource.sort = this.sort;
     }
 
@@ -75,19 +74,19 @@ export class SeasonListPage extends CustomListGeneric<Season>{
      //Show Modal Section
 
      public showNewItem(){
-      var season= new Season();
-      this.showModalForm(season);
+      var episode= new Episode();
+      this.showModalForm(episode);
     }
 
-    public editItem(season: Season){
-      this.showModalForm(season);
+    public editItem(episode: Episode){
+      this.showModalForm(episode);
     }
 
-    public showModalForm(season:Season){
+    public showModalForm(episode:Episode){
       var ctx=this;
-      var ref=this.modalService.open(SeasonFormPage, {container:"#sinovadMainContainer",
+      var ref=this.modalService.open(EpisodeFormPage, {container:"#sinovadMainContainer",
       modalDialogClass:'modal-dialog modal-fullscreen-md-down modal-dialog-centered modal-dialog-scrollable',scrollable:true,backdrop: 'static'});
-      ref.componentInstance.season=season;
+      ref.componentInstance.episode=episode;
       ref.closed.subscribe(x=>{
         ctx.getAllItems();
       })
@@ -97,7 +96,7 @@ export class SeasonListPage extends CustomListGeneric<Season>{
 
     public getAllItems(){
       this.showLoading=true;
-      this.seasonService.getItems(this.parentItem.Id,this.currentPage,this.itemsPerPage,this.sortBy,this.sortDirection,this.searchText,this.searchBy).then((response:SinovadApiPaginationResponse) => {
+      this.episodeService.getItems(this.parentItem.Id,this.currentPage,this.itemsPerPage,this.sortBy,this.sortDirection,this.searchText,this.searchBy).then((response:SinovadApiPaginationResponse) => {
         this.showLoading=false;
         var data=response.Data;
         this.totalCount=response.TotalCount;
@@ -114,10 +113,10 @@ export class SeasonListPage extends CustomListGeneric<Season>{
 
        //Delete Section
 
-       public deleteItem(item:Season){
+       public deleteItem(item:Episode){
         var config = new MatDialogConfig<ConfirmDialogOptions>();
         config.data={
-          title:'Eliminar Temporada',message:'¿Esta seguro que desea eliminar la temporada '+item.Name+'?',accordMessage:"Si, eliminar la temporada '"+item.Name+"'"
+          title:'Eliminar Episodio',message:'¿Esta seguro que desea eliminar el episodio '+item.Name+'?',accordMessage:"Si, eliminar el episodio '"+item.Name+"'"
         }
         this.dialog.open(CustomConfirmDialogComponent,config).afterClosed().subscribe((confirm: boolean) => {
           if (confirm) {
@@ -126,9 +125,9 @@ export class SeasonListPage extends CustomListGeneric<Season>{
         });
       }
 
-      private executeDeleteItem(item:Season){
+      private executeDeleteItem(item:Episode){
         this.showLoading=true;
-        this.seasonService.deleteItem(item.Id).then(res=>{
+        this.episodeService.deleteItem(item.Id).then(res=>{
           this.snackbarService.showSnackBar("Se elimino el registro satisfactoriamente",SnackBarType.Success);
           this.getAllItems();
         },(error)=>{
@@ -144,7 +143,7 @@ export class SeasonListPage extends CustomListGeneric<Season>{
         {
           var config = new MatDialogConfig<ConfirmDialogOptions>();
           config.data={
-            title:"Eliminar seasons",message:'¿Esta seguro que desea eliminar los registros seleccionados?',accordMessage:"Si, eliminar"
+            title:"Eliminar episodios",message:'¿Esta seguro que desea eliminar los registros seleccionados?',accordMessage:"Si, eliminar"
           }
           this.dialog.open(CustomConfirmDialogComponent,config).afterClosed().subscribe((confirm: boolean) => {
             if (confirm) {
@@ -156,7 +155,7 @@ export class SeasonListPage extends CustomListGeneric<Season>{
 
       private executeDeleteSelectedItems(){
         this.showLoading=true;
-        this.seasonService.deleteItems(this.selection.selected).then(res=>{
+        this.episodeService.deleteItems(this.selection.selected).then(res=>{
           this.snackbarService.showSnackBar("Se eliminaron los registros seleccionados satisfactoriamente",SnackBarType.Success);
           this.getAllItems();
         },(error)=>{
@@ -168,19 +167,8 @@ export class SeasonListPage extends CustomListGeneric<Season>{
       //Displayed Columns Section
 
       public getDisplayedColumns(){
-          return ['Select','Id', 'Name','Actions'];
+          return ['Select','Id', 'Title','Actions'];
       }
 
-
-      //episodes modal section
-
-      public showEpisodeListModal(season:Season){
-        var ctx=this;
-        var ref=this.modalService.open(EpisodeListModalPage, {container:"#sinovadMainContainer",modalDialogClass:'modal-dialog modal-fullscreen-md-down modal-xl modal-dialog-centered modal-dialog-scrollable  modal-list',scrollable:true,backdrop: 'static'});
-        ref.componentInstance.parent=season;
-        ref.closed.subscribe(x=>{
-
-        })
-      }
 
 }

@@ -1,0 +1,34 @@
+
+
+
+<ng-template [ngIf]="episode!=undefined && episodeFormGroup">
+  <form [formGroup]="episodeFormGroup" (ngSubmit)="saveItem()">
+    <div class="modal-header">
+      <h5 class="modal-title">{{episode.Id>0?'Editar':'Nuevo'}}</h5>
+      <button class="modal-close-button" type="button" (click)="closeModal()">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    <div class="modal-body">
+      <mat-form-field>
+        <mat-label>TÍtulo</mat-label>
+        <input matInput formControlName="title" [errorStateMatcher]="matcher"/>
+        <mat-error *ngIf="episodeFormGroup.controls['title'].hasError('required')">
+          TÍtulo es <strong>requerido</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Número</mat-label>
+        <input type="number" matInput formControlName="episodeNumber"/>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Resumen</mat-label>
+        <textarea matInput formControlName="summary"></textarea>
+      </mat-form-field>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeModal()">Close</button>
+      <button type="submit" class="btn btn-primary" [disabled]="showLoading || !episodeFormGroup.valid">Guardar</button>
+    </div>
+  </form>
+</ng-template>

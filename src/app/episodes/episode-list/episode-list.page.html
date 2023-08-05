@@ -1,0 +1,160 @@
+
+
+
+
+<div class="container custom-list-container">
+  <div class="row">
+    <h3 class="custom-list-title">{{parentItem.Name}} :Episodios</h3>
+  </div>
+  <div>
+    <div class="row">
+      <div class="col-6 d-flex align-items-center">
+        <button type="button" class="action-button edit" (click)="showNewItem()" matTooltip="Agregar">
+          <i class="fa-solid fa-plus"></i>
+        </button>
+        <button type="button" class="action-button remove" [ngClass]="{'disable':!selection.hasValue()}" (click)="deleteSelectedItems()" matTooltip="Eliminar seleccionados">
+          <i class="fa-solid fa-trash"></i>
+        </button>
+      </div>
+      <div class="col-6 text-end">
+
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <mat-form-field>
+          <mat-label>Buscar</mat-label>
+          <input matInput (keyup)="applyFilter($event)" #input>
+        </mat-form-field>
+        <div class="custom-container">
+          <div *ngIf="showLoading" class="loading-shade">
+            <mat-spinner></mat-spinner>
+          </div>
+          <div class="custom-table-container">
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8"  matSort>
+              <ng-container matColumnDef="Select">
+                <th mat-header-cell *matHeaderCellDef class="checkbox-column" style="max-width:57px;text-align: center;">
+                  <mat-checkbox (change)="$event ? toggleAllRows() : null"
+                    [checked]="selection.hasValue() && isAllSelected()"
+                    [indeterminate]="selection.hasValue() && !isAllSelected()">
+                  </mat-checkbox>
+                </th>
+                <td mat-cell *matCellDef="let row" class="checkbox-column" style="max-width:57px;text-align: center;">
+                  <mat-checkbox (click)="onChangeCheckValue($event,row)"
+                    [checked]="selection.isSelected(row)">
+                  </mat-checkbox>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="Id">
+                <th mat-header-cell *matHeaderCellDef style="max-width:60px;text-align: center;">N°</th>
+                <td mat-cell *matCellDef="let element;let i = index" style="max-width:60px;text-align: center;"> {{getElementNumber(i,currentPage,itemsPerPage)}}</td>
+              </ng-container>
+              <ng-container matColumnDef="Title">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header style="width:100%;text-align: left;">TÍtulo</th>
+                <td mat-cell *matCellDef="let element" style="width:100%;text-align: left;"> {{element.Title}} </td>
+              </ng-container>
+              <ng-container matColumnDef="Actions">
+                <th mat-header-cell *matHeaderCellDef style="max-width:130px;"></th>
+                <td mat-cell *matCellDef="let element" style="max-width:130px;height: 100%;">
+                  <div style="display: flex;align-items: center;justify-content: center;height: 100%;">
+                    <button type="button" class="action-button edit" data-toggle="tooltip" data-placement="bottom" matTooltip="Editar" (click)="editItem(element)">
+                      <i class="fa-solid fa-pen-to-square"></i>
+                    </button>
+                    <button type="button" class="action-button remove" data-toggle="tooltip" data-placement="bottom" matTooltip="Eliminar" (click)="deleteItem(element)">
+                      <i class="fa-solid fa-trash"></i>
+                    </button>
+                  </div>
+                </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="getDisplayedColumns()"></tr>
+              <tr mat-row *matRowDef="let row; columns: getDisplayedColumns();"></tr>
+              <tr class="mat-row" *matNoDataRow>
+                <td *ngIf="!showLoading" class="mat-cell" colspan="4">No se encontraron datos</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <mat-paginator [color]="'primary'" [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Seleccionar página">
+        </mat-paginator>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="container">
+  <div class="row mt-4">
+    <h3>{{parentItem.Name}} :Episodios</h3>
+  </div>
+  <div class="row mt-4">
+    <div class="col-6 d-flex align-items-center">
+      <div class="form-check mb-0">
+        <input id="flexCheckDefault" class="form-check-input" #checkbox type="checkbox" (change)="onChangeSelectAllCheckBox($event)">
+        <label class="form-check-label" for="flexCheckDefault">
+          Todos
+        </label>
+      </div>
+    </div>
+    <div class="col-6 text-end">
+      <button class="btn me-2" (click)="input.click()">
+        <input #input type="file" accept=".txt" (change)="onFileSelected($event)" style="display: none;" />
+        <img style="height:40px;" [src]="'upload.png'  | formatDataPipe : 'GetImageURLByKey' | async" title="Carga Masiva">
+      </button>
+      <button type="button" class="btn me-2" (click)="showEpisodeRangeForm()">
+        <img style="height:40px;" [src]="'rank-number.png'  | formatDataPipe : 'GetImageURLByKey' | async" title="Agregar por Rango de Números">
+      </button>
+      <button type="button" class="btn btn-primary" (click)="showItemForm()"><i class="fa-solid fa-circle-plus me-2" aria-hidden="true"></i>Agregar</button>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col-12">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">N°</th>
+            <th scope="col">Titulo</th>
+            <th scope="col">Resumen</th>
+            <th scope="col">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-template ngFor let-item [ngForOf]="listItems" let-i="index">
+            <tr [ngClass]="{'selected':listSelectedItems.indexOf(item)!=-1}">
+              <th role="button" scope="row" (click)="onClickItem($event,item)" (contextmenu)="onContextMenuItem($event,item)">{{getNewIndex(i,response.PageNumber,pageSize)}}</th>
+              <td role="button" (click)="onClickItem($event,item)" (contextmenu)="onContextMenuItem($event,item)">{{item.Title}}</td>
+              <td role="button" (click)="onClickItem($event,item)" (contextmenu)="onContextMenuItem($event,item)">{{item.Summary}}</td>
+              <td>
+                <button type="button" class="btn btn-success btn-sm ms-20" data-toggle="tooltip" data-placement="bottom" title="Editar" (click)="editItem(item)">
+                  <i class="fa-solid fa-pen-to-square"></i>
+                </button>
+              </td>
+            </tr>
+          </ng-template>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <div class="col-12">
+        <app-pagination *ngIf="response" [responsePagination]="response" (selectPage)="onSelectPage($event)"></app-pagination>
+    </div>
+  </div>
+</div>
+ -->
+
+
+
+
