@@ -47,8 +47,5 @@
         <button type="submit" class="btn btn-primary" [disabled]="showLoading || !movieFormGroup.valid">Guardar</button>
       </div>
     </form>
+    <app-custom-spinner [showLoading]="showLoading"></app-custom-spinner>
   </ng-template>
-
-
-<!-- <app-item-genres *ngIf="showGenresPopUp" [tvProgram]="tvProgram" [listAllGenresPopUp]="listAllGenresPopUp"
-(close)="showGenresPopUp=false" (closeWithChanges)="onCloseGenresPopUp($event)"></app-item-genres> -->
