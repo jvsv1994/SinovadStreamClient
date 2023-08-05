@@ -1,0 +1,34 @@
+
+
+
+<ng-template [ngIf]="season!=undefined && seasonFormGroup">
+  <form [formGroup]="seasonFormGroup" (ngSubmit)="saveItem()">
+    <div class="modal-header">
+      <h5 class="modal-title">{{season.Id>0?'Editar':'Nuevo'}}</h5>
+      <button class="modal-close-button" type="button" (click)="closeModal()">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+    <div class="modal-body">
+      <mat-form-field>
+        <mat-label>Nombre</mat-label>
+        <input matInput formControlName="name" [errorStateMatcher]="matcher"/>
+        <mat-error *ngIf="seasonFormGroup.controls['name'].hasError('required')">
+          Nombre es <strong>requerido</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Número</mat-label>
+        <input type="number" matInput formControlName="seasonNumber"/>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Resumen</mat-label>
+        <textarea matInput formControlName="summary"></textarea>
+      </mat-form-field>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeModal()">Close</button>
+      <button type="submit" class="btn btn-primary" [disabled]="showLoading || !seasonFormGroup.valid">Guardar</button>
+    </div>
+  </form>
+</ng-template>

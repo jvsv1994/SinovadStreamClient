@@ -1,14 +1,14 @@
-<ng-template #modalTarget let-modal>
   <ng-template [ngIf]="parent!=undefined">
     <div class="modal-header">
       <h5 class="modal-title">{{parent.Name}} :Temporadas</h5>
-      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="modal.dismiss()"></button>
+      <button class="modal-close-button" type="button" (click)="closeModal()">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
     </div>
     <div class="modal-body">
         <app-season-list [parentItem]="parent"></app-season-list>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="modal.dismiss()">Close</button>
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeModal()">Close</button>
     </div>
   </ng-template>
-</ng-template>

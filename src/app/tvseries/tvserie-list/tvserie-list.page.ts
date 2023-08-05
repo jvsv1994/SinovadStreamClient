@@ -13,6 +13,7 @@ import { SinovadApiPaginationResponse } from 'src/app/response/sinovadApiPaginat
 import { MatTableDataSource } from '@angular/material/table';
 import { ConfirmDialogOptions, CustomConfirmDialogComponent } from 'src/app/shared/components/custom-confirm-dialog/custom-confirm-dialog.component';
 import { SnackBarType } from 'src/app/shared/components/custom-snack-bar/custom-snack-bar.component';
+import { SeasonListModalPage } from 'src/app/seasons/season-list-modal/season-list-modal.page';
 
 @Component({
   selector: 'app-tvserie-list',
@@ -188,7 +189,12 @@ export class TvSerieListPage extends CustomListGeneric<TvSerie> implements After
     //Seasons modal section
 
     public showSeasonListModal(tvserie:TvSerie){
+      var ctx=this;
+      var ref=this.modalService.open(SeasonListModalPage, {container:"#sinovadMainContainer",modalDialogClass:'modal-dialog modal-fullscreen-md-down modal-xl modal-dialog-centered modal-dialog-scrollable  modal-list',scrollable:true,backdrop: 'static'});
+      ref.componentInstance.parent=tvserie;
+      ref.closed.subscribe(x=>{
 
+      })
     }
 
 }

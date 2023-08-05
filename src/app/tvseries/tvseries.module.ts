@@ -3,6 +3,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { TvSerieListPage } from './tvserie-list/tvserie-list.page';
 import { TvSerieFormPage } from './tvserie-form/tvserie-form.page';
+import { SeasonsModule } from '../seasons/seasons.module';
 
 @NgModule({
     declarations: [
@@ -12,7 +13,8 @@ import { TvSerieFormPage } from './tvserie-form/tvserie-form.page';
     imports: [
       FormsModule,
       ReactiveFormsModule,
-      SharedModule
+      SharedModule,
+      SeasonsModule
     ],
     exports: [TvSerieListPage,TvSerieFormPage]
 })
