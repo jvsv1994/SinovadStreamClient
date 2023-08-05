@@ -116,7 +116,7 @@ export class EpisodeListPage extends CustomListGeneric<Episode>{
        public deleteItem(item:Episode){
         var config = new MatDialogConfig<ConfirmDialogOptions>();
         config.data={
-          title:'Eliminar Episodio',message:'¿Esta seguro que desea eliminar el episodio '+item.Name+'?',accordMessage:"Si, eliminar el episodio '"+item.Name+"'"
+          title:'Eliminar Episodio',message:'¿Esta seguro que desea eliminar el episodio '+item.Title+'?',accordMessage:"Si, eliminar el episodio '"+item.Title+"'"
         }
         this.dialog.open(CustomConfirmDialogComponent,config).afterClosed().subscribe((confirm: boolean) => {
           if (confirm) {
