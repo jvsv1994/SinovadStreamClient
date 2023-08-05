@@ -1,0 +1,12 @@
+<div *ngIf="showMenu" class="custom-actions-menu-container">
+  <div class="custom-actions-menu-content" (clickOutside)="onClickOutside()" [style.top]="top+'px'" [style.right]="right+'px'">
+      <div class="custom-actions-menu-scroller">
+        <ng-template ngFor let-item [ngForOf]="options.listItems"  let-i="index">
+          <button class="menu-item" (click)="onSelectItem(item)">
+            <i class="{{item.iconClass}} me-2"></i>
+            <span>{{item.title}}</span>
+          </button>
+        </ng-template>
+      </div>
+  </div>
+</div>

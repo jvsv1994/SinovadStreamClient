@@ -9,17 +9,18 @@ import { CustomContextMenuComponent } from './components/custom-context-menu/cus
 import { CustomDialogOptionsComponent } from './components/custom-dialog-options/custom-dialog-options.component';
 import { CustomPaginationComponent } from './components/custom-pagination/custom-pagination.component';
 import { DirectoryChooserPage } from './components/directory-chooser/directory-chooser.page';
+import { CustomMenuComponent } from './components/custom-menu/custom-menu.component';
 @NgModule({
   imports: [
     CommonModule,AngularMaterialModule
   ],
   declarations: [
-    FormatDataPipe,ClickOutsideDirective,CustomConfirmDialogComponent,CustomSpinnerPage,CustomContextMenuComponent,CustomDialogOptionsComponent,CustomPaginationComponent,DirectoryChooserPage
+    FormatDataPipe,ClickOutsideDirective,CustomMenuComponent,CustomConfirmDialogComponent,CustomSpinnerPage,CustomContextMenuComponent,CustomDialogOptionsComponent,CustomPaginationComponent,DirectoryChooserPage
   ],
   providers: [
   ],
   exports: [
-    FormatDataPipe,ClickOutsideDirective,CustomConfirmDialogComponent,CustomSpinnerPage,CustomContextMenuComponent,CommonModule,AngularMaterialModule,CustomDialogOptionsComponent,CustomPaginationComponent,DirectoryChooserPage
+    FormatDataPipe,ClickOutsideDirective,CustomMenuComponent,CustomConfirmDialogComponent,CustomSpinnerPage,CustomContextMenuComponent,CommonModule,AngularMaterialModule,CustomDialogOptionsComponent,CustomPaginationComponent,DirectoryChooserPage
   ]
 })
 export class SharedModule { }

@@ -6,7 +6,6 @@ import { RestProviderService } from 'src/app/shared/services/rest-provider.servi
 import { HttpMethodType } from 'src/app/shared/enums';
 import { SinovadApiGenericResponse } from '../../response/sinovadApiGenericResponse';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CustomActionsMenuItem } from '../../custom-actions-menu/customActionsMenuItem';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { SnackBarService } from '../../shared/services/snack-bar.service';
 import { ConfirmDialogOptions, CustomConfirmDialogComponent } from '../../shared/components/custom-confirm-dialog/custom-confirm-dialog.component';
@@ -17,6 +16,7 @@ import { LibraryService } from '../shared/library.service';
 import { Library } from '../shared/library.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LibraryFormComponent } from '../library-form/library-form.component';
+import { CustomActionsMenuItem, CustomMenuService } from 'src/app/shared/services/custom-menu.service';
 
 declare var window;
 @Component({
@@ -34,6 +34,7 @@ export class LibraryListComponent implements OnInit,OnDestroy {
   currentLibrary:Library;
 
   constructor(
+    private customMenuService:CustomMenuService,
     private modalService: NgbModal,
     private libraryService:LibraryService,
     private mediaServerService:MediaServerService,
@@ -174,6 +175,11 @@ export class LibraryListComponent implements OnInit,OnDestroy {
           this.deleteLibrary(currentLibrary);
       });
       listItems.push({title:"Eliminar biblioteca",iconClass:"fa-sharp fa-solid fa-trash",eventOnSelectItem:eventOnDelete});
+      this.customMenuService.show({containerId:"sinovadMainContainer",listItems:listItems,target:target}).then(response=>{
+
+      },reject=>{
+        this.currentLibrary=undefined
+      });
    }
 
    public onHideCustomActionsMenu(){
