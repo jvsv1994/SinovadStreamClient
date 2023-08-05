@@ -29,21 +29,21 @@
           <div class="custom-table-container">
             <table mat-table [dataSource]="dataSource" class="mat-elevation-z8"  matSort>
               <ng-container matColumnDef="Select">
-                <th mat-header-cell *matHeaderCellDef class="checkbox-column" style="max-width:57px;text-align: center;">
+                <th mat-header-cell *matHeaderCellDef class="checkbox-cell">
                   <mat-checkbox (change)="$event ? toggleAllRows() : null"
                     [checked]="selection.hasValue() && isAllSelected()"
                     [indeterminate]="selection.hasValue() && !isAllSelected()">
                   </mat-checkbox>
                 </th>
-                <td mat-cell *matCellDef="let row" class="checkbox-column" style="max-width:57px;text-align: center;">
+                <td mat-cell *matCellDef="let row" class="checkbox-cell">
                   <mat-checkbox (click)="onChangeCheckValue($event,row)"
                     [checked]="selection.isSelected(row)">
                   </mat-checkbox>
                 </td>
               </ng-container>
-              <ng-container matColumnDef="Id">
-                <th mat-header-cell *matHeaderCellDef style="max-width:60px;text-align: center;">N°</th>
-                <td mat-cell *matCellDef="let element;let i = index" style="max-width:60px;text-align: center;"> {{getElementNumber(i,currentPage,itemsPerPage)}}</td>
+              <ng-container matColumnDef="SeasonNumber">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="number-cell">N°</th>
+                <td mat-cell *matCellDef="let element;let i = index" class="number-cell"> {{element.SeasonNumber}}</td>
               </ng-container>
               <ng-container matColumnDef="Name">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header style="width:100%;text-align: left;">Nombre</th>

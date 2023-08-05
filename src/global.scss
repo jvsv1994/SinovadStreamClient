@@ -211,8 +211,18 @@ ngb-modal-window .component-host-scrollable {
 
 //custom styles
 
-.checkbox-column{
+.checkbox-cell{
   padding: 0px !important;
+  max-width:57px !important;
+  text-align: center !important;
+}
+
+.number-cell{
+  padding: 0px !important;
+  max-width:40px !important;
+  padding-left: 4px !important;
+  padding-right: 4px !important;
+  text-align: center !important;
 }
 
 .text-truncate{

@@ -51,15 +51,15 @@ export class SeasonListPage extends CustomListGeneric<Season>{
         this.sortDirection=sort.direction;
         this.getAllItems();
       });
-      this.sortBy="Name";
+      this.sortBy="SeasonNumber";
       this.sortDirection="asc";
       this.sort.disableClear=true;
       this.sort.sort({
-        id:"Name",
+        id:"SeasonNumber",
         start:"asc",
         disableClear:true
       });
-      this.searchBy="Name";
+      this.searchBy="SeasonNumber";
       this.dataSource.sort = this.sort;
     }
 
@@ -168,7 +168,7 @@ export class SeasonListPage extends CustomListGeneric<Season>{
       //Displayed Columns Section
 
       public getDisplayedColumns(){
-          return ['Select','Id', 'Name','Actions'];
+          return ['Select','SeasonNumber', 'Name','Actions'];
       }
 
 
