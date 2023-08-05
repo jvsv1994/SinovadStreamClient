@@ -176,6 +176,40 @@ $app-theme: mat.define-light-theme((
 }
 
 
+
+
+.mdc-text-field--filled .mdc-line-ripple:before {
+  border-bottom-color:  rgba(255, 255, 255, 0.7) !important;
+}
+
+.mdc-text-field--filled .mdc-line-ripple:after {
+  border-bottom-color:  rgba(255, 255, 255, 0.7) !important;
+}
+
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-line-ripple::before {
+  border-bottom-color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-line-ripple::after {
+  border-bottom-color: rgba(255, 255, 255, 0.7) !important;
+}
+
+
+.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-floating-label {
+  color:rgba(244, 67, 54, 0.87) !important;
+}
+
+.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-line-ripple::before {
+  border-bottom-color: rgba(244, 67, 54, 0.87) !important;
+}
+
+.mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-line-ripple:after {
+  border-bottom-color:rgba(244, 67, 54, 0.87) !important;
+}
+
+
+
 //override bootstrap styles
 
 .modal-dialog-scrollable .modal-content{

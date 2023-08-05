@@ -9,7 +9,7 @@
       <div class="modal-body">
         <mat-form-field>
           <mat-label>Nombre</mat-label>
-          <input id="title" matInput formControlName="name" [errorStateMatcher]="matcher"/>
+          <input matInput formControlName="name" [errorStateMatcher]="matcher"/>
           <mat-error *ngIf="tvserieFormGroup.controls['name'].hasError('required')">
             Nombre es <strong>requerido</strong>
           </mat-error>

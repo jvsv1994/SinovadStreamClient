@@ -17,6 +17,11 @@ import { SnackBarService } from '../../shared/services/snack-bar.service';
 import { ConfirmDialogOptions, CustomConfirmDialogComponent } from '../../shared/components/custom-confirm-dialog/custom-confirm-dialog.component';
 import { SnackBarType } from '../../shared/components/custom-snack-bar/custom-snack-bar.component';
 import { MediaServer } from '../../media-servers/shared/media-server.model';
+import { MediaServerService } from 'src/app/media-servers/shared/media-server.service';
+import { LibraryService } from '../shared/library.service';
+import { Library } from '../shared/library.model';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { LibraryFormComponent } from '../library-form/library-form.component';
 
 declare var window;
 @Component({
@@ -41,16 +46,16 @@ export class LibraryListComponent extends ParentComponent implements OnInit,OnDe
   callSearchMediaLog:boolean=false;
   searchMediaLogContent:string="";
 
-  searchingMediaInterval:any;
   listStorages:Storage[];
 
   currentLibrary:Storage;
 
-  showForm:boolean=false;
   mediaServer:MediaServer;
-  @ViewChild('customActionsMenuPage') customActionsMenuPage: CustomActionsMenuPage;
 
   constructor(
+    private modalService: NgbModal,
+    private libraryService:LibraryService,
+    private mediaServerService:MediaServerService,
     private dialog: MatDialog,
     private snackBarService:SnackBarService,
     private router: Router,
@@ -72,10 +77,6 @@ export class LibraryListComponent extends ParentComponent implements OnInit,OnDe
     }
 
     ngOnDestroy(){
-      if(this.searchingMediaInterval!=null)
-      {
-        window.clearInterval(this.searchingMediaInterval);
-      }
       this.callSearchMediaLog=false;
     }
 
@@ -89,22 +90,21 @@ export class LibraryListComponent extends ParentComponent implements OnInit,OnDe
 
     public async getMediaServerData(){
       var mediaServerGuid=this.activeRoute.snapshot.params.serverGuid;
-      this.restProvider.executeSinovadApiService(HttpMethodType.GET,'/mediaServers/GetByGuidAsync/'+mediaServerGuid).then((response:SinovadApiGenericResponse) => {
+      this.mediaServerService.getMediaServerByGuid(mediaServerGuid).then((response:SinovadApiGenericResponse) => {
         var mediaServer=response.Data;
         var selectedMediaServer=this.sharedData.mediaServers.find(x=>x.Id==mediaServer.Id);
         mediaServer.isSecureConnection=selectedMediaServer.isSecureConnection;
         this.sharedData.selectedMediaServer=mediaServer;
         this.mediaServer=mediaServer;
         this.getAllMainDirectories();
-        this.getStorages();
+        this.getAllItems();
       },error=>{
         this.router.navigateByUrl('/404')
       });
     }
 
-    public getStorages(){
-      var path="/storages/GetAllWithPaginationByMediaServerAsync/"+this.mediaServer.Id;
-      this.restProvider.executeSinovadApiService(HttpMethodType.GET,path).then((response:SinovadApiGenericResponse) => {
+    public getAllItems(){
+      this.libraryService.getItems(this.mediaServer.Id,1,100,"Id","asc","","").then((response:SinovadApiGenericResponse) => {
         let data=response.Data;
         this.listStorages=data;
         if(data && data.length>0)
@@ -129,18 +129,27 @@ export class LibraryListComponent extends ParentComponent implements OnInit,OnDe
       });
     }
 
+    //Show Modal Form Section
+
     public openNewStorage(){
-      let storage= new Storage();
-      storage.MediaServerId=this.sharedData.selectedMediaServer.Id;
-      storage.MediaTypeCatalogId=CatalogEnum.MediaType;
-      storage.MediaTypeCatalogDetailId=MediaType.Movie;
-      this.currentLibrary=storage;
-      this.showForm=true;
+      let library= new Library();
+      library.MediaServerId=this.sharedData.selectedMediaServer.Id;
+      this.showModalForm(library);
     }
 
-    public editStorage(storage:Storage){
-      this.currentLibrary=JSON.parse(JSON.stringify(storage));
-      this.showForm=true;
+    public editStorage(storage:Library){
+      let library=JSON.parse(JSON.stringify(storage));
+      this.showModalForm(library);
+    }
+
+    public showModalForm(library:Library){
+      var ctx=this;
+      var ref=this.modalService.open(LibraryFormComponent, {container:"#sinovadMainContainer",
+      modalDialogClass:'modal-dialog modal-fullscreen-md-down modal-dialog-centered modal-dialog-scrollable',scrollable:true,backdrop: 'static'});
+      ref.componentInstance.library=library;
+      ref.closed.subscribe(x=>{
+        ctx.getAllItems();
+      })
     }
 
     public deleteStorage(storage:Storage){
@@ -160,7 +169,7 @@ export class LibraryListComponent extends ParentComponent implements OnInit,OnDe
       var path="/storages/Delete/"+storage.Id;
       this.restProvider.executeSinovadApiService(HttpMethodType.DELETE,path).then((response:SinovadApiGenericResponse) => {
         this.snackBarService.showSnackBar("Se eliminó la biblioteca satisfactoriamente",SnackBarType.Success);
-        this.getStorages();
+        this.getAllItems();
       },error=>{
         console.error(error);
         this.snackBarService.showSnackBar(error,SnackBarType.Error);
@@ -168,14 +177,12 @@ export class LibraryListComponent extends ParentComponent implements OnInit,OnDe
     }
 
     public onCloseStorageForm(){
-      this.showForm=false;
       this.currentLibrary=undefined;
     }
 
     public onCloseStorageFormWithChanges(){
-      this.showForm=false;
       this.currentLibrary=undefined;
-      this.getStorages();
+      this.getAllItems();
     }
 
     public updateStorageVideos(storage:Storage){
@@ -199,41 +206,12 @@ export class LibraryListComponent extends ParentComponent implements OnInit,OnDe
       };
       this.restProvider.executeSinovadStreamServerService(HttpMethodType.POST,'/medias/UpdateVideosInListStorages',mediaRequest).then((response) => {
         this.callSearchMediaLog=false;
-        if(this.searchingMediaInterval!=null)
-        {
-          window.clearInterval(this.searchingMediaInterval);
-        }
         this.showInitial.emit();
       },error=>{
         console.error(error);
       });
-      let ctx=this;
-      setTimeout(() => {
-        ctx.searchingMediaInterval=window.setInterval(function() {
-          ctx.getSearchMediaLog(logIdentifier);
-        }, 2000);
-      }, 2000,ctx);
     }
 
-    public getSearchMediaLog(logIdentifier:string){
-      this.restProvider.executeSinovadApiService(HttpMethodType.GET,'/logs?identifier='+logIdentifier).then((response:SinovadApiGenericResponse) => {
-        this.searchMediaLogContent=response.Data;
-        if(this.searchMediaLogContent==null)
-        {
-          if(this.searchingMediaInterval!=null)
-          {
-            this.callSearchMediaLog=false;
-            if(this.searchingMediaInterval!=null)
-            {
-              window.clearInterval(this.searchingMediaInterval);
-            }
-            this.showInitial.emit();
-          }
-        }
-      },error=>{
-        console.error(error);
-      });
-    }
 
    public showActions(event:any,library:Storage){
       this.currentLibrary=library;
@@ -255,7 +233,6 @@ export class LibraryListComponent extends ParentComponent implements OnInit,OnDe
           this.deleteStorage(currentLibrary);
       });
       listItems.push({title:"Eliminar biblioteca",iconClass:"fa-sharp fa-solid fa-trash",eventOnSelectItem:eventOnDelete});
-      this.customActionsMenuPage.show({target:target,containerId:"sinovadMainContainer",listItems:listItems});
    }
 
    public onHideCustomActionsMenu(){

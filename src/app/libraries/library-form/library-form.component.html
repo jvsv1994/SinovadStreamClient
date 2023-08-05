@@ -1,35 +1,45 @@
-<ng-template #storageModalTarget let-modal>
-  <ng-template [ngIf]="storage!=undefined">
-    <form [formGroup]="libraryForm" (ngSubmit)="modal.close()">
-      <div class="modal-header">
-        <h5 class="modal-title">{{storage.Id>0?'Editar Almacenamiento':'Nuevo Almacenamiento'}}</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="modal.dismiss()"></button>
-      </div>
-      <div class="modal-body">
-        <div class="mb-3">
-          <label for="name" class="form-label">Nombre</label>
-          <input id="name" class="form-control" type="text" formControlName="name" />
-        </div>
-        <div class="mb-3">
-          <label for="typeFormControlId" class="form-label">Tipo</label>
-          <select id="typeFormControlId" class="form-select" aria-label="Seleccionar Tipo" formControlName="mediaType">
-            <ng-template ngFor let-mt [ngForOf]="mediaTypes">
-              <option [ngValue]="mt.Id">{{mt.Name}}</option>
-            </ng-template>
-          </select>
-        </div>
-        <div class="mb-3">
-          <label for="directoryFormControlId" class="form-label">Directorio</label>
-          <input id="directoryFormControlId" class="form-control" readonly  formControlName="physicalPath" (click)="showChooserDirectoryModal()">
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="modal.dismiss()">Close</button>
-        <button type="submit" class="btn btn-primary">Guardar</button>
-      </div>
-    </form>
-  </ng-template>
+<ng-template [ngIf]="library!=undefined && libraryFormGroup">
+  <form [formGroup]="libraryFormGroup" (ngSubmit)="saveStorage()">
+    <div class="modal-header">
+      <h5 class="modal-title">{{library.Id>0?'Editar Almacenamiento':'Nuevo Almacenamiento'}}</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+    </div>
+    <div class="modal-body">
+      <mat-form-field>
+        <mat-label>Nombre</mat-label>
+        <input matInput formControlName="name" [errorStateMatcher]="matcher"/>
+        <mat-error *ngIf="libraryFormGroup.controls['name'].hasError('required')">
+          Nombre es <strong>requerido</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Tipo</mat-label>
+        <mat-select formControlName="mediaType">
+          <mat-option [value]="undefined">--</mat-option>
+          <mat-option *ngFor="let mt of mediaTypes" [value]="mt.Id">
+            {{mt.Name}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="libraryFormGroup.controls['mediaType'].hasError('required')">
+          Tipo es <strong>requerido</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Directorio</mat-label>
+        <input matInput formControlName="physicalPath" readonly="" style="cursor: pointer;" [errorStateMatcher]="matcher" (click)="showChooserDirectoryModal()"/>
+        <mat-error *ngIf="libraryFormGroup.controls['physicalPath'].hasError('required')">
+          Directorio es <strong>requerido</strong>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="closeModal()">Close</button>
+      <button type="submit" class="btn btn-primary">Guardar</button>
+    </div>
+  </form>
+  <app-custom-spinner [showLoading]="showLoading"></app-custom-spinner>
 </ng-template>
+
 <!-- <app-directory-chooser *ngIf="showChooserDirectory" [listMainDirectories]="listMainDirectories"
 (outputSelectedSubdirectory)="onSelectDirectory($event)" (closeChooserDirectory)="showChooserDirectory=false"></app-directory-chooser> -->
 

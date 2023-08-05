@@ -17,6 +17,17 @@ export class MediaServerService {
   ) {
   }
 
+  public getMediaServerByGuid(guid:string):Promise<SinovadApiGenericResponse>{
+    return new Promise((resolve, reject) => {
+      this.restProvider.executeSinovadApiService(HttpMethodType.GET,'/mediaServers/GetByGuidAsync/'+guid).then((response:SinovadApiGenericResponse) => {
+        resolve(response);
+      },error=>{
+        console.error(error);
+        reject(error);
+      });
+    });
+  }
+
   public getItems(userId:number,pageNumber:number,itemsPerPage:number,sortBy:string,sortDirection:string,searchText:string,searchBy:string):Promise<SinovadApiPaginationResponse>{
     return new Promise((resolve, reject) => {
       let callGuid=uuid();
