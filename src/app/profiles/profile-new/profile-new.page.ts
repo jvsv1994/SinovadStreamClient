@@ -1,13 +1,8 @@
 
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
-import { SharedDataService } from 'src/app/shared/services/shared-data.service';
-import { HttpClient} from '@angular/common/http';
-import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
-import { HttpMethodType } from 'src/app/shared/enums';
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Profile } from '../shared/profile.model';
-import { ParentComponent } from 'src/app/parent/parent.component';
+import { ProfileService } from '../shared/profile.service';
 
 declare var window;
 @Component({
@@ -15,23 +10,18 @@ declare var window;
   templateUrl: './profile-new.page.html',
   styleUrls: ['./profile-new.page.scss']
 })
-export class ProfileNewPage extends ParentComponent implements OnInit {
+export class ProfileNewPage{
 
   @Output() close =new EventEmitter();
   @Output() closeWithChanges =new EventEmitter();
   @ViewChild('modalTarget') modalTarget: ElementRef;
   @Input() currentTmpProfile:Profile;
-  @ViewChild('profileInfoModal') profileInfoModal: ElementRef;
   modalReference:NgbModalRef;
   placeHolder:string="Nombre de Perfil";
 
   constructor(
-    private modalService: NgbModal,
-    public restProvider: RestProviderService,
-    public http: HttpClient,
-    public domSanitizer: DomSanitizer,
-    public sharedData: SharedDataService) {
-      super(restProvider,domSanitizer,sharedData)
+    private profileService:ProfileService,
+    private modalService: NgbModal) {
 
     }
   ngOnInit(): void {
@@ -43,9 +33,7 @@ export class ProfileNewPage extends ParentComponent implements OnInit {
     }
 
     public saveProfile(){
-      let methodType=this.currentTmpProfile.Id>0?HttpMethodType.PUT:HttpMethodType.POST;
-      var path=this.currentTmpProfile.Id>0?'/profiles/Update':'/profiles/Create';
-      this.restProvider.executeSinovadApiService(methodType,path,this.currentTmpProfile).then((response) => {
+      this.profileService.saveItem(this.currentTmpProfile).then((response) => {
         this.modalReference.close();
         this.closeWithChanges.emit(true);
       },error=>{
@@ -59,7 +47,7 @@ export class ProfileNewPage extends ParentComponent implements OnInit {
     }
 
     public onClickDeleteButton(){
-      this.restProvider.executeSinovadApiService(HttpMethodType.DELETE,'/profiles/Delete/'+this.currentTmpProfile.Id).then((response) => {
+      this.profileService.deleteItem(this.currentTmpProfile.Id).then((response) => {
         this.modalReference.close();
         this.closeWithChanges.emit(true);
       },error=>{

@@ -25,7 +25,7 @@
             <input #input type="file" accept=".png,.jpg" (change)="uploadAvatarImage($event)" style="display: none;" />
             <button (click)="input.click()">
               <div *ngIf="currentTmpProfile.AvatarPath==undefined" class="sinovad-initials-profile">
-                {{getInitials(currentTmpProfile)}}
+                {{sharedDataService.getInitials(currentTmpProfile)}}
               </div>
               <img *ngIf="currentTmpProfile.AvatarPath!=undefined && !hideImage" class="sinovad-initials-profile" [attr.src]="currentTmpProfile.Id | formatDataPipe : 'GetAvatarImageURLByProfileId' | async">
               <div class="sinovad-icon-edit-profile-container">

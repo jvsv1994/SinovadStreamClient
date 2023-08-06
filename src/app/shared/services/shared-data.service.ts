@@ -43,4 +43,10 @@ export class SharedDataService {
     return [year, month, day].join('-');
   }
 
+
+  public getInitials(profile:any){
+    let initial=profile.FullName.substring(0,1);
+    return initial;
+  }
+
 }

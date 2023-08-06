@@ -8,6 +8,7 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { ParentComponent } from 'src/app/parent/parent.component';
 import { Profile } from '../shared/profile.model';
 import { SinovadApiGenericResponse } from 'src/app/response/sinovadApiGenericResponse';
+import { ProfileService } from '../shared/profile.service';
 
 declare var window;
 @Component({
@@ -15,22 +16,20 @@ declare var window;
   templateUrl: './profile-edit.page.html',
   styleUrls: ['./profile-edit.page.scss']
 })
-export class ProfileEditPage extends ParentComponent implements OnInit {
+export class ProfileEditPage {
 
   @Output() close =new EventEmitter();
   @Output() closeWithChanges =new EventEmitter();
   @ViewChild('modalTarget') modalTarget: ElementRef;
   @Input() currentTmpProfile:Profile;
-  @ViewChild('profileInfoModal') profileInfoModal: ElementRef;
   modalReference:NgbModalRef;
   hideImage:boolean=false;
 
   constructor(
+    private profileService:ProfileService,
     private modalService: NgbModal,
     public restProvider: RestProviderService,
-    public domSanitizer: DomSanitizer,
-    public sharedData: SharedDataService) {
-      super(restProvider,domSanitizer,sharedData)
+    public sharedDataService:SharedDataService) {
 
     }
 
@@ -39,9 +38,7 @@ export class ProfileEditPage extends ParentComponent implements OnInit {
     }
 
     public saveProfile(){
-      let methodType=this.currentTmpProfile.Id>0?HttpMethodType.PUT:HttpMethodType.POST;
-      var path=this.currentTmpProfile.Id>0?'/profiles/Update':'/profiles/Create';
-      this.restProvider.executeSinovadApiService(methodType,path,this.currentTmpProfile).then((response) => {
+      this.profileService.saveItem(this.currentTmpProfile).then((response) => {
         this.modalReference.close();
         this.closeWithChanges.emit(true);
       },error=>{
@@ -50,7 +47,7 @@ export class ProfileEditPage extends ParentComponent implements OnInit {
     }
 
     public onClickDeleteButton(){
-      this.restProvider.executeSinovadApiService(HttpMethodType.DELETE,'/profiles/Delete/'+this.currentTmpProfile.Id).then((response) => {
+      this.profileService.deleteItem(this.currentTmpProfile.Id).then((response) => {
         this.modalReference.close();
         this.closeWithChanges.emit(true);
       },error=>{
