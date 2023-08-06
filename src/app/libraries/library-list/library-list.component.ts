@@ -1,9 +1,6 @@
 
 import { Component, EventEmitter } from '@angular/core';
 import { SharedDataService } from 'src/app/shared/services/shared-data.service';
-import {v4 as uuid} from "uuid";
-import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
-import { HttpMethodType } from 'src/app/shared/enums';
 import { SinovadApiGenericResponse } from '../../response/sinovadApiGenericResponse';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
@@ -17,6 +14,7 @@ import { Library } from '../shared/library.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LibraryFormComponent } from '../library-form/library-form.component';
 import { CustomMenuItem, CustomMenuService } from 'src/app/shared/services/custom-menu.service';
+import { MediaService } from 'src/app/shared/services/media.services';
 
 declare var window;
 @Component({
@@ -31,6 +29,7 @@ export class LibraryListComponent{
   currentLibrary:Library;
 
   constructor(
+    private mediaService:MediaService,
     private customMenuService:CustomMenuService,
     private modalService: NgbModal,
     private libraryService:LibraryService,
@@ -39,7 +38,6 @@ export class LibraryListComponent{
     private snackBarService:SnackBarService,
     private router: Router,
     public activeRoute: ActivatedRoute,
-    public restProvider: RestProviderService,
     public sharedData: SharedDataService) {
 
     }
@@ -155,25 +153,16 @@ export class LibraryListComponent{
     if(library.Id>0 && library.PhysicalPath!=undefined && library.PhysicalPath!="")
     {
       var listLibraries=[library];
-      this.executeUpdateVideosInAllLibrarys(listLibraries);
+      this.searchFilesInLibraries(listLibraries);
     }
   }
 
   public updateVideoInAllLibraries(){
-    this.executeUpdateVideosInAllLibrarys(this.listLibraries);
+    this.searchFilesInLibraries(this.listLibraries);
   }
 
-  public executeUpdateVideosInAllLibrarys(listLibraries:Library[]){
-    let logIdentifier=uuid();
-    let mediaRequest: any={
-      ListStorages:listLibraries,
-      LogIdentifier:logIdentifier
-    };
-    this.restProvider.executeSinovadStreamServerService(HttpMethodType.POST,'/medias/UpdateVideosInListStorages',mediaRequest).then((response) => {
-
-    },error=>{
-      console.error(error);
-    });
+  public searchFilesInLibraries(listLibraries:Library[]){
+    this.mediaService.searchFilesInLibrariesByMediaServer(this.sharedData.selectedMediaServer.Url,listLibraries);
   }
 
 }
