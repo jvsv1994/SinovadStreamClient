@@ -1,12 +1,12 @@
 
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SharedDataService } from 'src/app/shared/services/shared-data.service';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { HttpMethodType } from 'src/app/shared/enums';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Profile } from '../shared/profile.model';
 import { SinovadApiGenericResponse } from 'src/app/response/sinovadApiGenericResponse';
 import { ProfileService } from '../shared/profile.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 declare var window;
 @Component({
@@ -14,31 +14,40 @@ declare var window;
   templateUrl: './profile-edit.page.html',
   styleUrls: ['./profile-edit.page.scss']
 })
-export class ProfileEditPage {
+export class ProfileEditPage implements OnInit {
 
-  @Output() close =new EventEmitter();
-  @Output() closeWithChanges =new EventEmitter();
-  @ViewChild('modalTarget') modalTarget: ElementRef;
-  @Input() currentTmpProfile:Profile;
-  modalReference:NgbModalRef;
+  currentTmpProfile:Profile;
   hideImage:boolean=false;
 
   constructor(
+    private router: Router,
+    public activeRoute: ActivatedRoute,
     private profileService:ProfileService,
-    private modalService: NgbModal,
     public restProvider: RestProviderService,
     public sharedDataService:SharedDataService) {
 
     }
 
+    ngOnInit():void{
+      if(!localStorage.getItem('apiToken'))
+      {
+        this.router.navigate(['landing'],{ skipLocationChange: false});
+      }
+      var profileGuid=this.activeRoute.snapshot.params.profileGuid;
+      this.profileService.getProfileByGuid(profileGuid).then((response:SinovadApiGenericResponse)=>{
+        this.currentTmpProfile=response.Data;
+      },error=>{
+        this.router.navigateByUrl('404');
+      });
+    }
+
     ngAfterViewInit(){
-      this.modalReference=this.modalService.open(this.modalTarget, {container:"#sinovadMainContainer",modalDialogClass:'modal-dialog modal-fullscreen',scrollable:true,backdrop: 'static'});
+
     }
 
     public saveProfile(){
       this.profileService.saveItem(this.currentTmpProfile).then((response) => {
-        this.modalReference.close();
-        this.closeWithChanges.emit(true);
+        this.router.navigateByUrl("/select-profile");
       },error=>{
         console.error(error);
       });
@@ -46,8 +55,7 @@ export class ProfileEditPage {
 
     public onClickDeleteButton(){
       this.profileService.deleteItem(this.currentTmpProfile.Id).then((response) => {
-        this.modalReference.close();
-        this.closeWithChanges.emit(true);
+        this.router.navigateByUrl("/select-profile");
       },error=>{
         console.error(error);
       });

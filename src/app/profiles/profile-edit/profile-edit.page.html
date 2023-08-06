@@ -1,14 +1,13 @@
-<ng-template #modalTarget let-modal>
   <div class="sinovad-form-page-container">
     <div class="sinovad-page-header">
       <div class="sinovad-logo-container sinovaclient-left">
         <img [src]="'sinovad-stream-large-logo.png' | formatDataPipe : 'GetImageURLByKey' | async">
       </div>
-      <div class="sinovaclient-right">
+      <div *ngIf="currentTmpProfile" class="sinovaclient-right">
         <button (click)="saveProfile()">Listo</button>
       </div>
     </div>
-    <div class="sinovad-page-container">
+    <div *ngIf="currentTmpProfile" class="sinovad-page-container">
       <div class="sinovad-page-content">
         <div class="top-container">
           <h2 class="title">Editar Perfil</h2>
@@ -39,8 +38,6 @@
       </div>
     </div>
   </div>
-</ng-template>
-
 
 
 

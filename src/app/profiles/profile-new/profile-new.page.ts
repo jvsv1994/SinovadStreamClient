@@ -47,13 +47,4 @@ export class ProfileNewPage{
       this.router.navigateByUrl("/select-profile");
     }
 
-    public onClickDeleteButton(){
-      this.profileService.deleteItem(this.currentTmpProfile.Id).then((response) => {
-        this.router.navigateByUrl("/select-profile");
-      },error=>{
-        console.error(error);
-      });
-    }
-
-
 }

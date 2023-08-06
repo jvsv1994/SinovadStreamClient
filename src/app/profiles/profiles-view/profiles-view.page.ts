@@ -15,10 +15,7 @@ declare var window;
 export class ProfilesViewPage{
 
   enableEditMode:boolean=false;
-  showForm:boolean=false;
-  currentTmpProfile:Profile;
   showLoading:boolean=true;
-  showContent:boolean=false;
   _window=window;
 
   constructor(
@@ -32,10 +29,8 @@ export class ProfilesViewPage{
       if(!localStorage.getItem('apiToken'))
       {
         this.router.navigate(['landing'],{ skipLocationChange: false});
-      }else{
-        this.showContent=true;
-        this.getProfiles();
       }
+      this.getProfiles();
     }
 
     public changeToEditMode(){
@@ -50,9 +45,8 @@ export class ProfilesViewPage{
       this.router.navigateByUrl("/add-profile");
     }
 
-    public editProfile(profile:any){
-      this.currentTmpProfile=JSON.parse(JSON.stringify(profile));
-      this.showForm=true;
+    public editProfile(profile:Profile){
+      this.router.navigateByUrl("/edit-profile/"+profile.Guid);
     }
 
     public onSelectProfile(profile:any){
@@ -67,15 +61,6 @@ export class ProfilesViewPage{
     public enterProfile(profile:any){
       this.sharedService.currentProfile=profile;
       this.router.navigateByUrl("/home");
-    }
-
-    public onCloseForm(){
-      this.showForm=false;
-    }
-
-    public onSaveProfile(){
-      this.showForm=false;
-      this.getProfiles();
     }
 
     public getProfiles(){

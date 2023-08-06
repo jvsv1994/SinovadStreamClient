@@ -1,61 +1,59 @@
-<ng-template [ngIf]="showContent">
-    <div class="sinovad-profiles-view-container sinovad-profiles-section">
-      <div class="sinovad-profiles-view-content" #profilesViewContent>
-        <div #profilesViewHeader class="sinovad-page-header">
-          <div class="sinovad-logo-container">
-            <img [src]="'sinovad-stream-large-logo.png' | formatDataPipe : 'GetImageURLByKey' | async">
-          </div>
-        </div>
-        <div class="sinovad-profiles-view-body" [style.height]="_window.innerWidth<768?'calc(100% - '+(profilesViewHeader.offsetHeight+profilesViewFooter.offsetHeight)+'px)':''">
-          <div class="sinovad-profiles-view-title-container">
-            ¿Quién eres?
-          </div>
-          <div class="sinovad-profiles-view-list-container">
-            <ng-template [ngIf]="sharedService.listProfiles">
-              <ng-template ngFor let-profile [ngForOf]="sharedService.listProfiles">
-                <button id="profile_{{profile.Id}}" (click)="onSelectProfile(profile)">
-                  <div *ngIf="profile.AvatarPath==undefined" class="sinovad-initials-profile">
-                    {{sharedService.getInitials(profile)}}
-                  </div>
-                  <img *ngIf="profile.AvatarPath!=undefined" class="sinovad-initials-profile" [attr.src]="profile.Id | formatDataPipe : 'GetAvatarImageURLByProfileId' | async">
-                  <div *ngIf="enableEditMode" class="sinovad-icon-edit-profile-container">
-                    <div class="sinovad-icon-edit-profile-content">
-                      <img [src]="'edit-profile.png' | formatDataPipe : 'GetImageURLByKey' | async">
-                    </div>
-                  </div>
-                  <div class="sinovad-fullname-profile text-truncate">
-                    {{profile.FullName}}
-                  </div>
-                </button>
-              </ng-template>
-            </ng-template>
-            <button id="create_new_profile" (click)="showNewProfile()">
-              <div class="sinovad-initials-profile add">
-                <img [src]="'plus.png' | formatDataPipe : 'GetImageURLByKey' | async" width="40px">
-              </div>
-              <div class="sinovad-fullname-profile">
-                Crear
-              </div>
-            </button>
-          </div>
-        </div>
-        <div #profilesViewFooter class="sinovad-profiles-view-footer">
-          <ng-template [ngIf]="!enableEditMode">
-            <button (click)="changeToEditMode()">
-                EDITAR PERFILES
-            </button>
-          </ng-template>
-          <ng-template [ngIf]="enableEditMode">
-            <button class="ready" (click)="confirmEdit()">
-              LISTO
-            </button>
-          </ng-template>
-        </div>
+<div class="sinovad-profiles-view-container sinovad-profiles-section">
+  <div class="sinovad-profiles-view-content" #profilesViewContent>
+    <div #profilesViewHeader class="sinovad-page-header">
+      <div class="sinovad-logo-container">
+        <img [src]="'sinovad-stream-large-logo.png' | formatDataPipe : 'GetImageURLByKey' | async">
       </div>
     </div>
-</ng-template>
+    <div class="sinovad-profiles-view-body" [style.height]="_window.innerWidth<768?'calc(100% - '+(profilesViewHeader.offsetHeight+profilesViewFooter.offsetHeight)+'px)':''">
+      <div class="sinovad-profiles-view-title-container">
+        ¿Quién eres?
+      </div>
+      <div class="sinovad-profiles-view-list-container">
+        <ng-template [ngIf]="sharedService.listProfiles">
+          <ng-template ngFor let-profile [ngForOf]="sharedService.listProfiles">
+            <button id="profile_{{profile.Id}}" (click)="onSelectProfile(profile)">
+              <div *ngIf="profile.AvatarPath==undefined" class="sinovad-initials-profile">
+                {{sharedService.getInitials(profile)}}
+              </div>
+              <img *ngIf="profile.AvatarPath!=undefined" class="sinovad-initials-profile" [attr.src]="profile.Id | formatDataPipe : 'GetAvatarImageURLByProfileId' | async">
+              <div *ngIf="enableEditMode" class="sinovad-icon-edit-profile-container">
+                <div class="sinovad-icon-edit-profile-content">
+                  <img [src]="'edit-profile.png' | formatDataPipe : 'GetImageURLByKey' | async">
+                </div>
+              </div>
+              <div class="sinovad-fullname-profile text-truncate">
+                {{profile.FullName}}
+              </div>
+            </button>
+          </ng-template>
+        </ng-template>
+        <button id="create_new_profile" (click)="showNewProfile()">
+          <div class="sinovad-initials-profile add">
+            <img [src]="'plus.png' | formatDataPipe : 'GetImageURLByKey' | async" width="40px">
+          </div>
+          <div class="sinovad-fullname-profile">
+            Crear
+          </div>
+        </button>
+      </div>
+    </div>
+    <div #profilesViewFooter class="sinovad-profiles-view-footer">
+      <ng-template [ngIf]="!enableEditMode">
+        <button (click)="changeToEditMode()">
+            EDITAR PERFILES
+        </button>
+      </ng-template>
+      <ng-template [ngIf]="enableEditMode">
+        <button class="ready" (click)="confirmEdit()">
+          LISTO
+        </button>
+      </ng-template>
+    </div>
+  </div>
+</div>
+
 
 <app-custom-spinner [showLoading]="showLoading"></app-custom-spinner>
-<app-profile-edit *ngIf="showForm" [currentTmpProfile]="currentTmpProfile" (close)="onCloseForm()" (closeWithChanges)="onSaveProfile()"></app-profile-edit>
 
 
