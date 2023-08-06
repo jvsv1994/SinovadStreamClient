@@ -35,6 +35,10 @@ export class ProfileEditPage implements OnInit {
       }
       var profileGuid=this.activeRoute.snapshot.params.profileGuid;
       this.profileService.getProfileByGuid(profileGuid).then((response:SinovadApiGenericResponse)=>{
+        if(response.Data==null)
+        {
+          this.router.navigateByUrl('404');
+        }
         this.currentTmpProfile=response.Data;
       },error=>{
         this.router.navigateByUrl('404');
