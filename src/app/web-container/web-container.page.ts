@@ -49,6 +49,7 @@ export class WebContainerPage extends ParentComponent implements OnInit,OnDestro
   showingSidebarMedia:boolean=false;
   currentVideo:BuilderVideo;
   subscriptionVideo:Subscription;
+  showRouterChildWithFullDimentions:boolean=true;
 
   constructor(
     public videoService: VideoService,
@@ -161,48 +162,56 @@ export class WebContainerPage extends ParentComponent implements OnInit,OnDestro
       this.sharedData.showSplashScreen=false;
       if(event instanceof SearchViewPage)
       {
+        this.showRouterChildWithFullDimentions=false;
         this.showingSidebarMedia=true;
         this.showingSidebarAccount=false;
         this.showingSidebarAdminMode=false;
       }
       if(event instanceof MediaMoviesPage || event instanceof MediaTvSeriesPage || event instanceof HomePage || event instanceof MovieDetailPage || event instanceof TvSerieDetailPage)
       {
+        this.showRouterChildWithFullDimentions=false;
         this.showingSidebarMedia=true;
         this.showingSidebarAccount=false;
         this.showingSidebarAdminMode=false;
       }
       if(event instanceof ProfilesViewPage)
       {
+        this.showRouterChildWithFullDimentions=true;
         this.showingSidebarMedia=true;
         this.showingSidebarAccount=false;
         this.showingSidebarAdminMode=false;
       }
       if(event instanceof AccountPage)
       {
+        this.showRouterChildWithFullDimentions=false;
         this.showingSidebarAccount=true;
         this.showingSidebarAdminMode=false;
         this.showingSidebarMedia=false;
       }
       if(event instanceof TranscoderSettingssPage)
       {
+        this.showRouterChildWithFullDimentions=false;
         this.showingSidebarAccount=true;
         this.showingSidebarAdminMode=false;
         this.showingSidebarMedia=false;
       }
       if(event instanceof ServerSettingsGeneralPage)
       {
+        this.showRouterChildWithFullDimentions=false;
         this.showingSidebarAccount=true;
         this.showingSidebarAdminMode=false;
         this.showingSidebarMedia=false;
       }
       if(event instanceof LibraryListComponent)
       {
+        this.showRouterChildWithFullDimentions=false;
         this.showingSidebarAccount=true;
         this.showingSidebarAdminMode=false;
         this.showingSidebarMedia=false;
       }
       if(event instanceof MovieListPage || event instanceof TvSerieListPage)
       {
+        this.showRouterChildWithFullDimentions=false;
         this.showingSidebarAccount=false;
         this.showingSidebarAdminMode=true;
         this.showingSidebarMedia=false;
@@ -211,6 +220,7 @@ export class WebContainerPage extends ParentComponent implements OnInit,OnDestro
       if(event instanceof MenuListPage || event instanceof TvSerieListPage || event instanceof MovieListPage
         || event instanceof GenreListPage || event instanceof UserListPage || event instanceof RoleListPage)
       {
+        this.showRouterChildWithFullDimentions=false;
         this.showingSidebarAccount=false;
         this.showingSidebarAdminMode=true;
         this.showingSidebarMedia=false;

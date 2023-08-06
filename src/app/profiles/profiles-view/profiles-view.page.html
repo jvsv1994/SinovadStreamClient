@@ -1,5 +1,4 @@
-<ng-template [ngIf]="showModal">
-  <ng-template #modalTarget let-modal>
+<ng-template [ngIf]="showContent">
     <div class="sinovad-profiles-view-container sinovad-profiles-section">
       <div class="sinovad-profiles-view-content" #profilesViewContent>
         <div #profilesViewHeader class="sinovad-page-header">
@@ -54,7 +53,6 @@
         </div>
       </div>
     </div>
-  </ng-template>
 </ng-template>
 
 <app-custom-spinner [showLoading]="showLoading"></app-custom-spinner>
