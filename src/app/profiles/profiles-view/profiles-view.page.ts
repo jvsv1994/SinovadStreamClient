@@ -1,13 +1,11 @@
 
-import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
 import { SharedDataService } from 'src/app/shared/services/shared-data.service';
-import { HttpClient} from '@angular/common/http';
-import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
-import { ParentComponent } from 'src/app/parent/parent.component';
 import { Profile } from '../shared/profile.model';
+import { ProfileService } from '../shared/profile.service';
+import { SinovadApiGenericResponse } from 'src/app/response/sinovadApiGenericResponse';
 
 declare var window;
 @Component({
@@ -15,7 +13,7 @@ declare var window;
   templateUrl: './profiles-view.page.html',
   styleUrls: ['./profiles-view.page.scss']
 })
-export class ProfilesViewPage extends ParentComponent implements OnInit {
+export class ProfilesViewPage{
 
   @ViewChild('modalTarget') modalTarget: ElementRef;
   enableEditMode:boolean=false;
@@ -27,15 +25,13 @@ export class ProfilesViewPage extends ParentComponent implements OnInit {
   modalReference:NgbModalRef;
   showModal:boolean=false;
   showNewPage:boolean=false;
+  _window=window;
 
   constructor(
+    private profileService:ProfileService,
     private router: Router,
     private modalService: NgbModal,
-    public restProvider: RestProviderService,
-    public http: HttpClient,
-    public domSanitizer: DomSanitizer,
-    public sharedData: SharedDataService) {
-      super(restProvider,domSanitizer,sharedData)
+    public sharedService: SharedDataService) {
 
     }
 
@@ -89,7 +85,7 @@ export class ProfilesViewPage extends ParentComponent implements OnInit {
     public showNewProfile(){
       this.currentTmpProfile={
         FullName:"",
-        UserId:this.sharedData.userData.Id
+        UserId:this.sharedService.userData.Id
       };
       this.showNewPage=true;
     }
@@ -110,7 +106,7 @@ export class ProfilesViewPage extends ParentComponent implements OnInit {
 
     public enterProfile(profile:any){
       this.modalReference.close();
-      this.sharedData.currentProfile=profile;
+      this.sharedService.currentProfile=profile;
       this.router.navigateByUrl("/home");
     }
 
@@ -123,5 +119,18 @@ export class ProfilesViewPage extends ParentComponent implements OnInit {
       this.showForm=false;
       this.showNewPage=false;
       this.getProfiles();
+    }
+
+    public getProfiles(): Promise<any>{
+      return new Promise((resolve, reject) => {
+        this.profileService.getProfiles(this.sharedService.userData.Id,1,100,"Id","Asc","","").then((response:SinovadApiGenericResponse) => {
+          let listProfiles=response.Data;
+          this.sharedService.listProfiles=listProfiles;
+          this.sharedService.currentProfile=listProfiles[0];
+          resolve(true);
+        },error=>{
+          reject(error);
+        });
+      });
     }
 }

@@ -28,7 +28,7 @@ export class ProfileService {
     });
   }
 
-  public getItems(userId:number,pageNumber:number,itemsPerPage:number,sortBy:string,sortDirection:string,searchText:string,searchBy:string):Promise<SinovadApiPaginationResponse>{
+  public getProfiles(userId:number,pageNumber:number,itemsPerPage:number,sortBy:string,sortDirection:string,searchText:string,searchBy:string):Promise<SinovadApiPaginationResponse>{
     return new Promise((resolve, reject) => {
       let callGuid=uuid();
       this.lastCallGuid=callGuid;

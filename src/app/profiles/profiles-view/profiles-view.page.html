@@ -7,16 +7,16 @@
             <img [src]="'sinovad-stream-large-logo.png' | formatDataPipe : 'GetImageURLByKey' | async">
           </div>
         </div>
-        <div class="sinovad-profiles-view-body" [style.height]="isSmallDevice()?'calc(100% - '+(profilesViewHeader.offsetHeight+profilesViewFooter.offsetHeight)+'px)':''">
+        <div class="sinovad-profiles-view-body" [style.height]="_window.innerWidth<768?'calc(100% - '+(profilesViewHeader.offsetHeight+profilesViewFooter.offsetHeight)+'px)':''">
           <div class="sinovad-profiles-view-title-container">
             ¿Quién eres?
           </div>
           <div class="sinovad-profiles-view-list-container">
-            <ng-template [ngIf]="sharedData.listProfiles">
-              <ng-template ngFor let-profile [ngForOf]="sharedData.listProfiles">
+            <ng-template [ngIf]="sharedService.listProfiles">
+              <ng-template ngFor let-profile [ngForOf]="sharedService.listProfiles">
                 <button id="profile_{{profile.Id}}" (click)="onSelectProfile(profile)">
                   <div *ngIf="profile.AvatarPath==undefined" class="sinovad-initials-profile">
-                    {{getInitials(profile)}}
+                    {{sharedService.getInitials(profile)}}
                   </div>
                   <img *ngIf="profile.AvatarPath!=undefined" class="sinovad-initials-profile" [attr.src]="profile.Id | formatDataPipe : 'GetAvatarImageURLByProfileId' | async">
                   <div *ngIf="enableEditMode" class="sinovad-icon-edit-profile-container">
