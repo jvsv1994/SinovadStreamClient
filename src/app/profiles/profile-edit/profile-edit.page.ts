@@ -1,11 +1,9 @@
 
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
 import { SharedDataService } from 'src/app/shared/services/shared-data.service';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { HttpMethodType } from 'src/app/shared/enums';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { ParentComponent } from 'src/app/parent/parent.component';
 import { Profile } from '../shared/profile.model';
 import { SinovadApiGenericResponse } from 'src/app/response/sinovadApiGenericResponse';
 import { ProfileService } from '../shared/profile.service';
