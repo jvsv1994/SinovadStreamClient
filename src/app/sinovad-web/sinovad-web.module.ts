@@ -31,6 +31,7 @@ import { TvSerieListPage } from '../tvseries/tvserie-list/tvserie-list.page';
 import { SearchViewPage } from '../search-view/search-view.page';
 import { LibraryListComponent } from '../libraries/library-list/library-list.component';
 import { ProfilesViewPage } from '../profiles/profiles-view/profiles-view.page';
+import { ProfileNewPage } from '../profiles/profile-new/profile-new.page';
 
 const routes: Routes = [
   {
@@ -59,6 +60,11 @@ const routes: Routes = [
       {
         path: 'select-profile',
         component: ProfilesViewPage,
+        loadChildren: () => import('../profiles/profiles.module').then(m => m.ProfilesModule)
+      },
+      {
+        path: 'add-profile',
+        component: ProfileNewPage,
         loadChildren: () => import('../profiles/profiles.module').then(m => m.ProfilesModule)
       },
       {

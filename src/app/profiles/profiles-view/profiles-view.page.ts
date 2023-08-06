@@ -1,5 +1,5 @@
 
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component} from '@angular/core';
 import { SharedDataService } from 'src/app/shared/services/shared-data.service';
 import { Router } from '@angular/router';
 import { Profile } from '../shared/profile.model';
@@ -18,10 +18,7 @@ export class ProfilesViewPage{
   showForm:boolean=false;
   currentTmpProfile:Profile;
   showLoading:boolean=true;
-  @Output() showProfiles =new EventEmitter();
-  @Output() loadedProfiles =new EventEmitter();
   showContent:boolean=false;
-  showNewPage:boolean=false;
   _window=window;
 
   constructor(
@@ -50,11 +47,7 @@ export class ProfilesViewPage{
     }
 
     public showNewProfile(){
-      this.currentTmpProfile={
-        FullName:"",
-        UserId:this.sharedService.userData.Id
-      };
-      this.showNewPage=true;
+      this.router.navigateByUrl("/add-profile");
     }
 
     public editProfile(profile:any){
@@ -78,23 +71,19 @@ export class ProfilesViewPage{
 
     public onCloseForm(){
       this.showForm=false;
-      this.showNewPage=false;
     }
 
     public onSaveProfile(){
       this.showForm=false;
-      this.showNewPage=false;
       this.getProfiles();
     }
 
     public getProfiles(){
       this.showLoading=true;
-      this.profileService.getProfiles(this.sharedService.userData.Id,1,100,"Id","Asc","","").then((response:SinovadApiGenericResponse) => {
+      this.profileService.getProfiles(this.sharedService.userData.Id,1,100,"Id","asc","","").then((response:SinovadApiGenericResponse) => {
         let listProfiles=response.Data;
         this.sharedService.listProfiles=listProfiles;
         this.sharedService.currentProfile=listProfiles[0];
-        this.showProfiles.emit(true);
-        this.loadedProfiles.emit(true);
         this.showLoading=false;
       },error=>{
         this.showLoading=false;

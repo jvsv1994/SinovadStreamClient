@@ -1,5 +1,5 @@
 
-import { ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SharedDataService } from 'src/app/shared/services/shared-data.service';
 import { ParentComponent } from '../parent/parent.component';
@@ -13,8 +13,6 @@ import { WebContainerPage } from '../web-container/web-container.page';
 })
 export class SinovadWebComponent extends ParentComponent implements OnInit,OnDestroy {
 
-  @ViewChild('mainContainer') mainContainer: ElementRef;
-  @ViewChild('initialSound', {static: true}) initialSound: ElementRef;
   intervalCheckMediaServers:any;
   showRootPage:boolean=false;
 

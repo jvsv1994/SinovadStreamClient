@@ -1,5 +1,4 @@
-<ng-template #modalTarget let-modal>
-  <div class="sinovad-form-page-container">
+  <div *ngIf="currentTmpProfile" class="sinovad-form-page-container">
     <div class="sinovad-page-header">
       <div class="sinovad-logo-container sinovaclient-left">
         <img [src]="'sinovad-stream-large-logo.png' | formatDataPipe : 'GetImageURLByKey' | async">
@@ -20,7 +19,6 @@
       </div>
     </div>
   </div>
-</ng-template>
 
 
 

@@ -1,8 +1,9 @@
 
-import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
-import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { Component} from '@angular/core';
 import { Profile } from '../shared/profile.model';
 import { ProfileService } from '../shared/profile.service';
+import { SharedDataService } from 'src/app/shared/services/shared-data.service';
+import { Router } from '@angular/router';
 
 declare var window;
 @Component({
@@ -12,44 +13,43 @@ declare var window;
 })
 export class ProfileNewPage{
 
-  @Output() close =new EventEmitter();
-  @Output() closeWithChanges =new EventEmitter();
-  @ViewChild('modalTarget') modalTarget: ElementRef;
-  @Input() currentTmpProfile:Profile;
-  modalReference:NgbModalRef;
+  currentTmpProfile:Profile;
   placeHolder:string="Nombre de Perfil";
 
   constructor(
-    private profileService:ProfileService,
-    private modalService: NgbModal) {
+    private router: Router,
+    private sharedService:SharedDataService,
+    private profileService:ProfileService) {
 
     }
   ngOnInit(): void {
-
+    if(!localStorage.getItem('apiToken'))
+    {
+      this.router.navigate(['landing'],{ skipLocationChange: false});
+    }
+    this.currentTmpProfile= new Profile();
+    this.currentTmpProfile.UserId=this.sharedService.userData.Id;
   }
 
     ngAfterViewInit(){
-      this.modalReference=this.modalService.open(this.modalTarget, {container:"#sinovadMainContainer",modalDialogClass:'modal-dialog modal-fullscreen',scrollable:true,backdrop: 'static'});
+
     }
 
     public saveProfile(){
       this.profileService.saveItem(this.currentTmpProfile).then((response) => {
-        this.modalReference.close();
-        this.closeWithChanges.emit(true);
+        this.router.navigateByUrl("/select-profile");
       },error=>{
         console.error(error);
       });
     }
 
     public onCloseProfileNew(){
-      this.modalReference.close();
-      this.close.emit(true);
+      this.router.navigateByUrl("/select-profile");
     }
 
     public onClickDeleteButton(){
       this.profileService.deleteItem(this.currentTmpProfile.Id).then((response) => {
-        this.modalReference.close();
-        this.closeWithChanges.emit(true);
+        this.router.navigateByUrl("/select-profile");
       },error=>{
         console.error(error);
       });
