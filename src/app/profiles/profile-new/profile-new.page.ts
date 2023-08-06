@@ -2,12 +2,12 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SharedDataService } from 'src/app/shared/services/shared-data.service';
-import { ParentComponent } from '../parent/parent.component';
 import { HttpClient} from '@angular/common/http';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { HttpMethodType } from 'src/app/shared/enums';
-import { Profile } from '../../models/profile';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { Profile } from '../shared/profile.model';
+import { ParentComponent } from 'src/app/parent/parent.component';
 
 declare var window;
 @Component({
@@ -34,6 +34,9 @@ export class ProfileNewPage extends ParentComponent implements OnInit {
       super(restProvider,domSanitizer,sharedData)
 
     }
+  ngOnInit(): void {
+
+  }
 
     ngAfterViewInit(){
       this.modalReference=this.modalService.open(this.modalTarget, {container:"#sinovadMainContainer",modalDialogClass:'modal-dialog modal-fullscreen',scrollable:true,backdrop: 'static'});

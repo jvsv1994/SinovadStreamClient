@@ -6,8 +6,8 @@ import { ParentComponent } from '../parent/parent.component';
 import { HttpClient } from '@angular/common/http';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { NavbarOption } from '../../models/navbarOption';
-import { Profile } from '../../models/profile';
 import { Router } from '@angular/router';
+import { Profile } from '../profiles/shared/profile.model';
 
 declare var window;
 @Component({

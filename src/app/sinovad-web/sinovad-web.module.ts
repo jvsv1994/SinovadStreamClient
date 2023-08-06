@@ -16,7 +16,6 @@ import { RegisterUserPage } from '../register-user/register-user.page';
 import { LandingPage } from '../landing/landing.page';
 import { TvSerieDetailPage } from '../tvserie-detail/tvserie-detail.page';
 import { MovieDetailPage } from '../movie-detail/movie-detail.page';
-import { ProfilesViewPage } from '../profiles-view/profiles-view.page';
 import { HomePage } from '../home/home.page';
 import { ServerSettingsGeneralPage } from '../server-settings-general/server-settings-general.page';
 import { WebContainerPageModule } from '../web-container/web-container.module';
@@ -31,6 +30,7 @@ import { MovieListPage } from '../movies/movie-list/movie-list.page';
 import { TvSerieListPage } from '../tvseries/tvserie-list/tvserie-list.page';
 import { SearchViewPage } from '../search-view/search-view.page';
 import { LibraryListComponent } from '../libraries/library-list/library-list.component';
+import { ProfilesViewPage } from '../profiles/profiles-view/profiles-view.page';
 
 const routes: Routes = [
   {
@@ -59,7 +59,7 @@ const routes: Routes = [
       {
         path: 'select-profile',
         component: ProfilesViewPage,
-        loadChildren: () => import('../profiles-view/profiles-view.module').then(m => m.ProfilesViewPageModule)
+        loadChildren: () => import('../profiles/profiles.module').then(m => m.ProfilesModule)
       },
       {
         path: 'moviedetail/:movieId',

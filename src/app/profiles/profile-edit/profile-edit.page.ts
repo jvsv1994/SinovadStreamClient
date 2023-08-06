@@ -2,12 +2,12 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SharedDataService } from 'src/app/shared/services/shared-data.service';
-import { ParentComponent } from '../parent/parent.component';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { HttpMethodType } from 'src/app/shared/enums';
-import { Profile } from '../../models/profile';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { SinovadApiGenericResponse } from '../response/sinovadApiGenericResponse';
+import { ParentComponent } from 'src/app/parent/parent.component';
+import { Profile } from '../shared/profile.model';
+import { SinovadApiGenericResponse } from 'src/app/response/sinovadApiGenericResponse';
 
 declare var window;
 @Component({
