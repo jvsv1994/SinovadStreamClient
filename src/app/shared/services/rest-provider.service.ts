@@ -110,21 +110,6 @@ export class RestProviderService {
     });
   }
 
-  public executeSinovadStreamServerService(methodType:HttpMethodType,routePath:string,body?:any): Promise<any>{
-    if(this.sharedData.selectedMediaServer)
-    {
-      let link=this.sharedData.selectedMediaServer.Url+routePath;
-      return new Promise((resolve, reject) => {
-        this.performExecuteMethod(methodType,link,body).then((response: any) => {
-          resolve(response);
-        },error=>{
-          console.error(error);
-          reject(error);
-        });
-      });
-    }
-  }
-
   public executeHttpMethodByUrl(methodType:HttpMethodType,url:string,body?:any): Promise<any>{
     return new Promise((resolve, reject) => {
       this.performExecuteMethod(methodType,url,body).then((response: any) => {
