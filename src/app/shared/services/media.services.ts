@@ -22,7 +22,7 @@ export class MediaService {
         ListStorages:listLibraries,
         LogIdentifier:logIdentifier
       };
-      this.restProvider.executeHttpMethodByUrl(HttpMethodType.POST,mediaServerUrl+'/medias/UpdateVideosInListStorages',mediaRequest).then((response) => {
+      this.restProvider.executeHttpMethodByUrl(HttpMethodType.POST,mediaServerUrl+'/api/medias/UpdateVideosInListStorages',mediaRequest).then((response) => {
         resolve(response)
       },error=>{
         console.error(error);

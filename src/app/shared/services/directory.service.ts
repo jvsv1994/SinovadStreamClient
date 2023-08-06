@@ -17,7 +17,7 @@ export class DirectoryService {
 
   public getDirectoriesByMediaServer(mediaServerUrl:string):Promise<any>{
     return new Promise((resolve, reject) => {
-      this.restProvider.executeHttpMethodByUrl(HttpMethodType.GET,mediaServerUrl+"/directories").then((response) => {
+      this.restProvider.executeHttpMethodByUrl(HttpMethodType.GET,mediaServerUrl+"/api/directories").then((response) => {
         resolve(response)
       },error=>{
         console.error(error);
@@ -29,7 +29,7 @@ export class DirectoryService {
   public getSubdirectoriesByMediaServerAndDirectoryPath(mediaServerUrl:string,path:string):Promise<any>{
     return new Promise((resolve, reject) => {
       var base64Path=hiBase64.encode(path);
-      this.restProvider.executeHttpMethodByUrl(HttpMethodType.GET,mediaServerUrl+"/directories/"+base64Path).then((response) => {
+      this.restProvider.executeHttpMethodByUrl(HttpMethodType.GET,mediaServerUrl+"/api/directories/"+base64Path).then((response) => {
         resolve(response)
       },error=>{
         console.error(error);

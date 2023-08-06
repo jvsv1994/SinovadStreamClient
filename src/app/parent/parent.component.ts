@@ -190,7 +190,7 @@ export class ParentComponent implements OnInit {
     if(this.sharedData.mediaServers!=null && this.sharedData.mediaServers.length>0)
     {
       this.sharedData.mediaServers.forEach(mediaServer => {
-        this.restProvider.executeHttpMethodByUrl(HttpMethodType.GET,mediaServer.Url).then((response) => {
+        this.restProvider.executeHttpMethodByUrl(HttpMethodType.GET,mediaServer.Url+"/api").then((response) => {
             mediaServer.isSecureConnection=true;
             if(this.sharedData.selectedMediaServer==undefined)
             {
