@@ -1,5 +1,5 @@
 
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter } from '@angular/core';
 import { SharedDataService } from 'src/app/shared/services/shared-data.service';
 import {v4 as uuid} from "uuid";
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
@@ -24,11 +24,8 @@ declare var window;
   templateUrl: './library-list.component.html',
   styleUrls: ['./library-list.component.scss']
 })
-export class LibraryListComponent implements OnInit,OnDestroy {
+export class LibraryListComponent{
 
-  @Output() showInitial =new EventEmitter();
-  callSearchMediaLog:boolean=false;
-  searchMediaLogContent:string="";
   listLibraries:Library[];
   mediaServer:MediaServer;
   currentLibrary:Library;
@@ -49,14 +46,6 @@ export class LibraryListComponent implements OnInit,OnDestroy {
 
     ngOnInit(): void {
       this.getMediaServerData();
-    }
-
-    ngAfterViewInit(){
-
-    }
-
-    ngOnDestroy(){
-      this.callSearchMediaLog=false;
     }
 
     public async getMediaServerData(){
@@ -176,14 +165,12 @@ export class LibraryListComponent implements OnInit,OnDestroy {
 
   public executeUpdateVideosInAllLibrarys(listLibraries:Library[]){
     let logIdentifier=uuid();
-    this.callSearchMediaLog=true;
     let mediaRequest: any={
-      ListLibrarys:listLibraries,
+      ListStorages:listLibraries,
       LogIdentifier:logIdentifier
     };
-    this.restProvider.executeSinovadStreamServerService(HttpMethodType.POST,'/medias/UpdateVideosInListLibrarys',mediaRequest).then((response) => {
-      this.callSearchMediaLog=false;
-      this.showInitial.emit();
+    this.restProvider.executeSinovadStreamServerService(HttpMethodType.POST,'/medias/UpdateVideosInListStorages',mediaRequest).then((response) => {
+
     },error=>{
       console.error(error);
     });

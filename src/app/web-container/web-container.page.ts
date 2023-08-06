@@ -200,9 +200,6 @@ export class WebContainerPage extends ParentComponent implements OnInit,OnDestro
         this.showingSidebarAccount=true;
         this.showingSidebarAdminMode=false;
         this.showingSidebarMedia=false;
-        event.showInitial.subscribe(event => {
-          ctx.showHome();
-        });
       }
       if(event instanceof MovieListPage || event instanceof TvSerieListPage)
       {
