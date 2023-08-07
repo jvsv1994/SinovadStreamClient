@@ -5,8 +5,8 @@ import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { VideoPageModule } from '../video/video.module';
 import { WebContainerPage } from './web-container.page';
-import { HeaderPageModule } from '../header/header.module';
 import { SidebarModule } from '../sidebar/sidebar.module';
+import { NavbarModule } from '../navbar/navbar.module';
 @NgModule({
     declarations: [
       WebContainerPage
@@ -15,8 +15,8 @@ import { SidebarModule } from '../sidebar/sidebar.module';
       CommonModule,
       FormsModule,
       VideoPageModule,
-      HeaderPageModule,
       SidebarModule,
+      NavbarModule,
       ReactiveFormsModule,
       SharedModule,
       RouterModule.forChild([])
