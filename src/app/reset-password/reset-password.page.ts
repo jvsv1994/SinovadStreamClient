@@ -6,11 +6,11 @@ import { ParentComponent } from '../parent/parent.component';
 import { HttpClient } from '@angular/common/http';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { HttpMethodType } from 'src/app/shared/enums';
-import { ValidateResetPasswordTokenModel } from '../../models/validateResetPasswordTokenModel';
 import { ActivatedRoute, Router } from '@angular/router';
 import hiBase64 from 'hi-base64';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ResetPasswordModel } from './reset-password.model';
+import { ValidateResetPasswordTokenModel } from './validate-reset-password-token.model';
 
 declare var window;
 @Component({
