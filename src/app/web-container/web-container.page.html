@@ -4,9 +4,7 @@
 <div class="sinovad-page-container">
   <div #header>
     <app-header *ngIf="!showRouterChildWithFullDimentions" (showAdminMode)="showAdminMode()" [showingSidebarAccount]="showingSidebarAccount" [showingSidebarAdminMode]="showingSidebarAdminMode"
-    (goHome)="showHome()" (executeSearch)="onSearchMedia($event)" (toggleSidebar)="onClickToggleSidebarButton()"
-    (logout)="logOut()" (showHomeUser)="showHome()"
-    (logout)="logOut()"></app-header>
+    (goHome)="showHome()" (executeSearch)="onSearchMedia($event)" (toggleSidebar)="onClickToggleSidebarButton()" (logout)="logOut()"></app-header>
   </div>
   <div class="sinovad-menu-body-container" [style.height]="'calc(100% - '+(header.offsetHeight+footer.offsetHeight)+'px)'">
     <div #menu>
