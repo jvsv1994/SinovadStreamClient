@@ -47,8 +47,6 @@ export class WebContainerPage extends ParentComponent implements OnInit,OnDestro
   currentMediaTypeID:number;
   title:string;
   isCollapsedSidebar:boolean=false;
-  selectHomeUserOption=new EventEmitter<boolean>();
-  unselectSidebarOption=new EventEmitter<boolean>();
   refreshSidebarOption=new EventEmitter<boolean>();
   showingSidebarAccount:boolean=false;
   showingSidebarAdminMode:boolean=false;
@@ -127,7 +125,6 @@ export class WebContainerPage extends ParentComponent implements OnInit,OnDestro
           this.isCollapsedSidebar=true;
         }
         this.prepareRouterOutlet();
-        this.selectHomeUserOption.emit(true);
       },error=>{
         console.error(error);
       });
@@ -136,7 +133,6 @@ export class WebContainerPage extends ParentComponent implements OnInit,OnDestro
     public onSearchMedia(searchText:string){
       if(searchText!=undefined && searchText!='')
       {
-        this.unselectSidebarOption.emit(true);
         this.hideContent=true;
         this.ref.detectChanges();
         this.router.navigateByUrl("/search?text="+searchText).then(res=>

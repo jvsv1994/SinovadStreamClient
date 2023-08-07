@@ -1,5 +1,5 @@
 
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { Menu } from 'src/app/menus/shared/menu.model';
 import { SharedDataService } from 'src/app/shared/services/shared-data.service';
 
