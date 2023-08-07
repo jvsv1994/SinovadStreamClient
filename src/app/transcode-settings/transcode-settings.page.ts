@@ -5,7 +5,6 @@ import { HttpClient} from '@angular/common/http';
 import { CatalogEnum, HttpMethodType } from 'src/app/shared/enums';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { SinovadApiGenericResponse } from '../response/sinovadApiGenericResponse';
-import { TranscoderSettings } from '../../models/transcoderSettings';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { CatalogDetail } from 'src/models/catalogDetail';
@@ -14,6 +13,7 @@ import { SnackBarType } from '../shared/components/custom-snack-bar/custom-snack
 import { DirectoryChooserPage } from '../shared/components/directory-chooser/directory-chooser.page';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MediaServer } from '../servers/shared/server.model';
+import { TranscoderSettings } from './transcoder-settings.model';
 
 declare var window;
 @Component({
