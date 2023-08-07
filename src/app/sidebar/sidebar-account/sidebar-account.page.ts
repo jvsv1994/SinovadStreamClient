@@ -8,10 +8,10 @@ import { ActivatedRoute } from '@angular/router';
 import { ParentComponent } from 'src/app/parent/parent.component';
 import { MediaServer } from 'src/app/media-servers/shared/media-server.model';
 import { SidebarOption } from '../shared/sidebar-option.model';
-import { DropDownMenuPage } from 'src/app/drop-down-menu/drop-down-menu.page';
 import { Menu } from 'src/app/menus/shared/menu.model';
-import { DropDownMenuOptions } from 'src/app/drop-down-menu/dropDownMenuOptions';
-import { DropDownMenuItem } from 'src/app/drop-down-menu/dropDownMenuItem';
+import { DropDownMenuPage } from '../drop-down-menu/drop-down-menu.page';
+import { DropDownMenuOptions } from '../shared/drop-down-menu-options.model';
+import { DropDownMenuItem } from '../shared/drop-down-menu-Item.model';
 
 declare var window;
 @Component({

@@ -5,10 +5,10 @@ import { SharedDataService } from 'src/app/shared/services/shared-data.service';
 import { HttpClient} from '@angular/common/http';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { Subscription } from 'rxjs';
-import { ParentComponent } from '../parent/parent.component';
-import { DropDownMenuItem } from './dropDownMenuItem';
-import { DropDownMenuOptions } from './dropDownMenuOptions';
 import { Router } from '@angular/router';
+import { ParentComponent } from 'src/app/parent/parent.component';
+import { DropDownMenuItem } from '../shared/drop-down-menu-Item.model';
+import { DropDownMenuOptions } from '../shared/drop-down-menu-options.model';
 
 @Component({
   selector: 'app-drop-down-menu-content',

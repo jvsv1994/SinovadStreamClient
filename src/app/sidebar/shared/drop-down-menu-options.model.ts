@@ -1,5 +1,5 @@
+import { DropDownMenuItem } from "./drop-down-menu-Item.model";
 
-import { DropDownMenuItem } from './dropDownMenuItem';
 
 export class DropDownMenuOptions{
   containerId?:string;

@@ -1,8 +1,8 @@
 
 
 import { ChangeDetectorRef, Component, EventEmitter, Input, Output, TemplateRef, ViewChild, ViewContainerRef, ViewRef} from '@angular/core';
-import { DropDownMenuOptions } from './dropDownMenuOptions';
-import { DropDownMenuItem } from './dropDownMenuItem';
+import { DropDownMenuOptions } from '../shared/drop-down-menu-options.model';
+import { DropDownMenuItem } from '../shared/drop-down-menu-Item.model';
 @Component({
   selector: 'app-drop-down-menu',
   templateUrl: './drop-down-menu.page.html'
