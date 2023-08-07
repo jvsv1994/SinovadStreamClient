@@ -29,5 +29,5 @@
 </div>
 
 <section *ngIf="currentVideo" class="sinovad-container-video">
-  <app-video (fullscreen)="showVideoInFullScreen()" [builderVideo]="currentVideo" (outputCloseVideo)="closeVideo()"></app-video>
+  <app-video [builderVideo]="currentVideo" (outputCloseVideo)="closeVideo()"></app-video>
 </section>

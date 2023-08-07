@@ -23,7 +23,6 @@ import { CustomDialogOptionsComponent, DialogOption, DialogOptionsConfiguration 
 })
 export class VideoPage extends ParentComponent implements OnInit,OnDestroy{
 
-  @Output() fullscreen =new EventEmitter();
   @Output() outputCloseVideo =new EventEmitter();
   @Input() builderVideo: BuilderVideo;
   _window=window;
@@ -449,6 +448,9 @@ export class VideoPage extends ParentComponent implements OnInit,OnDestroy{
   }
 
   public closeVideo(){
+    if (document.fullscreenElement) {
+      document.exitFullscreen();
+    }
     this.deleteAllProcessesAndDirectories();
     this.outputCloseVideo.emit(true);
   }
@@ -900,14 +902,16 @@ public onClickSlider(sliderContainer:any){
   }
 
   public showVideoInFullScreen(){
-    this.fullscreen.emit(true);
+    this.toggleFullScreenVideo();
   }
 
   public toggleFullScreenVideo(){
     if (document.fullscreenElement) {
       //document.exitFullscreen();
     } else {
-      this.showVideoInFullScreen();
+      if (document.body.requestFullscreen) {
+        document.body.requestFullscreen();
+      }
     }
   }
 

@@ -5,7 +5,6 @@ import { SharedDataService } from 'src/app/shared/services/shared-data.service';
 import { ParentComponent } from '../parent/parent.component';
 import { HttpClient } from '@angular/common/http';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
-import { WebContainerPage } from '../web-container/web-container.page';
 @Component({
   selector: 'app-sinovad-web',
   templateUrl: './sinovad-web.component.html',
@@ -97,29 +96,9 @@ export class SinovadWebComponent extends ParentComponent implements OnInit,OnDes
       }
     }
 
-    public executeToggleVideo(show:boolean){
-      if(show)
-      {
-        this.showPageInFullScreen();
-      }else{
-        if(!this.sharedData.configurationData.alwaysFullScreen)
-        {
-          if (document.fullscreenElement) {
-            document.exitFullscreen();
-          }
-        }
-      }
-    }
-
     public onActivate(event:any)
     {
-      let ctx=this;
-      if(event instanceof WebContainerPage)
-      {
-        event.toggleVideo.subscribe(event => {
-          ctx.executeToggleVideo(event);
-        });
-      }
+
     }
 
 }

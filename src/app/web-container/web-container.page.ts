@@ -41,7 +41,6 @@ import { ConfirmEmailPage } from '../confirm-email/confirm-email.page';
 })
 export class WebContainerPage extends ParentComponent implements OnInit,OnDestroy {
 
-  @Output() toggleVideo= new EventEmitter();
   showVideoPopUp:boolean=false;
   hideContent:boolean=false;
   _window=window;
@@ -72,16 +71,10 @@ export class WebContainerPage extends ParentComponent implements OnInit,OnDestro
           if(videoEvent.isShowing)
           {
             this.currentVideo=videoEvent.builderVideo;
-            this.toggleVideo.emit(true);
           }else{
             this.currentVideo=undefined;
-            this.toggleVideo.emit(false);
           }
       });
-    }
-
-    public showVideoInFullScreen(){
-      this.toggleVideo.emit(true);
     }
 
 
@@ -160,7 +153,6 @@ export class WebContainerPage extends ParentComponent implements OnInit,OnDestro
     public closeVideo(){
       this.currentVideo=undefined;
       this.showHome();
-      this.toggleVideo.emit(false);
     }
 
     public onActivate(event:any){
