@@ -49,4 +49,8 @@ export class SharedDataService {
     return initial;
   }
 
+  public delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
+  }
+
 }

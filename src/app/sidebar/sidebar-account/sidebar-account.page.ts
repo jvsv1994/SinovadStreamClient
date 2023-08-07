@@ -8,10 +8,10 @@ import { ActivatedRoute } from '@angular/router';
 import { ParentComponent } from 'src/app/parent/parent.component';
 import { SidebarOption } from '../shared/sidebar-option.model';
 import { Menu } from 'src/app/menus/shared/menu.model';
-import { DropDownMenuPage } from '../drop-down-menu/drop-down-menu.page';
 import { DropDownMenuOptions } from '../shared/drop-down-menu-options.model';
 import { DropDownMenuItem } from '../shared/drop-down-menu-Item.model';
 import { MediaServer } from 'src/app/servers/shared/server.model';
+import { DropDownServersService } from '../shared/drop-down-servers.service';
 
 declare var window;
 @Component({
@@ -24,7 +24,6 @@ export class SidebarAccountPage extends ParentComponent implements OnInit {
   mediaServer:MediaServer;
   @Output() prepareRouterOutlet=new EventEmitter<boolean>();
   @Output() collapseSidebar=new EventEmitter();
-  @ViewChild('dropDownMenuPage') dropDownMenuPage: DropDownMenuPage;
   @ViewChild('mediaServerButton') mediaServerButton:ElementRef ;
   serverModules:SidebarOption[]=[
   /*   {
@@ -74,6 +73,7 @@ export class SidebarAccountPage extends ParentComponent implements OnInit {
   ]
 
   constructor(
+    public dropDownServersService:DropDownServersService,
     public activeRoute: ActivatedRoute,
     public  ref:ChangeDetectorRef,
     public restProvider: RestProviderService,
@@ -120,13 +120,18 @@ export class SidebarAccountPage extends ParentComponent implements OnInit {
 
 
   public togleDropDownMediaServers(event:any){
-
-      this.showMediaServerMenuOptions(event);
-
+    this.showMediaServerMenuOptions(event);
   }
 
   public showMediaServerMenuOptions(event:any){
-    this.dropDownMenuPage.show();
+    if(!this.dropDownServersService.isShowing)
+    {
+      this.dropDownServersService.show(this.getDropDownMenuOptions()).then(response=>{
+
+      },reject=>{
+
+      });
+    }
   }
 
   public getDropDownMenuOptions():DropDownMenuOptions{

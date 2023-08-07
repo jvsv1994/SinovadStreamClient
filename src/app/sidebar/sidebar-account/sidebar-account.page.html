@@ -25,8 +25,8 @@
                 <span class="first">
                   {{sharedData.selectedMediaServer.FamilyName?sharedData.selectedMediaServer.FamilyName:sharedData.selectedMediaServer.DeviceName}}
                 </span>
-                <i *ngIf="dropDownMenuPage.isShowing" class="fa-solid fa-caret-up"></i>
-                <i *ngIf="!dropDownMenuPage.isShowing" class="fa-solid fa-caret-down"></i>
+                <i *ngIf="dropDownServersService.isShowing" class="fa-solid fa-caret-up"></i>
+                <i *ngIf="!dropDownServersService.isShowing" class="fa-solid fa-caret-down"></i>
             </div>
             <div class="server-settings-menu-button-icon" [ngClass]="{'icon-secure':sharedData.selectedMediaServer.isSecureConnection,'icon-alert':!sharedData.selectedMediaServer.isSecureConnection}">
               <i *ngIf="sharedData.selectedMediaServer.isSecureConnection" class="fa-solid fa-lock"></i>
@@ -60,8 +60,3 @@
     </div>
   </div>
 </div>
-
-
-
-<app-drop-down-menu #dropDownMenuPage [dropDownMenuOptions]="getDropDownMenuOptions()"></app-drop-down-menu>
-

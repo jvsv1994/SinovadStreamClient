@@ -11,5 +11,4 @@ export class DropDownMenuItem{
   iconClass?:string;
   isSelected?:boolean;
   path?:string;
-  eventOnSelectItem?:EventEmitter<boolean>;
 }

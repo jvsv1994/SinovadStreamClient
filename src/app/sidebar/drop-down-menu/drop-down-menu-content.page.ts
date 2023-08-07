@@ -1,28 +1,19 @@
 
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewContainerRef} from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
-import { SharedDataService } from 'src/app/shared/services/shared-data.service';
-import { HttpClient} from '@angular/common/http';
-import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
-import { Subscription } from 'rxjs';
+import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, Output} from '@angular/core';
 import { Router } from '@angular/router';
-import { ParentComponent } from 'src/app/parent/parent.component';
 import { DropDownMenuItem } from '../shared/drop-down-menu-Item.model';
 import { DropDownMenuOptions } from '../shared/drop-down-menu-options.model';
+import { SharedDataService } from 'src/app/shared/services/shared-data.service';
 
 @Component({
   selector: 'app-drop-down-menu-content',
   templateUrl: './drop-down-menu-content.page.html',
   styleUrls: ['./drop-down-menu-content.page.scss']
 })
-export class DropDownMenuContentPage extends ParentComponent implements OnInit,OnDestroy{
+export class DropDownMenuContentPage implements AfterViewInit{
 
-  @Output() hideContextMenu =new EventEmitter();
+  @Output() hide =new EventEmitter();
   @Output() clickItem =new EventEmitter();
-  htmlContent:HTMLElement;
-  mainContainer:HTMLElement;
-  hideContextMenuSuscription:Subscription;
-  clickOptionSubscription:Subscription;
   show:boolean=false;
   @Input() dropDownMenuOptions:DropDownMenuOptions;
   @Input() top:number;
@@ -30,23 +21,10 @@ export class DropDownMenuContentPage extends ParentComponent implements OnInit,O
   @Input() width:number;
 
   constructor(
-    private router: Router,
-    public ref:ChangeDetectorRef,
-    public viewContainerRef: ViewContainerRef,
-    public restProvider: RestProviderService,
-    public http: HttpClient,
-    public domSanitizer: DomSanitizer,
-    public sharedData: SharedDataService) {
-      super(restProvider,domSanitizer,sharedData)
+    private ref: ChangeDetectorRef,
+    private sharedService:SharedDataService,
+    private router: Router) {
 
-    }
-
-    ngOnInit(): void {
-
-    }
-
-    ngOnDestroy(): void {
-      this.hideContextMenu.emit(true);
     }
 
     ngAfterViewInit(){
@@ -54,12 +32,13 @@ export class DropDownMenuContentPage extends ParentComponent implements OnInit,O
     }
 
     public async showContent(){
-      await this.delay(100);
+      await this.sharedService.delay(100);
       this.show=true;
+      this.ref.detectChanges();
     }
 
     public onClickOutside(){
-      this.hideContextMenu.emit(true);
+      this.hide.emit(true);
     }
 
     public onClickDropDownMenuOption(option:DropDownMenuItem){
