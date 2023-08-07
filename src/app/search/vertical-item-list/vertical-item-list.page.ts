@@ -2,14 +2,14 @@
 import { Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SharedDataService } from 'src/app/shared/services/shared-data.service';
-import { ParentComponent } from '../parent/parent.component';
 import { HttpClient } from '@angular/common/http';
 import { HttpMethodType } from 'src/app/shared/enums';
 import {v4 as uuid} from "uuid";
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
-import { Item } from '../../models/item';
-import { ItemDetail } from '../../models/itemDetail';
-import { SinovadApiGenericResponse } from '../response/sinovadApiGenericResponse';
+import { Item } from 'src/models/item';
+import { ParentComponent } from 'src/app/parent/parent.component';
+import { ItemDetail } from 'src/models/itemDetail';
+import { SinovadApiGenericResponse } from 'src/app/response/sinovadApiGenericResponse';
 
 declare var window;
 @Component({
