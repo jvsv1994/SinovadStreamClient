@@ -1,12 +1,12 @@
 
-import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output} from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SharedDataService } from 'src/app/shared/services/shared-data.service';
 import { ParentComponent } from '../../parent/parent.component';
 import { HttpClient} from '@angular/common/http';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
-import { ItemDetail } from '../../../models/itemDetail';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
+import { ItemDetail } from '../shared/item-detail.model';
 
 @Component({
   selector: 'app-home',

@@ -3,15 +3,15 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { SharedDataService } from 'src/app/shared/services/shared-data.service';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { HttpMethodType } from 'src/app/shared/enums';
-import { Item } from '../../models/item';
-import { ItemDetail } from '../../models/itemDetail';
 import { BuilderVideo } from '../../models/builderVideo';
-import { Episode } from '../../models/episode';
 import {v4 as uuid} from "uuid";
 import { TranscodePrepareVideo } from '../../models/transcodePrepareVideo';
 import { SinovadApiGenericResponse } from '../response/sinovadApiGenericResponse';
 import { FormGroup } from '@angular/forms';
 import { FormatDataPipe } from '../shared/pipes/format-data.pipe';
+import { Item } from '../media/shared/item.model';
+import { ItemDetail } from '../media/shared/item-detail.model';
+import { Episode } from '../episodes/shared/episode.model';
 
 @Component({
   selector: 'app-parent',

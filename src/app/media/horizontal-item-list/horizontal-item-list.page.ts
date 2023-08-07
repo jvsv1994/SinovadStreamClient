@@ -6,11 +6,11 @@ import { HttpClient } from '@angular/common/http';
 import { HttpMethodType, MediaType } from 'src/app/shared/enums';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { VideoService } from 'src/app/shared/services/video.service';
-import { ItemsGroup } from 'src/models/itemsGroup';
-import { Item } from 'src/models/item';
 import { ParentComponent } from 'src/app/parent/parent.component';
 import { SinovadApiGenericResponse } from 'src/app/response/sinovadApiGenericResponse';
-import { ItemDetail } from 'src/models/itemDetail';
+import { ItemsGroup } from '../shared/items-group.model';
+import { Item } from '../shared/item.model';
+import { ItemDetail } from '../shared/item-detail.model';
 
 declare var window;
 @Component({

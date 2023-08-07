@@ -1,4 +1,4 @@
-import { Episode } from "src/models/episode";
+import { Episode } from "src/app/episodes/shared/episode.model";
 
 export class Season{
 

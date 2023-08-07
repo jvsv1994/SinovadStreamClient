@@ -10,12 +10,12 @@ import { parse } from '@plussub/srt-vtt-parser';
 import Hls, { HlsConfig } from 'hls.js';
 import { HttpMethodType, LoadVideoStatus, VideoTransmissionType } from 'src/app/shared/enums';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
-import { Episode } from '../../models/episode';
 import { VideoProfile } from '../../models/videoProfile';
 import { BuilderVideo } from '../../models/builderVideo';
 import { TranscodeRunVideo } from '../../models/transcodeRunVideo';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { CustomDialogOptionsComponent, DialogOption, DialogOptionsConfiguration } from '../shared/components/custom-dialog-options/custom-dialog-options.component';
+import { Episode } from '../episodes/shared/episode.model';
 @Component({
   selector: 'app-video',
   templateUrl: 'video.page.html',

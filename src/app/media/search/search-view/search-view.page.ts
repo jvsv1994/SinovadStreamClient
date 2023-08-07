@@ -5,8 +5,8 @@ import { SharedDataService } from 'src/app/shared/services/shared-data.service';
 import { HttpClient } from '@angular/common/http';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ItemDetail } from 'src/models/itemDetail';
 import { ParentComponent } from 'src/app/parent/parent.component';
+import { ItemDetail } from '../../shared/item-detail.model';
 
 declare var window;
 @Component({

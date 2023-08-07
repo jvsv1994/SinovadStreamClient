@@ -7,7 +7,7 @@ import { RestProviderService } from 'src/app/shared/services/rest-provider.servi
 import { Router } from '@angular/router';
 import { MediaType } from 'src/app/shared/enums';
 import { ParentComponent } from 'src/app/parent/parent.component';
-import { ItemDetail } from 'src/models/itemDetail';
+import { ItemDetail } from '../shared/item-detail.model';
 
 @Component({
   selector: 'app-media-tvseries',

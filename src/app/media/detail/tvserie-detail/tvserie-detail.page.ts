@@ -1,5 +1,5 @@
 
-import { Component, EventEmitter, OnInit, Output} from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SharedDataService } from 'src/app/shared/services/shared-data.service';
 import { HttpClient} from '@angular/common/http';
@@ -7,8 +7,8 @@ import { HttpMethodType } from 'src/app/shared/enums';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ParentComponent } from 'src/app/parent/parent.component';
-import { ItemDetail } from 'src/models/itemDetail';
 import { SinovadApiGenericResponse } from 'src/app/response/sinovadApiGenericResponse';
+import { ItemDetail } from '../../shared/item-detail.model';
 
 declare var window;
 @Component({
