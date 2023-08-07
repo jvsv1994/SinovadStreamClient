@@ -26,6 +26,13 @@ import { MovieDetailPage } from '../media/detail/movie-detail/movie-detail.page'
 import { TvSerieDetailPage } from '../media/detail/tvserie-detail/tvserie-detail.page';
 import { BuilderVideo } from '../media/video/models/builderVideo';
 import { VideoEvent, VideoService } from '../media/video/service/video.service';
+import { NotFoundPage } from '../not-found/not-found.page';
+import { LoginPage } from '../login/login.page';
+import { RegisterUserPage } from '../register-user/register-user.page';
+import { RecoverPasswordPage } from '../recover-password/recover-password.page';
+import { ResetPasswordPage } from '../reset-password/reset-password.page';
+import { LandingPage } from '../landing/landing.page';
+import { ConfirmEmailPage } from '../confirm-email/confirm-email.page';
 
 @Component({
   selector: 'app-web-container',
@@ -160,6 +167,14 @@ export class WebContainerPage extends ParentComponent implements OnInit,OnDestro
       let ctx=this;
       this.isCollapsedSidebar=true;
       this.sharedData.showSplashScreen=false;
+      if(event instanceof NotFoundPage || event instanceof LoginPage || event instanceof RegisterUserPage || event instanceof RecoverPasswordPage || event instanceof ResetPasswordPage
+        || event instanceof LandingPage || event instanceof ConfirmEmailPage || event instanceof ProfilesViewPage)
+      {
+        this.showRouterChildWithFullDimentions=true;
+        this.showingSidebarMedia=false;
+        this.showingSidebarAccount=false;
+        this.showingSidebarAdminMode=false;
+      }
       if(event instanceof SearchViewPage)
       {
         this.showRouterChildWithFullDimentions=false;
@@ -170,13 +185,6 @@ export class WebContainerPage extends ParentComponent implements OnInit,OnDestro
       if(event instanceof MediaMoviesPage || event instanceof MediaTvSeriesPage || event instanceof HomePage || event instanceof MovieDetailPage || event instanceof TvSerieDetailPage)
       {
         this.showRouterChildWithFullDimentions=false;
-        this.showingSidebarMedia=true;
-        this.showingSidebarAccount=false;
-        this.showingSidebarAdminMode=false;
-      }
-      if(event instanceof ProfilesViewPage)
-      {
-        this.showRouterChildWithFullDimentions=true;
         this.showingSidebarMedia=true;
         this.showingSidebarAccount=false;
         this.showingSidebarAdminMode=false;

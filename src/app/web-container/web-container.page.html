@@ -1,7 +1,7 @@
 
 
 
-<div *ngIf="sharedData.apiToken!=undefined && sharedData.userData!=undefined && !sharedData.pageNotFoundShowing" class="sinovad-page-container">
+<div class="sinovad-page-container">
   <div #header>
     <app-header *ngIf="!showRouterChildWithFullDimentions" (showAdminMode)="showAdminMode()" [showingSidebarAccount]="showingSidebarAccount" [showingSidebarAdminMode]="showingSidebarAdminMode"
     (goHome)="showHome()" (executeSearch)="onSearchMedia($event)" (toggleSidebar)="onClickToggleSidebarButton()"
@@ -20,18 +20,12 @@
       </section>
     </div>
     <section id="bodyContainer" #principalContainer class="sinovad-body-container" [ngClass]="{'locked':isSmallDevice() && !isCollapsedSidebar}" [style.width]="'calc(100% - '+menu.offsetWidth+'px)'" tabindex="0">
-      <ng-template [ngIf]="!hideContent">
-        <router-outlet class="small" (activate)="onActivate($event)"></router-outlet>
-      </ng-template>
+        <router-outlet (activate)="onActivate($event)"></router-outlet>
     </section>
   </div>
   <div #footer>
 
   </div>
-</div>
-
-<div *ngIf="(sharedData.apiToken==undefined && sharedData.userData==undefined) || sharedData.pageNotFoundShowing" class="sinovad-page-container">
-  <router-outlet class="small" (activate)="onActivate($event)"></router-outlet>
 </div>
 
 <section *ngIf="currentVideo" class="sinovad-container-video">
