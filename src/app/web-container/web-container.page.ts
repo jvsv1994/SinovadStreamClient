@@ -19,13 +19,13 @@ import { Subscription } from 'rxjs';
 import { UserListPage } from '../users/user-list/user-list.page';
 import { RoleListPage } from '../roles/role-list/role-list.page';
 import { MenuListPage } from '../menus/menu-list/menu-list.page';
-import { MediaMoviesPage } from '../media-movies/media-movies.page';
-import { MediaTvSeriesPage } from '../media-tvseries/media-tvseries.page';
 import { MovieListPage } from '../movies/movie-list/movie-list.page';
 import { TvSerieListPage } from '../tvseries/tvserie-list/tvserie-list.page';
 import { SearchViewPage } from '../search/search-view/search-view.page';
 import { LibraryListComponent } from '../libraries/library-list/library-list.component';
 import { ProfilesViewPage } from '../profiles/profiles-view/profiles-view.page';
+import { MediaMoviesPage } from '../media/media-movies/media-movies.page';
+import { MediaTvSeriesPage } from '../media/media-tvseries/media-tvseries.page';
 
 @Component({
   selector: 'app-web-container',

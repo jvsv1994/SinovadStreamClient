@@ -24,8 +24,6 @@ import { SharedModule } from '../shared/shared.module';
 import { UserListPage } from '../users/user-list/user-list.page';
 import { RoleListPage } from '../roles/role-list/role-list.page';
 import { MenuListPage } from '../menus/menu-list/menu-list.page';
-import { MediaMoviesPage } from '../media-movies/media-movies.page';
-import { MediaTvSeriesPage } from '../media-tvseries/media-tvseries.page';
 import { MovieListPage } from '../movies/movie-list/movie-list.page';
 import { TvSerieListPage } from '../tvseries/tvserie-list/tvserie-list.page';
 import { SearchViewPage } from '../search/search-view/search-view.page';
@@ -33,6 +31,8 @@ import { LibraryListComponent } from '../libraries/library-list/library-list.com
 import { ProfilesViewPage } from '../profiles/profiles-view/profiles-view.page';
 import { ProfileNewPage } from '../profiles/profile-new/profile-new.page';
 import { ProfileEditPage } from '../profiles/profile-edit/profile-edit.page';
+import { MediaMoviesPage } from '../media/media-movies/media-movies.page';
+import { MediaTvSeriesPage } from '../media/media-tvseries/media-tvseries.page';
 
 const routes: Routes = [
   {
@@ -46,12 +46,12 @@ const routes: Routes = [
       {
         path: 'media/movies',
         component: MediaMoviesPage,
-        loadChildren: () => import('../media-movies/media-movies.module').then(m => m.MediaMoviesPageModule)
+        loadChildren: () => import('../media/media.module').then(m => m.MediaModule)
       },
       {
         path: 'media/tvseries',
         component: MediaTvSeriesPage,
-        loadChildren: () => import('../media-tvseries/media-tvseries.module').then(m => m.MediaTvSeriesPageModule)
+        loadChildren: () => import('../media/media.module').then(m => m.MediaModule)
       },
       {
         path: 'search',
