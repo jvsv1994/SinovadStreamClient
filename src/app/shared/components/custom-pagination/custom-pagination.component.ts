@@ -6,7 +6,7 @@ import { ParentComponent } from '../../../parent/parent.component';
 import { HttpClient} from '@angular/common/http';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { SinovadApiPaginationResponse } from '../../../response/sinovadApiPaginationResponse';
-import { PaginationItem } from '../../../../models/paginationPage';
+import { PaginationItem } from './pagination-item-model';
 
 @Component({
   selector: 'app-custom-pagination',
