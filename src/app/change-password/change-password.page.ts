@@ -5,9 +5,9 @@ import { SharedDataService } from 'src/app/shared/services/shared-data.service';
 import { ParentComponent } from '../parent/parent.component';
 import { HttpClient} from '@angular/common/http';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
-import { ChangePasswordModel } from 'src/models/changePasswordModel';
 import { HttpMethodType } from 'src/app/shared/enums';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { ChangePasswordModel } from './change-password.model';
 
 declare var window;
 @Component({

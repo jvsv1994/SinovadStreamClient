@@ -6,9 +6,9 @@ import { ParentComponent } from '../parent/parent.component';
 import { HttpClient } from '@angular/common/http';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { HttpMethodType } from 'src/app/shared/enums';
-import { RegisterUserModel } from '../../models/registerUserModel';
 import { Router } from '@angular/router';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { RegisterUserModel } from './register-user-model';
 
 declare var window;
 @Component({
