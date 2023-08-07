@@ -1,4 +1,4 @@
-import { CatalogDetail } from "./catalogDetail";
+import { CatalogDetail } from "./catalog-detail.model";
 
 
 export class Catalog{

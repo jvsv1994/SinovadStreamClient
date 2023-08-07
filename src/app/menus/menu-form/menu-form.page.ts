@@ -2,7 +2,6 @@
 import { AfterViewInit, Component, Input, OnInit} from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { CatalogEnum, HttpMethodType} from 'src/app/shared/enums';
-import { CatalogDetail } from 'src/models/catalogDetail';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Menu } from '../shared/menu.model';
 import { SinovadApiGenericResponse } from 'src/app/response/sinovadApiGenericResponse';
@@ -12,6 +11,7 @@ import { RestProviderService } from 'src/app/shared/services/rest-provider.servi
 import { SnackBarType } from 'src/app/shared/components/custom-snack-bar/custom-snack-bar.component';
 import { MyErrorStateMatcher } from 'src/app/shared/custom-error-state-matcher';
 import { SharedDataService } from 'src/app/shared/services/shared-data.service';
+import { CatalogDetail } from 'src/app/catalogs/shared/catalog-detail.model';
 
 @Component({
   selector: 'app-menu-form',

@@ -1,7 +1,6 @@
 
 import { Component, Input, OnInit} from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { CatalogDetail } from 'src/models/catalogDetail';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Movie } from '../shared/movie.model';
 import { SnackBarService } from 'src/app/shared/services/snack-bar.service';
@@ -25,7 +24,6 @@ export class MovieFormPage implements OnInit{
 
   @Input() movie:Movie;
   listMovies:Movie[];
-  listIconTypes:CatalogDetail[];
   movieFormGroup:FormGroup;
   showLoading:boolean=false;
   matcher = new MyErrorStateMatcher();
