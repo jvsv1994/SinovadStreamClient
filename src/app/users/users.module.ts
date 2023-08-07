@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { UserListPage } from './user-list/user-list.page';
-import { MediaServersModule } from '../media-servers/media-servers.module';
+import { MediaServersModule } from '../servers/servers.module';
 
 @NgModule({
     declarations: [

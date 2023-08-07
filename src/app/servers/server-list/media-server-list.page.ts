@@ -1,16 +1,16 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { User } from 'src/app/users/shared/user.model';
 import { SinovadApiPaginationResponse } from 'src/app/response/sinovadApiPaginationResponse';
-import { MediaServer } from '../shared/media-server.model';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatPaginator, MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { CustomListGeneric } from 'src/app/shared/generics/custom-list.generic';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { SnackBarService } from 'src/app/shared/services/snack-bar.service';
-import { MediaServerService } from '../shared/media-server.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { ConfirmDialogOptions, CustomConfirmDialogComponent } from 'src/app/shared/components/custom-confirm-dialog/custom-confirm-dialog.component';
 import { SnackBarType } from 'src/app/shared/components/custom-snack-bar/custom-snack-bar.component';
+import { MediaServerService } from '../shared/server.service';
+import { MediaServer } from '../shared/server.model';
 @Component({
   selector: 'app-media-server-list',
   templateUrl: 'media-server-list.page.html',

@@ -14,7 +14,7 @@ import { SnackBarType } from 'src/app/shared/components/custom-snack-bar/custom-
 import { ContextMenuService } from 'src/app/shared/services/context-menu.service';
 import { ContextMenuOption } from 'src/app/shared/components/custom-context-menu/custom-context-menu.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { MediaServerListModalPage } from 'src/app/media-servers/media-server-list-modal/media-server-list-modal.page';
+import { MediaServerListModalPage } from 'src/app/servers/server-list-modal/media-server-list-modal.page';
 
 @Component({
   selector: 'app-user-list',

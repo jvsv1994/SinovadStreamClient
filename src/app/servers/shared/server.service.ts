@@ -4,7 +4,7 @@ import { HttpMethodType } from 'src/app/shared/enums';
 import { SinovadApiPaginationResponse } from 'src/app/response/sinovadApiPaginationResponse';
 import { SinovadApiGenericResponse } from 'src/app/response/sinovadApiGenericResponse';
 import {v4 as uuid} from "uuid";
-import { MediaServer } from './media-server.model';
+import { MediaServer } from './server.model';
 export declare type EventHandler = (...args: any[]) => any;
 
 @Injectable({ providedIn: 'root' })

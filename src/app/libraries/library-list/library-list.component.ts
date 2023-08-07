@@ -7,14 +7,14 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { SnackBarService } from '../../shared/services/snack-bar.service';
 import { ConfirmDialogOptions, CustomConfirmDialogComponent } from '../../shared/components/custom-confirm-dialog/custom-confirm-dialog.component';
 import { SnackBarType } from '../../shared/components/custom-snack-bar/custom-snack-bar.component';
-import { MediaServer } from '../../media-servers/shared/media-server.model';
-import { MediaServerService } from 'src/app/media-servers/shared/media-server.service';
 import { LibraryService } from '../shared/library.service';
 import { Library } from '../shared/library.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LibraryFormComponent } from '../library-form/library-form.component';
 import { CustomMenuItem, CustomMenuService } from 'src/app/shared/services/custom-menu.service';
 import { MediaService } from 'src/app/shared/services/media.services';
+import { MediaServer } from 'src/app/servers/shared/server.model';
+import { MediaServerService } from 'src/app/servers/shared/server.service';
 
 declare var window;
 @Component({

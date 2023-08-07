@@ -6,12 +6,12 @@ import { HttpClient } from '@angular/common/http';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { ActivatedRoute } from '@angular/router';
 import { ParentComponent } from 'src/app/parent/parent.component';
-import { MediaServer } from 'src/app/media-servers/shared/media-server.model';
 import { SidebarOption } from '../shared/sidebar-option.model';
 import { Menu } from 'src/app/menus/shared/menu.model';
 import { DropDownMenuPage } from '../drop-down-menu/drop-down-menu.page';
 import { DropDownMenuOptions } from '../shared/drop-down-menu-options.model';
 import { DropDownMenuItem } from '../shared/drop-down-menu-Item.model';
+import { MediaServer } from 'src/app/servers/shared/server.model';
 
 declare var window;
 @Component({

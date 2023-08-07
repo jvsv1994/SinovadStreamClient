@@ -1,8 +1,8 @@
 
 import { Component, Input, OnInit} from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { MediaServer } from 'src/app/media-servers/shared/media-server.model';
 import { DirectoryService } from '../../services/directory.service';
+import { MediaServer } from 'src/app/servers/shared/server.model';
 
 @Component({
   selector: 'app-directory-chooser',
