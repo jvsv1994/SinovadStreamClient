@@ -112,7 +112,7 @@ export class WebContainerPage extends ParentComponent implements OnInit,OnDestro
       this.showingSidebarMedia=false;
     }
 
-    public showHome(){
+    public goHome(){
       this.showingSidebarAccount=false;
       this.router.navigateByUrl("/home").then((response) => {
         if(this.isSmallDevice())
@@ -137,13 +137,13 @@ export class WebContainerPage extends ParentComponent implements OnInit,OnDestro
           }
         );
       }else{
-        this.showHome();
+        this.goHome();
       }
     }
 
     public closeVideo(){
       this.currentVideo=undefined;
-      this.showHome();
+      this.goHome();
     }
 
     public onActivate(event:any){
