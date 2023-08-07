@@ -2,7 +2,7 @@
 <div class="sidebar-backdrop" (clickOutside)="onClickOutsideSidebar($event)">
   <div class="sidebar-container">
     <div class="sidebar-content">
-        <div role="navigation">
+        <div *ngIf="sharedData.userData" role="navigation">
             <div class="sidebar-list-header-container">
               <div class="sidebar-list-header-content">
                 {{sharedData.userData.FirstName}} {{sharedData.userData.LastName}}
