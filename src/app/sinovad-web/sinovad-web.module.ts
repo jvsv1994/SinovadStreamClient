@@ -16,7 +16,7 @@ import { RegisterUserPage } from '../register-user/register-user.page';
 import { LandingPage } from '../landing/landing.page';
 import { TvSerieDetailPage } from '../tvserie-detail/tvserie-detail.page';
 import { MovieDetailPage } from '../movie-detail/movie-detail.page';
-import { HomePage } from '../home/home.page';
+import { HomePage } from '../media/home/home.page';
 import { ServerSettingsGeneralPage } from '../server-settings-general/server-settings-general.page';
 import { WebContainerPageModule } from '../web-container/web-container.module';
 import { SplashScreenPageModule } from '../splash-screen/splash-screen.module';
@@ -41,7 +41,7 @@ const routes: Routes = [
       {
         path: 'home',
         component: HomePage,
-        loadChildren: () => import('../home/home.module').then(m => m.HomePageModule)
+        loadChildren: () => import('../media/media.module').then(m => m.MediaModule)
       },
       {
         path: 'media/movies',

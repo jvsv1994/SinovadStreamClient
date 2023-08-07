@@ -6,7 +6,7 @@ import { ParentComponent } from '../parent/parent.component';
 import { HttpClient} from '@angular/common/http';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HomePage } from '../home/home.page';
+import { HomePage } from '../media/home/home.page';
 import { TvSerieDetailPage } from '../tvserie-detail/tvserie-detail.page';
 import { MovieDetailPage } from '../movie-detail/movie-detail.page';
 import { TranscoderSettingssPage } from '../transcode-settings/transcode-settings.page';
