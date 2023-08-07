@@ -14,8 +14,6 @@ import { RecoverPasswordPage } from '../recover-password/recover-password.page';
 import { LoginPage } from '../login/login.page';
 import { RegisterUserPage } from '../register-user/register-user.page';
 import { LandingPage } from '../landing/landing.page';
-import { TvSerieDetailPage } from '../tvserie-detail/tvserie-detail.page';
-import { MovieDetailPage } from '../movie-detail/movie-detail.page';
 import { HomePage } from '../media/home/home.page';
 import { ServerSettingsGeneralPage } from '../server-settings-general/server-settings-general.page';
 import { WebContainerPageModule } from '../web-container/web-container.module';
@@ -33,6 +31,9 @@ import { ProfileEditPage } from '../profiles/profile-edit/profile-edit.page';
 import { MediaMoviesPage } from '../media/media-movies/media-movies.page';
 import { MediaTvSeriesPage } from '../media/media-tvseries/media-tvseries.page';
 import { SearchViewPage } from '../media/search/search-view/search-view.page';
+import { MediaDetailModule } from '../media/detail/media-detail.module';
+import { MovieDetailPage } from '../media/detail/movie-detail/movie-detail.page';
+import { TvSerieDetailPage } from '../media/detail/tvserie-detail/tvserie-detail.page';
 
 const routes: Routes = [
   {
@@ -76,12 +77,12 @@ const routes: Routes = [
       {
         path: 'moviedetail/:movieId',
         component: MovieDetailPage,
-        loadChildren: () => import('../movie-detail/movie-detail.module').then(m => m.MovieDetailPageModule)
+        loadChildren: () => import('../media/detail/media-detail.module').then(m => MediaDetailModule)
       },
       {
         path: 'tvseriedetail/:tvSerieId',
         component: TvSerieDetailPage,
-        loadChildren: () => import('../tvserie-detail/tvserie-detail.module').then(m => m.TvSerieDetailPageModule)
+        loadChildren: () => import('../media/detail/media-detail.module').then(m => MediaDetailModule)
       },
       {
         path: 'landing',

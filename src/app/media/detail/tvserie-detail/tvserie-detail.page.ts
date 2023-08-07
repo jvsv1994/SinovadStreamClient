@@ -2,21 +2,21 @@
 import { Component, EventEmitter, OnInit, Output} from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SharedDataService } from 'src/app/shared/services/shared-data.service';
-import { ParentComponent } from '../parent/parent.component';
 import { HttpClient} from '@angular/common/http';
 import { HttpMethodType } from 'src/app/shared/enums';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
-import { ItemDetail } from '../../models/itemDetail';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SinovadApiGenericResponse } from '../response/sinovadApiGenericResponse';
+import { ParentComponent } from 'src/app/parent/parent.component';
+import { ItemDetail } from 'src/models/itemDetail';
+import { SinovadApiGenericResponse } from 'src/app/response/sinovadApiGenericResponse';
 
 declare var window;
 @Component({
-  selector: 'app-movie-detail',
-  templateUrl: './movie-detail.page.html',
-  styleUrls: ['./movie-detail.page.scss']
+  selector: 'app-tvserie-detail',
+  templateUrl: './tvserie-detail.page.html',
+  styleUrls: ['./tvserie-detail.page.scss']
 })
-export class MovieDetailPage extends ParentComponent implements OnInit {
+export class TvSerieDetailPage extends ParentComponent implements OnInit {
 
   detail:ItemDetail;
 
@@ -32,21 +32,25 @@ export class MovieDetailPage extends ParentComponent implements OnInit {
     }
 
     ngOnInit(): void {
-      let movieId=this.activeRoute.snapshot.params.movieId;
-      if(movieId)
+      let tvSerieId=this.activeRoute.snapshot.params.tvSerieId;
+      if(tvSerieId)
       {
-        this.getMovieDetail(movieId);
+        this.getTvSerieDetail(tvSerieId);
       }else{
         this.router.navigate(['404'],{ skipLocationChange: false});
       }
     }
 
-    public getMovieDetail(movieId:number){
-      this.restProvider.executeSinovadApiService(HttpMethodType.GET,"/videos/GetMovieDataByUser?userId="+this.sharedData.userData.Id+"&movieId="+movieId).then((response:SinovadApiGenericResponse) => {
+    public getTvSerieDetail(tvSerieId:number){
+      var path="/videos/GetTvSerieDataByUser?userId="+this.sharedData.userData.Id+"&tvSerieId="+tvSerieId;
+      this.restProvider.executeSinovadApiService(HttpMethodType.GET,path).then((response:SinovadApiGenericResponse) => {
+        if(response.Data.ListSeasons && response.Data.ListSeasons.length>0)
+        {
+          response.Data.CurrentSeason=response.Data.ListSeasons[0];
+        }
         this.detail=response.Data;
       },error=>{
         console.error(error);
-        this.router.navigate(['404'],{ skipLocationChange: false});
       });
     }
 

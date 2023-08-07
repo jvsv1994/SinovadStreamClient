@@ -2,14 +2,14 @@
 import { ChangeDetectorRef, Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SharedDataService } from 'src/app/shared/services/shared-data.service';
-import { ParentComponent } from '../parent/parent.component';
+import { ParentComponent } from '../../../parent/parent.component';
 import { HttpClient} from '@angular/common/http';
 import { MediaType } from 'src/app/shared/enums';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
-import { ItemDetail } from '../../models/itemDetail';
-import { Episode } from '../../models/episode';
+import { ItemDetail } from '../../../../models/itemDetail';
+import { Episode } from '../../../../models/episode';
 import { VideoService } from 'src/app/shared/services/video.service';
-import { Season } from '../seasons/shared/season.model';
+import { Season } from '../../../seasons/shared/season.model';
 
 declare var window;
 @Component({
