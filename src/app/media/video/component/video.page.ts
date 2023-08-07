@@ -1,21 +1,21 @@
-import { ChangeDetectorRef, Component, ElementRef, EventEmitter, HostListener, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
 import * as Dash from 'dashjs';
 import {v4 as uuid} from "uuid";
 import hiBase64 from 'hi-base64';
 import { SharedDataService } from 'src/app/shared/services/shared-data.service';
-import { ParentComponent } from '../parent/parent.component';
 import { DomSanitizer } from '@angular/platform-browser';
 import { parse } from '@plussub/srt-vtt-parser';
 import Hls, { HlsConfig } from 'hls.js';
 import { HttpMethodType, LoadVideoStatus, VideoTransmissionType } from 'src/app/shared/enums';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
-import { VideoProfile } from '../../models/videoProfile';
-import { BuilderVideo } from '../../models/builderVideo';
-import { TranscodeRunVideo } from '../../models/transcodeRunVideo';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { CustomDialogOptionsComponent, DialogOption, DialogOptionsConfiguration } from '../shared/components/custom-dialog-options/custom-dialog-options.component';
-import { Episode } from '../episodes/shared/episode.model';
+import { ParentComponent } from 'src/app/parent/parent.component';
+import { BuilderVideo } from '../models/builderVideo';
+import { VideoProfile } from '../models/video-profile.model';
+import { TranscodeRunVideo } from '../models/transcodeRunVideo';
+import { Episode } from 'src/app/episodes/shared/episode.model';
+import { CustomDialogOptionsComponent, DialogOption, DialogOptionsConfiguration } from 'src/app/shared/components/custom-dialog-options/custom-dialog-options.component';
 @Component({
   selector: 'app-video',
   templateUrl: 'video.page.html',

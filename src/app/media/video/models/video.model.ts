@@ -1,6 +1,6 @@
-import { Episode } from "./episode";
-import { ItemDetail } from "./itemDetail";
-import { Season } from "./season";
+import { Episode } from "src/app/episodes/shared/episode.model";
+import { Season } from "src/app/seasons/shared/season.model";
+import { ItemDetail } from "../../shared/item-detail.model";
 
 export class Video{
 

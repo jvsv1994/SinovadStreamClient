@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { BuilderVideo } from 'src/models/builderVideo';
+import { BuilderVideo } from '../models/builderVideo';
 
 export declare type EventHandler = (...args: any[]) => any;
 

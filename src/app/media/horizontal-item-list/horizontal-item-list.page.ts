@@ -5,12 +5,12 @@ import { SharedDataService } from 'src/app/shared/services/shared-data.service';
 import { HttpClient } from '@angular/common/http';
 import { HttpMethodType, MediaType } from 'src/app/shared/enums';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
-import { VideoService } from 'src/app/shared/services/video.service';
 import { ParentComponent } from 'src/app/parent/parent.component';
 import { SinovadApiGenericResponse } from 'src/app/response/sinovadApiGenericResponse';
 import { ItemsGroup } from '../shared/items-group.model';
 import { Item } from '../shared/item.model';
 import { ItemDetail } from '../shared/item-detail.model';
+import { VideoService } from '../video/service/video.service';
 
 declare var window;
 @Component({

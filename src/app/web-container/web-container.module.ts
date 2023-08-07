@@ -3,10 +3,10 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
-import { VideoPageModule } from '../video/video.module';
 import { WebContainerPage } from './web-container.page';
 import { SidebarModule } from '../sidebar/sidebar.module';
 import { NavbarModule } from '../navbar/navbar.module';
+import { VideoPageModule } from '../media/video/video.module';
 @NgModule({
     declarations: [
       WebContainerPage
@@ -14,11 +14,11 @@ import { NavbarModule } from '../navbar/navbar.module';
     imports: [
       CommonModule,
       FormsModule,
-      VideoPageModule,
       SidebarModule,
       NavbarModule,
       ReactiveFormsModule,
       SharedModule,
+      VideoPageModule,
       RouterModule.forChild([])
     ],
     exports: [WebContainerPage]

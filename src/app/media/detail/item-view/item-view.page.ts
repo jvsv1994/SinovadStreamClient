@@ -6,10 +6,10 @@ import { ParentComponent } from '../../../parent/parent.component';
 import { HttpClient} from '@angular/common/http';
 import { MediaType } from 'src/app/shared/enums';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
-import { VideoService } from 'src/app/shared/services/video.service';
 import { Season } from '../../../seasons/shared/season.model';
 import { ItemDetail } from '../../shared/item-detail.model';
 import { Episode } from 'src/app/episodes/shared/episode.model';
+import { VideoService } from '../../video/service/video.service';
 
 declare var window;
 @Component({
