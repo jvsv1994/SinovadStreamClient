@@ -47,7 +47,6 @@ export class WebContainerPage extends ParentComponent implements OnInit,OnDestro
   currentMediaTypeID:number;
   title:string;
   isCollapsedSidebar:boolean=false;
-  refreshSidebarOption=new EventEmitter<boolean>();
   showingSidebarAccount:boolean=false;
   showingSidebarAdminMode:boolean=false;
   showingSidebarMedia:boolean=false;
@@ -105,10 +104,6 @@ export class WebContainerPage extends ParentComponent implements OnInit,OnDestro
       this.ref.detectChanges();
       this.hideContent=false;
       this.ref.detectChanges();
-    }
-
-    public refresh(){
-      this.refreshSidebarOption.emit(true);
     }
 
     public showAdminMode(){
