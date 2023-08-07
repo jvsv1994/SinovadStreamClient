@@ -54,14 +54,16 @@ export class CustomMenuService {
         component.instance.right=right;
         component.instance.top=top;
         component.instance.selectOption.subscribe((option:CustomMenuItem) => {
-          ctx.applicationRef.detachView(component.hostView);
           if(option.eventOnSelectItem)
           {
             option.eventOnSelectItem.emit(true);
           }
+          component.destroy();
+          ctx.applicationRef.detachView(component.hostView);
           resolve(option);
         });
         component.instance.hide.subscribe(event => {
+          component.destroy();
           ctx.applicationRef.detachView(component.hostView);
           reject(true);
         });

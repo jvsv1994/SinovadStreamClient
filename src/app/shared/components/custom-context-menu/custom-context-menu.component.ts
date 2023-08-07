@@ -12,7 +12,6 @@ export class ContextMenuOption{
   showBorderBottom?:boolean;
   imageUrl?:string;
   iconClass?:string;
-  eventOnSelectOption?:EventEmitter<boolean>;
 }
 
 @Component({
@@ -20,7 +19,7 @@ export class ContextMenuOption{
   templateUrl: './custom-context-menu.component.html',
   styleUrls: ['./custom-context-menu.component.scss']
 })
-export class CustomContextMenuComponent implements OnInit,OnDestroy {
+export class CustomContextMenuComponent {
 
   left:number;
   top:number;
@@ -39,18 +38,6 @@ export class CustomContextMenuComponent implements OnInit,OnDestroy {
     public http: HttpClient,
     public domSanitizer: DomSanitizer,
     public sharedData: SharedDataService) {
-
-    }
-
-    ngOnInit(): void {
-
-    }
-
-    ngOnDestroy(): void {
-      this.hideContextMenu.emit(true);
-    }
-
-    ngAfterViewInit(){
 
     }
 

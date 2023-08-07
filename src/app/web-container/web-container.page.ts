@@ -24,8 +24,7 @@ import { MediaTvSeriesPage } from '../media/media-tvseries/media-tvseries.page';
 import { SearchViewPage } from '../media/search/search-view/search-view.page';
 import { MovieDetailPage } from '../media/detail/movie-detail/movie-detail.page';
 import { TvSerieDetailPage } from '../media/detail/tvserie-detail/tvserie-detail.page';
-import { BuilderVideo } from '../media/video/models/builderVideo';
-import { VideoEvent, VideoService } from '../media/video/service/video.service';
+import { VideoService } from '../media/video/service/video.service';
 import { NotFoundPage } from '../not-found/not-found.page';
 import { LoginPage } from '../login/login.page';
 import { RegisterUserPage } from '../register-user/register-user.page';
@@ -50,7 +49,6 @@ export class WebContainerPage extends ParentComponent implements OnInit,OnDestro
   showingSidebarAccount:boolean=false;
   showingSidebarAdminMode:boolean=false;
   showingSidebarMedia:boolean=false;
-  currentVideo:BuilderVideo;
   subscriptionVideo:Subscription;
   showRouterChildWithFullDimentions:boolean=true;
 
@@ -64,13 +62,8 @@ export class WebContainerPage extends ParentComponent implements OnInit,OnDestro
     public domSanitizer: DomSanitizer,
     public sharedData: SharedDataService) {
       super(restProvider,domSanitizer,sharedData)
-      this.subscriptionVideo=this.videoService.getVideoEvent().subscribe((videoEvent:VideoEvent)=>{
-          if(videoEvent.isShowing)
-          {
-            this.currentVideo=videoEvent.builderVideo;
-          }else{
-            this.currentVideo=undefined;
-          }
+      this.subscriptionVideo=this.videoService.isClosedVideo().subscribe(()=>{
+         this.goHome();
       });
     }
 
@@ -139,11 +132,6 @@ export class WebContainerPage extends ParentComponent implements OnInit,OnDestro
       }else{
         this.goHome();
       }
-    }
-
-    public closeVideo(){
-      this.currentVideo=undefined;
-      this.goHome();
     }
 
     public onActivate(event:any){

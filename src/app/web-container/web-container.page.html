@@ -1,6 +1,3 @@
-
-
-
 <div class="sinovad-page-container">
   <div #header>
     <app-header *ngIf="!showRouterChildWithFullDimentions" (showAdminMode)="showAdminMode()" [showingSidebarAccount]="showingSidebarAccount" [showingSidebarAdminMode]="showingSidebarAdminMode"
@@ -22,7 +19,3 @@
 
   </div>
 </div>
-
-<section *ngIf="currentVideo" class="sinovad-container-video">
-  <app-video [builderVideo]="currentVideo" (outputCloseVideo)="closeVideo()"></app-video>
-</section>

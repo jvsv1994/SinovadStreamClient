@@ -123,7 +123,7 @@ export class ItemViewPage extends ParentComponent implements OnInit {
     }
 
     public getVideosByItem(){
-      this.videoService.showVideo({isShowing:true,builderVideo:this.CreateBuilderVideoFromItem(this.detail.Item,this.detail)});
+      this.videoService.show(this.CreateBuilderVideoFromItem(this.detail.Item,this.detail));
     }
 
     public onClickSeason(item:Season){
@@ -135,7 +135,7 @@ export class ItemViewPage extends ParentComponent implements OnInit {
     }
 
     public getVideoByEpisode(episode:Episode){
-      this.videoService.showVideo({isShowing:true,builderVideo:this.CreateBuilderVideoFromEpisode(episode,this.detail)});
+      this.videoService.show(this.CreateBuilderVideoFromEpisode(episode,this.detail));
     }
 
 

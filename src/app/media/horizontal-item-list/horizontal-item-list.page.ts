@@ -115,7 +115,7 @@ export class HorizontalItemListPage extends ParentComponent implements OnInit {
         let detail:ItemDetail=response.Data;
         detail.Item=item;
         var builderVideo= this.CreateBuilderVideoFromItem(item,detail);
-        this.videoService.showVideo({isShowing:true,builderVideo:builderVideo});
+        this.videoService.show(builderVideo);
       },error=>{
         console.error(error);
       });

@@ -38,14 +38,12 @@ export class ContextMenuService {
         component.instance.top=top;
         component.instance.listOptions=listOptions;
         component.instance.clickOption.subscribe((option:ContextMenuOption) => {
+          component.destroy();
           ctx.applicationRef.detachView(component.hostView);
-          if(option.eventOnSelectOption)
-          {
-            option.eventOnSelectOption.emit(true);
-          }
           resolve(option);
         });
         component.instance.hideContextMenu.subscribe(event => {
+          component.destroy();
           ctx.applicationRef.detachView(component.hostView);
           reject(true);
         });
