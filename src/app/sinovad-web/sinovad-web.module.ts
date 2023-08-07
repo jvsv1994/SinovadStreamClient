@@ -26,13 +26,13 @@ import { RoleListPage } from '../roles/role-list/role-list.page';
 import { MenuListPage } from '../menus/menu-list/menu-list.page';
 import { MovieListPage } from '../movies/movie-list/movie-list.page';
 import { TvSerieListPage } from '../tvseries/tvserie-list/tvserie-list.page';
-import { SearchViewPage } from '../search/search-view/search-view.page';
 import { LibraryListComponent } from '../libraries/library-list/library-list.component';
 import { ProfilesViewPage } from '../profiles/profiles-view/profiles-view.page';
 import { ProfileNewPage } from '../profiles/profile-new/profile-new.page';
 import { ProfileEditPage } from '../profiles/profile-edit/profile-edit.page';
 import { MediaMoviesPage } from '../media/media-movies/media-movies.page';
 import { MediaTvSeriesPage } from '../media/media-tvseries/media-tvseries.page';
+import { SearchViewPage } from '../media/search/search-view/search-view.page';
 
 const routes: Routes = [
   {
@@ -56,7 +56,7 @@ const routes: Routes = [
       {
         path: 'search',
         component: SearchViewPage,
-        loadChildren: () => import('../search/search.module').then(m => m.SearchModule)
+        loadChildren: () => import('../media/search/search.module').then(m => m.SearchModule)
       },
       {
         path: 'select-profile',
