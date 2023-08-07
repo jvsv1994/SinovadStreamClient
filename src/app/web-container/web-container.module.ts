@@ -4,11 +4,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { VideoPageModule } from '../video/video.module';
-import { SidebarAccountPageModule } from '../sidebar-account/siderbar-account.module';
-import { SidebarMediaPageModule } from '../sidebar-media/siderbar-media.module';
-import { SidebarAdministratorPageModule } from '../sidebar-administrator/siderbar-administrator.module';
 import { WebContainerPage } from './web-container.page';
 import { HeaderPageModule } from '../header/header.module';
+import { SidebarModule } from '../sidebar/sidebar.module';
 @NgModule({
     declarations: [
       WebContainerPage
@@ -18,9 +16,7 @@ import { HeaderPageModule } from '../header/header.module';
       FormsModule,
       VideoPageModule,
       HeaderPageModule,
-      SidebarAdministratorPageModule,
-      SidebarAccountPageModule,
-      SidebarMediaPageModule,
+      SidebarModule,
       ReactiveFormsModule,
       SharedModule,
       RouterModule.forChild([])

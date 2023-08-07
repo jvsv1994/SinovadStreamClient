@@ -2,17 +2,16 @@
 import { ChangeDetectorRef, Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SharedDataService } from 'src/app/shared/services/shared-data.service';
-import { ParentComponent } from '../parent/parent.component';
 import { HttpClient } from '@angular/common/http';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { SidebarModule } from 'src/models/sidebarModule';
-import { SidebarOption } from 'src/models/sidebarOption';
-import { DropDownMenuPage } from '../drop-down-menu/drop-down-menu.page';
-import { DropDownMenuItem } from '../drop-down-menu/dropDownMenuItem';
-import { DropDownMenuOptions } from '../drop-down-menu/dropDownMenuOptions';
-import { MediaServer } from '../media-servers/shared/media-server.model';
-import { Menu } from '../menus/shared/menu.model';
+import { ActivatedRoute } from '@angular/router';
+import { ParentComponent } from 'src/app/parent/parent.component';
+import { MediaServer } from 'src/app/media-servers/shared/media-server.model';
+import { SidebarOption } from '../shared/sidebar-option.model';
+import { DropDownMenuPage } from 'src/app/drop-down-menu/drop-down-menu.page';
+import { Menu } from 'src/app/menus/shared/menu.model';
+import { DropDownMenuOptions } from 'src/app/drop-down-menu/dropDownMenuOptions';
+import { DropDownMenuItem } from 'src/app/drop-down-menu/dropDownMenuItem';
 
 declare var window;
 @Component({
@@ -27,7 +26,7 @@ export class SidebarAccountPage extends ParentComponent implements OnInit {
   @Output() collapseSidebar=new EventEmitter();
   @ViewChild('dropDownMenuPage') dropDownMenuPage: DropDownMenuPage;
   @ViewChild('mediaServerButton') mediaServerButton:ElementRef ;
-  serverModules:SidebarModule[]=[
+  serverModules:SidebarOption[]=[
   /*   {
       index:1,
       order:1,

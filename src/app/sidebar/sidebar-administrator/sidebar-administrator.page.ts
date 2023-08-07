@@ -2,10 +2,10 @@
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SharedDataService } from 'src/app/shared/services/shared-data.service';
-import { ParentComponent } from '../parent/parent.component';
 import { HttpClient } from '@angular/common/http';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
-import { Menu } from '../menus/shared/menu.model';
+import { ParentComponent } from 'src/app/parent/parent.component';
+import { Menu } from 'src/app/menus/shared/menu.model';
 
 declare var window;
 @Component({
