@@ -5,14 +5,14 @@ import { SidebarAccountPage } from './sidebar-account/sidebar-account.page';
 import { SidebarAdministratorPage } from './sidebar-administrator/sidebar-administrator.page';
 import { SidebarMediaPage } from './sidebar-media/sidebar-media.page';
 import { RouterModule } from '@angular/router';
-import { DropDownMenuContentPage } from './drop-down-menu/drop-down-menu-content.page';
+import { DropDownServersComponent } from './drop-down-servers/drop-down-servers.component';
 
 @NgModule({
     declarations: [
       SidebarAccountPage,
       SidebarAdministratorPage,
       SidebarMediaPage,
-      DropDownMenuContentPage
+      DropDownServersComponent
     ],
     providers:[],
     imports: [
@@ -21,7 +21,7 @@ import { DropDownMenuContentPage } from './drop-down-menu/drop-down-menu-content
       SharedModule,
       RouterModule
     ],
-    exports: [SidebarAccountPage,SidebarAdministratorPage,SidebarMediaPage,DropDownMenuContentPage]
+    exports: [SidebarAccountPage,SidebarAdministratorPage,SidebarMediaPage,DropDownServersComponent]
 })
 export class SidebarModule {
 }

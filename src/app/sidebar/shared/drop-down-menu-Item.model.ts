@@ -1,6 +1,3 @@
-
-import { EventEmitter} from '@angular/core';
-
 export class DropDownMenuItem{
   title?:string;
   subtitle?:string;

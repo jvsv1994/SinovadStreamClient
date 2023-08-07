@@ -6,11 +6,11 @@ import { DropDownMenuOptions } from '../shared/drop-down-menu-options.model';
 import { SharedDataService } from 'src/app/shared/services/shared-data.service';
 
 @Component({
-  selector: 'app-drop-down-menu-content',
-  templateUrl: './drop-down-menu-content.page.html',
-  styleUrls: ['./drop-down-menu-content.page.scss']
+  selector: 'app-drop-down-servers',
+  templateUrl: './drop-down-servers.component.html',
+  styleUrls: ['./drop-down-servers.component.scss']
 })
-export class DropDownMenuContentPage implements AfterViewInit{
+export class DropDownServersComponent implements AfterViewInit{
 
   @Output() hide =new EventEmitter();
   @Output() clickItem =new EventEmitter();

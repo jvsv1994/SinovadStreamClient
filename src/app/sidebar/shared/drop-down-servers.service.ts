@@ -1,7 +1,7 @@
 import { ApplicationRef, ComponentFactoryResolver, EmbeddedViewRef, Injectable, Injector, ViewRef } from '@angular/core';
-import { DropDownMenuContentPage } from '../drop-down-menu/drop-down-menu-content.page';
 import { DropDownMenuOptions } from './drop-down-menu-options.model';
 import { DropDownMenuItem } from './drop-down-menu-Item.model';
+import { DropDownServersComponent } from '../drop-down-servers/drop-down-servers.component';
 
 export declare type EventHandler = (...args: any[]) => any;
 
@@ -22,7 +22,7 @@ export class DropDownServersService {
           this.applicationRef.detachView(this.lastViewRef);
         }
 
-        const factory = this.factoryResolver.resolveComponentFactory(DropDownMenuContentPage);
+        const factory = this.factoryResolver.resolveComponentFactory(DropDownServersComponent);
 
         const component = factory.create(this.injector);
         // create an instance of the sample component
