@@ -21,6 +21,9 @@ export class Item{
   public GenreId:number;
   public VideoId:number;
   public MediaServerId:number;
+  public MediaServerGuid:string;
+  public LibraryId:number;
+  public LibraryGuid:string;
   public TvSerieGenreId:number;
   public GenreName:string;
   public IpAddress:string;
