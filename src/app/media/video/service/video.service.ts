@@ -2,6 +2,7 @@ import { ApplicationRef, ComponentFactoryResolver, EmbeddedViewRef, Injectable, 
 import { Observable, Subject } from 'rxjs';
 import { BuilderVideo } from '../models/builderVideo';
 import { VideoPage } from '../component/video.page';
+import { Router } from '@angular/router';
 
 export declare type EventHandler = (...args: any[]) => any;
 
@@ -14,19 +15,11 @@ export class VideoEvent{
 export class VideoService {
 
   public video$ = new Subject<VideoEvent>();
-  public closeVideo$ = new Subject<boolean>();
   lastViewRef:ViewRef;
 
-  constructor(private factoryResolver: ComponentFactoryResolver, private injector: Injector,
+  constructor(private router: Router,
+    private factoryResolver: ComponentFactoryResolver, private injector: Injector,
     private applicationRef: ApplicationRef) {
-    }
-
-    public closeVideo():void{
-      this.closeVideo$.next(true);
-    };
-
-    public isClosedVideo():Observable<boolean>{
-      return this.closeVideo$.asObservable();
     }
 
     public show(builderVideo:BuilderVideo){
@@ -51,7 +44,7 @@ export class VideoService {
         let ctx=this;
         component.instance.builderVideo=builderVideo;
         component.instance.outputCloseVideo.subscribe(event => {
-          ctx.closeVideo$.next(true);
+          ctx.router.navigateByUrl("/home");
           component.destroy();
           ctx.applicationRef.detachView(component.hostView);
         });

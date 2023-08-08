@@ -1,13 +1,11 @@
 
-import { Component, OnDestroy, OnInit} from '@angular/core';
+import { Component} from '@angular/core';
 import { SharedService } from 'src/app/shared/services/shared-data.service';
-import { ActivatedRoute, Router } from '@angular/router';
 import { HomePage } from '../media/home/home.page';
 import { TranscoderSettingssPage } from '../transcode-settings/transcode-settings.page';
 import { ServerSettingsGeneralPage } from '../server-settings-general/server-settings-general.page';
 import { AccountPage } from '../account/account.page';
 import { GenreListPage } from '../genres/genre-list/genre-list.page';
-import { Subscription } from 'rxjs';
 import { UserListPage } from '../users/user-list/user-list.page';
 import { RoleListPage } from '../roles/role-list/role-list.page';
 import { MenuListPage } from '../menus/menu-list/menu-list.page';
@@ -20,7 +18,6 @@ import { MediaTvSeriesPage } from '../media/media-tvseries/media-tvseries.page';
 import { SearchViewPage } from '../media/search/search-view/search-view.page';
 import { MovieDetailPage } from '../media/detail/movie-detail/movie-detail.page';
 import { TvSerieDetailPage } from '../media/detail/tvserie-detail/tvserie-detail.page';
-import { VideoService } from '../media/video/service/video.service';
 import { NotFoundPage } from '../not-found/not-found.page';
 import { LoginPage } from '../login/login.page';
 import { RegisterUserPage } from '../register-user/register-user.page';
@@ -35,34 +32,17 @@ import { MediaServerComponent } from '../media/media-server/media-server.compone
   templateUrl: './web-container.page.html',
   styleUrls: ['./web-container.page.scss']
 })
-export class WebContainerPage implements OnInit,OnDestroy {
+export class WebContainerPage{
 
   _window=window;
   isCollapsedSidebar:boolean=false;
   showingSidebarAccount:boolean=false;
   showingSidebarAdminMode:boolean=false;
   showingSidebarMedia:boolean=false;
-  subscriptionVideo:Subscription;
   showRouterChildWithFullDimentions:boolean=true;
 
   constructor(
-    public videoService: VideoService,
-    public route: ActivatedRoute,
-    private router: Router,
-    public sharedService: SharedService) {
-      this.subscriptionVideo=this.videoService.isClosedVideo().subscribe(()=>{
-        this.router.navigateByUrl("/home");
-      });
-    }
-
-
-    public ngOnInit(): void {
-
-    }
-
-    public ngOnDestroy(): void {
-      this.subscriptionVideo.unsubscribe();
-    }
+    public sharedService: SharedService) {}
 
     public onClickToggleSidebarButton(){
       this.isCollapsedSidebar=!this.isCollapsedSidebar;
