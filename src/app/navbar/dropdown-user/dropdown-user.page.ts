@@ -12,9 +12,6 @@ declare var window;
 })
 export class DropDownUserPage{
 
-  @Output() showAdminMode =new EventEmitter();
-  @Output() logout =new EventEmitter();
-
   constructor(
     private ref:ChangeDetectorRef,
     private router: Router,
@@ -46,6 +43,14 @@ export class DropDownUserPage{
 
   public onClickAdminMode(){
     this.router.navigateByUrl(this.sharedData.listMenus[0].ChildMenus[0].Path)
+  }
+
+  public logOut(){
+    this.sharedData.currentProfile=undefined;
+    this.sharedData.userData=undefined;
+    this.sharedData.apiToken=undefined;
+    localStorage.removeItem("apiToken");
+    this.router.navigateByUrl("/landing");
   }
 
 }

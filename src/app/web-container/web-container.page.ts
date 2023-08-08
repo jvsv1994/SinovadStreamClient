@@ -76,26 +76,12 @@ export class WebContainerPage extends ParentComponent implements OnInit,OnDestro
       this.subscriptionVideo.unsubscribe();
     }
 
-    public logOut(){
-      this.sharedData.currentProfile=undefined;
-      this.sharedData.userData=undefined;
-      this.sharedData.apiToken=undefined;
-      localStorage.removeItem("apiToken");
-      this.router.navigate(['landing'],{ skipLocationChange: false});
-    }
-
     public toogleMenu(){
       this.ref.detectChanges();
     }
 
     public onClickToggleSidebarButton(){
       this.isCollapsedSidebar=!this.isCollapsedSidebar;
-    }
-
-    public showAdminMode(){
-      this.showingSidebarAdminMode=true;
-      this.showingSidebarAccount=false;
-      this.showingSidebarMedia=false;
     }
 
     public onSearchMedia(searchText:string){

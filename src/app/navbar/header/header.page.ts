@@ -21,10 +21,8 @@ export class HeaderPage extends ParentComponent implements OnInit {
   customKeyboardEvent:any;
   @Output() toggleSidebar =new EventEmitter();
   @Output() selectOption =new EventEmitter();
-  @Output() logout =new EventEmitter();
   @Output() executeSearch =new EventEmitter();
   @Output() toggleMenu =new EventEmitter();
-  @Output() showAdminMode =new EventEmitter();
   searchText:string='';
   isFocusSearch:boolean=false;
   showDropDown:boolean=false;
