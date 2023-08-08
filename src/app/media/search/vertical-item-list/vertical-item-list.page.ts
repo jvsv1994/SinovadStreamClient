@@ -1,8 +1,6 @@
 
 import { Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
 import { SharedService } from 'src/app/shared/services/shared-data.service';
-import { HttpClient } from '@angular/common/http';
 import { HttpMethodType } from 'src/app/shared/enums';
 import {v4 as uuid} from "uuid";
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
@@ -28,8 +26,6 @@ export class VerticalItemListPage implements OnInit {
 
   constructor(
     public restProvider: RestProviderService,
-    public http: HttpClient,
-    public domSanitizer: DomSanitizer,
     public sharedService: SharedService) {
 
 

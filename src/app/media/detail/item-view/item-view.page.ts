@@ -1,11 +1,8 @@
 
 import { ChangeDetectorRef, Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
 import { SharedService } from 'src/app/shared/services/shared-data.service';
 
-import { HttpClient} from '@angular/common/http';
 import { MediaType } from 'src/app/shared/enums';
-import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { Season } from '../../../seasons/shared/season.model';
 import { ItemDetail } from '../../shared/item-detail.model';
 import { Episode } from 'src/app/episodes/shared/episode.model';
@@ -30,10 +27,7 @@ export class ItemViewPage implements OnInit {
 
   constructor(
     private videoService:VideoService,
-    public restProvider: RestProviderService,
     private  ref:ChangeDetectorRef,
-    public http: HttpClient,
-    public domSanitizer: DomSanitizer,
     public sharedService: SharedService) {
 
 

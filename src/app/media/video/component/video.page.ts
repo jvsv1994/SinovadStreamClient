@@ -4,7 +4,6 @@ import * as Dash from 'dashjs';
 import {v4 as uuid} from "uuid";
 import hiBase64 from 'hi-base64';
 import { SharedService } from 'src/app/shared/services/shared-data.service';
-import { DomSanitizer } from '@angular/platform-browser';
 import { parse } from '@plussub/srt-vtt-parser';
 import Hls, { HlsConfig } from 'hls.js';
 import { HttpMethodType, LoadVideoStatus, VideoTransmissionType } from 'src/app/shared/enums';
@@ -59,7 +58,6 @@ export class VideoPage implements OnInit,OnDestroy{
   constructor(
     private dialog: MatDialog,
     public restProvider: RestProviderService,
-    public domSanitizer: DomSanitizer,
     public sharedService: SharedService,
     public ref: ChangeDetectorRef,
     public http: HttpClient) {

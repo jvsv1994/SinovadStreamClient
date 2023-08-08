@@ -1,9 +1,6 @@
 
 import { ChangeDetectorRef, Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
 import { SharedService } from 'src/app/shared/services/shared-data.service';
-import { HttpClient } from '@angular/common/http';
-import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { ActivatedRoute } from '@angular/router';
 
 import { SidebarOption } from '../shared/sidebar-option.model';
@@ -76,9 +73,6 @@ export class SidebarAccountPage implements OnInit {
     public dropDownServersService:DropDownServersService,
     public activeRoute: ActivatedRoute,
     public  ref:ChangeDetectorRef,
-    public restProvider: RestProviderService,
-    public http: HttpClient,
-    public domSanitizer: DomSanitizer,
     public sharedService: SharedService) {
 
 

@@ -1,10 +1,5 @@
 
 import { Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
-import { SharedService } from 'src/app/shared/services/shared-data.service';
-
-import { HttpClient} from '@angular/common/http';
-import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { SinovadApiPaginationResponse } from '../../../response/sinovadApiPaginationResponse';
 import { PaginationItem } from './pagination-item-model';
 
@@ -20,11 +15,7 @@ export class CustomPaginationComponent implements OnInit {
   @Input() responsePagination:SinovadApiPaginationResponse;
   @Output() selectPage=new EventEmitter();
 
-  constructor(
-    public restProvider: RestProviderService,
-    public http: HttpClient,
-    public domSanitizer: DomSanitizer,
-    public sharedService: SharedService) {
+  constructor() {
 
 
     }

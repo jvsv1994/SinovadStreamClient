@@ -1,9 +1,5 @@
 
-import { ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, ViewContainerRef} from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
-import { SharedService } from 'src/app/shared/services/shared-data.service';
-import { HttpClient} from '@angular/common/http';
-import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
+import { Component, EventEmitter} from '@angular/core';
 import { Subscription } from 'rxjs';
 
 export class ContextMenuOption{
@@ -31,13 +27,7 @@ export class CustomContextMenuComponent {
   hideContextMenuSuscription:Subscription;
   clickOptionSubscription:Subscription;
 
-  constructor(
-    public ref:ChangeDetectorRef,
-    public viewContainerRef: ViewContainerRef,
-    public restProvider: RestProviderService,
-    public http: HttpClient,
-    public domSanitizer: DomSanitizer,
-    public sharedService: SharedService) {
+  constructor() {
 
     }
 

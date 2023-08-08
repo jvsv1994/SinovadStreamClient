@@ -1,7 +1,6 @@
 
 import { Component, OnInit} from '@angular/core';
 import { SharedService } from 'src/app/shared/services/shared-data.service';
-import { HttpClient} from '@angular/common/http';
 import { CatalogEnum, HttpMethodType } from 'src/app/shared/enums';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { SinovadApiGenericResponse } from '../response/sinovadApiGenericResponse';
@@ -37,7 +36,6 @@ export class TranscoderSettingssPage implements OnInit {
     private router: Router,
     public activeRoute: ActivatedRoute,
     public restProvider: RestProviderService,
-    public http: HttpClient,
     public sharedService: SharedService) {
 
     }

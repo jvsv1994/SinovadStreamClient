@@ -1,10 +1,6 @@
 
 import { ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
 import { SharedService } from 'src/app/shared/services/shared-data.service';
-
-import { HttpClient} from '@angular/common/http';
-import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HomePage } from '../media/home/home.page';
 import { TranscoderSettingssPage } from '../transcode-settings/transcode-settings.page';
@@ -41,10 +37,7 @@ import { MediaServerComponent } from '../media/media-server/media-server.compone
 })
 export class WebContainerPage implements OnInit,OnDestroy {
 
-  showVideoPopUp:boolean=false;
   _window=window;
-  currentMediaTypeID:number;
-  title:string;
   isCollapsedSidebar:boolean=false;
   showingSidebarAccount:boolean=false;
   showingSidebarAdminMode:boolean=false;
@@ -55,11 +48,8 @@ export class WebContainerPage implements OnInit,OnDestroy {
   constructor(
     public videoService: VideoService,
     public route: ActivatedRoute,
-    public restProvider: RestProviderService,
     private router: Router,
     public  ref:ChangeDetectorRef,
-    public http: HttpClient,
-    public domSanitizer: DomSanitizer,
     public sharedService: SharedService) {
 
       this.subscriptionVideo=this.videoService.isClosedVideo().subscribe(()=>{

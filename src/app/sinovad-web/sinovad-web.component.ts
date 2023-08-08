@@ -1,10 +1,6 @@
 
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
 import { SharedService } from 'src/app/shared/services/shared-data.service';
-
-import { HttpClient } from '@angular/common/http';
-import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { MediaServerService } from '../servers/shared/server.service';
 import { ProfileService } from '../profiles/shared/profile.service';
 import { UserService } from '../users/shared/user.service';
@@ -24,10 +20,7 @@ export class SinovadWebComponent implements OnInit,OnDestroy {
     private userService:UserService,
     private profileService:ProfileService,
     private serverService: MediaServerService,
-    public restProvider: RestProviderService,
     public ref: ChangeDetectorRef,
-    public http: HttpClient,
-    public domSanitizer: DomSanitizer,
     public sharedService: SharedService) {
 
     }
