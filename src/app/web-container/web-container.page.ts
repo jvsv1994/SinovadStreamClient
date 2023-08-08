@@ -63,7 +63,7 @@ export class WebContainerPage extends ParentComponent implements OnInit,OnDestro
     public sharedData: SharedDataService) {
       super(restProvider,domSanitizer,sharedData)
       this.subscriptionVideo=this.videoService.isClosedVideo().subscribe(()=>{
-         this.goHome();
+        this.router.navigateByUrl("/home");
       });
     }
 
@@ -98,16 +98,12 @@ export class WebContainerPage extends ParentComponent implements OnInit,OnDestro
       this.showingSidebarMedia=false;
     }
 
-    public goHome(){
-      this.router.navigateByUrl("/home");
-    }
-
     public onSearchMedia(searchText:string){
       if(searchText!=undefined && searchText!='')
       {
         this.router.navigateByUrl("/search?text="+searchText);
       }else{
-        this.goHome();
+        this.router.navigateByUrl("/home");
       }
     }
 

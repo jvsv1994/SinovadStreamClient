@@ -9,7 +9,7 @@
             {{sharedData.currentProfile.FullName}}
           </span>
           <div *ngIf="sharedData.currentProfile.AvatarPath==undefined" class="sinovad-initials-profile">
-            {{getInitials(sharedData.currentProfile)}}
+            {{sharedData.getInitials(sharedData.currentProfile)}}
           </div>
           <img *ngIf="sharedData.currentProfile.AvatarPath!=undefined" class="sinovad-initials-profile"
           [attr.src]="sharedData.currentProfile.Id | formatDataPipe : 'GetAvatarImageURLByProfileId' | async">
@@ -23,7 +23,7 @@
           <li *ngIf="sharedData.currentProfile && profile.Id!=sharedData.currentProfile.Id" class="sinovad-avatar-item">
             <a #button id="avatar_button" class="sinovad-avatar-button" (click)="onSelectProfile(profile)">
                 <div *ngIf="profile.AvatarPath==undefined" class="sinovad-initials-profile">
-                  {{getInitials(profile)}}
+                  {{sharedData.getInitials(profile)}}
                 </div>
                 <img *ngIf="profile.AvatarPath!=undefined" class="sinovad-initials-profile" [attr.src]="profile.Id | formatDataPipe : 'GetAvatarImageURLByProfileId' | async">
                 <span class="sinovad-fullname-profile text-truncate">

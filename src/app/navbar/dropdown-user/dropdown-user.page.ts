@@ -1,10 +1,6 @@
 
-import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { ChangeDetectorRef, Component, EventEmitter, Output } from '@angular/core';
 import { SharedDataService } from 'src/app/shared/services/shared-data.service';
-import { ParentComponent } from '../../parent/parent.component';
-import { HttpClient } from '@angular/common/http';
-import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { Router } from '@angular/router';
 import { Profile } from '../../profiles/shared/profile.model';
 
@@ -14,25 +10,17 @@ declare var window;
   templateUrl: './dropdown-user.page.html',
   styleUrls: ['./dropdown-user.page.scss']
 })
-export class DropDownUserPage extends ParentComponent implements OnInit {
+export class DropDownUserPage{
 
   @Output() showAdminMode =new EventEmitter();
-  @Output() changeProfile =new EventEmitter();
   @Output() logout =new EventEmitter();
 
   constructor(
     private ref:ChangeDetectorRef,
     private router: Router,
-    public restProvider: RestProviderService,
-    public http: HttpClient,
-    public domSanitizer: DomSanitizer,
     public sharedData: SharedDataService) {
-      super(restProvider,domSanitizer,sharedData)
 
     }
-
-  ngOnInit(): void {
-  }
 
   public onClickChangeProfileButton(){
     this.sharedData.showSplashScreen=true;
@@ -49,7 +37,7 @@ export class DropDownUserPage extends ParentComponent implements OnInit {
   public onSelectProfile(profile:Profile)
   {
     this.sharedData.currentProfile=profile;
-    this.changeProfile.emit(true);
+    this.router.navigateByUrl('/home')
   }
 
   public onClickAccountOption(){

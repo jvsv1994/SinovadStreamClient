@@ -19,7 +19,6 @@ export class HeaderPage extends ParentComponent implements OnInit {
 
   @ViewChild('searchTarget') searchTarget: ElementRef;
   customKeyboardEvent:any;
-  @Output() goHome =new EventEmitter();
   @Output() toggleSidebar =new EventEmitter();
   @Output() selectOption =new EventEmitter();
   @Output() logout =new EventEmitter();
@@ -78,7 +77,7 @@ export class HeaderPage extends ParentComponent implements OnInit {
   public onSelectProfile(profile:Profile)
   {
     this.sharedData.currentProfile=profile;
-    this.goHome.emit(true);
+    this.router.navigateByUrl("/home");
   }
 
   public onClickChangeProfileButton(){
