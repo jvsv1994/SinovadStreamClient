@@ -19,10 +19,10 @@ export class MediaService {
     return new Promise((resolve, reject) => {
       let logIdentifier=uuid();
       let mediaRequest: any={
-        ListStorages:listLibraries,
+        Listlibraries:listLibraries,
         LogIdentifier:logIdentifier
       };
-      this.restProvider.executeHttpMethodByUrl(HttpMethodType.POST,mediaServerUrl+'/api/medias/UpdateVideosInListStorages',mediaRequest).then((response) => {
+      this.restProvider.executeHttpMethodByUrl(HttpMethodType.POST,mediaServerUrl+'/api/medias/UpdateVideosInListlibraries',mediaRequest).then((response) => {
         resolve(response)
       },error=>{
         console.error(error);

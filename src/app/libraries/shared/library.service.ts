@@ -22,7 +22,7 @@ export class LibraryService {
 
   public getLibraries():Promise<SinovadApiGenericResponse>{
     return new Promise((resolve, reject) => {
-      var path="/storages/GetAllLibrariesByUserAsync/"+this.sharedService.userData.Id;
+      var path="/libraries/GetAllLibrariesByUserAsync/"+this.sharedService.userData.Id;
       this.restProvider.executeSinovadApiService(HttpMethodType.GET,path).then((response:SinovadApiGenericResponse) => {
         let libraries=response.Data;
         this.sharedService.libraries=libraries;
@@ -39,7 +39,7 @@ export class LibraryService {
       let callGuid=uuid();
       this.lastCallGuid=callGuid;
       var queryParams="?page="+pageNumber.toString()+"&take="+itemsPerPage.toString()+"&sortBy="+sortBy+"&sortDirection="+sortDirection+"&searchText="+searchText+"&searchBy="+searchBy;
-      var path="/storages/GetAllWithPaginationByMediaServerAsync/"+mediaServerId+queryParams;
+      var path="/libraries/GetAllWithPaginationByMediaServerAsync/"+mediaServerId+queryParams;
       this.restProvider.executeSinovadApiService(HttpMethodType.GET,path).then((response:SinovadApiPaginationResponse) => {
         if(this.lastCallGuid==callGuid)
         {
@@ -55,7 +55,7 @@ export class LibraryService {
   public saveItem(item:Library):Promise<boolean>{
     return new Promise((resolve, reject) => {
       let methodType=item.Id>0?HttpMethodType.PUT:HttpMethodType.POST;
-      var path=item.Id>0?"/storages/Update":"/storages/Create";
+      var path=item.Id>0?"/libraries/Update":"/libraries/Create";
       this.restProvider.executeSinovadApiService(methodType,path,item).then((response) => {
         resolve(true);
       },error=>{
@@ -66,7 +66,7 @@ export class LibraryService {
   }
   public deleteItem(itemId:number):Promise<SinovadApiGenericResponse>{
     return new Promise((resolve, reject) => {
-      var path="/storages/Delete/"+itemId;
+      var path="/libraries/Delete/"+itemId;
       this.restProvider.executeSinovadApiService(HttpMethodType.DELETE,path).then((response:SinovadApiGenericResponse) => {
         resolve(response);
       },error=>{
@@ -85,7 +85,7 @@ export class LibraryService {
         listItemIds.push(item.Id);
       }
       var listIds=listItemIds.join(",");
-      var path="/storages/DeleteList/"+listIds;
+      var path="/libraries/DeleteList/"+listIds;
       this.restProvider.executeSinovadApiService(HttpMethodType.DELETE,path).then((response:SinovadApiGenericResponse) => {
         resolve(response);
       },error=>{

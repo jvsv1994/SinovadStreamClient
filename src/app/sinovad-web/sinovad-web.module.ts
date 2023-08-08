@@ -63,6 +63,16 @@ const routes: Routes = [
         loadChildren: () => import('../media/media.module').then(m => m.MediaModule)
       },
       {
+        path: 'moviedetail/:movieId',
+        component: MovieDetailPage,
+        loadChildren: () => import('../media/detail/media-detail.module').then(m => MediaDetailModule)
+      },
+      {
+        path: 'tvseriedetail/:tvSerieId',
+        component: TvSerieDetailPage,
+        loadChildren: () => import('../media/detail/media-detail.module').then(m => MediaDetailModule)
+      },
+      {
         path: 'search',
         component: SearchViewPage,
         loadChildren: () => import('../media/search/search.module').then(m => m.SearchModule)
@@ -81,16 +91,6 @@ const routes: Routes = [
         path: 'edit-profile/:profileGuid',
         component: ProfileEditPage,
         loadChildren: () => import('../profiles/profiles.module').then(m => m.ProfilesModule)
-      },
-      {
-        path: 'moviedetail/:movieId',
-        component: MovieDetailPage,
-        loadChildren: () => import('../media/detail/media-detail.module').then(m => MediaDetailModule)
-      },
-      {
-        path: 'tvseriedetail/:tvSerieId',
-        component: TvSerieDetailPage,
-        loadChildren: () => import('../media/detail/media-detail.module').then(m => MediaDetailModule)
       },
       {
         path: 'landing',

@@ -181,7 +181,7 @@ button.manage-library-summary-action:hover{
   height: 100%;
 }
 
-.sinovad-storage-principal-section{
+.sinovad-library-principal-section{
   display: block;
   border-bottom: 1px solid #dedede;
   margin-left: 10px;
@@ -194,11 +194,11 @@ button.manage-library-summary-action:hover{
   }
 }
 
-.sinovad-storage-container{
+.sinovad-library-container{
   display: block;
 }
 
-.sinovad-storage-section{
+.sinovad-library-section{
   display: block;
   padding: 10px;
   h3{
@@ -206,7 +206,7 @@ button.manage-library-summary-action:hover{
     margin-left: 0px;
     font-size: 20px;
   }
-  .sinovad-storage-buttons-container{
+  .sinovad-library-buttons-container{
     display: flex;
     align-items: center;
   }

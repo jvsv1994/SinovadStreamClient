@@ -5,17 +5,17 @@
     <button (click)="openNewLibrary()">Añadir biblioteca</button>
     <button (click)="updateVideoInAllLibraries()">Buscar archivos en biblioteca</button>
   </div>
-  <ng-template ngFor let-storage [ngForOf]="listLibraries" let-i="index">
-    <div class="manage-library-summary-row" [ngClass]="{'selected':currentLibrary && currentLibrary.Id==storage.Id}">
+  <ng-template ngFor let-library [ngForOf]="listLibraries" let-i="index">
+    <div class="manage-library-summary-row" [ngClass]="{'selected':currentLibrary && currentLibrary.Id==library.Id}">
       <div class="manage-library-summary-overlay">
         <div class="manage-library-icon-container">
-          <i *ngIf="storage.MediaTypeCatalogDetailId==1" class="fa-solid fa-film"></i>
-          <i *ngIf="storage.MediaTypeCatalogDetailId==2" class="fa-solid fa-tv"></i>
+          <i *ngIf="library.MediaTypeCatalogDetailId==1" class="fa-solid fa-film"></i>
+          <i *ngIf="library.MediaTypeCatalogDetailId==2" class="fa-solid fa-tv"></i>
         </div>
-        <a>{{storage.Name}}</a>
+        <a>{{library.Name}}</a>
         <div class="manage-library-summary-actions">
           <div class="manage-library-summary-header">
-              <button class="manage-library-summary-action" (click)="showActions($event,storage)">
+              <button class="manage-library-summary-action" (click)="showActions($event,library)">
                   <span class="manage-library-summary-header-icon">
                     <i class="fa-solid fa-ellipsis-vertical"></i>
                   </span>
