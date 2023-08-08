@@ -4,6 +4,7 @@ import { Menu } from 'src/app/menus/shared/menu.model';
 import { Profile } from 'src/app/profiles/shared/profile.model';
 import { Configuration } from '../models/configuration.model';
 import { MediaServer } from 'src/app/servers/shared/server.model';
+import { FormGroup } from '@angular/forms';
 
 @Injectable({ providedIn: 'root' })
 export class SharedDataService {
@@ -52,5 +53,24 @@ export class SharedDataService {
   public delay(ms: number) {
     return new Promise( resolve => setTimeout(resolve, ms) );
   }
+
+  public hasRequireErrorFormControl(formGroup:FormGroup,formControlKey:string){
+    if(formGroup.controls[formControlKey].errors.required)
+    {
+      return true;
+    }else{
+      return false;
+    }
+  }
+
+  public isInvalidFormControl(formGroup:FormGroup,formControlKey:string){
+    if(formGroup.controls[formControlKey].invalid && (formGroup.controls[formControlKey].dirty || formGroup.controls[formControlKey].touched))
+    {
+      return true;
+    }else{
+      return false;
+    }
+  }
+
 
 }

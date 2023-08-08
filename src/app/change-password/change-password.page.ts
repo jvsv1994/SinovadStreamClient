@@ -1,9 +1,6 @@
 
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
 import { SharedDataService } from 'src/app/shared/services/shared-data.service';
-import { ParentComponent } from '../parent/parent.component';
-import { HttpClient} from '@angular/common/http';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { HttpMethodType } from 'src/app/shared/enums';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
@@ -15,7 +12,7 @@ declare var window;
   templateUrl: './change-password.page.html',
   styleUrls: ['./change-password.page.scss']
 })
-export class ChangePasswordPage extends ParentComponent implements OnInit {
+export class ChangePasswordPage implements OnInit {
 
   serverErrorMessage:string=undefined;
   changePasswordData:ChangePasswordModel;
@@ -30,10 +27,7 @@ export class ChangePasswordPage extends ParentComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     public restProvider: RestProviderService,
-    public http: HttpClient,
-    public domSanitizer: DomSanitizer,
     public sharedData: SharedDataService) {
-      super(restProvider,domSanitizer,sharedData)
 
     }
 
