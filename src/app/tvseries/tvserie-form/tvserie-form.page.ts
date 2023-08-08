@@ -13,7 +13,7 @@ import { Genre } from 'src/app/genres/shared/genre.model';
 import { SinovadApiGenericResponse } from 'src/app/response/sinovadApiGenericResponse';
 import { SelectionModel } from '@angular/cdk/collections';
 import { TvSerieGenre } from '../shared/tvserie-genre.model';
-import { SharedDataService } from 'src/app/shared/services/shared-data.service';
+import { SharedService } from 'src/app/shared/services/shared-data.service';
 
 @Component({
   selector: 'app-tvserie-form',
@@ -30,7 +30,7 @@ export class TvSerieFormPage implements OnInit{
   listGenres:Genre[];
 
   constructor(
-    private sharedDataService:SharedDataService,
+    private sharedService:SharedService,
     private modalService: NgbModal,
     private genreService:GenreService,
     private formBuilder: FormBuilder,
@@ -60,8 +60,8 @@ export class TvSerieFormPage implements OnInit{
     private buildFormGroup(){
       this.tvserieFormGroup = this.formBuilder.group({
         name:new FormControl(this.tvserie.Name,[Validators.required]),
-        firstAirDate:new FormControl(this.sharedDataService.formatDate(this.tvserie.FirstAirDate)),
-        lastAirDate:new FormControl(this.sharedDataService.formatDate(this.tvserie.LastAirDate)),
+        firstAirDate:new FormControl(this.sharedService.formatDate(this.tvserie.FirstAirDate)),
+        lastAirDate:new FormControl(this.sharedService.formatDate(this.tvserie.LastAirDate)),
         directors:new FormControl(this.tvserie.Directors),
         actors:new FormControl(this.tvserie.Actors),
         overview:new FormControl(this.tvserie.Overview),

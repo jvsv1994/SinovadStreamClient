@@ -2,7 +2,7 @@
 import { Component} from '@angular/core';
 import { Profile } from '../shared/profile.model';
 import { ProfileService } from '../shared/profile.service';
-import { SharedDataService } from 'src/app/shared/services/shared-data.service';
+import { SharedService } from 'src/app/shared/services/shared-data.service';
 import { Router } from '@angular/router';
 
 declare var window;
@@ -18,7 +18,7 @@ export class ProfileNewPage{
 
   constructor(
     private router: Router,
-    private sharedService:SharedDataService,
+    private sharedService:SharedService,
     private profileService:ProfileService) {
 
     }

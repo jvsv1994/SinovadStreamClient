@@ -1,6 +1,6 @@
 
 import { Component} from '@angular/core';
-import { SharedDataService } from 'src/app/shared/services/shared-data.service';
+import { SharedService } from 'src/app/shared/services/shared-data.service';
 import { Router } from '@angular/router';
 import { Profile } from '../shared/profile.model';
 import { ProfileService } from '../shared/profile.service';
@@ -21,7 +21,7 @@ export class ProfilesViewPage{
   constructor(
     private profileService:ProfileService,
     private router: Router,
-    public sharedService: SharedDataService) {
+    public sharedService: SharedService) {
 
     }
 

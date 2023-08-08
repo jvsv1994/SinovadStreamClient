@@ -1,7 +1,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { SharedDataService } from 'src/app/shared/services/shared-data.service';
+import { SharedService } from 'src/app/shared/services/shared-data.service';
 import { HttpClient } from '@angular/common/http';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { HttpMethodType } from 'src/app/shared/enums';
@@ -43,7 +43,7 @@ export class LoginPage implements OnInit {
     public restProvider: RestProviderService,
     public http: HttpClient,
     public domSanitizer: DomSanitizer,
-    public sharedData: SharedDataService) {
+    public sharedService: SharedService) {
 
 
     }
@@ -77,8 +77,8 @@ export class LoginPage implements OnInit {
       this.restProvider.executeSinovadApiService(HttpMethodType.POST,'/users/Login',this.user).then((response:SinovadApiGenericResponse) => {
         let token=response.Data;
         localStorage.setItem('apiToken',token);
-        this.sharedData.apiToken=token;
-        this.sharedData.showSplashScreen=true;
+        this.sharedService.apiToken=token;
+        this.sharedService.showSplashScreen=true;
         this.userService.getUser().then(res=>{
           this.menuService.getMenus();
           this.serverService.getMediaServers();

@@ -1,7 +1,7 @@
 
 import { Component, OnInit} from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { SharedDataService } from 'src/app/shared/services/shared-data.service';
+import { SharedService } from 'src/app/shared/services/shared-data.service';
 import { HttpClient} from '@angular/common/http';
 import { HttpMethodType } from 'src/app/shared/enums';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
@@ -26,7 +26,7 @@ export class TvSerieDetailPage implements OnInit {
     public restProvider: RestProviderService,
     public http: HttpClient,
     public domSanitizer: DomSanitizer,
-    public sharedData: SharedDataService) {
+    public sharedService: SharedService) {
 
 
     }
@@ -42,7 +42,7 @@ export class TvSerieDetailPage implements OnInit {
     }
 
     public getTvSerieDetail(tvSerieId:number){
-      var path="/videos/GetTvSerieDataByUser?userId="+this.sharedData.userData.Id+"&tvSerieId="+tvSerieId;
+      var path="/videos/GetTvSerieDataByUser?userId="+this.sharedService.userData.Id+"&tvSerieId="+tvSerieId;
       this.restProvider.executeSinovadApiService(HttpMethodType.GET,path).then((response:SinovadApiGenericResponse) => {
         if(response.Data.ListSeasons && response.Data.ListSeasons.length>0)
         {

@@ -1,7 +1,7 @@
 
 import { Component, OnInit} from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { SharedDataService } from 'src/app/shared/services/shared-data.service';
+import { SharedService } from 'src/app/shared/services/shared-data.service';
 import { HttpClient} from '@angular/common/http';
 import { HttpMethodType } from 'src/app/shared/enums';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
@@ -26,7 +26,7 @@ export class MovieDetailPage implements OnInit {
     public restProvider: RestProviderService,
     public http: HttpClient,
     public domSanitizer: DomSanitizer,
-    public sharedData: SharedDataService) {
+    public sharedService: SharedService) {
 
 
     }
@@ -42,7 +42,7 @@ export class MovieDetailPage implements OnInit {
     }
 
     public getMovieDetail(movieId:number){
-      this.restProvider.executeSinovadApiService(HttpMethodType.GET,"/videos/GetMovieDataByUser?userId="+this.sharedData.userData.Id+"&movieId="+movieId).then((response:SinovadApiGenericResponse) => {
+      this.restProvider.executeSinovadApiService(HttpMethodType.GET,"/videos/GetMovieDataByUser?userId="+this.sharedService.userData.Id+"&movieId="+movieId).then((response:SinovadApiGenericResponse) => {
         this.detail=response.Data;
       },error=>{
         console.error(error);

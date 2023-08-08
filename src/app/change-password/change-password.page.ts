@@ -1,6 +1,6 @@
 
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { SharedDataService } from 'src/app/shared/services/shared-data.service';
+import { SharedService } from 'src/app/shared/services/shared-data.service';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { HttpMethodType } from 'src/app/shared/enums';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
@@ -27,7 +27,7 @@ export class ChangePasswordPage implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     public restProvider: RestProviderService,
-    public sharedData: SharedDataService) {
+    public sharedService: SharedService) {
 
     }
 
@@ -39,7 +39,7 @@ export class ChangePasswordPage implements OnInit {
       if(this.changePasswordForm.valid)
       {
         this.changePasswordData={
-          UserId:this.sharedData.userData.Id,
+          UserId:this.sharedService.userData.Id,
           Password:this.changePasswordForm.value.password,
           ConfirmPassword:this.changePasswordForm.value.confirmPassword,
           CurrentPassword:this.changePasswordForm.value.currentPassword

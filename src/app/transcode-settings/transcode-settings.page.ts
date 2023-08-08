@@ -1,6 +1,6 @@
 
 import { Component, OnInit} from '@angular/core';
-import { SharedDataService } from 'src/app/shared/services/shared-data.service';
+import { SharedService } from 'src/app/shared/services/shared-data.service';
 import { HttpClient} from '@angular/common/http';
 import { CatalogEnum, HttpMethodType } from 'src/app/shared/enums';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
@@ -38,7 +38,7 @@ export class TranscoderSettingssPage implements OnInit {
     public activeRoute: ActivatedRoute,
     public restProvider: RestProviderService,
     public http: HttpClient,
-    public sharedService: SharedDataService) {
+    public sharedService: SharedService) {
 
     }
 

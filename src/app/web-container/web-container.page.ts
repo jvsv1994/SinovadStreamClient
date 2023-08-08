@@ -1,7 +1,7 @@
 
 import { ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { SharedDataService } from 'src/app/shared/services/shared-data.service';
+import { SharedService } from 'src/app/shared/services/shared-data.service';
 
 import { HttpClient} from '@angular/common/http';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
@@ -60,7 +60,7 @@ export class WebContainerPage implements OnInit,OnDestroy {
     public  ref:ChangeDetectorRef,
     public http: HttpClient,
     public domSanitizer: DomSanitizer,
-    public sharedData: SharedDataService) {
+    public sharedService: SharedService) {
 
       this.subscriptionVideo=this.videoService.isClosedVideo().subscribe(()=>{
         this.router.navigateByUrl("/home");
@@ -87,7 +87,7 @@ export class WebContainerPage implements OnInit,OnDestroy {
     public onActivate(event:any){
       let ctx=this;
       this.isCollapsedSidebar=true;
-      this.sharedData.showSplashScreen=false;
+      this.sharedService.showSplashScreen=false;
       if(event instanceof NotFoundPage || event instanceof LoginPage || event instanceof RegisterUserPage || event instanceof RecoverPasswordPage || event instanceof ResetPasswordPage
         || event instanceof LandingPage || event instanceof ConfirmEmailPage || event instanceof ProfilesViewPage)
       {

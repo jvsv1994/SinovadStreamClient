@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Menu } from 'src/app/menus/shared/menu.model';
 import { MenuService } from 'src/app/menus/shared/menu.service';
 import { SinovadApiGenericResponse } from 'src/app/response/sinovadApiGenericResponse';
-import { SharedDataService } from 'src/app/shared/services/shared-data.service';
+import { SharedService } from 'src/app/shared/services/shared-data.service';
 
 declare var window;
 @Component({
@@ -18,7 +18,7 @@ export class SidebarMediaPage{
   mediaOptions:Menu[]=[];
 
   constructor(
-    private sharedService:SharedDataService,
+    private sharedService:SharedService,
     private menuService:MenuService,
     private router: Router) {
 

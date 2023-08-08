@@ -1,13 +1,13 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { SharedDataService } from 'src/app/shared/services/shared-data.service';
+import { SharedService } from 'src/app/shared/services/shared-data.service';
 @Pipe({
     name: 'formatDataPipe'
 })
 export class FormatDataPipe implements PipeTransform {
 
     constructor(public domSanitizer: DomSanitizer,
-      private sharedData: SharedDataService) {
+      private sharedService: SharedService) {
     }
     transform(input: any, ...args: any[]):Promise<any> {
       return new Promise((resolve, reject) => {
@@ -16,11 +16,11 @@ export class FormatDataPipe implements PipeTransform {
         switch (type) {
           case "GetImageURLByKey":{
             if (input != undefined && input != '') {
-              if(this.sharedData.configurationData.developerMode)
+              if(this.sharedService.configurationData.developerMode)
               {
                 output = "assets/icon/"+input;
               }else{
-                output = this.sharedData.urlSinovadCdn+"/assets/icon/"+input;
+                output = this.sharedService.urlSinovadCdn+"/assets/icon/"+input;
               }
               resolve(output);
             }
@@ -28,7 +28,7 @@ export class FormatDataPipe implements PipeTransform {
           }
           case "GetAvatarImageURLByProfileId":{
             if (input != undefined && input != '') {
-                var url=this.sharedData.urlSinovadStreamWebApi+"/api/v1/documents/GetAvatarProfile/"+input;
+                var url=this.sharedService.urlSinovadStreamWebApi+"/api/v1/documents/GetAvatarProfile/"+input;
                 fetch(url)
                 .then(res => res.blob()) // Gets the response and returns it as a blob
                 .then(blob => {
@@ -40,11 +40,11 @@ export class FormatDataPipe implements PipeTransform {
           }
           case "GetSoundUrlByKey":{
             if (input != undefined && input != '') {
-              if(this.sharedData.configurationData.developerMode)
+              if(this.sharedService.configurationData.developerMode)
               {
                 output = "assets/sound/"+input;
               }else{
-                output = this.sharedData.urlSinovadCdn+"/assets/sound/"+input;
+                output = this.sharedService.urlSinovadCdn+"/assets/sound/"+input;
               }
               resolve(output);
             }

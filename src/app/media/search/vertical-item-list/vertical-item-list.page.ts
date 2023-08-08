@@ -1,7 +1,7 @@
 
 import { Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { SharedDataService } from 'src/app/shared/services/shared-data.service';
+import { SharedService } from 'src/app/shared/services/shared-data.service';
 import { HttpClient } from '@angular/common/http';
 import { HttpMethodType } from 'src/app/shared/enums';
 import {v4 as uuid} from "uuid";
@@ -30,7 +30,7 @@ export class VerticalItemListPage implements OnInit {
     public restProvider: RestProviderService,
     public http: HttpClient,
     public domSanitizer: DomSanitizer,
-    public sharedData: SharedDataService) {
+    public sharedService: SharedService) {
 
 
     }
@@ -51,7 +51,7 @@ export class VerticalItemListPage implements OnInit {
     public getItemsBySearch(searchText:string,lastCallGUID:string){
       if(searchText.trim()!="")
       {
-        var path='/videos/SearchTvPrograms?userId='+this.sharedData.userData.Id+"&searchMovies="+true+"&searchTvSeries="+true+"&searchText="+searchText;
+        var path='/videos/SearchTvPrograms?userId='+this.sharedService.userData.Id+"&searchMovies="+true+"&searchTvSeries="+true+"&searchText="+searchText;
         this.restProvider.executeSinovadApiService(HttpMethodType.GET,path).then((response:SinovadApiGenericResponse) => {
           let listItems:Item[]=response.Data;
           if(lastCallGUID==this.lastCallGUID)
@@ -118,7 +118,7 @@ export class VerticalItemListPage implements OnInit {
     }
 
     public getTvSerieDetail(item:Item){
-      var path="/videos/GetTvSerieDetail?userId="+this.sharedData.userData.Id+"&tvSerieId="+item.TvSerieId;
+      var path="/videos/GetTvSerieDetail?userId="+this.sharedService.userData.Id+"&tvSerieId="+item.TvSerieId;
       this.restProvider.executeSinovadApiService(HttpMethodType.GET,path).then((response:SinovadApiGenericResponse) => {
         let data:ItemDetail=response.Data;
         data.Item=item;

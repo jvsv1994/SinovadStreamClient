@@ -13,7 +13,7 @@ import { Genre } from 'src/app/genres/shared/genre.model';
 import { SinovadApiGenericResponse } from 'src/app/response/sinovadApiGenericResponse';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MovieGenre } from '../shared/movie-genre.model';
-import { SharedDataService } from 'src/app/shared/services/shared-data.service';
+import { SharedService } from 'src/app/shared/services/shared-data.service';
 
 @Component({
   selector: 'app-movie-form',
@@ -30,7 +30,7 @@ export class MovieFormPage implements OnInit{
   listGenres:Genre[];
 
   constructor(
-    private sharedDataService:SharedDataService,
+    private sharedService:SharedService,
     private modalService: NgbModal,
     private genreService:GenreService,
     private formBuilder: FormBuilder,
@@ -60,7 +60,7 @@ export class MovieFormPage implements OnInit{
     private buildFormGroup(){
       this.movieFormGroup = this.formBuilder.group({
         title:new FormControl(this.movie.Title,[Validators.required]),
-        releaseDate:new FormControl(this.sharedDataService.formatDate(this.movie.ReleaseDate)),
+        releaseDate:new FormControl(this.sharedService.formatDate(this.movie.ReleaseDate)),
         directors:new FormControl(this.movie.Directors),
         actors:new FormControl(this.movie.Actors),
         overview:new FormControl(this.movie.Overview),

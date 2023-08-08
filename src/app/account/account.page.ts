@@ -1,6 +1,6 @@
 
 import { Component, OnInit } from '@angular/core';
-import { SharedDataService } from 'src/app/shared/services/shared-data.service';
+import { SharedService } from 'src/app/shared/services/shared-data.service';
 import { Router } from '@angular/router';
 
 declare var window;
@@ -14,11 +14,11 @@ export class AccountPage implements OnInit {
   isCollapsedChangePasswordSection:boolean=true;
   constructor(
     private router: Router,
-    public sharedData: SharedDataService) {
+    public sharedService: SharedService) {
     }
 
     ngOnInit(): void {
-      if(this.sharedData.apiToken==undefined)
+      if(this.sharedService.apiToken==undefined)
       {
         this.router.navigateByUrl('/landing');
       }

@@ -5,7 +5,7 @@ import { SinovadApiPaginationResponse } from 'src/app/response/sinovadApiPaginat
 import { SinovadApiGenericResponse } from 'src/app/response/sinovadApiGenericResponse';
 import {v4 as uuid} from "uuid";
 import { MediaServer } from './server.model';
-import { SharedDataService } from 'src/app/shared/services/shared-data.service';
+import { SharedService } from 'src/app/shared/services/shared-data.service';
 export declare type EventHandler = (...args: any[]) => any;
 
 @Injectable({ providedIn: 'root' })
@@ -14,7 +14,7 @@ export class MediaServerService {
   lastCallGuid:string;
 
   constructor(
-    private sharedService:SharedDataService,
+    private sharedService:SharedService,
     private restProvider: RestProviderService,
   ) {
   }

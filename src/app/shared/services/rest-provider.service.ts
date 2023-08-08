@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { SharedDataService } from './shared-data.service';
+import { SharedService } from './shared-data.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { HttpMethodType } from 'src/app/shared/enums';
 
@@ -8,7 +8,7 @@ export class RestProviderService {
 
   constructor(
     public http: HttpClient,
-    public sharedData: SharedDataService
+    public sharedService: SharedService
   ) {
   }
 
@@ -17,9 +17,9 @@ export class RestProviderService {
       let requestOptions:any={
         responseType: 'text'
       }
-      if(this.sharedData.apiToken)
+      if(this.sharedService.apiToken)
       {
-        let api_key = this.sharedData.apiToken;
+        let api_key = this.sharedService.apiToken;
         const headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'Authorization': 'Bearer '+api_key
@@ -62,7 +62,7 @@ export class RestProviderService {
   }
 
   public executeSinovadApiService(methodType:HttpMethodType,routePath:string,body?:any): Promise<any>{
-    let link=this.sharedData.urlSinovadStreamWebApi+"/api/v1"+routePath;
+    let link=this.sharedService.urlSinovadStreamWebApi+"/api/v1"+routePath;
     return new Promise((resolve, reject) => {
       this.performExecuteMethod(methodType,link,body).then((response: any) => {
         resolve(JSON.parse(response));
@@ -96,9 +96,9 @@ export class RestProviderService {
         }
         if(error.status==401)
         {
-          if(this.sharedData.apiToken)
+          if(this.sharedService.apiToken)
           {
-            this.sharedData.apiToken=undefined;
+            this.sharedService.apiToken=undefined;
             localStorage.removeItem('apiToken');
             (<any>window).location.href = '/';
           }
@@ -120,14 +120,14 @@ export class RestProviderService {
   }
 
   public executeHttpPostMethodWithFormData(routePath:string,formData:FormData): Promise<any>{
-    let link=this.sharedData.urlSinovadStreamWebApi+"/api/v1"+routePath;
+    let link=this.sharedService.urlSinovadStreamWebApi+"/api/v1"+routePath;
     return new Promise((resolve, reject) => {
       let requestOptions:any={
         responseType: 'text'
       }
-      if(this.sharedData.apiToken)
+      if(this.sharedService.apiToken)
       {
-        let api_key = this.sharedData.apiToken;
+        let api_key = this.sharedService.apiToken;
         const headers = new HttpHeaders({
           'Accept': '*/*',
           'Authorization': 'Bearer '+api_key

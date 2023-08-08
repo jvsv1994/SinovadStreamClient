@@ -1,6 +1,6 @@
 
 import { Component } from '@angular/core';
-import { SharedDataService } from 'src/app/shared/services/shared-data.service';
+import { SharedService } from 'src/app/shared/services/shared-data.service';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { HttpMethodType } from 'src/app/shared/enums';
 import { Router } from '@angular/router';
@@ -30,7 +30,7 @@ export class RecoverPasswordPage {
     private formBuilder: FormBuilder,
     private router: Router,
     public restProvider: RestProviderService,
-    public sharedData: SharedDataService) {
+    public sharedService: SharedService) {
 
     }
 

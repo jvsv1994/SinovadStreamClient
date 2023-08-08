@@ -1,7 +1,7 @@
 
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { SharedDataService } from 'src/app/shared/services/shared-data.service';
+import { SharedService } from 'src/app/shared/services/shared-data.service';
 import { HttpClient } from '@angular/common/http';
 import { HttpMethodType, MediaType } from 'src/app/shared/enums';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
@@ -35,7 +35,7 @@ export class HorizontalItemListPage implements OnInit {
     private  ref:ChangeDetectorRef,
     public http: HttpClient,
     public domSanitizer: DomSanitizer,
-    public sharedData: SharedDataService) {
+    public sharedService: SharedService) {
 
 
     }
@@ -83,7 +83,7 @@ export class HorizontalItemListPage implements OnInit {
     }
 
     public getAllProgramsByUser(searchMovies:boolean,searchTvSeries:boolean){
-      var path='/videos/GetAllTvProgramsOrganized?userId='+this.sharedData.userData.Id+"&profileId="+this.sharedData.currentProfile.Id+"&searchMovies="+searchMovies+"&searchTvSeries="+searchTvSeries;
+      var path='/videos/GetAllTvProgramsOrganized?userId='+this.sharedService.userData.Id+"&profileId="+this.sharedService.currentProfile.Id+"&searchMovies="+searchMovies+"&searchTvSeries="+searchTvSeries;
       this.restProvider.executeSinovadApiService(HttpMethodType.GET,path).then((response:SinovadApiGenericResponse) => {
         var itemsGroupList:ItemsGroup[]=response.Data;
         this.itemsGroupList=itemsGroupList;
@@ -110,11 +110,11 @@ export class HorizontalItemListPage implements OnInit {
     }
 
     public continueVideoByItem(item:Item){
-      var path=item.TvSerieId?"/videos/GetTvSerieDetail?userId="+this.sharedData.userData.Id+"&tvSerieId="+item.TvSerieId:"/videos/GetMovieDetail?movieId="+item.MovieId
+      var path=item.TvSerieId?"/videos/GetTvSerieDetail?userId="+this.sharedService.userData.Id+"&tvSerieId="+item.TvSerieId:"/videos/GetMovieDetail?movieId="+item.MovieId
       this.restProvider.executeSinovadApiService(HttpMethodType.GET,path).then((response:SinovadApiGenericResponse) => {
         let detail:ItemDetail=response.Data;
         detail.Item=item;
-        var builderVideo= this.sharedData.CreateBuilderVideoFromItem(item,detail);
+        var builderVideo= this.sharedService.CreateBuilderVideoFromItem(item,detail);
         this.videoService.show(builderVideo);
       },error=>{
         console.error(error);
@@ -132,7 +132,7 @@ export class HorizontalItemListPage implements OnInit {
     }
 
     public getTvSerieDetail(item:Item){
-      var path="/videos/GetTvSerieDetail?userId="+this.sharedData.userData.Id+"&tvSerieId="+item.TvSerieId;
+      var path="/videos/GetTvSerieDetail?userId="+this.sharedService.userData.Id+"&tvSerieId="+item.TvSerieId;
       this.restProvider.executeSinovadApiService(HttpMethodType.GET,path).then((response:SinovadApiGenericResponse) => {
         let data:ItemDetail=response.Data;
         data.Item=item;
@@ -151,7 +151,7 @@ export class HorizontalItemListPage implements OnInit {
     }
 
     ngAfterViewInit(){
-      if(this.sharedData.currentProfile)
+      if(this.sharedService.currentProfile)
       {
         if(this.currentMediaTypeID==MediaType.Movie)
         {

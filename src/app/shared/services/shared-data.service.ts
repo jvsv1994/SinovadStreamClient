@@ -13,7 +13,7 @@ import { BuilderVideo } from 'src/app/media/video/models/builderVideo';
 import { Episode } from 'src/app/episodes/shared/episode.model';
 
 @Injectable({ providedIn: 'root' })
-export class SharedDataService {
+export class SharedService {
 
   showSplashScreen:boolean=true;
   userData: User;

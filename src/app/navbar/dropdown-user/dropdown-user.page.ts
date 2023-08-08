@@ -1,6 +1,6 @@
 
 import { ChangeDetectorRef, Component} from '@angular/core';
-import { SharedDataService } from 'src/app/shared/services/shared-data.service';
+import { SharedService } from 'src/app/shared/services/shared-data.service';
 import { Router } from '@angular/router';
 import { Profile } from '../../profiles/shared/profile.model';
 
@@ -15,25 +15,25 @@ export class DropDownUserPage{
   constructor(
     private ref:ChangeDetectorRef,
     private router: Router,
-    public sharedData: SharedDataService) {
+    public sharedService: SharedService) {
 
     }
 
   public onClickChangeProfileButton(){
-    this.sharedData.showSplashScreen=true;
+    this.sharedService.showSplashScreen=true;
     this.ref.detectChanges();
     this.router.navigateByUrl('/select-profile')
   }
 
   public onClickEditProfilesButton(){
-    this.sharedData.showSplashScreen=true;
+    this.sharedService.showSplashScreen=true;
     this.ref.detectChanges();
     this.router.navigateByUrl('/select-profile')
   }
 
   public onSelectProfile(profile:Profile)
   {
-    this.sharedData.currentProfile=profile;
+    this.sharedService.currentProfile=profile;
     this.router.navigateByUrl('/home')
   }
 
@@ -42,13 +42,13 @@ export class DropDownUserPage{
   }
 
   public onClickAdminMode(){
-    this.router.navigateByUrl(this.sharedData.listMenus[0].ChildMenus[0].Path)
+    this.router.navigateByUrl(this.sharedService.listMenus[0].ChildMenus[0].Path)
   }
 
   public logOut(){
-    this.sharedData.currentProfile=undefined;
-    this.sharedData.userData=undefined;
-    this.sharedData.apiToken=undefined;
+    this.sharedService.currentProfile=undefined;
+    this.sharedService.userData=undefined;
+    this.sharedService.apiToken=undefined;
     localStorage.removeItem("apiToken");
     this.router.navigateByUrl("/landing");
   }

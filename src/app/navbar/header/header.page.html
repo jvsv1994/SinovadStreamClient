@@ -11,7 +11,7 @@
 <!--       <span class="first-span">Sinovad</span>
       <span class="second-span">Stream</span> -->
     </a>
-    <div class="sinovad-custom-search" [ngClass]="{'focused':isFocusSearch && !sharedData.isSmallDevice()}">
+    <div class="sinovad-custom-search" [ngClass]="{'focused':isFocusSearch && !sharedService.isSmallDevice()}">
         <input #input type="text" [(ngModel)]="searchText" (change)="onChangeSearchValue()" (focus)="isFocusSearch=true" (blur)="isFocusSearch=false">
         <button (click)="onClickSearchButton()">
           <i class="fa-solid fa-magnifying-glass"></i>
@@ -19,7 +19,7 @@
     </div>
     <app-dropdown-user></app-dropdown-user>
   </nav>
-  <div *ngIf="sharedData.isSmallDevice() && showNavbarSearch" class="sinovad-navbar-search">
+  <div *ngIf="sharedService.isSmallDevice() && showNavbarSearch" class="sinovad-navbar-search">
     <div class="sinovad-bottom-search" [ngClass]="{'focused':isFocusSearch}">
       <input #input type="text" [(ngModel)]="searchText" (change)="onChangeSearchValue()" (focus)="isFocusSearch=true" (blur)="isFocusSearch=false">
       <button (click)="onClickSearchButton()">

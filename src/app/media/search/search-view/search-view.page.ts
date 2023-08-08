@@ -1,6 +1,6 @@
 
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { SharedDataService } from 'src/app/shared/services/shared-data.service';
+import { SharedService } from 'src/app/shared/services/shared-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ItemDetail } from '../../shared/item-detail.model';
 
@@ -19,7 +19,7 @@ export class SearchViewPage implements OnInit {
   constructor(
     private router: Router,
     private route:ActivatedRoute,
-    public sharedData: SharedDataService) {
+    public sharedService: SharedService) {
       this.router.routeReuseStrategy.shouldReuseRoute = function () {
         return false;
       };

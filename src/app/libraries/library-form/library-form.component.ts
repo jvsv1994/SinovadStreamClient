@@ -6,7 +6,7 @@ import { LibraryService } from '../shared/library.service';
 import { Library } from '../shared/library.model';
 import { MyErrorStateMatcher } from 'src/app/shared/custom-error-state-matcher';
 import { CatalogEnum } from 'src/app/shared/enums';
-import { SharedDataService } from 'src/app/shared/services/shared-data.service';
+import { SharedService } from 'src/app/shared/services/shared-data.service';
 import { DirectoryChooserPage } from 'src/app/shared/components/directory-chooser/directory-chooser.page';
 
 declare var window;
@@ -34,7 +34,7 @@ export class LibraryFormComponent implements OnInit {
   ]
 
   constructor(
-    private sharedDataService:SharedDataService,
+    private sharedService:SharedService,
     private libraryService:LibraryService,
     private activeModal: NgbActiveModal,
     private formBuilder: FormBuilder,
@@ -59,7 +59,7 @@ export class LibraryFormComponent implements OnInit {
         library.MediaTypeCatalogDetailId=Number(this.libraryFormGroup.value.mediaType);
         library.MediaTypeCatalogId=CatalogEnum.MediaType;
         library.PhysicalPath=this.libraryFormGroup.value.physicalPath;
-        library.MediaServerId=this.sharedDataService.selectedMediaServer.Id;
+        library.MediaServerId=this.sharedService.selectedMediaServer.Id;
         this.libraryService.saveItem(library).then((response) => {
           this.showLoading=false;
           this.activeModal.close();
@@ -76,7 +76,7 @@ export class LibraryFormComponent implements OnInit {
       var ctx=this;
       var ref=this.modalService.open(DirectoryChooserPage, {container:"#sinovadMainContainer",
       modalDialogClass:'modal-dialog modal-fullscreen-md-down modal-dialog-centered modal-dialog-scrollable',scrollable:true,backdrop: 'static'});
-      ref.componentInstance.mediaServer=this.sharedDataService.selectedMediaServer;
+      ref.componentInstance.mediaServer=this.sharedService.selectedMediaServer;
       ref.closed.subscribe((directoryPath:string)=>{
         ctx.libraryFormGroup.controls.physicalPath.setValue(directoryPath);
       })

@@ -1,7 +1,7 @@
 
 import { ChangeDetectorRef, Component, EventEmitter, OnDestroy, OnInit, ViewContainerRef} from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { SharedDataService } from 'src/app/shared/services/shared-data.service';
+import { SharedService } from 'src/app/shared/services/shared-data.service';
 import { HttpClient} from '@angular/common/http';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { Subscription } from 'rxjs';
@@ -37,7 +37,7 @@ export class CustomContextMenuComponent {
     public restProvider: RestProviderService,
     public http: HttpClient,
     public domSanitizer: DomSanitizer,
-    public sharedData: SharedDataService) {
+    public sharedService: SharedService) {
 
     }
 

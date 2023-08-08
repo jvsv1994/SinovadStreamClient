@@ -1,7 +1,7 @@
 
 import { ChangeDetectorRef, Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { SharedDataService } from 'src/app/shared/services/shared-data.service';
+import { SharedService } from 'src/app/shared/services/shared-data.service';
 import { HttpClient } from '@angular/common/http';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { ActivatedRoute } from '@angular/router';
@@ -79,7 +79,7 @@ export class SidebarAccountPage implements OnInit {
     public restProvider: RestProviderService,
     public http: HttpClient,
     public domSanitizer: DomSanitizer,
-    public sharedData: SharedDataService) {
+    public sharedService: SharedService) {
 
 
     }
@@ -92,15 +92,15 @@ export class SidebarAccountPage implements OnInit {
     if(this.activeRoute.firstChild.firstChild.snapshot.params.serverGuid)
     {
       var mediaServerGuid=this.activeRoute.firstChild.firstChild.snapshot.params.serverGuid;
-      var selectedMediaServer=this.sharedData.mediaServers.find(x=>x.Guid==mediaServerGuid);
+      var selectedMediaServer=this.sharedService.mediaServers.find(x=>x.Guid==mediaServerGuid);
       if(selectedMediaServer)
       {
-        this.sharedData.selectedMediaServer=selectedMediaServer;
+        this.sharedService.selectedMediaServer=selectedMediaServer;
       }
     }
-    if(this.sharedData.selectedMediaServer==undefined && this.sharedData.mediaServers && this.sharedData.mediaServers.length>0)
+    if(this.sharedService.selectedMediaServer==undefined && this.sharedService.mediaServers && this.sharedService.mediaServers.length>0)
     {
-      this.sharedData.selectedMediaServer=this.sharedData.mediaServers[0];
+      this.sharedService.selectedMediaServer=this.sharedService.mediaServers[0];
     }
   }
 
@@ -111,7 +111,7 @@ export class SidebarAccountPage implements OnInit {
 
   public getOptionPath(option:SidebarOption){
     var path=option.path;
-    return path.replace("{serverGuid}",this.sharedData.selectedMediaServer.Guid);
+    return path.replace("{serverGuid}",this.sharedService.selectedMediaServer.Guid);
   }
 
   public onClickModule(module:Menu){
@@ -139,10 +139,10 @@ export class SidebarAccountPage implements OnInit {
     if(this.mediaServerButton)
     {
       let listItems:DropDownMenuItem[]=[];
-      this.sharedData.mediaServers.forEach(element => {
+      this.sharedService.mediaServers.forEach(element => {
         listItems.push({title:element.FamilyName?element.FamilyName:element.DeviceName,subtitle:element.isSecureConnection?"Conexión exitosa":'Sin conexión',
         iconClass:element.isSecureConnection?"fa-solid fa-lock icon-secure":"fa-solid fa-triangle-exclamation icon-alert",
-        path:"/settings/server/"+element.Guid+"/settings/general",isSelected:this.sharedData.selectedMediaServer.Id==element.Id?true:false});
+        path:"/settings/server/"+element.Guid+"/settings/general",isSelected:this.sharedService.selectedMediaServer.Id==element.Id?true:false});
       });
       var options:DropDownMenuOptions={containerId:"sinovadMainContainer",target:this.mediaServerButton.nativeElement,listItems:listItems};
     }

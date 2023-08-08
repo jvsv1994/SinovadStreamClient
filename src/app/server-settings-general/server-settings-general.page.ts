@@ -1,7 +1,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { SharedDataService } from 'src/app/shared/services/shared-data.service';
+import { SharedService } from 'src/app/shared/services/shared-data.service';
 
 import { HttpClient} from '@angular/common/http';
 import { HttpMethodType } from 'src/app/shared/enums';
@@ -35,7 +35,7 @@ export class ServerSettingsGeneralPage implements OnInit {
     public restProvider: RestProviderService,
     public http: HttpClient,
     public domSanitizer: DomSanitizer,
-    public sharedData: SharedDataService) {
+    public sharedService: SharedService) {
 
       this.router.routeReuseStrategy.shouldReuseRoute = function () {
         return false;
@@ -50,9 +50,9 @@ export class ServerSettingsGeneralPage implements OnInit {
       var mediaServerGuid=this.activeRoute.snapshot.params.serverGuid;
       this.restProvider.executeSinovadApiService(HttpMethodType.GET,'/mediaServers/GetByGuidAsync/'+mediaServerGuid).then((response:SinovadApiGenericResponse) => {
         var mediaServer=response.Data;
-        var selectedMediaServer=this.sharedData.mediaServers.find(x=>x.Id==mediaServer.Id);
+        var selectedMediaServer=this.sharedService.mediaServers.find(x=>x.Id==mediaServer.Id);
         mediaServer.isSecureConnection=selectedMediaServer.isSecureConnection;
-        this.sharedData.selectedMediaServer=mediaServer;
+        this.sharedService.selectedMediaServer=mediaServer;
         this.mediaServer=mediaServer;
         this.customForm = this.formBuilder.group({
           familyName: new FormControl(this.mediaServer.FamilyName)

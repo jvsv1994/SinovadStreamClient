@@ -1,6 +1,6 @@
 
 import { Component, OnInit} from '@angular/core';
-import { SharedDataService } from 'src/app/shared/services/shared-data.service';
+import { SharedService } from 'src/app/shared/services/shared-data.service';
 import { Router } from '@angular/router';
 import { MediaType } from 'src/app/shared/enums';
 import { ItemDetail } from '../shared/item-detail.model';
@@ -17,7 +17,7 @@ export class MediaServerComponent implements OnInit {
 
   constructor(
     private router: Router,
-    public sharedData: SharedDataService) {
+    public sharedService: SharedService) {
       this.router.routeReuseStrategy.shouldReuseRoute = function () {
         return false;
       };

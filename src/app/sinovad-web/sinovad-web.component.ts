@@ -1,7 +1,7 @@
 
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { SharedDataService } from 'src/app/shared/services/shared-data.service';
+import { SharedService } from 'src/app/shared/services/shared-data.service';
 
 import { HttpClient } from '@angular/common/http';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
@@ -28,7 +28,7 @@ export class SinovadWebComponent implements OnInit,OnDestroy {
     public ref: ChangeDetectorRef,
     public http: HttpClient,
     public domSanitizer: DomSanitizer,
-    public sharedData: SharedDataService) {
+    public sharedService: SharedService) {
 
     }
 
@@ -45,14 +45,14 @@ export class SinovadWebComponent implements OnInit,OnDestroy {
       var ctx=this;
       if((<any>window).configurationData)
       {
-        this.sharedData.configurationData=(<any>window).configurationData;
+        this.sharedService.configurationData=(<any>window).configurationData;
       }
       this.intervalCheckMediaServers=window.setInterval(function() {
         //ctx.checkSecureConnectionMediaServers();
       }, 15000);
       if(localStorage.getItem('apiToken'))
       {
-        this.sharedData.apiToken=localStorage.getItem('apiToken');
+        this.sharedService.apiToken=localStorage.getItem('apiToken');
         this.userService.getUser().then(res=>{
           this.menuService.getMenus();
           this.serverService.getMediaServers();
@@ -68,7 +68,7 @@ export class SinovadWebComponent implements OnInit,OnDestroy {
         });
         this.ref.detectChanges();
       }else{
-        this.sharedData.apiToken=undefined;
+        this.sharedService.apiToken=undefined;
         setTimeout(() => {
           this.showRootPage=true;
           this.ref.detectChanges();
@@ -87,7 +87,7 @@ export class SinovadWebComponent implements OnInit,OnDestroy {
     ngAfterViewInit(){
       let ctx=this;
       let customClickEvent=function onCustomClick(event:any) {
-        if(ctx.sharedData.configurationData.alwaysFullScreen)
+        if(ctx.sharedService.configurationData.alwaysFullScreen)
         {
           ctx.showPageInFullScreen();
         }

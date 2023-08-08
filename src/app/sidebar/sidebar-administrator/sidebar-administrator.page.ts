@@ -1,7 +1,7 @@
 
 import { Component, EventEmitter, Output } from '@angular/core';
 import { Menu } from 'src/app/menus/shared/menu.model';
-import { SharedDataService } from 'src/app/shared/services/shared-data.service';
+import { SharedService } from 'src/app/shared/services/shared-data.service';
 
 declare var window;
 @Component({
@@ -13,7 +13,7 @@ export class SidebarAdministratorPage{
 
   @Output() collapseSidebar=new EventEmitter();
 
-  constructor(public sharedDataService:SharedDataService) {
+  constructor(public sharedService:SharedService) {
 
     }
 

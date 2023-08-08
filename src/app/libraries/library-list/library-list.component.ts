@@ -1,6 +1,6 @@
 
 import { Component, EventEmitter } from '@angular/core';
-import { SharedDataService } from 'src/app/shared/services/shared-data.service';
+import { SharedService } from 'src/app/shared/services/shared-data.service';
 import { SinovadApiGenericResponse } from '../../response/sinovadApiGenericResponse';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
@@ -38,7 +38,7 @@ export class LibraryListComponent{
     private snackBarService:SnackBarService,
     private router: Router,
     public activeRoute: ActivatedRoute,
-    public sharedData: SharedDataService) {
+    public sharedService: SharedService) {
 
     }
 
@@ -50,9 +50,9 @@ export class LibraryListComponent{
       var mediaServerGuid=this.activeRoute.snapshot.params.serverGuid;
       this.mediaServerService.getMediaServerByGuid(mediaServerGuid).then((response:SinovadApiGenericResponse) => {
         var mediaServer=response.Data;
-        var selectedMediaServer=this.sharedData.mediaServers.find(x=>x.Id==mediaServer.Id);
+        var selectedMediaServer=this.sharedService.mediaServers.find(x=>x.Id==mediaServer.Id);
         mediaServer.isSecureConnection=selectedMediaServer.isSecureConnection;
-        this.sharedData.selectedMediaServer=mediaServer;
+        this.sharedService.selectedMediaServer=mediaServer;
         this.mediaServer=mediaServer;
         this.getAllItems();
       },error=>{
@@ -73,7 +73,7 @@ export class LibraryListComponent{
 
     public openNewLibrary(){
       let library= new Library();
-      library.MediaServerId=this.sharedData.selectedMediaServer.Id;
+      library.MediaServerId=this.sharedService.selectedMediaServer.Id;
       this.showModalForm(library);
     }
 
@@ -162,7 +162,7 @@ export class LibraryListComponent{
   }
 
   public searchFilesInLibraries(listLibraries:Library[]){
-    this.mediaService.searchFilesInLibrariesByMediaServer(this.sharedData.selectedMediaServer.Url,listLibraries);
+    this.mediaService.searchFilesInLibrariesByMediaServer(this.sharedService.selectedMediaServer.Url,listLibraries);
   }
 
 }

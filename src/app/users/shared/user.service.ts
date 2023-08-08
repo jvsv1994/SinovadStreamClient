@@ -5,7 +5,7 @@ import { SinovadApiPaginationResponse } from 'src/app/response/sinovadApiPaginat
 import { SinovadApiGenericResponse } from 'src/app/response/sinovadApiGenericResponse';
 import {v4 as uuid} from "uuid";
 import { User } from './user.model';
-import { SharedDataService } from 'src/app/shared/services/shared-data.service';
+import { SharedService } from 'src/app/shared/services/shared-data.service';
 export declare type EventHandler = (...args: any[]) => any;
 
 @Injectable({ providedIn: 'root' })
@@ -14,7 +14,7 @@ export class UserService {
   lastCallGuid:string;
 
   constructor(
-    private sharedData:SharedDataService,
+    private sharedService:SharedService,
     private restProvider: RestProviderService,
   ) {
   }
@@ -23,10 +23,10 @@ export class UserService {
     return new Promise((resolve, reject) => {
       this.restProvider.executeSinovadApiService(HttpMethodType.GET,'/users/GetUserData').then((response:SinovadApiGenericResponse) => {
         let data=response.Data;
-        this.sharedData.userData=data;
-        if(this.sharedData.userData==null)
+        this.sharedService.userData=data;
+        if(this.sharedService.userData==null)
         {
-          this.sharedData.apiToken=undefined;
+          this.sharedService.apiToken=undefined;
           localStorage.removeItem("apiToken");
         }else{
           resolve(true);

@@ -1,6 +1,6 @@
 
 import { Component, OnInit } from '@angular/core';
-import { SharedDataService } from 'src/app/shared/services/shared-data.service';
+import { SharedService } from 'src/app/shared/services/shared-data.service';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { HttpMethodType } from 'src/app/shared/enums';
 import { Profile } from '../shared/profile.model';
@@ -24,7 +24,7 @@ export class ProfileEditPage implements OnInit {
     public activeRoute: ActivatedRoute,
     private profileService:ProfileService,
     public restProvider: RestProviderService,
-    public sharedDataService:SharedDataService) {
+    public sharedService:SharedService) {
 
     }
 

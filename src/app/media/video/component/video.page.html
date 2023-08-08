@@ -1,8 +1,8 @@
 <div class="sinovad-container-video">
 
   <div #videoPrincipalContainer id="videoPrincipalContainer" class="sinovad-video-principal-container sinovad-custom-container" style="width:100%;height:100%;">
-    <div *ngIf="showVideo" class="sinovad-video-container" #videoContainer (click)="!sharedData.isMobileDevice() && onClickVideoContainer(videoContainer)"
-    (touchstart)="sharedData.isMobileDevice() && onTouchVideoContainer(videoContainer)" (mousemove)="onMouseMoveVideoContainer(videoContainer)">
+    <div *ngIf="showVideo" class="sinovad-video-container" #videoContainer (click)="!sharedService.isMobileDevice() && onClickVideoContainer(videoContainer)"
+    (touchstart)="sharedService.isMobileDevice() && onTouchVideoContainer(videoContainer)" (mousemove)="onMouseMoveVideoContainer(videoContainer)">
       <div class="sinovad-full-screen-video-container">
         <section #controlsContainer class="sinovad-controls-container" [ngClass]="{'show':showControls}" tabindex="0">
           <section id="videoHeaderSection" class="sinovad-video-header-section"  tabindex="0">
@@ -21,7 +21,7 @@
                     {{getVideoTime()}}
                   </div>
                   <div class="sinovad-slider-container" [style.width]="'calc(100% - '+(controlLeft.offsetWidth+controlRight.offsetWidth)+'px)'">
-                    <div class="sinovad-slider-content" tabindex="-1" (contextmenu)="!sharedData.isMobileDevice() && onClickSlider(sliderContainer)" (click)="onClickSlider(sliderContainer)" (touchend)="sharedData.isMobileDevice() && onClickSlider(sliderContainer)" (touchstart)="sharedData.isMobileDevice() && onTouchStartSlider($event,sliderContainer,controlLeft)" (touchmove)="sharedData.isMobileDevice() && onTouchMoveSlider($event,sliderContainer,controlLeft)" (mousedown)="onMouseDownSlider($event,sliderContainer)" (mousemove)="onMouseMoveSlider($event,sliderContainer)">
+                    <div class="sinovad-slider-content" tabindex="-1" (contextmenu)="!sharedService.isMobileDevice() && onClickSlider(sliderContainer)" (click)="onClickSlider(sliderContainer)" (touchend)="sharedService.isMobileDevice() && onClickSlider(sliderContainer)" (touchstart)="sharedService.isMobileDevice() && onTouchStartSlider($event,sliderContainer,controlLeft)" (touchmove)="sharedService.isMobileDevice() && onTouchMoveSlider($event,sliderContainer,controlLeft)" (mousedown)="onMouseDownSlider($event,sliderContainer)" (mousemove)="onMouseMoveSlider($event,sliderContainer)">
                       <div #silderFills class="sinovad-slider-fills">
                       </div>
                       <div style="width: 0px;">

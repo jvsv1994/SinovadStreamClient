@@ -5,7 +5,7 @@ import { HttpMethodType } from 'src/app/shared/enums';
 import { SinovadApiPaginationResponse } from 'src/app/response/sinovadApiPaginationResponse';
 import { SinovadApiGenericResponse } from 'src/app/response/sinovadApiGenericResponse';
 import {v4 as uuid} from "uuid";
-import { SharedDataService } from 'src/app/shared/services/shared-data.service';
+import { SharedService } from 'src/app/shared/services/shared-data.service';
 export declare type EventHandler = (...args: any[]) => any;
 
 @Injectable({ providedIn: 'root' })
@@ -14,15 +14,15 @@ export class MenuService {
   lastCallGuid:string;
 
   constructor(
-    public sharedData:SharedDataService,
+    public sharedService:SharedService,
     private restProvider: RestProviderService,
   ) {
   }
 
   public getMenus(): Promise<any>{
     return new Promise((resolve, reject) => {
-      this.restProvider.executeSinovadApiService(HttpMethodType.GET,'/menus/GetByUserAsync/'+this.sharedData.userData.Id).then((response:SinovadApiGenericResponse) => {
-        this.sharedData.listMenus=response.Data;
+      this.restProvider.executeSinovadApiService(HttpMethodType.GET,'/menus/GetByUserAsync/'+this.sharedService.userData.Id).then((response:SinovadApiGenericResponse) => {
+        this.sharedService.listMenus=response.Data;
         resolve(true);
       },error=>{
         reject(error);
@@ -61,8 +61,8 @@ export class MenuService {
 
   public getMenusByUser(): Promise<any>{
     return new Promise((resolve, reject) => {
-      this.restProvider.executeSinovadApiService(HttpMethodType.GET,'/menus/GetByUserAsync/'+this.sharedData.userData.Id).then((response:SinovadApiGenericResponse) => {
-        this.sharedData.listMenus=response.Data;
+      this.restProvider.executeSinovadApiService(HttpMethodType.GET,'/menus/GetByUserAsync/'+this.sharedService.userData.Id).then((response:SinovadApiGenericResponse) => {
+        this.sharedService.listMenus=response.Data;
         resolve(true);
       },error=>{
         reject(error);

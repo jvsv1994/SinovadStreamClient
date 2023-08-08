@@ -3,7 +3,7 @@ import { HttpClient} from '@angular/common/http';
 import * as Dash from 'dashjs';
 import {v4 as uuid} from "uuid";
 import hiBase64 from 'hi-base64';
-import { SharedDataService } from 'src/app/shared/services/shared-data.service';
+import { SharedService } from 'src/app/shared/services/shared-data.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { parse } from '@plussub/srt-vtt-parser';
 import Hls, { HlsConfig } from 'hls.js';
@@ -60,7 +60,7 @@ export class VideoPage implements OnInit,OnDestroy{
     private dialog: MatDialog,
     public restProvider: RestProviderService,
     public domSanitizer: DomSanitizer,
-    public sharedData: SharedDataService,
+    public sharedService: SharedService,
     public ref: ChangeDetectorRef,
     public http: HttpClient) {
 
@@ -119,7 +119,7 @@ export class VideoPage implements OnInit,OnDestroy{
   }
 
   public initializeVideoData(){
-    this.sharedData.listProcessGUIDs.push(this.builderVideo.TranscodePrepareVideo.ProcessGUID);
+    this.sharedService.listProcessGUIDs.push(this.builderVideo.TranscodePrepareVideo.ProcessGUID);
     this.builderVideo.LoadStatus=LoadVideoStatus.Empty;
     let url=this.builderVideo.TranscodePrepareVideo.MediaServerUrl+"/api/transcodeVideos/GetVideoData";
     this.restProvider.executeHttpMethodByUrl(HttpMethodType.POST,url,this.builderVideo.TranscodePrepareVideo).then((response) => {
@@ -142,7 +142,7 @@ export class VideoPage implements OnInit,OnDestroy{
   public onTouchVideoContainer(target?:any){
     if(!this.showingSettings)
     {
-      if(this.sharedData.isMobileDevice())
+      if(this.sharedService.isMobileDevice())
       {
         this.showControlsTemporarily(target);
       }
@@ -156,7 +156,7 @@ export class VideoPage implements OnInit,OnDestroy{
       setTimeout(() => {
         target.clicked=false;
       }, 2000);
-      if(!this.sharedData.isMobileDevice())
+      if(!this.sharedService.isMobileDevice())
       {
         this.showControlsTemporarily(target);
       }
@@ -213,7 +213,7 @@ export class VideoPage implements OnInit,OnDestroy{
 
   public getVideoByEpisode(episode:Episode){
     this.deleteAllProcessesAndDirectories();
-    var transcodeVideo=this.sharedData.GetTranscodeVideoFromEpisode(episode);
+    var transcodeVideo=this.sharedService.GetTranscodeVideoFromEpisode(episode);
     this.builderVideo.TranscodePrepareVideo=transcodeVideo;
     if(this.builderVideo.ItemDetail.ListSeasons)
     {
@@ -222,7 +222,7 @@ export class VideoPage implements OnInit,OnDestroy{
     }
     this.lastRealVideoTime=0;
     this.resetStream();
-    this.sharedData.listProcessGUIDs.push(this.builderVideo.TranscodePrepareVideo.ProcessGUID);
+    this.sharedService.listProcessGUIDs.push(this.builderVideo.TranscodePrepareVideo.ProcessGUID);
     this.builderVideo.LoadStatus=LoadVideoStatus.Empty;
     let url=this.builderVideo.TranscodePrepareVideo.MediaServerUrl+"/api/transcodeVideos/GetVideoData";
     this.restProvider.executeHttpMethodByUrl(HttpMethodType.POST,url,this.builderVideo.TranscodePrepareVideo).then((response) => {
@@ -406,7 +406,7 @@ export class VideoPage implements OnInit,OnDestroy{
 
   public focusButton(button:any){
     button.focus();
-    this.sharedData.currentSelectedElement=button;
+    this.sharedService.currentSelectedElement=button;
   }
 
   ngAfterViewInit(){
@@ -528,7 +528,7 @@ export class VideoPage implements OnInit,OnDestroy{
       }
       let VideoProfile:VideoProfile={
         VideoId:this.builderVideo.TranscodePrepareVideo.VideoId,
-        ProfileId:this.sharedData.currentProfile.Id,
+        ProfileId:this.sharedService.currentProfile.Id,
         DurationTime:this.builderVideo.TranscodePrepareVideo.TotalSeconds,
         CurrentTime:currentTime
       }
@@ -644,7 +644,7 @@ public onClickSlider(sliderContainer:any){
   public updateVideoData(newVideoTime:number){
     this.deleteAllProcessesAndDirectories();
     let processGUID=uuid();
-    this.sharedData.listProcessGUIDs.push(processGUID);
+    this.sharedService.listProcessGUIDs.push(processGUID);
     this.builderVideo.TranscodePrepareVideo.TimeSpan=newVideoTime.toString();
     this.builderVideo.TranscodePrepareVideo.ProcessGUID=processGUID;
     this.builderVideo.LoadStatus=LoadVideoStatus.Empty;
@@ -663,27 +663,27 @@ public onClickSlider(sliderContainer:any){
   }
 
   public deleteAllProcessesAndDirectories(){
-    if(this.sharedData.listProcessGUIDs && this.sharedData.listProcessGUIDs.length>0)
+    if(this.sharedService.listProcessGUIDs && this.sharedService.listProcessGUIDs.length>0)
     {
       this.deleteProcessesAndDirectories();
     }
   }
 
   public deleteProcessesAndDirectories(){
-    var guids=this.sharedData.listProcessGUIDs.join(",");
+    var guids=this.sharedService.listProcessGUIDs.join(",");
     let url=this.builderVideo.TranscodePrepareVideo.MediaServerUrl+"/api/transcodeVideos?guids="+guids;
     this.restProvider.executeHttpMethodByUrl(HttpMethodType.DELETE,url).then((response) => {
       const jsonString=hiBase64.decode(response);
       let listProcessDeletedGUIDs:string[]=JSON.parse(jsonString);
-      if(listProcessDeletedGUIDs && listProcessDeletedGUIDs.length>0 && this.sharedData.listProcessGUIDs.length>0)
+      if(listProcessDeletedGUIDs && listProcessDeletedGUIDs.length>0 && this.sharedService.listProcessGUIDs.length>0)
       {
         for(var i=0;i<listProcessDeletedGUIDs.length;i++)
         {
           let processDeletedGUID=listProcessDeletedGUIDs[i];
-          let index=this.sharedData.listProcessGUIDs.findIndex(item=>item==processDeletedGUID);
+          let index=this.sharedService.listProcessGUIDs.findIndex(item=>item==processDeletedGUID);
           if(index!=-1)
           {
-            this.sharedData.listProcessGUIDs.splice(index,1);
+            this.sharedService.listProcessGUIDs.splice(index,1);
           }
         }
       }
@@ -1103,7 +1103,7 @@ public onClickSlider(sliderContainer:any){
     {
       let guid=uuid();
       target.guid=guid;
-      if(this.sharedData.isMobileDevice())
+      if(this.sharedService.isMobileDevice())
       {
         setTimeout(() => {
           this.executeShowControlsTemporarily(target,guid);

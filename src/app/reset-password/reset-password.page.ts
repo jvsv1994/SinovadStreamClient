@@ -1,6 +1,6 @@
 
 import { Component, OnInit } from '@angular/core';
-import { SharedDataService } from 'src/app/shared/services/shared-data.service';
+import { SharedService } from 'src/app/shared/services/shared-data.service';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { HttpMethodType } from 'src/app/shared/enums';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -38,7 +38,7 @@ export class ResetPasswordPage implements OnInit {
     private router: Router,
     public activeRoute: ActivatedRoute,
     public restProvider: RestProviderService,
-    public sharedData: SharedDataService) {
+    public sharedService: SharedService) {
 
     }
 

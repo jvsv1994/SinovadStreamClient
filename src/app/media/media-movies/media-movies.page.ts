@@ -1,7 +1,7 @@
 
 import { ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { SharedDataService } from 'src/app/shared/services/shared-data.service';
+import { SharedService } from 'src/app/shared/services/shared-data.service';
 import { HttpClient} from '@angular/common/http';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { Router } from '@angular/router';
@@ -25,7 +25,7 @@ export class MediaMoviesPage implements OnInit {
     public  ref:ChangeDetectorRef,
     public http: HttpClient,
     public domSanitizer: DomSanitizer,
-    public sharedData: SharedDataService) {
+    public sharedService: SharedService) {
 
 
     }

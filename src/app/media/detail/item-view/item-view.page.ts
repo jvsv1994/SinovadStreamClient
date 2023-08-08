@@ -1,7 +1,7 @@
 
 import { ChangeDetectorRef, Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { SharedDataService } from 'src/app/shared/services/shared-data.service';
+import { SharedService } from 'src/app/shared/services/shared-data.service';
 
 import { HttpClient} from '@angular/common/http';
 import { MediaType } from 'src/app/shared/enums';
@@ -34,7 +34,7 @@ export class ItemViewPage implements OnInit {
     private  ref:ChangeDetectorRef,
     public http: HttpClient,
     public domSanitizer: DomSanitizer,
-    public sharedData: SharedDataService) {
+    public sharedService: SharedService) {
 
 
     }
@@ -43,9 +43,9 @@ export class ItemViewPage implements OnInit {
       if(this.detail.TmdbId!=undefined && this.detail.TmdbId!=0){
         if(episode.StillPath)
         {
-          return this.sharedData.urlEpisodeDataBase+episode.StillPath;
+          return this.sharedService.urlEpisodeDataBase+episode.StillPath;
         }else{
-          return this.sharedData.getUrlByItemDetailMovieDataBase(this.detail);
+          return this.sharedService.getUrlByItemDetailMovieDataBase(this.detail);
         }
       }else{
         return episode.StillPath;
@@ -123,7 +123,7 @@ export class ItemViewPage implements OnInit {
     }
 
     public getVideosByItem(){
-      this.videoService.show(this.sharedData.CreateBuilderVideoFromItem(this.detail.Item,this.detail));
+      this.videoService.show(this.sharedService.CreateBuilderVideoFromItem(this.detail.Item,this.detail));
     }
 
     public onClickSeason(item:Season){
@@ -135,7 +135,7 @@ export class ItemViewPage implements OnInit {
     }
 
     public getVideoByEpisode(episode:Episode){
-      this.videoService.show(this.sharedData.CreateBuilderVideoFromEpisode(episode,this.detail));
+      this.videoService.show(this.sharedService.CreateBuilderVideoFromEpisode(episode,this.detail));
     }
 
 

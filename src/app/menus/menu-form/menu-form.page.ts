@@ -10,7 +10,7 @@ import { MenuService } from '../shared/menu.service';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { SnackBarType } from 'src/app/shared/components/custom-snack-bar/custom-snack-bar.component';
 import { MyErrorStateMatcher } from 'src/app/shared/custom-error-state-matcher';
-import { SharedDataService } from 'src/app/shared/services/shared-data.service';
+import { SharedService } from 'src/app/shared/services/shared-data.service';
 import { CatalogDetail } from 'src/app/catalogs/shared/catalog-detail.model';
 
 @Component({
@@ -28,7 +28,7 @@ export class MenuFormPage implements OnInit,AfterViewInit{
   matcher = new MyErrorStateMatcher();
 
   constructor(
-    private sharedData:SharedDataService,
+    private sharedService:SharedService,
     private restProvider:RestProviderService,
     private formBuilder: FormBuilder,
     private activeModal: NgbActiveModal,
