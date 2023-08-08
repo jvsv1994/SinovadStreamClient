@@ -18,7 +18,7 @@
         </label>
         <div class="sinovad-form-textinput-container">
           <input type="text" formControlName="username"/>
-          <label class="sinovad-form-invalid-input-message" *ngIf="isInvalidFormControl(loginForm,'username') && hasRequireErrorFormControl(loginForm,'username')">
+          <label class="sinovad-form-invalid-input-message" *ngIf="sharedData.isInvalidFormControl(loginForm,'username') && sharedData.hasRequireErrorFormControl(loginForm,'username')">
             <i class="fa-solid fa-circle-exclamation me-2"></i>Confirma que hayas agregado el usuario correctamente
           </label>
         </div>
@@ -29,7 +29,7 @@
         </label>
         <div class="sinovad-form-textinput-container">
           <input #password type="password" formControlName="password"/>
-          <label class="sinovad-form-invalid-input-message" *ngIf="isInvalidFormControl(loginForm,'password') && hasRequireErrorFormControl(loginForm,'password')">
+          <label class="sinovad-form-invalid-input-message" *ngIf="sharedData.isInvalidFormControl(loginForm,'password') && sharedData.hasRequireErrorFormControl(loginForm,'password')">
             <i class="fa-solid fa-circle-exclamation me-2"></i>Confirma que hayas agregado la contraseña correctamente
           </label>
         </div>

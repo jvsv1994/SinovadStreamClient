@@ -29,8 +29,6 @@ export class VideoPage extends ParentComponent implements OnInit,OnDestroy{
   showVideo:boolean=true;
   lastCurrentTime:number=0;
   showControls:boolean=false;
-  customKeyboardControlsEvent:any;
-  customKeyboardSettingsEvent:any;
   customMouseOutEvent:any;
   sliderContainer:any;
   @ViewChild('controlsContainer') controlsContainer: ElementRef;
@@ -144,20 +142,16 @@ export class VideoPage extends ParentComponent implements OnInit,OnDestroy{
   public onTouchVideoContainer(target?:any){
     if(!this.showingSettings)
     {
-      this.initializeControlsContainer(this.controlsContainer.nativeElement);
       if(this.isMobileDevice())
       {
         this.showControlsTemporarily(target);
       }
-    }else{
-      this.initializeSettingsContainer(this.settingsContainer.nativeElement);
     }
   }
 
   public onClickVideoContainer(target:any){
     if(!this.showingSettings)
     {
-      this.initializeControlsContainer(this.controlsContainer.nativeElement);
       target.clicked=true;
       setTimeout(() => {
         target.clicked=false;
@@ -166,8 +160,6 @@ export class VideoPage extends ParentComponent implements OnInit,OnDestroy{
       {
         this.showControlsTemporarily(target);
       }
-    }else{
-      this.initializeSettingsContainer(this.settingsContainer.nativeElement);
     }
   }
 
@@ -341,51 +333,9 @@ export class VideoPage extends ParentComponent implements OnInit,OnDestroy{
     this.ref.detectChanges();
   }
 
-  public initializeControlsContainer(container:any){
-    let ctx=this;
-    if(this.customKeyboardControlsEvent)
-    {
-      container.removeEventListener('keydown',this.customKeyboardControlsEvent);
-    }
-    this.showingSettings=false;
-    this.focusContainer(container,this.ref);
-    this.customKeyboardControlsEvent=function onCustomKeyboardDown(event:any) {
-      if(event.keyCode==461 || event.keyCode==27)//back button
-      {
-        ctx.closeVideo();
-      }else{
-        if(ctx.loadedData)
-        {
-          ctx.showControlsTemporarily(container);
-          ctx.setKeyActionsInBrowser(event,container,true);
-        }
-      }
-    }
-    container.addEventListener('keydown',this.customKeyboardControlsEvent);
-  }
-
-  public initializeSettingsContainer(container:any){
-    let ctx=this;
-    if(this.customKeyboardSettingsEvent)
-    {
-      container.removeEventListener('keydown',this.customKeyboardSettingsEvent);
-    }
-    this.focusContainer(container,this.ref);
-    this.customKeyboardSettingsEvent=function onCustomKeyboardDown(event:any) {
-      if(event.keyCode==461 || event.keyCode==27)//back button
-      {
-        ctx.hideSettings();
-      }else{
-        ctx.setKeyActionsInBrowser(event,container);
-      }
-    }
-    container.addEventListener('keydown',this.customKeyboardSettingsEvent);
-  }
-
   public hideSettings(){
     this.showingSettings=false;
     this.ref.detectChanges();
-    this.initializeControlsContainer(this.controlsContainer.nativeElement);
   }
 
   public onClickPrincipalSettingsOption(po:any){
@@ -396,7 +346,6 @@ export class VideoPage extends ParentComponent implements OnInit,OnDestroy{
     this.currentSelectedPrincipalSettingOption.selectedOption=option;
     this.showingSettings=false;
     this.ref.detectChanges();
-    this.initializeControlsContainer(this.controlsContainer.nativeElement);
     if(this.currentSelectedPrincipalSettingOption.index==0)
     {
       //update audio stream
@@ -458,83 +407,6 @@ export class VideoPage extends ParentComponent implements OnInit,OnDestroy{
   public focusButton(button:any){
     button.focus();
     this.sharedData.currentSelectedElement=button;
-  }
-
-
-  public setKeyActionsInBrowser(event:any,container:any,fromControls?:boolean){
-    var keycode = event.keyCode;
-    let listSections=Array.from<any>(container.querySelectorAll("section"));
-    let sectionIndex=listSections.findIndex(item=>item.id==this.sharedData.currentActiveSection.id);
-    let section=listSections[sectionIndex];
-    let listElements=Array.from<any>(section.querySelectorAll("button"));
-    let numberElements=listElements.length;
-    let elementIndex=listElements.findIndex(item=>item.id==this.sharedData.currentSelectedElement.id);
-    if(keycode==39)//right
-    {
-        let newIndex=elementIndex+1;
-        console.log(":::::::::::");
-        console.log("currentSectionIndex::"+sectionIndex);
-        console.log("currentElementIndex::"+elementIndex);
-        console.log("newElementIndex::"+newIndex);
-        if(newIndex<numberElements)
-        {
-          let element=listElements[newIndex];
-          this.sharedData.currentSelectedElement=element;
-          element.focus();
-        }else{
-          if(this.sharedData.currentSelectedElement.id=="sliderButton")
-          {
-            this.forwardVideo();
-          }
-        }
-    }
-    if(keycode==37)//left
-    {
-        let newIndex=elementIndex-1;
-        console.log(":::::::::::");
-        console.log("currentSectionIndex::"+sectionIndex);
-        console.log("currentElementIndex::"+elementIndex);
-        console.log("newElementIndex::"+newIndex);
-        if(newIndex>=0)
-        {
-          let element=listElements[newIndex];
-          this.sharedData.currentSelectedElement=element;
-          element.focus();
-        }else{
-          if(this.sharedData.currentSelectedElement.id=="sliderButton")
-          {
-            this.rewindVideo();
-          }
-        }
-    }
-    if(keycode==40)//down
-    {
-      let newSectionIdex=sectionIndex+1;
-      if(newSectionIdex<listSections.length)
-      {
-        let section=listSections[newSectionIdex];
-        this.sharedData.currentActiveSection=section
-        let listElements=Array.from<any>(section.querySelectorAll("button"));
-        let element=listElements[0];
-        this.sharedData.currentSelectedElement=element;
-        element.focus();
-      }
-    }
-    if(keycode==38)//up
-    {
-      let newSectionIdex=sectionIndex-1;
-      if(newSectionIdex>=0)
-      {
-        let section=listSections[newSectionIdex];
-        this.sharedData.currentActiveSection=section
-        let listElements=Array.from<any>(section.querySelectorAll("button"));
-        let element=listElements[0];
-        this.sharedData.currentSelectedElement=element;
-        element.focus();
-      }else{
-
-      }
-    }
   }
 
   ngAfterViewInit(){

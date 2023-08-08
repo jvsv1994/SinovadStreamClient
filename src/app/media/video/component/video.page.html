@@ -5,7 +5,6 @@
     (touchstart)="isMobileDevice() && onTouchVideoContainer(videoContainer)" (mousemove)="onMouseMoveVideoContainer(videoContainer)">
       <div class="sinovad-full-screen-video-container">
         <section #controlsContainer class="sinovad-controls-container" [ngClass]="{'show':showControls}" tabindex="0">
-          <img style="display:none;" src (error)="initializeControlsContainer(controlsContainer)">
           <section id="videoHeaderSection" class="sinovad-video-header-section"  tabindex="0">
             <button id="backVideoButton" class="sinovad-video-control-button" (click)="closeVideo()">
               <i class="fa-solid fa-chevron-left"></i>
@@ -90,7 +89,6 @@
           Cargando video...
         </div>
         <section *ngIf="showingSettings" #settingsContainer  class="easy-media-settings-section-container" tabindex="0">
-          <img style="display:none;" src (error)="initializeSettingsContainer(settingsContainer)">
           <div class="easy-media-settings-section-content">
               <section id="section_settings_back_button" class="sinovad-settings-options-header-section" tabindex="0">
                 <div class="sinovad-settings-section-container-left">

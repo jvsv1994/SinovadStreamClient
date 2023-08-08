@@ -21,7 +21,6 @@ import { BuilderVideo } from '../media/video/models/builderVideo';
 
 export class ParentComponent implements OnInit {
 
-  fdp: FormatDataPipe = new FormatDataPipe(this.domSanitizer,this.sharedData);
   constructor(
     public restProvider: RestProviderService,
     public domSanitizer: DomSanitizer,
@@ -29,69 +28,6 @@ export class ParentComponent implements OnInit {
 
   ngOnInit(): void {
 
-  }
-
-  public formatDate(date:any) {
-    const d = new Date(date);
-    let month = '' + (d.getMonth() + 1);
-    let day = '' + d.getDate();
-    const year = d.getFullYear();
-    if (month.length < 2) month = '0' + month;
-    if (day.length < 2) day = '0' + day;
-    return [year, month, day].join('-');
-  }
-
-  public isInvalidFormControl(formGroup:FormGroup,formControlKey:string){
-    if(formGroup.controls[formControlKey].invalid && (formGroup.controls[formControlKey].dirty || formGroup.controls[formControlKey].touched))
-    {
-      return true;
-    }else{
-      return false;
-    }
-  }
-
-  public hasRequireErrorFormControl(formGroup:FormGroup,formControlKey:string){
-    if(formGroup.controls[formControlKey].errors.required)
-    {
-      return true;
-    }else{
-      return false;
-    }
-  }
-
-  public hasErrorPatternFormControl(formGroup:FormGroup,formControlKey:string){
-    if(formGroup.controls[formControlKey].errors.pattern)
-    {
-      return true;
-    }else{
-      return false;
-    }
-  }
-
-  public getNewIndex(itemIndex:number,pageIndex:number,pageSize:number){
-    var newIndex=(itemIndex+1)+((pageIndex-1)*pageSize);
-    return newIndex;
-  }
-
-  public delay(ms: number) {
-    return new Promise( resolve => setTimeout(resolve, ms) );
-  }
-
-  public getTargetNumberValue(target:any):number{
-    if(target.value)
-    {
-      return Number(target.value);
-    }else{
-      return 0;
-    }
-  }
-
-  public getTargetDateValue(target:any):any{
-    return target.valueAsDate;
-  }
-
-  public getTargetValue(target:any):any{
-    return target.value;
   }
 
   public CreateBuilderVideoFromItem(item:Item,detail:ItemDetail):BuilderVideo{
@@ -236,93 +172,12 @@ export class ParentComponent implements OnInit {
     }
   }
 
-  public getInitials(profile:any){
-    let initial=profile.FullName.substring(0,1);
-    return initial;
-  }
-
-  @HostListener('window:resize', ['$event'])
-  onResize(event) {
-
-  }
-
   public isMobileDevice(){
     if(('ontouchstart' in window))
     {
       return true;
     }else{
       return false;
-    }
-  }
-
-  public checkIfShowDisableItemsButton(listSelectedItems:any[]){
-    let listEnableSelectedItems:any[]=listSelectedItems.filter(item=>item.Active);
-    if(listEnableSelectedItems.length==listSelectedItems.length)
-    {
-      return true;
-    }else{
-      return false;
-    }
-  }
-
-  public focusContainer(container:any,ref:ChangeDetectorRef){
-      let listSections=Array.from<any>(container.querySelectorAll("section"));
-      if(listSections && listSections.length>0)
-      {
-        let listElements=Array.from<any>(container.querySelectorAll("input,button,section"));
-        if(listElements && listElements.length>0 && document.activeElement)
-        {
-          let index=listElements.indexOf(document.activeElement);
-          if(index==-1)
-          {
-            let section=listSections[0];
-            this.sharedData.currentActiveSection=section;
-            section.focus();
-          }
-        }
-      }else{
-        let listElements=Array.from<any>(container.querySelectorAll("input,button,textarea"));
-        if(listElements && listElements.length>0 && document.activeElement)
-        {
-          let index=listElements.indexOf(document.activeElement);
-          if(index==-1)
-          {
-            this.sharedData.currentActiveSection=container;
-            container.focus();
-          }
-        }else{
-          this.sharedData.currentActiveSection=container;
-          container.focus();
-        }
-      }
-      ref.detectChanges();
-  }
-
-
-  public focusInElementInContainer(container:any,ref:ChangeDetectorRef){
-    let listSections=Array.from<any>(container.querySelectorAll("section"));
-    if(listSections && listSections.length>0)
-    {
-      let section=listSections[0];
-      this.sharedData.currentActiveSection=section;
-      let listElements=Array.from<any>(section.querySelectorAll("button"));
-      if(listElements && listElements.length>0)
-      {
-        let element=listElements[0];
-        this.sharedData.currentSelectedElement=element;
-        element.focus();
-        ref.detectChanges();
-      }
-    }else{
-      this.sharedData.currentActiveSection=container;
-      let listElements=Array.from<any>(container.querySelectorAll("button"));
-      if(listElements && listElements.length>0)
-      {
-        let element=listElements[0];
-        this.sharedData.currentSelectedElement=element;
-        element.focus();
-        ref.detectChanges();
-      }
     }
   }
 
