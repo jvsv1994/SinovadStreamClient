@@ -5,6 +5,7 @@ import { MediaServerService } from '../servers/shared/server.service';
 import { ProfileService } from '../profiles/shared/profile.service';
 import { UserService } from '../users/shared/user.service';
 import { MenuService } from '../menus/shared/menu.service';
+import { LibraryService } from '../libraries/shared/library.service';
 @Component({
   selector: 'app-sinovad-web',
   templateUrl: './sinovad-web.component.html',
@@ -16,6 +17,7 @@ export class SinovadWebComponent implements OnInit,OnDestroy {
   showRootPage:boolean=false;
 
   constructor(
+    private libraryService:LibraryService,
     private menuService:MenuService,
     private userService:UserService,
     private profileService:ProfileService,
@@ -50,6 +52,7 @@ export class SinovadWebComponent implements OnInit,OnDestroy {
           this.menuService.getManageMenu();
           this.menuService.getMediaMenu();
           this.serverService.getMediaServers();
+          this.libraryService.getLibraries();
           this.profileService.getAllProfiles().then(response=>{
             this.showRootPage=true;
             this.ref.detectChanges();

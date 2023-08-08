@@ -12,6 +12,7 @@ import { MediaServerService } from '../servers/shared/server.service';
 import { ProfileService } from '../profiles/shared/profile.service';
 import { UserService } from '../users/shared/user.service';
 import { MenuService } from '../menus/shared/menu.service';
+import { LibraryService } from '../libraries/shared/library.service';
 
 declare var window;
 @Component({
@@ -33,6 +34,7 @@ export class LoginPage implements OnInit {
   });
 
   constructor(
+    private libraryService:LibraryService,
     private menuService:MenuService,
     private userService:UserService,
     private profileService: ProfileService,
@@ -79,6 +81,7 @@ export class LoginPage implements OnInit {
         this.userService.getUser().then(res=>{
           this.menuService.getManageMenu();
           this.menuService.getMediaMenu();
+          this.libraryService.getLibraries();
           this.serverService.getMediaServers();
           this.profileService.getAllProfiles().then(res=>{
             this.router.navigate(['select-profile'],{ skipLocationChange: false});

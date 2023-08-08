@@ -1,8 +1,13 @@
 <div class="sinovadclient-principal-section">
   <div class="sinovad-principal-item-list-container sinovad-no-cordova">
-    <div *ngIf="title" class="sinovad-media-title">
-      <div>
-        {{title}}
+    <div *ngIf="title" class="sinovad-media-header">
+      <div class="sinovad-media-header-content">
+        <div class="title">
+          {{title}}
+        </div>
+        <div class="subtitle">
+          {{subtitle}}
+        </div>
       </div>
     </div>
     <div class="sinovad-list-container sinovad-custom-container" [style.height]="title?'calc(100% - 50px)':'100%'">

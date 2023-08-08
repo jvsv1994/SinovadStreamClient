@@ -2,11 +2,8 @@
 import { Component, OnInit} from '@angular/core';
 import { SharedService } from 'src/app/shared/services/shared-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MediaType } from 'src/app/shared/enums';
 import { ItemDetail } from '../shared/item-detail.model';
-import { MediaServerService } from 'src/app/servers/shared/server.service';
 import { MediaServer } from 'src/app/servers/shared/server.model';
-import { SinovadApiGenericResponse } from 'src/app/response/sinovadApiGenericResponse';
 import { Library } from 'src/app/libraries/shared/library.model';
 
 @Component({
@@ -20,9 +17,9 @@ export class MediaServerComponent implements OnInit {
   library:Library;
   currentMediaTypeID:number;
   title:string;
+  subtitle:string;
 
   constructor(
-    private serverService: MediaServerService,
     public activeRoute: ActivatedRoute,
     private router: Router,
     public sharedService: SharedService) {
@@ -33,20 +30,22 @@ export class MediaServerComponent implements OnInit {
 
     public ngOnInit(): void {
       var mediaServerGuid=this.activeRoute.snapshot.params.serverGuid;
-      this.getMediaServerByGuid(mediaServerGuid);
-      let libraryId = this.activeRoute.snapshot.queryParams['source'];
-
-    }
-
-    public getMediaServerByGuid(mediaServerGuid:string){
-      this.serverService.getMediaServerByGuid(mediaServerGuid).then((response:SinovadApiGenericResponse) => {
-        var mediaServer=response.Data;
+      var mediaServer=this.sharedService.mediaServers.find(x=>x.Guid==mediaServerGuid);
+      if(mediaServer)
+      {
         this.mediaServer=mediaServer;
-        this.title=this.mediaServer.FamilyName?this.mediaServer.FamilyName:this.mediaServer.DeviceName;
-        this.currentMediaTypeID=MediaType.Movie;
-      },error=>{
-        this.router.navigateByUrl('/404')
-      });
+        var libraryId=this.activeRoute.snapshot.params.libraryId;
+        var library=this.sharedService.libraries.find(x=>x.MediaServerId==this.mediaServer.Id && x.Id==libraryId);
+        if(library!=undefined)
+        {
+          this.library=library;
+          this.title=library.Name;
+          this.subtitle=this.mediaServer.FamilyName?this.mediaServer.FamilyName:this.mediaServer.DeviceName;
+          this.currentMediaTypeID=library.MediaTypeCatalogDetailId;
+        }else{
+          this.title=this.mediaServer.FamilyName?this.mediaServer.FamilyName:this.mediaServer.DeviceName;
+        }
+      }
     }
 
     public onSelectMovie(detail:ItemDetail){

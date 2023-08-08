@@ -5,6 +5,7 @@ import { SinovadApiPaginationResponse } from 'src/app/response/sinovadApiPaginat
 import { SinovadApiGenericResponse } from 'src/app/response/sinovadApiGenericResponse';
 import {v4 as uuid} from "uuid";
 import { Library } from './library.model';
+import { SharedService } from 'src/app/shared/services/shared-data.service';
 export declare type EventHandler = (...args: any[]) => any;
 
 @Injectable({ providedIn: 'root' })
@@ -13,8 +14,24 @@ export class LibraryService {
   lastCallGuid:string;
 
   constructor(
+    private sharedService:SharedService,
     private restProvider: RestProviderService,
   ) {
+  }
+
+
+  public getLibraries():Promise<SinovadApiGenericResponse>{
+    return new Promise((resolve, reject) => {
+      var path="/storages/GetAllLibrariesByUserAsync/"+this.sharedService.userData.Id;
+      this.restProvider.executeSinovadApiService(HttpMethodType.GET,path).then((response:SinovadApiGenericResponse) => {
+        let libraries=response.Data;
+        this.sharedService.libraries=libraries;
+        resolve(response);
+      },error=>{
+        console.error(error);
+        reject(error);
+      });
+   });
   }
 
   public getItems(mediaServerId:number,pageNumber:number,itemsPerPage:number,sortBy:string,sortDirection:string,searchText:string,searchBy:string):Promise<SinovadApiPaginationResponse>{

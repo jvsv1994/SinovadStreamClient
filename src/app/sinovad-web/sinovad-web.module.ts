@@ -61,6 +61,11 @@ const routes: Routes = [
         loadChildren: () => import('../media/media.module').then(m => m.MediaModule)
       },
       {
+        path: 'media/server/:serverGuid/libraries/:libraryId',
+        component: MediaServerComponent,
+        loadChildren: () => import('../media/media.module').then(m => m.MediaModule)
+      },
+      {
         path: 'search',
         component: SearchViewPage,
         loadChildren: () => import('../media/search/search.module').then(m => m.SearchModule)

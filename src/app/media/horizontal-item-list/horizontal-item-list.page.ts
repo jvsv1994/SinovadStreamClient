@@ -23,6 +23,7 @@ export class HorizontalItemListPage implements OnInit {
   showLoadingApp:boolean=true;
   @Input() currentMediaTypeID: number;
   @Input() title: string;
+  @Input() subtitle: string;
   listItems: any[];
   itemsGroupList:ItemsGroup[]=[];
   _window=window;

@@ -18,8 +18,8 @@ export class SharedService {
 
   showSplashScreen:boolean=true;
   userData: User;
-  //urlSinovadStreamWebApi: string='http://localhost:53363';
-  urlSinovadStreamWebApi: string='https://streamapi.sinovad.com';
+  urlSinovadStreamWebApi: string='http://localhost:53363';
+  //urlSinovadStreamWebApi: string='https://streamapi.sinovad.com';
   urlSinovadCdn: string='https://resources.sinovad.com/stream/web';
   originalUrlImagesMovieDataBase:String="https://image.tmdb.org/t/p/w600_and_h900_bestv2";
   urlEpisodeDataBase:string="https://www.themoviedb.org/t/p/w454_and_h254_bestv2";
