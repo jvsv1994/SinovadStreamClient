@@ -14,7 +14,6 @@ import { RecoverPasswordPage } from '../recover-password/recover-password.page';
 import { LoginPage } from '../login/login.page';
 import { RegisterUserPage } from '../register-user/register-user.page';
 import { LandingPage } from '../landing/landing.page';
-import { HomePage } from '../media/home/home.page';
 import { ServerSettingsGeneralPage } from '../server-settings-general/server-settings-general.page';
 import { WebContainerPageModule } from '../web-container/web-container.module';
 import { SplashScreenPageModule } from '../splash-screen/splash-screen.module';
@@ -28,8 +27,6 @@ import { LibraryListComponent } from '../libraries/library-list/library-list.com
 import { ProfilesViewPage } from '../profiles/profiles-view/profiles-view.page';
 import { ProfileNewPage } from '../profiles/profile-new/profile-new.page';
 import { ProfileEditPage } from '../profiles/profile-edit/profile-edit.page';
-import { MediaMoviesPage } from '../media/media-movies/media-movies.page';
-import { MediaTvSeriesPage } from '../media/media-tvseries/media-tvseries.page';
 import { SearchViewPage } from '../media/search/search-view/search-view.page';
 import { MediaDetailModule } from '../media/detail/media-detail.module';
 import { MovieDetailPage } from '../media/detail/movie-detail/movie-detail.page';
@@ -42,17 +39,17 @@ const routes: Routes = [
     children:[
       {
         path: 'home',
-        component: HomePage,
+        component: MediaServerComponent,
         loadChildren: () => import('../media/media.module').then(m => m.MediaModule)
       },
       {
         path: 'media/movies',
-        component: MediaMoviesPage,
+        component: MediaServerComponent,
         loadChildren: () => import('../media/media.module').then(m => m.MediaModule)
       },
       {
         path: 'media/tvseries',
-        component: MediaTvSeriesPage,
+        component: MediaServerComponent,
         loadChildren: () => import('../media/media.module').then(m => m.MediaModule)
       },
       {

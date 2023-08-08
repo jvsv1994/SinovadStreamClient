@@ -1,7 +1,6 @@
 
 import { Component, HostListener} from '@angular/core';
 import { SharedService } from 'src/app/shared/services/shared-data.service';
-import { HomePage } from '../media/home/home.page';
 import { TranscoderSettingssPage } from '../transcode-settings/transcode-settings.page';
 import { ServerSettingsGeneralPage } from '../server-settings-general/server-settings-general.page';
 import { AccountPage } from '../account/account.page';
@@ -13,8 +12,6 @@ import { MovieListPage } from '../movies/movie-list/movie-list.page';
 import { TvSerieListPage } from '../tvseries/tvserie-list/tvserie-list.page';
 import { LibraryListComponent } from '../libraries/library-list/library-list.component';
 import { ProfilesViewPage } from '../profiles/profiles-view/profiles-view.page';
-import { MediaMoviesPage } from '../media/media-movies/media-movies.page';
-import { MediaTvSeriesPage } from '../media/media-tvseries/media-tvseries.page';
 import { SearchViewPage } from '../media/search/search-view/search-view.page';
 import { MovieDetailPage } from '../media/detail/movie-detail/movie-detail.page';
 import { TvSerieDetailPage } from '../media/detail/tvserie-detail/tvserie-detail.page';
@@ -66,7 +63,7 @@ export class WebContainerPage{
         this.showingSidebarAccount=false;
         this.showingSidebarAdminMode=false;
       }
-      if(event instanceof MediaServerComponent || event instanceof MediaMoviesPage || event instanceof MediaTvSeriesPage || event instanceof HomePage || event instanceof MovieDetailPage || event instanceof TvSerieDetailPage)
+      if(event instanceof MediaServerComponent || event instanceof MovieDetailPage || event instanceof TvSerieDetailPage)
       {
         this.showRouterChildWithFullDimentions=false;
         this.showingSidebarMedia=true;
