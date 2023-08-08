@@ -1,9 +1,11 @@
 
 import { Component, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { LibraryService } from 'src/app/libraries/shared/library.service';
+import { Library } from 'src/app/libraries/shared/library.model';
 import { Menu } from 'src/app/menus/shared/menu.model';
+import { MenuService } from 'src/app/menus/shared/menu.service';
 import { SinovadApiGenericResponse } from 'src/app/response/sinovadApiGenericResponse';
+import { MediaType } from 'src/app/shared/enums';
 import { SharedDataService } from 'src/app/shared/services/shared-data.service';
 
 declare var window;
@@ -15,45 +17,22 @@ declare var window;
 export class SidebarMediaPage{
 
   @Output() collapseSidebar=new EventEmitter();
-  mediaOptions:Menu[]=[
-    {
-      Id:1,
-      SortOrder:1,
-      Title:"Inicio",
-      Path:"/home",
-      IconClass:"fa-house fa-solid"
-    },{
-      Id:2,
-      SortOrder:2,
-      Title:"Peliculas",
-      Path:"/media/movies",
-      IconClass:"fa-film fa-solid"
-    },{
-      Id:3,
-      SortOrder:3,
-      Title:"Series",
-      Path:"/media/tvseries",
-      IconClass:"fa-solid fa-tv"
-    }
-  ]
-
+  mediaOptions:Menu[]=[];
 
   constructor(
     private sharedService:SharedDataService,
-    private libraryService:LibraryService,
+    private menuService:MenuService,
     private router: Router) {
 
     }
 
 
   ngOnInit(){
-  /*   this.libraryService.GetAllLibrariesByUser(this.sharedService.userData.Id).then((response:SinovadApiGenericResponse)=>{
-      var listLibraries=response.Data;
-
-
+    this.menuService.getMediaMenuByUser(this.sharedService.userData.Id).then((response:SinovadApiGenericResponse)=>{
+      this.mediaOptions=response.Data;
     },error=>{
 
-    }); */
+    });
   }
 
   public onClickModule(module:Menu){
@@ -69,7 +48,7 @@ export class SidebarMediaPage{
   }
 
   public isSelectedMenu(option:Menu){
-    if(option.Path.indexOf(window.location.pathname)!=-1)
+    if(decodeURIComponent(window.location.pathname).indexOf(option.Path)!=-1)
     {
       return true;
     }

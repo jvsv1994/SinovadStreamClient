@@ -19,6 +19,23 @@ export class MenuService {
   ) {
   }
 
+  public getMediaMenuByUser(userId:number):Promise<SinovadApiGenericResponse>{
+    return new Promise((resolve, reject) => {
+      let callGuid=uuid();
+      this.lastCallGuid=callGuid;
+      var path="/menus/GetMediaMenuByUserAsync/"+userId;
+      this.restProvider.executeSinovadApiService(HttpMethodType.GET,path).then((response:SinovadApiGenericResponse) => {
+        if(this.lastCallGuid==callGuid)
+        {
+          resolve(response);
+        }
+      },error=>{
+        console.error(error);
+        reject(error);
+      });
+   });
+  }
+
   public getAllMenus(){
     return new Promise((resolve, reject) => {
       var path="/menus/GetAllAsync";

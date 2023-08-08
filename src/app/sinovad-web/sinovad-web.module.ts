@@ -34,6 +34,7 @@ import { SearchViewPage } from '../media/search/search-view/search-view.page';
 import { MediaDetailModule } from '../media/detail/media-detail.module';
 import { MovieDetailPage } from '../media/detail/movie-detail/movie-detail.page';
 import { TvSerieDetailPage } from '../media/detail/tvserie-detail/tvserie-detail.page';
+import { MediaServerComponent } from '../media/media-server/media-server.component';
 
 const routes: Routes = [
   {
@@ -52,6 +53,11 @@ const routes: Routes = [
       {
         path: 'media/tvseries',
         component: MediaTvSeriesPage,
+        loadChildren: () => import('../media/media.module').then(m => m.MediaModule)
+      },
+      {
+        path: 'media/server/:serverGuid',
+        component: MediaServerComponent,
         loadChildren: () => import('../media/media.module').then(m => m.MediaModule)
       },
       {

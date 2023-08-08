@@ -32,6 +32,7 @@ import { RecoverPasswordPage } from '../recover-password/recover-password.page';
 import { ResetPasswordPage } from '../reset-password/reset-password.page';
 import { LandingPage } from '../landing/landing.page';
 import { ConfirmEmailPage } from '../confirm-email/confirm-email.page';
+import { MediaServerComponent } from '../media/media-server/media-server.component';
 
 @Component({
   selector: 'app-web-container',
@@ -153,7 +154,7 @@ export class WebContainerPage extends ParentComponent implements OnInit,OnDestro
         this.showingSidebarAccount=false;
         this.showingSidebarAdminMode=false;
       }
-      if(event instanceof MediaMoviesPage || event instanceof MediaTvSeriesPage || event instanceof HomePage || event instanceof MovieDetailPage || event instanceof TvSerieDetailPage)
+      if(event instanceof MediaServerComponent || event instanceof MediaMoviesPage || event instanceof MediaTvSeriesPage || event instanceof HomePage || event instanceof MovieDetailPage || event instanceof TvSerieDetailPage)
       {
         this.showRouterChildWithFullDimentions=false;
         this.showingSidebarMedia=true;

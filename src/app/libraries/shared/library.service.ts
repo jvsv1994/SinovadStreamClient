@@ -17,23 +17,6 @@ export class LibraryService {
   ) {
   }
 
-  public GetAllLibrariesByUser(userId:number):Promise<SinovadApiGenericResponse>{
-    return new Promise((resolve, reject) => {
-      let callGuid=uuid();
-      this.lastCallGuid=callGuid;
-      var path="/storages/GetAllLibrariesByUserAsync/"+userId;
-      this.restProvider.executeSinovadApiService(HttpMethodType.GET,path).then((response:SinovadApiGenericResponse) => {
-        if(this.lastCallGuid==callGuid)
-        {
-          resolve(response);
-        }
-      },error=>{
-        console.error(error);
-        reject(error);
-      });
-   });
-  }
-
   public getItems(mediaServerId:number,pageNumber:number,itemsPerPage:number,sortBy:string,sortDirection:string,searchText:string,searchBy:string):Promise<SinovadApiPaginationResponse>{
     return new Promise((resolve, reject) => {
       let callGuid=uuid();
