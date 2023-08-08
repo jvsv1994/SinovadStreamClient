@@ -21,7 +21,6 @@ export class HeaderPage extends ParentComponent implements OnInit {
   customKeyboardEvent:any;
   @Output() toggleSidebar =new EventEmitter();
   @Output() selectOption =new EventEmitter();
-  @Output() executeSearch =new EventEmitter();
   @Output() toggleMenu =new EventEmitter();
   searchText:string='';
   isFocusSearch:boolean=false;
@@ -83,7 +82,12 @@ export class HeaderPage extends ParentComponent implements OnInit {
   }
 
   public onChangeSearchValue(){
-    this.executeSearch.emit(this.searchText);
+    if(this.searchText!=undefined && this.searchText!='')
+    {
+      this.router.navigateByUrl("/search?text="+this.searchText);
+    }else{
+      this.router.navigateByUrl("/home");
+    }
     this.searchText="";
   }
 

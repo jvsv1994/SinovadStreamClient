@@ -84,15 +84,6 @@ export class WebContainerPage extends ParentComponent implements OnInit,OnDestro
       this.isCollapsedSidebar=!this.isCollapsedSidebar;
     }
 
-    public onSearchMedia(searchText:string){
-      if(searchText!=undefined && searchText!='')
-      {
-        this.router.navigateByUrl("/search?text="+searchText);
-      }else{
-        this.router.navigateByUrl("/home");
-      }
-    }
-
     public onActivate(event:any){
       let ctx=this;
       this.isCollapsedSidebar=true;

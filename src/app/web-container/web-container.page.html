@@ -1,7 +1,7 @@
 <div class="sinovad-page-container">
   <div #header>
     <app-header *ngIf="!showRouterChildWithFullDimentions" [showingSidebarAccount]="showingSidebarAccount" [showingSidebarAdminMode]="showingSidebarAdminMode"
-     (executeSearch)="onSearchMedia($event)" (toggleSidebar)="onClickToggleSidebarButton()"></app-header>
+     (toggleSidebar)="onClickToggleSidebarButton()"></app-header>
   </div>
   <div class="sinovad-menu-body-container" [style.height]="'calc(100% - '+(header.offsetHeight+footer.offsetHeight)+'px)'">
     <div #menu>
