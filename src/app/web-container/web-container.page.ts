@@ -42,7 +42,6 @@ import { MediaServerComponent } from '../media/media-server/media-server.compone
 export class WebContainerPage extends ParentComponent implements OnInit,OnDestroy {
 
   showVideoPopUp:boolean=false;
-  hideContent:boolean=false;
   _window=window;
   currentMediaTypeID:number;
   title:string;
@@ -91,13 +90,6 @@ export class WebContainerPage extends ParentComponent implements OnInit,OnDestro
 
     public onClickToggleSidebarButton(){
       this.isCollapsedSidebar=!this.isCollapsedSidebar;
-    }
-
-    public prepareRouterOutlet(){
-      this.hideContent=true;
-      this.ref.detectChanges();
-      this.hideContent=false;
-      this.ref.detectChanges();
     }
 
     public showAdminMode(){
