@@ -1,5 +1,5 @@
 
-import { ChangeDetectorRef, Component, EventEmitter, Output } from '@angular/core';
+import { ChangeDetectorRef, Component} from '@angular/core';
 import { SharedDataService } from 'src/app/shared/services/shared-data.service';
 import { Router } from '@angular/router';
 import { Profile } from '../../profiles/shared/profile.model';
