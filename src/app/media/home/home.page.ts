@@ -31,14 +31,4 @@ export class HomePage implements OnInit {
       this.itemViewData=undefined;
       this.currentMediaTypeID=undefined;
     }
-
-    public onSelectItem(detail:ItemDetail){
-      if(detail.Item.TvSerieId)
-      {
-        this.router.navigateByUrl('/tvseriedetail/'+detail.Item.TvSerieId);
-      }else if(detail.Item.MovieId)
-      {
-        this.router.navigateByUrl('/moviedetail/'+detail.Item.MovieId);
-      }
-    }
 }

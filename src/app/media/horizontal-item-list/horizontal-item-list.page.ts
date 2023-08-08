@@ -9,6 +9,7 @@ import { ItemsGroup } from '../shared/items-group.model';
 import { Item } from '../shared/item.model';
 import { ItemDetail } from '../shared/item-detail.model';
 import { VideoService } from '../video/service/video.service';
+import { Router } from '@angular/router';
 
 declare var window;
 @Component({
@@ -18,7 +19,6 @@ declare var window;
 })
 export class HorizontalItemListPage implements OnInit {
 
-  @Output() showItemView =new EventEmitter();
   @Output() focus =new EventEmitter();
   showLoadingApp:boolean=true;
   @Input() currentMediaTypeID: number;
@@ -29,6 +29,7 @@ export class HorizontalItemListPage implements OnInit {
   _window=window;
 
   constructor(
+    private router: Router,
     private videoService:VideoService,
     public restProvider: RestProviderService,
     private  ref:ChangeDetectorRef,
@@ -144,7 +145,13 @@ export class HorizontalItemListPage implements OnInit {
       {
         data.CurrentSeason=data.ListSeasons[0];
       }
-      this.showItemView.emit(data);
+      if(data.Item.MovieId)
+      {
+        this.router.navigateByUrl('/moviedetail/'+data.Item.MovieId);
+      }else if(data.Item.TvSerieId)
+      {
+        this.router.navigateByUrl('/tvseriedetail/'+data.Item.TvSerieId);
+      }
     }
 
     ngAfterViewInit(){

@@ -48,8 +48,4 @@ export class MediaServerComponent implements OnInit {
       }
     }
 
-    public onSelectMovie(detail:ItemDetail){
-      this.router.navigateByUrl('/moviedetail/'+detail.Item.MovieId);
-    }
-
 }

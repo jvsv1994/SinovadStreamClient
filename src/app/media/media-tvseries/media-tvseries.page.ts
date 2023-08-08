@@ -31,7 +31,4 @@ export class MediaTvSeriesPage implements OnInit {
       this.currentMediaTypeID=MediaType.TvSerie;
     }
 
-    public onSelectTvSerie(detail:ItemDetail){
-      this.router.navigateByUrl('/tvseriedetail/'+detail.Item.TvSerieId);
-    }
 }

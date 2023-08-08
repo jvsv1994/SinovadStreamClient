@@ -30,9 +30,4 @@ export class MediaMoviesPage implements OnInit {
       this.title="Películas";
       this.currentMediaTypeID=MediaType.Movie;
     }
-
-    public onSelectMovie(detail:ItemDetail){
-      this.router.navigateByUrl('/moviedetail/'+detail.Item.MovieId);
-    }
-
 }
