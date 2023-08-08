@@ -1,5 +1,5 @@
 
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { SharedService } from 'src/app/shared/services/shared-data.service';
 import { MediaServerService } from '../servers/shared/server.service';
 import { ProfileService } from '../profiles/shared/profile.service';
@@ -98,9 +98,8 @@ export class SinovadWebComponent implements OnInit,OnDestroy {
       }
     }
 
-    public onActivate(event:any)
-    {
+    @HostListener('window:resize', ['$event'])
+    onResize(event) {
 
     }
-
 }
