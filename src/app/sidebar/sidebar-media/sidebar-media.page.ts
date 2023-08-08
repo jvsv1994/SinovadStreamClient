@@ -1,12 +1,10 @@
 
-import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
-import { SharedDataService } from 'src/app/shared/services/shared-data.service';
-import { HttpClient } from '@angular/common/http';
-import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { LibraryService } from 'src/app/libraries/shared/library.service';
 import { Menu } from 'src/app/menus/shared/menu.model';
-import { ParentComponent } from 'src/app/parent/parent.component';
+import { SinovadApiGenericResponse } from 'src/app/response/sinovadApiGenericResponse';
+import { SharedDataService } from 'src/app/shared/services/shared-data.service';
 
 declare var window;
 @Component({
@@ -14,7 +12,7 @@ declare var window;
   templateUrl: './sidebar-media.page.html',
   styleUrls: ['./sidebar-media.page.scss']
 })
-export class SidebarMediaPage extends ParentComponent implements OnInit {
+export class SidebarMediaPage{
 
   @Output() collapseSidebar=new EventEmitter();
   mediaOptions:Menu[]=[
@@ -41,28 +39,22 @@ export class SidebarMediaPage extends ParentComponent implements OnInit {
 
 
   constructor(
-    private router: Router,
-    public  ref:ChangeDetectorRef,
-    public restProvider: RestProviderService,
-    public http: HttpClient,
-    public domSanitizer: DomSanitizer,
-    public sharedData: SharedDataService) {
-      super(restProvider,domSanitizer,sharedData)
+    private sharedService:SharedDataService,
+    private libraryService:LibraryService,
+    private router: Router) {
 
     }
 
-  ngOnInit(): void {
 
+  ngOnInit(){
+  /*   this.libraryService.GetAllLibrariesByUser(this.sharedService.userData.Id).then((response:SinovadApiGenericResponse)=>{
+      var listLibraries=response.Data;
+
+
+    },error=>{
+
+    }); */
   }
-
-  ngAfterViewInit(){
-
-  }
-
-  public selectDefaultOption(){
-
-  }
-
 
   public onClickModule(module:Menu){
     module.isCollapsed=!module.isCollapsed;
