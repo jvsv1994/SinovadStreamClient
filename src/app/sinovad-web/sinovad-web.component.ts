@@ -47,7 +47,8 @@ export class SinovadWebComponent implements OnInit,OnDestroy {
       {
         this.sharedService.apiToken=localStorage.getItem('apiToken');
         this.userService.getUser().then(res=>{
-          this.menuService.getMenus();
+          this.menuService.getManageMenu();
+          this.menuService.getMediaMenu();
           this.serverService.getMediaServers();
           this.profileService.getAllProfiles().then(response=>{
             this.showRootPage=true;

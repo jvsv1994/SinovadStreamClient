@@ -1,7 +1,7 @@
 
 <div class="sidebar-backdrop" (clickOutside)="onClickOutsideSidebar($event)">
   <ul class="sinovad-sidebar-modules-list">
-    <ng-template ngFor let-poption [ngForOf]="mediaOptions">
+    <ng-template ngFor let-poption [ngForOf]="sharedService.mediaMenu">
       <li class="sinovad-sidebar-module-element">
         <button class="sinovad-sidebar-module-button" [routerLink]="[poption.Path]" [ngClass]="{'active':isSelectedMenu(poption)}">
           <i *ngIf="!poption.IconClass && poption.isCollapsed" class="fa-solid fa-chevron-right"></i>

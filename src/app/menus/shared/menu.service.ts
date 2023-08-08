@@ -19,7 +19,20 @@ export class MenuService {
   ) {
   }
 
-  public getMenus(): Promise<any>{
+  public getMediaMenu():Promise<SinovadApiGenericResponse>{
+    return new Promise((resolve, reject) => {
+      var path="/menus/GetMediaMenuByUserAsync/"+this.sharedService.userData.Id;
+      this.restProvider.executeSinovadApiService(HttpMethodType.GET,path).then((response:SinovadApiGenericResponse) => {
+        this.sharedService.mediaMenu=response.Data;
+        resolve(response);
+      },error=>{
+        console.error(error);
+        reject(error);
+      });
+   });
+  }
+
+  public getManageMenu(): Promise<any>{
     return new Promise((resolve, reject) => {
       this.restProvider.executeSinovadApiService(HttpMethodType.GET,'/menus/GetByUserAsync/'+this.sharedService.userData.Id).then((response:SinovadApiGenericResponse) => {
         this.sharedService.listMenus=response.Data;
@@ -28,23 +41,6 @@ export class MenuService {
         reject(error);
       });
     });
-  }
-
-  public getMediaMenuByUser(userId:number):Promise<SinovadApiGenericResponse>{
-    return new Promise((resolve, reject) => {
-      let callGuid=uuid();
-      this.lastCallGuid=callGuid;
-      var path="/menus/GetMediaMenuByUserAsync/"+userId;
-      this.restProvider.executeSinovadApiService(HttpMethodType.GET,path).then((response:SinovadApiGenericResponse) => {
-        if(this.lastCallGuid==callGuid)
-        {
-          resolve(response);
-        }
-      },error=>{
-        console.error(error);
-        reject(error);
-      });
-   });
   }
 
   public getAllMenus(){
@@ -57,17 +53,6 @@ export class MenuService {
         reject(error);
       });
    });
-  }
-
-  public getMenusByUser(): Promise<any>{
-    return new Promise((resolve, reject) => {
-      this.restProvider.executeSinovadApiService(HttpMethodType.GET,'/menus/GetByUserAsync/'+this.sharedService.userData.Id).then((response:SinovadApiGenericResponse) => {
-        this.sharedService.listMenus=response.Data;
-        resolve(true);
-      },error=>{
-        reject(error);
-      });
-    });
   }
 
   public getItems(pageNumber:number,itemsPerPage:number,sortBy:string,sortDirection:string,searchText:string,searchBy:string):Promise<SinovadApiPaginationResponse>{

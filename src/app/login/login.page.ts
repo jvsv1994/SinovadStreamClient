@@ -77,7 +77,8 @@ export class LoginPage implements OnInit {
         this.sharedService.apiToken=token;
         this.sharedService.showSplashScreen=true;
         this.userService.getUser().then(res=>{
-          this.menuService.getMenus();
+          this.menuService.getManageMenu();
+          this.menuService.getMediaMenu();
           this.serverService.getMediaServers();
           this.profileService.getAllProfiles().then(res=>{
             this.router.navigate(['select-profile'],{ skipLocationChange: false});

@@ -11,6 +11,7 @@ import {v4 as uuid} from "uuid";
 import { TranscodePrepareVideo } from 'src/app/media/video/models/transcodePrepareVideo';
 import { BuilderVideo } from 'src/app/media/video/models/builderVideo';
 import { Episode } from 'src/app/episodes/shared/episode.model';
+import { Library } from 'src/app/libraries/shared/library.model';
 
 @Injectable({ providedIn: 'root' })
 export class SharedService {
@@ -30,8 +31,10 @@ export class SharedService {
   configurationData:Configuration=new Configuration();
   listProfiles:Profile[]=[];
   listMenus:Menu[]=[];
+  mediaMenu:Menu[]=[];
   pageNotFoundShowing:boolean=false;
   mediaServers:MediaServer[]=[];
+  libraries:Library[]=[];
   selectedMediaServer:MediaServer;
 
   constructor() {

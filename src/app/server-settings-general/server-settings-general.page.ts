@@ -43,7 +43,7 @@ export class ServerSettingsGeneralPage implements OnInit {
 
     public async getMediaServerData(){
       var mediaServerGuid=this.activeRoute.snapshot.params.serverGuid;
-      this.restProvider.executeSinovadApiService(HttpMethodType.GET,'/mediaServers/GetByGuidAsync/'+mediaServerGuid).then((response:SinovadApiGenericResponse) => {
+      this.serverService.getMediaServerByGuid(mediaServerGuid).then((response:SinovadApiGenericResponse) => {
         var mediaServer=response.Data;
         var selectedMediaServer=this.sharedService.mediaServers.find(x=>x.Id==mediaServer.Id);
         mediaServer.isSecureConnection=selectedMediaServer.isSecureConnection;

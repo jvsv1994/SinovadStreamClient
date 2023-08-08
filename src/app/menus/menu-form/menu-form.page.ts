@@ -99,7 +99,7 @@ export class MenuFormPage implements OnInit,AfterViewInit{
         this.menuService.saveItem(menu).then((response: any) => {
           this.showLoading=false;
           this.snackbarService.showSnackBar("Se guardo el menu satisfactoriamente",SnackBarType.Success);
-          this.menuService.getMenusByUser();
+          this.menuService.getManageMenu();
           this.activeModal.close();
         },error=>{
           this.showLoading=false;

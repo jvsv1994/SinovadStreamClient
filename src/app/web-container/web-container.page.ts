@@ -1,5 +1,5 @@
 
-import { Component} from '@angular/core';
+import { Component, HostListener} from '@angular/core';
 import { SharedService } from 'src/app/shared/services/shared-data.service';
 import { HomePage } from '../media/home/home.page';
 import { TranscoderSettingssPage } from '../transcode-settings/transcode-settings.page';
@@ -116,5 +116,10 @@ export class WebContainerPage{
         this.showingSidebarAdminMode=true;
         this.showingSidebarMedia=false;
       }
+    }
+
+    @HostListener('window:resize', ['$event'])
+    onResize(event) {
+
     }
 }

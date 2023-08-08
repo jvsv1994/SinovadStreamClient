@@ -15,10 +15,9 @@ declare var window;
 export class SidebarMediaPage{
 
   @Output() collapseSidebar=new EventEmitter();
-  mediaOptions:Menu[]=[];
 
   constructor(
-    private sharedService:SharedService,
+    public sharedService:SharedService,
     private menuService:MenuService,
     private router: Router) {
 
@@ -26,11 +25,7 @@ export class SidebarMediaPage{
 
 
   ngOnInit(){
-    this.menuService.getMediaMenuByUser(this.sharedService.userData.Id).then((response:SinovadApiGenericResponse)=>{
-      this.mediaOptions=response.Data;
-    },error=>{
 
-    });
   }
 
   public onClickModule(module:Menu){
