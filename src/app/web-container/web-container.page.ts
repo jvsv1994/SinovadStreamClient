@@ -107,29 +107,13 @@ export class WebContainerPage extends ParentComponent implements OnInit,OnDestro
     }
 
     public goHome(){
-      this.showingSidebarAccount=false;
-      this.router.navigateByUrl("/home").then((response) => {
-        if(this.isSmallDevice())
-        {
-          this.isCollapsedSidebar=true;
-        }
-        this.prepareRouterOutlet();
-      },error=>{
-        console.error(error);
-      });
+      this.router.navigateByUrl("/home");
     }
 
     public onSearchMedia(searchText:string){
       if(searchText!=undefined && searchText!='')
       {
-        this.hideContent=true;
-        this.ref.detectChanges();
-        this.router.navigateByUrl("/search?text="+searchText).then(res=>
-          {
-            this.hideContent=false;
-            this.ref.detectChanges();
-          }
-        );
+        this.router.navigateByUrl("/search?text="+searchText);
       }else{
         this.goHome();
       }

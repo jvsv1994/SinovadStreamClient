@@ -1,11 +1,7 @@
 
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
 import { SharedDataService } from 'src/app/shared/services/shared-data.service';
-import { HttpClient } from '@angular/common/http';
-import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ParentComponent } from 'src/app/parent/parent.component';
 import { ItemDetail } from '../../shared/item-detail.model';
 
 declare var window;
@@ -14,7 +10,7 @@ declare var window;
   templateUrl: './search-view.page.html',
   styleUrls: ['./search-view.page.scss']
 })
-export class SearchViewPage extends ParentComponent implements OnInit {
+export class SearchViewPage implements OnInit {
 
   @Output() executeSearch =new EventEmitter();
   @Output() showItemView =new EventEmitter();
@@ -23,12 +19,10 @@ export class SearchViewPage extends ParentComponent implements OnInit {
   constructor(
     private router: Router,
     private route:ActivatedRoute,
-    public restProvider: RestProviderService,
-    public http: HttpClient,
-    public domSanitizer: DomSanitizer,
     public sharedData: SharedDataService) {
-      super(restProvider,domSanitizer,sharedData)
-
+      this.router.routeReuseStrategy.shouldReuseRoute = function () {
+        return false;
+      };
     }
 
     public ngOnInit(): void {

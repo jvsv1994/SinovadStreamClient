@@ -1,12 +1,8 @@
 
-import { ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { Component, OnInit} from '@angular/core';
 import { SharedDataService } from 'src/app/shared/services/shared-data.service';
-import { HttpClient} from '@angular/common/http';
-import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { Router } from '@angular/router';
 import { MediaType } from 'src/app/shared/enums';
-import { ParentComponent } from 'src/app/parent/parent.component';
 import { ItemDetail } from '../shared/item-detail.model';
 
 @Component({

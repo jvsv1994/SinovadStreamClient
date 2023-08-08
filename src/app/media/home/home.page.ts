@@ -1,10 +1,6 @@
 
-import { ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { Component, OnInit} from '@angular/core';
 import { SharedDataService } from 'src/app/shared/services/shared-data.service';
-import { ParentComponent } from '../../parent/parent.component';
-import { HttpClient} from '@angular/common/http';
-import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { Router } from '@angular/router';
 import { ItemDetail } from '../shared/item-detail.model';
 
@@ -13,21 +9,18 @@ import { ItemDetail } from '../shared/item-detail.model';
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss']
 })
-export class HomePage extends ParentComponent implements OnInit {
+export class HomePage implements OnInit {
 
   itemViewData:ItemDetail;
   currentMediaTypeID:number;
   title:string;
 
   constructor(
-    public restProvider: RestProviderService,
     private router: Router,
-    public  ref:ChangeDetectorRef,
-    public http: HttpClient,
-    public domSanitizer: DomSanitizer,
     public sharedData: SharedDataService) {
-      super(restProvider,domSanitizer,sharedData)
-
+      this.router.routeReuseStrategy.shouldReuseRoute = function () {
+        return false;
+      };
     }
 
     public ngOnInit(): void {

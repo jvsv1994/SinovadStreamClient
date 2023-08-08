@@ -1,11 +1,9 @@
 
 import { Component, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { Library } from 'src/app/libraries/shared/library.model';
 import { Menu } from 'src/app/menus/shared/menu.model';
 import { MenuService } from 'src/app/menus/shared/menu.service';
 import { SinovadApiGenericResponse } from 'src/app/response/sinovadApiGenericResponse';
-import { MediaType } from 'src/app/shared/enums';
 import { SharedDataService } from 'src/app/shared/services/shared-data.service';
 
 declare var window;
