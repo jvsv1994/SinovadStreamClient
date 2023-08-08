@@ -3,12 +3,14 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { HorizontalItemListPage } from './horizontal-item-list/horizontal-item-list.page';
-import { MediaServerComponent } from './media-server/media-server.component';
+import { MediaDetailComponent } from './detail/media-detail.component';
+import { ItemViewPage } from './item-view/item-view.page';
+import { MediaItemsComponent } from './items/media-items.component';
 
 
 @NgModule({
     declarations: [
-      MediaServerComponent,HorizontalItemListPage
+      MediaItemsComponent,HorizontalItemListPage,MediaDetailComponent,ItemViewPage
     ],
     imports: [
       CommonModule,
@@ -16,7 +18,7 @@ import { MediaServerComponent } from './media-server/media-server.component';
       ReactiveFormsModule,
       SharedModule
     ],
-    exports: [MediaServerComponent,HorizontalItemListPage]
+    exports: [MediaItemsComponent,HorizontalItemListPage,MediaDetailComponent,ItemViewPage]
 })
 export class MediaModule {
 }

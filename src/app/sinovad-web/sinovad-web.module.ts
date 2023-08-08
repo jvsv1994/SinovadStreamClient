@@ -28,10 +28,8 @@ import { ProfilesViewPage } from '../profiles/profiles-view/profiles-view.page';
 import { ProfileNewPage } from '../profiles/profile-new/profile-new.page';
 import { ProfileEditPage } from '../profiles/profile-edit/profile-edit.page';
 import { SearchViewPage } from '../media/search/search-view/search-view.page';
-import { MediaDetailModule } from '../media/detail/media-detail.module';
-import { MovieDetailPage } from '../media/detail/movie-detail/movie-detail.page';
-import { TvSerieDetailPage } from '../media/detail/tvserie-detail/tvserie-detail.page';
-import { MediaServerComponent } from '../media/media-server/media-server.component';
+import { MediaDetailComponent } from '../media/detail/media-detail.component';
+import { MediaItemsComponent } from '../media/items/media-items.component';
 
 const routes: Routes = [
   {
@@ -39,38 +37,33 @@ const routes: Routes = [
     children:[
       {
         path: 'home',
-        component: MediaServerComponent,
+        component: MediaItemsComponent,
         loadChildren: () => import('../media/media.module').then(m => m.MediaModule)
       },
       {
         path: 'media/movies',
-        component: MediaServerComponent,
+        component: MediaItemsComponent,
         loadChildren: () => import('../media/media.module').then(m => m.MediaModule)
       },
       {
         path: 'media/tvseries',
-        component: MediaServerComponent,
+        component: MediaItemsComponent,
         loadChildren: () => import('../media/media.module').then(m => m.MediaModule)
       },
       {
         path: 'media/server/:serverGuid',
-        component: MediaServerComponent,
+        component: MediaItemsComponent,
         loadChildren: () => import('../media/media.module').then(m => m.MediaModule)
       },
       {
         path: 'media/server/:serverGuid/libraries/:libraryId',
-        component: MediaServerComponent,
+        component: MediaItemsComponent,
         loadChildren: () => import('../media/media.module').then(m => m.MediaModule)
       },
       {
-        path: 'moviedetail/:movieId',
-        component: MovieDetailPage,
-        loadChildren: () => import('../media/detail/media-detail.module').then(m => MediaDetailModule)
-      },
-      {
-        path: 'tvseriedetail/:tvSerieId',
-        component: TvSerieDetailPage,
-        loadChildren: () => import('../media/detail/media-detail.module').then(m => MediaDetailModule)
+        path: 'media/server/:serverGuid/libraries/:libraryId/detail',
+        component: MediaDetailComponent,
+        loadChildren: () => import('../media/media.module').then(m => m.MediaModule)
       },
       {
         path: 'search',

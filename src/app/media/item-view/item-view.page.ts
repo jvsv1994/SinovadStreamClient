@@ -3,10 +3,10 @@ import { ChangeDetectorRef, Component, ElementRef, HostListener, Input, OnInit, 
 import { SharedService } from 'src/app/shared/services/shared-data.service';
 
 import { MediaType } from 'src/app/shared/enums';
-import { Season } from '../../../seasons/shared/season.model';
-import { ItemDetail } from '../../shared/item-detail.model';
 import { Episode } from 'src/app/episodes/shared/episode.model';
-import { VideoService } from '../../video/service/video.service';
+import { ItemDetail } from '../shared/item-detail.model';
+import { VideoService } from '../video/service/video.service';
+import { Season } from 'src/app/seasons/shared/season.model';
 
 declare var window;
 @Component({

@@ -8,10 +8,10 @@ import { MediaType } from 'src/app/shared/enums';
 
 @Component({
   selector: 'app-media-server',
-  templateUrl: './media-server.component.html',
-  styleUrls: ['./media-server.component.scss']
+  templateUrl: './media-items.component.html',
+  styleUrls: ['./media-items.component.scss']
 })
-export class MediaServerComponent implements OnInit {
+export class MediaItemsComponent implements OnInit {
 
   mediaServer:MediaServer;
   library:Library;

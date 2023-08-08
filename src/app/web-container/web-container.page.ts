@@ -13,8 +13,6 @@ import { TvSerieListPage } from '../tvseries/tvserie-list/tvserie-list.page';
 import { LibraryListComponent } from '../libraries/library-list/library-list.component';
 import { ProfilesViewPage } from '../profiles/profiles-view/profiles-view.page';
 import { SearchViewPage } from '../media/search/search-view/search-view.page';
-import { MovieDetailPage } from '../media/detail/movie-detail/movie-detail.page';
-import { TvSerieDetailPage } from '../media/detail/tvserie-detail/tvserie-detail.page';
 import { NotFoundPage } from '../not-found/not-found.page';
 import { LoginPage } from '../login/login.page';
 import { RegisterUserPage } from '../register-user/register-user.page';
@@ -22,7 +20,8 @@ import { RecoverPasswordPage } from '../recover-password/recover-password.page';
 import { ResetPasswordPage } from '../reset-password/reset-password.page';
 import { LandingPage } from '../landing/landing.page';
 import { ConfirmEmailPage } from '../confirm-email/confirm-email.page';
-import { MediaServerComponent } from '../media/media-server/media-server.component';
+import { MediaDetailComponent } from '../media/detail/media-detail.component';
+import { MediaItemsComponent } from '../media/items/media-items.component';
 
 @Component({
   selector: 'app-web-container',
@@ -63,7 +62,7 @@ export class WebContainerPage{
         this.showingSidebarAccount=false;
         this.showingSidebarAdminMode=false;
       }
-      if(event instanceof MediaServerComponent || event instanceof MovieDetailPage || event instanceof TvSerieDetailPage)
+      if(event instanceof MediaItemsComponent || event instanceof MediaDetailComponent)
       {
         this.showRouterChildWithFullDimentions=false;
         this.showingSidebarMedia=true;

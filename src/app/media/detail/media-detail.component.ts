@@ -1,20 +1,20 @@
 
 import { Component, OnInit} from '@angular/core';
 import { SharedService } from 'src/app/shared/services/shared-data.service';
-import { HttpMethodType } from 'src/app/shared/enums';
+import { HttpMethodType, MediaType } from 'src/app/shared/enums';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { SinovadApiGenericResponse } from 'src/app/response/sinovadApiGenericResponse';
-import { ItemDetail } from '../../shared/item-detail.model';
+import { ItemDetail } from '../shared/item-detail.model';
 
 declare var window;
 @Component({
-  selector: 'app-tvserie-detail',
-  templateUrl: './tvserie-detail.page.html',
-  styleUrls: ['./tvserie-detail.page.scss']
+  selector: 'app-media-detail',
+  templateUrl: './media-detail.component.html',
+  styleUrls: ['./media-detail.component.scss']
 })
-export class TvSerieDetailPage implements OnInit {
+export class MediaDetailComponent implements OnInit {
 
   detail:ItemDetail;
 
@@ -28,13 +28,31 @@ export class TvSerieDetailPage implements OnInit {
     }
 
     ngOnInit(): void {
-      let tvSerieId=this.activeRoute.snapshot.params.tvSerieId;
-      if(tvSerieId)
+      let mediaType = this.activeRoute.snapshot.queryParams['mediaType'];
+      let mediaId = this.activeRoute.snapshot.queryParams['mediaId'];
+      if(mediaType && mediaId)
       {
-        this.getTvSerieDetail(tvSerieId);
+        if(mediaType==MediaType.Movie)
+        {
+          this.getMovieDetail(mediaId);
+        }else if(mediaType==MediaType.TvSerie)
+        {
+          this.getTvSerieDetail(mediaId);
+        }else{
+          this.router.navigate(['404'],{ skipLocationChange: false});
+        }
       }else{
         this.router.navigate(['404'],{ skipLocationChange: false});
       }
+    }
+
+    public getMovieDetail(movieId:number){
+      this.restProvider.executeSinovadApiService(HttpMethodType.GET,"/videos/GetMovieDataByUser?userId="+this.sharedService.userData.Id+"&movieId="+movieId).then((response:SinovadApiGenericResponse) => {
+        this.detail=response.Data;
+      },error=>{
+        console.error(error);
+        this.router.navigate(['404'],{ skipLocationChange: false});
+      });
     }
 
     public getTvSerieDetail(tvSerieId:number){
@@ -49,5 +67,6 @@ export class TvSerieDetailPage implements OnInit {
         console.error(error);
       });
     }
+
 
 }

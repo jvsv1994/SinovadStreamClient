@@ -147,10 +147,10 @@ export class HorizontalItemListPage implements OnInit {
       }
       if(data.Item.MovieId)
       {
-        this.router.navigateByUrl('/moviedetail/'+data.Item.MovieId);
+        this.router.navigateByUrl('/media/server/'+data.Item.MediaServerGuid+"/libraries/"+data.Item.LibraryId+"/detail?mediaType="+MediaType.Movie+"&mediaId="+data.Item.MovieId);
       }else if(data.Item.TvSerieId)
       {
-        this.router.navigateByUrl('/tvseriedetail/'+data.Item.TvSerieId);
+        this.router.navigateByUrl('/media/server/'+data.Item.MediaServerGuid+"/libraries/"+data.Item.LibraryId+"/detail?mediaType="+MediaType.TvSerie+"&mediaId="+data.Item.TvSerieId);
       }
     }
 
