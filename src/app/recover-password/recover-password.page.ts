@@ -1,9 +1,6 @@
 
-import { Component, OnInit } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
+import { Component } from '@angular/core';
 import { SharedDataService } from 'src/app/shared/services/shared-data.service';
-import { ParentComponent } from '../parent/parent.component';
-import { HttpClient } from '@angular/common/http';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { HttpMethodType } from 'src/app/shared/enums';
 import { Router } from '@angular/router';
@@ -16,7 +13,7 @@ declare var window;
   templateUrl: './recover-password.page.html',
   styleUrls: ['./recover-password.page.scss']
 })
-export class RecoverPasswordPage extends ParentComponent implements OnInit {
+export class RecoverPasswordPage {
 
   _window=window;
   title: string;
@@ -33,10 +30,7 @@ export class RecoverPasswordPage extends ParentComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     public restProvider: RestProviderService,
-    public http: HttpClient,
-    public domSanitizer: DomSanitizer,
     public sharedData: SharedDataService) {
-      super(restProvider,domSanitizer,sharedData)
 
     }
 

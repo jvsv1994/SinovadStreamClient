@@ -72,5 +72,14 @@ export class SharedDataService {
     }
   }
 
+  public hasErrorPatternFormControl(formGroup:FormGroup,formControlKey:string){
+    if(formGroup.controls[formControlKey].errors.pattern)
+    {
+      return true;
+    }else{
+      return false;
+    }
+  }
+
 
 }
