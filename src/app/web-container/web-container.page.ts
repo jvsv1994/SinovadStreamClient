@@ -1,5 +1,5 @@
 
-import { ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
+import { Component, OnDestroy, OnInit} from '@angular/core';
 import { SharedService } from 'src/app/shared/services/shared-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HomePage } from '../media/home/home.page';
@@ -49,9 +49,7 @@ export class WebContainerPage implements OnInit,OnDestroy {
     public videoService: VideoService,
     public route: ActivatedRoute,
     private router: Router,
-    public  ref:ChangeDetectorRef,
     public sharedService: SharedService) {
-
       this.subscriptionVideo=this.videoService.isClosedVideo().subscribe(()=>{
         this.router.navigateByUrl("/home");
       });
@@ -66,16 +64,11 @@ export class WebContainerPage implements OnInit,OnDestroy {
       this.subscriptionVideo.unsubscribe();
     }
 
-    public toogleMenu(){
-      this.ref.detectChanges();
-    }
-
     public onClickToggleSidebarButton(){
       this.isCollapsedSidebar=!this.isCollapsedSidebar;
     }
 
     public onActivate(event:any){
-      let ctx=this;
       this.isCollapsedSidebar=true;
       this.sharedService.showSplashScreen=false;
       if(event instanceof NotFoundPage || event instanceof LoginPage || event instanceof RegisterUserPage || event instanceof RecoverPasswordPage || event instanceof ResetPasswordPage
@@ -134,7 +127,6 @@ export class WebContainerPage implements OnInit,OnDestroy {
         this.showingSidebarAccount=false;
         this.showingSidebarAdminMode=true;
         this.showingSidebarMedia=false;
-        ctx.ref.detectChanges();
       }
       if(event instanceof MenuListPage || event instanceof TvSerieListPage || event instanceof MovieListPage
         || event instanceof GenreListPage || event instanceof UserListPage || event instanceof RoleListPage)
