@@ -2,7 +2,7 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SharedDataService } from 'src/app/shared/services/shared-data.service';
-import { ParentComponent } from '../../parent/parent.component';
+
 import { HttpClient } from '@angular/common/http';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { Router } from '@angular/router';
@@ -15,7 +15,7 @@ declare var window;
   templateUrl: './header.page.html',
   styleUrls: ['./header.page.scss']
 })
-export class HeaderPage extends ParentComponent implements OnInit {
+export class HeaderPage implements OnInit {
 
   @ViewChild('searchTarget') searchTarget: ElementRef;
   customKeyboardEvent:any;
@@ -35,7 +35,7 @@ export class HeaderPage extends ParentComponent implements OnInit {
     public http: HttpClient,
     public domSanitizer: DomSanitizer,
     public sharedData: SharedDataService) {
-      super(restProvider,domSanitizer,sharedData)
+
 
     }
 

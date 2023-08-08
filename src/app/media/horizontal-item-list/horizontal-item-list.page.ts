@@ -5,7 +5,7 @@ import { SharedDataService } from 'src/app/shared/services/shared-data.service';
 import { HttpClient } from '@angular/common/http';
 import { HttpMethodType, MediaType } from 'src/app/shared/enums';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
-import { ParentComponent } from 'src/app/parent/parent.component';
+
 import { SinovadApiGenericResponse } from 'src/app/response/sinovadApiGenericResponse';
 import { ItemsGroup } from '../shared/items-group.model';
 import { Item } from '../shared/item.model';
@@ -18,7 +18,7 @@ declare var window;
   templateUrl: './horizontal-item-list.page.html',
   styleUrls: ['./horizontal-item-list.page.scss']
 })
-export class HorizontalItemListPage extends ParentComponent implements OnInit {
+export class HorizontalItemListPage implements OnInit {
 
   @Output() showItemView =new EventEmitter();
   @Output() focus =new EventEmitter();
@@ -36,7 +36,7 @@ export class HorizontalItemListPage extends ParentComponent implements OnInit {
     public http: HttpClient,
     public domSanitizer: DomSanitizer,
     public sharedData: SharedDataService) {
-      super(restProvider,domSanitizer,sharedData)
+
 
     }
 
@@ -114,7 +114,7 @@ export class HorizontalItemListPage extends ParentComponent implements OnInit {
       this.restProvider.executeSinovadApiService(HttpMethodType.GET,path).then((response:SinovadApiGenericResponse) => {
         let detail:ItemDetail=response.Data;
         detail.Item=item;
-        var builderVideo= this.CreateBuilderVideoFromItem(item,detail);
+        var builderVideo= this.sharedData.CreateBuilderVideoFromItem(item,detail);
         this.videoService.show(builderVideo);
       },error=>{
         console.error(error);

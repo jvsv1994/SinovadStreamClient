@@ -6,7 +6,7 @@ import { HttpClient} from '@angular/common/http';
 import { HttpMethodType } from 'src/app/shared/enums';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ParentComponent } from 'src/app/parent/parent.component';
+
 import { SinovadApiGenericResponse } from 'src/app/response/sinovadApiGenericResponse';
 import { ItemDetail } from '../../shared/item-detail.model';
 
@@ -16,7 +16,7 @@ declare var window;
   templateUrl: './movie-detail.page.html',
   styleUrls: ['./movie-detail.page.scss']
 })
-export class MovieDetailPage extends ParentComponent implements OnInit {
+export class MovieDetailPage implements OnInit {
 
   detail:ItemDetail;
 
@@ -27,7 +27,7 @@ export class MovieDetailPage extends ParentComponent implements OnInit {
     public http: HttpClient,
     public domSanitizer: DomSanitizer,
     public sharedData: SharedDataService) {
-      super(restProvider,domSanitizer,sharedData)
+
 
     }
 

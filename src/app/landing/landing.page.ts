@@ -2,7 +2,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SharedDataService } from 'src/app/shared/services/shared-data.service';
-import { ParentComponent } from '../parent/parent.component';
+
 import { HttpClient } from '@angular/common/http';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -13,7 +13,7 @@ declare var window;
   templateUrl: './landing.page.html',
   styleUrls: ['./landing.page.scss']
 })
-export class LandingPage extends ParentComponent implements OnInit {
+export class LandingPage implements OnInit {
 
   _window=window;
   title: string;
@@ -30,7 +30,7 @@ export class LandingPage extends ParentComponent implements OnInit {
     public http: HttpClient,
     public domSanitizer: DomSanitizer,
     public sharedData: SharedDataService) {
-      super(restProvider,domSanitizer,sharedData)
+
 
     }
 

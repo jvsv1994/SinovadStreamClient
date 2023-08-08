@@ -6,7 +6,7 @@ import { HttpClient} from '@angular/common/http';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { Router } from '@angular/router';
 import { MediaType } from 'src/app/shared/enums';
-import { ParentComponent } from 'src/app/parent/parent.component';
+
 import { ItemDetail } from '../shared/item-detail.model';
 
 @Component({
@@ -14,7 +14,7 @@ import { ItemDetail } from '../shared/item-detail.model';
   templateUrl: './media-movies.page.html',
   styleUrls: ['./media-movies.page.scss']
 })
-export class MediaMoviesPage extends ParentComponent implements OnInit {
+export class MediaMoviesPage implements OnInit {
 
   currentMediaTypeID:number;
   title:string;
@@ -26,7 +26,7 @@ export class MediaMoviesPage extends ParentComponent implements OnInit {
     public http: HttpClient,
     public domSanitizer: DomSanitizer,
     public sharedData: SharedDataService) {
-      super(restProvider,domSanitizer,sharedData)
+
 
     }
 

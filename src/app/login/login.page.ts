@@ -2,7 +2,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SharedDataService } from 'src/app/shared/services/shared-data.service';
-import { ParentComponent } from '../parent/parent.component';
 import { HttpClient } from '@angular/common/http';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { HttpMethodType } from 'src/app/shared/enums';
@@ -10,6 +9,10 @@ import { SinovadApiGenericResponse } from '../response/sinovadApiGenericResponse
 import { Router } from '@angular/router';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { User } from '../users/shared/user.model';
+import { MediaServerService } from '../servers/shared/server.service';
+import { ProfileService } from '../profiles/shared/profile.service';
+import { UserService } from '../users/shared/user.service';
+import { MenuService } from '../menus/shared/menu.service';
 
 declare var window;
 @Component({
@@ -17,7 +20,7 @@ declare var window;
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss']
 })
-export class LoginPage extends ParentComponent implements OnInit {
+export class LoginPage implements OnInit {
 
 
   _window=window;
@@ -31,13 +34,17 @@ export class LoginPage extends ParentComponent implements OnInit {
   });
 
   constructor(
+    private menuService:MenuService,
+    private userService:UserService,
+    private profileService: ProfileService,
+    private serverService: MediaServerService,
     private formBuilder: FormBuilder,
     private router: Router,
     public restProvider: RestProviderService,
     public http: HttpClient,
     public domSanitizer: DomSanitizer,
     public sharedData: SharedDataService) {
-      super(restProvider,domSanitizer,sharedData)
+
 
     }
 
@@ -72,10 +79,10 @@ export class LoginPage extends ParentComponent implements OnInit {
         localStorage.setItem('apiToken',token);
         this.sharedData.apiToken=token;
         this.sharedData.showSplashScreen=true;
-        this.getUser().then(res=>{
-          this.getMenus();
-          this.getMediaServers();
-          this.getProfiles().then(res=>{
+        this.userService.getUser().then(res=>{
+          this.menuService.getMenus();
+          this.serverService.getMediaServers();
+          this.profileService.getAllProfiles().then(res=>{
             this.router.navigate(['select-profile'],{ skipLocationChange: false});
           },error=>{
             console.error(error);

@@ -2,7 +2,7 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SharedDataService } from 'src/app/shared/services/shared-data.service';
-import { ParentComponent } from '../parent/parent.component';
+
 import { HttpClient} from '@angular/common/http';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -39,7 +39,7 @@ import { MediaServerComponent } from '../media/media-server/media-server.compone
   templateUrl: './web-container.page.html',
   styleUrls: ['./web-container.page.scss']
 })
-export class WebContainerPage extends ParentComponent implements OnInit,OnDestroy {
+export class WebContainerPage implements OnInit,OnDestroy {
 
   showVideoPopUp:boolean=false;
   _window=window;
@@ -61,7 +61,7 @@ export class WebContainerPage extends ParentComponent implements OnInit,OnDestro
     public http: HttpClient,
     public domSanitizer: DomSanitizer,
     public sharedData: SharedDataService) {
-      super(restProvider,domSanitizer,sharedData)
+
       this.subscriptionVideo=this.videoService.isClosedVideo().subscribe(()=>{
         this.router.navigateByUrl("/home");
       });

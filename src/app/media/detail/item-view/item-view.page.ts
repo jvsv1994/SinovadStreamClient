@@ -2,7 +2,7 @@
 import { ChangeDetectorRef, Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SharedDataService } from 'src/app/shared/services/shared-data.service';
-import { ParentComponent } from '../../../parent/parent.component';
+
 import { HttpClient} from '@angular/common/http';
 import { MediaType } from 'src/app/shared/enums';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
@@ -17,7 +17,7 @@ declare var window;
   templateUrl: './item-view.page.html',
   styleUrls: ['./item-view.page.scss']
 })
-export class ItemViewPage extends ParentComponent implements OnInit {
+export class ItemViewPage implements OnInit {
 
   _window=window;
   @Input() detail:ItemDetail;
@@ -35,7 +35,7 @@ export class ItemViewPage extends ParentComponent implements OnInit {
     public http: HttpClient,
     public domSanitizer: DomSanitizer,
     public sharedData: SharedDataService) {
-      super(restProvider,domSanitizer,sharedData)
+
 
     }
 
@@ -45,7 +45,7 @@ export class ItemViewPage extends ParentComponent implements OnInit {
         {
           return this.sharedData.urlEpisodeDataBase+episode.StillPath;
         }else{
-          return this.getUrlByItemDetailMovieDataBase(this.detail);
+          return this.sharedData.getUrlByItemDetailMovieDataBase(this.detail);
         }
       }else{
         return episode.StillPath;
@@ -123,7 +123,7 @@ export class ItemViewPage extends ParentComponent implements OnInit {
     }
 
     public getVideosByItem(){
-      this.videoService.show(this.CreateBuilderVideoFromItem(this.detail.Item,this.detail));
+      this.videoService.show(this.sharedData.CreateBuilderVideoFromItem(this.detail.Item,this.detail));
     }
 
     public onClickSeason(item:Season){
@@ -135,7 +135,7 @@ export class ItemViewPage extends ParentComponent implements OnInit {
     }
 
     public getVideoByEpisode(episode:Episode){
-      this.videoService.show(this.CreateBuilderVideoFromEpisode(episode,this.detail));
+      this.videoService.show(this.sharedData.CreateBuilderVideoFromEpisode(episode,this.detail));
     }
 
 

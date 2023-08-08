@@ -9,7 +9,7 @@
               <ng-template ngFor let-item [ngForOf]="group">
                 <div class="sinovad-item-container">
                   <button id="item_{{item.TvSerieId?item.TvSerie_ID:item.MovieId}}_{{item.MediaType}}" (click)="onClickItem(item)" class="sinovad-item-button-vertical">
-                      <img referrerpolicy="no-referrer" [src]="getUrlByItemMovieDataBase(item)">
+                      <img referrerpolicy="no-referrer" [src]="sharedData.getUrlByItemMovieDataBase(item)">
                   </button>
                   <div *ngIf="!item.Subtitle" class="sinovad-item-caption-container">
                     <span>{{item.Title}}</span>

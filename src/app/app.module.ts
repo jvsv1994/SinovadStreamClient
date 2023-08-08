@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
-import { ParentComponent } from './parent/parent.component';
 import { BrowserModule} from '@angular/platform-browser';
 import { APP_BASE_HREF } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -11,9 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './shared/shared.module';
 
 @NgModule({
-  declarations: [
-    ParentComponent
-  ],
+  declarations: [],
   providers: [{provide: APP_BASE_HREF, useValue : '/' }],
   imports: [
     BrowserModule,

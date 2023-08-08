@@ -2,26 +2,34 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SharedDataService } from 'src/app/shared/services/shared-data.service';
-import { ParentComponent } from '../parent/parent.component';
+
 import { HttpClient } from '@angular/common/http';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
+import { MediaServerService } from '../servers/shared/server.service';
+import { ProfileService } from '../profiles/shared/profile.service';
+import { UserService } from '../users/shared/user.service';
+import { MenuService } from '../menus/shared/menu.service';
 @Component({
   selector: 'app-sinovad-web',
   templateUrl: './sinovad-web.component.html',
   styleUrls: ['./sinovad-web.component.scss']
 })
-export class SinovadWebComponent extends ParentComponent implements OnInit,OnDestroy {
+export class SinovadWebComponent implements OnInit,OnDestroy {
 
   intervalCheckMediaServers:any;
   showRootPage:boolean=false;
 
   constructor(
+    private menuService:MenuService,
+    private userService:UserService,
+    private profileService:ProfileService,
+    private serverService: MediaServerService,
     public restProvider: RestProviderService,
     public ref: ChangeDetectorRef,
     public http: HttpClient,
     public domSanitizer: DomSanitizer,
     public sharedData: SharedDataService) {
-      super(restProvider,domSanitizer,sharedData)
+
     }
 
     public ngOnInit(): void {
@@ -45,10 +53,10 @@ export class SinovadWebComponent extends ParentComponent implements OnInit,OnDes
       if(localStorage.getItem('apiToken'))
       {
         this.sharedData.apiToken=localStorage.getItem('apiToken');
-        this.getUser().then(res=>{
-          this.getMenus();
-          this.getMediaServers();
-          this.getProfiles().then(response=>{
+        this.userService.getUser().then(res=>{
+          this.menuService.getMenus();
+          this.serverService.getMediaServers();
+          this.profileService.getAllProfiles().then(response=>{
             this.showRootPage=true;
             this.ref.detectChanges();
 

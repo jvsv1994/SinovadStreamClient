@@ -7,13 +7,10 @@ import { MediaServer } from 'src/app/servers/shared/server.model';
 import { FormGroup } from '@angular/forms';
 import { ItemDetail } from 'src/app/media/shared/item-detail.model';
 import { Item } from 'src/app/media/shared/item.model';
-import { RestProviderService } from './rest-provider.service';
 import {v4 as uuid} from "uuid";
 import { TranscodePrepareVideo } from 'src/app/media/video/models/transcodePrepareVideo';
 import { BuilderVideo } from 'src/app/media/video/models/builderVideo';
 import { Episode } from 'src/app/episodes/shared/episode.model';
-import { HttpMethodType } from '../enums';
-import { SinovadApiGenericResponse } from 'src/app/response/sinovadApiGenericResponse';
 
 @Injectable({ providedIn: 'root' })
 export class SharedDataService {
@@ -37,7 +34,7 @@ export class SharedDataService {
   mediaServers:MediaServer[]=[];
   selectedMediaServer:MediaServer;
 
-  constructor(public restProvider:RestProviderService) {
+  constructor() {
 
   }
 
@@ -89,7 +86,6 @@ export class SharedDataService {
       return false;
     }
   }
-
 
   public CreateBuilderVideoFromItem(item:Item,detail:ItemDetail):BuilderVideo{
     let processGUID=uuid();
@@ -148,80 +144,6 @@ export class SharedDataService {
       transcodeVideo.TimeSpan="0";
     }
     return transcodeVideo;
-  }
-
-  public getUser(): Promise<any>{
-    return new Promise((resolve, reject) => {
-      this.restProvider.executeSinovadApiService(HttpMethodType.GET,'/users/GetUserData').then((response:SinovadApiGenericResponse) => {
-        let data=response.Data;
-        this.userData=data;
-        if(this.userData==null)
-        {
-          this.apiToken=undefined;
-          localStorage.removeItem("apiToken");
-        }else{
-          resolve(true);
-        }
-      },error=>{
-        console.error(error);
-        reject(error)
-      });
-    });
-  }
-
-
-  public getMediaServers(): Promise<any>{
-    return new Promise((resolve, reject) => {
-      this.restProvider.executeSinovadApiService(HttpMethodType.GET,'/mediaServers/GetAllByUserAsync/'+this.userData.Id).then((response:SinovadApiGenericResponse) => {
-        let mediaServers=response.Data;
-        this.mediaServers=mediaServers;
-        this.checkSecureConnectionMediaServers();
-        resolve(true);
-      },error=>{
-        reject(error);
-      });
-    });
-  }
-
-  public checkSecureConnectionMediaServers(){
-    if(this.mediaServers!=null && this.mediaServers.length>0)
-    {
-      this.mediaServers.forEach(mediaServer => {
-        this.restProvider.executeHttpMethodByUrl(HttpMethodType.GET,mediaServer.Url+"/api").then((response) => {
-            mediaServer.isSecureConnection=true;
-            if(this.selectedMediaServer==undefined)
-            {
-              this.selectedMediaServer=this.mediaServers.find(ele=>ele.Id==mediaServer.Id);
-            }
-        },error=>{
-          mediaServer.isSecureConnection=false;
-        });
-      });
-    }
-  }
-
-  public getProfiles(): Promise<any>{
-    return new Promise((resolve, reject) => {
-      this.restProvider.executeSinovadApiService(HttpMethodType.GET,'/profiles/GetAllWithPaginationByUserAsync/'+this.userData.Id).then((response:SinovadApiGenericResponse) => {
-        let listProfiles=response.Data;
-        this.listProfiles=listProfiles;
-        this.currentProfile=listProfiles[0];
-        resolve(true);
-      },error=>{
-        reject(error);
-      });
-    });
-  }
-
-  public getMenus(): Promise<any>{
-    return new Promise((resolve, reject) => {
-      this.restProvider.executeSinovadApiService(HttpMethodType.GET,'/menus/GetByUserAsync/'+this.userData.Id).then((response:SinovadApiGenericResponse) => {
-        this.listMenus=response.Data;
-        resolve(true);
-      },error=>{
-        reject(error);
-      });
-    });
   }
 
   public isSmallDevice(){

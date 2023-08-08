@@ -5,7 +5,7 @@ import { SharedDataService } from 'src/app/shared/services/shared-data.service';
 import { HttpClient } from '@angular/common/http';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { ActivatedRoute } from '@angular/router';
-import { ParentComponent } from 'src/app/parent/parent.component';
+
 import { SidebarOption } from '../shared/sidebar-option.model';
 import { Menu } from 'src/app/menus/shared/menu.model';
 import { DropDownMenuOptions } from '../shared/drop-down-menu-options.model';
@@ -19,7 +19,7 @@ declare var window;
   templateUrl: './sidebar-account.page.html',
   styleUrls: ['./sidebar-account.page.scss']
 })
-export class SidebarAccountPage extends ParentComponent implements OnInit {
+export class SidebarAccountPage implements OnInit {
 
   mediaServer:MediaServer;
   @Output() prepareRouterOutlet=new EventEmitter<boolean>();
@@ -80,7 +80,7 @@ export class SidebarAccountPage extends ParentComponent implements OnInit {
     public http: HttpClient,
     public domSanitizer: DomSanitizer,
     public sharedData: SharedDataService) {
-      super(restProvider,domSanitizer,sharedData)
+
 
     }
 

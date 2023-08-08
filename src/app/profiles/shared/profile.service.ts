@@ -5,6 +5,7 @@ import { SinovadApiPaginationResponse } from 'src/app/response/sinovadApiPaginat
 import { SinovadApiGenericResponse } from 'src/app/response/sinovadApiGenericResponse';
 import {v4 as uuid} from "uuid";
 import { Profile } from './profile.model';
+import { SharedDataService } from 'src/app/shared/services/shared-data.service';
 export declare type EventHandler = (...args: any[]) => any;
 
 @Injectable({ providedIn: 'root' })
@@ -13,6 +14,7 @@ export class ProfileService {
   lastCallGuid:string;
 
   constructor(
+    private sharedService:SharedDataService,
     private restProvider: RestProviderService,
   ) {
   }
@@ -27,6 +29,19 @@ export class ProfileService {
       });
     });
   }
+  public getAllProfiles(): Promise<any>{
+    return new Promise((resolve, reject) => {
+      this.restProvider.executeSinovadApiService(HttpMethodType.GET,'/profiles/GetAllWithPaginationByUserAsync/'+this.sharedService.userData.Id).then((response:SinovadApiGenericResponse) => {
+        let listProfiles=response.Data;
+        this.sharedService.listProfiles=listProfiles;
+        this.sharedService.currentProfile=listProfiles[0];
+        resolve(true);
+      },error=>{
+        reject(error);
+      });
+    });
+  }
+
 
   public getProfiles(userId:number,pageNumber:number,itemsPerPage:number,sortBy:string,sortDirection:string,searchText:string,searchBy:string):Promise<SinovadApiPaginationResponse>{
     return new Promise((resolve, reject) => {

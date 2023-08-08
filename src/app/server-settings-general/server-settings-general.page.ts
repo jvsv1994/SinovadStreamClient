@@ -2,7 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { SharedDataService } from 'src/app/shared/services/shared-data.service';
-import { ParentComponent } from '../parent/parent.component';
+
 import { HttpClient} from '@angular/common/http';
 import { HttpMethodType } from 'src/app/shared/enums';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
@@ -12,6 +12,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { SnackBarService } from 'src/app/shared/services/snack-bar.service';
 import { SnackBarType } from '../shared/components/custom-snack-bar/custom-snack-bar.component';
 import { MediaServer } from '../servers/shared/server.model';
+import { MediaServerService } from '../servers/shared/server.service';
 
 declare var window;
 @Component({
@@ -19,13 +20,14 @@ declare var window;
   templateUrl: './server-settings-general.page.html',
   styleUrls: ['./server-settings-general.page.scss']
 })
-export class ServerSettingsGeneralPage extends ParentComponent implements OnInit {
+export class ServerSettingsGeneralPage implements OnInit {
 
   customForm:FormGroup;
   mediaServer:MediaServer;
   loading:boolean=false;
 
   constructor(
+    private serverService: MediaServerService,
     private snackBarService:SnackBarService,
     private formBuilder: FormBuilder,
     private router: Router,
@@ -34,7 +36,7 @@ export class ServerSettingsGeneralPage extends ParentComponent implements OnInit
     public http: HttpClient,
     public domSanitizer: DomSanitizer,
     public sharedData: SharedDataService) {
-      super(restProvider,domSanitizer,sharedData)
+
       this.router.routeReuseStrategy.shouldReuseRoute = function () {
         return false;
       };
@@ -71,7 +73,7 @@ export class ServerSettingsGeneralPage extends ParentComponent implements OnInit
       mediaServer.FamilyName=this.customForm.value.familyName;
       this.restProvider.executeSinovadApiService(HttpMethodType.PUT,path,mediaServer).then((response) => {
         this.loading=false;
-        this.getMediaServers();
+        this.serverService.getMediaServers();
         this.getMediaServerData();
         this.snackBarService.showSnackBar("Se guardaron los cambios satisfactoriamente",SnackBarType.Success);
       },error=>{

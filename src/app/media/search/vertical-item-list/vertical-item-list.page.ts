@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { HttpMethodType } from 'src/app/shared/enums';
 import {v4 as uuid} from "uuid";
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
-import { ParentComponent } from 'src/app/parent/parent.component';
+
 import { SinovadApiGenericResponse } from 'src/app/response/sinovadApiGenericResponse';
 import { Item } from '../../shared/item.model';
 import { ItemDetail } from '../../shared/item-detail.model';
@@ -17,7 +17,7 @@ declare var window;
   templateUrl: './vertical-item-list.page.html',
   styleUrls: ['./vertical-item-list.page.scss']
 })
-export class VerticalItemListPage extends ParentComponent implements OnInit {
+export class VerticalItemListPage implements OnInit {
 
   @ViewChild('itemListContainer') container: ElementRef;
   @Input() executeSearch:EventEmitter<string>;
@@ -31,7 +31,7 @@ export class VerticalItemListPage extends ParentComponent implements OnInit {
     public http: HttpClient,
     public domSanitizer: DomSanitizer,
     public sharedData: SharedDataService) {
-      super(restProvider,domSanitizer,sharedData)
+
 
     }
 

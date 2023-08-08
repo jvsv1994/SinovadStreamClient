@@ -10,7 +10,7 @@ import Hls, { HlsConfig } from 'hls.js';
 import { HttpMethodType, LoadVideoStatus, VideoTransmissionType } from 'src/app/shared/enums';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { ParentComponent } from 'src/app/parent/parent.component';
+
 import { BuilderVideo } from '../models/builderVideo';
 import { VideoProfile } from '../models/video-profile.model';
 import { TranscodeRunVideo } from '../models/transcodeRunVideo';
@@ -21,7 +21,7 @@ import { CustomDialogOptionsComponent, DialogOption, DialogOptionsConfiguration 
   templateUrl: 'video.page.html',
   styleUrls: ['video.page.scss'],
 })
-export class VideoPage extends ParentComponent implements OnInit,OnDestroy{
+export class VideoPage implements OnInit,OnDestroy{
 
   @Output() outputCloseVideo =new EventEmitter();
   @Input() builderVideo: BuilderVideo;
@@ -63,7 +63,7 @@ export class VideoPage extends ParentComponent implements OnInit,OnDestroy{
     public sharedData: SharedDataService,
     public ref: ChangeDetectorRef,
     public http: HttpClient) {
-      super(restProvider,domSanitizer,sharedData);
+
 
   }
 
@@ -142,7 +142,7 @@ export class VideoPage extends ParentComponent implements OnInit,OnDestroy{
   public onTouchVideoContainer(target?:any){
     if(!this.showingSettings)
     {
-      if(this.isMobileDevice())
+      if(this.sharedData.isMobileDevice())
       {
         this.showControlsTemporarily(target);
       }
@@ -156,7 +156,7 @@ export class VideoPage extends ParentComponent implements OnInit,OnDestroy{
       setTimeout(() => {
         target.clicked=false;
       }, 2000);
-      if(!this.isMobileDevice())
+      if(!this.sharedData.isMobileDevice())
       {
         this.showControlsTemporarily(target);
       }
@@ -213,7 +213,7 @@ export class VideoPage extends ParentComponent implements OnInit,OnDestroy{
 
   public getVideoByEpisode(episode:Episode){
     this.deleteAllProcessesAndDirectories();
-    var transcodeVideo=this.GetTranscodeVideoFromEpisode(episode);
+    var transcodeVideo=this.sharedData.GetTranscodeVideoFromEpisode(episode);
     this.builderVideo.TranscodePrepareVideo=transcodeVideo;
     if(this.builderVideo.ItemDetail.ListSeasons)
     {
@@ -1103,7 +1103,7 @@ public onClickSlider(sliderContainer:any){
     {
       let guid=uuid();
       target.guid=guid;
-      if(this.isMobileDevice())
+      if(this.sharedData.isMobileDevice())
       {
         setTimeout(() => {
           this.executeShowControlsTemporarily(target,guid);
