@@ -11,8 +11,9 @@ import { SnackBarType } from '../shared/components/custom-snack-bar/custom-snack
 import { DirectoryChooserPage } from '../shared/components/directory-chooser/directory-chooser.page';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MediaServer } from '../servers/shared/server.model';
-import { TranscoderSettings } from './transcoder-settings.model';
 import { CatalogDetail } from '../catalogs/shared/catalog-detail.model';
+import { TranscoderSettings } from './shared/transcoder-settings.model';
+import { TranscoderSettingsService } from './shared/transcoderSettings.service';
 
 declare var window;
 @Component({
@@ -30,6 +31,7 @@ export class TranscoderSettingssPage implements OnInit {
   customForm:FormGroup;
 
   constructor(
+    private transcoderSettingsService:TranscoderSettingsService,
     private modalService: NgbModal,
     private snackBarService:SnackBarService,
     private formBuilder: FormBuilder,
@@ -65,9 +67,6 @@ export class TranscoderSettingssPage implements OnInit {
       var mediaServerGuid=this.activeRoute.snapshot.params.serverGuid;
       this.restProvider.executeSinovadApiService(HttpMethodType.GET,'/mediaServers/GetByGuidAsync/'+mediaServerGuid).then((response:SinovadApiGenericResponse) => {
         var mediaServer=response.Data;
-        var selectedMediaServer=this.sharedService.mediaServers.find(x=>x.Id==mediaServer.Id);
-        mediaServer.isSecureConnection=selectedMediaServer.isSecureConnection;
-        this.sharedService.selectedMediaServer=mediaServer;
         this.mediaServer=mediaServer;
         this.getTranscoderSettingss();
       },error=>{
@@ -76,29 +75,25 @@ export class TranscoderSettingssPage implements OnInit {
     }
 
     private getTranscoderSettingss(){
-      this.restProvider.executeSinovadApiService(HttpMethodType.GET,"/transcoderSettings/GetByMediaServerGuidAsync/"+this.mediaServer.Guid).then((response:SinovadApiGenericResponse) => {
-      this.currentTranscoderSettingss=response.Data;
-      if(this.currentTranscoderSettingss==undefined)
-      {
-        var currentTranscoderSettingss= new TranscoderSettings();
-        currentTranscoderSettingss.TemporaryFolder="";
-        currentTranscoderSettingss.ConstantRateFactor=18;
-        currentTranscoderSettingss.VideoTransmissionTypeCatalogId=CatalogEnum.VideoTransmissionType;
-        currentTranscoderSettingss.VideoTransmissionTypeCatalogDetailId=this.transmissionMethodList[0].Id;
-        currentTranscoderSettingss.PresetCatalogId=CatalogEnum.TranscoderPreset;
-        currentTranscoderSettingss.PresetCatalogDetailId=this.presetList[0].Id;
-        currentTranscoderSettingss.MediaServerId=this.sharedService.selectedMediaServer.Id;
-        this.currentTranscoderSettingss=currentTranscoderSettingss;
-      }
-      this.customForm = this.formBuilder.group({
-        temporaryFolder: new FormControl(this.currentTranscoderSettingss.TemporaryFolder),
-        preset:new FormControl(this.currentTranscoderSettingss.PresetCatalogDetailId),
-        transmissionMethod:new FormControl(this.currentTranscoderSettingss.VideoTransmissionTypeCatalogDetailId),
-        constantRateFactor:new FormControl(this.currentTranscoderSettingss.ConstantRateFactor)
+      this.transcoderSettingsService.getByMediaServer(this.mediaServer.Url).then((transcoderSettings:TranscoderSettings) => {
+      this.currentTranscoderSettingss=transcoderSettings;
+        if(this.currentTranscoderSettingss==undefined)
+        {
+          var currentTranscoderSettingss= new TranscoderSettings();
+          currentTranscoderSettingss.TemporaryFolder="";
+          currentTranscoderSettingss.ConstantRateFactor=18;
+          currentTranscoderSettingss.MediaServerId=this.mediaServer.Id;
+          this.currentTranscoderSettingss=currentTranscoderSettingss;
+        }
+        this.customForm = this.formBuilder.group({
+          temporaryFolder: new FormControl(this.currentTranscoderSettingss.TemporaryFolder),
+          preset:new FormControl(this.currentTranscoderSettingss.PresetCatalogDetailId),
+          transmissionMethod:new FormControl(this.currentTranscoderSettingss.VideoTransmissionTypeCatalogDetailId),
+          constantRateFactor:new FormControl(this.currentTranscoderSettingss.ConstantRateFactor)
+        });
+      },error=>{
+        console.error(error);
       });
-    },error=>{
-      console.error(error);
-    });
     }
 
     public saveTranscoder(){
@@ -108,9 +103,7 @@ export class TranscoderSettingssPage implements OnInit {
       transcoderSettings.ConstantRateFactor=this.customForm.value.constantRateFactor;
       transcoderSettings.VideoTransmissionTypeCatalogDetailId=this.customForm.value.transmissionMethod;
       transcoderSettings.PresetCatalogDetailId=this.customForm.value.preset;
-      let methodType=this.currentTranscoderSettingss.Id>0?HttpMethodType.PUT:HttpMethodType.POST;
-      var path=this.currentTranscoderSettingss.Id>0?"/transcoderSettings/Update":"/transcoderSettings/Create";
-      this.restProvider.executeSinovadApiService(methodType,path,transcoderSettings).then((response) => {
+      this.transcoderSettingsService.saveItem(this.mediaServer.Url,transcoderSettings).then((response) => {
         this.loading=false;
         this.getTranscoderSettingss();
         this.snackBarService.showSnackBar("Se guardaron los cambios satisfactoriamente",SnackBarType.Success);
