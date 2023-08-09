@@ -4,12 +4,12 @@ import { SharedService } from 'src/app/shared/services/shared-data.service';
 import { HttpMethodType, MediaType } from 'src/app/shared/enums';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { ActivatedRoute, Router } from '@angular/router';
-
 import { SinovadApiGenericResponse } from 'src/app/response/sinovadApiGenericResponse';
 import { ItemDetail } from '../shared/item-detail.model';
 import { Season } from 'src/app/seasons/shared/season.model';
 import { Episode } from 'src/app/episodes/shared/episode.model';
 import { VideoService } from '../video/service/video.service';
+import { MediaGeneric } from 'src/app/shared/generics/media.generic';
 
 declare var window;
 @Component({
@@ -17,7 +17,7 @@ declare var window;
   templateUrl: './media-detail.component.html',
   styleUrls: ['./media-detail.component.scss']
 })
-export class MediaDetailComponent implements OnInit {
+export class MediaDetailComponent extends MediaGeneric implements OnInit {
 
   _window=window;
   detail:ItemDetail;
@@ -34,11 +34,12 @@ export class MediaDetailComponent implements OnInit {
     private videoService:VideoService,
     private  ref:ChangeDetectorRef,
     public sharedService: SharedService) {
-
+      super(activeRoute,sharedService)
 
     }
 
     ngOnInit(): void {
+      this.initializeHeaderData();
       let mediaType = this.activeRoute.snapshot.queryParams['mediaType'];
       let mediaId = this.activeRoute.snapshot.queryParams['mediaId'];
       if(mediaType && mediaId)

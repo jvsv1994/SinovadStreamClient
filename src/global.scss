@@ -766,7 +766,6 @@ section{
   padding: 10px 0px 10px 12px;
   height: 65px;
   font-weight: bold;
-  font-family: sans-serif;
   display: block;
   align-items: center;
   border-bottom: 1px solid #dedede;
@@ -784,14 +783,15 @@ section{
   cursor: pointer;
   background-color: transparent;
   outline: none;
+  position: relative;
   .title{
     font-size: 16px;
-    color: hsla(0,0%,100%,.75);
+    color: hsla(0,0%,100%,.85);
   }
 
   .subtitle{
     font-size: 12px;
-    color: hsla(0,0%,100%,.75);
+    color: hsla(0,0%,100%,.85);
   }
 }
 
