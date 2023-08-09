@@ -165,8 +165,20 @@ nav{
   }
 }
 
-
-@media only screen and (max-width: 1024px) {
+@media only screen and (max-width: 767px) {
+  .sinovad-logo-button{
+    margin-left: 10px;
+    margin-right: 0px;
+    img{
+      width: 110px;
+    }
+  }
+  .nav-button-icon-container.toggle{
+    display: block;
+  }
+  .nav-button-icon-container.home{
+    display: none;
+  }
   .sinovad-nav-list{
     li{
       a{
@@ -185,22 +197,6 @@ nav{
     input{
       display: none;
     }
-  }
-}
-
-@media only screen and (max-width: 767px) {
-  .sinovad-logo-button{
-    margin-left: 10px;
-    margin-right: 0px;
-    img{
-      width: 110px;
-    }
-  }
-  .nav-button-icon-container.toggle{
-    display: block;
-  }
-  .nav-button-icon-container.home{
-    display: none;
   }
 }
 

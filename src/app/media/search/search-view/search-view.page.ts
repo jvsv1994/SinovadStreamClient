@@ -1,8 +1,7 @@
 
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SharedService } from 'src/app/shared/services/shared-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ItemDetail } from '../../shared/item-detail.model';
 
 declare var window;
 @Component({
@@ -12,8 +11,6 @@ declare var window;
 })
 export class SearchViewPage implements OnInit {
 
-  @Output() executeSearch =new EventEmitter();
-  @Output() showItemView =new EventEmitter();
   searchText:string="";
 
   constructor(
@@ -35,18 +32,6 @@ export class SearchViewPage implements OnInit {
       }
     }
 
-    public ngAfterViewInit(){
-      this.executeSearch.emit(this.searchText);
-    }
 
-    public onSelectItem(detail:ItemDetail){
-      if(detail.Item.TvSerieId)
-      {
-        this.router.navigateByUrl("/tvseriedetail/"+detail.Item.TvSerieId);
-      }else if(detail.Item.MovieId)
-      {
-        this.router.navigateByUrl("/moviedetail/"+detail.Item.MovieId);
-      }
-    }
 
 }

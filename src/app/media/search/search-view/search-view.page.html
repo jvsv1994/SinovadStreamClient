@@ -5,6 +5,6 @@
     </div>
   </div>
   <div #itemListContainer [style.height]="'calc(100% - '+header.offsetHeight+'px)'">
-    <app-vertical-item-list (showItemView)="onSelectItem($event)" [executeSearch]="executeSearch"></app-vertical-item-list>
+    <app-vertical-item-list [searchText]="searchText"></app-vertical-item-list>
   </div>
 </div>

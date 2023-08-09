@@ -1,13 +1,12 @@
 
-import { Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 import { SharedService } from 'src/app/shared/services/shared-data.service';
-import { HttpMethodType } from 'src/app/shared/enums';
-import {v4 as uuid} from "uuid";
+import { HttpMethodType, MediaType } from 'src/app/shared/enums';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
-
 import { SinovadApiGenericResponse } from 'src/app/response/sinovadApiGenericResponse';
 import { Item } from '../../shared/item.model';
 import { ItemDetail } from '../../shared/item-detail.model';
+import { Router } from '@angular/router';
 
 declare var window;
 @Component({
@@ -18,13 +17,12 @@ declare var window;
 export class VerticalItemListPage implements OnInit {
 
   @ViewChild('itemListContainer') container: ElementRef;
-  @Input() executeSearch:EventEmitter<string>;
-  @Output() showItemView =new EventEmitter();
+  @Input() searchText:string;
   listItems:Item[]=[];
   listGroupItems:any[]=[];
-  lastCallGUID:string;
 
   constructor(
+    private router: Router,
     public restProvider: RestProviderService,
     public sharedService: SharedService) {
 
@@ -32,29 +30,17 @@ export class VerticalItemListPage implements OnInit {
     }
 
     public ngOnInit(): void {
-      let ctx=this;
-      this.executeSearch.subscribe(searchText => {
-        let lastCallGUID=uuid();
-        ctx.lastCallGUID=lastCallGUID;
-        ctx.getItemsBySearch(searchText,lastCallGUID);
-      });
+      this.getItemsBySearch();
     }
 
-    public ngAfterViewInit(){
-
-    }
-
-    public getItemsBySearch(searchText:string,lastCallGUID:string){
-      if(searchText.trim()!="")
+    public getItemsBySearch(){
+      if(this.searchText.trim()!="")
       {
-        var path='/videos/SearchTvPrograms?userId='+this.sharedService.userData.Id+"&searchMovies="+true+"&searchTvSeries="+true+"&searchText="+searchText;
+        var path='/videos/SearchTvPrograms?userId='+this.sharedService.userData.Id+"&searchMovies="+true+"&searchTvSeries="+true+"&searchText="+this.searchText;
         this.restProvider.executeSinovadApiService(HttpMethodType.GET,path).then((response:SinovadApiGenericResponse) => {
           let listItems:Item[]=response.Data;
-          if(lastCallGUID==this.lastCallGUID)
-          {
-            this.listItems=listItems;
-            this.buildGroupItems(this.listItems);
-          }
+          this.listItems=listItems;
+          this.buildGroupItems(this.listItems);
         },error=>{
           console.error(error);
         });
@@ -110,7 +96,13 @@ export class VerticalItemListPage implements OnInit {
       {
         data.CurrentSeason=data.ListSeasons[0];
       }
-      this.showItemView.emit(data);
+      if(data.Item.MovieId)
+      {
+        this.router.navigateByUrl('/media/server/'+data.Item.MediaServerGuid+"/libraries/"+data.Item.LibraryId+"/detail?mediaType="+MediaType.Movie+"&mediaId="+data.Item.MovieId);
+      }else if(data.Item.TvSerieId)
+      {
+        this.router.navigateByUrl('/media/server/'+data.Item.MediaServerGuid+"/libraries/"+data.Item.LibraryId+"/detail?mediaType="+MediaType.TvSerie+"&mediaId="+data.Item.TvSerieId);
+      }
     }
 
     public getTvSerieDetail(item:Item){
