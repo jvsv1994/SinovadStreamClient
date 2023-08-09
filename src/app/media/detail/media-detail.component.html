@@ -2,7 +2,7 @@
   <div style="width:0px;height:0px;">
     <div class="sinovad-item-view-background-container">
       <div [style.width]="container.clientWidth+'px'" style="position:fixed;">
-        <img [src]="sharedService.getUrlByItemDetailMovieDataBase(detail)">
+        <img *ngIf="detail" [src]="sharedService.getUrlByItemDetailMovieDataBase(detail)">
       </div>
     </div>
   </div>
