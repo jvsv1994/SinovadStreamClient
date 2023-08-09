@@ -749,6 +749,61 @@ section{
   color: #f53;
 }
 
+.media-container{
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.media-principal-section{
+  width: 100%;
+  background: #2d3744;
+  color: white;
+  height: 100%;
+}
+
+.media-header{
+  padding: 10px 0px 10px 12px;
+  height: 65px;
+  font-weight: bold;
+  font-family: sans-serif;
+  display: block;
+  align-items: center;
+  border-bottom: 1px solid #dedede;
+  margin-left: 16px;
+  margin-right: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.media-header-button{
+  padding: 6px 10px 6px 0px;
+  border: none;
+  font-size: 16px;
+  text-align: unset;
+  cursor: pointer;
+  background-color: transparent;
+  outline: none;
+  .title{
+    font-size: 16px;
+    color: hsla(0,0%,100%,.75);
+  }
+
+  .subtitle{
+    font-size: 12px;
+    color: hsla(0,0%,100%,.75);
+  }
+}
+
+.media-header-button:hover{
+  .title{
+    color: white;
+  }
+  .subtitle{
+    color: white;
+  }
+}
+
 
 @media only screen and (max-width: 767px) {
   div{
