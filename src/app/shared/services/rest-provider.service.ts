@@ -109,6 +109,16 @@ export class RestProviderService {
     });
   }
 
+  public executeHttpMediaServerApi(methodType:HttpMethodType,url:string,body?:any): Promise<any>{
+    return new Promise((resolve, reject) => {
+      this.performExecuteMethod(methodType,url,body).then((response: any) => {
+        resolve(JSON.parse(response));
+      },error=>{
+        reject(error);
+      });
+    });
+  }
+
   public executeHttpMethodByUrl(methodType:HttpMethodType,url:string,body?:any): Promise<any>{
     return new Promise((resolve, reject) => {
       this.performExecuteMethod(methodType,url,body).then((response: any) => {

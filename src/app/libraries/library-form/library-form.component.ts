@@ -8,6 +8,7 @@ import { MyErrorStateMatcher } from 'src/app/shared/custom-error-state-matcher';
 import { CatalogEnum } from 'src/app/shared/enums';
 import { SharedService } from 'src/app/shared/services/shared-data.service';
 import { DirectoryChooserPage } from 'src/app/shared/components/directory-chooser/directory-chooser.page';
+import { MediaServer } from 'src/app/servers/shared/server.model';
 
 declare var window;
 @Component({
@@ -17,7 +18,7 @@ declare var window;
 })
 export class LibraryFormComponent implements OnInit {
 
-
+  @Input() mediaServer:MediaServer;
   @Input() library:Library;
   libraryFormGroup:FormGroup;
   showLoading:boolean=false;
@@ -60,7 +61,7 @@ export class LibraryFormComponent implements OnInit {
         library.MediaTypeCatalogId=CatalogEnum.MediaType;
         library.PhysicalPath=this.libraryFormGroup.value.physicalPath;
         library.MediaServerId=this.sharedService.selectedMediaServer.Id;
-        this.libraryService.saveItem(library).then((response) => {
+        this.libraryService.saveItem(this.mediaServer.Url,library).then((response) => {
           this.showLoading=false;
           this.activeModal.close();
         },error=>{

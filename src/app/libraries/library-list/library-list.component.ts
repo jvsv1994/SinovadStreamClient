@@ -61,9 +61,8 @@ export class LibraryListComponent{
     }
 
     public getAllItems(){
-      this.libraryService.getItems(this.mediaServer.Id,1,100,"Id","asc","","").then((response:SinovadApiGenericResponse) => {
-        let data=response.Data;
-        this.listLibraries=data;
+      this.libraryService.getLibrariesByMediaServer(this.mediaServer.Url).then((listLibraries:Library[]) => {
+        this.listLibraries=listLibraries;
       },error=>{
         console.error(error);
       });
@@ -86,6 +85,7 @@ export class LibraryListComponent{
       var ref=this.modalService.open(LibraryFormComponent, {container:"#sinovadMainContainer",
       modalDialogClass:'modal-dialog modal-fullscreen-md-down modal-dialog-centered modal-dialog-scrollable',scrollable:true,backdrop: 'static'});
       ref.componentInstance.library=library;
+      ref.componentInstance.mediaServer=this.mediaServer;
       ref.closed.subscribe(x=>{
         ctx.getAllItems();
       })
@@ -105,7 +105,7 @@ export class LibraryListComponent{
     }
 
     private executeDeleteLibrary(library:Library){
-      this.libraryService.deleteItem(library.Id).then((response:SinovadApiGenericResponse) => {
+      this.libraryService.deleteItem(this.mediaServer.Url,library.Id).then((response:SinovadApiGenericResponse) => {
         this.snackBarService.showSnackBar("Se eliminó la biblioteca satisfactoriamente",SnackBarType.Success);
         this.getAllItems();
       },error=>{

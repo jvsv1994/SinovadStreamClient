@@ -6,6 +6,8 @@ import { SinovadApiGenericResponse } from 'src/app/response/sinovadApiGenericRes
 import {v4 as uuid} from "uuid";
 import { MediaServer } from './server.model';
 import { SharedService } from 'src/app/shared/services/shared-data.service';
+import { LibraryService } from 'src/app/libraries/shared/library.service';
+import { Library } from 'src/app/libraries/shared/library.model';
 export declare type EventHandler = (...args: any[]) => any;
 
 @Injectable({ providedIn: 'root' })
@@ -14,6 +16,7 @@ export class MediaServerService {
   lastCallGuid:string;
 
   constructor(
+    private libraryService:LibraryService,
     private sharedService:SharedService,
     private restProvider: RestProviderService,
   ) {
@@ -36,12 +39,9 @@ export class MediaServerService {
     if(this.sharedService.mediaServers!=null && this.sharedService.mediaServers.length>0)
     {
       this.sharedService.mediaServers.forEach(mediaServer => {
-        this.restProvider.executeHttpMethodByUrl(HttpMethodType.GET,mediaServer.Url+"/api").then((response) => {
+        this.libraryService.getLibrariesByMediaServer(mediaServer.Url).then((libraries:Library[]) => {
+            mediaServer.ListLibraries=libraries;
             mediaServer.isSecureConnection=true;
-            if(this.sharedService.selectedMediaServer==undefined)
-            {
-              this.sharedService.selectedMediaServer=this.sharedService.mediaServers.find(ele=>ele.Id==mediaServer.Id);
-            }
         },error=>{
           mediaServer.isSecureConnection=false;
         });

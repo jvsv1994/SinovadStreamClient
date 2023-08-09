@@ -1,3 +1,4 @@
+import { Library } from "src/app/libraries/shared/library.model";
 
 export class MediaServer{
   public Id?: number;
@@ -13,4 +14,5 @@ export class MediaServer{
   public FamilyName?:string;
   public DeviceName?:string;
   public isSecureConnection?:boolean;
+  public ListLibraries:Library[];
 }
