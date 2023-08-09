@@ -8,6 +8,7 @@ import { MediaServer } from './server.model';
 import { SharedService } from 'src/app/shared/services/shared-data.service';
 import { LibraryService } from 'src/app/libraries/shared/library.service';
 import { Library } from 'src/app/libraries/shared/library.model';
+import { MenuService } from 'src/app/menus/shared/menu.service';
 export declare type EventHandler = (...args: any[]) => any;
 
 @Injectable({ providedIn: 'root' })
@@ -16,6 +17,7 @@ export class MediaServerService {
   lastCallGuid:string;
 
   constructor(
+    private menuService:MenuService,
     private libraryService:LibraryService,
     private sharedService:SharedService,
     private restProvider: RestProviderService,
@@ -27,6 +29,7 @@ export class MediaServerService {
       this.restProvider.executeSinovadApiService(HttpMethodType.GET,'/mediaServers/GetAllByUserAsync/'+this.sharedService.userData.Id).then((response:SinovadApiGenericResponse) => {
         let mediaServers=response.Data;
         this.sharedService.mediaServers=mediaServers;
+        this.menuService.getMediaMenu();
         this.checkSecureConnectionMediaServers();
         resolve(true);
       },error=>{
