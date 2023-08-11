@@ -47,6 +47,7 @@ export class MediaDetailComponent extends MediaGeneric implements OnInit {
       {
         this.libraryService.getMediaItemDetail(this.mediaServer.Url,mediaId).then((detail:ItemDetail) => {
           this.detail=detail;
+          this.detail.CurrentSeason=this.detail.ListSeasons[0];
         },error=>{
           this.router.navigate(['404'],{ skipLocationChange: false});
         });
