@@ -49,14 +49,28 @@ export class SinovadWebComponent implements OnInit,OnDestroy {
       {
         this.sharedService.apiToken=localStorage.getItem('apiToken');
         this.userService.getUser().then(res=>{
+          var responseMediaServers:boolean=false;
+          var responseProfiles:boolean=false;
           this.menuService.getManageMenu();
-          this.serverService.getMediaServers();
-          this.profileService.getAllProfiles().then(response=>{
-            this.showRootPage=true;
-            this.ref.detectChanges();
-
+          this.serverService.getMediaServers().then(response=>{
+            responseMediaServers=true;
+            if(responseMediaServers && responseProfiles)
+            {
+              this.showRootPage=true;
+              this.ref.detectChanges();
+            }
           },error=>{
-            console.error(error);
+
+          });
+          this.profileService.getAllProfiles().then(response=>{
+            responseProfiles=true;
+            if(responseMediaServers && responseProfiles)
+            {
+              this.showRootPage=true;
+              this.ref.detectChanges();
+            }
+          },error=>{
+
           });
         },error=>{
           console.error(error);

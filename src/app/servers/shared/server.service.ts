@@ -41,10 +41,12 @@ export class MediaServerService {
   public checkSecureConnectionMediaServers(){
     if(this.sharedService.mediaServers!=null && this.sharedService.mediaServers.length>0)
     {
-      this.sharedService.mediaServers.forEach(mediaServer => {
-        this.libraryService.getLibrariesByMediaServer(mediaServer.Url).then((libraries:Library[]) => {
+      var ctx=this;
+      ctx.sharedService.mediaServers.forEach(mediaServer => {
+        ctx.libraryService.getLibrariesByMediaServer(mediaServer.Url).then((libraries:Library[]) => {
             mediaServer.ListLibraries=libraries;
             mediaServer.isSecureConnection=true;
+            ctx.libraryService.updateLibraries();
         },error=>{
           mediaServer.isSecureConnection=false;
         });

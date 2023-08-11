@@ -8,7 +8,6 @@ export class MediaGeneric{
 
   mediaServer:MediaServer;
   library:Library;
-  currentMediaTypeID:number;
   title:string;
   subtitle:string;
 
@@ -23,15 +22,17 @@ export class MediaGeneric{
       {
         this.mediaServer=mediaServer;
         var libraryId=this.activeRoute.snapshot.params.libraryId;
-        var library=this.sharedService.libraries.find(x=>x.MediaServerId==this.mediaServer.Id && x.Id==libraryId);
-        if(library!=undefined)
+        if(mediaServer.ListLibraries!=undefined && mediaServer.ListLibraries.length>0)
         {
-          this.library=library;
-          this.title=library.Name;
-          this.subtitle=this.mediaServer.FamilyName?this.mediaServer.FamilyName:this.mediaServer.DeviceName;
-          this.currentMediaTypeID=library.MediaTypeCatalogDetailId;
-        }else{
-          this.title=this.mediaServer.FamilyName?this.mediaServer.FamilyName:this.mediaServer.DeviceName;
+          var library=mediaServer.ListLibraries.find(x=>x.MediaServerId==this.mediaServer.Id && x.Id==libraryId);
+          if(library!=undefined)
+          {
+            this.library=library;
+            this.title=library.Name;
+            this.subtitle=this.mediaServer.FamilyName?this.mediaServer.FamilyName:this.mediaServer.DeviceName;
+          }else{
+            this.title=this.mediaServer.FamilyName?this.mediaServer.FamilyName:this.mediaServer.DeviceName;
+          }
         }
       }
     }

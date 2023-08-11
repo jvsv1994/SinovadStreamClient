@@ -1,15 +1,17 @@
 
 import { ChangeDetectorRef, Component, HostListener, OnInit} from '@angular/core';
 import { SharedService } from 'src/app/shared/services/shared-data.service';
-import { HttpMethodType, MediaType } from 'src/app/shared/enums';
-import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
+import { MediaType, MetadataAgents } from 'src/app/shared/enums';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SinovadApiGenericResponse } from 'src/app/response/sinovadApiGenericResponse';
 import { ItemDetail } from '../shared/item-detail.model';
-import { Season } from 'src/app/seasons/shared/season.model';
-import { Episode } from 'src/app/episodes/shared/episode.model';
 import { VideoService } from '../video/service/video.service';
 import { MediaGeneric } from 'src/app/shared/generics/media.generic';
+import { LibraryService } from 'src/app/libraries/shared/library.service';
+import { MediaSeason } from '../shared/media-season.model';
+import { MediaEpisode } from '../shared/media-episode.model';
+import {v4 as uuid} from "uuid";
+import { TranscodePrepareVideo } from '../video/models/transcodePrepareVideo';
+import { BuilderVideo } from '../video/models/builderVideo';
 
 declare var window;
 @Component({
@@ -28,7 +30,7 @@ export class MediaDetailComponent extends MediaGeneric implements OnInit {
   lastEpisodeWatched:any;
 
   constructor(
-    private restProvider: RestProviderService,
+    private libraryService:LibraryService,
     public activeRoute: ActivatedRoute,
     private router: Router,
     private videoService:VideoService,
@@ -40,56 +42,24 @@ export class MediaDetailComponent extends MediaGeneric implements OnInit {
 
     ngOnInit(): void {
       this.initializeHeaderData();
-      let mediaType = this.activeRoute.snapshot.queryParams['mediaType'];
       let mediaId = this.activeRoute.snapshot.queryParams['mediaId'];
-      if(mediaType && mediaId)
+      if(mediaId)
       {
-        if(mediaType==MediaType.Movie)
-        {
-          this.getMovieDetail(mediaId);
-        }else if(mediaType==MediaType.TvSerie)
-        {
-          this.getTvSerieDetail(mediaId);
-        }else{
+        this.libraryService.getMediaItemDetail(this.mediaServer.Url,mediaId).then((detail:ItemDetail) => {
+          this.detail=detail;
+        },error=>{
           this.router.navigate(['404'],{ skipLocationChange: false});
-        }
+        });
       }else{
         this.router.navigate(['404'],{ skipLocationChange: false});
       }
     }
 
-    public getMovieDetail(movieId:number){
-      this.restProvider.executeSinovadApiService(HttpMethodType.GET,"/videos/GetMovieDataByUser?userId="+this.sharedService.userData.Id+"&movieId="+movieId).then((response:SinovadApiGenericResponse) => {
-        this.detail=response.Data;
-      },error=>{
-        console.error(error);
-        this.router.navigate(['404'],{ skipLocationChange: false});
-      });
-    }
-
-    public getTvSerieDetail(tvSerieId:number){
-      var path="/videos/GetTvSerieDataByUser?userId="+this.sharedService.userData.Id+"&tvSerieId="+tvSerieId;
-      this.restProvider.executeSinovadApiService(HttpMethodType.GET,path).then((response:SinovadApiGenericResponse) => {
-        if(response.Data.ListSeasons && response.Data.ListSeasons.length>0)
-        {
-          response.Data.CurrentSeason=response.Data.ListSeasons[0];
-        }
-        this.detail=response.Data;
-      },error=>{
-        console.error(error);
-      });
-    }
-
     public getEpisodeImagePath(episode:any){
-      if(this.detail.TmdbId!=undefined && this.detail.TmdbId!=0){
-        if(episode.StillPath)
-        {
-          return this.sharedService.urlEpisodeDataBase+episode.StillPath;
-        }else{
-          return this.sharedService.getUrlByItemDetailMovieDataBase(this.detail);
-        }
+      if(this.detail.MediaItem.MetadataAgentsId==MetadataAgents.TMDb && episode.StillPath){
+        return this.sharedService.urlEpisodeDataBase+episode.StillPath;
       }else{
-        return episode.StillPath;
+        return this.sharedService.getUrlByItemDetailMovieDataBase(this.detail);
       }
     }
 
@@ -146,7 +116,7 @@ export class MediaDetailComponent extends MediaGeneric implements OnInit {
     }
 
     public showVideo(){
-      if(this.detail.Item.MediaType==MediaType.Movie)
+      if(this.detail.MediaItem.MediaTypeId==MediaType.Movie)
       {
         this.getVideosByItem();
       }else{
@@ -162,19 +132,19 @@ export class MediaDetailComponent extends MediaGeneric implements OnInit {
     }
 
     public getVideosByItem(){
-      this.videoService.show(this.sharedService.CreateBuilderVideoFromItem(this.detail.Item,this.detail));
+      this.videoService.show(this.libraryService.CreateBuilderVideoFromItem(this.detail,this.mediaServer));
     }
 
-    public onClickSeason(item:Season){
+    public onClickSeason(item:MediaSeason){
       this.detail.CurrentSeason=item;
     }
 
-    public onClickEpisode(episode:Episode){
+    public onClickEpisode(episode:MediaEpisode){
       this.getVideoByEpisode(episode);
     }
 
-    public getVideoByEpisode(episode:Episode){
-      this.videoService.show(this.sharedService.CreateBuilderVideoFromEpisode(episode,this.detail));
+    public getVideoByEpisode(episode:MediaEpisode){
+      this.videoService.show(this.libraryService.CreateBuilderVideoFromEpisode(this.detail,episode,this.mediaServer));
     }
 
 

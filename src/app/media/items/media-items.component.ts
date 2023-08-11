@@ -1,5 +1,5 @@
 
-import { ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import { SharedService } from 'src/app/shared/services/shared-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpMethodType, MediaType } from 'src/app/shared/enums';
@@ -10,20 +10,24 @@ import { ItemsGroup } from '../shared/items-group.model';
 import { VideoService } from '../video/service/video.service';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { MediaGeneric } from 'src/app/shared/generics/media.generic';
+import { LibraryService } from 'src/app/libraries/shared/library.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-media-server',
   templateUrl: './media-items.component.html',
   styleUrls: ['./media-items.component.scss']
 })
-export class MediaItemsComponent extends MediaGeneric implements OnInit {
+export class MediaItemsComponent extends MediaGeneric implements OnInit,OnDestroy {
 
   showLoadingApp:boolean=true;
   listItems: any[];
   itemsGroupList:ItemsGroup[]=[];
   _window=window;
+  subscriptionUpdatingLibraries:Subscription;
 
   constructor(
+    private libraryService:LibraryService,
     public activeRoute: ActivatedRoute,
     private router: Router,
     private videoService:VideoService,
@@ -31,29 +35,82 @@ export class MediaItemsComponent extends MediaGeneric implements OnInit {
     private  ref:ChangeDetectorRef,
     public sharedService: SharedService) {
       super(activeRoute,sharedService);
+      this.subscriptionUpdatingLibraries=this.libraryService.isUpdatingLibraries().subscribe((res)=>{
+        this.initializeData();
+      });
       this.router.routeReuseStrategy.shouldReuseRoute = function () {
         return false;
       };
     }
 
     public ngOnInit(): void {
-      this.initializeHeaderData();
+      this.initializeData();
     }
 
     ngAfterViewInit(){
-      if(this.sharedService.currentProfile)
+    }
+
+    ngOnDestroy(){
+      this.subscriptionUpdatingLibraries.unsubscribe();
+    }
+
+    public initializeData(): void {
+      if(this.sharedService.mediaServers && this.sharedService.mediaServers.length>0 && this.sharedService.mediaServers.findIndex(x=>x.ListLibraries!=null && x.ListLibraries.length>0)!=-1)
       {
-        if(this.currentMediaTypeID==MediaType.Movie)
+        if(window.location.pathname.endsWith("home"))
         {
-          this.getAllProgramsByUser(true,false);
-        }else if(this.currentMediaTypeID==MediaType.TvSerie)
-        {
-          this.getAllProgramsByUser(false,true);
+          this.sharedService.mediaServers.forEach(ms => {
+            try{
+              this.libraryService.getAllMediaItems(ms.Url,this.sharedService.currentProfile.Id).then((itemsGroupList:ItemsGroup[])=>{
+                this.itemsGroupList=this.itemsGroupList.concat(itemsGroupList);
+              },error=>{
+
+              });
+            }catch(e){
+
+            }
+          });
+        }else if(window.location.pathname.endsWith("movies")){
+          this.title="Películas";
+          this.sharedService.mediaServers.forEach(ms => {
+            this.libraryService.getMediaItemsByMediaType(ms.Url,MediaType.Movie,this.sharedService.currentProfile.Id).then((itemsGroupList:ItemsGroup[])=>{
+              this.itemsGroupList=this.itemsGroupList.concat(itemsGroupList);
+            },error=>{
+              console.error(error);
+            });
+          });
+        }else if(window.location.pathname.endsWith("tvseries")){
+          this.title="Series de TV"
+          this.sharedService.mediaServers.forEach(ms => {
+            this.libraryService.getMediaItemsByMediaType(ms.Url,MediaType.TvSerie,this.sharedService.currentProfile.Id).then((itemsGroupList:ItemsGroup[])=>{
+              this.itemsGroupList=this.itemsGroupList.concat(itemsGroupList);
+            },error=>{
+              console.error(error);
+            });
+          });
         }else{
-          this.getAllProgramsByUser(true,true);
+          this.initializeHeaderData();
+          if(this.mediaServer!=null)
+          {
+            if(this.library!=null)
+            {
+              this.libraryService.getMediaItemsByLibrary(this.mediaServer.Url,this.library.Id,this.sharedService.currentProfile.Id).then((itemsGroupList:ItemsGroup[])=>{
+                this.itemsGroupList=this.itemsGroupList.concat(itemsGroupList);
+              },error=>{
+                console.error(error);
+              });
+            }else{
+              this.libraryService.getAllMediaItems(this.mediaServer.Url,this.sharedService.currentProfile.Id).then((itemsGroupList:ItemsGroup[])=>{
+                this.itemsGroupList=this.itemsGroupList.concat(itemsGroupList);
+              },error=>{
+                console.error(error);
+              });
+            }
+          }
         }
       }
     }
+
 
     public getWidthProgressItem(item:Item){
       let widthProgressBarPercentaje=(item.CurrentTime/item.DurationTime)*100;
@@ -92,82 +149,37 @@ export class MediaItemsComponent extends MediaGeneric implements OnInit {
       }, 250);
     }
 
-    public onSelectItem(currentItem:any){
-      currentItem.scrollIntoView({block:'center'});
-      this.ref.detectChanges();
-    }
-
-    public getAllProgramsByUser(searchMovies:boolean,searchTvSeries:boolean){
-      var path='/videos/GetAllTvProgramsOrganized?userId='+this.sharedService.userData.Id+"&profileId="+this.sharedService.currentProfile.Id+"&searchMovies="+searchMovies+"&searchTvSeries="+searchTvSeries;
-      this.restProvider.executeSinovadApiService(HttpMethodType.GET,path).then((response:SinovadApiGenericResponse) => {
-        var itemsGroupList:ItemsGroup[]=response.Data;
-        this.itemsGroupList=itemsGroupList;
-        this.ref.detectChanges();
-      },error=>{
-        console.error(error);
-      });
-    }
-
     public onClickItem(item: Item)
     {
-      if(item.CurrentTime!=undefined && item.ContinueVideo)
+      if(item.CurrentTime!=undefined && item.CurrentTime>0)
       {
         this.continueVideoByItem(item);
       }else{
-        if(item.MovieId)
-        {
-          this.getMovieDetail(item);
-        }else if(item.TvSerieId){
-          this.getTvSerieDetail(item);
-        }
+        this.getMediaItemDetail(item);
       }
+    }
+
+    public getMediaItemDetail(item:Item){
+      var mediaServer=this.sharedService.mediaServers.find(x=>x.Id==item.MediaServerId);
+      this.router.navigateByUrl('/media/server/'+mediaServer.Guid+"/libraries/"+item.LibraryId+"/detail?mediaType="+item.MediaTypeId+"&mediaId="+item.MediaItemId);
     }
 
     public continueVideoByItem(item:Item){
-      var path=item.TvSerieId?"/videos/GetTvSerieDetail?userId="+this.sharedService.userData.Id+"&tvSerieId="+item.TvSerieId:"/videos/GetMovieDetail?movieId="+item.MovieId
-      this.restProvider.executeSinovadApiService(HttpMethodType.GET,path).then((response:SinovadApiGenericResponse) => {
-        let detail:ItemDetail=response.Data;
-        detail.Item=item;
-        var builderVideo= this.sharedService.CreateBuilderVideoFromItem(item,detail);
-        this.videoService.show(builderVideo);
+      var mediaServer=this.sharedService.mediaServers.find(x=>x.Id==item.MediaServerId);
+      this.libraryService.getMediaItemDetail(this.mediaServer.Url,item.MediaItemId).then((detail:ItemDetail) => {
+        if(item.MediaEpisodeId!=undefined)
+        {
+          detail.CurrentSeason=detail.ListSeasons.find(x=>x.SeasonNumber==item.SeasonNumber);
+          detail.CurrentEpisode=detail.CurrentSeason.ListEpisodes.find(x=>x.EpisodeNumber==item.EpisodeNumber);
+          var builderVideo= this.libraryService.CreateBuilderVideoFromEpisode(detail,detail.CurrentEpisode,mediaServer,item.CurrentTime);
+          this.videoService.show(builderVideo);
+        }else{
+          var builderVideo= this.libraryService.CreateBuilderVideoFromItem(detail,mediaServer,item.CurrentTime);
+          this.videoService.show(builderVideo);
+        }
       },error=>{
         console.error(error);
       });
-    }
-
-    public getMovieDetail(item:Item){
-      this.restProvider.executeSinovadApiService(HttpMethodType.GET,"/videos/GetMovieDetail?movieId="+item.MovieId).then((response:SinovadApiGenericResponse) => {
-        let data:ItemDetail=response.Data;
-        data.Item=item;
-        this.setDataAndShowItemView(data);
-      },error=>{
-        console.error(error);
-      });
-    }
-
-    public getTvSerieDetail(item:Item){
-      var path="/videos/GetTvSerieDetail?userId="+this.sharedService.userData.Id+"&tvSerieId="+item.TvSerieId;
-      this.restProvider.executeSinovadApiService(HttpMethodType.GET,path).then((response:SinovadApiGenericResponse) => {
-        let data:ItemDetail=response.Data;
-        data.Item=item;
-        this.setDataAndShowItemView(data);
-      },error=>{
-        console.error(error);
-      });
-    }
-
-    public setDataAndShowItemView(data:ItemDetail){
-      if(data.ListSeasons && data.ListSeasons.length>0)
-      {
-        data.CurrentSeason=data.ListSeasons[0];
-      }
-      if(data.Item.MovieId)
-      {
-        this.router.navigateByUrl('/media/server/'+data.Item.MediaServerGuid+"/libraries/"+data.Item.LibraryId+"/detail?mediaType="+MediaType.Movie+"&mediaId="+data.Item.MovieId);
-      }else if(data.Item.TvSerieId)
-      {
-        this.router.navigateByUrl('/media/server/'+data.Item.MediaServerGuid+"/libraries/"+data.Item.LibraryId+"/detail?mediaType="+MediaType.TvSerie+"&mediaId="+data.Item.TvSerieId);
-      }
     }
 
 }

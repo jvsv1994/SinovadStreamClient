@@ -9,12 +9,12 @@ import Hls, { HlsConfig } from 'hls.js';
 import { HttpMethodType, LoadVideoStatus, VideoTransmissionType } from 'src/app/shared/enums';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-
 import { BuilderVideo } from '../models/builderVideo';
-import { VideoProfile } from '../models/video-profile.model';
 import { TranscodeRunVideo } from '../models/transcodeRunVideo';
-import { Episode } from 'src/app/episodes/shared/episode.model';
 import { CustomDialogOptionsComponent, DialogOption, DialogOptionsConfiguration } from 'src/app/shared/components/custom-dialog-options/custom-dialog-options.component';
+import { LibraryService } from 'src/app/libraries/shared/library.service';
+import { MediaEpisode } from '../../shared/media-episode.model';
+import { MediaFilePlayback } from '../../shared/media-file-playback.model';
 @Component({
   selector: 'app-video',
   templateUrl: 'video.page.html',
@@ -56,6 +56,7 @@ export class VideoPage implements OnInit,OnDestroy{
   beforeUnloadFunction:any=false;
 
   constructor(
+    private libraryService:LibraryService,
     private dialog: MatDialog,
     public restProvider: RestProviderService,
     public sharedService: SharedService,
@@ -209,9 +210,10 @@ export class VideoPage implements OnInit,OnDestroy{
     }
   }
 
-  public getVideoByEpisode(episode:Episode){
+  public getVideoByEpisode(episode:MediaEpisode){
     this.deleteAllProcessesAndDirectories();
-    var transcodeVideo=this.sharedService.GetTranscodeVideoFromEpisode(episode);
+    var mediaServer=this.sharedService.mediaServers.find(x=>x.Id==this.builderVideo.TranscodePrepareVideo.MediaServerId);
+    var transcodeVideo=this.libraryService.GetTranscodeVideoFromEpisode(this.builderVideo.ItemDetail,episode,mediaServer);
     this.builderVideo.TranscodePrepareVideo=transcodeVideo;
     if(this.builderVideo.ItemDetail.ListSeasons)
     {
@@ -524,13 +526,26 @@ export class VideoPage implements OnInit,OnDestroy{
           currentTime=currentTime-20;
         }
       }
-      let VideoProfile:VideoProfile={
-        VideoId:this.builderVideo.TranscodePrepareVideo.VideoId,
+      let mediaFilePlayback:MediaFilePlayback={
+        Title:this.builderVideo.TranscodePrepareVideo.Title,
+        MediaFileId:this.builderVideo.TranscodePrepareVideo.VideoId,
         ProfileId:this.sharedService.currentProfile.Id,
         DurationTime:this.builderVideo.TranscodePrepareVideo.TotalSeconds,
         CurrentTime:currentTime
       }
-      this.restProvider.executeSinovadApiService(HttpMethodType.PUT,'/videos/UpdateVideoProfile',VideoProfile).then((response) => {
+      if(this.builderVideo.TranscodePrepareVideo.Subtitle)
+      {
+        mediaFilePlayback.Subtitle=this.builderVideo.TranscodePrepareVideo.Subtitle;
+      }
+      if(this.builderVideo.ItemDetail.CurrentSeason)
+      {
+        mediaFilePlayback.SeasonNumber=this.builderVideo.ItemDetail.CurrentSeason.SeasonNumber;
+      }
+      if(this.builderVideo.ItemDetail.CurrentEpisode)
+      {
+        mediaFilePlayback.EpisodeNumber=this.builderVideo.ItemDetail.CurrentEpisode.EpisodeNumber;
+      }
+      this.libraryService.updateMediaFilePlayback(this.builderVideo.TranscodePrepareVideo.MediaServerUrl,mediaFilePlayback).then((response) => {
 
       },error=>{
         console.error(error);

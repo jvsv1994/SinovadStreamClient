@@ -3,6 +3,7 @@ import { CustomStream } from "./customStream";
 export class TranscodePrepareVideo{
 
   public Title: string;
+  public Subtitle: string;
   public VideoId: number;
   public MediaServerUrl: string;
   public CurrentTime: number;

@@ -12,7 +12,6 @@ import { Library } from '../shared/library.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LibraryFormComponent } from '../library-form/library-form.component';
 import { CustomMenuItem, CustomMenuService } from 'src/app/shared/services/custom-menu.service';
-import { MediaService } from 'src/app/shared/services/media.services';
 import { MediaServer } from 'src/app/servers/shared/server.model';
 import { MediaServerService } from 'src/app/servers/shared/server.service';
 
@@ -29,7 +28,6 @@ export class LibraryListComponent{
   currentLibrary:Library;
 
   constructor(
-    private mediaService:MediaService,
     private customMenuService:CustomMenuService,
     private modalService: NgbModal,
     private libraryService:LibraryService,
@@ -64,7 +62,7 @@ export class LibraryListComponent{
       this.libraryService.getLibrariesByMediaServer(this.mediaServer.Url).then((listLibraries:Library[]) => {
         this.listLibraries=listLibraries;
       },error=>{
-        console.error(error);
+
       });
     }
 
@@ -162,7 +160,7 @@ export class LibraryListComponent{
   }
 
   public searchFilesInLibraries(listLibraries:Library[]){
-    this.mediaService.searchFilesInLibrariesByMediaServer(this.sharedService.selectedMediaServer.Url,listLibraries);
+    this.libraryService.searchFiles(this.sharedService.selectedMediaServer.Url,listLibraries);
   }
 
 }

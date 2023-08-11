@@ -1,3 +1,5 @@
+import { MediaType, MetadataAgents } from "src/app/shared/enums";
+
 export class Item{
 
   public Title: string;
@@ -11,8 +13,6 @@ export class Item{
   public ReleaseDate:Date;
   public FirstAirDate:Date;
   public LastAirDate:Date;
-  public TmdbId:number;
-  public Imdbid:string;
   public PosterPath:string;
   public PhysicalPath:string;
   public TvSerieId:number;
@@ -24,14 +24,18 @@ export class Item{
   public MediaServerGuid:string;
   public LibraryId:number;
   public LibraryGuid:string;
-  public TvSerieGenreId:number;
   public GenreName:string;
-  public IpAddress:string;
   public MediaServerUrl:string;
   public MediaServerState:number;
   public MediaType:number;
   public Created:Date;
   public LastModified:Date;
   public ContinueVideo:boolean;
-
+  public SourceId:string;
+  public MediaTypeId:MediaType;
+  public MetadataAgentsId:MetadataAgents;
+  public SearchQuery:string;
+  public FileId:number;
+  public MediaItemId:number;
+  public MediaEpisodeId:number;
 }

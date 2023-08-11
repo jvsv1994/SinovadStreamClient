@@ -17,7 +17,10 @@
   export enum MediaType
   {
       Movie = 1,
-      TvSerie = 2
+      TvSerie = 2,
+      Music=3,
+      Photo=4,
+      Other=5
   }
 
   export enum VideoTransmissionType
@@ -59,4 +62,11 @@ export enum LoadVideoStatus{
   Initialized=2,
   LoadedMetada=3,
   LoadedData=4
+}
+
+export enum MetadataAgents
+{
+    SinovadDb = 1,
+    TMDb = 2,
+    IMDb=3
 }

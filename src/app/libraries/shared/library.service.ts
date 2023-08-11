@@ -1,18 +1,37 @@
 import { Injectable } from '@angular/core';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
-import { HttpMethodType } from 'src/app/shared/enums';
+import { HttpMethodType, MediaType } from 'src/app/shared/enums';
 import { SinovadApiGenericResponse } from 'src/app/response/sinovadApiGenericResponse';
 import { Library } from './library.model';
+import {v4 as uuid} from "uuid";
+import { ItemsGroup } from 'src/app/media/shared/items-group.model';
+import { Observable, Subject } from 'rxjs';
+import { ItemDetail } from 'src/app/media/shared/item-detail.model';
+import { TranscodePrepareVideo } from 'src/app/media/video/models/transcodePrepareVideo';
+import { BuilderVideo } from 'src/app/media/video/models/builderVideo';
+import { MediaServer } from 'src/app/servers/shared/server.model';
+import { MediaEpisode } from 'src/app/media/shared/media-episode.model';
+import { Item } from 'src/app/media/shared/item.model';
+import { MediaFilePlayback } from 'src/app/media/shared/media-file-playback.model';
+
 export declare type EventHandler = (...args: any[]) => any;
 
 @Injectable({ providedIn: 'root' })
 export class LibraryService {
 
-  lastCallGuid:string;
+  public updateLibraries$ = new Subject<boolean>();
 
   constructor(
     private restProvider: RestProviderService,
   ) {
+  }
+
+  public updateLibraries():void{
+    this.updateLibraries$.next(true);
+  };
+
+  public isUpdatingLibraries():Observable<boolean>{
+    return this.updateLibraries$.asObservable();
   }
 
   public getLibrariesByMediaServer(mediaServerUrl:string):Promise<Library[]>{
@@ -21,7 +40,6 @@ export class LibraryService {
       this.restProvider.executeHttpMediaServerApi(HttpMethodType.GET,path).then((response:SinovadApiGenericResponse) => {
         resolve(response.Data);
       },error=>{
-        console.error(error);
         reject(error);
       });
    });
@@ -69,6 +87,147 @@ export class LibraryService {
         reject(error);
       });
    });
+  }
+
+  public searchFiles(mediaServerUrl:string,listLibraries:Library[]):Promise<SinovadApiGenericResponse>{
+    return new Promise((resolve, reject) => {
+      let logIdentifier=uuid();
+      let mediaRequest: any={
+        Listlibraries:listLibraries,
+        LogIdentifier:logIdentifier
+      };
+      var path=mediaServerUrl+"/api/libraries/SearchFiles";
+      this.restProvider.executeHttpMediaServerApi(HttpMethodType.POST,path,mediaRequest).then((response:SinovadApiGenericResponse) => {
+        resolve(response);
+      },error=>{
+        console.error(error);
+        reject(error);
+      });
+   });
+  }
+
+  public getAllMediaItemsBySearchQuery(mediaServerUrl:string,searchQuery:string):Promise<Item[]>{
+    return new Promise((resolve, reject) => {
+      var path=mediaServerUrl+"/api/libraries/GetAllMediaItemsBySearchQuery?searchQuery="+searchQuery;
+      this.restProvider.executeHttpMediaServerApi(HttpMethodType.GET,path).then((response:SinovadApiGenericResponse) => {
+        resolve(response.Data);
+      },error=>{
+        reject(error);
+      });
+    });
+  }
+
+
+  public getAllMediaItems(mediaServerUrl:string,profileId:number):Promise<ItemsGroup[]>{
+    return new Promise((resolve, reject) => {
+      var path=mediaServerUrl+"/api/libraries/GetAllMediaItems?profileId="+profileId;
+      this.restProvider.executeHttpMediaServerApi(HttpMethodType.GET,path).then((response:SinovadApiGenericResponse) => {
+        resolve(response.Data);
+      },error=>{
+        reject(error);
+      });
+    });
+  }
+
+  public getMediaItemsByLibrary(mediaServerUrl:string,libraryId:number,profileId:number):Promise<ItemsGroup[]>{
+    return new Promise((resolve, reject) => {
+      var path=mediaServerUrl+"/api/libraries/GetMediaItemsByLibrary?libraryId="+libraryId+"&profileId="+profileId;
+      this.restProvider.executeHttpMediaServerApi(HttpMethodType.GET,path).then((response:SinovadApiGenericResponse) => {
+        resolve(response.Data);
+      },error=>{
+        reject(error);
+      });
+    });
+  }
+
+  public getMediaItemsByMediaType(mediaServerUrl:string,mediaTypeId:MediaType,profileId:number):Promise<ItemsGroup[]>{
+    return new Promise((resolve, reject) => {
+      var path=mediaServerUrl+"/api/libraries/GetMediaItemsByMediaType?mediaTypeId="+mediaTypeId+"&profileId="+profileId;
+      this.restProvider.executeHttpMediaServerApi(HttpMethodType.GET,path).then((response:SinovadApiGenericResponse) => {
+        resolve(response.Data);
+      },error=>{
+        reject(error);
+      });
+    });
+  }
+
+  public getMediaItemDetail(mediaServerUrl:string,mediaItemId:number):Promise<ItemDetail>{
+    return new Promise((resolve, reject) => {
+      var path=mediaServerUrl+"/api/libraries/GetMediaItemDetail/"+mediaItemId;
+      this.restProvider.executeHttpMediaServerApi(HttpMethodType.GET,path).then((response:SinovadApiGenericResponse) => {
+        resolve(response.Data);
+      },error=>{
+        reject(error);
+      });
+    });
+  }
+
+  public updateMediaFilePlayback(mediaServerUrl:string,mediaFilePlayback:MediaFilePlayback):Promise<ItemDetail>{
+    return new Promise((resolve, reject) => {
+      var path=mediaServerUrl+"/api/libraries/UpdateMediaFilePlayback";
+      this.restProvider.executeHttpMediaServerApi(HttpMethodType.PUT,path,mediaFilePlayback).then((response:SinovadApiGenericResponse) => {
+        resolve(response.Data);
+      },error=>{
+        reject(error);
+      });
+    });
+  }
+
+  public CreateBuilderVideoFromItem(detail:ItemDetail,mediaServer:MediaServer,currentTime?:number):BuilderVideo{
+    let processGUID=uuid();
+    var mediaFile=detail.ListMediaFiles[0];
+    var transcodeVideo= new TranscodePrepareVideo();
+    transcodeVideo.VideoId=mediaFile.Id;
+    transcodeVideo.Title=detail.MediaItem.ExtendedTitle;
+    transcodeVideo.PhysicalPath=mediaFile.PhysicalPath;
+    transcodeVideo.MediaServerId=mediaServer.Id;
+    transcodeVideo.MediaServerUrl=mediaServer.Url;
+    transcodeVideo.CurrentTime=currentTime?currentTime:0;
+    transcodeVideo.ProcessGUID=processGUID;
+    if(transcodeVideo.CurrentTime)
+    {
+      transcodeVideo.TimeSpan=transcodeVideo.CurrentTime.toString();
+    }else{
+      transcodeVideo.TimeSpan="0";
+    }
+    var builderVideo= new BuilderVideo();
+    builderVideo.TranscodePrepareVideo=transcodeVideo;
+    builderVideo.ItemDetail=detail;
+    return builderVideo;
+  }
+
+  public CreateBuilderVideoFromEpisode(detail:ItemDetail,episode:MediaEpisode,mediaServer:MediaServer,currentTime?:number):BuilderVideo{
+    var transcodeVideo:TranscodePrepareVideo=this.GetTranscodeVideoFromEpisode(detail,episode,mediaServer,currentTime);
+    if(detail.ListSeasons)
+    {
+      detail.CurrentSeason=detail.ListSeasons.find(item=>item.SeasonNumber==episode.SeasonNumber);
+      detail.CurrentEpisode=detail.CurrentSeason.ListEpisodes.find(item=>item.EpisodeNumber==episode.EpisodeNumber);
+    }
+    var builderVideo= new BuilderVideo();
+    builderVideo.TranscodePrepareVideo=transcodeVideo;
+    builderVideo.ItemDetail=detail;
+    return builderVideo;
+  }
+
+  public GetTranscodeVideoFromEpisode(detail:ItemDetail,episode:MediaEpisode,mediaServer:MediaServer,currentTime?:number):TranscodePrepareVideo{
+    var mediaFile=episode.ListMediaFiles[0];
+    let processGUID=uuid();
+    var transcodeVideo= new TranscodePrepareVideo();
+    transcodeVideo.VideoId=mediaFile.Id;
+    transcodeVideo.Title=detail.MediaItem.Title;
+    transcodeVideo.Subtitle="T"+episode.SeasonNumber+":E"+episode.EpisodeNumber+" "+episode.Name;
+    transcodeVideo.PhysicalPath=mediaFile.PhysicalPath;
+    transcodeVideo.MediaServerId=mediaServer.Id;
+    transcodeVideo.MediaServerUrl=mediaServer.Url;
+    transcodeVideo.ProcessGUID=processGUID;
+    transcodeVideo.CurrentTime=currentTime?currentTime:0;
+    if(transcodeVideo.CurrentTime)
+    {
+      transcodeVideo.TimeSpan=transcodeVideo.CurrentTime.toString();
+    }else{
+      transcodeVideo.TimeSpan="0";
+    }
+    return transcodeVideo;
   }
 
 }

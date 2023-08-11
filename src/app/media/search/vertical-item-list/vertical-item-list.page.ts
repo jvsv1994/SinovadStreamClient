@@ -1,12 +1,9 @@
 
 import { Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 import { SharedService } from 'src/app/shared/services/shared-data.service';
-import { HttpMethodType, MediaType } from 'src/app/shared/enums';
-import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
-import { SinovadApiGenericResponse } from 'src/app/response/sinovadApiGenericResponse';
 import { Item } from '../../shared/item.model';
-import { ItemDetail } from '../../shared/item-detail.model';
 import { Router } from '@angular/router';
+import { LibraryService } from 'src/app/libraries/shared/library.service';
 
 declare var window;
 @Component({
@@ -22,8 +19,8 @@ export class VerticalItemListPage implements OnInit {
   listGroupItems:any[]=[];
 
   constructor(
+    private libraryService:LibraryService,
     private router: Router,
-    public restProvider: RestProviderService,
     public sharedService: SharedService) {
 
 
@@ -36,13 +33,16 @@ export class VerticalItemListPage implements OnInit {
     public getItemsBySearch(){
       if(this.searchText.trim()!="")
       {
-        var path='/videos/SearchTvPrograms?userId='+this.sharedService.userData.Id+"&searchMovies="+true+"&searchTvSeries="+true+"&searchText="+this.searchText;
-        this.restProvider.executeSinovadApiService(HttpMethodType.GET,path).then((response:SinovadApiGenericResponse) => {
-          let listItems:Item[]=response.Data;
-          this.listItems=listItems;
-          this.buildGroupItems(this.listItems);
-        },error=>{
-          console.error(error);
+        this.sharedService.mediaServers.forEach(mediaServer => {
+          if(mediaServer.isSecureConnection)
+          {
+            this.libraryService.getAllMediaItemsBySearchQuery(mediaServer.Url,this.searchText).then((listItems:Item[]) => {
+              this.listItems=this.listItems.concat(listItems);
+              this.buildGroupItems(this.listItems);
+            },error=>{
+              console.error(error);
+            });
+          }
         });
       }else{
         this.listItems=[];
@@ -73,47 +73,12 @@ export class VerticalItemListPage implements OnInit {
     }
 
     public onClickItem(item:Item){
-      if(item.MovieId)
-      {
-        this.getMovieDetail(item);
-      }else if(item.TvSerieId){
-        this.getTvSerieDetail(item);
-      }
+      this.getMediaDetail(item);
     }
 
-    public getMovieDetail(item:Item){
-      this.restProvider.executeSinovadApiService(HttpMethodType.GET,"/videos/GetMovieDetail?movieId="+item.MovieId).then((response:SinovadApiGenericResponse) => {
-        let data:ItemDetail=response.Data;
-        data.Item=item;
-        this.setDataAndShowItemView(data);
-      },error=>{
-        console.error(error);
-      });
-    }
-
-    public setDataAndShowItemView(data:ItemDetail){
-      if(data.ListSeasons && data.ListSeasons.length>0)
-      {
-        data.CurrentSeason=data.ListSeasons[0];
-      }
-      if(data.Item.MovieId)
-      {
-        this.router.navigateByUrl('/media/server/'+data.Item.MediaServerGuid+"/libraries/"+data.Item.LibraryId+"/detail?mediaType="+MediaType.Movie+"&mediaId="+data.Item.MovieId);
-      }else if(data.Item.TvSerieId)
-      {
-        this.router.navigateByUrl('/media/server/'+data.Item.MediaServerGuid+"/libraries/"+data.Item.LibraryId+"/detail?mediaType="+MediaType.TvSerie+"&mediaId="+data.Item.TvSerieId);
-      }
-    }
-
-    public getTvSerieDetail(item:Item){
-      var path="/videos/GetTvSerieDetail?userId="+this.sharedService.userData.Id+"&tvSerieId="+item.TvSerieId;
-      this.restProvider.executeSinovadApiService(HttpMethodType.GET,path).then((response:SinovadApiGenericResponse) => {
-        let data:ItemDetail=response.Data;
-        data.Item=item;
-        this.setDataAndShowItemView(data);
-      },error=>{
-        console.error(error);
-      });
+    public getMediaDetail(item:Item){
+      var mediaServer=this.sharedService.mediaServers.find(x=>x.Id==item.MediaServerId);
+      this.router.navigateByUrl('/media/server/'+mediaServer.Guid+"/libraries/"+item.LibraryId+"/detail?mediaType="+item.MediaTypeId+"&mediaId="+item.MediaItemId);
     }
 
 

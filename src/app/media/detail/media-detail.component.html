@@ -21,16 +21,16 @@
         <ng-template [ngIf]="detail">
           <div class="sinovad-item-view-principal-section">
             <div class="sinovad-item-view-title-container">
-              {{detail.Title}}
+              {{detail.MediaItem.Title}}
             </div>
             <div class="sinovad-item-view-subtitle-container">
-              {{detail.Genres}}
+              {{detail.MediaItem.Genres}}
             </div>
-            <div *ngIf="detail.Directors" class="sinovad-item-view-subtitle-container">
-              <span style="font-weight:bold;">Director: </span><span style="font-weight:normal;">{{detail.Directors}}</span>
+            <div *ngIf="detail.MediaItem.Directors" class="sinovad-item-view-subtitle-container">
+              <span style="font-weight:bold;">Director: </span><span style="font-weight:normal;">{{detail.MediaItem.Directors}}</span>
             </div>
-            <div *ngIf="detail.Actors" class="sinovad-item-view-subtitle-container">
-              <span style="font-weight:bold;">Reparto: </span> <span style="font-weight:normal;">{{detail.Actors}}</span>
+            <div *ngIf="detail.MediaItem.Actors" class="sinovad-item-view-subtitle-container">
+              <span style="font-weight:bold;">Reparto: </span> <span style="font-weight:normal;">{{detail.MediaItem.Actors}}</span>
             </div>
             <section id="section_principal_buttons" class="sinovad-item-view-principal-button-container sinovad-section">
               <ng-template [ngIf]="lastEpisodeWatched">
@@ -62,9 +62,9 @@
               </ng-template>
             </section>
             <div *ngIf="!lastEpisodeWatched" class="sinovad-item-view-summary-container">
-              {{detail.Overview}}
+              {{detail.MediaItem.Overview}}
             </div>
-            <div *ngIf="detail.ListSeasons" class="sinovad-item-view-seasons-container">
+            <div *ngIf="detail.ListSeasons && detail.ListSeasons.length>0" class="sinovad-item-view-seasons-container">
               <div>
                 EPISODIOS
               </div>
