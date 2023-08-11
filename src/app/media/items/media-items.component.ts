@@ -166,7 +166,7 @@ export class MediaItemsComponent extends MediaGeneric implements OnInit,OnDestro
 
     public continueVideoByItem(item:Item){
       var mediaServer=this.sharedService.mediaServers.find(x=>x.Id==item.MediaServerId);
-      this.libraryService.getMediaItemDetail(this.mediaServer.Url,item.MediaItemId).then((detail:ItemDetail) => {
+      this.libraryService.getMediaItemDetail(mediaServer.Url,item.MediaItemId).then((detail:ItemDetail) => {
         if(item.MediaEpisodeId!=undefined)
         {
           detail.CurrentSeason=detail.ListSeasons.find(x=>x.SeasonNumber==item.SeasonNumber);
