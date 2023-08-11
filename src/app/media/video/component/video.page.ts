@@ -35,7 +35,7 @@ export class VideoPage implements OnInit,OnDestroy{
   @ViewChild('videoPrincipalContainer') videoPrincipalContainer: ElementRef;
   @ViewChild('videoTarget') videoTarget: ElementRef;
   detectChangesInterval:any;
-  updateVideoProfileInterval:any;
+  updateMediaFilePlaybackInterval:any;
   currentSubtitleData:any[]=undefined;
   haveError:boolean=false;
   currentEpisode:any={};
@@ -82,8 +82,8 @@ export class VideoPage implements OnInit,OnDestroy{
     this.detectChangesInterval=window.setInterval(function() {
       ctx.ref.detectChanges();
     }, 0);
-    this.updateVideoProfileInterval=window.setInterval(function() {
-        ctx.UpdateVideoProfile();
+    this.updateMediaFilePlaybackInterval=window.setInterval(function() {
+        ctx.updateMediaFilePlayback();
     }, 10000);
     this.initializeVideoData();
   }
@@ -103,9 +103,9 @@ export class VideoPage implements OnInit,OnDestroy{
     {
       window.clearInterval(this.detectChangesInterval);
     }
-    if(this.updateVideoProfileInterval)
+    if(this.updateMediaFilePlaybackInterval)
     {
-      window.clearInterval(this.updateVideoProfileInterval);
+      window.clearInterval(this.updateMediaFilePlaybackInterval);
     }
     if(this.customMouseOutEvent)
     {
@@ -513,7 +513,7 @@ export class VideoPage implements OnInit,OnDestroy{
     }
   }
 
-  public UpdateVideoProfile(){
+  public updateMediaFilePlayback(){
     if(this.builderVideo.TranscodePrepareVideo.TotalSeconds!=undefined){
       var currentTime=0;
       if(this.getCurrentVideoTime()>0 && this.getCurrentVideoTime()<=this.builderVideo.TranscodePrepareVideo.TotalSeconds)
