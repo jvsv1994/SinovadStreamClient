@@ -63,26 +63,12 @@ export class MediaItemsComponent extends MediaGeneric implements OnInit,OnDestro
               if(ms.isSecureConnection)
               {
                 this.libraryService.getAllMediaItems(ms.Url,this.sharedService.currentProfile.Id).then((itemsGroupList:ItemsGroup[])=>{
-                  itemsGroupList.forEach(itemGroup => {
-                    var itemGroupFinded=this.itemsGroupList.find(x=>x.MediaServerId==ms.Id && x.Id==itemGroup.Id);
-                    if(itemGroupFinded==undefined)
-                    {
-                      this.itemsGroupList.push(itemGroup);
-                    }else{
-                      itemGroupFinded.ListItems=itemGroup.ListItems;
-                    }
-                  });
+                  this.setItemsInGroup(ms.Id,itemsGroupList);
                 },error=>{
 
                 });
               }else{
-                var itemGroupListToDelete=this.itemsGroupList.filter(x=>x.MediaServerId==ms.Id);
-                if(itemGroupListToDelete && itemGroupListToDelete.length>0)
-                {
-                  itemGroupListToDelete.forEach(itemgroup => {
-                    itemgroup.ListItems=[];
-                  });
-                }
+                this.clearItemsInGroup(ms.Id);
               }
             }catch(e){
 
@@ -91,41 +77,78 @@ export class MediaItemsComponent extends MediaGeneric implements OnInit,OnDestro
         }else if(window.location.pathname.endsWith("movies")){
           this.title="Películas";
           this.sharedService.mediaServers.forEach(ms => {
-            this.libraryService.getMediaItemsByMediaType(ms.Url,MediaType.Movie,this.sharedService.currentProfile.Id).then((itemsGroupList:ItemsGroup[])=>{
-              this.itemsGroupList=this.itemsGroupList.concat(itemsGroupList);
-            },error=>{
-              console.error(error);
-            });
+            if(ms.isSecureConnection)
+            {
+              this.libraryService.getMediaItemsByMediaType(ms.Url,MediaType.Movie,this.sharedService.currentProfile.Id).then((itemsGroupList:ItemsGroup[])=>{
+                this.setItemsInGroup(ms.Id,itemsGroupList);
+              },error=>{
+                console.error(error);
+              });
+            }else{
+              this.clearItemsInGroup(ms.Id);
+            }
           });
         }else if(window.location.pathname.endsWith("tvseries")){
           this.title="Series de TV"
           this.sharedService.mediaServers.forEach(ms => {
-            this.libraryService.getMediaItemsByMediaType(ms.Url,MediaType.TvSerie,this.sharedService.currentProfile.Id).then((itemsGroupList:ItemsGroup[])=>{
-              this.itemsGroupList=this.itemsGroupList.concat(itemsGroupList);
-            },error=>{
-              console.error(error);
-            });
+            if(ms.isSecureConnection)
+            {
+              this.libraryService.getMediaItemsByMediaType(ms.Url,MediaType.TvSerie,this.sharedService.currentProfile.Id).then((itemsGroupList:ItemsGroup[])=>{
+                this.setItemsInGroup(ms.Id,itemsGroupList);
+              },error=>{
+                console.error(error);
+              });
+            }else{
+              this.clearItemsInGroup(ms.Id);
+            }
           });
         }else{
           this.initializeHeaderData();
           if(this.mediaServer!=null)
           {
-            if(this.library!=null)
+            if(this.mediaServer.isSecureConnection)
             {
-              this.libraryService.getMediaItemsByLibrary(this.mediaServer.Url,this.library.Id,this.sharedService.currentProfile.Id).then((itemsGroupList:ItemsGroup[])=>{
-                this.itemsGroupList=this.itemsGroupList.concat(itemsGroupList);
-              },error=>{
-                console.error(error);
-              });
+              if(this.library!=null)
+              {
+                this.libraryService.getMediaItemsByLibrary(this.mediaServer.Url,this.library.Id,this.sharedService.currentProfile.Id).then((itemsGroupList:ItemsGroup[])=>{
+                  this.setItemsInGroup(this.mediaServer.Id,itemsGroupList);
+                },error=>{
+                  console.error(error);
+                });
+              }else{
+                this.libraryService.getAllMediaItems(this.mediaServer.Url,this.sharedService.currentProfile.Id).then((itemsGroupList:ItemsGroup[])=>{
+                  this.setItemsInGroup(this.mediaServer.Id,itemsGroupList);
+                },error=>{
+                  console.error(error);
+                });
+              }
             }else{
-              this.libraryService.getAllMediaItems(this.mediaServer.Url,this.sharedService.currentProfile.Id).then((itemsGroupList:ItemsGroup[])=>{
-                this.itemsGroupList=this.itemsGroupList.concat(itemsGroupList);
-              },error=>{
-                console.error(error);
-              });
+              this.clearItemsInGroup(this.mediaServer.Id);
             }
           }
         }
+      }
+    }
+
+    private setItemsInGroup(mediaServerId:number,itemsGroupList:ItemsGroup[]){
+      itemsGroupList.forEach(itemGroup => {
+        var itemGroupFinded=this.itemsGroupList.find(x=>x.MediaServerId==mediaServerId && x.Id==itemGroup.Id);
+        if(itemGroupFinded==undefined)
+        {
+          this.itemsGroupList.push(itemGroup);
+        }else{
+          itemGroupFinded.ListItems=itemGroup.ListItems;
+        }
+      });
+    }
+
+    private clearItemsInGroup(mediaServerId:number){
+      var itemGroupListToDelete=this.itemsGroupList.filter(x=>x.MediaServerId==mediaServerId);
+      if(itemGroupListToDelete && itemGroupListToDelete.length>0)
+      {
+        itemGroupListToDelete.forEach(itemgroup => {
+          itemgroup.ListItems=[];
+        });
       }
     }
 

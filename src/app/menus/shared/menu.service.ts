@@ -44,23 +44,41 @@ export class MenuService {
     listOptions.push(tvseries);
     this.sharedService.mediaMenu=listOptions;
     this.sharedService.mediaServers.forEach(mediaServer => {
-      var ms = new Menu();
-      ms.SortOrder = listOptions.length + 1;
-      ms.Title = mediaServer.FamilyName!=null && mediaServer.FamilyName!="" ? mediaServer.FamilyName:mediaServer.DeviceName;
-      ms.Path = "/media/server/"+mediaServer.Guid;
-      ms.ChildMenus=[];
-      this.libraryService.getLibrariesByMediaServer(mediaServer.Url).then((libraries:Library[])=>{
-        libraries.forEach(library => {
-          var ml = new Menu();
-          ml.SortOrder = ms.ChildMenus.length + 1;
-          ml.Title = library.Name;
-          ml.Path = "/media/server/" + mediaServer.Guid+"/libraries/"+library.Id;
-          ml.IconClass = library.MediaTypeCatalogDetailId == MediaType.Movie ? "fa-film fa-solid" : "fa-tv fa-solid";
-          ms.ChildMenus.push(ml);
-        });
-      });
-      this.sharedService.mediaMenu.push(ms);
+        var ms = new Menu();
+        ms.SortOrder = this.sharedService.mediaMenu.length + 1;
+        ms.Title = mediaServer.FamilyName!=null && mediaServer.FamilyName!="" ? mediaServer.FamilyName:mediaServer.DeviceName;
+        ms.Path = "/media/server/"+mediaServer.Guid;
+        ms.ChildMenus=[];
+        ms.MediaServerId=mediaServer.Id;
+        this.sharedService.mediaMenu.push(ms);
     });
+    this.buildMediaMenuFromListLibraries();
+  }
+
+  public buildMediaMenuFromListLibraries(){
+    this.sharedService.mediaServers.forEach(mediaServer => {
+      var mediaServerMenu=this.sharedService.mediaMenu.find(x=>x.MediaServerId==mediaServer.Id);
+      if(mediaServer.isSecureConnection)
+      {
+        this.libraryService.getLibrariesByMediaServer(mediaServer.Url).then((libraries:Library[])=>{
+          var childMenus=[];
+          libraries.forEach(library => {
+            var ml = new Menu();
+            ml.SortOrder = childMenus.length + 1;
+            ml.Title = library.Name;
+            ml.Path = "/media/server/" + mediaServer.Guid+"/libraries/"+library.Id;
+            ml.IconClass = library.MediaTypeCatalogDetailId == MediaType.Movie ? "fa-film fa-solid" : "fa-tv fa-solid";
+            childMenus.push(ml);
+          });
+          mediaServerMenu.ChildMenus=childMenus;
+        });
+      }else{
+        mediaServerMenu.ChildMenus=[];
+      }
+    });
+    setTimeout(() => {
+      this.buildMediaMenuFromListLibraries();
+    }, 1000);
   }
 
   public getManageMenu(): Promise<any>{

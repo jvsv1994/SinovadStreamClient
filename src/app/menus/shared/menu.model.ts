@@ -12,4 +12,5 @@ export class Menu{
   Enabled?: boolean;
   ChildMenus?: Menu[];
   isCollapsed?:boolean;
+  MediaServerId?:number;
 }
