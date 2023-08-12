@@ -2,10 +2,9 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import { SharedService } from 'src/app/shared/services/shared-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { HttpMethodType, MediaType } from 'src/app/shared/enums';
+import { MediaType } from 'src/app/shared/enums';
 import { Item } from '../shared/item.model';
 import { ItemDetail } from '../shared/item-detail.model';
-import { SinovadApiGenericResponse } from 'src/app/response/sinovadApiGenericResponse';
 import { ItemsGroup } from '../shared/items-group.model';
 import { VideoService } from '../video/service/video.service';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
@@ -55,17 +54,36 @@ export class MediaItemsComponent extends MediaGeneric implements OnInit,OnDestro
     }
 
     public initializeData(): void {
-      if(this.sharedService.mediaServers && this.sharedService.mediaServers.length>0 && this.sharedService.mediaServers.findIndex(x=>x.ListLibraries!=null && x.ListLibraries.length>0)!=-1)
+      if(this.sharedService.mediaServers && this.sharedService.mediaServers.length>0)
       {
         if(window.location.pathname.endsWith("home"))
         {
           this.sharedService.mediaServers.forEach(ms => {
             try{
-              this.libraryService.getAllMediaItems(ms.Url,this.sharedService.currentProfile.Id).then((itemsGroupList:ItemsGroup[])=>{
-                this.itemsGroupList=this.itemsGroupList.concat(itemsGroupList);
-              },error=>{
+              if(ms.isSecureConnection)
+              {
+                this.libraryService.getAllMediaItems(ms.Url,this.sharedService.currentProfile.Id).then((itemsGroupList:ItemsGroup[])=>{
+                  itemsGroupList.forEach(itemGroup => {
+                    var itemGroupFinded=this.itemsGroupList.find(x=>x.MediaServerId==ms.Id && x.Id==itemGroup.Id);
+                    if(itemGroupFinded==undefined)
+                    {
+                      this.itemsGroupList.push(itemGroup);
+                    }else{
+                      itemGroupFinded.ListItems=itemGroup.ListItems;
+                    }
+                  });
+                },error=>{
 
-              });
+                });
+              }else{
+                var itemGroupListToDelete=this.itemsGroupList.filter(x=>x.MediaServerId==ms.Id);
+                if(itemGroupListToDelete && itemGroupListToDelete.length>0)
+                {
+                  itemGroupListToDelete.forEach(itemgroup => {
+                    itemgroup.ListItems=[];
+                  });
+                }
+              }
             }catch(e){
 
             }

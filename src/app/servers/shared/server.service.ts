@@ -48,10 +48,15 @@ export class MediaServerService {
             mediaServer.isSecureConnection=true;
             ctx.libraryService.updateLibraries();
         },error=>{
+          mediaServer.ListLibraries=[];
           mediaServer.isSecureConnection=false;
+          ctx.libraryService.updateLibraries();
         });
       });
     }
+    setTimeout(() => {
+      this.checkSecureConnectionMediaServers();
+    }, 10000);
   }
 
   public getMediaServerByGuid(guid:string):Promise<SinovadApiGenericResponse>{

@@ -2,7 +2,8 @@ import { Item } from "./item.model";
 
 
 export class ItemsGroup{
-   Id:Number;
+   Id:number;
    Name:string;
+   MediaServerId:number;
    ListItems:Item[];
 }
