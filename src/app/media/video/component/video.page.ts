@@ -120,7 +120,7 @@ export class VideoPage implements OnInit,OnDestroy{
   public initializeVideoData(){
     this.sharedService.listProcessGUIDs.push(this.builderVideo.TranscodePrepareVideo.ProcessGUID);
     this.builderVideo.LoadStatus=LoadVideoStatus.Empty;
-    let url=this.builderVideo.TranscodePrepareVideo.MediaServerUrl+"/api/transcodeVideos/GetVideoData";
+    let url=this.builderVideo.TranscodePrepareVideo.MediaServerUrl+"/api/transcodingProcesses/GetVideoData";
     this.restProvider.executeHttpMethodByUrl(HttpMethodType.POST,url,this.builderVideo.TranscodePrepareVideo).then((response) => {
       this.builderVideo.LoadStatus=LoadVideoStatus.Generated;
       const jsonString=hiBase64.decode(response);
@@ -224,7 +224,7 @@ export class VideoPage implements OnInit,OnDestroy{
     this.resetStream();
     this.sharedService.listProcessGUIDs.push(this.builderVideo.TranscodePrepareVideo.ProcessGUID);
     this.builderVideo.LoadStatus=LoadVideoStatus.Empty;
-    let url=this.builderVideo.TranscodePrepareVideo.MediaServerUrl+"/api/transcodeVideos/GetVideoData";
+    let url=this.builderVideo.TranscodePrepareVideo.MediaServerUrl+"/api/transcodingProcesses/GetVideoData";
     this.restProvider.executeHttpMethodByUrl(HttpMethodType.POST,url,this.builderVideo.TranscodePrepareVideo).then((response) => {
       this.builderVideo.LoadStatus=LoadVideoStatus.Generated;
       const jsonString=hiBase64.decode(response);
@@ -661,7 +661,7 @@ public onClickSlider(sliderContainer:any){
     this.builderVideo.TranscodePrepareVideo.TimeSpan=newVideoTime.toString();
     this.builderVideo.TranscodePrepareVideo.ProcessGUID=processGUID;
     this.builderVideo.LoadStatus=LoadVideoStatus.Empty;
-    let url=this.builderVideo.TranscodePrepareVideo.MediaServerUrl+"/api/transcodeVideos/UpdateVideoData";
+    let url=this.builderVideo.TranscodePrepareVideo.MediaServerUrl+"/api/transcodingProcesses/UpdateVideoData";
     this.restProvider.executeHttpMethodByUrl(HttpMethodType.POST,url,this.builderVideo.TranscodePrepareVideo).then((response) => {
       this.builderVideo.LoadStatus=LoadVideoStatus.Generated;
       const jsonString=hiBase64.decode(response);
@@ -684,7 +684,7 @@ public onClickSlider(sliderContainer:any){
 
   public deleteProcessesAndDirectories(){
     var guids=this.sharedService.listProcessGUIDs.join(",");
-    let url=this.builderVideo.TranscodePrepareVideo.MediaServerUrl+"/api/transcodeVideos?guids="+guids;
+    let url=this.builderVideo.TranscodePrepareVideo.MediaServerUrl+"/api/transcodingProcesses/DeleteByListGuids?guids="+guids;
     this.restProvider.executeHttpMethodByUrl(HttpMethodType.DELETE,url).then((response) => {
       const jsonString=hiBase64.decode(response);
       let listProcessDeletedGUIDs:string[]=JSON.parse(jsonString);
