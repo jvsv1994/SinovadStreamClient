@@ -14,6 +14,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ConfirmDialogOptions, CustomConfirmDialogComponent } from 'src/app/shared/components/custom-confirm-dialog/custom-confirm-dialog.component';
 import { SnackBarType } from 'src/app/shared/components/custom-snack-bar/custom-snack-bar.component';
 import { SeasonListModalPage } from 'src/app/seasons/season-list-modal/season-list-modal.page';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tvserie-list',
@@ -26,12 +27,20 @@ export class TvSerieListPage extends CustomListGeneric<TvSerie> implements After
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(
+    private router:Router,
     private modalService: NgbModal,
     private dialog: MatDialog,
     public matPaginatorIntl: MatPaginatorIntl,
     private snackbarService:SnackBarService,
     private tvserieService:TvSerieService) {
       super(matPaginatorIntl);
+    }
+
+    ngOnInit(): void {
+      if(!localStorage.getItem('apiToken'))
+      {
+        this.router.navigateByUrl('/landing');
+      }
     }
 
     ngAfterViewInit() {

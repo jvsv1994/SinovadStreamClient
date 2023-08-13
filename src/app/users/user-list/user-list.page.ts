@@ -15,6 +15,7 @@ import { ContextMenuService } from 'src/app/shared/services/context-menu.service
 import { ContextMenuOption } from 'src/app/shared/components/custom-context-menu/custom-context-menu.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MediaServerListModalPage } from 'src/app/servers/server-list-modal/media-server-list-modal.page';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-list',
@@ -28,6 +29,7 @@ export class UserListPage extends CustomListGeneric<User> {
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(
+    private router:Router,
     private modalService: NgbModal,
     private contextMenuService:ContextMenuService,
     private dialog: MatDialog,
@@ -36,6 +38,13 @@ export class UserListPage extends CustomListGeneric<User> {
     private snackbarService:SnackBarService) {
       super(matPaginatorIntl)
 
+    }
+
+    ngOnInit(): void {
+      if(!localStorage.getItem('apiToken'))
+      {
+        this.router.navigateByUrl('/landing');
+      }
     }
 
     ngAfterViewInit() {

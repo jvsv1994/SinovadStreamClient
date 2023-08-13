@@ -43,6 +43,10 @@ export class TranscoderSettingssPage implements OnInit {
     }
 
     ngOnInit(): void {
+      if(!localStorage.getItem('apiToken'))
+      {
+        this.router.navigateByUrl('/landing');
+      }
       this.getCatalogDetails();
       this.getMediaServerData();
     }

@@ -13,6 +13,7 @@ import { SnackBarService } from 'src/app/shared/services/snack-bar.service';
 import { SnackBarType } from 'src/app/shared/components/custom-snack-bar/custom-snack-bar.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { GenreFormPage } from '../genre-form/genre-form.page';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-genre-list',
   templateUrl: './genre-list.page.html',
@@ -25,12 +26,20 @@ export class GenreListPage extends CustomListGeneric<Genre>  implements AfterVie
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(
+    private router:Router,
     private modalService: NgbModal,
     private dialog: MatDialog,
     public matPaginatorIntl: MatPaginatorIntl,
     private snackbarService:SnackBarService,
     private genreService:GenreService) {
       super(matPaginatorIntl);
+    }
+
+    ngOnInit(): void {
+      if(!localStorage.getItem('apiToken'))
+      {
+        this.router.navigateByUrl('/landing');
+      }
     }
 
     ngAfterViewInit() {
