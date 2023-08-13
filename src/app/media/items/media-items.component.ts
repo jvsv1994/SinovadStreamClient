@@ -26,11 +26,11 @@ export class MediaItemsComponent extends MediaGeneric implements OnInit,OnDestro
   constructor(
     private libraryService:LibraryService,
     public activeRoute: ActivatedRoute,
-    private router: Router,
+    public router: Router,
     public restProvider: RestProviderService,
     private  ref:ChangeDetectorRef,
     public sharedService: SharedService) {
-      super(activeRoute,sharedService);
+      super(router,activeRoute,sharedService);
       this.subscriptionUpdatingLibraries=this.libraryService.isUpdatingLibraries().subscribe((res)=>{
         this.initializeData();
       });
@@ -40,6 +40,10 @@ export class MediaItemsComponent extends MediaGeneric implements OnInit,OnDestro
     }
 
     public ngOnInit(): void {
+      if(!localStorage.getItem('apiToken'))
+      {
+        this.router.navigateByUrl('/landing');
+      }
       this.initializeData();
     }
 
