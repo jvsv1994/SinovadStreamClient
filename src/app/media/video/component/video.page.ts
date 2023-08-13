@@ -6,7 +6,7 @@ import hiBase64 from 'hi-base64';
 import { SharedService } from 'src/app/shared/services/shared-data.service';
 import { parse } from '@plussub/srt-vtt-parser';
 import Hls, { HlsConfig } from 'hls.js';
-import { HttpMethodType, LoadVideoStatus, VideoTransmissionType } from 'src/app/shared/enums';
+import { HttpMethodType, LoadVideoStatus, MediaType, VideoTransmissionType } from 'src/app/shared/enums';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { BuilderVideo } from '../models/builderVideo';
@@ -15,6 +15,8 @@ import { CustomDialogOptionsComponent, DialogOption, DialogOptionsConfiguration 
 import { LibraryService } from 'src/app/libraries/shared/library.service';
 import { MediaEpisode } from '../../shared/media-episode.model';
 import { MediaFilePlayback } from '../../shared/media-file-playback.model';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ItemDetail } from '../../shared/item-detail.model';
 @Component({
   selector: 'app-video',
   templateUrl: 'video.page.html',
@@ -22,8 +24,7 @@ import { MediaFilePlayback } from '../../shared/media-file-playback.model';
 })
 export class VideoPage implements OnInit,OnDestroy{
 
-  @Output() outputCloseVideo =new EventEmitter();
-  @Input() builderVideo: BuilderVideo;
+  builderVideo: BuilderVideo;
   _window=window;
   showVideo:boolean=true;
   lastCurrentTime:number=0;
@@ -56,17 +57,54 @@ export class VideoPage implements OnInit,OnDestroy{
   beforeUnloadFunction:any=false;
 
   constructor(
+    public activeRoute: ActivatedRoute,
+    private router: Router,
     private libraryService:LibraryService,
     private dialog: MatDialog,
     public restProvider: RestProviderService,
     public sharedService: SharedService,
     public ref: ChangeDetectorRef,
     public http: HttpClient) {
-
-
+      this.router.routeReuseStrategy.shouldReuseRoute = function () {
+        return false;
+      };
   }
 
   ngOnInit(): void {
+    var mediaServerGuid=this.activeRoute.snapshot.params.serverGuid;
+    var mediaFileId=this.activeRoute.snapshot.params.mediaFileId;
+    if(mediaServerGuid!=undefined)
+    {
+      var mediaServer=this.sharedService.mediaServers.find(x=>x.Guid==mediaServerGuid);
+      if(mediaServer && mediaFileId)
+      {
+        this.libraryService.GetMediaItemDetailByMediaFileAndProfile(mediaServer.Url,mediaFileId,this.sharedService.currentProfile.Id).then((itemDetail:ItemDetail)=>{
+            var currentTime=0;
+            if(itemDetail.LastMediaFilePlayback)
+            {
+              currentTime=itemDetail.LastMediaFilePlayback.CurrentTime;
+            }
+            if(itemDetail.MediaItem.MediaTypeId==MediaType.Movie)
+            {
+              this.builderVideo=this.libraryService.CreateBuilderVideoFromItem(itemDetail,mediaServer,currentTime);
+            }
+            if(itemDetail.MediaItem.MediaTypeId==MediaType.TvSerie)
+            {
+              this.builderVideo=this.libraryService.CreateBuilderVideoFromEpisode(itemDetail,itemDetail.CurrentEpisode,mediaServer,currentTime);
+            }
+            this.initialize();
+        },error=>{
+          this.router.navigateByUrl('/404')
+        });
+      }else{
+        this.router.navigateByUrl('/404')
+      }
+    }else{
+      this.router.navigateByUrl('/404')
+    }
+  }
+
+  private initialize(){
     let ctx=this;
     this.customMouseOutEvent=function onCustomMouseOut(event:any) {
       if(ctx.sliderContainer && ctx.sliderContainer.startMove)
@@ -184,7 +222,7 @@ export class VideoPage implements OnInit,OnDestroy{
   }
 
   public goToNextEpisode(){
-    if(this.builderVideo.TranscodePrepareVideo && this.builderVideo.ItemDetail.ListSeasons && this.builderVideo.ItemDetail.ListSeasons.length>0 && this.builderVideo.ItemDetail.CurrentSeason)
+    if(this.builderVideo && this.builderVideo.TranscodePrepareVideo && this.builderVideo.ItemDetail.ListSeasons && this.builderVideo.ItemDetail.ListSeasons.length>0 && this.builderVideo.ItemDetail.CurrentSeason)
     {
       let currentSeasonNumber=this.builderVideo.ItemDetail.CurrentSeason.SeasonNumber;
       let currentEpisodeNumber=this.builderVideo.ItemDetail.CurrentEpisode.EpisodeNumber;
@@ -240,7 +278,7 @@ export class VideoPage implements OnInit,OnDestroy{
   }
 
   public goToPreviousEpisode(){
-    if(this.builderVideo.TranscodePrepareVideo && this.builderVideo.ItemDetail.ListSeasons && this.builderVideo.ItemDetail.ListSeasons.length>0 && this.builderVideo.ItemDetail.CurrentSeason)
+    if(this.builderVideo && this.builderVideo.TranscodePrepareVideo && this.builderVideo.ItemDetail.ListSeasons && this.builderVideo.ItemDetail.ListSeasons.length>0 && this.builderVideo.ItemDetail.CurrentSeason)
     {
       let currentSeasonNumber=this.builderVideo.ItemDetail.CurrentSeason.SeasonNumber;
       let currentEpisodeNumber=this.builderVideo.ItemDetail.CurrentEpisode.EpisodeNumber;
@@ -267,7 +305,7 @@ export class VideoPage implements OnInit,OnDestroy{
   }
 
   public isEnablePreviousEpisodeButton(){
-    if(this.builderVideo.TranscodePrepareVideo && this.builderVideo.ItemDetail.ListSeasons && this.builderVideo.ItemDetail.ListSeasons.length>0 && this.builderVideo.ItemDetail.CurrentSeason)
+    if(this.builderVideo && this.builderVideo.TranscodePrepareVideo && this.builderVideo.ItemDetail.ListSeasons && this.builderVideo.ItemDetail.ListSeasons.length>0 && this.builderVideo.ItemDetail.CurrentSeason)
     {
       let currentSeasonNumber=this.builderVideo.ItemDetail.CurrentSeason.SeasonNumber;
       let currentEpisodeNumber=this.builderVideo.ItemDetail.CurrentEpisode.EpisodeNumber;
@@ -297,7 +335,7 @@ export class VideoPage implements OnInit,OnDestroy{
   }
 
   public isEnableNextEpisodeButton(){
-    if(this.builderVideo.TranscodePrepareVideo && this.builderVideo.ItemDetail.ListSeasons && this.builderVideo.ItemDetail.ListSeasons.length>0 && this.builderVideo.ItemDetail.CurrentSeason)
+    if(this.builderVideo && this.builderVideo.TranscodePrepareVideo && this.builderVideo.ItemDetail.ListSeasons && this.builderVideo.ItemDetail.ListSeasons.length>0 && this.builderVideo.ItemDetail.CurrentSeason)
     {
       let currentSeasonNumber=this.builderVideo.ItemDetail.CurrentSeason.SeasonNumber;
       let currentEpisodeNumber=this.builderVideo.ItemDetail.CurrentEpisode.EpisodeNumber;
@@ -401,7 +439,7 @@ export class VideoPage implements OnInit,OnDestroy{
       document.exitFullscreen();
     }
     this.deleteAllProcessesAndDirectories();
-    this.outputCloseVideo.emit(true);
+    this.router.navigateByUrl("/home");
   }
 
   public focusButton(button:any){
@@ -505,7 +543,7 @@ export class VideoPage implements OnInit,OnDestroy{
 
   public initializeStreams(){
     this.updateAudioAndVideoList();
-    if(this.builderVideo.TranscodePrepareVideo.CurrentTime!=undefined)
+    if(this.builderVideo && this.builderVideo.TranscodePrepareVideo.CurrentTime!=undefined)
     {
       this.lastRealVideoTime=this.builderVideo.TranscodePrepareVideo.CurrentTime;
     }else{
@@ -514,7 +552,7 @@ export class VideoPage implements OnInit,OnDestroy{
   }
 
   public updateMediaFilePlayback(){
-    if(this.builderVideo.TranscodePrepareVideo.TotalSeconds!=undefined){
+    if(this.builderVideo && this.builderVideo.TranscodePrepareVideo.TotalSeconds!=undefined){
       var currentTime=0;
       if(this.getCurrentVideoTime()>0 && this.getCurrentVideoTime()<=this.builderVideo.TranscodePrepareVideo.TotalSeconds)
       {
@@ -565,7 +603,7 @@ export class VideoPage implements OnInit,OnDestroy{
   }
 
   public getDurationTime(){
-    if(this.builderVideo.TranscodePrepareVideo && this.builderVideo.TranscodePrepareVideo.TotalSeconds)
+    if(this.builderVideo && this.builderVideo.TranscodePrepareVideo && this.builderVideo.TranscodePrepareVideo.TotalSeconds)
     {
       return this.getFormatTime(this.builderVideo.TranscodePrepareVideo.TotalSeconds);
     }else{
@@ -707,7 +745,7 @@ public onClickSlider(sliderContainer:any){
 
 
   public getSliderPogressWidth(){
-    if(this.builderVideo.TranscodePrepareVideo && this.builderVideo.TranscodePrepareVideo.TotalSeconds)
+    if(this.builderVideo && this.builderVideo.TranscodePrepareVideo && this.builderVideo.TranscodePrepareVideo.TotalSeconds)
     {
       let duration=this.builderVideo.TranscodePrepareVideo.TotalSeconds;
       let currentTime=this.lastTmpVideoTime?this.lastTmpVideoTime:this.getCurrentVideoTime();
@@ -730,7 +768,7 @@ public onClickSlider(sliderContainer:any){
   }
 
   public isPlayingVideo(){
-    if(this.builderVideo.TranscodePrepareVideo && this.builderVideo.TranscodePrepareVideo.VideoTransmissionTypeId==VideoTransmissionType.MPEGDASH)
+    if(this.builderVideo && this.builderVideo.TranscodePrepareVideo && this.builderVideo.TranscodePrepareVideo.VideoTransmissionTypeId==VideoTransmissionType.MPEGDASH)
     {
       if(this.dashMediaPlayer && !this.dashMediaPlayer.isPaused())
       {
@@ -762,7 +800,7 @@ public onClickSlider(sliderContainer:any){
       this.hls.audioTrack=1;
     } */
 
-    if(this.builderVideo.TranscodePrepareVideo && this.builderVideo.TranscodePrepareVideo.VideoTransmissionTypeId==VideoTransmissionType.MPEGDASH)
+    if(this.builderVideo && this.builderVideo.TranscodePrepareVideo && this.builderVideo.TranscodePrepareVideo.VideoTransmissionTypeId==VideoTransmissionType.MPEGDASH)
     {
       if(this.dashMediaPlayer)
       {
@@ -852,7 +890,7 @@ public onClickSlider(sliderContainer:any){
   }
 
   public getCurrentVideoTime(){
-    if(this.builderVideo.TranscodePrepareVideo && this.builderVideo.TranscodePrepareVideo.VideoTransmissionTypeId==VideoTransmissionType.MPEGDASH)
+    if(this.builderVideo && this.builderVideo.TranscodePrepareVideo && this.builderVideo.TranscodePrepareVideo.VideoTransmissionTypeId==VideoTransmissionType.MPEGDASH)
     {
       if(this.dashMediaPlayer && this.dashMediaPlayer.time())
       {

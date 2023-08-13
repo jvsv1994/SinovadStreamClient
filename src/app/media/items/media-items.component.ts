@@ -4,9 +4,7 @@ import { SharedService } from 'src/app/shared/services/shared-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MediaType } from 'src/app/shared/enums';
 import { Item } from '../shared/item.model';
-import { ItemDetail } from '../shared/item-detail.model';
 import { ItemsGroup } from '../shared/items-group.model';
-import { VideoService } from '../video/service/video.service';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { MediaGeneric } from 'src/app/shared/generics/media.generic';
 import { LibraryService } from 'src/app/libraries/shared/library.service';
@@ -29,7 +27,6 @@ export class MediaItemsComponent extends MediaGeneric implements OnInit,OnDestro
     private libraryService:LibraryService,
     public activeRoute: ActivatedRoute,
     private router: Router,
-    private videoService:VideoService,
     public restProvider: RestProviderService,
     private  ref:ChangeDetectorRef,
     public sharedService: SharedService) {
@@ -207,20 +204,7 @@ export class MediaItemsComponent extends MediaGeneric implements OnInit,OnDestro
 
     public continueVideoByItem(item:Item){
       var mediaServer=this.sharedService.mediaServers.find(x=>x.Id==item.MediaServerId);
-      this.libraryService.getMediaItemDetail(mediaServer.Url,item.MediaItemId).then((detail:ItemDetail) => {
-        if(item.MediaEpisodeId!=undefined)
-        {
-          detail.CurrentSeason=detail.ListSeasons.find(x=>x.SeasonNumber==item.SeasonNumber);
-          detail.CurrentEpisode=detail.CurrentSeason.ListEpisodes.find(x=>x.EpisodeNumber==item.EpisodeNumber);
-          var builderVideo= this.libraryService.CreateBuilderVideoFromEpisode(detail,detail.CurrentEpisode,mediaServer,item.CurrentTime);
-          this.videoService.show(builderVideo);
-        }else{
-          var builderVideo= this.libraryService.CreateBuilderVideoFromItem(detail,mediaServer,item.CurrentTime);
-          this.videoService.show(builderVideo);
-        }
-      },error=>{
-        console.error(error);
-      });
+      this.router.navigateByUrl('/media/server/'+mediaServer.Guid+"/video/"+item.FileId);
     }
 
 }

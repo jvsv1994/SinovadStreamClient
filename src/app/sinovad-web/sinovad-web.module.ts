@@ -30,6 +30,8 @@ import { ProfileEditPage } from '../profiles/profile-edit/profile-edit.page';
 import { SearchViewPage } from '../media/search/search-view/search-view.page';
 import { MediaDetailComponent } from '../media/detail/media-detail.component';
 import { MediaItemsComponent } from '../media/items/media-items.component';
+import { VideoPageModule } from '../media/video/video.module';
+import { VideoPage } from '../media/video/component/video.page';
 
 const routes: Routes = [
   {
@@ -64,6 +66,11 @@ const routes: Routes = [
         path: 'media/server/:serverGuid/libraries/:libraryId/detail',
         component: MediaDetailComponent,
         loadChildren: () => import('../media/media.module').then(m => m.MediaModule)
+      },
+      {
+        path: 'media/server/:serverGuid/video/:mediaFileId',
+        component: VideoPage,
+        loadChildren: () => import('../media/video/video.module').then(m => m.VideoPageModule)
       },
       {
         path: 'search',

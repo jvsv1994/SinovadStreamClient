@@ -162,6 +162,18 @@ export class LibraryService {
     });
   }
 
+  public GetMediaItemDetailByMediaFileAndProfile(mediaServerUrl:string,mediaFileId:number,profileId:number):Promise<ItemDetail>{
+    return new Promise((resolve, reject) => {
+      var path=mediaServerUrl+"/api/libraries/GetMediaItemDetailByMediaFileAndProfile?mediaFileId="+mediaFileId+"&profileId="+profileId;
+      this.restProvider.executeHttpMediaServerApi(HttpMethodType.GET,path).then((response:SinovadApiGenericResponse) => {
+        resolve(response.Data);
+      },error=>{
+        reject(error);
+      });
+    });
+  }
+
+
   public updateMediaFilePlayback(mediaServerUrl:string,mediaFilePlayback:MediaFilePlayback):Promise<ItemDetail>{
     return new Promise((resolve, reject) => {
       var path=mediaServerUrl+"/api/libraries/UpdateMediaFilePlayback";

@@ -4,14 +4,10 @@ import { SharedService } from 'src/app/shared/services/shared-data.service';
 import { MediaType, MetadataAgents } from 'src/app/shared/enums';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ItemDetail } from '../shared/item-detail.model';
-import { VideoService } from '../video/service/video.service';
 import { MediaGeneric } from 'src/app/shared/generics/media.generic';
 import { LibraryService } from 'src/app/libraries/shared/library.service';
 import { MediaSeason } from '../shared/media-season.model';
 import { MediaEpisode } from '../shared/media-episode.model';
-import {v4 as uuid} from "uuid";
-import { TranscodePrepareVideo } from '../video/models/transcodePrepareVideo';
-import { BuilderVideo } from '../video/models/builderVideo';
 
 declare var window;
 @Component({
@@ -33,7 +29,6 @@ export class MediaDetailComponent extends MediaGeneric implements OnInit {
     private libraryService:LibraryService,
     public activeRoute: ActivatedRoute,
     private router: Router,
-    private videoService:VideoService,
     private  ref:ChangeDetectorRef,
     public sharedService: SharedService) {
       super(activeRoute,sharedService)
@@ -133,7 +128,8 @@ export class MediaDetailComponent extends MediaGeneric implements OnInit {
     }
 
     public getVideosByItem(){
-      this.videoService.show(this.libraryService.CreateBuilderVideoFromItem(this.detail,this.mediaServer));
+      var mediaFile=this.detail.ListMediaFiles[0];
+      this.router.navigateByUrl('/media/server/'+this.mediaServer.Guid+"/video/"+mediaFile.Id);
     }
 
     public onClickSeason(item:MediaSeason){
@@ -145,9 +141,9 @@ export class MediaDetailComponent extends MediaGeneric implements OnInit {
     }
 
     public getVideoByEpisode(episode:MediaEpisode){
-      this.videoService.show(this.libraryService.CreateBuilderVideoFromEpisode(this.detail,episode,this.mediaServer));
+      var mediaFile=episode.ListMediaFiles[0];
+      this.router.navigateByUrl('/media/server/'+this.mediaServer.Guid+"/video/"+mediaFile.Id);
     }
-
 
     @HostListener('window:resize', ['$event'])
     onResize(event) {

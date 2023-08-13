@@ -22,6 +22,7 @@ import { LandingPage } from '../landing/landing.page';
 import { ConfirmEmailPage } from '../confirm-email/confirm-email.page';
 import { MediaDetailComponent } from '../media/detail/media-detail.component';
 import { MediaItemsComponent } from '../media/items/media-items.component';
+import { VideoPage } from '../media/video/component/video.page';
 
 @Component({
   selector: 'app-web-container',
@@ -47,7 +48,7 @@ export class WebContainerPage{
     public onActivate(event:any){
       this.isCollapsedSidebar=true;
       this.sharedService.showSplashScreen=false;
-      if(event instanceof NotFoundPage || event instanceof LoginPage || event instanceof RegisterUserPage || event instanceof RecoverPasswordPage || event instanceof ResetPasswordPage
+      if(event instanceof NotFoundPage || event instanceof VideoPage || event instanceof LoginPage || event instanceof RegisterUserPage || event instanceof RecoverPasswordPage || event instanceof ResetPasswordPage
         || event instanceof LandingPage || event instanceof ConfirmEmailPage || event instanceof ProfilesViewPage)
       {
         this.showRouterChildWithFullDimentions=true;
