@@ -51,9 +51,9 @@ export class MediaDetailComponent extends MediaGeneric implements OnInit {
       }
     }
 
-    public getEpisodeImagePath(episode:any){
-      if(this.detail.MediaItem.MetadataAgentsId==MetadataAgents.TMDb && episode.StillPath){
-        return this.sharedService.urlEpisodeDataBase+episode.StillPath;
+    public getEpisodeImagePath(episode:MediaEpisode){
+      if(this.detail.MediaItem.MetadataAgentsId==MetadataAgents.TMDb && episode.PosterPath){
+        return this.sharedService.urlEpisodeDataBase+episode.PosterPath;
       }else{
         return this.sharedService.getUrlByItemDetailMovieDataBase(this.detail);
       }
