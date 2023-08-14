@@ -9,6 +9,7 @@ import { RestProviderService } from 'src/app/shared/services/rest-provider.servi
 import { MediaGeneric } from 'src/app/shared/generics/media.generic';
 import { LibraryService } from 'src/app/libraries/shared/library.service';
 import { Subscription } from 'rxjs';
+import { MediaService } from '../shared/services/media.service';
 
 @Component({
   selector: 'app-media-server',
@@ -21,9 +22,10 @@ export class MediaItemsComponent extends MediaGeneric implements OnInit,OnDestro
   listItems: any[];
   itemsGroupList:ItemsGroup[]=[];
   _window=window;
-  subscriptionUpdatingLibraries:Subscription;
+  subscriptionUpdatingMediaItems:Subscription;
 
   constructor(
+    private mediaService:MediaService,
     private libraryService:LibraryService,
     public activeRoute: ActivatedRoute,
     public router: Router,
@@ -31,7 +33,7 @@ export class MediaItemsComponent extends MediaGeneric implements OnInit,OnDestro
     private  ref:ChangeDetectorRef,
     public sharedService: SharedService) {
       super(router,activeRoute,sharedService);
-      this.subscriptionUpdatingLibraries=this.libraryService.isUpdatingLibraries().subscribe((res)=>{
+      this.subscriptionUpdatingMediaItems=this.mediaService.isUpdatingMediaItems().subscribe((res)=>{
         this.initializeData();
       });
       this.router.routeReuseStrategy.shouldReuseRoute = function () {
@@ -51,7 +53,7 @@ export class MediaItemsComponent extends MediaGeneric implements OnInit,OnDestro
     }
 
     ngOnDestroy(){
-      this.subscriptionUpdatingLibraries.unsubscribe();
+      this.subscriptionUpdatingMediaItems.unsubscribe();
     }
 
     public initializeData(): void {
@@ -132,15 +134,26 @@ export class MediaItemsComponent extends MediaGeneric implements OnInit,OnDestro
     }
 
     private setItemsInGroup(mediaServerId:number,itemsGroupList:ItemsGroup[]){
-      itemsGroupList.forEach(itemGroup => {
-        var itemGroupFinded=this.itemsGroupList.find(x=>x.MediaServerId==mediaServerId && x.Id==itemGroup.Id);
-        if(itemGroupFinded==undefined)
+      if(itemsGroupList.length>0)
+      {
+        itemsGroupList.forEach(itemGroup => {
+          var itemGroupFinded=this.itemsGroupList.find(x=>x.MediaServerId==mediaServerId && x.Id==itemGroup.Id);
+          if(itemGroupFinded==undefined)
+          {
+            this.itemsGroupList.push(itemGroup);
+          }else{
+            itemGroupFinded.ListItems=itemGroup.ListItems;
+          }
+        });
+      }else{
+        var itemGroupListToDelete=this.itemsGroupList.filter(x=>x.MediaServerId==mediaServerId);
+        if(itemGroupListToDelete && itemGroupListToDelete.length>0)
         {
-          this.itemsGroupList.push(itemGroup);
-        }else{
-          itemGroupFinded.ListItems=itemGroup.ListItems;
+          itemGroupListToDelete.forEach(itemGroup => {
+            itemGroup.ListItems=[];
+          });
         }
-      });
+      }
     }
 
     private clearItemsInGroup(mediaServerId:number){

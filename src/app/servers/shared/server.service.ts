@@ -9,7 +9,8 @@ import { SharedService } from 'src/app/shared/services/shared-data.service';
 import { LibraryService } from 'src/app/libraries/shared/library.service';
 import { Library } from 'src/app/libraries/shared/library.model';
 import { MenuService } from 'src/app/menus/shared/menu.service';
-export declare type EventHandler = (...args: any[]) => any;
+import { SignalIRHubService } from 'src/app/media/shared/services/signal-ir-hub.service';
+import { MediaService } from 'src/app/media/shared/services/media.service';
 
 @Injectable({ providedIn: 'root' })
 export class MediaServerService {
@@ -17,6 +18,8 @@ export class MediaServerService {
   lastCallGuid:string;
 
   constructor(
+    private mediaService:MediaService,
+    private signalIrHubService:SignalIRHubService,
     private menuService:MenuService,
     private libraryService:LibraryService,
     private sharedService:SharedService,
@@ -41,22 +44,48 @@ export class MediaServerService {
   public checkSecureConnectionMediaServers(){
     if(this.sharedService.mediaServers!=null && this.sharedService.mediaServers.length>0)
     {
-      var ctx=this;
-      ctx.sharedService.mediaServers.forEach(mediaServer => {
-        ctx.libraryService.getLibrariesByMediaServer(mediaServer.Url).then((libraries:Library[]) => {
-            mediaServer.ListLibraries=libraries;
-            mediaServer.isSecureConnection=true;
-            ctx.libraryService.updateLibraries();
-        },error=>{
-          mediaServer.ListLibraries=[];
-          mediaServer.isSecureConnection=false;
-          ctx.libraryService.updateLibraries();
-        });
+      this.sharedService.mediaServers.forEach(mediaServer => {
+       this.tryConnectionByMediaServer(mediaServer);
       });
     }
-    setTimeout(() => {
-      this.checkSecureConnectionMediaServers();
-    }, 10000);
+  }
+
+  public tryConnectionByMediaServer(mediaServer:MediaServer){
+    var ctx=this;
+    this.signalIrHubService.openConnectionByMediaServer(mediaServer).then(res=>{
+      ctx.executeGetLibrariesByMediaServer(mediaServer);
+      var mediaServerHubConnection=ctx.sharedService.mediaServerHubConnections.find(x=>x.MediaServer && x.MediaServer.Id==mediaServer.Id);
+      if(mediaServerHubConnection && mediaServerHubConnection.HubConnection)
+      {
+        mediaServerHubConnection.HubConnection.on('RefreshLibraries', (message) => {
+          console.log("RefreshLibraries");
+          ctx.executeGetLibrariesByMediaServer(mediaServer);
+        });
+        mediaServerHubConnection.HubConnection.on('RefreshMediaItems', (message) => {
+          console.log("RefreshMediaItems");
+          ctx.mediaService.updateMediaItems();
+        });
+      }
+    },error=>{
+      mediaServer.isSecureConnection=false;
+      setTimeout(() => {
+        ctx.tryConnectionByMediaServer(mediaServer);
+      }, 10000);
+    });
+  }
+
+  private executeGetLibrariesByMediaServer(mediaServer:MediaServer){
+    this.libraryService.getLibrariesByMediaServer(mediaServer.Url).then((libraries:Library[]) => {
+      mediaServer.ListLibraries=libraries;
+      mediaServer.isSecureConnection=true;
+      this.libraryService.updateLibraries();
+      this.mediaService.updateMediaItems();
+    },error=>{
+      mediaServer.ListLibraries=[];
+      mediaServer.isSecureConnection=false;
+      this.libraryService.updateLibraries();
+      this.mediaService.updateMediaItems();
+    });
   }
 
   public getMediaServerByGuid(guid:string):Promise<SinovadApiGenericResponse>{

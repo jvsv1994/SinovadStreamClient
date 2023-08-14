@@ -14,8 +14,6 @@ import { MediaEpisode } from 'src/app/media/shared/media-episode.model';
 import { Item } from 'src/app/media/shared/item.model';
 import { MediaFilePlayback } from 'src/app/media/shared/media-file-playback.model';
 
-export declare type EventHandler = (...args: any[]) => any;
-
 @Injectable({ providedIn: 'root' })
 export class LibraryService {
 
