@@ -1,9 +1,9 @@
 
 import { Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 import { SharedService } from 'src/app/shared/services/shared-data.service';
-import { Item } from '../../shared/item.model';
 import { Router } from '@angular/router';
 import { LibraryService } from 'src/app/libraries/shared/library.service';
+import { Item } from '../../shared/models/item.model';
 
 declare var window;
 @Component({

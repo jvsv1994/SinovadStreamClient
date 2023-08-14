@@ -3,11 +3,11 @@ import { ChangeDetectorRef, Component, HostListener, OnInit} from '@angular/core
 import { SharedService } from 'src/app/shared/services/shared-data.service';
 import { MediaType, MetadataAgents } from 'src/app/shared/enums';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ItemDetail } from '../shared/item-detail.model';
 import { MediaGeneric } from 'src/app/shared/generics/media.generic';
 import { LibraryService } from 'src/app/libraries/shared/library.service';
-import { MediaSeason } from '../shared/media-season.model';
-import { MediaEpisode } from '../shared/media-episode.model';
+import { ItemDetail } from '../shared/models/item-detail.model';
+import { MediaEpisode } from '../shared/models/media-episode.model';
+import { MediaSeason } from '../shared/models/media-season.model';
 
 declare var window;
 @Component({

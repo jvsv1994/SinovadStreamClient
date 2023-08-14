@@ -5,11 +5,11 @@ import { Profile } from 'src/app/profiles/shared/profile.model';
 import { Configuration } from '../models/configuration.model';
 import { MediaServer } from 'src/app/servers/shared/server.model';
 import { FormGroup } from '@angular/forms';
-import { ItemDetail } from 'src/app/media/shared/item-detail.model';
-import { Item } from 'src/app/media/shared/item.model';
 import { Library } from 'src/app/libraries/shared/library.model';
 import { MetadataAgents } from '../enums';
 import { MediaServerHubConnection } from 'src/app/media/shared/models/media-server-hub-connection.model';
+import { ItemDetail } from 'src/app/media/shared/models/item-detail.model';
+import { Item } from 'src/app/media/shared/models/item.model';
 
 @Injectable({ providedIn: 'root' })
 export class SharedService {

@@ -3,13 +3,13 @@ import { ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import { SharedService } from 'src/app/shared/services/shared-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MediaType } from 'src/app/shared/enums';
-import { Item } from '../shared/item.model';
-import { ItemsGroup } from '../shared/items-group.model';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { MediaGeneric } from 'src/app/shared/generics/media.generic';
 import { LibraryService } from 'src/app/libraries/shared/library.service';
 import { Subscription } from 'rxjs';
 import { MediaService } from '../shared/services/media.service';
+import { ItemsGroup } from '../shared/models/items-group.model';
+import { Item } from '../shared/models/item.model';
 
 @Component({
   selector: 'app-media-server',

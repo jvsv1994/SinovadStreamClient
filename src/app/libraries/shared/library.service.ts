@@ -4,15 +4,15 @@ import { HttpMethodType, MediaType } from 'src/app/shared/enums';
 import { SinovadApiGenericResponse } from 'src/app/response/sinovadApiGenericResponse';
 import { Library } from './library.model';
 import {v4 as uuid} from "uuid";
-import { ItemsGroup } from 'src/app/media/shared/items-group.model';
 import { Observable, Subject } from 'rxjs';
-import { ItemDetail } from 'src/app/media/shared/item-detail.model';
 import { TranscodePrepareVideo } from 'src/app/media/video/models/transcodePrepareVideo';
 import { BuilderVideo } from 'src/app/media/video/models/builderVideo';
 import { MediaServer } from 'src/app/servers/shared/server.model';
-import { MediaEpisode } from 'src/app/media/shared/media-episode.model';
-import { Item } from 'src/app/media/shared/item.model';
-import { MediaFilePlayback } from 'src/app/media/shared/media-file-playback.model';
+import { ItemsGroup } from 'src/app/media/shared/models/items-group.model';
+import { Item } from 'src/app/media/shared/models/item.model';
+import { ItemDetail } from 'src/app/media/shared/models/item-detail.model';
+import { MediaFilePlayback } from 'src/app/media/shared/models/media-file-playback.model';
+import { MediaEpisode } from 'src/app/media/shared/models/media-episode.model';
 
 @Injectable({ providedIn: 'root' })
 export class LibraryService {

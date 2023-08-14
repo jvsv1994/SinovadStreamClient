@@ -1,7 +1,7 @@
 import { LoadVideoStatus } from "src/app/shared/enums";
 import { TranscodePrepareVideo } from "./transcodePrepareVideo";
 import { TranscodeRunVideo } from "./transcodeRunVideo";
-import { ItemDetail } from "src/app/media/shared/item-detail.model";
+import { ItemDetail } from "../../shared/models/item-detail.model";
 
 export class BuilderVideo{
 

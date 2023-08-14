@@ -13,10 +13,10 @@ import { BuilderVideo } from '../models/builderVideo';
 import { TranscodeRunVideo } from '../models/transcodeRunVideo';
 import { CustomDialogOptionsComponent, DialogOption, DialogOptionsConfiguration } from 'src/app/shared/components/custom-dialog-options/custom-dialog-options.component';
 import { LibraryService } from 'src/app/libraries/shared/library.service';
-import { MediaEpisode } from '../../shared/media-episode.model';
-import { MediaFilePlayback } from '../../shared/media-file-playback.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ItemDetail } from '../../shared/item-detail.model';
+import { MediaEpisode } from '../../shared/models/media-episode.model';
+import { MediaFilePlayback } from '../../shared/models/media-file-playback.model';
+import { ItemDetail } from '../../shared/models/item-detail.model';
 @Component({
   selector: 'app-video',
   templateUrl: 'video.page.html',
