@@ -8,18 +8,23 @@ import {v4 as uuid} from "uuid";
 import { SharedService } from 'src/app/shared/services/shared-data.service';
 import { LibraryService } from 'src/app/libraries/shared/library.service';
 import { Library } from 'src/app/libraries/shared/library.model';
+import { Subscription } from 'rxjs';
 export declare type EventHandler = (...args: any[]) => any;
 
 @Injectable({ providedIn: 'root' })
 export class MenuService {
 
   lastCallGuid:string;
+  subscriptionUpdatingLibraries:Subscription;
 
   constructor(
     private libraryService:LibraryService,
     public sharedService:SharedService,
     private restProvider: RestProviderService,
   ) {
+    this.subscriptionUpdatingLibraries=this.libraryService.isUpdatingLibraries().subscribe((res)=>{
+      this.buildMediaMenuFromListLibraries();
+    });
   }
 
   public getMediaMenu(){
@@ -76,9 +81,6 @@ export class MenuService {
         mediaServerMenu.ChildMenus=[];
       }
     });
-    setTimeout(() => {
-      this.buildMediaMenuFromListLibraries();
-    }, 1000);
   }
 
   public getManageMenu(): Promise<any>{
