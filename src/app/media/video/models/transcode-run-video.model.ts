@@ -1,4 +1,4 @@
-import { TranscodePrepareVideo } from "./transcodePrepareVideo";
+import { TranscodePrepareVideo } from "./transcode-prepare-video.model";
 
 export class TranscodeRunVideo{
 

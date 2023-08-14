@@ -1,4 +1,4 @@
-import { CustomStream } from "./customStream";
+import { CustomStream } from "./custom-stream.model";
 
 export class TranscodePrepareVideo{
 

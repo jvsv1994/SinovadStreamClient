@@ -9,14 +9,14 @@ import Hls, { HlsConfig } from 'hls.js';
 import { HttpMethodType, LoadVideoStatus, MediaType, VideoTransmissionType } from 'src/app/shared/enums';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { BuilderVideo } from '../models/builderVideo';
-import { TranscodeRunVideo } from '../models/transcodeRunVideo';
 import { CustomDialogOptionsComponent, DialogOption, DialogOptionsConfiguration } from 'src/app/shared/components/custom-dialog-options/custom-dialog-options.component';
 import { LibraryService } from 'src/app/libraries/shared/library.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MediaEpisode } from '../../shared/models/media-episode.model';
 import { MediaFilePlayback } from '../../shared/models/media-file-playback.model';
 import { ItemDetail } from '../../shared/models/item-detail.model';
+import { BuilderVideo } from '../models/builder-video.model';
+import { TranscodeRunVideo } from '../models/transcode-run-video.model';
 @Component({
   selector: 'app-video',
   templateUrl: 'video.page.html',
