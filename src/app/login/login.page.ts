@@ -47,10 +47,7 @@ export class LoginPage implements OnInit {
     }
 
   ngOnInit(): void {
-    if(localStorage.getItem('apiToken'))
-    {
-      this.router.navigateByUrl('/home');
-    }
+
   }
 
   ngOnDestroy(){

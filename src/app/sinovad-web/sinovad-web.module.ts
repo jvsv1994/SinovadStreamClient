@@ -30,9 +30,9 @@ import { ProfileEditPage } from '../profiles/profile-edit/profile-edit.page';
 import { SearchViewPage } from '../media/search/search-view/search-view.page';
 import { MediaDetailComponent } from '../media/detail/media-detail.component';
 import { MediaItemsComponent } from '../media/items/media-items.component';
-import { VideoPageModule } from '../media/video/video.module';
 import { VideoPage } from '../media/video/component/video.page';
 import { loggedUserGuard } from '../shared/guards/logged-user.guard';
+import { unloggedUserGuard } from '../shared/guards/unlogged-user.guard ';
 
 const routes: Routes = [
   {
@@ -167,32 +167,38 @@ const routes: Routes = [
       {
         path: 'landing',
         component:LandingPage,
-        loadChildren: () => import('../landing/landing.module').then(m => m.LandingPageModule)
+        loadChildren: () => import('../landing/landing.module').then(m => m.LandingPageModule),
+        canActivate:[unloggedUserGuard]
       },
       {
         path: 'register',
         component:RegisterUserPage,
-        loadChildren: () => import('../register-user/register-user.module').then(m => m.RegisterAcccountPageModule)
+        loadChildren: () => import('../register-user/register-user.module').then(m => m.RegisterAcccountPageModule),
+        canActivate:[unloggedUserGuard]
       },
       {
         path: 'login',
         component:LoginPage,
-        loadChildren: () => import('../login/login.module').then(m => m.LoginPageModule)
+        loadChildren: () => import('../login/login.module').then(m => m.LoginPageModule),
+        canActivate:[unloggedUserGuard]
       },
       {
         path: 'recover',
         component:RecoverPasswordPage,
-        loadChildren: () => import('../recover-password/recover-password.module').then(m => m.RecoverPasswordPageModule)
+        loadChildren: () => import('../recover-password/recover-password.module').then(m => m.RecoverPasswordPageModule),
+        canActivate:[unloggedUserGuard]
       },
       {
         path: 'reset/:base64Data',
         component:ResetPasswordPage,
-        loadChildren: () => import('../reset-password/reset-password.module').then(m => m.ResetPasswordPageModule)
+        loadChildren: () => import('../reset-password/reset-password.module').then(m => m.ResetPasswordPageModule),
+        canActivate:[unloggedUserGuard]
       },
       {
        path: 'confirm/:base64Data',
        component:ConfirmEmailPage,
-       loadChildren: () => import('../confirm-email/confirm-email.module').then(m => m.ConfirmEmailPageModule)
+       loadChildren: () => import('../confirm-email/confirm-email.module').then(m => m.ConfirmEmailPageModule),
+       canActivate:[unloggedUserGuard]
       },
       {path: '404',
        component: NotFoundPage,

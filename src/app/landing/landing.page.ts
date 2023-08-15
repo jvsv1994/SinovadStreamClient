@@ -28,10 +28,6 @@ export class LandingPage implements OnInit {
     }
 
   ngOnInit(): void {
-    if(localStorage.getItem('apiToken'))
-    {
-      this.router.navigateByUrl('/home');
-    }
   }
 
   public showLoginPage(){

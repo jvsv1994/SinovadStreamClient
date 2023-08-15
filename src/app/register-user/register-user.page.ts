@@ -40,10 +40,6 @@ export class RegisterUserPage implements OnInit {
     }
 
     ngOnInit(): void {
-      if(localStorage.getItem('apiToken'))
-      {
-        this.router.navigate(['home'],{ skipLocationChange: false});
-      }
     }
 
     public register(){

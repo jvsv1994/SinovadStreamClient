@@ -43,10 +43,6 @@ export class ResetPasswordPage implements OnInit {
     }
 
   ngOnInit(): void {
-    if(localStorage.getItem('apiToken'))
-    {
-      this.router.navigate(['home'],{ skipLocationChange: false});
-    }
     let base64Data = this.activeRoute.snapshot.params.base64Data;
     if(base64Data!=null)
     {
