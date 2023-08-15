@@ -1,5 +1,4 @@
 import { Component, Input, ViewChild } from '@angular/core';
-import { SinovadApiPaginationResponse } from 'src/app/response/sinovadApiPaginationResponse';
 import { Episode } from '../shared/episode.model';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatPaginator, MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
@@ -14,6 +13,7 @@ import { EpisodeFormPage } from '../episode-form/episode-form.page';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Season } from 'src/app/seasons/shared/season.model';
 import { EpisodeRangeModalPage } from '../episode-range-modal/episode-range-modal.page';
+import { SinovadApiPaginationResponse } from 'src/app/shared/models/response/sinovad-api-pagination-response.model';
 @Component({
   selector: 'app-episode-list',
   templateUrl: 'episode-list.page.html',

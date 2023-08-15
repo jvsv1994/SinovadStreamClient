@@ -1,6 +1,5 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { User } from 'src/app/users/shared/user.model';
-import { SinovadApiPaginationResponse } from 'src/app/response/sinovadApiPaginationResponse';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatPaginator, MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { CustomListGeneric } from 'src/app/shared/generics/custom-list.generic';
@@ -11,6 +10,7 @@ import { ConfirmDialogOptions, CustomConfirmDialogComponent } from 'src/app/shar
 import { SnackBarType } from 'src/app/shared/components/custom-snack-bar/custom-snack-bar.component';
 import { MediaServerService } from '../shared/server.service';
 import { MediaServer } from '../shared/server.model';
+import { SinovadApiPaginationResponse } from 'src/app/shared/models/response/sinovad-api-pagination-response.model';
 @Component({
   selector: 'app-media-server-list',
   templateUrl: 'media-server-list.page.html',

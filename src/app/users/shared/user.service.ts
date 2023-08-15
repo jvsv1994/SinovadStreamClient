@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { HttpMethodType } from 'src/app/shared/enums';
-import { SinovadApiPaginationResponse } from 'src/app/response/sinovadApiPaginationResponse';
-import { SinovadApiGenericResponse } from 'src/app/response/sinovadApiGenericResponse';
 import {v4 as uuid} from "uuid";
 import { User } from './user.model';
 import { SharedService } from 'src/app/shared/services/shared-data.service';
+import { SinovadApiPaginationResponse } from 'src/app/shared/models/response/sinovad-api-pagination-response.model';
+import { SinovadApiGenericResponse } from 'src/app/shared/models/response/sinovad-api-generic-response.model';
 export declare type EventHandler = (...args: any[]) => any;
 
 @Injectable({ providedIn: 'root' })

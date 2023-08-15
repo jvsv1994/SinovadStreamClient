@@ -3,13 +3,13 @@ import { Component, OnInit } from '@angular/core';
 import { SharedService } from 'src/app/shared/services/shared-data.service';
 import { HttpMethodType } from 'src/app/shared/enums';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
-import { SinovadApiGenericResponse } from '../response/sinovadApiGenericResponse';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { SnackBarService } from 'src/app/shared/services/snack-bar.service';
 import { SnackBarType } from '../shared/components/custom-snack-bar/custom-snack-bar.component';
 import { MediaServer } from '../servers/shared/server.model';
 import { MediaServerService } from '../servers/shared/server.service';
+import { SinovadApiGenericResponse } from '../shared/models/response/sinovad-api-generic-response.model';
 
 declare var window;
 @Component({

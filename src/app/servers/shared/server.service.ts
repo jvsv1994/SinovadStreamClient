@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { HttpMethodType } from 'src/app/shared/enums';
-import { SinovadApiPaginationResponse } from 'src/app/response/sinovadApiPaginationResponse';
-import { SinovadApiGenericResponse } from 'src/app/response/sinovadApiGenericResponse';
 import {v4 as uuid} from "uuid";
 import { MediaServer } from './server.model';
 import { SharedService } from 'src/app/shared/services/shared-data.service';
@@ -11,6 +9,8 @@ import { Library } from 'src/app/libraries/shared/library.model';
 import { MenuService } from 'src/app/menus/shared/menu.service';
 import { SignalIRHubService } from 'src/app/media/shared/services/signal-ir-hub.service';
 import { MediaService } from 'src/app/media/shared/services/media.service';
+import { SinovadApiGenericResponse } from 'src/app/shared/models/response/sinovad-api-generic-response.model';
+import { SinovadApiPaginationResponse } from 'src/app/shared/models/response/sinovad-api-pagination-response.model';
 
 @Injectable({ providedIn: 'root' })
 export class MediaServerService {

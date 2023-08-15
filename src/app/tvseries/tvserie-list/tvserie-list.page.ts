@@ -9,12 +9,12 @@ import { SnackBarService } from 'src/app/shared/services/snack-bar.service';
 import { TvSerieService } from '../shared/tvserie.service';
 import { TvSerie } from '../shared/tvserie.model';
 import { TvSerieFormPage } from '../tvserie-form/tvserie-form.page';
-import { SinovadApiPaginationResponse } from 'src/app/response/sinovadApiPaginationResponse';
 import { MatTableDataSource } from '@angular/material/table';
 import { ConfirmDialogOptions, CustomConfirmDialogComponent } from 'src/app/shared/components/custom-confirm-dialog/custom-confirm-dialog.component';
 import { SnackBarType } from 'src/app/shared/components/custom-snack-bar/custom-snack-bar.component';
 import { SeasonListModalPage } from 'src/app/seasons/season-list-modal/season-list-modal.page';
 import { Router } from '@angular/router';
+import { SinovadApiPaginationResponse } from 'src/app/shared/models/response/sinovad-api-pagination-response.model';
 
 @Component({
   selector: 'app-tvserie-list',

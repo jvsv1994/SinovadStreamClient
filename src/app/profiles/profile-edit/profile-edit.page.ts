@@ -4,9 +4,9 @@ import { SharedService } from 'src/app/shared/services/shared-data.service';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { HttpMethodType } from 'src/app/shared/enums';
 import { Profile } from '../shared/profile.model';
-import { SinovadApiGenericResponse } from 'src/app/response/sinovadApiGenericResponse';
 import { ProfileService } from '../shared/profile.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { SinovadApiGenericResponse } from 'src/app/shared/models/response/sinovad-api-generic-response.model';
 
 declare var window;
 @Component({

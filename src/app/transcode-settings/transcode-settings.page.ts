@@ -3,7 +3,6 @@ import { Component, OnInit} from '@angular/core';
 import { SharedService } from 'src/app/shared/services/shared-data.service';
 import { CatalogEnum, HttpMethodType } from 'src/app/shared/enums';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
-import { SinovadApiGenericResponse } from '../response/sinovadApiGenericResponse';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { SnackBarService } from 'src/app/shared/services/snack-bar.service';
@@ -14,6 +13,7 @@ import { MediaServer } from '../servers/shared/server.model';
 import { CatalogDetail } from '../catalogs/shared/catalog-detail.model';
 import { TranscoderSettings } from './shared/transcoder-settings.model';
 import { TranscoderSettingsService } from './shared/transcoderSettings.service';
+import { SinovadApiGenericResponse } from '../shared/models/response/sinovad-api-generic-response.model';
 
 declare var window;
 @Component({

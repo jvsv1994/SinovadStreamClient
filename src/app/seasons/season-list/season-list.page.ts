@@ -1,5 +1,4 @@
 import { Component, Input, ViewChild } from '@angular/core';
-import { SinovadApiPaginationResponse } from 'src/app/response/sinovadApiPaginationResponse';
 import { Season } from '../shared/season.model';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatPaginator, MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
@@ -14,6 +13,7 @@ import { SeasonFormPage } from '../season-form/season-form.page';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { TvSerie } from 'src/app/tvseries/shared/tvserie.model';
 import { EpisodeListModalPage } from 'src/app/episodes/episode-list-modal/episode-list-modal.page';
+import { SinovadApiPaginationResponse } from 'src/app/shared/models/response/sinovad-api-pagination-response.model';
 @Component({
   selector: 'app-season-list',
   templateUrl: 'season-list.page.html',

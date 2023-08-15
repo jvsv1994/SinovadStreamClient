@@ -1,10 +1,8 @@
 
 import { Component, OnInit } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
 import { SharedService } from 'src/app/shared/services/shared-data.service';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { HttpMethodType } from 'src/app/shared/enums';
-import { SinovadApiGenericResponse } from '../response/sinovadApiGenericResponse';
 import { Router } from '@angular/router';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { User } from '../users/shared/user.model';
@@ -13,6 +11,7 @@ import { ProfileService } from '../profiles/shared/profile.service';
 import { UserService } from '../users/shared/user.service';
 import { MenuService } from '../menus/shared/menu.service';
 import { LibraryService } from '../libraries/shared/library.service';
+import { SinovadApiGenericResponse } from '../shared/models/response/sinovad-api-generic-response.model';
 
 declare var window;
 @Component({

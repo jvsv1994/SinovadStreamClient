@@ -1,7 +1,7 @@
 
 import { Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import { SinovadApiPaginationResponse } from '../../../response/sinovadApiPaginationResponse';
 import { PaginationItem } from './pagination-item-model';
+import { SinovadApiPaginationResponse } from '../../models/response/sinovad-api-pagination-response.model';
 
 @Component({
   selector: 'app-custom-pagination',

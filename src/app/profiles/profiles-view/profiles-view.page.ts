@@ -4,7 +4,7 @@ import { SharedService } from 'src/app/shared/services/shared-data.service';
 import { Router } from '@angular/router';
 import { Profile } from '../shared/profile.model';
 import { ProfileService } from '../shared/profile.service';
-import { SinovadApiGenericResponse } from 'src/app/response/sinovadApiGenericResponse';
+import { SinovadApiGenericResponse } from 'src/app/shared/models/response/sinovad-api-generic-response.model';
 
 declare var window;
 @Component({

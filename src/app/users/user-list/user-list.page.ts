@@ -1,6 +1,5 @@
 
 import { Component, ViewChild} from '@angular/core';
-import { SinovadApiPaginationResponse } from 'src/app/response/sinovadApiPaginationResponse';
 import { User } from '../shared/user.model';
 import { CustomListGeneric } from 'src/app/shared/generics/custom-list.generic';
 import { MatPaginator, MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
@@ -16,6 +15,7 @@ import { ContextMenuOption } from 'src/app/shared/components/custom-context-menu
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MediaServerListModalPage } from 'src/app/servers/server-list-modal/media-server-list-modal.page';
 import { Router } from '@angular/router';
+import { SinovadApiPaginationResponse } from 'src/app/shared/models/response/sinovad-api-pagination-response.model';
 
 @Component({
   selector: 'app-user-list',

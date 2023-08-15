@@ -1,7 +1,6 @@
 
 import { Component, EventEmitter } from '@angular/core';
 import { SharedService } from 'src/app/shared/services/shared-data.service';
-import { SinovadApiGenericResponse } from '../../response/sinovadApiGenericResponse';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { SnackBarService } from '../../shared/services/snack-bar.service';
@@ -14,6 +13,7 @@ import { LibraryFormComponent } from '../library-form/library-form.component';
 import { CustomMenuItem, CustomMenuService } from 'src/app/shared/services/custom-menu.service';
 import { MediaServer } from 'src/app/servers/shared/server.model';
 import { MediaServerService } from 'src/app/servers/shared/server.service';
+import { SinovadApiGenericResponse } from 'src/app/shared/models/response/sinovad-api-generic-response.model';
 
 declare var window;
 @Component({

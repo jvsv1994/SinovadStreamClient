@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { HttpMethodType, MediaType } from 'src/app/shared/enums';
-import { SinovadApiGenericResponse } from 'src/app/response/sinovadApiGenericResponse';
 import { Library } from './library.model';
 import {v4 as uuid} from "uuid";
 import { Observable, Subject } from 'rxjs';
@@ -13,6 +12,7 @@ import { MediaFilePlayback } from 'src/app/media/shared/models/media-file-playba
 import { MediaEpisode } from 'src/app/media/shared/models/media-episode.model';
 import { TranscodePrepareVideo } from 'src/app/media/video/models/transcode-prepare-video.model';
 import { BuilderVideo } from 'src/app/media/video/models/builder-video.model';
+import { SinovadApiGenericResponse } from 'src/app/shared/models/response/sinovad-api-generic-response.model';
 
 @Injectable({ providedIn: 'root' })
 export class LibraryService {

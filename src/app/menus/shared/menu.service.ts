@@ -2,14 +2,13 @@ import { Injectable } from '@angular/core';
 import { Menu } from './menu.model';
 import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
 import { HttpMethodType, MediaType } from 'src/app/shared/enums';
-import { SinovadApiPaginationResponse } from 'src/app/response/sinovadApiPaginationResponse';
-import { SinovadApiGenericResponse } from 'src/app/response/sinovadApiGenericResponse';
 import {v4 as uuid} from "uuid";
 import { SharedService } from 'src/app/shared/services/shared-data.service';
 import { LibraryService } from 'src/app/libraries/shared/library.service';
 import { Library } from 'src/app/libraries/shared/library.model';
 import { Subscription } from 'rxjs';
-export declare type EventHandler = (...args: any[]) => any;
+import { SinovadApiGenericResponse } from 'src/app/shared/models/response/sinovad-api-generic-response.model';
+import { SinovadApiPaginationResponse } from 'src/app/shared/models/response/sinovad-api-pagination-response.model';
 
 @Injectable({ providedIn: 'root' })
 export class MenuService {

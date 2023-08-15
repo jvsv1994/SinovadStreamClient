@@ -10,10 +10,10 @@ import { MyErrorStateMatcher } from 'src/app/shared/custom-error-state-matcher';
 import { GenresSelectionModalComponent } from 'src/app/genres/genres-selection-modal/genres-selection-modal.component';
 import { GenreService } from 'src/app/genres/shared/genre.service';
 import { Genre } from 'src/app/genres/shared/genre.model';
-import { SinovadApiGenericResponse } from 'src/app/response/sinovadApiGenericResponse';
 import { SelectionModel } from '@angular/cdk/collections';
 import { MovieGenre } from '../shared/movie-genre.model';
 import { SharedService } from 'src/app/shared/services/shared-data.service';
+import { SinovadApiGenericResponse } from 'src/app/shared/models/response/sinovad-api-generic-response.model';
 
 @Component({
   selector: 'app-movie-form',

@@ -1,6 +1,5 @@
 
 import { AfterViewInit, Component, ViewChild} from '@angular/core';
-import { SinovadApiPaginationResponse } from 'src/app/response/sinovadApiPaginationResponse';
 import { Genre } from '../shared/genre.model';
 import { GenreService } from '../shared/genre.service';
 import { MatPaginator, MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
@@ -14,6 +13,7 @@ import { SnackBarType } from 'src/app/shared/components/custom-snack-bar/custom-
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { GenreFormPage } from '../genre-form/genre-form.page';
 import { Router } from '@angular/router';
+import { SinovadApiPaginationResponse } from 'src/app/shared/models/response/sinovad-api-pagination-response.model';
 @Component({
   selector: 'app-genre-list',
   templateUrl: './genre-list.page.html',

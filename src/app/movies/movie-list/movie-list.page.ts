@@ -9,11 +9,11 @@ import { SnackBarService } from 'src/app/shared/services/snack-bar.service';
 import { MovieService } from '../shared/movie.service';
 import { Movie } from '../shared/movie.model';
 import { MovieFormPage } from '../movie-form/movie-form.page';
-import { SinovadApiPaginationResponse } from 'src/app/response/sinovadApiPaginationResponse';
 import { MatTableDataSource } from '@angular/material/table';
 import { ConfirmDialogOptions, CustomConfirmDialogComponent } from 'src/app/shared/components/custom-confirm-dialog/custom-confirm-dialog.component';
 import { SnackBarType } from 'src/app/shared/components/custom-snack-bar/custom-snack-bar.component';
 import { Router } from '@angular/router';
+import { SinovadApiPaginationResponse } from 'src/app/shared/models/response/sinovad-api-pagination-response.model';
 
 @Component({
   selector: 'app-movie-list',
