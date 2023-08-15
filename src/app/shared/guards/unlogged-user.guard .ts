@@ -2,12 +2,11 @@ import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 
 export const unloggedUserGuard: CanActivateFn = (route, state) => {
-  //const sharedService=inject(SharedService);
   const router=inject(Router);
   if(localStorage.getItem('apiToken')==null)
   {
     return true;
   }else{
-    return router.navigateByUrl("/home");
+    return router.navigateByUrl("/landing");
   }
 };

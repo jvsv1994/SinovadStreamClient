@@ -85,7 +85,7 @@ export class MenuService {
   public getManageMenu(): Promise<any>{
     return new Promise((resolve, reject) => {
       this.restProvider.executeSinovadApiService(HttpMethodType.GET,'/menus/GetByUserAsync/'+this.sharedService.userData.Id).then((response:SinovadApiGenericResponse) => {
-        this.sharedService.listMenus=response.Data;
+        this.sharedService.manageMenus=response.Data;
         resolve(true);
       },error=>{
         reject(error);

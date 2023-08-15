@@ -1,5 +1,5 @@
 
-import { ChangeDetectorRef, Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, HostListener} from '@angular/core';
 import { SharedService } from 'src/app/shared/services/shared-data.service';
 import { MediaServerService } from '../servers/shared/server.service';
 import { ProfileService } from '../profiles/shared/profile.service';
@@ -11,9 +11,8 @@ import { LibraryService } from '../libraries/shared/library.service';
   templateUrl: './sinovad-web.component.html',
   styleUrls: ['./sinovad-web.component.scss']
 })
-export class SinovadWebComponent implements OnInit,OnDestroy {
+export class SinovadWebComponent{
 
-  intervalCheckMediaServers:any;
   showRootPage:boolean=false;
 
   constructor(
@@ -37,24 +36,30 @@ export class SinovadWebComponent implements OnInit,OnDestroy {
             localStorage.setItem('apiToken',apiToken);
           }
       }
-      var ctx=this;
       if((<any>window).configurationData)
       {
         this.sharedService.configurationData=(<any>window).configurationData;
       }
-      this.intervalCheckMediaServers=window.setInterval(function() {
-        //ctx.checkSecureConnectionMediaServers();
-      }, 15000);
       if(localStorage.getItem('apiToken'))
       {
         this.sharedService.apiToken=localStorage.getItem('apiToken');
         this.userService.getUser().then(res=>{
           var responseMediaServers:boolean=false;
           var responseProfiles:boolean=false;
-          this.menuService.getManageMenu();
+          var responseManageMenu:boolean=false;
+          this.menuService.getManageMenu().then(response=>{
+            responseManageMenu=true;
+            if(responseMediaServers && responseProfiles && responseManageMenu)
+            {
+              this.showRootPage=true;
+              this.ref.detectChanges();
+            }
+          },error=>{
+
+          });
           this.serverService.getMediaServers().then(response=>{
             responseMediaServers=true;
-            if(responseMediaServers && responseProfiles)
+            if(responseMediaServers && responseProfiles && responseManageMenu)
             {
               this.showRootPage=true;
               this.ref.detectChanges();
@@ -64,7 +69,7 @@ export class SinovadWebComponent implements OnInit,OnDestroy {
           });
           this.profileService.getAllProfiles().then(response=>{
             responseProfiles=true;
-            if(responseMediaServers && responseProfiles)
+            if(responseMediaServers && responseProfiles && responseManageMenu)
             {
               this.showRootPage=true;
               this.ref.detectChanges();
@@ -81,15 +86,7 @@ export class SinovadWebComponent implements OnInit,OnDestroy {
         setTimeout(() => {
           this.showRootPage=true;
           this.ref.detectChanges();
-
         }, 100);
-      }
-    }
-
-    public ngOnDestroy(): void {
-      if(this.intervalCheckMediaServers)
-      {
-        window.clearInterval(this.intervalCheckMediaServers);
       }
     }
 

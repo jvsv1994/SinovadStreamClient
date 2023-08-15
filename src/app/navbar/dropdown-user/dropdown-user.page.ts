@@ -42,7 +42,7 @@ export class DropDownUserPage{
   }
 
   public onClickAdminMode(){
-    this.router.navigateByUrl(this.sharedService.listMenus[0].ChildMenus[0].Path)
+    this.router.navigateByUrl(this.sharedService.manageMenus[0].ChildMenus[0].Path)
   }
 
   public logOut(){

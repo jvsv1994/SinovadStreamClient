@@ -33,6 +33,7 @@ import { MediaItemsComponent } from '../media/items/media-items.component';
 import { VideoPage } from '../media/video/component/video.page';
 import { loggedUserGuard } from '../shared/guards/logged-user.guard';
 import { unloggedUserGuard } from '../shared/guards/unlogged-user.guard ';
+import { adminGuard } from '../shared/guards/admin.guard';
 
 const routes: Routes = [
   {
@@ -126,43 +127,43 @@ const routes: Routes = [
         path: 'manage/movies',
         component: MovieListPage,
         loadChildren: () => import('../movies/movies.module').then(m => m.MoviesModule),
-        canActivate:[loggedUserGuard]
+        canActivate:[loggedUserGuard,adminGuard]
       },
       {
         path: 'manage/tvseries',
         component: TvSerieListPage,
         loadChildren: () => import('../tvseries/tvseries.module').then(m => m.TvSeriesModule),
-        canActivate:[loggedUserGuard]
+        canActivate:[loggedUserGuard,adminGuard]
       },
       {
         path: 'manage/genres',
         component: GenreListPage,
         loadChildren: () => import('../genres/genres.module').then(m => m.GenresModule),
-        canActivate:[loggedUserGuard]
+        canActivate:[loggedUserGuard,adminGuard]
       },
       {
         path: 'manage/menus',
         component: MenuListPage,
         loadChildren: () => import('../menus/menus.module').then(m => m.MenusModule),
-        canActivate:[loggedUserGuard]
+        canActivate:[loggedUserGuard,adminGuard]
       },
       {
         path: 'manage/users',
         component: UserListPage,
         loadChildren: () => import('../users/users.module').then(m => m.UsersModule),
-        canActivate:[loggedUserGuard]
+        canActivate:[loggedUserGuard,adminGuard]
       },
       {
         path: 'manage/roles',
         component: RoleListPage,
         loadChildren: () => import('../roles/roles.module').then(m => m.RolesPageModule),
-        canActivate:[loggedUserGuard]
+        canActivate:[loggedUserGuard,adminGuard]
       },
       {
         path: 'settings/account',
         component: AccountPage,
         loadChildren: () => import('../account/account.module').then(m => m.AccountPageModule),
-        canActivate:[loggedUserGuard]
+        canActivate:[loggedUserGuard,adminGuard]
       },
       {
         path: 'landing',

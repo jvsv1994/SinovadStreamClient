@@ -28,7 +28,7 @@ export class SharedService {
   currentProfile:any;
   configurationData:Configuration=new Configuration();
   listProfiles:Profile[]=[];
-  listMenus:Menu[]=[];
+  manageMenus:Menu[]=[];
   mediaMenu:Menu[]=[];
   pageNotFoundShowing:boolean=false;
   mediaServers:MediaServer[]=[];
