@@ -29,10 +29,6 @@ export class ProfileEditPage implements OnInit {
     }
 
     ngOnInit():void{
-      if(!localStorage.getItem('apiToken'))
-      {
-        this.router.navigate(['landing'],{ skipLocationChange: false});
-      }
       var profileGuid=this.activeRoute.snapshot.params.profileGuid;
       this.profileService.getProfileByGuid(profileGuid).then((response:SinovadApiGenericResponse)=>{
         if(response.Data==null)

@@ -26,10 +26,6 @@ export class ProfilesViewPage{
     }
 
     ngOnInit(): void {
-      if(!localStorage.getItem('apiToken'))
-      {
-        this.router.navigate(['landing'],{ skipLocationChange: false});
-      }
       this.getProfiles();
     }
 

@@ -36,10 +36,6 @@ export class MenuListPage extends CustomListGeneric<Menu> implements AfterViewIn
     }
 
     ngOnInit(): void {
-      if(!localStorage.getItem('apiToken'))
-      {
-        this.router.navigateByUrl('/landing');
-      }
     }
 
     ngAfterViewInit() {

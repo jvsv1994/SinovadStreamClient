@@ -23,10 +23,6 @@ export class SearchViewPage implements OnInit {
     }
 
     public ngOnInit(): void {
-      if(!localStorage.getItem('apiToken'))
-      {
-        this.router.navigateByUrl('/landing');
-      }
       let searchText = this.route.snapshot.queryParams['text'];
       if(searchText!=undefined && searchText!='')
       {

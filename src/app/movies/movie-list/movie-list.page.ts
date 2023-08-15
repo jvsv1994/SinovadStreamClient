@@ -36,10 +36,6 @@ export class MovieListPage extends CustomListGeneric<Movie> implements AfterView
     }
 
     ngOnInit(): void {
-      if(!localStorage.getItem('apiToken'))
-      {
-        this.router.navigateByUrl('/landing');
-      }
     }
 
     ngAfterViewInit() {

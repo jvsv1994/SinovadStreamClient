@@ -18,10 +18,6 @@ export class AccountPage implements OnInit {
     }
 
     ngOnInit(): void {
-      if(this.sharedService.apiToken==undefined)
-      {
-        this.router.navigateByUrl('/landing');
-      }
     }
 
 

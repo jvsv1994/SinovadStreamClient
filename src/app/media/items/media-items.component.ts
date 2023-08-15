@@ -42,10 +42,6 @@ export class MediaItemsComponent extends MediaGeneric implements OnInit,OnDestro
     }
 
     public ngOnInit(): void {
-      if(!localStorage.getItem('apiToken'))
-      {
-        this.router.navigateByUrl('/landing');
-      }
       this.initializeData();
     }
 

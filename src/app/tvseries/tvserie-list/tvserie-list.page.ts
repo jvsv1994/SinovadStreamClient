@@ -37,10 +37,7 @@ export class TvSerieListPage extends CustomListGeneric<TvSerie> implements After
     }
 
     ngOnInit(): void {
-      if(!localStorage.getItem('apiToken'))
-      {
-        this.router.navigateByUrl('/landing');
-      }
+
     }
 
     ngAfterViewInit() {

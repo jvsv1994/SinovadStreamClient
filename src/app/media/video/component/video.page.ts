@@ -71,10 +71,6 @@ export class VideoPage implements OnInit,OnDestroy{
   }
 
   ngOnInit(): void {
-    if(!localStorage.getItem('apiToken'))
-    {
-      this.router.navigateByUrl('/landing');
-    }
     var mediaServerGuid=this.activeRoute.snapshot.params.serverGuid;
     var mediaFileId=this.activeRoute.snapshot.params.mediaFileId;
     if(mediaServerGuid!=undefined)

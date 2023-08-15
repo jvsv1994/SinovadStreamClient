@@ -36,10 +36,6 @@ export class MediaDetailComponent extends MediaGeneric implements OnInit {
     }
 
     ngOnInit(): void {
-      if(!localStorage.getItem('apiToken'))
-      {
-        this.router.navigateByUrl('/landing');
-      }
       this.initializeHeaderData();
       let mediaId = this.activeRoute.snapshot.queryParams['mediaId'];
       if(mediaId)

@@ -38,10 +38,6 @@ export class ServerSettingsGeneralPage implements OnInit {
     }
 
     ngOnInit(): void {
-      if(!localStorage.getItem('apiToken'))
-      {
-        this.router.navigateByUrl('/landing');
-      }
       this.getMediaServerData();
     }
 

@@ -23,10 +23,6 @@ export class ProfileNewPage{
 
     }
   ngOnInit(): void {
-    if(!localStorage.getItem('apiToken'))
-    {
-      this.router.navigate(['landing'],{ skipLocationChange: false});
-    }
     this.currentTmpProfile= new Profile();
     this.currentTmpProfile.UserId=this.sharedService.userData.Id;
   }

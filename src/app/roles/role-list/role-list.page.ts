@@ -36,10 +36,7 @@ export class RoleListPage extends CustomListGeneric<Role>  implements AfterViewI
     }
 
     ngOnInit(): void {
-      if(!localStorage.getItem('apiToken'))
-      {
-        this.router.navigateByUrl('/landing');
-      }
+
     }
 
     ngAfterViewInit() {

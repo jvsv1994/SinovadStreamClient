@@ -32,6 +32,7 @@ import { MediaDetailComponent } from '../media/detail/media-detail.component';
 import { MediaItemsComponent } from '../media/items/media-items.component';
 import { VideoPageModule } from '../media/video/video.module';
 import { VideoPage } from '../media/video/component/video.page';
+import { loggedUserGuard } from '../shared/guards/logged-user.guard';
 
 const routes: Routes = [
   {
@@ -40,57 +41,128 @@ const routes: Routes = [
       {
         path: 'home',
         component: MediaItemsComponent,
-        loadChildren: () => import('../media/media.module').then(m => m.MediaModule)
+        loadChildren: () => import('../media/media.module').then(m => m.MediaModule),
+        canActivate:[loggedUserGuard]
       },
       {
         path: 'media/movies',
         component: MediaItemsComponent,
-        loadChildren: () => import('../media/media.module').then(m => m.MediaModule)
+        loadChildren: () => import('../media/media.module').then(m => m.MediaModule),
+        canActivate:[loggedUserGuard]
       },
       {
         path: 'media/tvseries',
         component: MediaItemsComponent,
-        loadChildren: () => import('../media/media.module').then(m => m.MediaModule)
+        loadChildren: () => import('../media/media.module').then(m => m.MediaModule),
+        canActivate:[loggedUserGuard]
       },
       {
         path: 'media/server/:serverGuid',
         component: MediaItemsComponent,
-        loadChildren: () => import('../media/media.module').then(m => m.MediaModule)
+        loadChildren: () => import('../media/media.module').then(m => m.MediaModule),
+        canActivate:[loggedUserGuard]
       },
       {
         path: 'media/server/:serverGuid/libraries/:libraryId',
         component: MediaItemsComponent,
-        loadChildren: () => import('../media/media.module').then(m => m.MediaModule)
+        loadChildren: () => import('../media/media.module').then(m => m.MediaModule),
+        canActivate:[loggedUserGuard]
       },
       {
         path: 'media/server/:serverGuid/libraries/:libraryId/detail',
         component: MediaDetailComponent,
-        loadChildren: () => import('../media/media.module').then(m => m.MediaModule)
+        loadChildren: () => import('../media/media.module').then(m => m.MediaModule),
+        canActivate:[loggedUserGuard]
       },
       {
         path: 'media/server/:serverGuid/video/:mediaFileId',
         component: VideoPage,
-        loadChildren: () => import('../media/video/video.module').then(m => m.VideoPageModule)
+        loadChildren: () => import('../media/video/video.module').then(m => m.VideoPageModule),
+        canActivate:[loggedUserGuard]
       },
       {
         path: 'search',
         component: SearchViewPage,
-        loadChildren: () => import('../media/search/search.module').then(m => m.SearchModule)
+        loadChildren: () => import('../media/search/search.module').then(m => m.SearchModule),
+        canActivate:[loggedUserGuard]
       },
       {
         path: 'select-profile',
         component: ProfilesViewPage,
-        loadChildren: () => import('../profiles/profiles.module').then(m => m.ProfilesModule)
+        loadChildren: () => import('../profiles/profiles.module').then(m => m.ProfilesModule),
+        canActivate:[loggedUserGuard]
       },
       {
         path: 'add-profile',
         component: ProfileNewPage,
-        loadChildren: () => import('../profiles/profiles.module').then(m => m.ProfilesModule)
+        loadChildren: () => import('../profiles/profiles.module').then(m => m.ProfilesModule),
+        canActivate:[loggedUserGuard]
       },
       {
         path: 'edit-profile/:profileGuid',
         component: ProfileEditPage,
-        loadChildren: () => import('../profiles/profiles.module').then(m => m.ProfilesModule)
+        loadChildren: () => import('../profiles/profiles.module').then(m => m.ProfilesModule),
+        canActivate:[loggedUserGuard]
+      },
+      {
+        path: 'settings/server/:serverGuid/settings/general',
+        component: ServerSettingsGeneralPage,
+        loadChildren: () => import('../server-settings-general/server-settings-general.module').then(m => m.ServerSettingsGeneralPageModule),
+        canActivate:[loggedUserGuard]
+      },
+      {
+        path: 'settings/server/:serverGuid/manage/libraries',
+        component: LibraryListComponent,
+        loadChildren: () => import('../libraries/libraries.module').then(m => m.LibrariesModule),
+        canActivate:[loggedUserGuard]
+      },
+      {
+        path: 'settings/server/:serverGuid/settings/transcoder',
+        component: TranscoderSettingssPage,
+        loadChildren: () => import('../transcode-settings/transcode-settings.module').then(m => m.TranscoderSettingssPageModule),
+        canActivate:[loggedUserGuard]
+      },
+      {
+        path: 'manage/movies',
+        component: MovieListPage,
+        loadChildren: () => import('../movies/movies.module').then(m => m.MoviesModule),
+        canActivate:[loggedUserGuard]
+      },
+      {
+        path: 'manage/tvseries',
+        component: TvSerieListPage,
+        loadChildren: () => import('../tvseries/tvseries.module').then(m => m.TvSeriesModule),
+        canActivate:[loggedUserGuard]
+      },
+      {
+        path: 'manage/genres',
+        component: GenreListPage,
+        loadChildren: () => import('../genres/genres.module').then(m => m.GenresModule),
+        canActivate:[loggedUserGuard]
+      },
+      {
+        path: 'manage/menus',
+        component: MenuListPage,
+        loadChildren: () => import('../menus/menus.module').then(m => m.MenusModule),
+        canActivate:[loggedUserGuard]
+      },
+      {
+        path: 'manage/users',
+        component: UserListPage,
+        loadChildren: () => import('../users/users.module').then(m => m.UsersModule),
+        canActivate:[loggedUserGuard]
+      },
+      {
+        path: 'manage/roles',
+        component: RoleListPage,
+        loadChildren: () => import('../roles/roles.module').then(m => m.RolesPageModule),
+        canActivate:[loggedUserGuard]
+      },
+      {
+        path: 'settings/account',
+        component: AccountPage,
+        loadChildren: () => import('../account/account.module').then(m => m.AccountPageModule),
+        canActivate:[loggedUserGuard]
       },
       {
         path: 'landing',
@@ -125,56 +197,6 @@ const routes: Routes = [
       {path: '404',
        component: NotFoundPage,
        loadChildren: () => import('../not-found/not-found.module').then(m => m.NotFoundPageModule)
-      },
-      {
-        path: 'settings/server/:serverGuid/settings/general',
-        component: ServerSettingsGeneralPage,
-        loadChildren: () => import('../server-settings-general/server-settings-general.module').then(m => m.ServerSettingsGeneralPageModule)
-      },
-      {
-        path: 'settings/server/:serverGuid/manage/libraries',
-        component: LibraryListComponent,
-        loadChildren: () => import('../libraries/libraries.module').then(m => m.LibrariesModule)
-      },
-      {
-        path: 'settings/server/:serverGuid/settings/transcoder',
-        component: TranscoderSettingssPage,
-        loadChildren: () => import('../transcode-settings/transcode-settings.module').then(m => m.TranscoderSettingssPageModule)
-      },
-      {
-        path: 'manage/movies',
-        component: MovieListPage,
-        loadChildren: () => import('../movies/movies.module').then(m => m.MoviesModule)
-      },
-      {
-        path: 'manage/tvseries',
-        component: TvSerieListPage,
-        loadChildren: () => import('../tvseries/tvseries.module').then(m => m.TvSeriesModule)
-      },
-      {
-        path: 'manage/genres',
-        component: GenreListPage,
-        loadChildren: () => import('../genres/genres.module').then(m => m.GenresModule)
-      },
-      {
-        path: 'manage/menus',
-        component: MenuListPage,
-        loadChildren: () => import('../menus/menus.module').then(m => m.MenusModule)
-      },
-      {
-        path: 'manage/users',
-        component: UserListPage,
-        loadChildren: () => import('../users/users.module').then(m => m.UsersModule)
-      },
-      {
-        path: 'manage/roles',
-        component: RoleListPage,
-        loadChildren: () => import('../roles/roles.module').then(m => m.RolesPageModule)
-      },
-      {
-        path: 'settings/account',
-        component: AccountPage,
-        loadChildren: () => import('../account/account.module').then(m => m.AccountPageModule)
       },
       {
         path: '',

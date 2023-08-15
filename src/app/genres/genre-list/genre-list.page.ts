@@ -36,10 +36,6 @@ export class GenreListPage extends CustomListGeneric<Genre>  implements AfterVie
     }
 
     ngOnInit(): void {
-      if(!localStorage.getItem('apiToken'))
-      {
-        this.router.navigateByUrl('/landing');
-      }
     }
 
     ngAfterViewInit() {
