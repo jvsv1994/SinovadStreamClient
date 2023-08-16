@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "sinovadclient-119aa": {
+      "hosting": {
+        "app": [
+          "sinovadclient-119aa"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "sinovadclient-119aa"
+  }
+}

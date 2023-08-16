@@ -14,7 +14,9 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "aot": true,
-            "allowedCommonJsDependencies": ["crypto"],
+            "allowedCommonJsDependencies": [
+              "crypto"
+            ],
             "outputPath": "www",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -46,11 +48,10 @@
                 "input": "node_modules/@fortawesome/fontawesome-free/css/all.css"
               }
             ],
-            "scripts": [
-            ]
+            "scripts": []
           },
           "configurations": {
-            "development":{
+            "development": {
               "buildOptimizer": false,
               "optimization": false,
               "vendorChunk": true,
@@ -159,6 +160,13 @@
             "production": {
               "devServerTarget": "app:serve:production"
             }
+          }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "version": 2,
+            "browserTarget": "app:build:production"
           }
         }
       }
