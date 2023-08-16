@@ -53,6 +53,7 @@ export class LoginPage {
         this.authenticationService.validateUser(this.user.UserName).then((response:SinovadApiGenericResponse) => {
           this.showPasswordForm=true;
           this.showLoading=false;
+          this.errorMessage=undefined;
         },error=>{
           this.showLoading=false;
           this.errorMessage=error;
