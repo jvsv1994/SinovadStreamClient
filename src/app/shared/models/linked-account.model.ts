@@ -1,6 +1,6 @@
 export class LinkedAccount{
   AccessToken:string;
   Email:string;
-  LinkedAccountTypeCatalogId:number;
-  LinkedAccountTypeCatalogDetailId:number;
+  LinkedAccountProviderCatalogId:number;
+  LinkedAccountProviderCatalogDetailId:number;
 }

@@ -12,7 +12,7 @@ import { SinovadApiGenericResponse } from '../shared/models/response/sinovad-api
 import { MyErrorStateMatcher } from '../shared/custom-error-state-matcher';
 import { AuthenticationService } from '../shared/services/authentication.service';
 import { LinkedAccount } from '../shared/models/linked-account.model';
-import { CatalogEnum, LinkedAccountType } from '../shared/enums';
+import { CatalogEnum, LinkedAccountProvider } from '../shared/enums';
 import { AuthenticationUserResponse } from '../shared/models/authenticate-user-response.model';
 import { ConfirmLinkAccount } from '../shared/models/confirm-linked-account.model';
 
@@ -104,8 +104,8 @@ export class LoginPage {
       console.log(response);
       var linkedAccount=new LinkedAccount();
       linkedAccount.AccessToken=response.credential.accessToken;
-      linkedAccount.LinkedAccountTypeCatalogId=CatalogEnum.LinkedAccountType;
-      linkedAccount.LinkedAccountTypeCatalogDetailId=LinkedAccountType.Google;
+      linkedAccount.LinkedAccountProviderCatalogId=CatalogEnum.LinkedAccountProvider;
+      linkedAccount.LinkedAccountProviderCatalogDetailId=LinkedAccountProvider.Google;
       this.authenticationService.authenticateByLinkedAccount(linkedAccount).then((response:SinovadApiGenericResponse)=>{
         var authenticateUserResponseData:AuthenticationUserResponse=response.Data;
         if(authenticateUserResponseData.ConfirmLinkAccountData)
