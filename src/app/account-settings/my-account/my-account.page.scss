@@ -1,0 +1,31 @@
+.settings-category-header-background{
+    background-color: #0000001a;
+    border-radius: 0.25rem;
+    margin: 0.5rem 0;
+    padding: 0.75rem;
+    h2{
+      margin: 0;
+      max-width: 100%;
+      overflow: hidden;
+      overflow-wrap: break-word;
+      font-size: 20px;
+    }
+}
+
+.sinovad-page-container{
+  padding: 0 20px 48px 30px;
+  max-width: 1030px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  margin: 0 auto;
+  width: 100%;
+  .sinovad-page-title{
+    h2{
+      color: white;
+      margin-bottom: 20px;
+      margin-top: 40px;
+      font-size: 24px;
+    }
+  }
+}

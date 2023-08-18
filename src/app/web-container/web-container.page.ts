@@ -3,7 +3,6 @@ import { Component, HostListener} from '@angular/core';
 import { SharedService } from 'src/app/shared/services/shared-data.service';
 import { TranscoderSettingssPage } from '../transcode-settings/transcode-settings.page';
 import { ServerSettingsGeneralPage } from '../server-settings-general/server-settings-general.page';
-import { AccountPage } from '../account/account.page';
 import { GenreListPage } from '../genres/genre-list/genre-list.page';
 import { UserListPage } from '../users/user-list/user-list.page';
 import { RoleListPage } from '../roles/role-list/role-list.page';
@@ -23,6 +22,7 @@ import { ConfirmEmailPage } from '../confirm-email/confirm-email.page';
 import { MediaDetailComponent } from '../media/detail/media-detail.component';
 import { MediaItemsComponent } from '../media/items/media-items.component';
 import { VideoPage } from '../media/video/component/video.page';
+import { MyAccountPage } from '../account-settings/my-account/my-account.page';
 
 @Component({
   selector: 'app-web-container',
@@ -70,7 +70,7 @@ export class WebContainerPage{
         this.showingSidebarAccount=false;
         this.showingSidebarAdminMode=false;
       }
-      if(event instanceof AccountPage)
+      if(event instanceof MyAccountPage)
       {
         this.showRouterChildWithFullDimentions=false;
         this.showingSidebarAccount=true;

@@ -4,11 +4,11 @@ import { SharedService } from 'src/app/shared/services/shared-data.service';
 
 declare var window;
 @Component({
-  selector: 'app-account',
-  templateUrl: './account.page.html',
-  styleUrls: ['./account.page.scss']
+  selector: 'app-my-account',
+  templateUrl: './my-account.page.html',
+  styleUrls: ['./my-account.page.scss','../shared/styles/account-settings-section.scss']
 })
-export class AccountPage implements OnInit {
+export class MyAccountPage implements OnInit {
 
   isCollapsedChangePasswordSection:boolean=true;
   constructor(

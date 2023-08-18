@@ -1,16 +1,15 @@
 
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { SharedService } from 'src/app/shared/services/shared-data.service';
-import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
-import { HttpMethodType } from 'src/app/shared/enums';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { ChangePasswordModel } from './change-password.model';
+import { ChangePasswordModel } from '../shared/models/change-password.model';
+import { AccountSettingsService } from '../shared/services/account-settings.service';
 
 declare var window;
 @Component({
   selector: 'app-change-password',
   templateUrl: './change-password.page.html',
-  styleUrls: ['./change-password.page.scss']
+  styleUrls: ['./change-password.page.scss','../shared/styles/account-settings-section.scss']
 })
 export class ChangePasswordPage implements OnInit {
 
@@ -25,8 +24,8 @@ export class ChangePasswordPage implements OnInit {
   loading:boolean=false;
 
   constructor(
+    private accountSettingsService:AccountSettingsService,
     private formBuilder: FormBuilder,
-    public restProvider: RestProviderService,
     public sharedService: SharedService) {
 
     }
@@ -45,7 +44,7 @@ export class ChangePasswordPage implements OnInit {
           CurrentPassword:this.changePasswordForm.value.currentPassword
         }
         this.loading=true;
-        this.restProvider.executeSinovadApiService(HttpMethodType.POST,'/users/ChangePassword',this.changePasswordData).then((result: any) => {
+        this.accountSettingsService.changePassword(this.changePasswordData).then((result: any) => {
           this.loading=false;
           this.closeChangePassword.emit(true);
         },error=>{

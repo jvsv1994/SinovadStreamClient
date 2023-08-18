@@ -40,5 +40,6 @@
       </div>
     </div>
   </div>
-  <app-change-password *ngIf="!isCollapsedChangePasswordSection" (closeChangePassword)="isCollapsedChangePasswordSection=true"></app-change-password>
+  <app-change-password *ngIf="!isCollapsedChangePasswordSection && sharedService.userData.IsPasswordSetted" (closeChangePassword)="isCollapsedChangePasswordSection=true"></app-change-password>
+  <app-set-password *ngIf="!isCollapsedChangePasswordSection && !sharedService.userData.IsPasswordSetted" (closeSetPassword)="isCollapsedChangePasswordSection=true"></app-set-password>
 </div>

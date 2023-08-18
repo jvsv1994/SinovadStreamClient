@@ -4,7 +4,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { SinovadWebComponent } from './sinovad-web.component';
 import { RouterModule, Routes } from '@angular/router';
-import { AccountPage } from '../account/account.page';
 import { GenreListPage } from '../genres/genre-list/genre-list.page';
 import { TranscoderSettingssPage } from '../transcode-settings/transcode-settings.page';
 import { NotFoundPage } from '../not-found/not-found.page';
@@ -34,6 +33,7 @@ import { VideoPage } from '../media/video/component/video.page';
 import { loggedUserGuard } from '../shared/guards/logged-user.guard';
 import { unloggedUserGuard } from '../shared/guards/unlogged-user.guard ';
 import { adminGuard } from '../shared/guards/admin.guard';
+import { MyAccountPage } from '../account-settings/my-account/my-account.page';
 
 const routes: Routes = [
   {
@@ -125,8 +125,8 @@ const routes: Routes = [
       },
       {
         path: 'settings/account',
-        component: AccountPage,
-        loadChildren: () => import('../account/account.module').then(m => m.AccountPageModule),
+        component: MyAccountPage,
+        loadChildren: () => import('../account-settings/account-settings.module').then(m => m.AccountSettingsModule),
         canActivate:[loggedUserGuard]
       },
       {
