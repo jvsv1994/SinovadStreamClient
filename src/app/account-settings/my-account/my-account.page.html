@@ -58,4 +58,21 @@
   </div>
   <app-change-password *ngIf="!isCollapsedChangePasswordSection && sharedService.userData.IsPasswordSetted" (closeChangePassword)="isCollapsedChangePasswordSection=true"></app-change-password>
   <app-set-password *ngIf="!isCollapsedChangePasswordSection && !sharedService.userData.IsPasswordSetted" (closeSetPassword)="isCollapsedChangePasswordSection=true"></app-set-password>
+  <div class="settings-category-header-background">
+    <div style="width: 100%;">
+      <h2>Ajustes</h2>
+    </div>
+  </div>
+  <div *ngIf="isCollapsedLinkedAccountsSection" (click)="isCollapsedLinkedAccountsSection=false" class="sinovad-page-section-container" role="button">
+    <div class="sinovad-page-section-content">
+      <div class="button-container">
+        <button class="edit">Editar</button>
+      </div>
+      <div class="detail">
+        <label>Cuentas vinculadas</label>
+        <span *ngIf="sharedService.userData.IsPasswordSetted">*********</span>
+        <span *ngIf="!sharedService.userData.IsPasswordSetted">No establecida</span>
+      </div>
+    </div>
+  </div>
 </div>

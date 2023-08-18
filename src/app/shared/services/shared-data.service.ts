@@ -10,6 +10,7 @@ import { MetadataAgents } from '../enums';
 import { MediaServerHubConnection } from 'src/app/media/shared/models/media-server-hub-connection.model';
 import { ItemDetail } from 'src/app/media/shared/models/item-detail.model';
 import { Item } from 'src/app/media/shared/models/item.model';
+import { LinkedAccount } from '../models/linked-account.model';
 
 @Injectable({ providedIn: 'root' })
 export class SharedService {
@@ -35,6 +36,7 @@ export class SharedService {
   libraries:Library[]=[];
   selectedMediaServer:MediaServer;
   mediaServerHubConnections:MediaServerHubConnection[]=[];
+  linkedAccounts:LinkedAccount[]=[];
 
   constructor() {
 

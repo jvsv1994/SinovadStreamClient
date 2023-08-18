@@ -45,36 +45,9 @@ export class SinovadWebComponent{
       {
         this.sharedService.apiToken=localStorage.getItem('apiToken');
         this.userService.getUser().then(res=>{
-          var responseMediaServers:boolean=false;
-          var responseProfiles:boolean=false;
-          var responseManageMenu:boolean=false;
           this.menuService.getManageMenu().then(response=>{
-            responseManageMenu=true;
-            if(responseMediaServers && responseProfiles && responseManageMenu)
-            {
-              this.showRootPage=true;
-              this.ref.detectChanges();
-            }
-          },error=>{
-
-          });
-          this.serverService.getMediaServers().then(response=>{
-            responseMediaServers=true;
-            if(responseMediaServers && responseProfiles && responseManageMenu)
-            {
-              this.showRootPage=true;
-              this.ref.detectChanges();
-            }
-          },error=>{
-
-          });
-          this.profileService.getAllProfiles().then(response=>{
-            responseProfiles=true;
-            if(responseMediaServers && responseProfiles && responseManageMenu)
-            {
-              this.showRootPage=true;
-              this.ref.detectChanges();
-            }
+            this.showRootPage=true;
+            this.ref.detectChanges();
           },error=>{
 
           });

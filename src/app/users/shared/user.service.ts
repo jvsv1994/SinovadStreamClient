@@ -6,6 +6,7 @@ import { User } from './user.model';
 import { SharedService } from 'src/app/shared/services/shared-data.service';
 import { SinovadApiPaginationResponse } from 'src/app/shared/models/response/sinovad-api-pagination-response.model';
 import { SinovadApiGenericResponse } from 'src/app/shared/models/response/sinovad-api-generic-response.model';
+import { UserSession } from './user-session.model';
 export declare type EventHandler = (...args: any[]) => any;
 
 @Injectable({ providedIn: 'root' })
@@ -31,8 +32,12 @@ export class UserService {
   public getUser(): Promise<any>{
     return new Promise((resolve, reject) => {
       this.restProvider.executeSinovadApiService(HttpMethodType.GET,'/users/GetUserData').then((response:SinovadApiGenericResponse) => {
-        let data=response.Data;
-        this.sharedService.userData=data;
+        let userSessionData:UserSession=response.Data;
+        this.sharedService.userData=userSessionData.User;
+        this.sharedService.mediaServers=userSessionData.MediaServers;
+        this.sharedService.linkedAccounts=userSessionData.LinkedAccounts;
+        this.sharedService.listProfiles=userSessionData.Profiles;
+        this.sharedService.currentProfile=userSessionData.Profiles[0];
         if(this.sharedService.userData==null)
         {
           this.sharedService.apiToken=undefined;
