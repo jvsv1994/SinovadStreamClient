@@ -12,11 +12,11 @@
       <div class="login-title-container">
         Inicia sesión
       </div>
-      <ng-template [ngIf]="!showPasswordForm">
+      <ng-template [ngIf]="!showPasswordForm && !showConfirmLinkedAccountForm">
         <form [formGroup]="userFormGroup" (ngSubmit)="validateUser()" class="login-form-content" autocomplete="off">
-          <div *ngIf="errorMessage" class="sinovad-form-error-message-container">
+          <span *ngIf="errorMessage" class="form-error-message">
             {{errorMessage}}
-          </div>
+          </span>
           <div class="mb-3">
             <mat-form-field class="login-form-field">
               <mat-label>Usuario</mat-label>
@@ -43,10 +43,10 @@
           <button class="btn apple" (click)="loginWithApple()"><img [src]="'apple.svg' | formatDataPipe : 'GetImageURLByKey' | async"/>Continuar con Apple</button>
         </div>
       </ng-template>
-      <ng-template [ngIf]="showPasswordForm">
-        <div *ngIf="errorMessage" class="sinovad-form-error-message-container">
+      <ng-template [ngIf]="showPasswordForm  && !showConfirmLinkedAccountForm">
+        <span *ngIf="errorMessage" class="form-error-message">
           {{errorMessage}}
-        </div>
+        </span>
         <form [formGroup]="passwordFormGroup" (ngSubmit)="ValidatePassword()" class="login-form-content" autocomplete="off">
           <div class="mb-3">
             <mat-form-field class="login-form-field">
@@ -59,6 +59,40 @@
           </div>
           <div class="mb-3">
             <button type="submit" class="btn btn-primary" [disabled]="showLoading || !passwordFormGroup.valid">Iniciar sesión</button>
+          </div>
+        </form>
+        <div class="mb-3">
+          <button class="btn btn-secondary" (click)="onClose()">Cancelar</button>
+        </div>
+        <div class="mb-3">
+          <button class="btn btn-secondary" (click)="showRecoverPasswordPage()" [ngClass]="{'disable':showLoading}">Olvidaste tu contraseña?</button>
+        </div>
+      </ng-template>
+      <ng-template [ngIf]="showConfirmLinkedAccountForm">
+        <span *ngIf="errorMessage" class="form-error-message">
+          {{errorMessage}}
+        </span>
+        <div class="confirm-link-account-title">
+          <div class="confirm-link-account-message">
+            Encontramos una cuenta de Sinovad Stream para
+            <div class="confirm-link-account-message-email">
+              {{confirmLinkAccountData.Email}}
+            </div>
+          </div>
+          Verifique su cuenta para continuar
+        </div>
+        <form [formGroup]="passwordFormGroup" (ngSubmit)="ConfirmLinkAccountToUser()" class="login-form-content" autocomplete="off">
+          <div class="mb-3">
+            <mat-form-field class="login-form-field">
+              <mat-label>Contraseña</mat-label>
+              <input id="title" matInput formControlName="password" type="password" [errorStateMatcher]="matcher"/>
+              <mat-error *ngIf="passwordFormGroup.controls['password'].hasError('required')">
+                <i class="fa-solid fa-circle-exclamation me-2"></i>Ingresa la contraseña correctamente
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="mb-3">
+            <button type="submit" class="btn btn-primary" [disabled]="showLoading || !passwordFormGroup.valid">Confirmar</button>
           </div>
         </form>
         <div class="mb-3">

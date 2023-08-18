@@ -106,7 +106,7 @@ export class UserListPage extends CustomListGeneric<User> {
     public deleteItem(user:User){
       var config = new MatDialogConfig<ConfirmDialogOptions>();
       config.data={
-        title:'Eliminar rol',message:'¿Esta seguro que desea eliminar el usuario '+user.UserName+'?',accordMessage:"Si, eliminar el usuario '"+user.UserName+"'"
+        title:'Eliminar usuario',message:'¿Esta seguro que desea eliminar el usuario '+user.UserName+'?',accordMessage:"Si, eliminar el usuario '"+user.UserName+"'"
       }
       this.dialog.open(CustomConfirmDialogComponent,config).afterClosed().subscribe((confirm: boolean) => {
         if (confirm) {
@@ -157,15 +157,18 @@ export class UserListPage extends CustomListGeneric<User> {
     //Displayed Columns Section
 
     public getDisplayedColumns(){
-      if(window.innerWidth>600)
+      if(window.innerWidth>950)
       {
-        return ['Id', 'UserName','Email','FirstName','LastName'];
+        return ['Id', 'UserName','Email','FirstName','LastName','Actions'];
+      }else if(window.innerWidth>600)
+      {
+        return ['Id', 'UserName','Email','FirstName','Actions'];
       }else if(window.innerWidth>475){
-        return ['Id', 'UserName','Email','LastName'];
+        return ['Id', 'UserName','Email','Actions'];
       }else if(window.innerWidth>375){
-        return ['Id', 'UserName','Email'];
+        return ['Id', 'UserName','Actions'];
       }{
-        return ['Id', 'UserName'];
+        return ['Id', 'UserName','Actions'];
       }
     }
 

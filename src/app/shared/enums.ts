@@ -5,7 +5,8 @@
     MediaType = 2,
     VideoTransmissionType = 3,
     TranscoderPreset = 4,
-    IconTypes = 5
+    IconTypes = 5,
+    LinkedAccountType = 6
   }
 
   export enum MediaServerState
@@ -69,4 +70,11 @@ export enum MetadataAgents
     SinovadDb = 1,
     TMDb = 2,
     IMDb=3
+}
+
+export enum LinkedAccountType
+{
+    Google = 1,
+    Facebook = 2,
+    Apple=3
 }

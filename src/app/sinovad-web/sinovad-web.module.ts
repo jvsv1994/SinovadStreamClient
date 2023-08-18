@@ -124,6 +124,12 @@ const routes: Routes = [
         canActivate:[loggedUserGuard]
       },
       {
+        path: 'settings/account',
+        component: AccountPage,
+        loadChildren: () => import('../account/account.module').then(m => m.AccountPageModule),
+        canActivate:[loggedUserGuard]
+      },
+      {
         path: 'manage/movies',
         component: MovieListPage,
         loadChildren: () => import('../movies/movies.module').then(m => m.MoviesModule),
@@ -157,12 +163,6 @@ const routes: Routes = [
         path: 'manage/roles',
         component: RoleListPage,
         loadChildren: () => import('../roles/roles.module').then(m => m.RolesPageModule),
-        canActivate:[loggedUserGuard,adminGuard]
-      },
-      {
-        path: 'settings/account',
-        component: AccountPage,
-        loadChildren: () => import('../account/account.module').then(m => m.AccountPageModule),
         canActivate:[loggedUserGuard,adminGuard]
       },
       {

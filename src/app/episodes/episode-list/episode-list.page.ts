@@ -76,6 +76,7 @@ export class EpisodeListPage extends CustomListGeneric<Episode>{
 
      public showNewItem(){
       var episode= new Episode();
+      episode.SeasonId=this.parentItem.Id;
       this.showModalForm(episode);
     }
 
