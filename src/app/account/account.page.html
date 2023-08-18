@@ -2,6 +2,11 @@
   <div class="sinovad-page-title">
     <h2>Cuenta</h2>
   </div>
+  <div class="settings-category-header-background">
+    <div style="width: 100%;">
+      <h2>Información personal</h2>
+    </div>
+  </div>
   <div class="sinovad-page-section-container">
     <div class="sinovad-page-section-content">
       <div class="detail">
@@ -18,6 +23,11 @@
       </div>
     </div>
   </div>
+  <div class="settings-category-header-background">
+    <div style="width: 100%;">
+      <h2>Seguridad</h2>
+    </div>
+  </div>
   <div *ngIf="isCollapsedChangePasswordSection" (click)="isCollapsedChangePasswordSection=false" class="sinovad-page-section-container" role="button">
     <div class="sinovad-page-section-content">
       <div class="button-container">
@@ -25,7 +35,8 @@
       </div>
       <div class="detail">
         <label>Contraseña</label>
-        <span>*********</span>
+        <span *ngIf="sharedService.userData.IsPasswordSetted">*********</span>
+        <span *ngIf="!sharedService.userData.IsPasswordSetted">No establecida</span>
       </div>
     </div>
   </div>

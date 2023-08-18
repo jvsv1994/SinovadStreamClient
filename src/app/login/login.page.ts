@@ -164,7 +164,6 @@ export class LoginPage {
   }
 
   public loginWithFacebook(){
-    /*
     this.showLoading=true;
     this.authenticationService.authenticateWithFacebook().then(response=>{
       console.log(response);
@@ -172,7 +171,7 @@ export class LoginPage {
     },error=>{
       console.error(error);
       this.showLoading=false;
-    })*/
+    })
   }
 
   public loginWithApple(){

@@ -1,7 +1,6 @@
 
 import { Component, OnInit } from '@angular/core';
 import { SharedService } from 'src/app/shared/services/shared-data.service';
-import { Router } from '@angular/router';
 
 declare var window;
 @Component({
@@ -13,7 +12,6 @@ export class AccountPage implements OnInit {
 
   isCollapsedChangePasswordSection:boolean=true;
   constructor(
-    private router: Router,
     public sharedService: SharedService) {
     }
 

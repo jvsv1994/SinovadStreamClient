@@ -36,12 +36,12 @@
         <div class="mb-3">
           <button class="btn google" (click)="loginWithGoogle()"><img [src]="'google.svg' | formatDataPipe : 'GetImageURLByKey' | async"/>Continuar con Google</button>
         </div>
-        <div class="mb-3">
+     <!--    <div class="mb-3">
           <button class="btn facebook" (click)="loginWithFacebook()"><img [src]="'facebook.svg' | formatDataPipe : 'GetImageURLByKey' | async"/>Continuar con Facebook</button>
         </div>
         <div class="mb-3">
           <button class="btn apple" (click)="loginWithApple()"><img [src]="'apple.svg' | formatDataPipe : 'GetImageURLByKey' | async"/>Continuar con Apple</button>
-        </div>
+        </div> -->
       </ng-template>
       <ng-template [ngIf]="showPasswordForm  && !showConfirmLinkedAccountForm">
         <span *ngIf="errorMessage" class="form-error-message">

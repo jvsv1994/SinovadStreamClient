@@ -1,7 +1,6 @@
 
 
 export class User{
-
    Id?: number;
    UserName?: string;
    Password?: string;
@@ -9,4 +8,5 @@ export class User{
    LastName?: string;
    Email?: string;
    Active?:boolean;
+   IsPasswordSetted?:boolean;
 }
