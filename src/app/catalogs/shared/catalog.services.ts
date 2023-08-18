@@ -1,0 +1,27 @@
+import { Injectable } from '@angular/core';
+import { RestProviderService} from 'src/app/shared/services/rest-provider.service';
+import { HttpMethodType} from 'src/app/shared/enums';
+import { SinovadApiGenericResponse } from 'src/app/shared/models/response/sinovad-api-generic-response.model';
+
+@Injectable({ providedIn: 'root' })
+export class CatalogService {
+
+  constructor(
+    private restProvider: RestProviderService,
+  ) {
+  }
+
+  public getDetailsByCatalogId(catalogId:number): Promise<any>{
+    return new Promise((resolve, reject) => {
+      this.restProvider.executeSinovadApiService(HttpMethodType.GET,'/catalogs/GetDetailsByCatalogAsync/'+catalogId).then((response:SinovadApiGenericResponse) => {
+        resolve(response);
+      },error=>{
+        reject(error);
+      });
+    });
+  }
+
+
+
+
+}

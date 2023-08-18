@@ -63,16 +63,18 @@
       <h2>Ajustes</h2>
     </div>
   </div>
-  <div *ngIf="isCollapsedLinkedAccountsSection" (click)="isCollapsedLinkedAccountsSection=false" class="sinovad-page-section-container" role="button">
+  <div class="sinovad-page-section-container">
     <div class="sinovad-page-section-content">
-      <div class="button-container">
-        <button class="edit">Editar</button>
-      </div>
       <div class="detail">
         <label>Cuentas vinculadas</label>
-        <span *ngIf="sharedService.userData.IsPasswordSetted">*********</span>
-        <span *ngIf="!sharedService.userData.IsPasswordSetted">No establecida</span>
+        <ng-template [ngIf]="sharedService.linkedAccounts.length==0">
+          <span>No establecida</span>
+        </ng-template>
+        <ng-template [ngIf]="sharedService.linkedAccounts.length>0">
+            <span>{{currentUserLinkedAccountsText}}</span>
+        </ng-template>
       </div>
     </div>
   </div>
+
 </div>
