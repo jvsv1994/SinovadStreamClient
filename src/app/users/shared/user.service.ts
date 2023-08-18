@@ -19,6 +19,15 @@ export class UserService {
   ) {
   }
 
+  public clearSessionData(){
+    this.sharedService.manageMenus=[];
+    this.sharedService.mediaMenu=[];
+    this.sharedService.currentProfile=undefined;
+    this.sharedService.userData=undefined;
+    this.sharedService.apiToken=undefined;
+    localStorage.removeItem("apiToken");
+  }
+
   public getUser(): Promise<any>{
     return new Promise((resolve, reject) => {
       this.restProvider.executeSinovadApiService(HttpMethodType.GET,'/users/GetUserData').then((response:SinovadApiGenericResponse) => {

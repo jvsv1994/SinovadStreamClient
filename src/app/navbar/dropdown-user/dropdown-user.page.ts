@@ -3,6 +3,7 @@ import { ChangeDetectorRef, Component} from '@angular/core';
 import { SharedService } from 'src/app/shared/services/shared-data.service';
 import { Router } from '@angular/router';
 import { Profile } from '../../profiles/shared/profile.model';
+import { UserService } from 'src/app/users/shared/user.service';
 
 declare var window;
 @Component({
@@ -13,6 +14,7 @@ declare var window;
 export class DropDownUserPage{
 
   constructor(
+    private userService:UserService,
     private ref:ChangeDetectorRef,
     private router: Router,
     public sharedService: SharedService) {
@@ -46,10 +48,7 @@ export class DropDownUserPage{
   }
 
   public logOut(){
-    this.sharedService.currentProfile=undefined;
-    this.sharedService.userData=undefined;
-    this.sharedService.apiToken=undefined;
-    localStorage.removeItem("apiToken");
+    this.userService.clearSessionData();
     this.router.navigateByUrl("/landing");
   }
 

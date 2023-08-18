@@ -6,6 +6,7 @@ import { ProfileService } from '../profiles/shared/profile.service';
 import { UserService } from '../users/shared/user.service';
 import { MenuService } from '../menus/shared/menu.service';
 import { LibraryService } from '../libraries/shared/library.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-sinovad-web',
   templateUrl: './sinovad-web.component.html',
@@ -16,7 +17,7 @@ export class SinovadWebComponent{
   showRootPage:boolean=false;
 
   constructor(
-    private libraryService:LibraryService,
+    private router:Router,
     private menuService:MenuService,
     private userService:UserService,
     private profileService:ProfileService,
@@ -78,6 +79,8 @@ export class SinovadWebComponent{
 
           });
         },error=>{
+          this.userService.clearSessionData();
+          this.router.navigateByUrl("/landing");
           console.error(error);
         });
         this.ref.detectChanges();

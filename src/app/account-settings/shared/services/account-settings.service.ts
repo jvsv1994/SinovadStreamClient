@@ -3,6 +3,7 @@ import { RestProviderService } from 'src/app/shared/services/rest-provider.servi
 import { HttpMethodType } from 'src/app/shared/enums';
 import { ChangePasswordModel } from '../models/change-password.model';
 import { SetPasswordModel } from '../models/set-password.model';
+import { ChangeUsernameModel } from '../models/change-username.model';
 
 @Injectable({ providedIn: 'root' })
 export class AccountSettingsService {
@@ -35,6 +36,16 @@ export class AccountSettingsService {
    });
   }
 
+  public changeUsername(changeUsername:ChangeUsernameModel):Promise<boolean>{
+    return new Promise((resolve, reject) => {
+      this.restProvider.executeSinovadApiService(HttpMethodType.POST,'/users/ChangeUserName',changeUsername).then((result: any) => {
+        resolve(true);
+      },error=>{
+        console.error(error);
+        reject(error);
+      });
+   });
+  }
 
 
 

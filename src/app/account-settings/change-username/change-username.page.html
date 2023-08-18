@@ -1,0 +1,25 @@
+<div class="sinovad-page-section-container">
+  <div *ngIf="serverErrorMessage" class="sinovad-server-error-message-content">
+    <i class="fa-solid fa-triangle-exclamation me-2"></i>{{serverErrorMessage}}
+  </div>
+  <div class="sinovad-page-section-content">
+    <div class="button-container">
+      <button class="cancel" (click)="closeChangeUsername.emit(true)">Cancelar</button>
+    </div>
+    <form [formGroup]="changeUsernameForm" (ngSubmit)="changeUsername()" class="form">
+      <div class="form-group" [ngClass]="{'error':sharedService.isInvalidFormControl(changeUsernameForm,'username')}">
+        <label>
+          Nombre de Usuario{{sharedService.isInvalidFormControl(changeUsernameForm,'username') && sharedService.hasRequireErrorFormControl(changeUsernameForm,'username')?' - Se requiere nombre de usuario':''}}
+        </label>
+        <input formControlName="username">
+      </div>
+      <div class="submit-button-container">
+        <button type="submit" class="btn btn-primary"
+        [disabled]="loading || changeUsernameForm.pristine || !changeUsernameForm.valid || changeUsernameForm.value.username==sharedService.userData.UserName">
+          <span [style.visibility]="loading?'hidden':'unset'">Guardar Cambios</span>
+          <div *ngIf="loading" class="lds-dual-ring"></div>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

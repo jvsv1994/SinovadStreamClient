@@ -5,10 +5,11 @@ import { SharedModule } from '../shared/shared.module';
 import { MyAccountPage } from './my-account/my-account.page';
 import { ChangePasswordPage } from './change-password/change-password.page';
 import { SetPasswordPage } from './set-password/set-password.page';
+import { ChangeUsernamePage } from './change-username/change-username.page';
 
 @NgModule({
     declarations: [
-      MyAccountPage,ChangePasswordPage,SetPasswordPage
+      MyAccountPage,ChangePasswordPage,SetPasswordPage,ChangeUsernamePage
     ],
     imports: [
         CommonModule,
@@ -16,7 +17,7 @@ import { SetPasswordPage } from './set-password/set-password.page';
         SharedModule,
         ReactiveFormsModule
     ],
-    exports: [MyAccountPage,ChangePasswordPage,SetPasswordPage]
+    exports: [MyAccountPage,ChangePasswordPage,SetPasswordPage,ChangeUsernamePage]
 })
 export class AccountSettingsModule {
 }

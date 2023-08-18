@@ -7,11 +7,23 @@
       <h2>Información personal</h2>
     </div>
   </div>
-  <div class="sinovad-page-section-container">
+  <div *ngIf="isCollapsedChangeUsernameSection" (click)="isCollapsedChangeUsernameSection=false" class="sinovad-page-section-container" role="button">
     <div class="sinovad-page-section-content">
+      <div class="button-container">
+        <button class="edit">Editar</button>
+      </div>
       <div class="detail">
         <label>Nombre de Usuario</label>
         <span>{{sharedService.userData.UserName}}</span>
+      </div>
+    </div>
+  </div>
+  <app-change-username *ngIf="!isCollapsedChangeUsernameSection" (closeChangeUsername)="isCollapsedChangeUsernameSection=true"></app-change-username>
+  <div class="sinovad-page-section-container">
+    <div class="sinovad-page-section-content">
+      <div class="detail">
+        <label>Nombres y apellidos</label>
+        <span>{{sharedService.userData.FirstName}} {{sharedService.userData.LastName}}</span>
       </div>
     </div>
   </div>
