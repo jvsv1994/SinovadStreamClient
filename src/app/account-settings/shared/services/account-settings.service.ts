@@ -4,6 +4,7 @@ import { HttpMethodType } from 'src/app/shared/enums';
 import { ChangePasswordModel } from '../models/change-password.model';
 import { SetPasswordModel } from '../models/set-password.model';
 import { ChangeUsernameModel } from '../models/change-username.model';
+import { ChangeNamesModel } from '../models/change-names.model';
 
 @Injectable({ providedIn: 'root' })
 export class AccountSettingsService {
@@ -47,6 +48,15 @@ export class AccountSettingsService {
    });
   }
 
-
+  public changeNanes(changeNames:ChangeNamesModel):Promise<boolean>{
+    return new Promise((resolve, reject) => {
+      this.restProvider.executeSinovadApiService(HttpMethodType.POST,'/users/ChangeNames',changeNames).then((result: any) => {
+        resolve(true);
+      },error=>{
+        console.error(error);
+        reject(error);
+      });
+   });
+  }
 
 }

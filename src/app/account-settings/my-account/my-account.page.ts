@@ -10,6 +10,7 @@ declare var window;
 })
 export class MyAccountPage implements OnInit {
 
+  isCollapsedChangeNamesSection:boolean=true;
   isCollapsedChangeUsernameSection:boolean=true;
   isCollapsedChangePasswordSection:boolean=true;
   constructor(

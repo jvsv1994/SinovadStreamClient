@@ -19,14 +19,18 @@
     </div>
   </div>
   <app-change-username *ngIf="!isCollapsedChangeUsernameSection" (closeChangeUsername)="isCollapsedChangeUsernameSection=true"></app-change-username>
-  <div class="sinovad-page-section-container">
+  <div *ngIf="isCollapsedChangeNamesSection" (click)="isCollapsedChangeNamesSection=false" class="sinovad-page-section-container" role="button">
     <div class="sinovad-page-section-content">
+      <div class="button-container">
+        <button class="edit">Editar</button>
+      </div>
       <div class="detail">
         <label>Nombres y apellidos</label>
         <span>{{sharedService.userData.FirstName}} {{sharedService.userData.LastName}}</span>
       </div>
     </div>
   </div>
+  <app-change-names *ngIf="!isCollapsedChangeNamesSection" (closeChangeNames)="isCollapsedChangeNamesSection=true"></app-change-names>
   <div class="sinovad-page-section-container">
     <div class="sinovad-page-section-content">
       <div class="detail">
