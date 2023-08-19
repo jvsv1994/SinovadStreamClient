@@ -7,6 +7,8 @@ import { SharedService } from 'src/app/shared/services/shared-data.service';
 import { SinovadApiPaginationResponse } from 'src/app/shared/models/response/sinovad-api-pagination-response.model';
 import { SinovadApiGenericResponse } from 'src/app/shared/models/response/sinovad-api-generic-response.model';
 import { UserSession } from './user-session.model';
+import { MenuService } from 'src/app/menus/shared/menu.service';
+import { MediaServerService } from 'src/app/servers/shared/server.service';
 export declare type EventHandler = (...args: any[]) => any;
 
 @Injectable({ providedIn: 'root' })
@@ -15,6 +17,8 @@ export class UserService {
   lastCallGuid:string;
 
   constructor(
+    private menuService:MenuService,
+    private serverService:MediaServerService,
     private sharedService:SharedService,
     private restProvider: RestProviderService,
   ) {
@@ -35,6 +39,8 @@ export class UserService {
         let userSessionData:UserSession=response.Data;
         this.sharedService.userData=userSessionData.User;
         this.sharedService.mediaServers=userSessionData.MediaServers;
+        this.menuService.getMediaMenu();
+        this.serverService.checkSecureConnectionMediaServers();
         this.sharedService.linkedAccounts=userSessionData.LinkedAccounts;
         this.sharedService.listProfiles=userSessionData.Profiles;
         this.sharedService.currentProfile=userSessionData.Profiles[0];
