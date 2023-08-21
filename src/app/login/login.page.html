@@ -47,7 +47,7 @@
         <span *ngIf="errorMessage" class="form-error-message">
           {{errorMessage}}
         </span>
-        <form [formGroup]="passwordFormGroup" (ngSubmit)="ValidatePassword()" class="login-form-content" autocomplete="off">
+        <form [formGroup]="passwordFormGroup" (ngSubmit)="authenticateUser()" class="login-form-content" autocomplete="off">
           <div class="mb-3">
             <mat-form-field class="login-form-field">
               <mat-label>Contraseña</mat-label>

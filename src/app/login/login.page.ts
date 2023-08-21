@@ -5,8 +5,6 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { User } from '../users/shared/user.model';
 import { MediaServerService } from '../servers/shared/server.service';
-import { ProfileService } from '../profiles/shared/profile.service';
-import { UserService } from '../users/shared/user.service';
 import { MenuService } from '../menus/shared/menu.service';
 import { SinovadApiGenericResponse } from '../shared/models/response/sinovad-api-generic-response.model';
 import { MyErrorStateMatcher } from '../shared/custom-error-state-matcher';
@@ -15,6 +13,7 @@ import { LinkedAccount } from '../shared/models/linked-account.model';
 import { CatalogEnum, LinkedAccountProvider } from '../shared/enums';
 import { AuthenticationUserResponse } from '../shared/models/authenticate-user-response.model';
 import { ConfirmLinkAccount } from '../shared/models/confirm-linked-account.model';
+import { UserSession } from '../users/shared/user-session.model';
 
 declare var window;
 @Component({
@@ -44,8 +43,6 @@ export class LoginPage {
   constructor(
     private authenticationService:AuthenticationService,
     private menuService:MenuService,
-    private userService:UserService,
-    private profileService: ProfileService,
     private serverService: MediaServerService,
     private formBuilder: FormBuilder,
     private router: Router,
@@ -71,21 +68,14 @@ export class LoginPage {
       }
     }
 
-    public ValidatePassword(){
+    public authenticateUser(){
       if(this.passwordFormGroup.valid)
       {
         this.user.Password=this.passwordFormGroup.value.password;
         this.showLoading=true;
         this.authenticationService.authenticateUser(this.user).then((response:SinovadApiGenericResponse) => {
-          let token=response.Data;
-          localStorage.setItem('apiToken',token);
-          this.sharedService.apiToken=token;
-          this.sharedService.showSplashScreen=true;
-          this.userService.getUser().then(res=>{
-            this.executeAfterGetUserData();
-          },error=>{
-            console.error(error);
-          });
+          var authenticateUserResponseData:AuthenticationUserResponse=response.Data;
+          this.setUserSessionDataAfterAuthenticate(authenticateUserResponseData);
         },error=>{
           this.showLoading=false;
           this.errorMessage=error;
@@ -101,7 +91,6 @@ export class LoginPage {
     this.showLoading=true;
     this.errorMessage=undefined;
     this.authenticationService.authenticateWithGoogle().then(response=>{
-      console.log(response);
       var linkedAccount=new LinkedAccount();
       linkedAccount.AccessToken=response.credential.accessToken;
       linkedAccount.LinkedAccountProviderCatalogId=CatalogEnum.LinkedAccountProvider;
@@ -114,11 +103,7 @@ export class LoginPage {
           this.confirmLinkAccountData=authenticateUserResponseData.ConfirmLinkAccountData;
           this.showConfirmLinkedAccountForm=true;
         }else{
-          this.sharedService.apiToken=authenticateUserResponseData.ApiToken;
-          localStorage.setItem('apiToken',this.sharedService.apiToken);
-          this.sharedService.userData=authenticateUserResponseData.User;
-          this.sharedService.showSplashScreen=true;
-          this.executeAfterGetUserData();
+          this.setUserSessionDataAfterAuthenticate(authenticateUserResponseData);
         }
       },error=>{
         this.showLoading=false;
@@ -137,11 +122,7 @@ export class LoginPage {
       this.showLoading=true;
       this.authenticationService.authenticatePasswordAndConfirmLinkAccountToUser(this.confirmLinkAccountData).then((response:SinovadApiGenericResponse) => {
         var authenticateUserResponseData:AuthenticationUserResponse=response.Data;
-        this.sharedService.apiToken=authenticateUserResponseData.ApiToken;
-        localStorage.setItem('apiToken',this.sharedService.apiToken);
-        this.sharedService.userData=authenticateUserResponseData.User;
-        this.sharedService.showSplashScreen=true;
-        this.executeAfterGetUserData();
+        this.setUserSessionDataAfterAuthenticate(authenticateUserResponseData);
       },error=>{
         this.showLoading=false;
         this.errorMessage=error;
@@ -153,14 +134,20 @@ export class LoginPage {
     }
   }
 
-  private executeAfterGetUserData(){
+  private setUserSessionDataAfterAuthenticate(authenticateUserResponseData:AuthenticationUserResponse){
+    this.sharedService.apiToken=authenticateUserResponseData.ApiToken;
+    localStorage.setItem('apiToken',this.sharedService.apiToken);
+    let userSessionData:UserSession=authenticateUserResponseData.UserData;
+    this.sharedService.userData=userSessionData.User;
+    this.sharedService.mediaServers=userSessionData.MediaServers;
+    this.sharedService.listProfiles=userSessionData.Profiles;
+    this.sharedService.linkedAccounts=userSessionData.LinkedAccounts;
+    this.sharedService.currentProfile=userSessionData.Profiles[0];
+    this.sharedService.showSplashScreen=true;
     this.menuService.getManageMenu();
-    this.serverService.getMediaServers();
-    this.profileService.getAllProfiles().then(res=>{
-      this.router.navigate(['select-profile'],{ skipLocationChange: false});
-    },error=>{
-      console.error(error);
-    });
+    this.menuService.getMediaMenu();
+    this.serverService.checkSecureConnectionMediaServers();
+    this.router.navigate(['select-profile'],{ skipLocationChange: false});
   }
 
   public loginWithFacebook(){

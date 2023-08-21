@@ -40,14 +40,13 @@ export class AuthenticationService {
 
   public authenticateUser(user:User):Promise<SinovadApiGenericResponse>{
     return new Promise((resolve,reject)=>{
-      this.restProvider.executeSinovadApiService(HttpMethodType.POST,'/users/Login',user).then((response:SinovadApiGenericResponse) => {
+      this.restProvider.executeSinovadApiService(HttpMethodType.POST,'/authentication/AuthenticateUser',user).then((response:SinovadApiGenericResponse) => {
         resolve(response);
       },error=>{
         reject(error)
       });
     })
   }
-
 
   public authenticatePasswordAndConfirmLinkAccountToUser(confirmLinkAccount:ConfirmLinkAccount):Promise<SinovadApiGenericResponse>{
     return new Promise((resolve,reject)=>{
