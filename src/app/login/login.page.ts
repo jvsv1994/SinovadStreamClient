@@ -147,7 +147,7 @@ export class LoginPage {
     this.sharedService.showSplashScreen=true;
     this.menuService.getManageMenu();
     this.menuService.getMediaMenu();
-    this.signalIRHubService.openSignalIRHubConnection();
+    this.signalIRHubService.openConnection();
     this.router.navigate(['select-profile'],{ skipLocationChange: false});
   }
 

@@ -30,6 +30,7 @@ export class UserService {
     this.sharedService.currentProfile=undefined;
     this.sharedService.userData=undefined;
     this.sharedService.apiToken=undefined;
+    this.signalIRHubService.stopConnection();
     localStorage.removeItem("apiToken");
   }
 
@@ -43,7 +44,7 @@ export class UserService {
         this.sharedService.linkedAccounts=userSessionData.LinkedAccounts;
         this.sharedService.listProfiles=userSessionData.Profiles;
         this.sharedService.currentProfile=userSessionData.Profiles[0];
-        this.signalIRHubService.openSignalIRHubConnection();
+        this.signalIRHubService.openConnection();
         if(this.sharedService.userData==null)
         {
           this.sharedService.apiToken=undefined;
