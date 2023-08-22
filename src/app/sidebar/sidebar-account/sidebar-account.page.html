@@ -19,22 +19,22 @@
               </a>
             </div>
         </div>
-        <button *ngIf="sharedService.selectedMediaServer" #mediaServerButton class="media-server-button" (click)="togleDropDownMediaServers($event)" [ngClass]="{'selected':isSelectedServerOption()}">
+        <button *ngIf="selectedMediaServer" #mediaServerButton class="media-server-button" (click)="togleDropDownMediaServers($event)" [ngClass]="{'selected':isSelectedServerOption()}">
           <div class="content">
             <div class="left">
                 <span class="first">
-                  {{sharedService.selectedMediaServer.FamilyName?sharedService.selectedMediaServer.FamilyName:sharedService.selectedMediaServer.DeviceName}}
+                  {{selectedMediaServer.FamilyName?selectedMediaServer.FamilyName:selectedMediaServer.DeviceName}}
                 </span>
                 <i *ngIf="dropDownServersService.isShowing" class="fa-solid fa-caret-up"></i>
                 <i *ngIf="!dropDownServersService.isShowing" class="fa-solid fa-caret-down"></i>
             </div>
-            <div class="server-settings-menu-button-icon" [ngClass]="{'icon-secure':sharedService.selectedMediaServer.isSecureConnection,'icon-alert':!sharedService.selectedMediaServer.isSecureConnection}">
-              <i *ngIf="sharedService.selectedMediaServer.isSecureConnection" class="fa-solid fa-lock"></i>
-              <i *ngIf="!sharedService.selectedMediaServer.isSecureConnection" class="fa-solid fa-triangle-exclamation"></i>
+            <div class="server-settings-menu-button-icon" [ngClass]="{'icon-secure':selectedMediaServer.isSecureConnection,'icon-alert':!selectedMediaServer.isSecureConnection}">
+              <i *ngIf="selectedMediaServer.isSecureConnection" class="fa-solid fa-lock"></i>
+              <i *ngIf="!selectedMediaServer.isSecureConnection" class="fa-solid fa-triangle-exclamation"></i>
             </div>
           </div>
         </button>
-        <ng-template [ngIf]="sharedService.selectedMediaServer && serverModules && serverModules.length>0">
+        <ng-template [ngIf]="selectedMediaServer && serverModules && serverModules.length>0">
           <ng-template ngFor let-module [ngForOf]="serverModules">
             <div role="navigation">
               <div class="sidebar-list-header-container">

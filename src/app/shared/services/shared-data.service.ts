@@ -34,7 +34,6 @@ export class SharedService {
   pageNotFoundShowing:boolean=false;
   mediaServers:MediaServer[]=[];
   libraries:Library[]=[];
-  selectedMediaServer:MediaServer;
   linkedAccounts:LinkedAccount[]=[];
   hubConnection:HubConnection;
 
