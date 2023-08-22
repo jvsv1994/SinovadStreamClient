@@ -46,7 +46,7 @@ export class MediaServerService {
     this.signalIrHubService.openSignalIRHubConnection().then(res=>{
       ctx.sharedService.hubConnection.invoke("AddConnectionToUserClientsGroup",ctx.sharedService.userData.Guid).then(res=>{})
       ctx.sharedService.hubConnection.on('UpdateMediaServers', (message) => {
-        console.log("UpdateMediaServers");
+        ctx.getMediaServers();
       });
       if(ctx.sharedService.mediaServers!=null && ctx.sharedService.mediaServers.length>0)
       {
