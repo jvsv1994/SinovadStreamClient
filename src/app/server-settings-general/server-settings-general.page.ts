@@ -45,7 +45,6 @@ export class ServerSettingsGeneralPage implements OnInit {
       var mediaServerGuid=this.activeRoute.snapshot.params.serverGuid;
       this.serverService.getMediaServerByGuid(mediaServerGuid).then((response:SinovadApiGenericResponse) => {
         var mediaServer=response.Data;
-        this.sharedService.selectedMediaServer=mediaServer;
         this.mediaServer=mediaServer;
         this.customForm = this.formBuilder.group({
           familyName: new FormControl(this.mediaServer.FamilyName)

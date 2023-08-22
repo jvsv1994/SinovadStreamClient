@@ -60,7 +60,7 @@ export class LibraryFormComponent implements OnInit {
         library.MediaTypeCatalogDetailId=Number(this.libraryFormGroup.value.mediaType);
         library.MediaTypeCatalogId=CatalogEnum.MediaType;
         library.PhysicalPath=this.libraryFormGroup.value.physicalPath;
-        library.MediaServerId=this.sharedService.selectedMediaServer.Id;
+        library.MediaServerId=this.mediaServer.Id;
         this.libraryService.saveItem(this.mediaServer.Url,library).then((response) => {
           this.showLoading=false;
           this.activeModal.close();
@@ -77,7 +77,7 @@ export class LibraryFormComponent implements OnInit {
       var ctx=this;
       var ref=this.modalService.open(DirectoryChooserPage, {container:"#sinovadMainContainer",
       modalDialogClass:'modal-dialog modal-fullscreen-md-down modal-dialog-centered modal-dialog-scrollable',scrollable:true,backdrop: 'static'});
-      ref.componentInstance.mediaServer=this.sharedService.selectedMediaServer;
+      ref.componentInstance.mediaServer=this.mediaServer;
       ref.closed.subscribe((directoryPath:string)=>{
         ctx.libraryFormGroup.controls.physicalPath.setValue(directoryPath);
       })

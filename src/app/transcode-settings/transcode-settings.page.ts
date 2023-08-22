@@ -118,7 +118,7 @@ export class TranscoderSettingssPage implements OnInit {
       var ctx=this;
       var ref=this.modalService.open(DirectoryChooserPage, {container:"#sinovadMainContainer",
       modalDialogClass:'modal-dialog modal-fullscreen-md-down modal-dialog-centered modal-dialog-scrollable',scrollable:true,backdrop: 'static'});
-      ref.componentInstance.mediaServer=this.sharedService.selectedMediaServer;
+      ref.componentInstance.mediaServer=this.mediaServer;
       ref.closed.subscribe((directoryPath:string)=>{
         ctx.customForm.controls.temporaryFolder.setValue(directoryPath);
         ctx.customForm.controls.temporaryFolder.markAsDirty();

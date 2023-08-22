@@ -48,7 +48,6 @@ export class LibraryListComponent{
       var mediaServerGuid=this.activeRoute.snapshot.params.serverGuid;
       this.mediaServerService.getMediaServerByGuid(mediaServerGuid).then((response:SinovadApiGenericResponse) => {
         var mediaServer=response.Data;
-        this.sharedService.selectedMediaServer=mediaServer;
         this.mediaServer=mediaServer;
         this.getAllItems();
       },error=>{
@@ -68,7 +67,7 @@ export class LibraryListComponent{
 
     public openNewLibrary(){
       let library= new Library();
-      library.MediaServerId=this.sharedService.selectedMediaServer.Id;
+      library.MediaServerId=this.mediaServer.Id;
       this.showModalForm(library);
     }
 
@@ -158,7 +157,7 @@ export class LibraryListComponent{
   }
 
   public searchFilesInLibraries(listLibraries:Library[]){
-    this.libraryService.searchFiles(this.sharedService.selectedMediaServer.Url,listLibraries);
+    this.libraryService.searchFiles(this.mediaServer.Url,listLibraries);
   }
 
 }
