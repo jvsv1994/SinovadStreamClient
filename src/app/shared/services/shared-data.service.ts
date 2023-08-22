@@ -7,18 +7,18 @@ import { MediaServer } from 'src/app/servers/shared/server.model';
 import { FormGroup } from '@angular/forms';
 import { Library } from 'src/app/libraries/shared/library.model';
 import { MetadataAgents } from '../enums';
-import { MediaServerHubConnection } from 'src/app/media/shared/models/media-server-hub-connection.model';
 import { ItemDetail } from 'src/app/media/shared/models/item-detail.model';
 import { Item } from 'src/app/media/shared/models/item.model';
 import { LinkedAccount } from '../models/linked-account.model';
+import { HubConnection } from '@microsoft/signalr';
 
 @Injectable({ providedIn: 'root' })
 export class SharedService {
 
   showSplashScreen:boolean=true;
   userData: User;
-  urlSinovadStreamWebApi: string='http://localhost:53363';
-  //urlSinovadStreamWebApi: string='https://streamapi.sinovad.com';
+  //urlSinovadStreamWebApi: string='http://localhost:53363';
+  urlSinovadStreamWebApi: string='https://streamapi.sinovad.com';
   urlSinovadCdn: string='https://resources.sinovad.com/stream/web';
   originalUrlImagesMovieDataBase:String="https://image.tmdb.org/t/p/w600_and_h900_bestv2";
   urlEpisodeDataBase:string="https://www.themoviedb.org/t/p/w454_and_h254_bestv2";
@@ -35,8 +35,8 @@ export class SharedService {
   mediaServers:MediaServer[]=[];
   libraries:Library[]=[];
   selectedMediaServer:MediaServer;
-  mediaServerHubConnections:MediaServerHubConnection[]=[];
   linkedAccounts:LinkedAccount[]=[];
+  hubConnection:HubConnection;
 
   constructor() {
 

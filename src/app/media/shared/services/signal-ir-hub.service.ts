@@ -1,8 +1,5 @@
 import { HttpTransportType, HubConnectionBuilder } from '@microsoft/signalr';
-
 import { Injectable } from '@angular/core';
-import { MediaServer } from 'src/app/servers/shared/server.model';
-import { MediaServerHubConnection } from '../models/media-server-hub-connection.model';
 import { SharedService } from 'src/app/shared/services/shared-data.service';
 
 @Injectable({ providedIn: 'root' })
@@ -12,19 +9,16 @@ export class SignalIRHubService {
 
   }
 
-  public openConnectionByMediaServer(mediaServer:MediaServer):Promise<any>{
+  public openSignalIRHubConnection():Promise<any>{
     let ctx=this;
     return new Promise((resolve, reject) => {
-      var hubConnection = new HubConnectionBuilder().withUrl(mediaServer.Url+'/sinovadHub', {
+      var hubConnection = new HubConnectionBuilder().withUrl(this.sharedService.urlSinovadStreamWebApi+'/mediaServerHub', {
         skipNegotiation: true,
         transport: HttpTransportType.WebSockets
       }).build();
       hubConnection.start().then(() => {
         console.log('connection started');
-        var mediaServerHubConnection= new MediaServerHubConnection();
-        mediaServerHubConnection.MediaServer=mediaServer;
-        mediaServerHubConnection.HubConnection=hubConnection;
-        ctx.sharedService.mediaServerHubConnections.push(mediaServerHubConnection);
+        ctx.sharedService.hubConnection=hubConnection;
         resolve(true);
       }).catch((err) => {
         console.error('error while establishing signalr connection: ' + err);

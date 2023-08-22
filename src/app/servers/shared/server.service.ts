@@ -42,35 +42,28 @@ export class MediaServerService {
   }
 
   public checkSecureConnectionMediaServers(){
-    if(this.sharedService.mediaServers!=null && this.sharedService.mediaServers.length>0)
-    {
-      this.sharedService.mediaServers.forEach(mediaServer => {
-       this.tryConnectionByMediaServer(mediaServer);
+    let ctx=this;
+    this.signalIrHubService.openSignalIRHubConnection().then(res=>{
+      ctx.sharedService.hubConnection.invoke("AddConnectionToUserClientsGroup",ctx.sharedService.userData.Guid).then(res=>{})
+      ctx.sharedService.hubConnection.on('UpdateMediaServers', (message) => {
+        console.log("UpdateMediaServers");
       });
-    }
-  }
-
-  public tryConnectionByMediaServer(mediaServer:MediaServer){
-    var ctx=this;
-    this.signalIrHubService.openConnectionByMediaServer(mediaServer).then(res=>{
-      ctx.executeGetLibrariesByMediaServer(mediaServer);
-      var mediaServerHubConnection=ctx.sharedService.mediaServerHubConnections.find(x=>x.MediaServer && x.MediaServer.Id==mediaServer.Id);
-      if(mediaServerHubConnection && mediaServerHubConnection.HubConnection)
+      if(ctx.sharedService.mediaServers!=null && ctx.sharedService.mediaServers.length>0)
       {
-        mediaServerHubConnection.HubConnection.on('RefreshLibraries', (message) => {
-          console.log("RefreshLibraries");
-          ctx.executeGetLibrariesByMediaServer(mediaServer);
-        });
-        mediaServerHubConnection.HubConnection.on('RefreshMediaItems', (message) => {
-          console.log("RefreshMediaItems");
+        ctx.sharedService.mediaServers.forEach(mediaServer => {
           ctx.mediaService.updateMediaItems();
+          ctx.executeGetLibrariesByMediaServer(mediaServer);
+          ctx.sharedService.hubConnection.invoke("AddConnectionToMediaServerClientsGroup",mediaServer.Guid).then(res=>{})
+          ctx.sharedService.hubConnection.on('UpdateItemsByMediaServer', (message) => {
+            ctx.mediaService.updateMediaItems();
+          });
+          ctx.sharedService.hubConnection.on('UpdateLibraries', (message) => {
+            ctx.executeGetLibrariesByMediaServer(mediaServer);
+          });
         });
       }
     },error=>{
-      mediaServer.isSecureConnection=false;
-      setTimeout(() => {
-        ctx.tryConnectionByMediaServer(mediaServer);
-      }, 10000);
+
     });
   }
 
