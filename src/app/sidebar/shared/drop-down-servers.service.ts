@@ -15,7 +15,7 @@ export class DropDownServersService {
     private applicationRef: ApplicationRef) {
     }
 
-    public show(dropDownMenuOptions:DropDownMenuOptions):Promise<any>{
+    public show<T>(dropDownMenuOptions:DropDownMenuOptions<T>):Promise<any>{
       return new Promise((resolve, reject) => {
         if(this.lastViewRef!=undefined)
         {
@@ -41,7 +41,7 @@ export class DropDownServersService {
         component.instance.left=rect.left;
         component.instance.top=rect.top+rect.height;
         component.instance.width=rect.width;
-        component.instance.clickItem.subscribe((option:DropDownMenuItem) => {
+        component.instance.clickItem.subscribe((option:DropDownMenuItem<T>) => {
           component.destroy();
           ctx.applicationRef.detachView(component.hostView);
           ctx.isShowing=false;

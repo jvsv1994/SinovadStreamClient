@@ -1,4 +1,4 @@
-export class DropDownMenuItem{
+export class DropDownMenuItem<T>{
   title?:string;
   subtitle?:string;
   text?:string;
@@ -8,4 +8,5 @@ export class DropDownMenuItem{
   iconClass?:string;
   isSelected?:boolean;
   path?:string;
+  itemData:T;
 }

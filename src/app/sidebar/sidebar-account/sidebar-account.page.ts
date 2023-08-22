@@ -120,25 +120,25 @@ export class SidebarAccountPage implements OnInit {
   public showMediaServerMenuOptions(event:any){
     if(!this.dropDownServersService.isShowing)
     {
-      this.dropDownServersService.show(this.getDropDownMenuOptions()).then(response=>{
-
+      this.dropDownServersService.show(this.getDropDownMenuOptions()).then((selectedItem:DropDownMenuItem<MediaServer>)=>{
+        this.sharedService.selectedMediaServer=selectedItem.itemData;
       },reject=>{
 
       });
     }
   }
 
-  public getDropDownMenuOptions():DropDownMenuOptions{
-    var options:DropDownMenuOptions=undefined;
+  public getDropDownMenuOptions():DropDownMenuOptions<MediaServer>{
+    var options:DropDownMenuOptions<MediaServer>=undefined;
     if(this.mediaServerButton)
     {
-      let listItems:DropDownMenuItem[]=[];
+      let listItems:DropDownMenuItem<MediaServer>[]=[];
       this.sharedService.mediaServers.forEach(element => {
         listItems.push({title:element.FamilyName?element.FamilyName:element.DeviceName,subtitle:element.isSecureConnection?"Conexión exitosa":'Sin conexión',
         iconClass:element.isSecureConnection?"fa-solid fa-lock icon-secure":"fa-solid fa-triangle-exclamation icon-alert",
-        path:"/settings/server/"+element.Guid+"/settings/general",isSelected:this.sharedService.selectedMediaServer.Id==element.Id?true:false});
+        path:"/settings/server/"+element.Guid+"/settings/general",isSelected:this.sharedService.selectedMediaServer.Id==element.Id?true:false,itemData:element});
       });
-      var options:DropDownMenuOptions={containerId:"sinovadMainContainer",target:this.mediaServerButton.nativeElement,listItems:listItems};
+      var options:DropDownMenuOptions<MediaServer>={containerId:"sinovadMainContainer",target:this.mediaServerButton.nativeElement,listItems:listItems};
     }
     return options;
   }

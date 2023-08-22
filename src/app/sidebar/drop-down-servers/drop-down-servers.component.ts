@@ -10,12 +10,12 @@ import { SharedService } from 'src/app/shared/services/shared-data.service';
   templateUrl: './drop-down-servers.component.html',
   styleUrls: ['./drop-down-servers.component.scss']
 })
-export class DropDownServersComponent implements AfterViewInit{
+export class DropDownServersComponent<T> implements AfterViewInit{
 
   @Output() hide =new EventEmitter();
-  @Output() clickItem =new EventEmitter();
+  @Output() clickItem =new EventEmitter<DropDownMenuItem<T>>();
   show:boolean=false;
-  @Input() dropDownMenuOptions:DropDownMenuOptions;
+  @Input() dropDownMenuOptions:DropDownMenuOptions<T>;
   @Input() top:number;
   @Input() left:number;
   @Input() width:number;
@@ -41,7 +41,7 @@ export class DropDownServersComponent implements AfterViewInit{
       this.hide.emit(true);
     }
 
-    public onClickDropDownMenuOption(option:DropDownMenuItem){
+    public onClickDropDownMenuOption(option:DropDownMenuItem<T>){
       this.clickItem.emit(option);
       this.router.navigateByUrl(option.path);
     }
