@@ -14,5 +14,6 @@ export class MediaServer{
   public FamilyName?:string;
   public DeviceName?:string;
   public isSecureConnection?:boolean;
+  public lastConnection?:Date;
   public ListLibraries:Library[];
 }

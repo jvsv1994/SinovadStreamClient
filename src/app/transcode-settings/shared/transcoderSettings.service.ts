@@ -26,9 +26,8 @@ export class TranscoderSettingsService {
 
   public saveItem(mediaServerUrl:string,item:TranscoderSettings):Promise<boolean>{
     return new Promise((resolve, reject) => {
-      let methodType=item.Id>0?HttpMethodType.PUT:HttpMethodType.POST;
-      var path=item.Id>0?"/transcoderSettings/Update":"/transcoderSettings/Create";
-      this.restProvider.executeHttpMediaServerApi(methodType,mediaServerUrl+"/api"+path,item).then((response) => {
+      var path="/transcoderSettings/Save";
+      this.restProvider.executeHttpMediaServerApi(HttpMethodType.PUT,mediaServerUrl+"/api"+path,item).then((response) => {
         resolve(true);
       },error=>{
         console.error(error);

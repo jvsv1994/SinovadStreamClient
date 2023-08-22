@@ -7,7 +7,6 @@ import { SharedService } from 'src/app/shared/services/shared-data.service';
 import { LibraryService } from 'src/app/libraries/shared/library.service';
 import { Library } from 'src/app/libraries/shared/library.model';
 import { MenuService } from 'src/app/menus/shared/menu.service';
-import { SignalIRHubService } from 'src/app/media/shared/services/signal-ir-hub.service';
 import { MediaService } from 'src/app/media/shared/services/media.service';
 import { SinovadApiGenericResponse } from 'src/app/shared/models/response/sinovad-api-generic-response.model';
 import { SinovadApiPaginationResponse } from 'src/app/shared/models/response/sinovad-api-pagination-response.model';
@@ -19,7 +18,6 @@ export class MediaServerService {
 
   constructor(
     private mediaService:MediaService,
-    private signalIrHubService:SignalIRHubService,
     private menuService:MenuService,
     private libraryService:LibraryService,
     private sharedService:SharedService,
@@ -33,7 +31,9 @@ export class MediaServerService {
         let mediaServers=response.Data;
         this.sharedService.mediaServers=mediaServers;
         this.menuService.getMediaMenu();
-        this.checkSecureConnectionMediaServers();
+        this.sharedService.mediaServers.forEach(mediaServer => {
+          this.executeGetLibrariesByMediaServer(mediaServer);
+        });
         resolve(true);
       },error=>{
         reject(error);
@@ -41,44 +41,20 @@ export class MediaServerService {
     });
   }
 
-  public checkSecureConnectionMediaServers(){
-    let ctx=this;
-    this.signalIrHubService.openSignalIRHubConnection().then(res=>{
-      ctx.sharedService.hubConnection.invoke("AddConnectionToUserClientsGroup",ctx.sharedService.userData.Guid).then(res=>{})
-      ctx.sharedService.hubConnection.on('UpdateMediaServers', (message) => {
-        ctx.getMediaServers();
+  public executeGetLibrariesByMediaServer(mediaServer:MediaServer){
+    if(mediaServer.isSecureConnection)
+    {
+      this.libraryService.getLibrariesByMediaServer(mediaServer.Url).then((libraries:Library[]) => {
+        mediaServer.ListLibraries=libraries;
+        this.libraryService.updateLibraries();
+        this.mediaService.updateMediaItems();
+      },error=>{
       });
-      if(ctx.sharedService.mediaServers!=null && ctx.sharedService.mediaServers.length>0)
-      {
-        ctx.sharedService.mediaServers.forEach(mediaServer => {
-          ctx.mediaService.updateMediaItems();
-          ctx.executeGetLibrariesByMediaServer(mediaServer);
-          ctx.sharedService.hubConnection.invoke("AddConnectionToMediaServerClientsGroup",mediaServer.Guid).then(res=>{})
-          ctx.sharedService.hubConnection.on('UpdateItemsByMediaServer', (message) => {
-            ctx.mediaService.updateMediaItems();
-          });
-          ctx.sharedService.hubConnection.on('UpdateLibraries', (message) => {
-            ctx.executeGetLibrariesByMediaServer(mediaServer);
-          });
-        });
-      }
-    },error=>{
-
-    });
-  }
-
-  private executeGetLibrariesByMediaServer(mediaServer:MediaServer){
-    this.libraryService.getLibrariesByMediaServer(mediaServer.Url).then((libraries:Library[]) => {
-      mediaServer.ListLibraries=libraries;
-      mediaServer.isSecureConnection=true;
-      this.libraryService.updateLibraries();
-      this.mediaService.updateMediaItems();
-    },error=>{
+    }else{
       mediaServer.ListLibraries=[];
-      mediaServer.isSecureConnection=false;
       this.libraryService.updateLibraries();
       this.mediaService.updateMediaItems();
-    });
+    }
   }
 
   public getMediaServerByGuid(guid:string):Promise<SinovadApiGenericResponse>{

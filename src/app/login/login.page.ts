@@ -14,6 +14,7 @@ import { CatalogEnum, LinkedAccountProvider } from '../shared/enums';
 import { AuthenticationUserResponse } from '../shared/models/authenticate-user-response.model';
 import { ConfirmLinkAccount } from '../shared/models/confirm-linked-account.model';
 import { UserSession } from '../users/shared/user-session.model';
+import { SignalIRHubService } from '../media/shared/services/signal-ir-hub.service';
 
 declare var window;
 @Component({
@@ -43,7 +44,7 @@ export class LoginPage {
   constructor(
     private authenticationService:AuthenticationService,
     private menuService:MenuService,
-    private serverService: MediaServerService,
+    private signalIRHubService:SignalIRHubService,
     private formBuilder: FormBuilder,
     private router: Router,
     public sharedService: SharedService) {}
@@ -146,7 +147,7 @@ export class LoginPage {
     this.sharedService.showSplashScreen=true;
     this.menuService.getManageMenu();
     this.menuService.getMediaMenu();
-    this.serverService.checkSecureConnectionMediaServers();
+    this.signalIRHubService.openSignalIRHubConnection();
     this.router.navigate(['select-profile'],{ skipLocationChange: false});
   }
 

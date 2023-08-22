@@ -48,8 +48,6 @@ export class LibraryListComponent{
       var mediaServerGuid=this.activeRoute.snapshot.params.serverGuid;
       this.mediaServerService.getMediaServerByGuid(mediaServerGuid).then((response:SinovadApiGenericResponse) => {
         var mediaServer=response.Data;
-        var selectedMediaServer=this.sharedService.mediaServers.find(x=>x.Id==mediaServer.Id);
-        mediaServer.isSecureConnection=selectedMediaServer.isSecureConnection;
         this.sharedService.selectedMediaServer=mediaServer;
         this.mediaServer=mediaServer;
         this.getAllItems();

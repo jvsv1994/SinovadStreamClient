@@ -2,6 +2,7 @@
 export class TranscoderSettings{
 
   public Id: number;
+  public Guid: number;
   public MediaServerId: number;
   public VideoTransmissionTypeCatalogId: number;
   public VideoTransmissionTypeCatalogDetailId: number;
