@@ -64,15 +64,16 @@ export class TranscoderSettingssPage implements OnInit {
       var mediaServer=this.sharedService.mediaServers.find(x=>x.Guid==mediaServerGuid)
       if(mediaServer)
       {
+        this.mediaServer=mediaServer;
         if(mediaServer.isSecureConnection)
         {
           this.loadingConnection=false;
+          this.getTranscoderSettingss();
         }else{
           setTimeout(() => {
             this.loadingConnection=false;
           }, 3000);
         }
-        this.mediaServer=mediaServer;
       }else{
         this.router.navigateByUrl('/404')
       }

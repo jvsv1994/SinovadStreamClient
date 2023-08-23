@@ -54,6 +54,7 @@ export class ServerSettingsGeneralPage implements OnInit {
       var mediaServer=this.sharedService.mediaServers.find(x=>x.Guid==mediaServerGuid)
       if(mediaServer)
       {
+        this.mediaServer=mediaServer;
         if(mediaServer.isSecureConnection)
         {
           this.loadingConnection=false;
@@ -62,7 +63,6 @@ export class ServerSettingsGeneralPage implements OnInit {
             this.loadingConnection=false;
           }, 3000);
         }
-        this.mediaServer=mediaServer;
         this.customForm = this.formBuilder.group({
           familyName: new FormControl(this.mediaServer.FamilyName)
         });

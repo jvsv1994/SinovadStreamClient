@@ -1,41 +1,42 @@
-<div *ngIf="mediaServer" id="serverSettinsPageContainer" class="sinovad-page-container">
-  <h2>{{mediaServer.FamilyName?mediaServer.FamilyName:mediaServer.DeviceName}} - Bibliotecas</h2>
-  <div class="manage-libraries-header">
-    <div class="manage-libraries-count">{{listLibraries?listLibraries.length:''}} bibliotecas</div>
-    <button (click)="openNewLibrary()">Añadir biblioteca</button>
-    <button (click)="updateVideoInAllLibraries()">Buscar archivos en biblioteca</button>
-  </div>
-  <ng-template ngFor let-library [ngForOf]="listLibraries" let-i="index">
-    <div class="manage-library-summary-row" [ngClass]="{'selected':currentLibrary && currentLibrary.Id==library.Id}">
-      <div class="manage-library-summary-overlay">
-        <div class="manage-library-icon-container">
-          <i *ngIf="library.MediaTypeCatalogDetailId==1" class="fa-solid fa-film"></i>
-          <i *ngIf="library.MediaTypeCatalogDetailId==2" class="fa-solid fa-tv"></i>
-        </div>
-        <a>{{library.Name}}</a>
-        <div class="manage-library-summary-actions">
-          <div class="manage-library-summary-header">
-              <button class="manage-library-summary-action" (click)="showActions($event,library)">
-                  <span class="manage-library-summary-header-icon">
-                    <i class="fa-solid fa-ellipsis-vertical"></i>
-                  </span>
-              </button>
+<ng-template [ngIf]="!loadingConnection">
+  <ng-template [ngIf]="mediaServer && mediaServer.isSecureConnection">
+    <div *ngIf="mediaServer" id="serverSettinsPageContainer" class="sinovad-page-container">
+      <h2>{{mediaServer.FamilyName?mediaServer.FamilyName:mediaServer.DeviceName}} - Bibliotecas</h2>
+      <div class="manage-libraries-header">
+        <div class="manage-libraries-count">{{listLibraries?listLibraries.length:''}} bibliotecas</div>
+        <button (click)="openNewLibrary()">Añadir biblioteca</button>
+        <button (click)="updateVideoInAllLibraries()">Buscar archivos en biblioteca</button>
+      </div>
+      <ng-template ngFor let-library [ngForOf]="listLibraries" let-i="index">
+        <div class="manage-library-summary-row" [ngClass]="{'selected':currentLibrary && currentLibrary.Id==library.Id}">
+          <div class="manage-library-summary-overlay">
+            <div class="manage-library-icon-container">
+              <i *ngIf="library.MediaTypeCatalogDetailId==1" class="fa-solid fa-film"></i>
+              <i *ngIf="library.MediaTypeCatalogDetailId==2" class="fa-solid fa-tv"></i>
+            </div>
+            <a>{{library.Name}}</a>
+            <div class="manage-library-summary-actions">
+              <div class="manage-library-summary-header">
+                  <button class="manage-library-summary-action" (click)="showActions($event,library)">
+                      <span class="manage-library-summary-header-icon">
+                        <i class="fa-solid fa-ellipsis-vertical"></i>
+                      </span>
+                  </button>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      </ng-template>
     </div>
   </ng-template>
-</div>
-
-<!--
-<div *ngIf="callSearchMediaLog" class="sinovad-searh-media-log-container">
-  <div class="sinovad-searh-media-log-content">
-    <div *ngIf="searchMediaLogContent!=''" class="sinovad-searh-media-log-html" [innerHTML]="searchMediaLogContent">
-    </div>
-    <div *ngIf="searchMediaLogContent==''" class="sinovad-searh-media-log-second-content">
-        Buscando videos...
-    </div>
+  <ng-template [ngIf]="mediaServer && !mediaServer.isSecureConnection">
+    <app-server-connection-error [mediaServer]="mediaServer"></app-server-connection-error>
+  </ng-template>
+</ng-template>
+<ng-template [ngIf]="loadingConnection">
+  <div class="spinner-centered-container">
+    <mat-spinner></mat-spinner>
   </div>
-</div>
- -->
+</ng-template>
+
 

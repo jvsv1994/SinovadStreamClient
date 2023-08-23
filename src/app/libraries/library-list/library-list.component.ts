@@ -12,8 +12,9 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LibraryFormComponent } from '../library-form/library-form.component';
 import { CustomMenuItem, CustomMenuService } from 'src/app/shared/services/custom-menu.service';
 import { MediaServer } from 'src/app/servers/shared/server.model';
-import { MediaServerService } from 'src/app/servers/shared/server.service';
 import { SinovadApiGenericResponse } from 'src/app/shared/models/response/sinovad-api-generic-response.model';
+import { Subscription } from 'rxjs';
+import { SignalIRHubService } from 'src/app/media/shared/services/signal-ir-hub.service';
 
 declare var window;
 @Component({
@@ -26,33 +27,51 @@ export class LibraryListComponent{
   listLibraries:Library[];
   mediaServer:MediaServer;
   currentLibrary:Library;
+  loadingConnection:boolean=true;
+  subscriptionCompleteConnection:Subscription;
 
   constructor(
+    private signalIrService:SignalIRHubService,
     private customMenuService:CustomMenuService,
     private modalService: NgbModal,
     private libraryService:LibraryService,
-    private mediaServerService:MediaServerService,
     private dialog: MatDialog,
     private snackBarService:SnackBarService,
     private router: Router,
     public activeRoute: ActivatedRoute,
     public sharedService: SharedService) {
-
+      this.router.routeReuseStrategy.shouldReuseRoute = function () {
+        return false;
+      };
+      this.subscriptionCompleteConnection=this.signalIrService.isCompletedConnection().subscribe((res)=>{
+        this.sharedService.hubConnection.on('EnableMediaServer', (mediaServerGuid:string) => {
+          if(this.mediaServer && this.mediaServer.Guid==mediaServerGuid && this.loadingConnection)
+          {
+            this.loadingConnection=false;
+            this.getAllItems();
+          }
+        });
+      });
     }
 
     ngOnInit(): void {
-      this.getMediaServerData();
-    }
-
-    public async getMediaServerData(){
       var mediaServerGuid=this.activeRoute.snapshot.params.serverGuid;
-      this.mediaServerService.getMediaServerByGuid(mediaServerGuid).then((response:SinovadApiGenericResponse) => {
-        var mediaServer=response.Data;
+      var mediaServer=this.sharedService.mediaServers.find(x=>x.Guid==mediaServerGuid)
+      if(mediaServer)
+      {
         this.mediaServer=mediaServer;
-        this.getAllItems();
-      },error=>{
+        if(mediaServer.isSecureConnection)
+        {
+          this.loadingConnection=false;
+          this.getAllItems();
+        }else{
+          setTimeout(() => {
+            this.loadingConnection=false;
+          }, 3000);
+        }
+      }else{
         this.router.navigateByUrl('/404')
-      });
+      }
     }
 
     public getAllItems(){
