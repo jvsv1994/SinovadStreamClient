@@ -79,7 +79,7 @@ export class SidebarAccountPage implements OnInit {
     public sharedService: SharedService) {
       this.subscriptionCompleteConnection=this.signalIrService.isCompletedConnection().subscribe((res)=>{
         this.sharedService.hubConnection.on('EnableMediaServer', (mediaServerGuid:string) => {
-          if(this.selectedMediaServer && this.selectedMediaServer.Guid==mediaServerGuid)
+          if(this.selectedMediaServer && this.selectedMediaServer.Guid==mediaServerGuid && this.loadingConnection)
           {
             this.loadingConnection=false;
           }

@@ -41,7 +41,7 @@ export class ServerSettingsGeneralPage implements OnInit {
       };
       this.subscriptionCompleteConnection=this.signalIrService.isCompletedConnection().subscribe((res)=>{
         this.sharedService.hubConnection.on('EnableMediaServer', (mediaServerGuid:string) => {
-          if(this.mediaServer && this.mediaServer.Guid==mediaServerGuid)
+          if(this.mediaServer && this.mediaServer.Guid==mediaServerGuid && this.loadingConnection)
           {
             this.loadingConnection=false;
           }
