@@ -1,8 +1,7 @@
 
 import { Component, OnInit} from '@angular/core';
 import { SharedService } from 'src/app/shared/services/shared-data.service';
-import { CatalogEnum, HttpMethodType } from 'src/app/shared/enums';
-import { RestProviderService } from 'src/app/shared/services/rest-provider.service';
+import { CatalogEnum } from 'src/app/shared/enums';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { SnackBarService } from 'src/app/shared/services/snack-bar.service';
@@ -16,6 +15,7 @@ import { TranscoderSettingsService } from './shared/transcoderSettings.service';
 import { SinovadApiGenericResponse } from '../shared/models/response/sinovad-api-generic-response.model';
 import { Subscription } from 'rxjs';
 import { SignalIRHubService } from '../media/shared/services/signal-ir-hub.service';
+import { CatalogService } from '../catalogs/shared/catalog.services';
 
 declare var window;
 @Component({
@@ -35,6 +35,7 @@ export class TranscoderSettingssPage implements OnInit {
   subscriptionCompleteConnection:Subscription;
 
   constructor(
+    private catalogService:CatalogService,
     private signalIrService:SignalIRHubService,
     private transcoderSettingsService:TranscoderSettingsService,
     private modalService: NgbModal,
@@ -42,7 +43,6 @@ export class TranscoderSettingssPage implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     public activeRoute: ActivatedRoute,
-    public restProvider: RestProviderService,
     public sharedService: SharedService) {
       this.router.routeReuseStrategy.shouldReuseRoute = function () {
         return false;
@@ -89,7 +89,7 @@ export class TranscoderSettingssPage implements OnInit {
 
     public getCatalogDetails(){
       let listCatalogIds=CatalogEnum.TranscoderPreset+","+CatalogEnum.VideoTransmissionType;
-      this.restProvider.executeSinovadApiService(HttpMethodType.GET,"/catalogs/GetAllCatalogDetailsWithPaginationByCatalogIdsAsync?catalogIds="+listCatalogIds).then((response:SinovadApiGenericResponse) => {
+      this.catalogService.getAllCatalogDetailsByCatalogIds(listCatalogIds).then((response:SinovadApiGenericResponse) => {
         let data=response.Data;
         this.transmissionMethodList=data.filter(item=>item.CatalogId==CatalogEnum.VideoTransmissionType);
         this.presetList=data.filter(item=>item.CatalogId==CatalogEnum.TranscoderPreset);

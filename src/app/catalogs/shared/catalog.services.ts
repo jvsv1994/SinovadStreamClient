@@ -21,7 +21,14 @@ export class CatalogService {
     });
   }
 
-
-
+  public getAllCatalogDetailsByCatalogIds(catalogIds:string): Promise<any>{
+    return new Promise((resolve, reject) => {
+      this.restProvider.executeSinovadApiService(HttpMethodType.GET,'/catalogs/GetAllCatalogDetailsByCatalogIds?catalogIds='+catalogIds).then((response:SinovadApiGenericResponse) => {
+        resolve(response);
+      },error=>{
+        reject(error);
+      });
+    });
+  }
 
 }
