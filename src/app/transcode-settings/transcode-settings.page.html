@@ -1,53 +1,61 @@
-<div *ngIf="customForm" id="serverSettinsPageContainer" class="sinovad-page-container">
-  <h2>{{mediaServer.FamilyName?mediaServer.FamilyName:mediaServer.DeviceName}} - Transcodificador</h2>
-  <div>
-    <div class="server-settings-container">
-      <div class="settings-row">
-          <div class="pane-region">
-            <div class="form-group">
-                <form [formGroup]="customForm" (ngSubmit)="saveTranscoder()" class="server-settings-form">
-                  <div class="form-group">
-                    <label class="control-label">Método de transmisión</label>
-                    <select name="transmissionMethods" class="form-control" formControlName="transmissionMethod">
-                      <ng-template ngFor let-tr [ngForOf]="transmissionMethodList">
-                        <option class="form-option" [ngValue]="tr.Id">{{tr.Name}}</option>
-                      </ng-template>
-                    </select>
-                    <p class="help-block">Método de transmisión para transcodificar los videos</p>
-                  </div>
-                    <div class="form-group">
-                        <label class="control-label">Carpeta temporal para el transcodificador</label>
-                        <input class="form-control" readonly type="text" formControlName="temporaryFolder" style="cursor: pointer;" (click)="showChooserDirectoryModal()"/>
-                        <p class="help-block">Carpeta que utilizará el codificador para los archivos temporales.</p>
-                    </div>
-                    <div class="form-group">
-                      <label class="control-label">Preset de conversión x264 en segundo plano</label>
-                      <select name="transmissionMethods" class="form-control" formControlName="preset">
-                        <ng-template ngFor let-pr [ngForOf]="presetList">
-                          <option class="form-option" [ngValue]="pr.Id">{{pr.Name}}</option>
-                        </ng-template>
-                      </select>
-                      <p class="help-block">El valor de preset de x264 usado para conversión en segundo plano (Sincronización y Optimizador de Contenido). Valores más lentos darán lugar a mejor calidad de vídeo y archivos más pequeños, pero llevará mucho más tiempo completar el proceso.</p>
-                    </div>
-                    <div class="form-group">
-                      <label class="control-label">Factor de Tasa Constante</label>
-                      <input class="form-control" type="text" formControlName="constantRateFactor"/>
-                      <p class="help-block">El factor de tasa constante (CRF) es la configuración predeterminada de calidad (y control de velocidad) para los codificadores x264 y x265 , y también está disponible para libvpx . Con x264 y x265, puede establecer los valores entre 0 y 51, donde los valores más bajos darían como resultado una mejor calidad, a expensas de tamaños de archivo más altos. Los valores más altos significan más compresión, pero en algún momento notará la degradación de la calidad. Para x264, los valores razonables están entre 18 y 28. El valor predeterminado es 23, por lo que puede usarlo como punto de partida.</p>
-                    </div>
-                    <div class="form-footer">
-                        <button type="submit" class="save" [ngClass]="{'load':loading,'disable':customForm.pristine || customForm.invalid}">
-                          <div class="loading">
-
-                          </div>
-                          <span class="btn-label">Guardar cambios</span>
-                        </button>
-                        <span class="form-message"></span>
-                    </div>
-                </form>
-            </div>
+<ng-template [ngIf]="!loadingConnection">
+  <ng-template [ngIf]="mediaServer && mediaServer.isSecureConnection">
+    <div *ngIf="customForm" id="serverSettinsPageContainer" class="sinovad-page-container">
+      <h2>{{mediaServer.FamilyName?mediaServer.FamilyName:mediaServer.DeviceName}} - Transcodificador</h2>
+      <div>
+        <div class="server-settings-container">
+          <div class="settings-row">
+              <div class="pane-region">
+                <div class="form-group">
+                    <form [formGroup]="customForm" (ngSubmit)="saveTranscoder()" class="server-settings-form">
+                      <div class="form-group">
+                        <label class="control-label">Método de transmisión</label>
+                        <select name="transmissionMethods" class="form-control" formControlName="transmissionMethod">
+                          <ng-template ngFor let-tr [ngForOf]="transmissionMethodList">
+                            <option class="form-option" [ngValue]="tr.Id">{{tr.Name}}</option>
+                          </ng-template>
+                        </select>
+                        <p class="help-block">Método de transmisión para transcodificar los videos</p>
+                      </div>
+                        <div class="form-group">
+                            <label class="control-label">Carpeta temporal para el transcodificador</label>
+                            <input class="form-control" readonly type="text" formControlName="temporaryFolder" style="cursor: pointer;" (click)="showChooserDirectoryModal()"/>
+                            <p class="help-block">Carpeta que utilizará el codificador para los archivos temporales.</p>
+                        </div>
+                        <div class="form-group">
+                          <label class="control-label">Preset de conversión x264 en segundo plano</label>
+                          <select name="transmissionMethods" class="form-control" formControlName="preset">
+                            <ng-template ngFor let-pr [ngForOf]="presetList">
+                              <option class="form-option" [ngValue]="pr.Id">{{pr.Name}}</option>
+                            </ng-template>
+                          </select>
+                          <p class="help-block">El valor de preset de x264 usado para conversión en segundo plano (Sincronización y Optimizador de Contenido). Valores más lentos darán lugar a mejor calidad de vídeo y archivos más pequeños, pero llevará mucho más tiempo completar el proceso.</p>
+                        </div>
+                        <div class="form-group">
+                          <label class="control-label">Factor de Tasa Constante</label>
+                          <input class="form-control" type="text" formControlName="constantRateFactor"/>
+                          <p class="help-block">El factor de tasa constante (CRF) es la configuración predeterminada de calidad (y control de velocidad) para los codificadores x264 y x265 , y también está disponible para libvpx . Con x264 y x265, puede establecer los valores entre 0 y 51, donde los valores más bajos darían como resultado una mejor calidad, a expensas de tamaños de archivo más altos. Los valores más altos significan más compresión, pero en algún momento notará la degradación de la calidad. Para x264, los valores razonables están entre 18 y 28. El valor predeterminado es 23, por lo que puede usarlo como punto de partida.</p>
+                        </div>
+                        <div class="form-footer">
+                            <button type="submit" class="btn btn-primary" [disabled]="loading || customForm.pristine || customForm.invalid">
+                              <span class="btn-label">Guardar cambios</span>
+                            </button>
+                            <span class="form-message"></span>
+                        </div>
+                    </form>
+                </div>
+              </div>
           </div>
+        </div>
       </div>
     </div>
+  </ng-template>
+  <ng-template [ngIf]="mediaServer && !mediaServer.isSecureConnection">
+    <app-server-connection-error [mediaServer]="mediaServer"></app-server-connection-error>
+  </ng-template>
+</ng-template>
+<ng-template [ngIf]="loadingConnection">
+  <div class="spinner-centered-container">
+    <mat-spinner></mat-spinner>
   </div>
-
-</div>
+</ng-template>

@@ -127,9 +127,6 @@
   button.save:hover{
     opacity: 1;
   }
-  button.save.load{
-    pointer-events: none;
-  }
   button.save.disable{
     pointer-events: none;
     opacity: 0.4;
@@ -138,24 +135,6 @@
   .form-message{
     color: #999;
     margin: 0 20px;
-  }
-  .loading{
-    animation: auto;
-    border-color: #cc7b19 transparent transparent #cc7b19;
-    border-radius: 50%;
-    border-style: solid;
-    border-width: 2px;
-    height: 16px;
-    margin: -8px 0 0 -8px;
-    width: 16px;
-    border-left-color: #fff;
-    border-top-color: #fff;
-    left: -12px;
-    position: absolute;
-    top: 50%;
-    transition: left .2s;
-    visibility: hidden;
-    z-index: 1;
   }
   .btn-label{
     left: 0;

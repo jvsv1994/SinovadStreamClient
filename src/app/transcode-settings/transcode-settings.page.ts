@@ -14,6 +14,8 @@ import { CatalogDetail } from '../catalogs/shared/catalog-detail.model';
 import { TranscoderSettings } from './shared/transcoder-settings.model';
 import { TranscoderSettingsService } from './shared/transcoderSettings.service';
 import { SinovadApiGenericResponse } from '../shared/models/response/sinovad-api-generic-response.model';
+import { Subscription } from 'rxjs';
+import { SignalIRHubService } from '../media/shared/services/signal-ir-hub.service';
 
 declare var window;
 @Component({
@@ -29,8 +31,11 @@ export class TranscoderSettingssPage implements OnInit {
   mediaServer:MediaServer;
   loading:boolean=false;
   customForm:FormGroup;
+  loadingConnection:boolean=true;
+  subscriptionCompleteConnection:Subscription;
 
   constructor(
+    private signalIrService:SignalIRHubService,
     private transcoderSettingsService:TranscoderSettingsService,
     private modalService: NgbModal,
     private snackBarService:SnackBarService,
@@ -39,13 +44,48 @@ export class TranscoderSettingssPage implements OnInit {
     public activeRoute: ActivatedRoute,
     public restProvider: RestProviderService,
     public sharedService: SharedService) {
-
+      this.router.routeReuseStrategy.shouldReuseRoute = function () {
+        return false;
+      };
+      this.subscriptionCompleteConnection=this.signalIrService.isCompletedConnection().subscribe((res)=>{
+        this.sharedService.hubConnection.on('EnableMediaServer', (mediaServerGuid:string) => {
+          if(this.mediaServer && this.mediaServer.Guid==mediaServerGuid && this.loadingConnection)
+          {
+            this.loadingConnection=false;
+            this.getTranscoderSettingss();
+          }
+        });
+      });
     }
 
     ngOnInit(): void {
       this.getCatalogDetails();
-      this.getMediaServerData();
+      var mediaServerGuid=this.activeRoute.snapshot.params.serverGuid;
+      var mediaServer=this.sharedService.mediaServers.find(x=>x.Guid==mediaServerGuid)
+      if(mediaServer)
+      {
+        if(mediaServer.isSecureConnection)
+        {
+          this.loadingConnection=false;
+        }else{
+          setTimeout(() => {
+            this.loadingConnection=false;
+          }, 3000);
+        }
+        this.mediaServer=mediaServer;
+      }else{
+        this.router.navigateByUrl('/404')
+      }
     }
+
+    ngOnDestroy(){
+      this.subscriptionCompleteConnection.unsubscribe();
+      if(this.sharedService.hubConnection)
+      {
+        this.sharedService.hubConnection.off('EnableMediaServer');
+      }
+    }
+
 
     public getCatalogDetails(){
       let listCatalogIds=CatalogEnum.TranscoderPreset+","+CatalogEnum.VideoTransmissionType;
@@ -55,22 +95,6 @@ export class TranscoderSettingssPage implements OnInit {
         this.presetList=data.filter(item=>item.CatalogId==CatalogEnum.TranscoderPreset);
       },error=>{
         console.error(error);
-      });
-    }
-
-
-    ngAfterViewInit(){
-
-    }
-
-    public async getMediaServerData(){
-      var mediaServerGuid=this.activeRoute.snapshot.params.serverGuid;
-      this.restProvider.executeSinovadApiService(HttpMethodType.GET,'/mediaServers/GetByGuidAsync/'+mediaServerGuid).then((response:SinovadApiGenericResponse) => {
-        var mediaServer=response.Data;
-        this.mediaServer=mediaServer;
-        this.getTranscoderSettingss();
-      },error=>{
-        this.router.navigateByUrl('/404')
       });
     }
 
