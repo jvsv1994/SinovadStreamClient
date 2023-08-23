@@ -25,7 +25,8 @@ export class ServerSettingsGeneralPage implements OnInit {
   mediaServer:MediaServer;
   loading:boolean=false;
   loadingConnection:boolean=true;
-  subscriptionCompleteConnection:Subscription;
+  subscriptionEnableMediaServer:Subscription;
+  subscriptionDisableMediaServer:Subscription;
 
   constructor(
     private signalIrService:SignalIRHubService,
@@ -39,13 +40,18 @@ export class ServerSettingsGeneralPage implements OnInit {
       this.router.routeReuseStrategy.shouldReuseRoute = function () {
         return false;
       };
-      this.subscriptionCompleteConnection=this.signalIrService.isCompletedConnection().subscribe((res)=>{
-        this.sharedService.hubConnection.on('EnableMediaServer', (mediaServerGuid:string) => {
-          if(this.mediaServer && this.mediaServer.Guid==mediaServerGuid && this.loadingConnection)
-          {
-            this.loadingConnection=false;
-          }
-        });
+      this.subscriptionEnableMediaServer=this.signalIrService.isEnablingMediaServer().subscribe((mediaServerGuid:string) => {
+        if(this.mediaServer && this.mediaServer.Guid==mediaServerGuid && !this.mediaServer.isSecureConnection)
+        {
+          this.loadingConnection=false;
+          this.mediaServer.isSecureConnection=true;
+        }
+      });
+      this.subscriptionDisableMediaServer=this.signalIrService.isDisablingMediaServer().subscribe((mediaServerGuid:string) => {
+        if(this.mediaServer && this.mediaServer.Guid==mediaServerGuid && this.mediaServer.isSecureConnection)
+        {
+          this.mediaServer.isSecureConnection=false;
+        }
       });
     }
 
@@ -54,7 +60,7 @@ export class ServerSettingsGeneralPage implements OnInit {
       var mediaServer=this.sharedService.mediaServers.find(x=>x.Guid==mediaServerGuid)
       if(mediaServer)
       {
-        this.mediaServer=mediaServer;
+        this.mediaServer=JSON.parse(JSON.stringify(mediaServer));
         if(mediaServer.isSecureConnection)
         {
           this.loadingConnection=false;
@@ -72,7 +78,8 @@ export class ServerSettingsGeneralPage implements OnInit {
     }
 
     ngOnDestroy(){
-      this.subscriptionCompleteConnection.unsubscribe();
+      this.subscriptionEnableMediaServer.unsubscribe();
+      this.subscriptionDisableMediaServer.unsubscribe();
     }
 
     public async getMediaServerData(){

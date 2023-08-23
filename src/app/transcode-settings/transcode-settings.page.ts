@@ -32,7 +32,8 @@ export class TranscoderSettingssPage implements OnInit {
   loading:boolean=false;
   customForm:FormGroup;
   loadingConnection:boolean=true;
-  subscriptionCompleteConnection:Subscription;
+  subscriptionEnableMediaServer:Subscription;
+  subscriptionDisableMediaServer:Subscription;
 
   constructor(
     private catalogService:CatalogService,
@@ -47,14 +48,19 @@ export class TranscoderSettingssPage implements OnInit {
       this.router.routeReuseStrategy.shouldReuseRoute = function () {
         return false;
       };
-      this.subscriptionCompleteConnection=this.signalIrService.isCompletedConnection().subscribe((res)=>{
-        this.sharedService.hubConnection.on('EnableMediaServer', (mediaServerGuid:string) => {
-          if(this.mediaServer && this.mediaServer.Guid==mediaServerGuid && this.loadingConnection)
-          {
-            this.loadingConnection=false;
-            this.getTranscoderSettingss();
-          }
-        });
+      this.subscriptionEnableMediaServer=this.signalIrService.isEnablingMediaServer().subscribe((mediaServerGuid:string) => {
+        if(this.mediaServer && this.mediaServer.Guid==mediaServerGuid && !this.mediaServer.isSecureConnection)
+        {
+          this.loadingConnection=false;
+          this.mediaServer.isSecureConnection=true;
+          this.getTranscoderSettingss();
+        }
+      });
+      this.subscriptionDisableMediaServer=this.signalIrService.isDisablingMediaServer().subscribe((mediaServerGuid:string) => {
+        if(this.mediaServer && this.mediaServer.Guid==mediaServerGuid && this.mediaServer.isSecureConnection)
+        {
+          this.mediaServer.isSecureConnection=false;
+        }
       });
     }
 
@@ -64,7 +70,7 @@ export class TranscoderSettingssPage implements OnInit {
       var mediaServer=this.sharedService.mediaServers.find(x=>x.Guid==mediaServerGuid)
       if(mediaServer)
       {
-        this.mediaServer=mediaServer;
+        this.mediaServer=JSON.parse(JSON.stringify(mediaServer));
         if(mediaServer.isSecureConnection)
         {
           this.loadingConnection=false;
@@ -80,7 +86,8 @@ export class TranscoderSettingssPage implements OnInit {
     }
 
     ngOnDestroy(){
-      this.subscriptionCompleteConnection.unsubscribe();
+      this.subscriptionEnableMediaServer.unsubscribe();
+      this.subscriptionDisableMediaServer.unsubscribe();
     }
 
 
