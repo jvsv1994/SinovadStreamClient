@@ -19,7 +19,9 @@ declare var window;
 })
 export class SidebarAccountPage implements OnInit {
 
-  subscriptionCompleteConnection:Subscription;
+  mediaServers:MediaServer[]=[];
+  subscriptionEnableMediaServer:Subscription;
+  subscriptionDisableMediaServer:Subscription;
   selectedMediaServer:MediaServer;
   @Output() collapseSidebar=new EventEmitter();
   @ViewChild('mediaServerButton') mediaServerButton:ElementRef ;
@@ -77,37 +79,50 @@ export class SidebarAccountPage implements OnInit {
     public activeRoute: ActivatedRoute,
     public  ref:ChangeDetectorRef,
     public sharedService: SharedService) {
-      this.subscriptionCompleteConnection=this.signalIrService.isCompletedConnection().subscribe((res)=>{
-        this.sharedService.hubConnection.on('EnableMediaServer', (mediaServerGuid:string) => {
-          if(this.selectedMediaServer && this.selectedMediaServer.Guid==mediaServerGuid && this.loadingConnection)
-          {
-            this.loadingConnection=false;
-          }
-        });
+      this.subscriptionEnableMediaServer=this.signalIrService.isEnablingMediaServer().subscribe((mediaServerGuid:string) => {
+        if(this.selectedMediaServer && this.selectedMediaServer.Guid==mediaServerGuid && !this.selectedMediaServer.isSecureConnection)
+        {
+          this.selectedMediaServer.isSecureConnection=true;
+          this.loadingConnection=false;
+        }
+        var mediaServer=this.mediaServers.find(x=>x.Guid==mediaServerGuid);
+        if(mediaServer && !mediaServer.isSecureConnection)
+        {
+          mediaServer.isSecureConnection=true;
+        }
+      });
+      this.subscriptionDisableMediaServer=this.signalIrService.isDisablingMediaServer().subscribe((mediaServerGuid:string) => {
+        if(this.selectedMediaServer && this.selectedMediaServer.Guid==mediaServerGuid && this.selectedMediaServer.isSecureConnection)
+        {
+          this.selectedMediaServer.isSecureConnection=false;
+        }
+        var mediaServer=this.mediaServers.find(x=>x.Guid==mediaServerGuid);
+        if(mediaServer && mediaServer.isSecureConnection)
+        {
+          mediaServer.isSecureConnection=false;
+        }
       });
     }
 
   ngOnInit(): void {
+    this.mediaServers=JSON.parse(JSON.stringify(this.sharedService.mediaServers));
     this.setSelectedMediaServer();
   }
 
   ngOnDestroy(){
-    this.subscriptionCompleteConnection.unsubscribe();
+    this.subscriptionEnableMediaServer.unsubscribe();
+    this.subscriptionDisableMediaServer.unsubscribe();
   }
 
   public setSelectedMediaServer(){
     if(this.activeRoute.firstChild.firstChild.snapshot.params.serverGuid)
     {
       var mediaServerGuid=this.activeRoute.firstChild.firstChild.snapshot.params.serverGuid;
-      var selectedMediaServer=this.sharedService.mediaServers.find(x=>x.Guid==mediaServerGuid);
+      var selectedMediaServer=this.mediaServers.find(x=>x.Guid==mediaServerGuid);
       if(selectedMediaServer)
       {
         this.selectedMediaServer=selectedMediaServer;
       }
-    }
-    if(this.selectedMediaServer==undefined && this.sharedService.mediaServers && this.sharedService.mediaServers.length>0)
-    {
-      this.selectedMediaServer=this.sharedService.mediaServers[0];
     }
     if(this.selectedMediaServer.isSecureConnection)
     {
@@ -118,11 +133,6 @@ export class SidebarAccountPage implements OnInit {
       }, 3000);
     }
   }
-
-
-  ngAfterViewInit(){
-  }
-
 
   public getOptionPath(option:SidebarOption){
     var path=option.path;
@@ -154,7 +164,7 @@ export class SidebarAccountPage implements OnInit {
     if(this.mediaServerButton)
     {
       let listItems:DropDownMenuItem<MediaServer>[]=[];
-      this.sharedService.mediaServers.forEach(element => {
+      this.mediaServers.forEach(element => {
         listItems.push({title:element.FamilyName?element.FamilyName:element.DeviceName,subtitle:element.isSecureConnection?"Conexión exitosa":'Sin conexión',
         iconClass:element.isSecureConnection?"fa-solid fa-lock icon-secure":"fa-solid fa-triangle-exclamation icon-alert",
         path:"/settings/server/"+element.Guid+"/settings/general",isSelected:this.selectedMediaServer.Id==element.Id?true:false,itemData:element});

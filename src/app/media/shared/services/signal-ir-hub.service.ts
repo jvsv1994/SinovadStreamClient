@@ -103,19 +103,9 @@ export class SignalIRHubService {
         this.updateMediaServers();
       });
       hubConnection.on('EnableMediaServer', (mediaServerGuid:string) => {
-        var mediaServer=this.sharedService.mediaServers.find(x=>x.Guid==mediaServerGuid);
-        if(!mediaServer.isSecureConnection)
-        {
-          mediaServer.isSecureConnection=true;
-        }
         this.enableMediaServer(mediaServerGuid);
       });
       hubConnection.on('DisableMediaServer', (mediaServerGuid:string) => {
-        var mediaServer=this.sharedService.mediaServers.find(x=>x.Guid==mediaServerGuid);
-        if(mediaServer.isSecureConnection)
-        {
-          mediaServer.isSecureConnection=false;
-        }
         this.disableMediaServer(mediaServerGuid);
       });
       hubConnection.on('UpdateLibrariesByMediaServer', (mediaServerGuid:string) => {
