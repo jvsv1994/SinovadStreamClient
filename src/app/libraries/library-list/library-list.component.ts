@@ -74,6 +74,14 @@ export class LibraryListComponent{
       }
     }
 
+    ngOnDestroy(){
+      this.subscriptionCompleteConnection.unsubscribe();
+      if(this.sharedService.hubConnection)
+      {
+        this.sharedService.hubConnection.off('EnableMediaServer');
+      }
+    }
+
     public getAllItems(){
       this.libraryService.getLibrariesByMediaServer(this.mediaServer.Url).then((listLibraries:Library[]) => {
         this.listLibraries=listLibraries;
