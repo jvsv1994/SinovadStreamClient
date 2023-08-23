@@ -81,10 +81,6 @@ export class TranscoderSettingssPage implements OnInit {
 
     ngOnDestroy(){
       this.subscriptionCompleteConnection.unsubscribe();
-      if(this.sharedService.hubConnection)
-      {
-        this.sharedService.hubConnection.off('EnableMediaServer');
-      }
     }
 
 

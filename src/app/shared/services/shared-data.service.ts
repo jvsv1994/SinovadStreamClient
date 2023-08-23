@@ -30,7 +30,6 @@ export class SharedService {
   configurationData:Configuration=new Configuration();
   listProfiles:Profile[]=[];
   manageMenus:Menu[]=[];
-  mediaMenu:Menu[]=[];
   pageNotFoundShowing:boolean=false;
   mediaServers:MediaServer[]=[];
   libraries:Library[]=[];

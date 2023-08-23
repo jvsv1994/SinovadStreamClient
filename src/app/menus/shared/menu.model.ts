@@ -13,4 +13,6 @@ export class Menu{
   ChildMenus?: Menu[];
   isCollapsed?:boolean;
   MediaServerId?:number;
+  MediaServerGuid?:string;
+  IsSecureConnection?:boolean;
 }

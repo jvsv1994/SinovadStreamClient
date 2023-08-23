@@ -3,7 +3,6 @@ import { RestProviderService } from 'src/app/shared/services/rest-provider.servi
 import { HttpMethodType, MediaType } from 'src/app/shared/enums';
 import { Library } from './library.model';
 import {v4 as uuid} from "uuid";
-import { Observable, Subject } from 'rxjs';
 import { MediaServer } from 'src/app/servers/shared/server.model';
 import { ItemsGroup } from 'src/app/media/shared/models/items-group.model';
 import { Item } from 'src/app/media/shared/models/item.model';
@@ -17,19 +16,9 @@ import { SinovadApiGenericResponse } from 'src/app/shared/models/response/sinova
 @Injectable({ providedIn: 'root' })
 export class LibraryService {
 
-  public updateLibraries$ = new Subject<boolean>();
-
   constructor(
     private restProvider: RestProviderService,
   ) {
-  }
-
-  public updateLibraries():void{
-    this.updateLibraries$.next(true);
-  };
-
-  public isUpdatingLibraries():Observable<boolean>{
-    return this.updateLibraries$.asObservable();
   }
 
   public getLibrariesByMediaServer(mediaServerUrl:string):Promise<Library[]>{

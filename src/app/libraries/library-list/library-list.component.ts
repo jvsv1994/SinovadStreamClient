@@ -76,10 +76,6 @@ export class LibraryListComponent{
 
     ngOnDestroy(){
       this.subscriptionCompleteConnection.unsubscribe();
-      if(this.sharedService.hubConnection)
-      {
-        this.sharedService.hubConnection.off('EnableMediaServer');
-      }
     }
 
     public getAllItems(){

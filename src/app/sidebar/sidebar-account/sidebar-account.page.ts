@@ -93,10 +93,6 @@ export class SidebarAccountPage implements OnInit {
 
   ngOnDestroy(){
     this.subscriptionCompleteConnection.unsubscribe();
-    if(this.sharedService.hubConnection)
-    {
-      this.sharedService.hubConnection.off('EnableMediaServer');
-    }
   }
 
   public setSelectedMediaServer(){

@@ -6,7 +6,6 @@ import { MediaServer } from './server.model';
 import { SharedService } from 'src/app/shared/services/shared-data.service';
 import { LibraryService } from 'src/app/libraries/shared/library.service';
 import { Library } from 'src/app/libraries/shared/library.model';
-import { MenuService } from 'src/app/menus/shared/menu.service';
 import { MediaService } from 'src/app/media/shared/services/media.service';
 import { SinovadApiGenericResponse } from 'src/app/shared/models/response/sinovad-api-generic-response.model';
 import { SinovadApiPaginationResponse } from 'src/app/shared/models/response/sinovad-api-pagination-response.model';
@@ -18,7 +17,6 @@ export class MediaServerService {
 
   constructor(
     private mediaService:MediaService,
-    private menuService:MenuService,
     private libraryService:LibraryService,
     private sharedService:SharedService,
     private restProvider: RestProviderService,
@@ -30,7 +28,6 @@ export class MediaServerService {
       this.restProvider.executeSinovadApiService(HttpMethodType.GET,'/mediaServers/GetAllByUserAsync/'+this.sharedService.userData.Id).then((response:SinovadApiGenericResponse) => {
         let mediaServers=response.Data;
         this.sharedService.mediaServers=mediaServers;
-        this.menuService.getMediaMenu();
         this.sharedService.mediaServers.forEach(mediaServer => {
           this.executeGetLibrariesByMediaServer(mediaServer);
         });
@@ -46,13 +43,11 @@ export class MediaServerService {
     {
       this.libraryService.getLibrariesByMediaServer(mediaServer.Url).then((libraries:Library[]) => {
         mediaServer.ListLibraries=libraries;
-        this.libraryService.updateLibraries();
         this.mediaService.updateMediaItems();
       },error=>{
       });
     }else{
       mediaServer.ListLibraries=[];
-      this.libraryService.updateLibraries();
       this.mediaService.updateMediaItems();
     }
   }

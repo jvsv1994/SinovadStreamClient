@@ -145,7 +145,6 @@ export class LoginPage {
     this.sharedService.currentProfile=userSessionData.Profiles[0];
     this.sharedService.showSplashScreen=true;
     this.menuService.getManageMenu();
-    this.menuService.getMediaMenu();
     this.signalIRHubService.openConnection();
     this.router.navigate(['select-profile'],{ skipLocationChange: false});
   }

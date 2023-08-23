@@ -7,7 +7,6 @@ import { SharedService } from 'src/app/shared/services/shared-data.service';
 import { SinovadApiPaginationResponse } from 'src/app/shared/models/response/sinovad-api-pagination-response.model';
 import { SinovadApiGenericResponse } from 'src/app/shared/models/response/sinovad-api-generic-response.model';
 import { UserSession } from './user-session.model';
-import { MenuService } from 'src/app/menus/shared/menu.service';
 import { SignalIRHubService } from 'src/app/media/shared/services/signal-ir-hub.service';
 export declare type EventHandler = (...args: any[]) => any;
 
@@ -17,7 +16,6 @@ export class UserService {
   lastCallGuid:string;
 
   constructor(
-    private menuService:MenuService,
     private signalIRHubService:SignalIRHubService,
     private sharedService:SharedService,
     private restProvider: RestProviderService,
@@ -26,7 +24,6 @@ export class UserService {
 
   public clearSessionData(){
     this.sharedService.manageMenus=[];
-    this.sharedService.mediaMenu=[];
     this.sharedService.currentProfile=undefined;
     this.sharedService.userData=undefined;
     this.sharedService.apiToken=undefined;
@@ -40,7 +37,6 @@ export class UserService {
         let userSessionData:UserSession=response.Data;
         this.sharedService.userData=userSessionData.User;
         this.sharedService.mediaServers=userSessionData.MediaServers;
-        this.menuService.getMediaMenu();
         this.sharedService.linkedAccounts=userSessionData.LinkedAccounts;
         this.sharedService.listProfiles=userSessionData.Profiles;
         this.sharedService.currentProfile=userSessionData.Profiles[0];
