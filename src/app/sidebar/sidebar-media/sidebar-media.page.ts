@@ -18,15 +18,16 @@ declare var window;
 export class SidebarMediaPage{
 
   @Output() collapseSidebar=new EventEmitter();
-  subscriptionCompleteConnection:Subscription;
+  subscriptionEnableMediaServer:Subscription;
+  subscriptionDisableMediaServer:Subscription;
+  subscriptionUpdateLibrariesByMediaServer:Subscription;
   mediaMenu:Menu[]=[];
 
   constructor(
     private libraryService:LibraryService,
     private signalIrService:SignalIRHubService,
     public sharedService:SharedService) {
-      this.subscriptionCompleteConnection=this.signalIrService.isCompletedConnection().subscribe((res)=>{
-      this.sharedService.hubConnection.on('EnableMediaServer', (mediaServerGuid:string) => {
+      this.subscriptionEnableMediaServer=this.signalIrService.isEnablingMediaServer().subscribe((mediaServerGuid:string) => {
         var mediaServerMenu=this.mediaMenu.find(x=>x.MediaServerGuid==mediaServerGuid);
         if(!mediaServerMenu.IsSecureConnection)
         {
@@ -38,7 +39,7 @@ export class SidebarMediaPage{
           }
         }
       });
-      this.sharedService.hubConnection.on('DisableMediaServer', (mediaServerGuid:string) => {
+      this.subscriptionDisableMediaServer=this.signalIrService.isEnablingMediaServer().subscribe((mediaServerGuid:string) => {
         var mediaServerMenu=this.mediaMenu.find(x=>x.MediaServerGuid==mediaServerGuid);
         if(mediaServerMenu.IsSecureConnection)
         {
@@ -46,7 +47,7 @@ export class SidebarMediaPage{
           mediaServerMenu.ChildMenus=[];
         }
       });
-      this.sharedService.hubConnection.on('UpdateLibrariesByMediaServer', (mediaServerGuid:string) => {
+      this.subscriptionUpdateLibrariesByMediaServer=this.signalIrService.isEnablingMediaServer().subscribe((mediaServerGuid:string) => {
         var mediaServerMenu=this.mediaMenu.find(x=>x.MediaServerGuid==mediaServerGuid);
         var mediaServer=this.sharedService.mediaServers.find(x=>x.Guid==mediaServerGuid);
         if(mediaServerMenu && mediaServer)
@@ -55,7 +56,7 @@ export class SidebarMediaPage{
           this.updateLibrariesInMediaServer(mediaServerMenu,mediaServer);
         }
       });
-    });
+
   }
 
 
@@ -64,7 +65,9 @@ export class SidebarMediaPage{
   }
 
   ngOnDestroy(){
-    this.subscriptionCompleteConnection.unsubscribe();
+    this.subscriptionEnableMediaServer.unsubscribe();
+    this.subscriptionDisableMediaServer.unsubscribe();
+    this.subscriptionUpdateLibrariesByMediaServer.unsubscribe();
   }
 
   public getMediaMenu(){
