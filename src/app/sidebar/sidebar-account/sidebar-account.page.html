@@ -28,34 +28,56 @@
                 <i *ngIf="dropDownServersService.isShowing" class="fa-solid fa-caret-up"></i>
                 <i *ngIf="!dropDownServersService.isShowing" class="fa-solid fa-caret-down"></i>
             </div>
-            <div class="server-settings-menu-button-icon" [ngClass]="{'icon-secure':selectedMediaServer.isSecureConnection,'icon-alert':!selectedMediaServer.isSecureConnection}">
+            <div *ngIf="!loadingConnection" class="server-settings-menu-button-icon" [ngClass]="{'icon-secure':selectedMediaServer.isSecureConnection,'icon-alert':!selectedMediaServer.isSecureConnection}">
               <i *ngIf="selectedMediaServer.isSecureConnection" class="fa-solid fa-lock"></i>
               <i *ngIf="!selectedMediaServer.isSecureConnection" class="fa-solid fa-triangle-exclamation"></i>
             </div>
+            <div *ngIf="loadingConnection" class="server-settings-menu-button-icon">
+              <i class="fa-solid fa-circle-notch fa-spin" style="color: white;"></i>
+            </div>
           </div>
         </button>
-        <ng-template [ngIf]="selectedMediaServer && serverModules && serverModules.length>0">
-          <ng-template ngFor let-module [ngForOf]="serverModules">
-            <div role="navigation">
-              <div class="sidebar-list-header-container">
-                <div class="sidebar-list-header-content">
-                  {{module.name}}
-                </div>
-              </div>
-              <ng-template ngFor let-option [ngForOf]="module.listOptions">
-                <div class="sidebar-list-item-container" [ngClass]="{'selected':isSelectedSidebarOption(option)}">
-                  <a [routerLink]="[getOptionPath(option)]">
-                    <div class="sidebar-link-container">
-                      <div class="sidebar-link-icon"></div>
-                      <div class="sidebar-link-title">
-                        {{option.name}}
-                      </div>
+        <ng-template [ngIf]="!loadingConnection && selectedMediaServer && serverModules && serverModules.length>0">
+          <ng-template [ngIf]="selectedMediaServer.isSecureConnection">
+            <ng-template [ngIf]="!sharedService.isHttpsSite()">
+              <ng-template ngFor let-module [ngForOf]="serverModules">
+                <div role="navigation">
+                  <div class="sidebar-list-header-container">
+                    <div class="sidebar-list-header-content">
+                      {{module.name}}
                     </div>
-                  </a>
+                  </div>
+                  <ng-template ngFor let-option [ngForOf]="module.listOptions">
+                    <div class="sidebar-list-item-container" [ngClass]="{'selected':isSelectedSidebarOption(option)}">
+                      <a [routerLink]="[getOptionPath(option)]">
+                        <div class="sidebar-link-container">
+                          <div class="sidebar-link-icon"></div>
+                          <div class="sidebar-link-title">
+                            {{option.name}}
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+                  </ng-template>
                 </div>
               </ng-template>
-            </div>
+            </ng-template>
+            <ng-template [ngIf]="sharedService.isHttpsSite()">
+              <div>
+                <p class="sidebar-message">No se puede conectar a "{{selectedMediaServer.FamilyName?selectedMediaServer.FamilyName:selectedMediaServer.DeviceName}}" desde este sitio</p>
+              </div>
+            </ng-template>
           </ng-template>
+          <ng-template [ngIf]="!selectedMediaServer.isSecureConnection">
+              <div>
+                <p class="sidebar-message">No se puede conectar a "{{selectedMediaServer.FamilyName?selectedMediaServer.FamilyName:selectedMediaServer.DeviceName}}" porque el servidor esta apagado</p>
+              </div>
+          </ng-template>
+        </ng-template>
+        <ng-template [ngIf]="loadingConnection">
+          <div class="spinner-centered-container">
+            <mat-spinner></mat-spinner>
+          </div>
         </ng-template>
     </div>
   </div>

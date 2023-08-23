@@ -10,17 +10,18 @@ import { CustomDialogOptionsComponent } from './components/custom-dialog-options
 import { CustomPaginationComponent } from './components/custom-pagination/custom-pagination.component';
 import { DirectoryChooserPage } from './components/directory-chooser/directory-chooser.page';
 import { CustomMenuComponent } from './components/custom-menu/custom-menu.component';
+import { ServerConnectionErrorPage } from './components/server-connection-error/server-connection-error.page';
 @NgModule({
   imports: [
     CommonModule,AngularMaterialModule
   ],
   declarations: [
-    FormatDataPipe,ClickOutsideDirective,CustomMenuComponent,CustomConfirmDialogComponent,CustomSpinnerPage,CustomContextMenuComponent,CustomDialogOptionsComponent,CustomPaginationComponent,DirectoryChooserPage
+    FormatDataPipe,ClickOutsideDirective,CustomMenuComponent,CustomConfirmDialogComponent,CustomSpinnerPage,CustomContextMenuComponent,CustomDialogOptionsComponent,CustomPaginationComponent,DirectoryChooserPage,ServerConnectionErrorPage
   ],
   providers: [
   ],
   exports: [
-    FormatDataPipe,ClickOutsideDirective,CustomMenuComponent,CustomConfirmDialogComponent,CustomSpinnerPage,CustomContextMenuComponent,CommonModule,AngularMaterialModule,CustomDialogOptionsComponent,CustomPaginationComponent,DirectoryChooserPage
+    FormatDataPipe,ClickOutsideDirective,CustomMenuComponent,CustomConfirmDialogComponent,CustomSpinnerPage,CustomContextMenuComponent,CommonModule,AngularMaterialModule,CustomDialogOptionsComponent,CustomPaginationComponent,DirectoryChooserPage,ServerConnectionErrorPage
   ]
 })
 export class SharedModule { }

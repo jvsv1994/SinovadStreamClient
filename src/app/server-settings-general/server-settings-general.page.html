@@ -1,40 +1,46 @@
-<div *ngIf="mediaServer" id="serverSettinsPageContainer" class="sinovad-page-container">
-  <h2>{{mediaServer.FamilyName?mediaServer.FamilyName:mediaServer.DeviceName}} - General</h2>
-  <div>
-    <div class="server-settings-container">
-      <div class="settings-row">
-          <div class="pane-region">
-            <div class="form-group">
-                <div class="remote-access-mapping">
-                    <span class="mapping-label">Privado</span>
-                    <span class="mapping-address">
-                      <span class="mapping-value">{{mediaServer.Url}}</span>
-                  <!--     <span class="mapping-separator">:</span>
-                      <span class="mapping-value"></span> -->
-                    </span>
+  <ng-template [ngIf]="!loadingConnection">
+    <ng-template [ngIf]="mediaServer && mediaServer.isSecureConnection">
+      <div id="serverSettinsPageContainer" class="sinovad-page-container">
+        <h2>{{mediaServer.FamilyName?mediaServer.FamilyName:mediaServer.DeviceName}} - General</h2>
+        <div>
+          <div class="server-settings-container">
+            <div class="settings-row">
+                <div class="pane-region">
+                  <div class="form-group">
+                      <div class="remote-access-mapping">
+                          <span class="mapping-label">Privado</span>
+                          <span class="mapping-address">
+                            <span class="mapping-value">{{mediaServer.Url}}</span>
+                          </span>
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <form [formGroup]="customForm" (ngSubmit)="updateMediaServer()"class="server-settings-form">
+                          <div class="form-group">
+                              <label class="control-label">Nombre Familiar</label>
+                              <input class="form-control" type="text" formControlName="familyName" [placeholder]="mediaServer.FamilyName?mediaServer.FamilyName:mediaServer.DeviceName" />
+                              <p class="help-block">Este nombre se usará para que otros ordenadores identifiquen este servidor en tu red. Si lo dejas en blanco se usará el nombre del equipo.</p>
+                          </div>
+                          <div class="form-footer">
+                              <button type="submit" class="btn btn-primary" [disabled]="loading || customForm.pristine || customForm.invalid">
+                                <span class="btn-label">Guardar cambios</span>
+                              </button>
+                              <span class="form-message"></span>
+                          </div>
+                      </form>
+                  </div>
                 </div>
             </div>
-            <div class="form-group">
-                <form [formGroup]="customForm" (ngSubmit)="updateMediaServer()"class="server-settings-form">
-                    <div class="form-group">
-                        <label class="control-label">Nombre Familiar</label>
-                        <input class="form-control" type="text" formControlName="familyName" [placeholder]="mediaServer.FamilyName?mediaServer.FamilyName:mediaServer.DeviceName" />
-                        <p class="help-block">Este nombre se usará para que otros ordenadores identifiquen este servidor en tu red. Si lo dejas en blanco se usará el nombre del equipo.</p>
-                    </div>
-                    <div class="form-footer">
-                        <button type="submit" class="save" [ngClass]="{'load':loading,'disable':customForm.pristine || customForm.invalid}">
-                          <div class="loading">
-
-                          </div>
-                          <span class="btn-label">Guardar cambios</span>
-                        </button>
-                        <span class="form-message"></span>
-                    </div>
-                </form>
-            </div>
           </div>
+        </div>
       </div>
-    </div>
-  </div>
-
-</div>
+    </ng-template>
+    <ng-template [ngIf]="mediaServer && !mediaServer.isSecureConnection">
+      <app-server-connection-error [mediaServer]="mediaServer"></app-server-connection-error>
+    </ng-template>
+  </ng-template>
+  <ng-template [ngIf]="loadingConnection">
+      <div class="spinner-centered-container">
+        <mat-spinner></mat-spinner>
+      </div>
+  </ng-template>

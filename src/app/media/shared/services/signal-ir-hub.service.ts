@@ -1,11 +1,14 @@
-import { HttpTransportType, HubConnectionBuilder } from '@microsoft/signalr';
+import { HttpTransportType, HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 import { Injectable } from '@angular/core';
 import { SharedService } from 'src/app/shared/services/shared-data.service';
 import { MediaServerService } from 'src/app/servers/shared/server.service';
 import { MediaService } from './media.service';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class SignalIRHubService {
+
+  private connectionCompleted$ = new Subject<boolean>();
 
   constructor(
     private mediaService:MediaService,
@@ -13,6 +16,14 @@ export class SignalIRHubService {
     private sharedService:SharedService
     ) {
 
+  }
+
+  public completeConnection():void{
+    this.connectionCompleted$.next(true);
+  };
+
+  public isCompletedConnection():Observable<boolean>{
+    return this.connectionCompleted$.asObservable();
   }
 
   public openConnection():Promise<any>{
@@ -24,8 +35,9 @@ export class SignalIRHubService {
       }).build();
       hubConnection.start().then(() => {
         console.log('connection started');
+        ctx.setEvents(hubConnection);
         ctx.sharedService.hubConnection=hubConnection;
-        ctx.setEvents();
+        ctx.completeConnection();
         resolve(true);
       }).catch((err) => {
         console.error('error while establishing signalr connection: ' + err);
@@ -44,11 +56,11 @@ export class SignalIRHubService {
     this.sharedService.hubConnection.stop();
   }
 
-  private setEvents(){
-      this.sharedService.hubConnection.on('UpdateMediaServers', (message) => {
+  private setEvents(hubConnection:HubConnection){
+      hubConnection.on('UpdateMediaServers', (message) => {
         this.mediaServerService.getMediaServers();
       });
-      this.sharedService.hubConnection.on('EnableMediaServer', (mediaServerGuid:string) => {
+      hubConnection.on('EnableMediaServer', (mediaServerGuid:string) => {
         var mediaServer=this.sharedService.mediaServers.find(x=>x.Guid==mediaServerGuid);
         if(!mediaServer.isSecureConnection)
         {
@@ -56,7 +68,7 @@ export class SignalIRHubService {
           this.mediaServerService.executeGetLibrariesByMediaServer(mediaServer);
         }
       });
-      this.sharedService.hubConnection.on('DisableMediaServer', (mediaServerGuid:string) => {
+      hubConnection.on('DisableMediaServer', (mediaServerGuid:string) => {
         var mediaServer=this.sharedService.mediaServers.find(x=>x.Guid==mediaServerGuid);
         if(mediaServer.isSecureConnection)
         {
@@ -64,20 +76,20 @@ export class SignalIRHubService {
           this.mediaServerService.executeGetLibrariesByMediaServer(mediaServer);
         }
       });
-      this.sharedService.hubConnection.on('UpdateLibrariesByMediaServer', (mediaServerGuid:string) => {
+      hubConnection.on('UpdateLibrariesByMediaServer', (mediaServerGuid:string) => {
         var mediaServer=this.sharedService.mediaServers.find(x=>x.Guid==mediaServerGuid);
         if(mediaServer)
         {
           this.mediaServerService.executeGetLibrariesByMediaServer(mediaServer);
         }
       });
-      this.sharedService.hubConnection.on('UpdateItemsByMediaServer', (mediaServerGuid:string) => {
+      hubConnection.on('UpdateItemsByMediaServer', (mediaServerGuid:string) => {
         this.mediaService.updateMediaItems();
       });
-      this.sharedService.hubConnection.on('UpdateItemsByMediaServerAndLibrary', (mediaServerGuid:string,libraryGuid:string) => {
+      hubConnection.on('UpdateItemsByMediaServerAndLibrary', (mediaServerGuid:string,libraryGuid:string) => {
         this.mediaService.updateMediaItems();
       });
-      this.sharedService.hubConnection.invoke("AddConnectionToUserClientsGroup",this.sharedService.userData.Guid).then(res=>{})
+      hubConnection.invoke("AddConnectionToUserClientsGroup",this.sharedService.userData.Guid).then(res=>{})
   }
 
 }

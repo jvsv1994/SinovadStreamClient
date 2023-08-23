@@ -142,4 +142,13 @@ export class SharedService {
     return regex.test(email);
   }
 
+  public isHttpsSite(){
+    if(window.location.origin.startsWith("https"))
+    {
+      return true;
+    }else{
+      return false;
+    }
+  }
+
 }

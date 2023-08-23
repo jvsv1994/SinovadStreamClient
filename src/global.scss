@@ -465,6 +465,14 @@ textarea{
   height: 100%;
 }
 
+.spinner-centered-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
 .custom-container{
   position: relative;
 }

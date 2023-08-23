@@ -10,6 +10,8 @@ import { SnackBarType } from '../shared/components/custom-snack-bar/custom-snack
 import { MediaServer } from '../servers/shared/server.model';
 import { MediaServerService } from '../servers/shared/server.service';
 import { SinovadApiGenericResponse } from '../shared/models/response/sinovad-api-generic-response.model';
+import { SignalIRHubService } from '../media/shared/services/signal-ir-hub.service';
+import { Subscription } from 'rxjs';
 
 declare var window;
 @Component({
@@ -22,8 +24,11 @@ export class ServerSettingsGeneralPage implements OnInit {
   customForm:FormGroup;
   mediaServer:MediaServer;
   loading:boolean=false;
+  loadingConnection:boolean=true;
+  subscriptionCompleteConnection:Subscription;
 
   constructor(
+    private signalIrService:SignalIRHubService,
     private serverService: MediaServerService,
     private snackBarService:SnackBarService,
     private formBuilder: FormBuilder,
@@ -31,26 +36,65 @@ export class ServerSettingsGeneralPage implements OnInit {
     public activeRoute: ActivatedRoute,
     public restProvider: RestProviderService,
     public sharedService: SharedService) {
-
       this.router.routeReuseStrategy.shouldReuseRoute = function () {
         return false;
       };
+      this.subscriptionCompleteConnection=this.signalIrService.isCompletedConnection().subscribe((res)=>{
+        this.sharedService.hubConnection.on('EnableMediaServer', (mediaServerGuid:string) => {
+          if(this.mediaServer && this.mediaServer.Guid==mediaServerGuid)
+          {
+            this.loadingConnection=false;
+          }
+        });
+      });
     }
 
     ngOnInit(): void {
-      this.getMediaServerData();
-    }
-
-    public async getMediaServerData(){
       var mediaServerGuid=this.activeRoute.snapshot.params.serverGuid;
-      this.serverService.getMediaServerByGuid(mediaServerGuid).then((response:SinovadApiGenericResponse) => {
-        var mediaServer=response.Data;
+      var mediaServer=this.sharedService.mediaServers.find(x=>x.Guid==mediaServerGuid)
+      if(mediaServer)
+      {
+        if(mediaServer.isSecureConnection)
+        {
+          this.loadingConnection=false;
+        }else{
+          setTimeout(() => {
+            this.loadingConnection=false;
+          }, 3000);
+        }
         this.mediaServer=mediaServer;
         this.customForm = this.formBuilder.group({
           familyName: new FormControl(this.mediaServer.FamilyName)
         });
-      },error=>{
+      }else{
         this.router.navigateByUrl('/404')
+      }
+    }
+
+    ngOnDestroy(){
+      this.subscriptionCompleteConnection.unsubscribe();
+      if(this.sharedService.hubConnection)
+      {
+        this.sharedService.hubConnection.off('EnableMediaServer');
+      }
+    }
+
+    public async getMediaServerData(){
+      this.loading=true;
+      var mediaServerGuid=this.activeRoute.snapshot.params.serverGuid;
+      this.serverService.getMediaServerByGuid(mediaServerGuid).then((response:SinovadApiGenericResponse) => {
+        var mediaServer:MediaServer=response.Data;
+        var ms=this.sharedService.mediaServers.find(x=>x.Guid==mediaServerGuid);
+        var mediaServerUpdated=ms;
+        mediaServerUpdated.FamilyName=mediaServer.FamilyName;
+        this.mediaServer=mediaServerUpdated;
+        this.customForm = this.formBuilder.group({
+          familyName: new FormControl(this.mediaServer.FamilyName)
+        });
+        this.loading=false;
+      },error=>{
+        this.router.navigateByUrl('/404');
+        this.loading=false;
       });
     }
 
@@ -64,8 +108,6 @@ export class ServerSettingsGeneralPage implements OnInit {
       var mediaServer=JSON.parse(JSON.stringify(this.mediaServer));
       mediaServer.FamilyName=this.customForm.value.familyName;
       this.restProvider.executeSinovadApiService(HttpMethodType.PUT,path,mediaServer).then((response) => {
-        this.loading=false;
-        this.serverService.getMediaServers();
         this.getMediaServerData();
         this.snackBarService.showSnackBar("Se guardaron los cambios satisfactoriamente",SnackBarType.Success);
       },error=>{

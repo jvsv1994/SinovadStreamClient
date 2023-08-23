@@ -175,6 +175,11 @@
   color: white;
 }
 
+.sidebar-message{
+  color: hsla(0,0%,100%,.45);
+  margin: 15px 10px 15px 25px;
+}
+
 @media only screen and (max-width: 767px) {
   .sidebar-backdrop{
     position: absolute;

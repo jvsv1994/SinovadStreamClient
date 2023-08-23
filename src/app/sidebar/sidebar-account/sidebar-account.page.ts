@@ -8,6 +8,8 @@ import { DropDownMenuOptions } from '../shared/drop-down-menu-options.model';
 import { DropDownMenuItem } from '../shared/drop-down-menu-Item.model';
 import { MediaServer } from 'src/app/servers/shared/server.model';
 import { DropDownServersService } from '../shared/drop-down-servers.service';
+import { SignalIRHubService } from 'src/app/media/shared/services/signal-ir-hub.service';
+import { Subscription } from 'rxjs';
 
 declare var window;
 @Component({
@@ -17,9 +19,11 @@ declare var window;
 })
 export class SidebarAccountPage implements OnInit {
 
+  subscriptionCompleteConnection:Subscription;
   selectedMediaServer:MediaServer;
   @Output() collapseSidebar=new EventEmitter();
   @ViewChild('mediaServerButton') mediaServerButton:ElementRef ;
+  loadingConnection:boolean=true;
   serverModules:SidebarOption[]=[
   /*   {
       index:1,
@@ -68,16 +72,31 @@ export class SidebarAccountPage implements OnInit {
   ]
 
   constructor(
+    private signalIrService:SignalIRHubService,
     public dropDownServersService:DropDownServersService,
     public activeRoute: ActivatedRoute,
     public  ref:ChangeDetectorRef,
     public sharedService: SharedService) {
-
-
+      this.subscriptionCompleteConnection=this.signalIrService.isCompletedConnection().subscribe((res)=>{
+        this.sharedService.hubConnection.on('EnableMediaServer', (mediaServerGuid:string) => {
+          if(this.selectedMediaServer && this.selectedMediaServer.Guid==mediaServerGuid)
+          {
+            this.loadingConnection=false;
+          }
+        });
+      });
     }
 
   ngOnInit(): void {
     this.setSelectedMediaServer();
+  }
+
+  ngOnDestroy(){
+    this.subscriptionCompleteConnection.unsubscribe();
+    if(this.sharedService.hubConnection)
+    {
+      this.sharedService.hubConnection.off('EnableMediaServer');
+    }
   }
 
   public setSelectedMediaServer(){
@@ -93,6 +112,14 @@ export class SidebarAccountPage implements OnInit {
     if(this.selectedMediaServer==undefined && this.sharedService.mediaServers && this.sharedService.mediaServers.length>0)
     {
       this.selectedMediaServer=this.sharedService.mediaServers[0];
+    }
+    if(this.selectedMediaServer.isSecureConnection)
+    {
+      this.loadingConnection=false;
+    }else{
+      setTimeout(() => {
+        this.loadingConnection=false;
+      }, 3000);
     }
   }
 
