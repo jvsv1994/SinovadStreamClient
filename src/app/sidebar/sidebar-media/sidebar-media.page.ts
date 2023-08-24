@@ -39,7 +39,7 @@ export class SidebarMediaPage{
           }
         }
       });
-      this.subscriptionDisableMediaServer=this.signalIrService.isEnablingMediaServer().subscribe((mediaServerGuid:string) => {
+      this.subscriptionDisableMediaServer=this.signalIrService.isDisablingMediaServer().subscribe((mediaServerGuid:string) => {
         var mediaServerMenu=this.mediaMenu.find(x=>x.MediaServerGuid==mediaServerGuid);
         if(mediaServerMenu.IsSecureConnection)
         {
@@ -47,7 +47,7 @@ export class SidebarMediaPage{
           mediaServerMenu.ChildMenus=[];
         }
       });
-      this.subscriptionUpdateLibrariesByMediaServer=this.signalIrService.isEnablingMediaServer().subscribe((mediaServerGuid:string) => {
+      this.subscriptionUpdateLibrariesByMediaServer=this.signalIrService.isUpdatingLibrariesByMediaServer().subscribe((mediaServerGuid:string) => {
         var mediaServerMenu=this.mediaMenu.find(x=>x.MediaServerGuid==mediaServerGuid);
         var mediaServer=this.sharedService.mediaServers.find(x=>x.Guid==mediaServerGuid);
         if(mediaServerMenu && mediaServer)
