@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
 import * as Dash from 'dashjs';
 import {v4 as uuid} from "uuid";
@@ -17,6 +17,9 @@ import { MediaFilePlayback } from '../../shared/models/media-file-playback.model
 import { ItemDetail } from '../../shared/models/item-detail.model';
 import { BuilderVideo } from '../models/builder-video.model';
 import { TranscodeRunVideo } from '../models/transcode-run-video.model';
+import { SignalIRHubService } from '../../shared/services/signal-ir-hub.service';
+import { Subscription } from 'rxjs';
+import { MediaServer } from 'src/app/servers/shared/server.model';
 @Component({
   selector: 'app-video',
   templateUrl: 'video.page.html',
@@ -55,8 +58,12 @@ export class VideoPage implements OnInit,OnDestroy{
   showVideoTarget:boolean=false;
   loadedData:boolean=false;
   beforeUnloadFunction:any=false;
+  subscriptionEnableMediaServer:Subscription;
+  subscriptionDisableMediaServer:Subscription;
+  mediaServer:MediaServer;
 
   constructor(
+    private signalIrService:SignalIRHubService,
     public activeRoute: ActivatedRoute,
     private router: Router,
     private libraryService:LibraryService,
@@ -68,37 +75,69 @@ export class VideoPage implements OnInit,OnDestroy{
       this.router.routeReuseStrategy.shouldReuseRoute = function () {
         return false;
       };
+      this.subscriptionEnableMediaServer=this.signalIrService.isEnablingMediaServer().subscribe((mediaServerGuid:string)=>{
+        if(this.mediaServer && this.mediaServer.Guid==mediaServerGuid && !this.mediaServer.isSecureConnection)
+        {
+          this.mediaServer.isSecureConnection=true;
+          this.getMediaItemDetailByMediaFileAndProfile();
+        }
+      });
+      this.subscriptionDisableMediaServer=this.signalIrService.isDisablingMediaServer().subscribe((mediaServerGuid:string)=>{
+        if(this.mediaServer && this.mediaServer.Guid==mediaServerGuid && this.mediaServer.isSecureConnection)
+        {
+          this.mediaServer.isSecureConnection=false;
+          this.router.navigateByUrl('/media/server/'+mediaServerGuid);
+        }
+      });
   }
 
   ngOnInit(): void {
     var mediaServerGuid=this.activeRoute.snapshot.params.serverGuid;
-    var mediaFileId=this.activeRoute.snapshot.params.mediaFileId;
     if(mediaServerGuid!=undefined)
     {
       var mediaServer=this.sharedService.mediaServers.find(x=>x.Guid==mediaServerGuid);
-      if(mediaServer && mediaFileId)
+      if(mediaServer)
       {
-        this.libraryService.GetMediaItemDetailByMediaFileAndProfile(mediaServer.Url,mediaFileId,this.sharedService.currentProfile.Id).then((itemDetail:ItemDetail)=>{
-            var currentTime=0;
-            if(itemDetail.LastMediaFilePlayback)
+        this.mediaServer=JSON.parse(JSON.stringify(mediaServer));
+        if(this.mediaServer.isSecureConnection)
+        {
+          this.getMediaItemDetailByMediaFileAndProfile();
+        }else{
+          setTimeout(() => {
+            if(this.mediaServer.isSecureConnection==false)
             {
-              currentTime=itemDetail.LastMediaFilePlayback.CurrentTime;
+              this.router.navigateByUrl('/media/server/'+mediaServerGuid);
             }
-            if(itemDetail.MediaItem.MediaTypeId==MediaType.Movie)
-            {
-              this.builderVideo=this.libraryService.CreateBuilderVideoFromItem(itemDetail,mediaServer,currentTime);
-            }
-            if(itemDetail.MediaItem.MediaTypeId==MediaType.TvSerie)
-            {
-              this.builderVideo=this.libraryService.CreateBuilderVideoFromEpisode(itemDetail,itemDetail.CurrentEpisode,mediaServer,currentTime);
-            }
-            this.initialize();
-        },error=>{
-          this.router.navigateByUrl('/404')
-        });
-      }else{
-        this.router.navigateByUrl('/404')
+          }, 3000);
+        }
       }
+    }else{
+      this.router.navigateByUrl('/404')
+    }
+  }
+
+  private getMediaItemDetailByMediaFileAndProfile(){
+    var mediaFileId=this.activeRoute.snapshot.params.mediaFileId;
+    if(mediaFileId)
+    {
+      this.libraryService.GetMediaItemDetailByMediaFileAndProfile(this.mediaServer.Url,mediaFileId,this.sharedService.currentProfile.Id).then((itemDetail:ItemDetail)=>{
+          var currentTime=0;
+          if(itemDetail.LastMediaFilePlayback)
+          {
+            currentTime=itemDetail.LastMediaFilePlayback.CurrentTime;
+          }
+          if(itemDetail.MediaItem.MediaTypeId==MediaType.Movie)
+          {
+            this.builderVideo=this.libraryService.CreateBuilderVideoFromItem(itemDetail,this.mediaServer,currentTime);
+          }
+          if(itemDetail.MediaItem.MediaTypeId==MediaType.TvSerie)
+          {
+            this.builderVideo=this.libraryService.CreateBuilderVideoFromEpisode(itemDetail,itemDetail.CurrentEpisode,this.mediaServer,currentTime);
+          }
+          this.initialize();
+      },error=>{
+        this.router.navigateByUrl('/404')
+      });
     }else{
       this.router.navigateByUrl('/404')
     }
@@ -127,6 +166,8 @@ export class VideoPage implements OnInit,OnDestroy{
   }
 
   ngOnDestroy(): void {
+    this.subscriptionEnableMediaServer.unsubscribe();
+    this.subscriptionDisableMediaServer.unsubscribe();
     if(this.dashMediaPlayer)
     {
       this.dashMediaPlayer.reset();

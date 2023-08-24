@@ -56,14 +56,19 @@ export class MediaDetailComponent extends MediaGeneric implements OnInit {
 
     ngOnInit(): void {
       this.initializeHeaderData();
-      if(this.mediaServer.isSecureConnection)
+      if(this.mediaServer)
       {
-        this.loadingConnection=false;
-        this.getMediaItemDetail();
-      }else{
-        setTimeout(() => {
+        if(this.mediaServer.isSecureConnection)
+        {
           this.loadingConnection=false;
-        }, 3000);
+          this.getMediaItemDetail();
+        }else{
+          setTimeout(() => {
+            this.loadingConnection=false;
+          }, 3000);
+        }
+      }else{
+        this.router.navigateByUrl('/404')
       }
     }
 
