@@ -1,121 +1,134 @@
-<div #container class="media-principal-section">
-  <div style="width:0px;height:0px;">
-    <div class="sinovad-item-view-background-container">
-      <div [style.width]="container.clientWidth+'px'" style="position:fixed;">
-        <img *ngIf="detail" [src]="sharedService.getUrlByItemDetailMovieDataBase(detail)">
-      </div>
-    </div>
-  </div>
-  <div class="media-container">
-      <div *ngIf="title" class="media-header">
-        <button class="media-header-button">
-          <div class="title">
-            {{title}}
+<ng-template [ngIf]="!loadingConnection">
+  <ng-template [ngIf]="mediaServer && mediaServer.isSecureConnection">
+    <div #container class="media-principal-section">
+      <div style="width:0px;height:0px;">
+        <div class="sinovad-item-view-background-container">
+          <div [style.width]="container.clientWidth+'px'" style="position:fixed;">
+            <img *ngIf="detail" [src]="sharedService.getUrlByItemDetailMovieDataBase(detail)">
           </div>
-          <div class="subtitle">
-            {{subtitle}}
-          </div>
-        </button>
+        </div>
       </div>
-      <div *ngIf="detail" class="sinovad-item-view-container sinovad-custom-container" [style.height]="title?'calc(100% - 65px)':'100%'">
-        <ng-template [ngIf]="detail">
-          <div class="sinovad-item-view-principal-section">
-            <div class="sinovad-item-view-title-container">
-              {{detail.MediaItem.Title}}
-            </div>
-            <div class="sinovad-item-view-subtitle-container">
-              {{detail.MediaItem.Genres}}
-            </div>
-            <div *ngIf="detail.MediaItem.Directors" class="sinovad-item-view-subtitle-container">
-              <span style="font-weight:bold;">Director: </span><span style="font-weight:normal;">{{detail.MediaItem.Directors}}</span>
-            </div>
-            <div *ngIf="detail.MediaItem.Actors" class="sinovad-item-view-subtitle-container">
-              <span style="font-weight:bold;">Reparto: </span> <span style="font-weight:normal;">{{detail.MediaItem.Actors}}</span>
-            </div>
-            <section id="section_principal_buttons" class="sinovad-item-view-principal-button-container sinovad-section">
-              <ng-template [ngIf]="lastEpisodeWatched">
-                <div>
-                  <div>
-                    <button id="continue_play" class="" (click)="continueVideo()">Continuar</button>
-                  </div>
-                  <div class="sinovad-item-progress-bar-container" style="width:300px;">
-                    <div class="sinovad-item-progress-bar-content" [style.width]="getWidthProgressItem(lastEpisodeWatched)">
+      <div class="media-container">
+          <div *ngIf="title" class="media-header">
+            <button class="media-header-button">
+              <div class="title">
+                {{title}}
+              </div>
+              <div class="subtitle">
+                {{subtitle}}
+              </div>
+            </button>
+          </div>
+          <div *ngIf="detail" class="sinovad-item-view-container sinovad-custom-container" [style.height]="title?'calc(100% - 65px)':'100%'">
+            <ng-template [ngIf]="detail">
+              <div class="sinovad-item-view-principal-section">
+                <div class="sinovad-item-view-title-container">
+                  {{detail.MediaItem.Title}}
+                </div>
+                <div class="sinovad-item-view-subtitle-container">
+                  {{detail.MediaItem.Genres}}
+                </div>
+                <div *ngIf="detail.MediaItem.Directors" class="sinovad-item-view-subtitle-container">
+                  <span style="font-weight:bold;">Director: </span><span style="font-weight:normal;">{{detail.MediaItem.Directors}}</span>
+                </div>
+                <div *ngIf="detail.MediaItem.Actors" class="sinovad-item-view-subtitle-container">
+                  <span style="font-weight:bold;">Reparto: </span> <span style="font-weight:normal;">{{detail.MediaItem.Actors}}</span>
+                </div>
+                <section id="section_principal_buttons" class="sinovad-item-view-principal-button-container sinovad-section">
+                  <ng-template [ngIf]="lastEpisodeWatched">
+                    <div>
+                      <div>
+                        <button id="continue_play" class="" (click)="continueVideo()">Continuar</button>
+                      </div>
+                      <div class="sinovad-item-progress-bar-container" style="width:300px;">
+                        <div class="sinovad-item-progress-bar-content" [style.width]="getWidthProgressItem(lastEpisodeWatched)">
 
+                        </div>
+                      </div>
+                      <div style="margin-top:5px;">
+                        {{lastEpisodeWatched.Subtitle}}
+                      </div>
+                    </div>
+                  </ng-template>
+                  <ng-template [ngIf]="!lastEpisodeWatched">
+                    <ng-template [ngIf]="itemUserData">
+                      <button id="restart_play" class="" (click)="showVideo()">Ver desde el principio</button>
+                      <button id="continue_play" class="" (click)="continueVideo()">Continuar viendo</button>
+                    </ng-template>
+                    <ng-template [ngIf]="!itemUserData">
+                      <button id ="play_now" class="" (click)="showVideo()">
+                        <i class="fa-solid fa-play me-1"></i>
+                        Ver ahora
+                      </button>
+                    </ng-template>
+                  </ng-template>
+                </section>
+                <div *ngIf="!lastEpisodeWatched" class="sinovad-item-view-summary-container">
+                  {{detail.MediaItem.Overview}}
+                </div>
+                <div *ngIf="detail.ListSeasons && detail.ListSeasons.length>0" class="sinovad-item-view-seasons-container">
+                  <div>
+                    EPISODIOS
+                  </div>
+                  <div class="sinovad-list-row-container">
+                    <img *ngIf="!startResize" style="display:none;" src (error)="onInitializeItemsRow(itemsRowContainer,scrollLeftButton,scrollRightButton)">
+                    <div style="width:0px;height:0px;">
+                      <div #scrollLeftButton class="sinovad-list-button-scroll-left" (click)="onClickButtonLeftScroll(itemsRowContainer,scrollLeftButton,scrollRightButton)">
+                        <img [src]="'left.png' | formatDataPipe : 'GetImageURLByKey' | async">
+                      </div>
+                    </div>
+                    <div  #itemsRowContainer class="sinovad-list-row sinovad-section">
+                      <section id="section_seasons" #content class="sinovad-list-content">
+                        <ng-template ngFor let-item [ngForOf]="detail.ListSeasons">
+                          <div class="sinovad-season-container">
+                            <button id="section_season_{{item.SeasonNumber}}" class="sinovad-season-button " [ngClass]="{'selected':item.SeasonNumber==detail.CurrentSeason.SeasonNumber}" (click)="onClickSeason(item)">
+                              <span>{{item.Name}}</span>
+                            </button>
+                          </div>
+                        </ng-template>
+                      </section>
+                    </div>
+                    <div style="width:0px;height:0px;">
+                      <div #scrollRightButton class="sinovad-list-button-scroll-right" (click)="onClickButtonRightScroll(itemsRowContainer,scrollLeftButton,scrollRightButton)">
+                        <img [src]="'right.png' | formatDataPipe : 'GetImageURLByKey' | async">
+                      </div>
                     </div>
                   </div>
-                  <div style="margin-top:5px;">
-                    {{lastEpisodeWatched.Subtitle}}
-                  </div>
-                </div>
-              </ng-template>
-              <ng-template [ngIf]="!lastEpisodeWatched">
-                <ng-template [ngIf]="itemUserData">
-                  <button id="restart_play" class="" (click)="showVideo()">Ver desde el principio</button>
-                  <button id="continue_play" class="" (click)="continueVideo()">Continuar viendo</button>
-                </ng-template>
-                <ng-template [ngIf]="!itemUserData">
-                  <button id ="play_now" class="" (click)="showVideo()">
-                    <i class="fa-solid fa-play me-1"></i>
-                    Ver ahora
-                  </button>
-                </ng-template>
-              </ng-template>
-            </section>
-            <div *ngIf="!lastEpisodeWatched" class="sinovad-item-view-summary-container">
-              {{detail.MediaItem.Overview}}
-            </div>
-            <div *ngIf="detail.ListSeasons && detail.ListSeasons.length>0" class="sinovad-item-view-seasons-container">
-              <div>
-                EPISODIOS
-              </div>
-              <div class="sinovad-list-row-container">
-                <img *ngIf="!startResize" style="display:none;" src (error)="onInitializeItemsRow(itemsRowContainer,scrollLeftButton,scrollRightButton)">
-                <div style="width:0px;height:0px;">
-                  <div #scrollLeftButton class="sinovad-list-button-scroll-left" (click)="onClickButtonLeftScroll(itemsRowContainer,scrollLeftButton,scrollRightButton)">
-                    <img [src]="'left.png' | formatDataPipe : 'GetImageURLByKey' | async">
-                  </div>
-                </div>
-                <div  #itemsRowContainer class="sinovad-list-row sinovad-section">
-                  <section id="section_seasons" #content class="sinovad-list-content">
-                    <ng-template ngFor let-item [ngForOf]="detail.ListSeasons">
-                      <div class="sinovad-season-container">
-                        <button id="section_season_{{item.SeasonNumber}}" class="sinovad-season-button " [ngClass]="{'selected':item.SeasonNumber==detail.CurrentSeason.SeasonNumber}" (click)="onClickSeason(item)">
-                          <span>{{item.Name}}</span>
+                  <div class="sinovad-item-view-episodes-container">
+                    <ng-template ngFor let-episode [ngForOf]="detail.CurrentSeason.ListEpisodes">
+                      <section id="section_episode_s{{episode.SeasonNumber}}_e{{episode.EpisodeNumber}}" class="sinovad-section">
+                        <button id="button_episode_s{{episode.SeasonNumber}}_e{{episode.EpisodeNumber}}" class="sinovad-episode-button " (click)="onClickEpisode(episode)">
+                          <div class="sinovad-episode-image-section">
+                              <img [src]="getEpisodeImagePath(episode)">
+                          </div>
+                          <div class="sinovad-episode-detail-section">
+                            <div class="sinovad-episode-title-section">
+                              {{episode.EpisodeNumber}}. {{episode.Name}}
+                            </div>
+                            <div class="sinovad-overview-section">
+                              {{episode.Overview}}
+                            </div>
+                          </div>
                         </button>
-                      </div>
+                      </section>
                     </ng-template>
-                  </section>
-                </div>
-                <div style="width:0px;height:0px;">
-                  <div #scrollRightButton class="sinovad-list-button-scroll-right" (click)="onClickButtonRightScroll(itemsRowContainer,scrollLeftButton,scrollRightButton)">
-                    <img [src]="'right.png' | formatDataPipe : 'GetImageURLByKey' | async">
                   </div>
                 </div>
               </div>
-              <div class="sinovad-item-view-episodes-container">
-                <ng-template ngFor let-episode [ngForOf]="detail.CurrentSeason.ListEpisodes">
-                  <section id="section_episode_s{{episode.SeasonNumber}}_e{{episode.EpisodeNumber}}" class="sinovad-section">
-                    <button id="button_episode_s{{episode.SeasonNumber}}_e{{episode.EpisodeNumber}}" class="sinovad-episode-button " (click)="onClickEpisode(episode)">
-                      <div class="sinovad-episode-image-section">
-                          <img [src]="getEpisodeImagePath(episode)">
-                      </div>
-                      <div class="sinovad-episode-detail-section">
-                        <div class="sinovad-episode-title-section">
-                          {{episode.EpisodeNumber}}. {{episode.Name}}
-                        </div>
-                        <div class="sinovad-overview-section">
-                          {{episode.Overview}}
-                        </div>
-                      </div>
-                    </button>
-                  </section>
-                </ng-template>
-              </div>
-            </div>
+            </ng-template>
           </div>
-        </ng-template>
       </div>
+    </div>
+  </ng-template>
+
+  <ng-template [ngIf]="mediaServer && !mediaServer.isSecureConnection">
+    <app-server-connection-error [mediaServer]="mediaServer"></app-server-connection-error>
+  </ng-template>
+</ng-template>
+
+
+<ng-template [ngIf]="loadingConnection">
+  <div class="spinner-centered-container">
+    <mat-spinner></mat-spinner>
   </div>
-</div>
-
-
+</ng-template>

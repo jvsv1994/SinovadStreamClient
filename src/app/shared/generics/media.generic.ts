@@ -23,7 +23,7 @@ export class MediaGeneric{
       var mediaServer=this.sharedService.mediaServers.find(x=>x.Guid==mediaServerGuid);
       if(mediaServer)
       {
-        this.mediaServer=mediaServer;
+        this.mediaServer=JSON.parse(JSON.stringify(mediaServer));
         var libraryId=this.activeRoute.snapshot.params.libraryId;
         if(mediaServer.ListLibraries!=undefined && mediaServer.ListLibraries.length>0)
         {

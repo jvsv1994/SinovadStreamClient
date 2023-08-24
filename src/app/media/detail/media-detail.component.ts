@@ -8,6 +8,8 @@ import { LibraryService } from 'src/app/libraries/shared/library.service';
 import { ItemDetail } from '../shared/models/item-detail.model';
 import { MediaEpisode } from '../shared/models/media-episode.model';
 import { MediaSeason } from '../shared/models/media-season.model';
+import { Subscription } from 'rxjs';
+import { SignalIRHubService } from '../shared/services/signal-ir-hub.service';
 
 declare var window;
 @Component({
@@ -24,19 +26,53 @@ export class MediaDetailComponent extends MediaGeneric implements OnInit {
   itemUserData:any;
   listEpisodePreference:any[];
   lastEpisodeWatched:any;
+  subscriptionEnableMediaServer:Subscription;
+  subscriptionDisableMediaServer:Subscription;
+  loadingConnection:boolean=true;
 
   constructor(
+    private signalIrService:SignalIRHubService,
     private libraryService:LibraryService,
     public activeRoute: ActivatedRoute,
     public router: Router,
     private  ref:ChangeDetectorRef,
     public sharedService: SharedService) {
       super(router,activeRoute,sharedService)
-
+      this.subscriptionEnableMediaServer=this.signalIrService.isEnablingMediaServer().subscribe((mediaServerGuid:string)=>{
+        if(this.mediaServer && this.mediaServer.Guid==mediaServerGuid && !this.mediaServer.isSecureConnection)
+        {
+          this.loadingConnection=false;
+          this.mediaServer.isSecureConnection=true;
+          this.getMediaItemDetail();
+        }
+      });
+      this.subscriptionDisableMediaServer=this.signalIrService.isDisablingMediaServer().subscribe((mediaServerGuid:string)=>{
+        if(this.mediaServer && this.mediaServer.Guid==mediaServerGuid && this.mediaServer.isSecureConnection)
+        {
+          this.mediaServer.isSecureConnection=false;
+        }
+      });
     }
 
     ngOnInit(): void {
       this.initializeHeaderData();
+      if(this.mediaServer.isSecureConnection)
+      {
+        this.loadingConnection=false;
+        this.getMediaItemDetail();
+      }else{
+        setTimeout(() => {
+          this.loadingConnection=false;
+        }, 3000);
+      }
+    }
+
+    ngOnDestroy(){
+      this.subscriptionEnableMediaServer.unsubscribe();
+      this.subscriptionDisableMediaServer.unsubscribe();
+    }
+
+    private getMediaItemDetail(){
       let mediaId = this.activeRoute.snapshot.queryParams['mediaId'];
       if(mediaId)
       {
