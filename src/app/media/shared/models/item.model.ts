@@ -15,11 +15,7 @@ export class Item{
   public LastAirDate:Date;
   public PosterPath:string;
   public PhysicalPath:string;
-  public TvSerieId:number;
-  public MovieId:number;
-  public MovieGenreId:number;
   public GenreId:number;
-  public VideoId:number;
   public MediaServerId:number;
   public MediaServerGuid:string;
   public LibraryId:number;

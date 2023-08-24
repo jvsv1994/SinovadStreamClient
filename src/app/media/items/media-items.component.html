@@ -28,7 +28,7 @@
                   <div #content class="sinovad-list-content">
                     <ng-template ngFor let-item [ngForOf]="group.ListItems">
                       <div class="sinovad-item-container">
-                        <button #itemContainer id="item_{{item.TvSerieId?item.TvSerieId:item.MovieId}}_{{item.MediaType}}" class="sinovad-item-button-vertical" (click)="onClickItem(item)">
+                        <button #itemContainer id="item_{{group.Id}}_{{item.MediaItemId}}" class="sinovad-item-button-vertical" (click)="onClickItem(item)">
                           <img referrerpolicy="no-referrer" [src]="sharedService.getUrlByItemMovieDataBase(item)">
                           <ng-template [ngIf]="item.CurrentTime && item.DurationTime">
                             <div class="sinovad-item-progress-bar-absolute-container">
