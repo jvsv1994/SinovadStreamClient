@@ -19,7 +19,6 @@ import { Library } from 'src/app/libraries/shared/library.model';
 })
 export class MediaItemsComponent implements OnInit,OnDestroy {
 
-  showLoadingApp:boolean=true;
   itemsGroupList:ItemsGroup[]=[];
   _window=window;
   subscriptionEnableMediaServer:Subscription;
