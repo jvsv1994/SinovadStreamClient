@@ -68,23 +68,28 @@ export class SignalIRHubService {
     return this.connectionCompleted$.asObservable();
   }
 
-  public openConnection():Promise<any>{
+  public openConnection(){
+    var hubConnection = new HubConnectionBuilder().withUrl(this.sharedService.urlSinovadStreamWebApi+'/mediaServerHub', {
+      skipNegotiation: true,
+      transport: HttpTransportType.WebSockets
+    }).build();
+    this.sharedService.hubConnection=hubConnection;
+    this.startHubConnection();
+  }
+
+  private startHubConnection(){
     let ctx=this;
-    return new Promise((resolve, reject) => {
-      var hubConnection = new HubConnectionBuilder().withUrl(this.sharedService.urlSinovadStreamWebApi+'/mediaServerHub', {
-        skipNegotiation: true,
-        transport: HttpTransportType.WebSockets
-      }).build();
-      hubConnection.start().then(() => {
-        console.log('connection started');
-        ctx.setEvents(hubConnection);
-        ctx.sharedService.hubConnection=hubConnection;
-        ctx.completeConnection();
-        resolve(true);
-      }).catch((err) => {
-        console.error('error while establishing signalr connection: ' + err);
-        reject(err);
-      });
+    this.sharedService.hubConnection.start().then(() => {
+      console.log('connection started');
+      ctx.setEvents(ctx.sharedService.hubConnection);
+      ctx.completeConnection();
+    }).catch((err) => {
+      console.error('error while establishing signalr connection: ' + err);
+    });
+    this.sharedService.hubConnection.onclose(x=>{
+      setTimeout(() => {
+        ctx.startHubConnection();
+      }, 5000);
     });
   }
 

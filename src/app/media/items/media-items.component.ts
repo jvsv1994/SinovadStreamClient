@@ -49,10 +49,10 @@ export class MediaItemsComponent implements OnInit,OnDestroy {
       this.subscriptionEnableMediaServer=this.signalIrService.isEnablingMediaServer().subscribe((mediaServerGuid:string)=>{
         if(ctx.considerAllMediaServers())
         {
-          ctx.loadingConnection=false;
           var mediaServer=ctx.mediaServers.find(x=>x.Guid==mediaServerGuid);
           if(mediaServer && !mediaServer.isSecureConnection)
           {
+            ctx.loadingConnection=false;
             mediaServer.isSecureConnection=true;
             ctx.getItemsByMediaServer(mediaServer);
           }
@@ -120,8 +120,15 @@ export class MediaItemsComponent implements OnInit,OnDestroy {
 
     public ngOnInit(): void {
       if(this.considerAllMediaServers()){
-        this.loadingConnection=false;
         this.mediaServers=JSON.parse(JSON.stringify(this.sharedService.mediaServers));
+        if(this.isEnableAnyMediaServer())
+        {
+          this.loadingConnection=false;
+        }else{
+          setTimeout(() => {
+            this.loadingConnection=false;
+          }, 3000);
+        }
         if(window.location.pathname.endsWith("movies")){
           this.title="Películas";
         }
@@ -165,6 +172,14 @@ export class MediaItemsComponent implements OnInit,OnDestroy {
       this.subscriptionDisableMediaServer.unsubscribe();
       this.subscriptionUpdateLibrariesByMediaServer.unsubscribe();
       this.subscriptionUpdateItemsByMediaServer.unsubscribe();
+    }
+
+    public isEnableAnyMediaServer(){
+      if(this.mediaServers.filter(x=>x.isSecureConnection).length>0){
+        return true;
+      }else{
+        return false;
+      }
     }
 
     public considerAllMediaServers(){

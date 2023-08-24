@@ -1,5 +1,5 @@
 <ng-template [ngIf]="!loadingConnection">
-  <ng-template [ngIf]="(mediaServers && mediaServers.length>0) ||  (currentMediaServer && currentMediaServer.isSecureConnection)">
+  <ng-template [ngIf]="(mediaServers && isEnableAnyMediaServer()) ||  (currentMediaServer && currentMediaServer.isSecureConnection)">
     <div class="media-principal-section">
       <div class="media-container">
         <div *ngIf="title" class="media-header">
@@ -66,6 +66,18 @@
   </ng-template>
   <ng-template [ngIf]="currentMediaServer && !currentMediaServer.isSecureConnection">
     <app-server-connection-error [mediaServer]="currentMediaServer"></app-server-connection-error>
+  </ng-template>
+  <ng-template [ngIf]="(mediaServers && !isEnableAnyMediaServer())">
+    <div class="server-error-page-container">
+      <div class="server-error-page-content">
+        <div class="server-error-message-title">
+            No hay servidores disponibles en este momento
+        </div>
+        <div class="server-error-message-description">
+
+        </div>
+      </div>
+    </div>
   </ng-template>
 </ng-template>
 
