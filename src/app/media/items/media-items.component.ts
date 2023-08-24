@@ -32,6 +32,7 @@ export class MediaItemsComponent implements OnInit,OnDestroy {
   currentLibrary:Library;
   currentMediaServer:MediaServer;
   mediaServers:MediaServer[];
+  loadingConnection:boolean=true;
 
   constructor(
     private signalIrService:SignalIRHubService,
@@ -48,6 +49,7 @@ export class MediaItemsComponent implements OnInit,OnDestroy {
       this.subscriptionEnableMediaServer=this.signalIrService.isEnablingMediaServer().subscribe((mediaServerGuid:string)=>{
         if(ctx.considerAllMediaServers())
         {
+          ctx.loadingConnection=false;
           var mediaServer=ctx.mediaServers.find(x=>x.Guid==mediaServerGuid);
           if(mediaServer && !mediaServer.isSecureConnection)
           {
@@ -55,8 +57,9 @@ export class MediaItemsComponent implements OnInit,OnDestroy {
             ctx.getItemsByMediaServer(mediaServer);
           }
         }else{
-          if(this.currentMediaServer && ctx.currentMediaServer.Guid==mediaServerGuid && !ctx.currentMediaServer.isSecureConnection)
+          if(ctx.currentMediaServer && ctx.currentMediaServer.Guid==mediaServerGuid && !ctx.currentMediaServer.isSecureConnection)
           {
+            ctx.loadingConnection=false;
             ctx.currentMediaServer.isSecureConnection=true;
             ctx.getItemsByCurrentMediaServerAndCurrentLibrary();
           }
@@ -116,27 +119,8 @@ export class MediaItemsComponent implements OnInit,OnDestroy {
     }
 
     public ngOnInit(): void {
-      this.initializeMediaServersData();
-    }
-
-    ngOnDestroy(){
-      this.subscriptionEnableMediaServer.unsubscribe();
-      this.subscriptionDisableMediaServer.unsubscribe();
-      this.subscriptionUpdateLibrariesByMediaServer.unsubscribe();
-      this.subscriptionUpdateItemsByMediaServer.unsubscribe();
-    }
-
-    public considerAllMediaServers(){
-      if(window.location.pathname.endsWith("home") || window.location.pathname.endsWith("movies") || window.location.pathname.endsWith("tvseries"))
-      {
-        return true;
-      }else{
-        return false;
-      }
-    }
-
-    public initializeMediaServersData(): void {
       if(this.considerAllMediaServers()){
+        this.loadingConnection=false;
         this.mediaServers=JSON.parse(JSON.stringify(this.sharedService.mediaServers));
         if(window.location.pathname.endsWith("movies")){
           this.title="Películas";
@@ -160,10 +144,35 @@ export class MediaItemsComponent implements OnInit,OnDestroy {
             this.currentMediaServer=JSON.parse(JSON.stringify(mediaServer));
             if(this.currentMediaServer.isSecureConnection)
             {
-             this.getItemsByCurrentMediaServerAndCurrentLibrary();
+              this.loadingConnection=false;
+              this.getItemsByCurrentMediaServerAndCurrentLibrary();
+            }else{
+              setTimeout(() => {
+                this.loadingConnection=false;
+              }, 3000);
             }
+          }else{
+            this.router.navigateByUrl('/404')
           }
+        }else{
+          this.router.navigateByUrl('/404')
         }
+      }
+    }
+
+    ngOnDestroy(){
+      this.subscriptionEnableMediaServer.unsubscribe();
+      this.subscriptionDisableMediaServer.unsubscribe();
+      this.subscriptionUpdateLibrariesByMediaServer.unsubscribe();
+      this.subscriptionUpdateItemsByMediaServer.unsubscribe();
+    }
+
+    public considerAllMediaServers(){
+      if(window.location.pathname.endsWith("home") || window.location.pathname.endsWith("movies") || window.location.pathname.endsWith("tvseries"))
+      {
+        return true;
+      }else{
+        return false;
       }
     }
 
