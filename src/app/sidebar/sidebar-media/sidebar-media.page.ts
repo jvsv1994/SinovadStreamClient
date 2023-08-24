@@ -29,7 +29,7 @@ export class SidebarMediaPage{
     public sharedService:SharedService) {
       this.subscriptionEnableMediaServer=this.signalIrService.isEnablingMediaServer().subscribe((mediaServerGuid:string) => {
         var mediaServerMenu=this.mediaMenu.find(x=>x.MediaServerGuid==mediaServerGuid);
-        if(!mediaServerMenu.IsSecureConnection)
+        if(mediaServerMenu && !mediaServerMenu.IsSecureConnection)
         {
           mediaServerMenu.IsSecureConnection=true;
           var mediaServer=this.sharedService.mediaServers.find(x=>x.Guid==mediaServerMenu.MediaServerGuid);
@@ -41,7 +41,7 @@ export class SidebarMediaPage{
       });
       this.subscriptionDisableMediaServer=this.signalIrService.isDisablingMediaServer().subscribe((mediaServerGuid:string) => {
         var mediaServerMenu=this.mediaMenu.find(x=>x.MediaServerGuid==mediaServerGuid);
-        if(mediaServerMenu.IsSecureConnection)
+        if(mediaServerMenu && mediaServerMenu.IsSecureConnection)
         {
           mediaServerMenu.IsSecureConnection=false;
           mediaServerMenu.ChildMenus=[];
