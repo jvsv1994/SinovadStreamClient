@@ -6,7 +6,6 @@ import { Observable, Subject } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class SignalIRHubService {
 
-  private connectionCompleted$ = new Subject<boolean>();
   private updateMediaServers$ = new Subject<boolean>();
   private enableMediaServerSubject$ = new Subject<string>();
   private disableMediaServerSubject$ = new Subject<string>();
@@ -60,13 +59,6 @@ export class SignalIRHubService {
     return this.updateItemsByMediaServerSubject$.asObservable();
   }
 
-  public completeConnection():void{
-    this.connectionCompleted$.next(true);
-  };
-
-  public isCompletedConnection():Observable<boolean>{
-    return this.connectionCompleted$.asObservable();
-  }
 
   public openConnection(){
     var hubConnection = new HubConnectionBuilder().withUrl(this.sharedService.urlSinovadStreamWebApi+'/mediaServerHub', {
@@ -82,7 +74,6 @@ export class SignalIRHubService {
     this.sharedService.hubConnection.start().then(() => {
       console.log('connection started');
       ctx.setEvents(ctx.sharedService.hubConnection);
-      ctx.completeConnection();
     }).catch((err) => {
       console.error('error while establishing signalr connection: ' + err);
     });
