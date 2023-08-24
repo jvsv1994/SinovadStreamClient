@@ -84,6 +84,7 @@ export class SidebarAccountPage implements OnInit {
         {
           this.selectedMediaServer.isSecureConnection=true;
           this.loadingConnection=false;
+          this.closeDropDown();
         }
         var mediaServer=this.mediaServers.find(x=>x.Guid==mediaServerGuid);
         if(mediaServer && !mediaServer.isSecureConnection)
@@ -95,6 +96,7 @@ export class SidebarAccountPage implements OnInit {
         if(this.selectedMediaServer && this.selectedMediaServer.Guid==mediaServerGuid && this.selectedMediaServer.isSecureConnection)
         {
           this.selectedMediaServer.isSecureConnection=false;
+          this.closeDropDown();
         }
         var mediaServer=this.mediaServers.find(x=>x.Guid==mediaServerGuid);
         if(mediaServer && mediaServer.isSecureConnection)
@@ -172,6 +174,13 @@ export class SidebarAccountPage implements OnInit {
       var options:DropDownMenuOptions<MediaServer>={containerId:"sinovadMainContainer",target:this.mediaServerButton.nativeElement,listItems:listItems};
     }
     return options;
+  }
+
+  private closeDropDown(){
+    if(this.dropDownServersService.isShowing)
+    {
+      this.dropDownServersService.closeDropDown();
+    }
   }
 
   public isSelectedSidebarOption(option:SidebarOption){
