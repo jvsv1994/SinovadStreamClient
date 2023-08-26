@@ -8,8 +8,8 @@
   <div class="sinovad-directory-chooser-content">
     <div class="sinovad-main-directories-section">
       <ng-template ngFor let-md [ngForOf]="listMainDirectories">
-        <button class="sinovad-main-directory-option" [ngClass]="{'sinovad-directory-selected':selectedMainDirectory && md.name==selectedMainDirectory.name}" (click)="onClickMainDirectory(md)">
-          {{md.name}}
+        <button class="sinovad-main-directory-option" [ngClass]="{'sinovad-directory-selected':selectedMainDirectory && md.Name==selectedMainDirectory.Name}" (click)="onClickMainDirectory(md)">
+          {{md.Name}}
         </button>
       </ng-template>
     </div>
@@ -18,8 +18,8 @@
         <= .. [Regresar]
       </button>
       <ng-template ngFor let-sd [ngForOf]="listSubdirectoriesTmp">
-        <button class="sinovad-subdirectory-option" [ngClass]="{'sinovad-directory-selected':selectedSubdirectory && sd.name==selectedSubdirectory.name}" (click)="onClickSubDirectory(sd)">
-          {{sd.name}}
+        <button class="sinovad-subdirectory-option" [ngClass]="{'sinovad-directory-selected':selectedSubdirectory && sd.Name==selectedSubdirectory.Name}" (click)="onClickSubDirectory(sd)">
+          {{sd.Name}}
         </button>
       </ng-template>
     </div>

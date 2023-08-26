@@ -108,32 +108,23 @@ export class SidebarAccountPage implements OnInit {
 
   ngOnInit(): void {
     this.mediaServers=JSON.parse(JSON.stringify(this.sharedService.mediaServers));
-    this.setSelectedMediaServer();
+    if(this.mediaServers && this.mediaServers.length>0)
+    {
+      this.selectedMediaServer=this.mediaServers[0];
+      if(this.selectedMediaServer.isSecureConnection)
+      {
+        this.loadingConnection=false;
+      }else{
+        setTimeout(() => {
+          this.loadingConnection=false;
+        }, 3000);
+      }
+    }
   }
 
   ngOnDestroy(){
     this.subscriptionEnableMediaServer.unsubscribe();
     this.subscriptionDisableMediaServer.unsubscribe();
-  }
-
-  public setSelectedMediaServer(){
-    if(this.activeRoute.firstChild.firstChild.snapshot.params.serverGuid)
-    {
-      var mediaServerGuid=this.activeRoute.firstChild.firstChild.snapshot.params.serverGuid;
-      var selectedMediaServer=this.mediaServers.find(x=>x.Guid==mediaServerGuid);
-      if(selectedMediaServer)
-      {
-        this.selectedMediaServer=selectedMediaServer;
-      }
-    }
-    if(this.selectedMediaServer.isSecureConnection)
-    {
-      this.loadingConnection=false;
-    }else{
-      setTimeout(() => {
-        this.loadingConnection=false;
-      }, 3000);
-    }
   }
 
   public getOptionPath(option:SidebarOption){

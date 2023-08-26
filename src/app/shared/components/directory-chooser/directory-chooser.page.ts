@@ -3,6 +3,7 @@ import { Component, Input, OnInit} from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { DirectoryService } from '../../services/directory.service';
 import { MediaServer } from 'src/app/servers/shared/server.model';
+import { Directory } from '../../models/directory.model';
 
 @Component({
   selector: 'app-directory-chooser',
@@ -12,10 +13,10 @@ import { MediaServer } from 'src/app/servers/shared/server.model';
 export class DirectoryChooserPage implements OnInit {
 
   @Input() mediaServer:MediaServer;
-  selectedMainDirectory:any;
-  selectedSubdirectory:any;
-  listMainDirectories:any[];
-  listSubdirectoriesTmp:any=[];
+  selectedMainDirectory:Directory;
+  selectedSubdirectory:Directory;
+  listMainDirectories:Directory[]=[];
+  listSubdirectoriesTmp:Directory[]=[];
 
   constructor(
     private directoryService:DirectoryService,
@@ -37,8 +38,8 @@ export class DirectoryChooserPage implements OnInit {
       });
     }
 
-    public getSubdirectoriesByPath(directory:any){
-      this.directoryService.getSubdirectoriesByMediaServerAndDirectoryPath(this.mediaServer.Url,directory.path).then((response) => {
+    public getSubdirectoriesByPath(directory:Directory){
+      this.directoryService.getSubdirectoriesByMediaServerAndDirectoryPath(this.mediaServer.Url,directory.Path).then((response) => {
         this.listSubdirectoriesTmp=JSON.parse(response);
       },error=>{
         console.error(error);
@@ -52,9 +53,9 @@ export class DirectoryChooserPage implements OnInit {
     public getCurrentPath(){
       if(this.selectedSubdirectory)
       {
-        return this.selectedSubdirectory.path;
+        return this.selectedSubdirectory.Path;
       }else{
-        return this.selectedMainDirectory.path;
+        return this.selectedMainDirectory.Path;
       }
     }
 
@@ -66,32 +67,32 @@ export class DirectoryChooserPage implements OnInit {
     //Change Directory Section
 
     public onClickBackFolder(){
-      if(this.selectedSubdirectory.parentDirectory.isMainDirectory)
+      if(this.selectedSubdirectory.ParentDirectory.IsMainDirectory)
       {
         this.selectedSubdirectory=undefined;
         this.getSubdirectoriesByPath(this.selectedMainDirectory);
       }else{
-        this.selectedSubdirectory=this.selectedSubdirectory.parentDirectory;
+        this.selectedSubdirectory=this.selectedSubdirectory.ParentDirectory;
         this.getSubdirectoriesByPath(this.selectedSubdirectory);
       }
     }
 
-    public onClickMainDirectory(md:any)
+    public onClickMainDirectory(md:Directory)
     {
       this.selectedMainDirectory=md;
       this.getSubdirectoriesByPath(this.selectedMainDirectory);
     }
 
-    public onClickSubDirectory(sd:any)
+    public onClickSubDirectory(sd:Directory)
     {
       if(this.selectedSubdirectory==undefined)
       {
         this.selectedSubdirectory=sd;
-        this.selectedSubdirectory.parentDirectory=this.selectedMainDirectory;
+        this.selectedSubdirectory.ParentDirectory=this.selectedMainDirectory;
       }else{
         let lastSubdirectory=JSON.parse(JSON.stringify(this.selectedSubdirectory))
         this.selectedSubdirectory=sd;
-        this.selectedSubdirectory.parentDirectory=lastSubdirectory;
+        this.selectedSubdirectory.ParentDirectory=lastSubdirectory;
       }
       this.getSubdirectoriesByPath(this.selectedSubdirectory);
     }
