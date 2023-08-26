@@ -259,6 +259,11 @@ export class MediaItemsComponent implements OnInit,OnDestroy {
             itemGroupFinded.ListItems=newListItemsOrdered;
           }
         });
+        this.itemsGroupList=this.itemsGroupList.sort((a: ItemsGroup, b: ItemsGroup) => {
+          if (a.Id>b.Id) return 1;
+          else if (a.Id<=b.Id)  return  -1;
+          else return  0;
+        });
       }
     }
 
