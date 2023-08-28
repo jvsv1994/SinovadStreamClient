@@ -14,7 +14,7 @@ export class FormatDataPipe implements PipeTransform {
         let type = args[0] != undefined ? args[0] : '';
         let output;
         switch (type) {
-          case "GetImageURLByKey":{
+          case "GetIconURLByKey":{
             if (input != undefined && input != '') {
               if(this.sharedService.configurationData.developerMode)
               {

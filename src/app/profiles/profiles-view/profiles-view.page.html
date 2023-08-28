@@ -2,7 +2,7 @@
   <div class="sinovad-profiles-view-content" #profilesViewContent>
     <div #profilesViewHeader class="sinovad-page-header">
       <div class="sinovad-logo-container">
-        <img [src]="'sinovad-stream-large-logo.png' | formatDataPipe : 'GetImageURLByKey' | async">
+        <img [src]="'sinovad-stream-large-logo.png' | formatDataPipe : 'GetIconURLByKey' | async">
       </div>
     </div>
     <div class="sinovad-profiles-view-body" [style.height]="_window.innerWidth<768?'calc(100% - '+(profilesViewHeader.offsetHeight+profilesViewFooter.offsetHeight)+'px)':''">
@@ -19,7 +19,7 @@
               <img *ngIf="profile.AvatarPath!=undefined" class="sinovad-initials-profile" [attr.src]="profile.Id | formatDataPipe : 'GetAvatarImageURLByProfileId' | async">
               <div *ngIf="enableEditMode" class="sinovad-icon-edit-profile-container">
                 <div class="sinovad-icon-edit-profile-content">
-                  <img [src]="'edit-profile.png' | formatDataPipe : 'GetImageURLByKey' | async">
+                  <img [src]="'edit-profile.png' | formatDataPipe : 'GetIconURLByKey' | async">
                 </div>
               </div>
               <div class="sinovad-fullname-profile text-truncate">
@@ -30,7 +30,7 @@
         </ng-template>
         <button id="create_new_profile" (click)="showNewProfile()">
           <div class="sinovad-initials-profile add">
-            <img [src]="'plus.png' | formatDataPipe : 'GetImageURLByKey' | async" width="40px">
+            <img [src]="'plus.png' | formatDataPipe : 'GetIconURLByKey' | async" width="40px">
           </div>
           <div class="sinovad-fullname-profile">
             Crear

@@ -1,11 +1,11 @@
 <div class="sinovad-back-button-container">
   <button (click)="onClose()">
-    <img [src]="'back-screen.png' | formatDataPipe : 'GetImageURLByKey' | async">
+    <img [src]="'back-screen.png' | formatDataPipe : 'GetIconURLByKey' | async">
   </button>
 </div>
 <div class="login-container">
   <div class="login-logo-container">
-    <img [src]="'sinovad-stream-large-logo.png' | formatDataPipe : 'GetImageURLByKey' | async">
+    <img [src]="'sinovad-stream-large-logo.png' | formatDataPipe : 'GetIconURLByKey' | async">
   </div>
   <div class="login-content">
     <div class="login-form-container">
@@ -34,13 +34,13 @@
           <button class="btn btn-secondary" (click)="onClose()">Cancelar</button>
         </div>
         <div class="mb-3">
-          <button class="btn google" (click)="loginWithGoogle()"><img [src]="'google.svg' | formatDataPipe : 'GetImageURLByKey' | async"/>Continuar con Google</button>
+          <button class="btn google" (click)="loginWithGoogle()"><img [src]="'google.svg' | formatDataPipe : 'GetIconURLByKey' | async"/>Continuar con Google</button>
         </div>
      <!--    <div class="mb-3">
-          <button class="btn facebook" (click)="loginWithFacebook()"><img [src]="'facebook.svg' | formatDataPipe : 'GetImageURLByKey' | async"/>Continuar con Facebook</button>
+          <button class="btn facebook" (click)="loginWithFacebook()"><img [src]="'facebook.svg' | formatDataPipe : 'GetIconURLByKey' | async"/>Continuar con Facebook</button>
         </div>
         <div class="mb-3">
-          <button class="btn apple" (click)="loginWithApple()"><img [src]="'apple.svg' | formatDataPipe : 'GetImageURLByKey' | async"/>Continuar con Apple</button>
+          <button class="btn apple" (click)="loginWithApple()"><img [src]="'apple.svg' | formatDataPipe : 'GetIconURLByKey' | async"/>Continuar con Apple</button>
         </div> -->
       </ng-template>
       <ng-template [ngIf]="showPasswordForm  && !showConfirmLinkedAccountForm">

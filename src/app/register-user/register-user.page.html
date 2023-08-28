@@ -1,6 +1,6 @@
 <div #header class="sinovad-back-button-container">
   <button (click)="onClose()">
-    <img [src]="'back-screen.png' | formatDataPipe : 'GetImageURLByKey' | async">
+    <img [src]="'back-screen.png' | formatDataPipe : 'GetIconURLByKey' | async">
   </button>
 </div>
 <div class="sinovad-container">
@@ -8,7 +8,7 @@
     <div *ngIf="!showSuccessMessage" class="sinovad-form-container">
       <form [formGroup]="registerUserForm" (ngSubmit)="register()" class="sinovad-form-content">
         <div class="sinovad-logo-container">
-          <img [src]="'sinovad-stream-large-logo.png' | formatDataPipe : 'GetImageURLByKey' | async">
+          <img [src]="'sinovad-stream-large-logo.png' | formatDataPipe : 'GetIconURLByKey' | async">
         </div>
         <div class="sinovad-title-container">
           Regístrate
@@ -92,7 +92,7 @@
     <div *ngIf="showSuccessMessage" class="sinovad-message-container">
       <div class="sinovad-message-content">
         <div class="sinovad-logo-container">
-          <img [src]="'sinovad-stream-large-logo.png' | formatDataPipe : 'GetImageURLByKey' | async">
+          <img [src]="'sinovad-stream-large-logo.png' | formatDataPipe : 'GetIconURLByKey' | async">
         </div>
         <div class="sinovad-title-container">
           Registro de Usuario

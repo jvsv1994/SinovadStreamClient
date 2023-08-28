@@ -112,7 +112,12 @@ export class SharedService {
     {
       return this.originalUrlImagesMovieDataBase+detail.MediaItem.PosterPath;
     }else{
-      return detail.MediaItem.PosterPath;
+      if(detail.MediaItem.PosterPath)
+      {
+        return detail.MediaItem.PosterPath;
+      }else{
+        return "assets/img/no-image-available.jpg";
+      }
     }
   }
 
@@ -121,7 +126,12 @@ export class SharedService {
     {
       return this.originalUrlImagesMovieDataBase+item.PosterPath;
     }else{
-      return item.PosterPath;
+      if(item.PosterPath)
+      {
+        return item.PosterPath;
+      }else{
+        return "assets/img/no-image-available.jpg";
+      }
     }
   }
 

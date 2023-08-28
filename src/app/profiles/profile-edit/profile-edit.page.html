@@ -1,7 +1,7 @@
   <div class="sinovad-form-page-container">
     <div class="sinovad-page-header">
       <div class="sinovad-logo-container sinovaclient-left">
-        <img [src]="'sinovad-stream-large-logo.png' | formatDataPipe : 'GetImageURLByKey' | async">
+        <img [src]="'sinovad-stream-large-logo.png' | formatDataPipe : 'GetIconURLByKey' | async">
       </div>
       <div *ngIf="currentTmpProfile" class="sinovaclient-right">
         <button (click)="saveProfile()">Listo</button>
@@ -29,7 +29,7 @@
               <img *ngIf="currentTmpProfile.AvatarPath!=undefined && !hideImage" class="sinovad-initials-profile" [attr.src]="currentTmpProfile.Id | formatDataPipe : 'GetAvatarImageURLByProfileId' | async">
               <div class="sinovad-icon-edit-profile-container">
                 <div class="sinovad-icon-edit-profile-content">
-                  <img [src]="'edit-profile.png' | formatDataPipe : 'GetImageURLByKey' | async">
+                  <img [src]="'edit-profile.png' | formatDataPipe : 'GetIconURLByKey' | async">
                 </div>
               </div>
             </button>

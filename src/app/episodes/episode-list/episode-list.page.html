@@ -111,10 +111,10 @@
     <div class="col-6 text-end">
       <button class="btn me-2" (click)="input.click()">
         <input #input type="file" accept=".txt" (change)="onFileSelected($event)" style="display: none;" />
-        <img style="height:40px;" [src]="'upload.png'  | formatDataPipe : 'GetImageURLByKey' | async" title="Carga Masiva">
+        <img style="height:40px;" [src]="'upload.png'  | formatDataPipe : 'GetIconURLByKey' | async" title="Carga Masiva">
       </button>
       <button type="button" class="btn me-2" (click)="showEpisodeRangeForm()">
-        <img style="height:40px;" [src]="'rank-number.png'  | formatDataPipe : 'GetImageURLByKey' | async" title="Agregar por Rango de Números">
+        <img style="height:40px;" [src]="'rank-number.png'  | formatDataPipe : 'GetIconURLByKey' | async" title="Agregar por Rango de Números">
       </button>
       <button type="button" class="btn btn-primary" (click)="showItemForm()"><i class="fa-solid fa-circle-plus me-2" aria-hidden="true"></i>Agregar</button>
     </div>

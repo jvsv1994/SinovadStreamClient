@@ -1,7 +1,7 @@
   <div *ngIf="currentTmpProfile" class="sinovad-form-page-container">
     <div class="sinovad-page-header">
       <div class="sinovad-logo-container sinovaclient-left">
-        <img [src]="'sinovad-stream-large-logo.png' | formatDataPipe : 'GetImageURLByKey' | async">
+        <img [src]="'sinovad-stream-large-logo.png' | formatDataPipe : 'GetIconURLByKey' | async">
       </div>
       <div class="sinovaclient-right">
         <button class="cancel" (click)="onCloseProfileNew()">CANCELAR</button>

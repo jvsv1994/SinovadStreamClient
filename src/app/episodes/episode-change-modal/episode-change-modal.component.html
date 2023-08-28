@@ -3,7 +3,7 @@
   <div #content class="sinovad-form-popup-content">
     <div #header class="sinovad-popup-content-header">
       <div (click)="showChangeSeasonForm=false" class="sinovad-back-button-content">
-        <img [src]="'back_button_black.png' | formatDataPipe : 'GetImageURLByKey'" width="15px">
+        <img [src]="'back_button_black.png' | formatDataPipe : 'GetIconURLByKey'" width="15px">
       </div>
     </div>
     <div [style.max-height]="content.offsetHeight-header.offsetHeight-footer.offsetHeight+'px'" class="sinovad-form-popup-content-body">
