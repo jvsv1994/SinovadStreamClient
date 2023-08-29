@@ -2,15 +2,15 @@ import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { Alert } from '../../models/alert.model';
 import { MatPaginator, MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { AlertsService } from '../../services/alerts.service';
-import { CustomListGeneric } from 'src/app/shared/generics/custom-list.generic';
-import { AlertType } from 'src/app/shared/enums';
+import { CustomListGeneric } from 'src/app/modules/shared/generics/custom-list.generic';
+import { AlertType } from 'src/app/modules/shared/enums';
 import { MatTableDataSource } from '@angular/material/table';
-import { SinovadApiPaginationResponse } from 'src/app/shared/models/response/sinovad-api-pagination-response.model';
-import { MediaServer } from 'src/app/servers/shared/server.model';
+import { SinovadApiPaginationResponse } from 'src/app/modules/shared/models/response/sinovad-api-pagination-response.model';
+import { MediaServer } from 'src/app/modules/servers/shared/server.model';
 import { Subscription } from 'rxjs';
-import { SignalIRHubService } from 'src/app/media/shared/services/signal-ir-hub.service';
+import { SignalIRHubService } from 'src/app/modules/media/shared/services/signal-ir-hub.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SharedService } from 'src/app/shared/services/shared-data.service';
+import { SharedService } from 'src/app/modules/shared/services/shared-data.service';
 
 @Component({
   selector: 'app-alerts',

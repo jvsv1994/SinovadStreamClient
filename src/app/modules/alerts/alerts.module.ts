@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AlertsComponent } from './components/alerts/alerts.component';
-import { SharedModule } from 'src/app/shared/shared.module';
+import { SharedModule } from 'src/app/modules/shared/shared.module';
 
 
 

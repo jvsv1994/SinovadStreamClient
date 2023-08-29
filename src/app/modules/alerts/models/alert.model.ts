@@ -1,4 +1,4 @@
-import { AlertType } from "src/app/shared/enums";
+import { AlertType } from "src/app/modules/shared/enums";
 
 export class Alert{
   Id:number;

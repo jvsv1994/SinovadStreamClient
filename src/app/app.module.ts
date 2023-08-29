@@ -5,13 +5,13 @@ import { BrowserModule} from '@angular/platform-browser';
 import { APP_BASE_HREF } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { SharedModule } from './shared/shared.module';
 import { AngularFireModule } from '@angular/fire/compat';
 import { environment } from 'src/environments/environment';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
-import { SidebarModule } from './sidebar/sidebar.module';
-import { NavbarModule } from './navbar/navbar.module';
 import { AppComponent } from './app.component';
+import { SharedModule } from './modules/shared/shared.module';
+import { SidebarModule } from './modules/sidebar/sidebar.module';
+import { NavbarModule } from './modules/navbar/navbar.module';
 
 @NgModule({
   declarations: [AppComponent],

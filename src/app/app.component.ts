@@ -1,30 +1,30 @@
 
 import { ChangeDetectorRef, Component, HostListener} from '@angular/core';
-import { SharedService } from 'src/app/shared/services/shared-data.service';
-import { UserService } from './users/shared/user.service';
-import { NotFoundPage } from './not-found/not-found.page';
-import { VideoPage } from './media/video/component/video.page';
-import { LoginPage } from './login/login.page';
-import { RegisterUserPage } from './register-user/register-user.page';
-import { LandingPage } from './landing/landing.page';
-import { ConfirmEmailPage } from './confirm-email/confirm-email.page';
-import { ProfilesViewPage } from './profiles/profiles-view/profiles-view.page';
-import { RecoverPasswordPage } from './recover-password/recover-password.page';
-import { ResetPasswordPage } from './reset-password/reset-password.page';
-import { SearchViewPage } from './media/search/search-view/search-view.page';
-import { MediaItemsComponent } from './media/items/media-items.component';
-import { MediaDetailComponent } from './media/detail/media-detail.component';
-import { MyAccountPage } from './account-settings/my-account/my-account.page';
-import { TranscoderSettingssPage } from './transcode-settings/transcode-settings.page';
-import { ServerSettingsGeneralPage } from './server-settings-general/server-settings-general.page';
-import { LibraryListComponent } from './libraries/library-list/library-list.component';
-import { MovieListPage } from './movies/movie-list/movie-list.page';
-import { TvSerieListPage } from './tvseries/tvserie-list/tvserie-list.page';
-import { MenuListPage } from './menus/menu-list/menu-list.page';
-import { GenreListPage } from './genres/genre-list/genre-list.page';
-import { UserListPage } from './users/user-list/user-list.page';
-import { RoleListPage } from './roles/role-list/role-list.page';
+import { SharedService } from 'src/app/modules/shared/services/shared-data.service';
 import { AlertsComponent } from './modules/alerts/components/alerts/alerts.component';
+import { UserService } from './modules/users/shared/user.service';
+import { NotFoundPage } from './modules/not-found/not-found.page';
+import { VideoPage } from './modules/media/video/component/video.page';
+import { LoginPage } from './modules/login/login.page';
+import { RecoverPasswordPage } from './modules/recover-password/recover-password.page';
+import { LandingPage } from './modules/landing/landing.page';
+import { ConfirmEmailPage } from './modules/confirm-email/confirm-email.page';
+import { ResetPasswordPage } from './modules/reset-password/reset-password.page';
+import { ProfilesViewPage } from './modules/profiles/profiles-view/profiles-view.page';
+import { RegisterUserPage } from './modules/register-user/register-user.page';
+import { SearchViewPage } from './modules/media/search/search-view/search-view.page';
+import { MediaItemsComponent } from './modules/media/items/media-items.component';
+import { MediaDetailComponent } from './modules/media/detail/media-detail.component';
+import { MyAccountPage } from './modules/account-settings/my-account/my-account.page';
+import { TranscoderSettingssPage } from './modules/transcode-settings/transcode-settings.page';
+import { LibraryListComponent } from './modules/libraries/library-list/library-list.component';
+import { ServerSettingsGeneralPage } from './modules/server-settings-general/server-settings-general.page';
+import { MovieListPage } from './modules/movies/movie-list/movie-list.page';
+import { TvSerieListPage } from './modules/tvseries/tvserie-list/tvserie-list.page';
+import { GenreListPage } from './modules/genres/genre-list/genre-list.page';
+import { UserListPage } from './modules/users/user-list/user-list.page';
+import { MenuListPage } from './modules/menus/menu-list/menu-list.page';
+import { RoleListPage } from './modules/roles/role-list/role-list.page';
 
 @Component({
   selector: 'app-root',
@@ -125,14 +125,7 @@ export class AppComponent{
         this.showingSidebarAdminMode=false;
         this.showingSidebarMedia=false;
       }
-      if(event instanceof MovieListPage || event instanceof TvSerieListPage)
-      {
-        this.showRouterChildWithFullDimentions=false;
-        this.showingSidebarAccount=false;
-        this.showingSidebarAdminMode=true;
-        this.showingSidebarMedia=false;
-      }
-      if(event instanceof MenuListPage || event instanceof TvSerieListPage || event instanceof MovieListPage
+      if(event instanceof MovieListPage || event instanceof TvSerieListPage || event instanceof MenuListPage
         || event instanceof GenreListPage || event instanceof UserListPage || event instanceof RoleListPage)
       {
         this.showRouterChildWithFullDimentions=false;
