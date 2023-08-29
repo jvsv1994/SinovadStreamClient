@@ -4,7 +4,7 @@ import { RestProviderService } from 'src/app/shared/services/rest-provider.servi
 import { HttpMethodType} from 'src/app/shared/enums';
 import {v4 as uuid} from "uuid";
 import { SharedService } from 'src/app/shared/services/shared-data.service';
-import { Subscription } from 'rxjs';
+import { Observable, Subject, Subscription } from 'rxjs';
 import { SinovadApiGenericResponse } from 'src/app/shared/models/response/sinovad-api-generic-response.model';
 import { SinovadApiPaginationResponse } from 'src/app/shared/models/response/sinovad-api-pagination-response.model';
 
@@ -14,16 +14,29 @@ export class MenuService {
   lastCallGuid:string;
   subscriptionUpdatingLibraries:Subscription;
   subscriptionCompleteConnection:Subscription;
+  completedLoadUserManageMenu$ = new Subject<boolean>();
+  loadedManageMenu:boolean=false;
 
   constructor(
     public sharedService:SharedService,
     private restProvider: RestProviderService,
   ) {}
 
+
+  public completeLoadUserManageMenu():void{
+    this.completedLoadUserManageMenu$.next(true);
+  };
+
+  public isCompletedLoadUserManageMenu():Observable<boolean>{
+    return this.completedLoadUserManageMenu$.asObservable();
+  }
+
   public getManageMenu(): Promise<any>{
     return new Promise((resolve, reject) => {
       this.restProvider.executeSinovadApiService(HttpMethodType.GET,'/menus/GetByUserAsync/'+this.sharedService.userData.Id).then((response:SinovadApiGenericResponse) => {
         this.sharedService.manageMenus=response.Data;
+        this.completeLoadUserManageMenu();
+        this.loadedManageMenu=true;
         resolve(true);
       },error=>{
         reject(error);

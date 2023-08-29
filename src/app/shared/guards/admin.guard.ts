@@ -1,23 +1,30 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { SharedService } from '../services/shared-data.service';
+import { MenuService } from 'src/app/menus/shared/menu.service';
+import { tap } from 'rxjs';
 
 export const adminGuard: CanActivateFn = (route, state) => {
   const sharedService=inject(SharedService);
+  const menuService=inject(MenuService);
   const router=inject(Router);
-  var findOption=false;
-  for (let index = 0; index < sharedService.manageMenus.length; index++) {
-    const menu = sharedService.manageMenus[index];
-    if(menu.ChildMenus && menu.ChildMenus.findIndex(x=>x.Path && x.Path.includes(route.routeConfig.path))!=-1)
-    {
-      findOption=true;
-      break;
-    }
-  }
-  if(findOption)
+  if(menuService.loadedManageMenu)
   {
-    return true;
+    if(sharedService.checkIfIsEnableMenuOptionByPath(route.routeConfig.path))
+    {
+      return true;
+    }else{
+      return router.navigateByUrl("/home");
+    }
   }else{
-    return router.navigateByUrl("/home");
+    return menuService.isCompletedLoadUserManageMenu().pipe(tap(x=>{
+      if(sharedService.checkIfIsEnableMenuOptionByPath(route.routeConfig.path))
+      {
+        return true;
+      }else{
+        return router.navigateByUrl("/home");
+      }
+    }));
   }
 };
+

@@ -8,18 +8,28 @@ import { SinovadApiPaginationResponse } from 'src/app/shared/models/response/sin
 import { SinovadApiGenericResponse } from 'src/app/shared/models/response/sinovad-api-generic-response.model';
 import { UserSession } from './user-session.model';
 import { SignalIRHubService } from 'src/app/media/shared/services/signal-ir-hub.service';
+import { Observable, Subject } from 'rxjs';
 export declare type EventHandler = (...args: any[]) => any;
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
 
   lastCallGuid:string;
+  completedLoadUserData$ = new Subject<boolean>();
 
   constructor(
     private signalIRHubService:SignalIRHubService,
     private sharedService:SharedService,
     private restProvider: RestProviderService,
   ) {
+  }
+
+  public completeLoadUserData():void{
+    this.completedLoadUserData$.next(true);
+  };
+
+  public isCompletedLoadUserData():Observable<boolean>{
+    return this.completedLoadUserData$.asObservable();
   }
 
   public clearSessionData(){
@@ -48,6 +58,7 @@ export class UserService {
         }else{
           resolve(true);
         }
+        this.completeLoadUserData();
       },error=>{
         console.error(error);
         reject(error)

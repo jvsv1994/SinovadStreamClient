@@ -40,6 +40,19 @@ export class SharedService {
 
   }
 
+  public checkIfIsEnableMenuOptionByPath(path:string){
+    var findOption=false;
+    for (let index = 0; index < this.manageMenus.length; index++) {
+      const menu = this.manageMenus[index];
+      if(menu.ChildMenus && menu.ChildMenus.findIndex(x=>x.Path && x.Path.includes(path))!=-1)
+      {
+        findOption=true;
+        break;
+      }
+    }
+    return findOption;
+  }
+
   //auxiliary methods
 
   public formatDate(date:any) {
