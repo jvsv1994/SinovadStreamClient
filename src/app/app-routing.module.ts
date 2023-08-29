@@ -27,6 +27,7 @@ import { MovieListPage } from './movies/movie-list/movie-list.page';
 import { TvSerieListPage } from './tvseries/tvserie-list/tvserie-list.page';
 import { GenreListPage } from './genres/genre-list/genre-list.page';
 import { MenuListPage } from './menus/menu-list/menu-list.page';
+import { AlertsComponent } from './modules/alerts/components/alerts/alerts.component';
 
 const routes: Routes = [
   {
@@ -99,6 +100,12 @@ const routes: Routes = [
     path: 'settings/server/:serverGuid/settings/general',
     component: ServerSettingsGeneralPage,
     loadChildren: () => import('./server-settings-general/server-settings-general.module').then(m => m.ServerSettingsGeneralPageModule),
+    canActivate:[loggedUserGuard]
+  },
+  {
+    path: 'settings/server/:serverGuid/status/alerts',
+    component: AlertsComponent,
+    loadChildren: () => import('./modules/alerts/alerts.module').then(m => m.AlertsModule),
     canActivate:[loggedUserGuard]
   },
   {

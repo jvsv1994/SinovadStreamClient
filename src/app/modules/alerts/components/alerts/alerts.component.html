@@ -1,0 +1,52 @@
+<ng-template [ngIf]="!loadingConnection">
+  <ng-template [ngIf]="mediaServer && mediaServer.isSecureConnection">
+    <div *ngIf="mediaServer" id="serverSettinsPageContainer" class="sinovad-page-container">
+      <h2>{{mediaServer.FamilyName?mediaServer.FamilyName:mediaServer.DeviceName}} - Alertas</h2>
+      <div class="row">
+        <div class="col-12">
+          <div class="custom-container">
+            <div *ngIf="showLoading" class="loading-shade">
+              <mat-spinner></mat-spinner>
+            </div>
+            <div class="custom-table-container">
+              <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                <ng-container matColumnDef="AlertType">
+                  <td mat-cell *matCellDef="let element" style="width:45px;max-width:45px;text-align: left;">
+                    <i class="{{getIconByAlertType(element.AlertType)}}"></i>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="Created">
+                  <td mat-cell *matCellDef="let element" style="min-width:140px;width:140px;text-align: left;"> {{element.Created  | date: 'dd-MM-YYYY h:mm a'}} </td>
+                </ng-container>
+                <ng-container matColumnDef="Description">
+                  <td mat-cell *matCellDef="let element" style="width:100%;text-align: left;"> {{element.Description}} </td>
+                </ng-container>
+                <tr mat-row *matRowDef="let row; columns: getDisplayedColumns();"></tr>
+                <tr class="mat-row" *matNoDataRow>
+                  <td *ngIf="!showLoading" class="mat-cell" colspan="4">No se encontraron datos</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <mat-paginator [color]="'primary'" [hidePageSize]="true" aria-label="Seleccionar página">
+          </mat-paginator>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template [ngIf]="mediaServer && !mediaServer.isSecureConnection">
+    <app-server-connection-error [mediaServer]="mediaServer"></app-server-connection-error>
+  </ng-template>
+</ng-template>
+<ng-template [ngIf]="loadingConnection">
+  <div class="spinner-centered-container">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>
+
+
+

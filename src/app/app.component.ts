@@ -24,6 +24,7 @@ import { MenuListPage } from './menus/menu-list/menu-list.page';
 import { GenreListPage } from './genres/genre-list/genre-list.page';
 import { UserListPage } from './users/user-list/user-list.page';
 import { RoleListPage } from './roles/role-list/role-list.page';
+import { AlertsComponent } from './modules/alerts/components/alerts/alerts.component';
 
 @Component({
   selector: 'app-root',
@@ -116,28 +117,8 @@ export class AppComponent{
         this.showingSidebarAccount=false;
         this.showingSidebarAdminMode=false;
       }
-      if(event instanceof MyAccountPage)
-      {
-        this.showRouterChildWithFullDimentions=false;
-        this.showingSidebarAccount=true;
-        this.showingSidebarAdminMode=false;
-        this.showingSidebarMedia=false;
-      }
-      if(event instanceof TranscoderSettingssPage)
-      {
-        this.showRouterChildWithFullDimentions=false;
-        this.showingSidebarAccount=true;
-        this.showingSidebarAdminMode=false;
-        this.showingSidebarMedia=false;
-      }
-      if(event instanceof ServerSettingsGeneralPage)
-      {
-        this.showRouterChildWithFullDimentions=false;
-        this.showingSidebarAccount=true;
-        this.showingSidebarAdminMode=false;
-        this.showingSidebarMedia=false;
-      }
-      if(event instanceof LibraryListComponent)
+      if(event instanceof MyAccountPage || event instanceof TranscoderSettingssPage || event instanceof ServerSettingsGeneralPage ||
+        event instanceof LibraryListComponent || event instanceof AlertsComponent)
       {
         this.showRouterChildWithFullDimentions=false;
         this.showingSidebarAccount=true;

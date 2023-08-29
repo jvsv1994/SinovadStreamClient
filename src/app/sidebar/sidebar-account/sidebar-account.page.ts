@@ -27,23 +27,23 @@ export class SidebarAccountPage implements OnInit {
   @ViewChild('mediaServerButton') mediaServerButton:ElementRef ;
   loadingConnection:boolean=true;
   serverModules:SidebarOption[]=[
-  /*   {
+  {
       index:1,
       order:1,
       name:"Estado",
       listOptions:[
-        {
+     /*    {
           index:1,
           name:"Panel de Control",
           path:"/settings/server/{serverGuid}/status/server-dashboard"
-        },
+        }, */
         {
           index:2,
           name:"Alertas",
           path:"/settings/server/{serverGuid}/status/alerts"
         }
       ]
-    } , */{
+    },{
       index:2,
       order:2,
       name:"Ajustes",
