@@ -19,9 +19,7 @@
         </section>
       </div>
       <section id="bodyContainer" #principalContainer class="sinovad-body-container" [ngClass]="{'locked':sharedService.isSmallDevice() && !isCollapsedSidebar}" [style.width]="'calc(100% - '+menu.offsetWidth+'px)'" tabindex="0">
-        <div>
           <router-outlet (activate)="onActivate($event)"></router-outlet>
-        </div>
       </section>
     </div>
     <div #footer>
