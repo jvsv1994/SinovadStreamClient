@@ -60,3 +60,30 @@ button{
 .sinovad-body-container.locked{
   pointer-events: none;
 }
+
+
+@media only screen and (max-width: 767px) {
+  .sidebar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100%;
+    padding: 0;
+    background: rgba(0,0,0, .5);
+    display: block;
+    z-index: 99999;
+  }
+  .sidebar .blocker {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+  .sidebar .content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+  }
+}
+

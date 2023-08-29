@@ -1,30 +1,33 @@
 
 <div class="sidebar-backdrop" (clickOutside)="onClickOutsideSidebar($event)">
-  <ul class="sinovad-sidebar-modules-list">
-    <ng-template ngFor let-poption [ngForOf]="mediaMenu">
-      <li class="sinovad-sidebar-module-element">
-        <button class="sinovad-sidebar-module-button" [routerLink]="[poption.Path]" [ngClass]="{'active':isSelectedMenu(poption)}">
-          <i *ngIf="!poption.IconClass && poption.isCollapsed" class="fa-solid fa-chevron-right"></i>
-          <i *ngIf="!poption.IconClass && !poption.isCollapsed" class="fa-solid fa-chevron-down"></i>
-          <i *ngIf="poption.IconClass" class="{{poption.IconClass}}"></i>
-          <span class="ms-2">{{poption.Title}}</span>
-        </button>
-        <div *ngIf="!poption.isCollapsed">
-          <ul class="sinovad-sidebar-options-list">
-            <ng-template ngFor let-option [ngForOf]="poption.ChildMenus">
-              <li class="sinovad-sidebar-option-element">
-              <a [routerLink]="[option.Path]" [ngClass]="{'active':isSelectedMenu(option)}">
-                <i *ngIf="option.IconClass" class="{{option.IconClass}}"></i>
-                <span class="ms-2">{{option.Title}}</span>
-              </a>
-            </li>
-            </ng-template>
-          </ul>
-        </div>
-      </li>
-    </ng-template>
-  </ul>
-</div>
+    <ul class="sinovad-sidebar-modules-list">
+      <ng-template ngFor let-poption [ngForOf]="mediaMenu">
+        <li class="sinovad-sidebar-module-element">
+          <button class="sinovad-sidebar-module-button" [routerLink]="[poption.Path]" [ngClass]="{'active':isSelectedMenu(poption)}">
+            <i *ngIf="!poption.IconClass && poption.isCollapsed" class="fa-solid fa-chevron-right"></i>
+            <i *ngIf="!poption.IconClass && !poption.isCollapsed" class="fa-solid fa-chevron-down"></i>
+            <i *ngIf="poption.IconClass" class="{{poption.IconClass}}"></i>
+            <span class="ms-2">{{poption.Title}}</span>
+          </button>
+          <div *ngIf="!poption.isCollapsed">
+            <ul class="sinovad-sidebar-options-list">
+              <ng-template ngFor let-option [ngForOf]="poption.ChildMenus">
+                <li class="sinovad-sidebar-option-element">
+                <a [routerLink]="[option.Path]" [ngClass]="{'active':isSelectedMenu(option)}">
+                  <i *ngIf="option.IconClass" class="{{option.IconClass}}"></i>
+                  <span class="ms-2">{{option.Title}}</span>
+                </a>
+              </li>
+              </ng-template>
+            </ul>
+          </div>
+        </li>
+      </ng-template>
+    </ul>
+  </div>
+
+
+
 
 
 

@@ -8,13 +8,20 @@
     <div class="sinovad-menu-body-container" [style.height]="'calc(100% - '+(header.offsetHeight+footer.offsetHeight)+'px)'">
       <div #menu>
         <section *ngIf="!showRouterChildWithFullDimentions && (!sharedService.isSmallDevice() || !isCollapsedSidebar)" id="menuContainer" #menuContainer class="sinovad-menu-container" [style.height]="'100%'" tabindex="0">
-          <app-sidebar-administrator *ngIf="showingSidebarAdminMode" (collapseSidebar)="isCollapsedSidebar=true"></app-sidebar-administrator>
-          <app-sidebar-account *ngIf="showingSidebarAccount" (collapseSidebar)="isCollapsedSidebar=true"></app-sidebar-account>
-          <app-sidebar-media *ngIf="showingSidebarMedia" (collapseSidebar)="isCollapsedSidebar=true"></app-sidebar-media>
+          <div class="sidebar">
+            <div class="blocker"></div>
+            <div class="content">
+              <app-sidebar-administrator *ngIf="showingSidebarAdminMode" (collapseSidebar)="isCollapsedSidebar=true"></app-sidebar-administrator>
+              <app-sidebar-account *ngIf="showingSidebarAccount" (collapseSidebar)="isCollapsedSidebar=true"></app-sidebar-account>
+              <app-sidebar-media *ngIf="showingSidebarMedia" (collapseSidebar)="isCollapsedSidebar=true"></app-sidebar-media>
+            </div>
+          </div>
         </section>
       </div>
       <section id="bodyContainer" #principalContainer class="sinovad-body-container" [ngClass]="{'locked':sharedService.isSmallDevice() && !isCollapsedSidebar}" [style.width]="'calc(100% - '+menu.offsetWidth+'px)'" tabindex="0">
+        <div>
           <router-outlet (activate)="onActivate($event)"></router-outlet>
+        </div>
       </section>
     </div>
     <div #footer>
