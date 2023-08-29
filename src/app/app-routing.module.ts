@@ -200,11 +200,6 @@ const routes: Routes = [
     pathMatch: 'full',
     redirectTo: 'home' // TODO change to home page eventually
   },
-  {
-    path: 'web',
-    pathMatch: 'full',
-    redirectTo: 'home' // TODO change to home page eventually
-  },
   {path: '**', redirectTo: '/404'}
 ];
 

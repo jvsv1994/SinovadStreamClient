@@ -157,13 +157,13 @@ export class UserListPage extends CustomListGeneric<User> {
     //Displayed Columns Section
 
     public getDisplayedColumns(){
-      if(window.innerWidth>950)
+      if(window.innerWidth>1050)
       {
         return ['Id', 'UserName','Email','FirstName','LastName','Actions'];
-      }else if(window.innerWidth>600)
+      }else if(window.innerWidth>950)
       {
         return ['Id', 'UserName','Email','FirstName','Actions'];
-      }else if(window.innerWidth>475){
+      }else if(window.innerWidth>675){
         return ['Id', 'UserName','Email','Actions'];
       }else if(window.innerWidth>375){
         return ['Id', 'UserName','Actions'];
