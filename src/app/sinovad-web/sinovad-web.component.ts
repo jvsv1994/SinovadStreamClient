@@ -2,8 +2,6 @@
 import { ChangeDetectorRef, Component, HostListener} from '@angular/core';
 import { SharedService } from 'src/app/shared/services/shared-data.service';
 import { UserService } from '../users/shared/user.service';
-import { MenuService } from '../menus/shared/menu.service';
-import { Router } from '@angular/router';
 import { LandingPage } from '../landing/landing.page';
 import { NotFoundPage } from '../not-found/not-found.page';
 import { VideoPage } from '../media/video/component/video.page';
@@ -33,7 +31,6 @@ import { RoleListPage } from '../roles/role-list/role-list.page';
 })
 export class SinovadWebComponent{
 
-  showRootPage:boolean=false;
   _window=window;
   isCollapsedSidebar:boolean=false;
   showingSidebarAccount:boolean=false;
@@ -42,13 +39,9 @@ export class SinovadWebComponent{
   showRouterChildWithFullDimentions:boolean=true;
 
   constructor(
-    private router:Router,
-    private menuService:MenuService,
     private userService:UserService,
     public ref: ChangeDetectorRef,
-    public sharedService: SharedService) {
-
-    }
+    public sharedService: SharedService) {}
 
     public ngOnInit(): void {
       const queryString = window.location.search;
@@ -67,25 +60,7 @@ export class SinovadWebComponent{
       if(localStorage.getItem('apiToken'))
       {
         this.sharedService.apiToken=localStorage.getItem('apiToken');
-        this.userService.getUser().then(res=>{
-          this.menuService.getManageMenu().then(response=>{
-            this.showRootPage=true;
-            this.ref.detectChanges();
-          },error=>{
-
-          });
-        },error=>{
-          this.userService.clearSessionData();
-          this.router.navigateByUrl("/landing");
-          console.error(error);
-        });
-        this.ref.detectChanges();
-      }else{
-        this.sharedService.apiToken=undefined;
-        setTimeout(() => {
-          this.showRootPage=true;
-          this.ref.detectChanges();
-        }, 100);
+        this.userService.getUserData();
       }
     }
 

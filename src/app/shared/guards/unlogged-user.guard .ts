@@ -7,6 +7,6 @@ export const unloggedUserGuard: CanActivateFn = (route, state) => {
   {
     return true;
   }else{
-    return router.navigateByUrl("/landing");
+    return router.navigateByUrl("/home");
   }
 };

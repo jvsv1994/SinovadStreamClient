@@ -1,6 +1,6 @@
 
 <div #mainContainer id="sinovadMainContainer" class="sinovad-main-container">
-  <div *ngIf="showRootPage" class="sinovad-page-container">
+  <div class="sinovad-page-container">
     <div #header>
       <app-header *ngIf="!showRouterChildWithFullDimentions" [showingSidebarAccount]="showingSidebarAccount" [showingSidebarAdminMode]="showingSidebarAdminMode"
        (toggleSidebar)="onClickToggleSidebarButton()"></app-header>

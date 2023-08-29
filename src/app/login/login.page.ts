@@ -14,6 +14,7 @@ import { AuthenticationUserResponse } from '../shared/models/authenticate-user-r
 import { ConfirmLinkAccount } from '../shared/models/confirm-linked-account.model';
 import { UserSession } from '../users/shared/user-session.model';
 import { SignalIRHubService } from '../media/shared/services/signal-ir-hub.service';
+import { UserService } from '../users/shared/user.service';
 
 declare var window;
 @Component({
@@ -41,6 +42,7 @@ export class LoginPage {
   confirmLinkAccountData:ConfirmLinkAccount;
 
   constructor(
+    private userService:UserService,
     private authenticationService:AuthenticationService,
     private menuService:MenuService,
     private signalIRHubService:SignalIRHubService,
@@ -144,6 +146,7 @@ export class LoginPage {
     this.sharedService.linkedAccounts=userSessionData.LinkedAccounts;
     this.sharedService.currentProfile=userSessionData.Profiles[0];
     this.sharedService.showSplashScreen=true;
+    this.userService.calledGetUserData=true;
     this.menuService.getManageMenu();
     this.signalIRHubService.openConnection();
     this.router.navigate(['select-profile'],{ skipLocationChange: false});

@@ -9,30 +9,34 @@ import { SinovadApiGenericResponse } from 'src/app/shared/models/response/sinova
 import { UserSession } from './user-session.model';
 import { SignalIRHubService } from 'src/app/media/shared/services/signal-ir-hub.service';
 import { Observable, Subject } from 'rxjs';
+import { MenuService } from 'src/app/menus/shared/menu.service';
 export declare type EventHandler = (...args: any[]) => any;
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
 
   lastCallGuid:string;
-  completedLoadUserData$ = new Subject<boolean>();
+  completedCallGetUserData$ = new Subject<boolean>();
+  calledGetUserData:boolean=false;
 
   constructor(
+    private menuService:MenuService,
     private signalIRHubService:SignalIRHubService,
     private sharedService:SharedService,
     private restProvider: RestProviderService,
   ) {
   }
 
-  public completeLoadUserData():void{
-    this.completedLoadUserData$.next(true);
+  public completeCallGetUserData():void{
+    this.completedCallGetUserData$.next(true);
   };
 
-  public isCompletedLoadUserData():Observable<boolean>{
-    return this.completedLoadUserData$.asObservable();
+  public isCompletedCallGetUserData():Observable<boolean>{
+    return this.completedCallGetUserData$.asObservable();
   }
 
   public clearSessionData(){
+    this.calledGetUserData=false;
     this.sharedService.manageMenus=[];
     this.sharedService.currentProfile=undefined;
     this.sharedService.userData=undefined;
@@ -41,28 +45,29 @@ export class UserService {
     localStorage.removeItem("apiToken");
   }
 
-  public getUser(): Promise<any>{
-    return new Promise((resolve, reject) => {
-      this.restProvider.executeSinovadApiService(HttpMethodType.GET,'/users/GetUserData').then((response:SinovadApiGenericResponse) => {
-        let userSessionData:UserSession=response.Data;
+  public getUserData(){
+    this.restProvider.executeSinovadApiService(HttpMethodType.GET,'/users/GetUserData').then((response:SinovadApiGenericResponse) => {
+      let userSessionData:UserSession=response.Data;
+      if(userSessionData && userSessionData.User)
+      {
         this.sharedService.userData=userSessionData.User;
         this.sharedService.mediaServers=userSessionData.MediaServers;
         this.sharedService.linkedAccounts=userSessionData.LinkedAccounts;
         this.sharedService.listProfiles=userSessionData.Profiles;
         this.sharedService.currentProfile=userSessionData.Profiles[0];
         this.signalIRHubService.openConnection();
-        if(this.sharedService.userData==null)
-        {
-          this.sharedService.apiToken=undefined;
-          localStorage.removeItem("apiToken");
-        }else{
-          resolve(true);
-        }
-        this.completeLoadUserData();
-      },error=>{
-        console.error(error);
-        reject(error)
-      });
+        this.menuService.getManageMenu();
+      }else{
+        this.sharedService.apiToken=undefined;
+        localStorage.removeItem("apiToken");
+      }
+      this.calledGetUserData=true;
+      this.completeCallGetUserData();
+    },error=>{
+      this.calledGetUserData=true;
+      localStorage.removeItem("apiToken");
+      this.completeCallGetUserData();
+      console.error(error);
     });
   }
 
