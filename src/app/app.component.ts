@@ -1,35 +1,36 @@
 
 import { ChangeDetectorRef, Component, HostListener} from '@angular/core';
 import { SharedService } from 'src/app/shared/services/shared-data.service';
-import { UserService } from '../users/shared/user.service';
-import { LandingPage } from '../landing/landing.page';
-import { NotFoundPage } from '../not-found/not-found.page';
-import { VideoPage } from '../media/video/component/video.page';
-import { ConfirmEmailPage } from '../confirm-email/confirm-email.page';
-import { LoginPage } from '../login/login.page';
-import { RegisterUserPage } from '../register-user/register-user.page';
-import { ProfilesViewPage } from '../profiles/profiles-view/profiles-view.page';
-import { RecoverPasswordPage } from '../recover-password/recover-password.page';
-import { ResetPasswordPage } from '../reset-password/reset-password.page';
-import { SearchViewPage } from '../media/search/search-view/search-view.page';
-import { MediaItemsComponent } from '../media/items/media-items.component';
-import { MediaDetailComponent } from '../media/detail/media-detail.component';
-import { MyAccountPage } from '../account-settings/my-account/my-account.page';
-import { TranscoderSettingssPage } from '../transcode-settings/transcode-settings.page';
-import { ServerSettingsGeneralPage } from '../server-settings-general/server-settings-general.page';
-import { LibraryListComponent } from '../libraries/library-list/library-list.component';
-import { MovieListPage } from '../movies/movie-list/movie-list.page';
-import { TvSerieListPage } from '../tvseries/tvserie-list/tvserie-list.page';
-import { MenuListPage } from '../menus/menu-list/menu-list.page';
-import { GenreListPage } from '../genres/genre-list/genre-list.page';
-import { UserListPage } from '../users/user-list/user-list.page';
-import { RoleListPage } from '../roles/role-list/role-list.page';
+import { UserService } from './users/shared/user.service';
+import { NotFoundPage } from './not-found/not-found.page';
+import { VideoPage } from './media/video/component/video.page';
+import { LoginPage } from './login/login.page';
+import { RegisterUserPage } from './register-user/register-user.page';
+import { LandingPage } from './landing/landing.page';
+import { ConfirmEmailPage } from './confirm-email/confirm-email.page';
+import { ProfilesViewPage } from './profiles/profiles-view/profiles-view.page';
+import { RecoverPasswordPage } from './recover-password/recover-password.page';
+import { ResetPasswordPage } from './reset-password/reset-password.page';
+import { SearchViewPage } from './media/search/search-view/search-view.page';
+import { MediaItemsComponent } from './media/items/media-items.component';
+import { MediaDetailComponent } from './media/detail/media-detail.component';
+import { MyAccountPage } from './account-settings/my-account/my-account.page';
+import { TranscoderSettingssPage } from './transcode-settings/transcode-settings.page';
+import { ServerSettingsGeneralPage } from './server-settings-general/server-settings-general.page';
+import { LibraryListComponent } from './libraries/library-list/library-list.component';
+import { MovieListPage } from './movies/movie-list/movie-list.page';
+import { TvSerieListPage } from './tvseries/tvserie-list/tvserie-list.page';
+import { MenuListPage } from './menus/menu-list/menu-list.page';
+import { GenreListPage } from './genres/genre-list/genre-list.page';
+import { UserListPage } from './users/user-list/user-list.page';
+import { RoleListPage } from './roles/role-list/role-list.page';
+
 @Component({
-  selector: 'app-sinovad-web',
-  templateUrl: './sinovad-web.component.html',
-  styleUrls: ['./sinovad-web.component.scss']
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss']
 })
-export class SinovadWebComponent{
+export class AppComponent{
 
   _window=window;
   isCollapsedSidebar:boolean=false;
@@ -92,7 +93,8 @@ export class SinovadWebComponent{
     public onActivate(event:any){
       this.isCollapsedSidebar=true;
       this.sharedService.showSplashScreen=false;
-      if(event instanceof NotFoundPage || event instanceof VideoPage || event instanceof LoginPage || event instanceof RegisterUserPage || event instanceof RecoverPasswordPage || event instanceof ResetPasswordPage
+      if(event instanceof NotFoundPage || event instanceof VideoPage || event instanceof LoginPage || event instanceof RegisterUserPage
+        || event instanceof RecoverPasswordPage || event instanceof ResetPasswordPage
         || event instanceof LandingPage || event instanceof ConfirmEmailPage || event instanceof ProfilesViewPage)
       {
         this.showRouterChildWithFullDimentions=true;
