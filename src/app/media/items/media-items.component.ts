@@ -13,7 +13,7 @@ import { MediaServer } from 'src/app/servers/shared/server.model';
 import { Library } from 'src/app/libraries/shared/library.model';
 
 @Component({
-  selector: 'app-media-server',
+  selector: 'app-media-items',
   templateUrl: './media-items.component.html',
   styleUrls: ['./media-items.component.scss']
 })

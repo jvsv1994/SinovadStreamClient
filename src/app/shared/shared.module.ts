@@ -11,17 +11,22 @@ import { CustomPaginationComponent } from './components/custom-pagination/custom
 import { DirectoryChooserPage } from './components/directory-chooser/directory-chooser.page';
 import { CustomMenuComponent } from './components/custom-menu/custom-menu.component';
 import { ServerConnectionErrorPage } from './components/server-connection-error/server-connection-error.page';
+import { SplashScreenPage } from '../splash-screen/splash-screen.page';
 @NgModule({
   imports: [
     CommonModule,AngularMaterialModule
   ],
   declarations: [
-    FormatDataPipe,ClickOutsideDirective,CustomMenuComponent,CustomConfirmDialogComponent,CustomSpinnerPage,CustomContextMenuComponent,CustomDialogOptionsComponent,CustomPaginationComponent,DirectoryChooserPage,ServerConnectionErrorPage
+    FormatDataPipe,ClickOutsideDirective,CustomMenuComponent,CustomConfirmDialogComponent,
+    CustomSpinnerPage,CustomContextMenuComponent,CustomDialogOptionsComponent,CustomPaginationComponent,
+    DirectoryChooserPage,ServerConnectionErrorPage,SplashScreenPage
   ],
   providers: [
   ],
   exports: [
-    FormatDataPipe,ClickOutsideDirective,CustomMenuComponent,CustomConfirmDialogComponent,CustomSpinnerPage,CustomContextMenuComponent,CommonModule,AngularMaterialModule,CustomDialogOptionsComponent,CustomPaginationComponent,DirectoryChooserPage,ServerConnectionErrorPage
+    FormatDataPipe,ClickOutsideDirective,CustomMenuComponent,CustomConfirmDialogComponent,
+    CustomSpinnerPage,CustomContextMenuComponent,CommonModule,AngularMaterialModule,CustomDialogOptionsComponent,
+    CustomPaginationComponent,DirectoryChooserPage,ServerConnectionErrorPage,SplashScreenPage
   ]
 })
 export class SharedModule { }
