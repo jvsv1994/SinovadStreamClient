@@ -4,8 +4,8 @@ import { SharedService } from 'src/app/modules/shared/services/shared-data.servi
 
 import { RestProviderService } from 'src/app/modules/shared/services/rest-provider.service';
 import { Router } from '@angular/router';
-import { Profile } from '../../profiles/shared/profile.model';
-import { NavbarOption } from '../shared/navbar-option.model';
+import { NavbarOption } from 'src/app/models/navbar-option.model';
+import { Profile } from 'src/app/modules/profiles/shared/profile.model';
 
 declare var window;
 @Component({

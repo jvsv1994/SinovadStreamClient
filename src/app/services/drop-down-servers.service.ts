@@ -1,7 +1,7 @@
 import { ApplicationRef, ComponentFactoryResolver, ComponentRef, EmbeddedViewRef, Injectable, Injector, ViewRef } from '@angular/core';
-import { DropDownMenuOptions } from './drop-down-menu-options.model';
-import { DropDownMenuItem } from './drop-down-menu-Item.model';
-import { DropDownServersComponent } from '../drop-down-servers/drop-down-servers.component';
+import { DropDownServersComponent } from '../components/drop-down-servers/drop-down-servers.component';
+import { DropDownMenuOptions } from '../models/drop-down-menu-options.model';
+import { DropDownMenuItem } from '../models/drop-down-menu-Item.model';
 
 export declare type EventHandler = (...args: any[]) => any;
 

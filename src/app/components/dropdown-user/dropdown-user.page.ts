@@ -2,7 +2,7 @@
 import { ChangeDetectorRef, Component} from '@angular/core';
 import { SharedService } from 'src/app/modules/shared/services/shared-data.service';
 import { Router } from '@angular/router';
-import { Profile } from '../../profiles/shared/profile.model';
+import { Profile } from '../../modules/profiles/shared/profile.model';
 import { UserService } from 'src/app/modules/users/shared/user.service';
 
 declare var window;

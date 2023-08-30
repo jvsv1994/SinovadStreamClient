@@ -10,11 +10,15 @@ import { environment } from 'src/environments/environment';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AppComponent } from './app.component';
 import { SharedModule } from './modules/shared/shared.module';
-import { SidebarModule } from './modules/sidebar/sidebar.module';
-import { NavbarModule } from './modules/navbar/navbar.module';
+import { SidebarAccountPage } from './components/sidebar-account/sidebar-account.page';
+import { SidebarAdministratorPage } from './components/sidebar-administrator/sidebar-administrator.page';
+import { SidebarMediaPage } from './components/sidebar-media/sidebar-media.page';
+import { DropDownServersComponent } from './components/drop-down-servers/drop-down-servers.component';
+import { HeaderPage } from './components/header/header.page';
+import { DropDownUserPage } from './components/dropdown-user/dropdown-user.page';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent,HeaderPage,DropDownUserPage,SidebarAccountPage,SidebarAdministratorPage,SidebarMediaPage,DropDownServersComponent],
   providers: [{provide: APP_BASE_HREF, useValue : '/' }],
   imports: [
     BrowserModule,
@@ -24,9 +28,7 @@ import { NavbarModule } from './modules/navbar/navbar.module';
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
-    BrowserAnimationsModule,
-    SidebarModule,
-    NavbarModule
+    BrowserAnimationsModule
   ],
   bootstrap:[AppComponent]
 })

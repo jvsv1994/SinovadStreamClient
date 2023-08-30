@@ -1,8 +1,8 @@
 
 import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, Output} from '@angular/core';
 import { Router } from '@angular/router';
-import { DropDownMenuItem } from '../shared/drop-down-menu-Item.model';
-import { DropDownMenuOptions } from '../shared/drop-down-menu-options.model';
+import { DropDownMenuItem } from 'src/app/models/drop-down-menu-Item.model';
+import { DropDownMenuOptions } from 'src/app/models/drop-down-menu-options.model';
 import { SharedService } from 'src/app/modules/shared/services/shared-data.service';
 
 @Component({
