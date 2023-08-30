@@ -8,10 +8,10 @@ import { RestProviderService } from 'src/app/modules/shared/services/rest-provid
 declare var window;
 @Component({
   selector: 'app-splash-screen',
-  templateUrl: './splash-screen.page.html',
-  styleUrls: ['./splash-screen.page.scss']
+  templateUrl: './splash-screen.component.html',
+  styleUrls: ['./splash-screen.component.scss']
 })
-export class SplashScreenPage {
+export class SplashScreenComponent {
 
   constructor(
     public restProvider: RestProviderService,

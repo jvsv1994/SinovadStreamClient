@@ -16,9 +16,10 @@ import { SidebarMediaPage } from './components/sidebar-media/sidebar-media.page'
 import { DropDownServersComponent } from './components/drop-down-servers/drop-down-servers.component';
 import { HeaderPage } from './components/header/header.page';
 import { DropDownUserPage } from './components/dropdown-user/dropdown-user.page';
+import { SplashScreenComponent } from './components/splash-screen/splash-screen.component';
 
 @NgModule({
-  declarations: [AppComponent,HeaderPage,DropDownUserPage,SidebarAccountPage,SidebarAdministratorPage,SidebarMediaPage,DropDownServersComponent],
+  declarations: [AppComponent,HeaderPage,DropDownUserPage,SidebarAccountPage,SidebarAdministratorPage,SidebarMediaPage,DropDownServersComponent,SplashScreenComponent],
   providers: [{provide: APP_BASE_HREF, useValue : '/' }],
   imports: [
     BrowserModule,
