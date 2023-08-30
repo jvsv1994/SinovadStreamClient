@@ -3,7 +3,7 @@ import { Alert } from '../../models/alert.model';
 import { MatPaginator, MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { AlertsService } from '../../services/alerts.service';
 import { CustomListGeneric } from 'src/app/modules/shared/generics/custom-list.generic';
-import { AlertType } from 'src/app/modules/shared/enums';
+import { AlertType } from 'src/app/modules/shared/enums/enums';
 import { MatTableDataSource } from '@angular/material/table';
 import { SinovadApiPaginationResponse } from 'src/app/modules/shared/models/response/sinovad-api-pagination-response.model';
 import { MediaServer } from 'src/app/modules/pages/servers/shared/server.model';

@@ -1,7 +1,7 @@
 
 import { Component, OnInit} from '@angular/core';
 import { SharedService } from 'src/app/modules/shared/services/shared-data.service';
-import { CatalogEnum } from 'src/app/modules/shared/enums';
+import { CatalogEnum } from 'src/app/modules/shared/enums/enums';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { SnackBarService } from 'src/app/modules/shared/services/snack-bar.service';

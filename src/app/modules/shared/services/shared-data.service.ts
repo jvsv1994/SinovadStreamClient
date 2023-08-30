@@ -6,11 +6,11 @@ import { Configuration } from '../models/configuration.model';
 import { MediaServer } from 'src/app/modules/pages/servers/shared/server.model';
 import { FormGroup } from '@angular/forms';
 import { Library } from 'src/app/modules/pages/libraries/shared/library.model';
-import { MetadataAgents } from '../enums';
 import { ItemDetail } from 'src/app/modules/pages/media/shared/models/item-detail.model';
 import { Item } from 'src/app/modules/pages/media/shared/models/item.model';
 import { LinkedAccount } from '../models/linked-account.model';
 import { HubConnection } from '@microsoft/signalr';
+import { MetadataAgents } from '../enums/enums';
 
 @Injectable({ providedIn: 'root' })
 export class SharedService {

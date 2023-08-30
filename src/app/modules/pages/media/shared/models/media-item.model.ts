@@ -1,4 +1,4 @@
-import { MediaType, MetadataAgents } from "src/app/modules/shared/enums";
+import { MediaType, MetadataAgents } from "src/app/modules/shared/enums/enums";
 
 export class MediaItem{
   public Id:number;

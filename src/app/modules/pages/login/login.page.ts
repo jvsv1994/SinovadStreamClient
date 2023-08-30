@@ -14,7 +14,7 @@ import { AuthenticationService } from '../../shared/services/authentication.serv
 import { SinovadApiGenericResponse } from '../../shared/models/response/sinovad-api-generic-response.model';
 import { AuthenticationUserResponse } from '../../shared/models/authenticate-user-response.model';
 import { LinkedAccount } from '../../shared/models/linked-account.model';
-import { CatalogEnum, LinkedAccountProvider } from '../../shared/enums';
+import { CatalogEnum, LinkedAccountProvider } from '../../shared/enums/enums';
 
 declare var window;
 @Component({

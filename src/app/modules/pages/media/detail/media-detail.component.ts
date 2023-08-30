@@ -1,7 +1,7 @@
 
 import { ChangeDetectorRef, Component, HostListener, OnInit} from '@angular/core';
 import { SharedService } from 'src/app/modules/shared/services/shared-data.service';
-import { MediaType, MetadataAgents } from 'src/app/modules/shared/enums';
+import { MediaType, MetadataAgents } from 'src/app/modules/shared/enums/enums';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MediaGeneric } from 'src/app/modules/shared/generics/media.generic';
 import { LibraryService } from 'src/app/modules/pages/libraries/shared/library.service';

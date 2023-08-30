@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { RestProviderService } from 'src/app/modules/shared/services/rest-provider.service';
-import { HttpMethodType } from 'src/app/modules/shared/enums';
+import { HttpMethodType } from 'src/app/modules/shared/enums/enums';
 export declare type EventHandler = (...args: any[]) => any;
 import hiBase64 from 'hi-base64';
 

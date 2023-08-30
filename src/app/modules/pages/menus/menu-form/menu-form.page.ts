@@ -1,7 +1,7 @@
 
 import { AfterViewInit, Component, Input, OnInit} from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { CatalogEnum, HttpMethodType} from 'src/app/modules/shared/enums';
+import { CatalogEnum, HttpMethodType} from 'src/app/modules/shared/enums/enums';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Menu } from '../shared/menu.model';
 import { SnackBarService } from 'src/app/modules/shared/services/snack-bar.service';

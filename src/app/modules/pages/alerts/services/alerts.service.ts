@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpMethodType } from 'src/app/modules/shared/enums';
+import { HttpMethodType } from 'src/app/modules/shared/enums/enums';
 import { SinovadApiPaginationResponse } from 'src/app/modules/shared/models/response/sinovad-api-pagination-response.model';
 import { RestProviderService } from 'src/app/modules/shared/services/rest-provider.service';
 

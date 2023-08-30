@@ -2,7 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SharedService } from 'src/app/modules/shared/services/shared-data.service';
 import { RestProviderService } from 'src/app/modules/shared/services/rest-provider.service';
-import { HttpMethodType } from 'src/app/modules/shared/enums';
+import { HttpMethodType } from 'src/app/modules/shared/enums/enums';
 import { Router } from '@angular/router';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { RegisterUserModel } from './register-user-model';

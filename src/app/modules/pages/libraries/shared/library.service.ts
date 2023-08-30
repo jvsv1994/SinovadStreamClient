@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { RestProviderService } from 'src/app/modules/shared/services/rest-provider.service';
-import { HttpMethodType, MediaType } from 'src/app/modules/shared/enums';
+import { HttpMethodType, MediaType } from 'src/app/modules/shared/enums/enums';
 import { Library } from './library.model';
 import {v4 as uuid} from "uuid";
 import { MediaServer } from 'src/app/modules/pages/servers/shared/server.model';

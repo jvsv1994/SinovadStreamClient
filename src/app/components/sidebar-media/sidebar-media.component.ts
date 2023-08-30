@@ -6,7 +6,7 @@ import { LibraryService } from 'src/app/modules/pages/libraries/shared/library.s
 import { SignalIRHubService } from 'src/app/modules/pages/media/shared/services/signal-ir-hub.service';
 import { Menu } from 'src/app/modules/pages/menus/shared/menu.model';
 import { MediaServer } from 'src/app/modules/pages/servers/shared/server.model';
-import { MediaType } from 'src/app/modules/shared/enums';
+import { MediaType } from 'src/app/modules/shared/enums/enums';
 import { SharedService } from 'src/app/modules/shared/services/shared-data.service';
 
 declare var window;

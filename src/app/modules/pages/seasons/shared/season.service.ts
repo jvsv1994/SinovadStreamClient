@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { RestProviderService } from 'src/app/modules/shared/services/rest-provider.service';
-import { HttpMethodType } from 'src/app/modules/shared/enums';
+import { HttpMethodType } from 'src/app/modules/shared/enums/enums';
 import {v4 as uuid} from "uuid";
 import { Season } from './season.model';
 import { SinovadApiPaginationResponse } from 'src/app/modules/shared/models/response/sinovad-api-pagination-response.model';

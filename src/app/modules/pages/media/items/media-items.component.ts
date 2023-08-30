@@ -2,7 +2,7 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import { SharedService } from 'src/app/modules/shared/services/shared-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MediaType } from 'src/app/modules/shared/enums';
+import { MediaType } from 'src/app/modules/shared/enums/enums';
 import { RestProviderService } from 'src/app/modules/shared/services/rest-provider.service';
 import { LibraryService } from 'src/app/modules/pages/libraries/shared/library.service';
 import { Subscription } from 'rxjs';
