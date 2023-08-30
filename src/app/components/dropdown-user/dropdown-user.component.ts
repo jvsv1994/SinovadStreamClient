@@ -8,10 +8,10 @@ import { UserService } from 'src/app/modules/users/shared/user.service';
 declare var window;
 @Component({
   selector: 'app-dropdown-user',
-  templateUrl: './dropdown-user.page.html',
-  styleUrls: ['./dropdown-user.page.scss']
+  templateUrl: './dropdown-user.component.html',
+  styleUrls: ['./dropdown-user.component.scss']
 })
-export class DropDownUserPage{
+export class DropDownUserComponent{
 
   constructor(
     private userService:UserService,

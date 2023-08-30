@@ -6,10 +6,10 @@ import { SharedService } from 'src/app/modules/shared/services/shared-data.servi
 declare var window;
 @Component({
   selector: 'app-sidebar-administrator',
-  templateUrl: './sidebar-administrator.page.html',
-  styleUrls: ['./sidebar-administrator.page.scss']
+  templateUrl: './sidebar-administrator.component.html',
+  styleUrls: ['./sidebar-administrator.component.scss']
 })
-export class SidebarAdministratorPage{
+export class SidebarAdministratorComponent{
 
   @Output() collapseSidebar=new EventEmitter();
 

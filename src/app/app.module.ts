@@ -10,16 +10,16 @@ import { environment } from 'src/environments/environment';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AppComponent } from './app.component';
 import { SharedModule } from './modules/shared/shared.module';
-import { SidebarAccountPage } from './components/sidebar-account/sidebar-account.page';
-import { SidebarAdministratorPage } from './components/sidebar-administrator/sidebar-administrator.page';
-import { SidebarMediaPage } from './components/sidebar-media/sidebar-media.page';
 import { DropDownServersComponent } from './components/drop-down-servers/drop-down-servers.component';
-import { DropDownUserPage } from './components/dropdown-user/dropdown-user.page';
 import { SplashScreenComponent } from './components/splash-screen/splash-screen.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { SidebarMediaComponent } from './components/sidebar-media/sidebar-media.component';
+import { SidebarAdministratorComponent } from './components/sidebar-administrator/sidebar-administrator.component';
+import { SidebarAccountComponent } from './components/sidebar-account/sidebar-account.component';
+import { DropDownUserComponent } from './components/dropdown-user/dropdown-user.component';
 
 @NgModule({
-  declarations: [AppComponent,NavbarComponent,DropDownUserPage,SidebarAccountPage,SidebarAdministratorPage,SidebarMediaPage,DropDownServersComponent,SplashScreenComponent],
+  declarations: [AppComponent,NavbarComponent,DropDownUserComponent,SidebarAccountComponent,SidebarAdministratorComponent,SidebarMediaComponent,DropDownServersComponent,SplashScreenComponent],
   providers: [{provide: APP_BASE_HREF, useValue : '/' }],
   imports: [
     BrowserModule,

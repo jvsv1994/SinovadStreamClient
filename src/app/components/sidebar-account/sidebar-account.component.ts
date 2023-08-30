@@ -14,10 +14,10 @@ import { DropDownMenuOptions } from 'src/app/models/drop-down-menu-options.model
 declare var window;
 @Component({
   selector: 'app-sidebar-account',
-  templateUrl: './sidebar-account.page.html',
-  styleUrls: ['./sidebar-account.page.scss']
+  templateUrl: './sidebar-account.component.html',
+  styleUrls: ['./sidebar-account.component.scss']
 })
-export class SidebarAccountPage implements OnInit {
+export class SidebarAccountComponent implements OnInit {
 
   mediaServers:MediaServer[]=[];
   subscriptionEnableMediaServer:Subscription;

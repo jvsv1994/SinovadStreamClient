@@ -12,10 +12,10 @@ import { SharedService } from 'src/app/modules/shared/services/shared-data.servi
 declare var window;
 @Component({
   selector: 'app-sidebar-media',
-  templateUrl: './sidebar-media.page.html',
-  styleUrls: ['./sidebar-media.page.scss']
+  templateUrl: './sidebar-media.component.html',
+  styleUrls: ['./sidebar-media.component.scss']
 })
-export class SidebarMediaPage{
+export class SidebarMediaComponent{
 
   @Output() collapseSidebar=new EventEmitter();
   subscriptionEnableMediaServer:Subscription;
