@@ -3,7 +3,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Episode } from '../shared/episode.model';
 import { EpisodeService } from '../shared/episode.service';
-import { MyErrorStateMatcher } from 'src/app/modules/shared/custom-error-state-matcher';
+import { MyErrorStateMatcher } from 'src/app/modules/shared/error-matcher/custom-error-state-matcher';
 import { SnackBarService } from 'src/app/modules/shared/services/snack-bar.service';
 import { SnackBarType } from 'src/app/modules/shared/components/custom-snack-bar/custom-snack-bar.component';
 

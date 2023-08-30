@@ -8,7 +8,7 @@ import { SnackBarService } from 'src/app/modules/shared/services/snack-bar.servi
 import { MenuService } from '../shared/menu.service';
 import { RestProviderService } from 'src/app/modules/shared/services/rest-provider.service';
 import { SnackBarType } from 'src/app/modules/shared/components/custom-snack-bar/custom-snack-bar.component';
-import { MyErrorStateMatcher } from 'src/app/modules/shared/custom-error-state-matcher';
+import { MyErrorStateMatcher } from 'src/app/modules/shared/error-matcher/custom-error-state-matcher';
 import { SharedService } from 'src/app/modules/shared/services/shared-data.service';
 import { CatalogDetail } from 'src/app/modules/pages/catalogs/shared/catalog-detail.model';
 import { SinovadApiGenericResponse } from 'src/app/modules/shared/models/response/sinovad-api-generic-response.model';

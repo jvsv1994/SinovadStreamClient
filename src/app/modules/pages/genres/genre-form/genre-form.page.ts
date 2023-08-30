@@ -5,7 +5,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Genre } from '../shared/genre.model';
 import { SnackBarService } from 'src/app/modules/shared/services/snack-bar.service';
 import { SnackBarType } from 'src/app/modules/shared/components/custom-snack-bar/custom-snack-bar.component';
-import { MyErrorStateMatcher } from 'src/app/modules/shared/custom-error-state-matcher';
+import { MyErrorStateMatcher } from 'src/app/modules/shared/error-matcher/custom-error-state-matcher';
 import { GenreService } from '../shared/genre.service';
 
 @Component({

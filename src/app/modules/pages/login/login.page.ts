@@ -8,13 +8,13 @@ import { MenuService } from '../menus/shared/menu.service';
 import { UserSession } from '../users/shared/user-session.model';
 import { SignalIRHubService } from '../media/shared/services/signal-ir-hub.service';
 import { UserService } from '../users/shared/user.service';
-import { MyErrorStateMatcher } from '../../shared/custom-error-state-matcher';
 import { ConfirmLinkAccount } from '../../shared/models/confirm-linked-account.model';
 import { AuthenticationService } from '../../shared/services/authentication.service';
 import { SinovadApiGenericResponse } from '../../shared/models/response/sinovad-api-generic-response.model';
 import { AuthenticationUserResponse } from '../../shared/models/authenticate-user-response.model';
 import { LinkedAccount } from '../../shared/models/linked-account.model';
 import { CatalogEnum, LinkedAccountProvider } from '../../shared/enums/enums';
+import { MyErrorStateMatcher } from '../../shared/error-matcher/custom-error-state-matcher';
 
 declare var window;
 @Component({

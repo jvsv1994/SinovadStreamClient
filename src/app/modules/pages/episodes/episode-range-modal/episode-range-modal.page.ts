@@ -5,7 +5,7 @@ import { Episode } from '../shared/episode.model';
 import { EpisodeService } from '../shared/episode.service';
 import { Season } from 'src/app/modules/pages/seasons/shared/season.model';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MyErrorStateMatcher } from 'src/app/modules/shared/custom-error-state-matcher';
+import { MyErrorStateMatcher } from 'src/app/modules/shared/error-matcher/custom-error-state-matcher';
 
 @Component({
   selector: 'app-episode-range-modal',

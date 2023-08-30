@@ -4,7 +4,7 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { LibraryService } from '../shared/library.service';
 import { Library } from '../shared/library.model';
-import { MyErrorStateMatcher } from 'src/app/modules/shared/custom-error-state-matcher';
+import { MyErrorStateMatcher } from 'src/app/modules/shared/error-matcher/custom-error-state-matcher';
 import { CatalogEnum } from 'src/app/modules/shared/enums/enums';
 import { SharedService } from 'src/app/modules/shared/services/shared-data.service';
 import { DirectoryChooserPage } from 'src/app/modules/shared/components/directory-chooser/directory-chooser.page';

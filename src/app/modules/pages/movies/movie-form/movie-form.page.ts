@@ -6,7 +6,7 @@ import { Movie } from '../shared/movie.model';
 import { SnackBarService } from 'src/app/modules/shared/services/snack-bar.service';
 import { MovieService } from '../shared/movie.service';
 import { SnackBarType } from 'src/app/modules/shared/components/custom-snack-bar/custom-snack-bar.component';
-import { MyErrorStateMatcher } from 'src/app/modules/shared/custom-error-state-matcher';
+import { MyErrorStateMatcher } from 'src/app/modules/shared/error-matcher/custom-error-state-matcher';
 import { GenresSelectionModalComponent } from 'src/app/modules/pages/genres/genres-selection-modal/genres-selection-modal.component';
 import { GenreService } from 'src/app/modules/pages/genres/shared/genre.service';
 import { Genre } from 'src/app/modules/pages/genres/shared/genre.model';
