@@ -9,11 +9,11 @@ import { Profile } from 'src/app/modules/profiles/shared/profile.model';
 
 declare var window;
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.page.html',
-  styleUrls: ['./header.page.scss']
+  selector: 'app-navbar',
+  templateUrl: './navbar.component.html',
+  styleUrls: ['./navbar.component.scss']
 })
-export class HeaderPage implements OnInit {
+export class NavbarComponent implements OnInit {
 
   @ViewChild('searchTarget') searchTarget: ElementRef;
   customKeyboardEvent:any;

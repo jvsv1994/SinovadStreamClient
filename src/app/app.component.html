@@ -2,8 +2,8 @@
 <div #mainContainer id="sinovadMainContainer" class="sinovad-main-container">
   <div class="sinovad-page-container">
     <div #header>
-      <app-header *ngIf="!showRouterChildWithFullDimentions" [showingSidebarAccount]="showingSidebarAccount" [showingSidebarAdminMode]="showingSidebarAdminMode"
-       (toggleSidebar)="onClickToggleSidebarButton()"></app-header>
+      <app-navbar *ngIf="!showRouterChildWithFullDimentions" [showingSidebarAccount]="showingSidebarAccount" [showingSidebarAdminMode]="showingSidebarAdminMode"
+       (toggleSidebar)="onClickToggleSidebarButton()"></app-navbar>
     </div>
     <div class="sinovad-menu-body-container" [style.height]="'calc(100% - '+(header.offsetHeight+footer.offsetHeight)+'px)'">
       <div #menu>
