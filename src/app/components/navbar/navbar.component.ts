@@ -5,7 +5,7 @@ import { SharedService } from 'src/app/modules/shared/services/shared-data.servi
 import { RestProviderService } from 'src/app/modules/shared/services/rest-provider.service';
 import { Router } from '@angular/router';
 import { NavbarOption } from 'src/app/models/navbar-option.model';
-import { Profile } from 'src/app/modules/profiles/shared/profile.model';
+import { Profile } from 'src/app/modules/pages/profiles/shared/profile.model';
 
 declare var window;
 @Component({

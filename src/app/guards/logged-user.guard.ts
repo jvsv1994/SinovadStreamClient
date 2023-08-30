@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { tap } from 'rxjs';
-import { UserService } from 'src/app/modules/users/shared/user.service';
+import { UserService } from 'src/app/modules/pages/users/shared/user.service';
 import { SharedService } from '../modules/shared/services/shared-data.service';
 
 export const loggedUserGuard: CanActivateFn = (route, state) => {

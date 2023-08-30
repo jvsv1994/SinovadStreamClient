@@ -2,9 +2,9 @@
 import { ChangeDetectorRef, Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { SharedService } from 'src/app/modules/shared/services/shared-data.service';
 import { ActivatedRoute } from '@angular/router';
-import { Menu } from 'src/app/modules/menus/shared/menu.model';
-import { MediaServer } from 'src/app/modules/servers/shared/server.model';
-import { SignalIRHubService } from 'src/app/modules/media/shared/services/signal-ir-hub.service';
+import { Menu } from 'src/app/modules/pages/menus/shared/menu.model';
+import { MediaServer } from 'src/app/modules/pages/servers/shared/server.model';
+import { SignalIRHubService } from 'src/app/modules/pages/media/shared/services/signal-ir-hub.service';
 import { Subscription } from 'rxjs';
 import { SidebarOption } from 'src/app/models/sidebar-option.model';
 import { DropDownServersService } from 'src/app/services/drop-down-servers.service';

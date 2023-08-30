@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { SharedService } from '../modules/shared/services/shared-data.service';
-import { MenuService } from 'src/app/modules/menus/shared/menu.service';
+import { MenuService } from 'src/app/modules/pages/menus/shared/menu.service';
 import { tap } from 'rxjs';
 
 export const adminGuard: CanActivateFn = (route, state) => {

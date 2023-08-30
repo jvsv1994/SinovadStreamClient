@@ -2,7 +2,7 @@
 import { Component, Input, OnInit} from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { DirectoryService } from '../../services/directory.service';
-import { MediaServer } from 'src/app/modules/servers/shared/server.model';
+import { MediaServer } from 'src/app/modules/pages/servers/shared/server.model';
 import { Directory } from '../../models/directory.model';
 
 @Component({

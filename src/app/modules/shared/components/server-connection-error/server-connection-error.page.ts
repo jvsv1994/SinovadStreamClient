@@ -1,6 +1,6 @@
 
 import { ChangeDetectorRef, Component, Input, OnInit, ViewContainerRef} from '@angular/core';
-import { MediaServer } from 'src/app/modules/servers/shared/server.model';
+import { MediaServer } from 'src/app/modules/pages/servers/shared/server.model';
 
 @Component({
   selector: 'app-server-connection-error',

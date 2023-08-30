@@ -1,30 +1,30 @@
 
 import { ChangeDetectorRef, Component, HostListener} from '@angular/core';
 import { SharedService } from 'src/app/modules/shared/services/shared-data.service';
-import { AlertsComponent } from './modules/alerts/components/alerts/alerts.component';
-import { UserService } from './modules/users/shared/user.service';
-import { NotFoundPage } from './modules/not-found/not-found.page';
-import { VideoPage } from './modules/media/video/component/video.page';
-import { LoginPage } from './modules/login/login.page';
-import { RecoverPasswordPage } from './modules/recover-password/recover-password.page';
-import { LandingPage } from './modules/landing/landing.page';
-import { ConfirmEmailPage } from './modules/confirm-email/confirm-email.page';
-import { ResetPasswordPage } from './modules/reset-password/reset-password.page';
-import { ProfilesViewPage } from './modules/profiles/profiles-view/profiles-view.page';
-import { RegisterUserPage } from './modules/register-user/register-user.page';
-import { SearchViewPage } from './modules/media/search/search-view/search-view.page';
-import { MediaItemsComponent } from './modules/media/items/media-items.component';
-import { MediaDetailComponent } from './modules/media/detail/media-detail.component';
-import { MyAccountPage } from './modules/account-settings/my-account/my-account.page';
-import { TranscoderSettingssPage } from './modules/transcode-settings/transcode-settings.page';
-import { LibraryListComponent } from './modules/libraries/library-list/library-list.component';
-import { ServerSettingsGeneralPage } from './modules/server-settings-general/server-settings-general.page';
-import { MovieListPage } from './modules/movies/movie-list/movie-list.page';
-import { TvSerieListPage } from './modules/tvseries/tvserie-list/tvserie-list.page';
-import { GenreListPage } from './modules/genres/genre-list/genre-list.page';
-import { UserListPage } from './modules/users/user-list/user-list.page';
-import { MenuListPage } from './modules/menus/menu-list/menu-list.page';
-import { RoleListPage } from './modules/roles/role-list/role-list.page';
+import { UserService } from './modules/pages/users/shared/user.service';
+import { NotFoundPage } from './modules/pages/not-found/not-found.page';
+import { VideoPage } from './modules/pages/media/video/component/video.page';
+import { LandingPage } from './modules/pages/landing/landing.page';
+import { RecoverPasswordPage } from './modules/pages/recover-password/recover-password.page';
+import { LoginPage } from './modules/pages/login/login.page';
+import { ResetPasswordPage } from './modules/pages/reset-password/reset-password.page';
+import { ConfirmEmailPage } from './modules/pages/confirm-email/confirm-email.page';
+import { ProfilesViewPage } from './modules/pages/profiles/profiles-view/profiles-view.page';
+import { RegisterUserPage } from './modules/pages/register-user/register-user.page';
+import { SearchViewPage } from './modules/pages/media/search/search-view/search-view.page';
+import { MediaItemsComponent } from './modules/pages/media/items/media-items.component';
+import { MediaDetailComponent } from './modules/pages/media/detail/media-detail.component';
+import { MyAccountPage } from './modules/pages/account-settings/my-account/my-account.page';
+import { TranscoderSettingssPage } from './modules/pages/transcode-settings/transcode-settings.page';
+import { ServerSettingsGeneralPage } from './modules/pages/server-settings-general/server-settings-general.page';
+import { LibraryListComponent } from './modules/pages/libraries/library-list/library-list.component';
+import { AlertsComponent } from './modules/pages/alerts/components/alerts/alerts.component';
+import { MovieListPage } from './modules/pages/movies/movie-list/movie-list.page';
+import { GenreListPage } from './modules/pages/genres/genre-list/genre-list.page';
+import { UserListPage } from './modules/pages/users/user-list/user-list.page';
+import { TvSerieListPage } from './modules/pages/tvseries/tvserie-list/tvserie-list.page';
+import { RoleListPage } from './modules/pages/roles/role-list/role-list.page';
+import { MenuListPage } from './modules/pages/menus/menu-list/menu-list.page';
 
 @Component({
   selector: 'app-root',

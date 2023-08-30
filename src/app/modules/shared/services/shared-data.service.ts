@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import { User } from 'src/app/modules/users/shared/user.model';
-import { Menu } from 'src/app/modules/menus/shared/menu.model';
-import { Profile } from 'src/app/modules/profiles/shared/profile.model';
+import { User } from 'src/app/modules/pages/users/shared/user.model';
+import { Menu } from 'src/app/modules/pages/menus/shared/menu.model';
+import { Profile } from 'src/app/modules/pages/profiles/shared/profile.model';
 import { Configuration } from '../models/configuration.model';
-import { MediaServer } from 'src/app/modules/servers/shared/server.model';
+import { MediaServer } from 'src/app/modules/pages/servers/shared/server.model';
 import { FormGroup } from '@angular/forms';
-import { Library } from 'src/app/modules/libraries/shared/library.model';
+import { Library } from 'src/app/modules/pages/libraries/shared/library.model';
 import { MetadataAgents } from '../enums';
-import { ItemDetail } from 'src/app/modules/media/shared/models/item-detail.model';
-import { Item } from 'src/app/modules/media/shared/models/item.model';
+import { ItemDetail } from 'src/app/modules/pages/media/shared/models/item-detail.model';
+import { Item } from 'src/app/modules/pages/media/shared/models/item.model';
 import { LinkedAccount } from '../models/linked-account.model';
 import { HubConnection } from '@microsoft/signalr';
 

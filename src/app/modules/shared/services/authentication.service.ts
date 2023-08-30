@@ -4,7 +4,7 @@ import { AuthProvider, FacebookAuthProvider, GoogleAuthProvider } from 'firebase
 import { RestProviderService } from './rest-provider.service';
 import { HttpMethodType } from '../enums';
 import { SinovadApiGenericResponse } from '../models/response/sinovad-api-generic-response.model';
-import { User } from 'src/app/modules/users/shared/user.model';
+import { User } from 'src/app/modules/pages/users/shared/user.model';
 import { LinkedAccount } from '../models/linked-account.model';
 import { ConfirmLinkAccount } from '../models/confirm-linked-account.model';
 
