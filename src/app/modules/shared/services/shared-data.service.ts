@@ -120,20 +120,6 @@ export class SharedService {
     }
   }
 
-  public getUrlByItemDetailMovieDataBase(detail:ItemDetail){
-    if(detail.MediaItem.MetadataAgentsId==MetadataAgents.TMDb)
-    {
-      return this.originalUrlImagesMovieDataBase+detail.MediaItem.PosterPath;
-    }else{
-      if(detail.MediaItem.PosterPath)
-      {
-        return detail.MediaItem.PosterPath;
-      }else{
-        return "assets/img/no-image-available.jpg";
-      }
-    }
-  }
-
   public getUrlByItemMovieDataBase(item:Item){
     if(item.MetadataAgentsId==MetadataAgents.TMDb)
     {
@@ -143,7 +129,13 @@ export class SharedService {
       {
         return item.PosterPath;
       }else{
-        return "assets/img/no-image-available.jpg";
+        var mediaServer=this.mediaServers.find(x=>x.Id==item.MediaServerId);
+        if(mediaServer)
+        {
+          return mediaServer.Url+"/media/"+item.MediaFileGuid+"/thumbnail.png";
+        }else{
+          return "assets/img/no-image-available.jpg";
+        }
       }
     }
   }

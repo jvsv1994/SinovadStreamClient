@@ -96,7 +96,33 @@ export class MediaDetailComponent extends MediaGeneric implements OnInit {
       if(this.detail.MediaItem.MetadataAgentsId==MetadataAgents.TMDb && episode.PosterPath){
         return this.sharedService.urlEpisodeDataBase+episode.PosterPath;
       }else{
-        return this.sharedService.getUrlByItemDetailMovieDataBase(this.detail);
+        if(episode.ListMediaFiles && episode.ListMediaFiles.length>0)
+        {
+          var mediaFile=episode.ListMediaFiles[0];
+          return this.mediaServer.Url+"/media/"+mediaFile.Guid+"/thumbnail.png";
+        }else{
+          return "assets/img/no-image-available.jpg";
+        }
+      }
+    }
+
+    public getUrlByItemDetailMovieDataBase(detail:ItemDetail){
+      if(detail.MediaItem.MetadataAgentsId==MetadataAgents.TMDb)
+      {
+        return this.sharedService.originalUrlImagesMovieDataBase+detail.MediaItem.PosterPath;
+      }else{
+        if(detail.MediaItem.PosterPath)
+        {
+          return detail.MediaItem.PosterPath;
+        }else{
+          if(detail.ListMediaFiles && detail.ListMediaFiles.length>0)
+          {
+            var mediaFile=detail.ListMediaFiles[0];
+            return this.mediaServer.Url+"/media/"+mediaFile.Guid+"/thumbnail.png";
+          }else{
+            return "assets/img/no-image-available.jpg";
+          }
+        }
       }
     }
 

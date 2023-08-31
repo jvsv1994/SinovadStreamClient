@@ -32,6 +32,7 @@ export class Item{
   public MetadataAgentsId:MetadataAgents;
   public SearchQuery:string;
   public FileId:number;
+  public MediaFileGuid:string;
   public MediaItemId:number;
   public MediaEpisodeId:number;
 }
