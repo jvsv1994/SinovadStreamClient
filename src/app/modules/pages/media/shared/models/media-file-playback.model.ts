@@ -6,7 +6,4 @@ export class MediaFilePlayback{
   public PosterPath?: string;
   public CurrentTime: number;
   public DurationTime: number;
-  public EpisodeNumber?: number;
-  public SeasonNumber?: number;
-  public Overview?: string;
 }

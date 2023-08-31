@@ -616,14 +616,6 @@ export class VideoPage implements OnInit,OnDestroy{
       {
         mediaFilePlayback.Subtitle=this.builderVideo.TranscodePrepareVideo.Subtitle;
       }
-      if(this.builderVideo.ItemDetail.CurrentSeason)
-      {
-        mediaFilePlayback.SeasonNumber=this.builderVideo.ItemDetail.CurrentSeason.SeasonNumber;
-      }
-      if(this.builderVideo.ItemDetail.CurrentEpisode)
-      {
-        mediaFilePlayback.EpisodeNumber=this.builderVideo.ItemDetail.CurrentEpisode.EpisodeNumber;
-      }
       this.libraryService.updateMediaFilePlayback(this.builderVideo.TranscodePrepareVideo.MediaServerUrl,mediaFilePlayback).then((response) => {
 
       },error=>{

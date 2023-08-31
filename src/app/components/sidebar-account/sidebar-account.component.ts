@@ -32,11 +32,11 @@ export class SidebarAccountComponent implements OnInit {
       order:1,
       name:"Estado",
       listOptions:[
-     /*    {
+        {
           index:1,
           name:"Panel de Control",
           path:"/settings/server/{serverGuid}/status/server-dashboard"
-        }, */
+        },
         {
           index:2,
           name:"Alertas",
