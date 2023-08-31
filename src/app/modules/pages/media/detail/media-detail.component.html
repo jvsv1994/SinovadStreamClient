@@ -4,7 +4,7 @@
       <div style="width:0px;height:0px;">
         <div class="sinovad-item-view-background-container">
           <div [style.width]="container.clientWidth+'px'" style="position:fixed;">
-            <img *ngIf="detail" [src]="getUrlByItemDetailMovieDataBase(detail)">
+            <img *ngIf="detail" [src]="getUrlByItemDetailMovieDataBase(detail)" onError="this.src='assets/img/no-image-available.jpg'">
           </div>
         </div>
       </div>
@@ -99,7 +99,7 @@
                       <section id="section_episode_s{{episode.SeasonNumber}}_e{{episode.EpisodeNumber}}" class="sinovad-section">
                         <button id="button_episode_s{{episode.SeasonNumber}}_e{{episode.EpisodeNumber}}" class="sinovad-episode-button " (click)="onClickEpisode(episode)">
                           <div class="sinovad-episode-image-section">
-                              <img [src]="getEpisodeImagePath(episode)">
+                              <img [src]="getEpisodeImagePath(episode)" onError="this.src='assets/img/no-image-available.jpg'">
                           </div>
                           <div class="sinovad-episode-detail-section">
                             <div class="sinovad-episode-title-section">
