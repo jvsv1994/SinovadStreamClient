@@ -10,7 +10,6 @@ import { ResetPasswordPage } from './modules/pages/reset-password/reset-password
 import { ConfirmEmailPage } from './modules/pages/confirm-email/confirm-email.page';
 import { ProfilesViewPage } from './modules/pages/profiles/profiles-view/profiles-view.page';
 import { RegisterUserPage } from './modules/pages/register-user/register-user.page';
-import { AlertsComponent } from './modules/pages/alerts/components/alerts/alerts.component';
 import { MovieListPage } from './modules/pages/movies/movie-list/movie-list.page';
 import { GenreListPage } from './modules/pages/genres/genre-list/genre-list.page';
 import { UserListPage } from './modules/pages/users/user-list/user-list.page';
@@ -26,6 +25,7 @@ import { MyAccountPage } from './modules/pages/settings/modules/pages/account-se
 import { TranscoderSettingssPage } from './modules/pages/settings/modules/pages/server/modules/pages/settings/modules/pages/transcode/components/transcode-settings/transcode-settings.page';
 import { ServerSettingsGeneralPage } from './modules/pages/settings/modules/pages/server/modules/pages/settings/modules/pages/general/components/server-settings-general/server-settings-general.page';
 import { LibraryListComponent } from './modules/pages/settings/modules/pages/server/modules/pages/manage/modules/pages/libraries/components/library-list/library-list.component';
+import { AlertsComponent } from './modules/pages/settings/modules/pages/server/modules/pages/status/modules/pages/alerts/components/alerts/alerts.component';
 
 @Component({
   selector: 'app-root',

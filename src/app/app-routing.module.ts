@@ -6,7 +6,6 @@ import { unloggedUserGuard } from './guards/unlogged-user.guard ';
 import { ProfilesViewPage } from './modules/pages/profiles/profiles-view/profiles-view.page';
 import { ProfileNewPage } from './modules/pages/profiles/profile-new/profile-new.page';
 import { ProfileEditPage } from './modules/pages/profiles/profile-edit/profile-edit.page';
-import { AlertsComponent } from './modules/pages/alerts/components/alerts/alerts.component';
 import { MovieListPage } from './modules/pages/movies/movie-list/movie-list.page';
 import { GenreListPage } from './modules/pages/genres/genre-list/genre-list.page';
 import { MenuListPage } from './modules/pages/menus/menu-list/menu-list.page';
@@ -96,12 +95,6 @@ const routes: Routes = [
   {
     path: 'settings',
     loadChildren: () => import('./modules/pages/settings/settings.module').then(m => m.SettingsModule)
-  },
-  {
-    path: 'settings/server/:serverGuid/status/alerts',
-    component: AlertsComponent,
-    loadChildren: () => import('./modules/pages/alerts/alerts.module').then(m => m.AlertsModule),
-    canActivate:[loggedUserGuard]
   },
   {
     path: 'manage/movies',
