@@ -5,56 +5,60 @@
       <div class="playback-container">
           <h2 class="items-playing-title">Reproduciendo ahora</h2>
           <div class="cards-container">
-            <ng-template ngFor let-item  [ngForOf]="listItems">
-              <div class="custom-card">
-                <div class="custom-card-item-content">
-                    <div>
-                      <img [src]="item.ItemData.PosterPath">
+            <ng-template [ngIf]="listItems && listItems.length>0">
+              <ng-template ngFor let-item  [ngForOf]="listItems">
+                <div class="custom-card">
+                  <div class="custom-card-item-content">
+                      <div>
+                        <img [src]="item.ItemData.PosterPath">
+                      </div>
+                      <div class="custom-card-item-content-right">
+                        <div class="custom-card-text-title">
+                          {{item.ItemData.Title}}
+                        </div>
+                        <div *ngIf="item.ItemData.Subtitle" class="custom-card-text-subtitle">
+                          {{item.ItemData.Subtitle}}
+                        </div>
+                        <div class="custom-card-text-subtitle">
+                          {{getFormattedDuration(item.ItemData.Duration)}}
+                        </div>
+                      </div>
+                  </div>
+                  <div class="custom-card-client-content">
+                    <div class="sinovad-item-progress-bar-container">
+                      <div class="sinovad-item-progress-bar-content" [style.width]="getWidthProgressItem(item.ClientData)">
+
+                      </div>
                     </div>
                     <div class="custom-card-item-content-right">
-                      <div class="custom-card-text-title">
-                        {{item.ItemData.Title}}
-                      </div>
-                      <div *ngIf="item.ItemData.Subtitle" class="custom-card-text-subtitle">
-                        {{item.ItemData.Subtitle}}
+                      <div *ngIf="item.ClientData.DeviceData" class="custom-card-text-title">
+                        {{item.ClientData.DeviceData.OperatingSystem}} - {{item.ClientData.DeviceData.DeviceType}} - {{item.ClientData.DeviceData.Browser}}
                       </div>
                       <div class="custom-card-text-subtitle">
-                        {{getFormattedDuration(item.ItemData.Duration)}}
+                        {{getPlayingMediaInfo(item.ClientData)}}
+                      </div>
+                      <div class="custom-card-text-subtitle">
+                        Local ({{item.ClientData.LocalIpAddress}})
                       </div>
                     </div>
-                </div>
-                <div class="custom-card-client-content">
-                  <div class="sinovad-item-progress-bar-container">
-                    <div class="sinovad-item-progress-bar-content" [style.width]="getWidthProgressItem(item.ClientData)">
-
-                    </div>
                   </div>
-                  <div class="custom-card-item-content-right">
-                    <div *ngIf="item.ClientData.DeviceData" class="custom-card-text-title">
-                      {{item.ClientData.DeviceData.OperatingSystem}} - {{item.ClientData.DeviceData.DeviceType}} - {{item.ClientData.DeviceData.Browser}}
+                  <div class="custom-card-profile-content">
+                    <div *ngIf="item.ProfileData.AvatarPath==undefined" class="sinovad-initials-profile">
+                      {{sharedService.getInitials(item.ProfileData.ProfileName)}}
                     </div>
-                    <div class="custom-card-text-subtitle">
-                      {{getPlayingMediaInfo(item.ClientData)}}
-                    </div>
-                    <div class="custom-card-text-subtitle">
-                      Local ({{item.ClientData.LocalIpAddress}})
-                    </div>
+                    <img *ngIf="item.ProfileData.AvatarPath!=undefined" class="sinovad-initials-profile" [attr.src]="item.ProfileData.ProfileId | formatDataPipe : 'GetAvatarImageURLByProfileId' | async">
+                    <span class="sinovad-fullname-profile text-truncate">
+                      {{item.ProfileData.ProfileName}}
+                    </span>
                   </div>
                 </div>
-                <div class="custom-card-profile-content">
-                  <div *ngIf="item.ProfileData.AvatarPath==undefined" class="sinovad-initials-profile">
-                    {{sharedService.getInitials(item.ProfileData.ProfileName)}}
-                  </div>
-                  <img *ngIf="item.ProfileData.AvatarPath!=undefined" class="sinovad-initials-profile" [attr.src]="item.ProfileData.ProfileId | formatDataPipe : 'GetAvatarImageURLByProfileId' | async">
-                  <span class="sinovad-fullname-profile text-truncate">
-                    {{item.ProfileData.ProfileName}}
-                  </span>
-                </div>
-              </div>
+              </ng-template>
+            </ng-template>
+            <ng-template [ngIf]="listItems==undefined || listItems.length==0">
+              No se está reproduciendo nada actualmente
             </ng-template>
           </div>
       </div>
-
     </div>
   </ng-template>
   <ng-template [ngIf]="mediaServer && !mediaServer.isSecureConnection">
