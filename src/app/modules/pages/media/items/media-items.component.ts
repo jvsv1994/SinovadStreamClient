@@ -318,7 +318,7 @@ export class MediaItemsComponent implements OnInit,OnDestroy {
 
     public onClickItem(item: Item)
     {
-      if(item.CurrentTime!=undefined && item.CurrentTime>0)
+      if(item.ContinueVideo)
       {
         this.continueVideoByItem(item);
       }else{

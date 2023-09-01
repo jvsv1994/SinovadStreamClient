@@ -25,6 +25,7 @@ import { UserListPage } from './modules/pages/users/user-list/user-list.page';
 import { TvSerieListPage } from './modules/pages/tvseries/tvserie-list/tvserie-list.page';
 import { RoleListPage } from './modules/pages/roles/role-list/role-list.page';
 import { MenuListPage } from './modules/pages/menus/menu-list/menu-list.page';
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
   selector: 'app-root',
@@ -41,11 +42,14 @@ export class AppComponent{
   showRouterChildWithFullDimentions:boolean=true;
 
   constructor(
+    private deviceService: DeviceDetectorService,
     private userService:UserService,
     public ref: ChangeDetectorRef,
     public sharedService: SharedService) {}
 
     public ngOnInit(): void {
+      var deviceInfo=this.deviceService.getDeviceInfo();
+      this.sharedService.platform=deviceInfo.os+" - "+deviceInfo.deviceType+" - "+deviceInfo.browser;
       const queryString = window.location.search;
       if (queryString != "") {
           const urlParams = new URLSearchParams(queryString);

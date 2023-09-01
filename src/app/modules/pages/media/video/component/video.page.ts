@@ -13,13 +13,18 @@ import { CustomDialogOptionsComponent, DialogOption, DialogOptionsConfiguration 
 import { LibraryService } from 'src/app/modules/pages/libraries/shared/library.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MediaEpisode } from '../../shared/models/media-episode.model';
-import { MediaFilePlayback } from '../../shared/models/media-file-playback.model';
 import { ItemDetail } from '../../shared/models/item-detail.model';
-import { BuilderVideo } from '../models/builder-video.model';
-import { TranscodeRunVideo } from '../models/transcode-run-video.model';
 import { SignalIRHubService } from '../../shared/services/signal-ir-hub.service';
 import { Subscription } from 'rxjs';
 import { MediaServer } from 'src/app/modules/pages/servers/shared/server.model';
+import { MediaFilePlaybackRealTime } from '../models/media-file-playback-real-time.model';
+import { MediaFilePlaybackProfile } from '../models/media-file-playback-profile.model';
+import { MediaFilePlaybackClient } from '../models/media-file-playback-client.model';
+import { MediaFilePlaybackItem } from '../models/media-file-playback-item.model';
+import { SinovadApiGenericResponse } from 'src/app/modules/shared/models/response/sinovad-api-generic-response.model';
+import { TranscodedMediaFile } from '../models/transcoded-media-file.model';
+import { UpdateMediaFilePlaybackRequest } from '../models/update-media-file-playback-request.model';
+import { RetranscodeMediaFile } from '../models/retranscode-media-file.model';
 @Component({
   selector: 'app-video',
   templateUrl: 'video.page.html',
@@ -27,7 +32,6 @@ import { MediaServer } from 'src/app/modules/pages/servers/shared/server.model';
 })
 export class VideoPage implements OnInit,OnDestroy{
 
-  builderVideo: BuilderVideo;
   _window=window;
   showVideo:boolean=true;
   lastCurrentTime:number=0;
@@ -61,6 +65,10 @@ export class VideoPage implements OnInit,OnDestroy{
   subscriptionEnableMediaServer:Subscription;
   subscriptionDisableMediaServer:Subscription;
   mediaServer:MediaServer;
+  transcodedMediaFile:TranscodedMediaFile;
+  itemDetail: ItemDetail;
+  loadStatus: LoadVideoStatus;
+  timeOutLoadVideoId:number;
 
   constructor(
     private signalIrService:SignalIRHubService,
@@ -92,6 +100,7 @@ export class VideoPage implements OnInit,OnDestroy{
   }
 
   ngOnInit(): void {
+    this.initializeEventsAndIntervals();
     var mediaServerGuid=this.activeRoute.snapshot.params.serverGuid;
     if(mediaServerGuid!=undefined)
     {
@@ -114,55 +123,6 @@ export class VideoPage implements OnInit,OnDestroy{
     }else{
       this.router.navigateByUrl('/404')
     }
-  }
-
-  private getMediaItemDetailByMediaFileAndProfile(){
-    var mediaFileId=this.activeRoute.snapshot.params.mediaFileId;
-    if(mediaFileId)
-    {
-      this.libraryService.GetMediaItemDetailByMediaFileAndProfile(this.mediaServer.Url,mediaFileId,this.sharedService.currentProfile.Id).then((itemDetail:ItemDetail)=>{
-          var currentTime=0;
-          if(itemDetail.LastMediaFilePlayback)
-          {
-            currentTime=itemDetail.LastMediaFilePlayback.CurrentTime;
-          }
-          if(itemDetail.MediaItem.MediaTypeId==MediaType.Movie)
-          {
-            this.builderVideo=this.libraryService.CreateBuilderVideoFromItem(itemDetail,this.mediaServer,currentTime);
-          }
-          if(itemDetail.MediaItem.MediaTypeId==MediaType.TvSerie)
-          {
-            this.builderVideo=this.libraryService.CreateBuilderVideoFromEpisode(itemDetail,itemDetail.CurrentEpisode,this.mediaServer,currentTime);
-          }
-          this.initialize();
-      },error=>{
-        this.router.navigateByUrl('/404')
-      });
-    }else{
-      this.router.navigateByUrl('/404')
-    }
-  }
-
-  private initialize(){
-    let ctx=this;
-    this.customMouseOutEvent=function onCustomMouseOut(event:any) {
-      if(ctx.sliderContainer && ctx.sliderContainer.startMove)
-      {
-        ctx.onClickSlider(ctx.sliderContainer);
-      }
-    }
-    window.addEventListener('click',this.customMouseOutEvent);
-    this.beforeUnloadFunction=function onUnload(event:any) {
-      ctx.deleteAllProcessesAndDirectories();
-    }
-    window.addEventListener('beforeunload',this.beforeUnloadFunction);
-    this.detectChangesInterval=window.setInterval(function() {
-      ctx.ref.detectChanges();
-    }, 0);
-    this.updateMediaFilePlaybackInterval=window.setInterval(function() {
-        ctx.updateMediaFilePlayback();
-    }, 10000);
-    this.initializeVideoData();
   }
 
   ngOnDestroy(): void {
@@ -196,26 +156,360 @@ export class VideoPage implements OnInit,OnDestroy{
     }
   }
 
-  public initializeVideoData(){
-    this.sharedService.listProcessGUIDs.push(this.builderVideo.TranscodePrepareVideo.ProcessGUID);
-    this.builderVideo.LoadStatus=LoadVideoStatus.Empty;
-    let url=this.builderVideo.TranscodePrepareVideo.MediaServerUrl+"/api/transcodingProcesses/GetVideoData";
-    this.restProvider.executeHttpMethodByUrl(HttpMethodType.POST,url,this.builderVideo.TranscodePrepareVideo).then((response) => {
-      this.builderVideo.LoadStatus=LoadVideoStatus.Generated;
-      const jsonString=hiBase64.decode(response);
-      let transcodeRunVideo:TranscodeRunVideo=JSON.parse(jsonString);
-      this.builderVideo.TranscodeRunVideo=transcodeRunVideo;
-      this.builderVideo.TranscodePrepareVideo=transcodeRunVideo.TranscodePrepareVideo;
+  private initializeEventsAndIntervals(){
+    let ctx=this;
+    this.customMouseOutEvent=function onCustomMouseOut(event:any) {
+      if(ctx.sliderContainer && ctx.sliderContainer.startMove)
+      {
+        ctx.onClickSlider(ctx.sliderContainer);
+      }
+    }
+    window.addEventListener('click',this.customMouseOutEvent);
+    this.beforeUnloadFunction=function onUnload(event:any) {
+      ctx.deleteTranscodedMediaFile();
+    }
+    window.addEventListener('beforeunload',this.beforeUnloadFunction);
+    this.detectChangesInterval=window.setInterval(function() {
+      ctx.ref.detectChanges();
+    }, 0);
+    this.updateMediaFilePlaybackInterval=window.setInterval(function() {
+        ctx.updateMediaFilePlayback();
+    }, 10000);
+  }
+
+  private getMediaItemDetailByMediaFileAndProfile(){
+    var mediaFileId=this.activeRoute.snapshot.params.mediaFileId;
+    if(mediaFileId)
+    {
+      this.libraryService.GetMediaItemDetailByMediaFileAndProfile(this.mediaServer.Url,mediaFileId,this.sharedService.currentProfile.Id).then((itemDetail:ItemDetail)=>{
+        this.itemDetail=itemDetail;
+        this.CreateTranscodedMediaFile();
+      },error=>{
+        this.router.navigateByUrl('/404')
+      });
+    }else{
+      this.router.navigateByUrl('/404')
+    }
+  }
+
+  //Create Trnascoded Media File
+
+  public CreateTranscodedMediaFile(){
+    this.loadStatus=LoadVideoStatus.Empty;
+    var currentTime=0;
+    if(this.itemDetail.LastMediaFilePlayback)
+    {
+      currentTime=this.itemDetail.LastMediaFilePlayback.CurrentTime;
+    }
+    let url=this.mediaServer.Url+"/api/mediaFilePlaybacks/CreateTranscodedMediaFile";
+    this.restProvider.executeHttpMediaServerApi(HttpMethodType.POST,url,this.GetMediaFilePlaybackRealTime(currentTime)).then((response:SinovadApiGenericResponse) => {
+      this.loadStatus=LoadVideoStatus.Generated;
+      var transcodedMediaFile:TranscodedMediaFile=response.Data;
+      this.transcodedMediaFile=transcodedMediaFile;
       this.initializeStreams();
       setTimeout(() => {
         this.executeHideControls();
       }, 1000);
-      this.onInitializeVideo();
+      this.getVideoSource();
     },error=>{
       this.showLoadVideoErrorActionsDialog();
       console.error(error);
     });
   }
+
+  private GetMediaFilePlaybackRealTime(currentTime:number):MediaFilePlaybackRealTime{
+    var mediaFilePlaybackRealTime:MediaFilePlaybackRealTime;
+    mediaFilePlaybackRealTime = new MediaFilePlaybackRealTime();
+    mediaFilePlaybackRealTime.Guid=uuid();
+    var mediaFilePlaybackProfile = new MediaFilePlaybackProfile();
+    mediaFilePlaybackProfile.ProfileId=this.sharedService.currentProfile.Id;
+    mediaFilePlaybackProfile.ProfileName=this.sharedService.currentProfile.FullName;
+    mediaFilePlaybackProfile.AvatarPath=this.sharedService.currentProfile.AvatarPath;
+    mediaFilePlaybackRealTime.ProfileData=mediaFilePlaybackProfile;
+    var mediaFilePlaybackClient = new MediaFilePlaybackClient();
+    mediaFilePlaybackClient.Platform=this.sharedService.platform;
+    mediaFilePlaybackClient.IsPlaying=true;
+    mediaFilePlaybackClient.CurrentTime=currentTime;
+    mediaFilePlaybackRealTime.ClientData=mediaFilePlaybackClient;
+    if(this.itemDetail.MediaItem.MediaTypeId==MediaType.Movie)
+    {
+      var mediaFilePlaybackItem = new MediaFilePlaybackItem();
+      var mediaFile=this.itemDetail.ListMediaFiles[0];
+      mediaFilePlaybackItem.Title=this.itemDetail.MediaItem.ExtendedTitle;
+      mediaFilePlaybackItem.PhysicalPath=mediaFile.PhysicalPath;
+      mediaFilePlaybackItem.MediaFileId=mediaFile.Id;
+      mediaFilePlaybackRealTime.ItemData=mediaFilePlaybackItem;
+    }
+    if(this.itemDetail.MediaItem.MediaTypeId==MediaType.TvSerie)
+    {
+      var mediaFilePlaybackItem = new MediaFilePlaybackItem();
+      var mediaFile=this.itemDetail.CurrentEpisode.ListMediaFiles[0];
+      mediaFilePlaybackItem.MediaFileId=mediaFile.Id;
+      mediaFilePlaybackItem.PhysicalPath=mediaFile.PhysicalPath;
+      mediaFilePlaybackItem.Title=this.itemDetail.MediaItem.Title;
+      mediaFilePlaybackItem.Subtitle="T"+this.itemDetail.CurrentEpisode.SeasonNumber+":E"+this.itemDetail.CurrentEpisode.EpisodeNumber+" "+this.itemDetail.CurrentEpisode.Name;
+      mediaFilePlaybackRealTime.ItemData=mediaFilePlaybackItem;
+    }
+    return mediaFilePlaybackRealTime;
+  }
+
+
+
+    //Retranscode Section
+
+    public retranscodeMediaFile(newVideoTime:number){
+      this.deleteLastTranscodedMediaFileProcess();
+      var retranscodeMediaFileRequest= new RetranscodeMediaFile();
+      retranscodeMediaFileRequest.Guid= this.transcodedMediaFile.Guid;
+      retranscodeMediaFileRequest.NewTime=newVideoTime;
+      this.loadStatus=LoadVideoStatus.Empty;
+      let url=this.mediaServer.Url+"/api/mediaFilePlaybacks/RetranscodeMediaFile";
+      this.restProvider.executeHttpMediaServerApi(HttpMethodType.PUT,url,retranscodeMediaFileRequest).then((response:SinovadApiGenericResponse) => {
+        this.transcodedMediaFile.InitialTime=newVideoTime;
+        this.transcodedMediaFile.Url=response.Data;
+        this.loadStatus=LoadVideoStatus.Generated;
+        this.updateAudioAndVideoList();
+        this.getVideoSource();
+      },error=>{
+        this.showLoadVideoErrorActionsDialog();
+        console.error(error);
+      });
+    }
+
+    //Delete Transcode Media File Section
+
+    public deleteTranscodedMediaFile(){
+      if(this.timeOutLoadVideoId)
+      {
+        clearTimeout(this.timeOutLoadVideoId);
+        this.timeOutLoadVideoId=undefined;
+      }
+      let url=this.mediaServer.Url+"/api/mediaFilePlaybacks/DeleteTranscodedMediaFileByGuid/"+this.transcodedMediaFile.Guid;
+      this.restProvider.executeHttpMediaServerApi(HttpMethodType.DELETE,url).then((response) => {
+
+      },error=>{
+        console.error(error);
+      });
+    }
+
+    public deleteLastTranscodedMediaFileProcess(){
+      if(this.timeOutLoadVideoId)
+      {
+        clearTimeout(this.timeOutLoadVideoId);
+        this.timeOutLoadVideoId=undefined;
+      }
+      let url=this.mediaServer.Url+"/api/mediaFilePlaybacks/DeleteLastTranscodedMediaFileProcessByGuid/"+this.transcodedMediaFile.Guid;
+      this.restProvider.executeHttpMediaServerApi(HttpMethodType.DELETE,url).then((response) => {
+
+      },error=>{
+        console.error(error);
+      });
+    }
+
+  // Update Media File Playback
+
+  public updateMediaFilePlayback(){
+    if(this.transcodedMediaFile){
+      let url=this.mediaServer.Url+"/api/mediaFilePlaybacks/UpdateMediaFilePlayback";
+      this.restProvider.executeHttpMediaServerApi(HttpMethodType.PUT,url,this.getUpdateMediaFilePlaybackRequestData()).then((response:SinovadApiGenericResponse) => {
+
+      },error=>{
+        console.error(error);
+      });
+    }
+  }
+
+  public GetFullVideoTitle(){
+    var fullVideoTitle="";
+    if(this.itemDetail && this.itemDetail.MediaItem.MediaTypeId==MediaType.Movie)
+    {
+      fullVideoTitle=this.itemDetail.MediaItem.ExtendedTitle;
+    }
+    if(this.itemDetail && this.itemDetail.MediaItem.MediaTypeId==MediaType.TvSerie)
+    {
+      fullVideoTitle=this.itemDetail.MediaItem.Title+" T"+this.itemDetail.CurrentEpisode.SeasonNumber+":E"+this.itemDetail.CurrentEpisode.EpisodeNumber+" "+this.itemDetail.CurrentEpisode.Name;
+    }
+    return fullVideoTitle;
+  }
+
+  private getUpdateMediaFilePlaybackRequestData():UpdateMediaFilePlaybackRequest{
+    var updateMediaFilePlaybackData = new UpdateMediaFilePlaybackRequest();
+    if(this.itemDetail.MediaItem.MediaTypeId==MediaType.Movie)
+    {
+      var mediaFile=this.itemDetail.ListMediaFiles[0];
+      updateMediaFilePlaybackData.Title=this.itemDetail.MediaItem.ExtendedTitle;
+      updateMediaFilePlaybackData.MediaFileId=mediaFile.Id;
+    }
+    if(this.itemDetail.MediaItem.MediaTypeId==MediaType.TvSerie)
+    {
+      var mediaFile=this.itemDetail.CurrentEpisode.ListMediaFiles[0];
+      updateMediaFilePlaybackData.MediaFileId=mediaFile.Id;
+      updateMediaFilePlaybackData.Title=this.itemDetail.MediaItem.Title;
+      updateMediaFilePlaybackData.Subtitle="T"+this.itemDetail.CurrentEpisode.SeasonNumber+":E"+this.itemDetail.CurrentEpisode.EpisodeNumber+" "+this.itemDetail.CurrentEpisode.Name;
+    }
+     updateMediaFilePlaybackData.IsPlaying=this.isPlayingVideo();
+     updateMediaFilePlaybackData.ProfileId=this.sharedService.currentProfile.Id;
+     updateMediaFilePlaybackData.Guid=this.transcodedMediaFile.Guid;
+     var currentTime=0;
+     if(this.getCurrentVideoTime()>0 && this.getCurrentVideoTime()<=this.transcodedMediaFile.Duration)
+     {
+       currentTime=this.getCurrentVideoTime();
+       if(currentTime-20<0)
+       {
+         currentTime=0;
+       }else{
+         currentTime=currentTime-20;
+       }
+     }
+     updateMediaFilePlaybackData.CurrentTime=currentTime;
+     updateMediaFilePlaybackData.DurationTime=this.transcodedMediaFile.Duration;
+     return updateMediaFilePlaybackData;
+  }
+
+
+  //Change Episode Section
+
+
+
+  public isEnablePreviousEpisodeButton(){
+    if(this.itemDetail && this.itemDetail.ListSeasons && this.itemDetail.ListSeasons.length>0 && this.itemDetail.CurrentSeason)
+    {
+      let currentSeasonNumber=this.itemDetail.CurrentSeason.SeasonNumber;
+      let currentEpisodeNumber=this.itemDetail.CurrentEpisode.EpisodeNumber;
+      let nextEpisodeNumber=currentEpisodeNumber-1;
+      let index=this.itemDetail.CurrentSeason.ListEpisodes.findIndex(item=>item.EpisodeNumber==nextEpisodeNumber);
+      if(index!=-1)
+      {
+        return true;
+      }else{
+        let nextSeasonNumber=currentSeasonNumber-1;
+        let index=this.itemDetail.ListSeasons.findIndex(item=>item.SeasonNumber==nextSeasonNumber);
+        if(index!=-1)
+        {
+          let previousSeason=this.itemDetail.ListSeasons[index];
+          if(previousSeason && previousSeason.ListEpisodes && previousSeason.ListEpisodes.length){
+            return true;
+          }else{
+            return false;
+          }
+        }else{
+          return false;
+        }
+      }
+    }else{
+      return false;
+    }
+  }
+
+  public isEnableNextEpisodeButton(){
+    if(this.itemDetail && this.itemDetail.ListSeasons && this.itemDetail.ListSeasons.length>0 && this.itemDetail.CurrentSeason)
+    {
+      let currentSeasonNumber=this.itemDetail.CurrentSeason.SeasonNumber;
+      let currentEpisodeNumber=this.itemDetail.CurrentEpisode.EpisodeNumber;
+      let nextEpisodeNumber=currentEpisodeNumber+1;
+      let index=this.itemDetail.CurrentSeason.ListEpisodes.findIndex(item=>item.EpisodeNumber==nextEpisodeNumber);
+      if(index!=-1)
+      {
+        return true;
+      }else{
+        let nextSeasonNumber=currentSeasonNumber+1;
+        let index=this.itemDetail.ListSeasons.findIndex(item=>item.SeasonNumber==nextSeasonNumber);
+        if(index!=-1)
+        {
+          let nextSeason=this.itemDetail.ListSeasons[index];
+          if(nextSeason && nextSeason.ListEpisodes && nextSeason.ListEpisodes.length){
+            return true;
+          }else{
+            return false;
+          }
+        }else{
+          return false;
+        }
+      }
+    }else{
+      return false;
+    }
+  }
+
+  public goToNextEpisode(){
+    if(this.itemDetail  && this.itemDetail.ListSeasons && this.itemDetail.ListSeasons.length>0 && this.itemDetail.CurrentSeason)
+    {
+      let currentSeasonNumber=this.itemDetail.CurrentSeason.SeasonNumber;
+      let currentEpisodeNumber=this.itemDetail.CurrentEpisode.EpisodeNumber;
+      let nextEpisodeNumber=currentEpisodeNumber+1;
+      let index=this.itemDetail.CurrentSeason.ListEpisodes.findIndex(item=>item.EpisodeNumber==nextEpisodeNumber);
+      if(index!=-1)
+      {
+        let nextEpisode=this.itemDetail.CurrentSeason.ListEpisodes[index];
+        this.getVideoByEpisode(nextEpisode);
+      }else{
+        let nextSeasonNumber=currentSeasonNumber+1;
+        let index=this.itemDetail.ListSeasons.findIndex(item=>item.SeasonNumber==nextSeasonNumber);
+        if(index!=-1)
+        {
+          let nextSeason=this.itemDetail.ListSeasons[index];
+          this.itemDetail.CurrentSeason=nextSeason;
+          if(nextSeason && nextSeason.ListEpisodes && nextSeason.ListEpisodes.length){
+            let nextEpisode=nextSeason.ListEpisodes[0];
+            this.getVideoByEpisode(nextEpisode);
+          }
+        }
+      }
+    }
+  }
+
+  public goToPreviousEpisode(){
+    if(this.itemDetail &&  this.itemDetail.ListSeasons && this.itemDetail.ListSeasons.length>0 && this.itemDetail.CurrentSeason)
+    {
+      let currentSeasonNumber=this.itemDetail.CurrentSeason.SeasonNumber;
+      let currentEpisodeNumber=this.itemDetail.CurrentEpisode.EpisodeNumber;
+      let previousEpisodeNumber=currentEpisodeNumber-1;
+      let index=this.itemDetail.CurrentSeason.ListEpisodes.findIndex(item=>item.EpisodeNumber==previousEpisodeNumber);
+      if(index!=-1)
+      {
+        let previousEpisode=this.itemDetail.CurrentSeason.ListEpisodes[index];
+        this.getVideoByEpisode(previousEpisode);
+      }else{
+        let previousSeasonNumber=currentSeasonNumber+1;
+        let index=this.itemDetail.ListSeasons.findIndex(item=>item.SeasonNumber==previousSeasonNumber);
+        if(index!=-1)
+        {
+          let previousSeason=this.itemDetail.ListSeasons[index];
+          this.itemDetail.CurrentSeason=previousSeason;
+          if(previousSeason && previousSeason.ListEpisodes && previousSeason.ListEpisodes.length){
+            let previousEpisode=previousSeason.ListEpisodes[previousSeason.ListEpisodes.length-1];
+            this.getVideoByEpisode(previousEpisode);
+          }
+        }
+      }
+    }
+  }
+
+  public getVideoByEpisode(episode:MediaEpisode){
+    this.deleteTranscodedMediaFile();
+    if(this.itemDetail.ListSeasons)
+    {
+      this.itemDetail.CurrentSeason=this.itemDetail.ListSeasons.find(item=>item.SeasonNumber==episode.SeasonNumber);
+      this.itemDetail.CurrentEpisode=this.itemDetail.CurrentSeason.ListEpisodes.find(item=>item.EpisodeNumber==episode.EpisodeNumber);
+    }
+    this.lastRealVideoTime=0;
+    this.resetStream();
+    this.loadStatus=LoadVideoStatus.Empty;
+    let url=this.mediaServer.Url+"/api/mediaFilePlaybacks/CreateTranscodedMediaFile";
+    this.restProvider.executeHttpMediaServerApi(HttpMethodType.POST,url,this.GetMediaFilePlaybackRealTime(0)).then((response:SinovadApiGenericResponse) => {
+      this.loadStatus=LoadVideoStatus.Generated;
+      var transcodedMediaFile:TranscodedMediaFile=response.Data;
+      this.transcodedMediaFile=transcodedMediaFile;
+      this.initializeStreams();
+      this.getVideoSource();
+    },error=>{
+      this.showLoadVideoErrorActionsDialog();
+      console.error(error);
+    });
+  }
+
+
+
 
   public onTouchVideoContainer(target?:any){
     if(!this.showingSettings)
@@ -246,7 +540,7 @@ export class VideoPage implements OnInit,OnDestroy{
     sliderContainer.startMove=true;
     let percentajeCurrentTime=((event.changedTouches[0].clientX-controlLeft.offsetWidth-8-4)/(sliderContainer.offsetWidth))*100;
     let percentajeDuration=100;
-    let duration=this.builderVideo.TranscodePrepareVideo.TotalSeconds;
+    let duration=this.transcodedMediaFile.Duration;
     let currentTime=(percentajeCurrentTime*duration/percentajeDuration);
     this.lastTmpVideoTime=currentTime;
   }
@@ -256,154 +550,12 @@ export class VideoPage implements OnInit,OnDestroy{
     {
       let percentajeCurrentTime=((event.changedTouches[0].clientX-controlLeft.offsetWidth-8-4)/(sliderContainer.offsetWidth))*100;
       let percentajeDuration=100;
-      let duration=this.builderVideo.TranscodePrepareVideo.TotalSeconds;
+      let duration=this.transcodedMediaFile.Duration;
       let currentTime=(percentajeCurrentTime*duration/percentajeDuration);
       this.lastTmpVideoTime=currentTime;
     }
   }
 
-  public goToNextEpisode(){
-    if(this.builderVideo && this.builderVideo.TranscodePrepareVideo && this.builderVideo.ItemDetail.ListSeasons && this.builderVideo.ItemDetail.ListSeasons.length>0 && this.builderVideo.ItemDetail.CurrentSeason)
-    {
-      let currentSeasonNumber=this.builderVideo.ItemDetail.CurrentSeason.SeasonNumber;
-      let currentEpisodeNumber=this.builderVideo.ItemDetail.CurrentEpisode.EpisodeNumber;
-      let nextEpisodeNumber=currentEpisodeNumber+1;
-      let index=this.builderVideo.ItemDetail.CurrentSeason.ListEpisodes.findIndex(item=>item.EpisodeNumber==nextEpisodeNumber);
-      if(index!=-1)
-      {
-        let nextEpisode=this.builderVideo.ItemDetail.CurrentSeason.ListEpisodes[index];
-        this.getVideoByEpisode(nextEpisode);
-      }else{
-        let nextSeasonNumber=currentSeasonNumber+1;
-        let index=this.builderVideo.ItemDetail.ListSeasons.findIndex(item=>item.SeasonNumber==nextSeasonNumber);
-        if(index!=-1)
-        {
-          let nextSeason=this.builderVideo.ItemDetail.ListSeasons[index];
-          this.builderVideo.ItemDetail.CurrentSeason=nextSeason;
-          if(nextSeason && nextSeason.ListEpisodes && nextSeason.ListEpisodes.length){
-            let nextEpisode=nextSeason.ListEpisodes[0];
-            this.getVideoByEpisode(nextEpisode);
-          }
-        }
-      }
-    }
-  }
-
-  public getVideoByEpisode(episode:MediaEpisode){
-    this.deleteAllProcessesAndDirectories();
-    var mediaServer=this.sharedService.mediaServers.find(x=>x.Id==this.builderVideo.TranscodePrepareVideo.MediaServerId);
-    var transcodeVideo=this.libraryService.GetTranscodeVideoFromEpisode(this.builderVideo.ItemDetail,episode,mediaServer);
-    this.builderVideo.TranscodePrepareVideo=transcodeVideo;
-    if(this.builderVideo.ItemDetail.ListSeasons)
-    {
-      this.builderVideo.ItemDetail.CurrentSeason=this.builderVideo.ItemDetail.ListSeasons.find(item=>item.SeasonNumber==episode.SeasonNumber);
-      this.builderVideo.ItemDetail.CurrentEpisode=this.builderVideo.ItemDetail.CurrentSeason.ListEpisodes.find(item=>item.EpisodeNumber==episode.EpisodeNumber);
-    }
-    this.lastRealVideoTime=0;
-    this.resetStream();
-    this.sharedService.listProcessGUIDs.push(this.builderVideo.TranscodePrepareVideo.ProcessGUID);
-    this.builderVideo.LoadStatus=LoadVideoStatus.Empty;
-    let url=this.builderVideo.TranscodePrepareVideo.MediaServerUrl+"/api/transcodingProcesses/GetVideoData";
-    this.restProvider.executeHttpMethodByUrl(HttpMethodType.POST,url,this.builderVideo.TranscodePrepareVideo).then((response) => {
-      this.builderVideo.LoadStatus=LoadVideoStatus.Generated;
-      const jsonString=hiBase64.decode(response);
-      let transcodeRunVideo:TranscodeRunVideo=JSON.parse(jsonString);
-      this.builderVideo.TranscodeRunVideo=transcodeRunVideo;
-      this.builderVideo.TranscodePrepareVideo=transcodeRunVideo.TranscodePrepareVideo;
-      this.initializeStreams();
-      this.getVideoSource();
-    },error=>{
-      this.showLoadVideoErrorActionsDialog();
-      console.error(error);
-    });
-  }
-
-  public goToPreviousEpisode(){
-    if(this.builderVideo && this.builderVideo.TranscodePrepareVideo && this.builderVideo.ItemDetail.ListSeasons && this.builderVideo.ItemDetail.ListSeasons.length>0 && this.builderVideo.ItemDetail.CurrentSeason)
-    {
-      let currentSeasonNumber=this.builderVideo.ItemDetail.CurrentSeason.SeasonNumber;
-      let currentEpisodeNumber=this.builderVideo.ItemDetail.CurrentEpisode.EpisodeNumber;
-      let previousEpisodeNumber=currentEpisodeNumber-1;
-      let index=this.builderVideo.ItemDetail.CurrentSeason.ListEpisodes.findIndex(item=>item.EpisodeNumber==previousEpisodeNumber);
-      if(index!=-1)
-      {
-        let previousEpisode=this.builderVideo.ItemDetail.CurrentSeason.ListEpisodes[index];
-        this.getVideoByEpisode(previousEpisode);
-      }else{
-        let previousSeasonNumber=currentSeasonNumber+1;
-        let index=this.builderVideo.ItemDetail.ListSeasons.findIndex(item=>item.SeasonNumber==previousSeasonNumber);
-        if(index!=-1)
-        {
-          let previousSeason=this.builderVideo.ItemDetail.ListSeasons[index];
-          this.builderVideo.ItemDetail.CurrentSeason=previousSeason;
-          if(previousSeason && previousSeason.ListEpisodes && previousSeason.ListEpisodes.length){
-            let previousEpisode=previousSeason.ListEpisodes[previousSeason.ListEpisodes.length-1];
-            this.getVideoByEpisode(previousEpisode);
-          }
-        }
-      }
-    }
-  }
-
-  public isEnablePreviousEpisodeButton(){
-    if(this.builderVideo && this.builderVideo.TranscodePrepareVideo && this.builderVideo.ItemDetail.ListSeasons && this.builderVideo.ItemDetail.ListSeasons.length>0 && this.builderVideo.ItemDetail.CurrentSeason)
-    {
-      let currentSeasonNumber=this.builderVideo.ItemDetail.CurrentSeason.SeasonNumber;
-      let currentEpisodeNumber=this.builderVideo.ItemDetail.CurrentEpisode.EpisodeNumber;
-      let nextEpisodeNumber=currentEpisodeNumber-1;
-      let index=this.builderVideo.ItemDetail.CurrentSeason.ListEpisodes.findIndex(item=>item.EpisodeNumber==nextEpisodeNumber);
-      if(index!=-1)
-      {
-        return true;
-      }else{
-        let nextSeasonNumber=currentSeasonNumber-1;
-        let index=this.builderVideo.ItemDetail.ListSeasons.findIndex(item=>item.SeasonNumber==nextSeasonNumber);
-        if(index!=-1)
-        {
-          let previousSeason=this.builderVideo.ItemDetail.ListSeasons[index];
-          if(previousSeason && previousSeason.ListEpisodes && previousSeason.ListEpisodes.length){
-            return true;
-          }else{
-            return false;
-          }
-        }else{
-          return false;
-        }
-      }
-    }else{
-      return false;
-    }
-  }
-
-  public isEnableNextEpisodeButton(){
-    if(this.builderVideo && this.builderVideo.TranscodePrepareVideo && this.builderVideo.ItemDetail.ListSeasons && this.builderVideo.ItemDetail.ListSeasons.length>0 && this.builderVideo.ItemDetail.CurrentSeason)
-    {
-      let currentSeasonNumber=this.builderVideo.ItemDetail.CurrentSeason.SeasonNumber;
-      let currentEpisodeNumber=this.builderVideo.ItemDetail.CurrentEpisode.EpisodeNumber;
-      let nextEpisodeNumber=currentEpisodeNumber+1;
-      let index=this.builderVideo.ItemDetail.CurrentSeason.ListEpisodes.findIndex(item=>item.EpisodeNumber==nextEpisodeNumber);
-      if(index!=-1)
-      {
-        return true;
-      }else{
-        let nextSeasonNumber=currentSeasonNumber+1;
-        let index=this.builderVideo.ItemDetail.ListSeasons.findIndex(item=>item.SeasonNumber==nextSeasonNumber);
-        if(index!=-1)
-        {
-          let nextSeason=this.builderVideo.ItemDetail.ListSeasons[index];
-          if(nextSeason && nextSeason.ListEpisodes && nextSeason.ListEpisodes.length){
-            return true;
-          }else{
-            return false;
-          }
-        }else{
-          return false;
-        }
-      }
-    }else{
-      return false;
-    }
-  }
 
   public showSettings(){
     this.showControls=false;
@@ -479,7 +631,7 @@ export class VideoPage implements OnInit,OnDestroy{
     if (document.fullscreenElement) {
       document.exitFullscreen();
     }
-    this.deleteAllProcessesAndDirectories();
+    this.deleteTranscodedMediaFile();
     this.router.navigateByUrl("/home");
   }
 
@@ -494,7 +646,7 @@ export class VideoPage implements OnInit,OnDestroy{
 
   public getConfirmMessage():string{
     var status="Vacio";
-    switch (this.builderVideo.LoadStatus) {
+    switch (this.loadStatus) {
 
       case LoadVideoStatus.Empty:{
         status="Vacío"
@@ -529,9 +681,9 @@ export class VideoPage implements OnInit,OnDestroy{
     this.listPrincipalSettingsOptions[0].selectedOption=undefined;
     this.listPrincipalSettingsOptions[1].listOptions=[];
     this.listPrincipalSettingsOptions[1].selectedOption=undefined;
-    if(this.builderVideo.TranscodePrepareVideo.ListAudioStreams && this.builderVideo.TranscodePrepareVideo.ListAudioStreams.length>0)
+    if(this.transcodedMediaFile.ListAudioStreams && this.transcodedMediaFile.ListAudioStreams.length>0)
     {
-      this.builderVideo.TranscodePrepareVideo.ListAudioStreams.forEach(element => {
+      this.transcodedMediaFile.ListAudioStreams.forEach(element => {
         let languageName=""
         if(element.language=="spa")
         {
@@ -547,12 +699,12 @@ export class VideoPage implements OnInit,OnDestroy{
         }
         element.name=languageName;
       });
-      this.listPrincipalSettingsOptions[0].listOptions=this.builderVideo.TranscodePrepareVideo.ListAudioStreams;
-      this.listPrincipalSettingsOptions[0].selectedOption=this.builderVideo.TranscodePrepareVideo.ListAudioStreams.find(audio=>audio.isDefault==true);
+      this.listPrincipalSettingsOptions[0].listOptions=this.transcodedMediaFile.ListAudioStreams;
+      this.listPrincipalSettingsOptions[0].selectedOption=this.transcodedMediaFile.ListAudioStreams.find(audio=>audio.isDefault==true);
     }
-    if(this.builderVideo.TranscodePrepareVideo.ListSubtitlesStreams && this.builderVideo.TranscodePrepareVideo.ListSubtitlesStreams.length>0)
+    if(this.transcodedMediaFile.ListSubtitleStreams && this.transcodedMediaFile.ListSubtitleStreams.length>0)
     {
-      this.builderVideo.TranscodePrepareVideo.ListSubtitlesStreams.forEach(element => {
+      this.transcodedMediaFile.ListSubtitleStreams.forEach(element => {
         let languageName=""
         if(element.language=="spa")
         {
@@ -570,9 +722,9 @@ export class VideoPage implements OnInit,OnDestroy{
       });
       let listSubtitlesStreams:any[]=[];
       listSubtitlesStreams.push({index:1000000,name:"Ninguno"})
-      listSubtitlesStreams=listSubtitlesStreams.concat(this.builderVideo.TranscodePrepareVideo.ListSubtitlesStreams);
+      listSubtitlesStreams=listSubtitlesStreams.concat(this.transcodedMediaFile.ListSubtitleStreams);
       this.listPrincipalSettingsOptions[1].listOptions=listSubtitlesStreams;
-      let selectedSubtitle =this.builderVideo.TranscodePrepareVideo.ListSubtitlesStreams.find(subt=>subt.isDefault==true);
+      let selectedSubtitle =this.transcodedMediaFile.ListSubtitleStreams.find(subt=>subt.isDefault==true);
       if(selectedSubtitle==undefined)
       {
         selectedSubtitle=listSubtitlesStreams.find(item=>item.index==1000000);
@@ -584,45 +736,14 @@ export class VideoPage implements OnInit,OnDestroy{
 
   public initializeStreams(){
     this.updateAudioAndVideoList();
-    if(this.builderVideo && this.builderVideo.TranscodePrepareVideo.CurrentTime!=undefined)
+    if(this.transcodedMediaFile.InitialTime!=undefined)
     {
-      this.lastRealVideoTime=this.builderVideo.TranscodePrepareVideo.CurrentTime;
+      this.lastRealVideoTime=this.transcodedMediaFile.InitialTime;
     }else{
       this.lastRealVideoTime=0;
     }
   }
 
-  public updateMediaFilePlayback(){
-    if(this.builderVideo && this.builderVideo.TranscodePrepareVideo.TotalSeconds!=undefined){
-      var currentTime=0;
-      if(this.getCurrentVideoTime()>0 && this.getCurrentVideoTime()<=this.builderVideo.TranscodePrepareVideo.TotalSeconds)
-      {
-        currentTime=this.getCurrentVideoTime();
-        if(currentTime-20<0)
-        {
-          currentTime=0;
-        }else{
-          currentTime=currentTime-20;
-        }
-      }
-      let mediaFilePlayback:MediaFilePlayback={
-        Title:this.builderVideo.TranscodePrepareVideo.Title,
-        MediaFileId:this.builderVideo.TranscodePrepareVideo.VideoId,
-        ProfileId:this.sharedService.currentProfile.Id,
-        DurationTime:this.builderVideo.TranscodePrepareVideo.TotalSeconds,
-        CurrentTime:currentTime
-      }
-      if(this.builderVideo.TranscodePrepareVideo.Subtitle)
-      {
-        mediaFilePlayback.Subtitle=this.builderVideo.TranscodePrepareVideo.Subtitle;
-      }
-      this.libraryService.updateMediaFilePlayback(this.builderVideo.TranscodePrepareVideo.MediaServerUrl,mediaFilePlayback).then((response) => {
-
-      },error=>{
-        console.error(error);
-      });
-    }
-  }
 
   public executeHideControls(){
     if(this.sliderContainer && this.sliderContainer.startMove)
@@ -636,9 +757,9 @@ export class VideoPage implements OnInit,OnDestroy{
   }
 
   public getDurationTime(){
-    if(this.builderVideo && this.builderVideo.TranscodePrepareVideo && this.builderVideo.TranscodePrepareVideo.TotalSeconds)
+    if(this.transcodedMediaFile && this.transcodedMediaFile.Duration)
     {
-      return this.getFormatTime(this.builderVideo.TranscodePrepareVideo.TotalSeconds);
+      return this.getFormatTime(this.transcodedMediaFile.Duration);
     }else{
       return "00:00:00";
     }
@@ -687,7 +808,7 @@ public onMouseMoveSlider(event:any,sliderContainer:any){
 public calculateNewTimeToGo(event:any,sliderContainer:any){
   let percentajeCurrentTime=((event.offsetX)/(sliderContainer.offsetWidth))*100;
   let percentajeDuration=100;
-  let duration=this.builderVideo.TranscodePrepareVideo.TotalSeconds;
+  let duration=this.transcodedMediaFile.Duration;
   let newTimeToGo=(percentajeCurrentTime*duration/percentajeDuration);
   this.lastTmpVideoTime=newTimeToGo;
 }
@@ -725,62 +846,11 @@ public onClickSlider(sliderContainer:any){
   }
 }
 
-  public updateVideoData(newVideoTime:number){
-    this.deleteAllProcessesAndDirectories();
-    let processGUID=uuid();
-    this.sharedService.listProcessGUIDs.push(processGUID);
-    this.builderVideo.TranscodePrepareVideo.TimeSpan=newVideoTime.toString();
-    this.builderVideo.TranscodePrepareVideo.ProcessGUID=processGUID;
-    this.builderVideo.LoadStatus=LoadVideoStatus.Empty;
-    let url=this.builderVideo.TranscodePrepareVideo.MediaServerUrl+"/api/transcodingProcesses/UpdateVideoData";
-    this.restProvider.executeHttpMethodByUrl(HttpMethodType.POST,url,this.builderVideo.TranscodePrepareVideo).then((response) => {
-      this.builderVideo.LoadStatus=LoadVideoStatus.Generated;
-      const jsonString=hiBase64.decode(response);
-      let transcodeRunVideo:TranscodeRunVideo=JSON.parse(jsonString);
-      this.builderVideo.TranscodeRunVideo=transcodeRunVideo;
-      this.updateAudioAndVideoList();
-      this.getVideoSource();
-    },error=>{
-      this.showLoadVideoErrorActionsDialog();
-      console.error(error);
-    });
-  }
-
-  public deleteAllProcessesAndDirectories(){
-    if(this.sharedService.listProcessGUIDs && this.sharedService.listProcessGUIDs.length>0)
-    {
-      this.deleteProcessesAndDirectories();
-    }
-  }
-
-  public deleteProcessesAndDirectories(){
-    var guids=this.sharedService.listProcessGUIDs.join(",");
-    let url=this.builderVideo.TranscodePrepareVideo.MediaServerUrl+"/api/transcodingProcesses/DeleteByListGuids?guids="+guids;
-    this.restProvider.executeHttpMethodByUrl(HttpMethodType.DELETE,url).then((response) => {
-      const jsonString=hiBase64.decode(response);
-      let listProcessDeletedGUIDs:string[]=JSON.parse(jsonString);
-      if(listProcessDeletedGUIDs && listProcessDeletedGUIDs.length>0 && this.sharedService.listProcessGUIDs.length>0)
-      {
-        for(var i=0;i<listProcessDeletedGUIDs.length;i++)
-        {
-          let processDeletedGUID=listProcessDeletedGUIDs[i];
-          let index=this.sharedService.listProcessGUIDs.findIndex(item=>item==processDeletedGUID);
-          if(index!=-1)
-          {
-            this.sharedService.listProcessGUIDs.splice(index,1);
-          }
-        }
-      }
-    },error=>{
-      console.error(error);
-    });
-  }
-
 
   public getSliderPogressWidth(){
-    if(this.builderVideo && this.builderVideo.TranscodePrepareVideo && this.builderVideo.TranscodePrepareVideo.TotalSeconds)
+    if(this.transcodedMediaFile && this.transcodedMediaFile.Duration)
     {
-      let duration=this.builderVideo.TranscodePrepareVideo.TotalSeconds;
+      let duration=this.transcodedMediaFile.Duration;
       let currentTime=this.lastTmpVideoTime?this.lastTmpVideoTime:this.getCurrentVideoTime();
       let widthProgressBarPercentaje=(currentTime/duration)*100;
       if(widthProgressBarPercentaje>100)
@@ -801,7 +871,7 @@ public onClickSlider(sliderContainer:any){
   }
 
   public isPlayingVideo(){
-    if(this.builderVideo && this.builderVideo.TranscodePrepareVideo && this.builderVideo.TranscodePrepareVideo.VideoTransmissionTypeId==VideoTransmissionType.MPEGDASH)
+    if(this.transcodedMediaFile && this.transcodedMediaFile.VideoTransmissionTypeId==VideoTransmissionType.MPEGDASH)
     {
       if(this.dashMediaPlayer && !this.dashMediaPlayer.isPaused())
       {
@@ -833,7 +903,7 @@ public onClickSlider(sliderContainer:any){
       this.hls.audioTrack=1;
     } */
 
-    if(this.builderVideo && this.builderVideo.TranscodePrepareVideo && this.builderVideo.TranscodePrepareVideo.VideoTransmissionTypeId==VideoTransmissionType.MPEGDASH)
+    if(this.transcodedMediaFile && this.transcodedMediaFile.VideoTransmissionTypeId==VideoTransmissionType.MPEGDASH)
     {
       if(this.dashMediaPlayer)
       {
@@ -884,8 +954,8 @@ public onClickSlider(sliderContainer:any){
             enableStallFix:true
           },
           buffer: {
-            bufferPruningInterval:this.builderVideo.TranscodePrepareVideo.TotalSeconds,
-            bufferToKeep:this.builderVideo.TranscodePrepareVideo.TotalSeconds
+            bufferPruningInterval:this.transcodedMediaFile.Duration,
+            bufferToKeep:this.transcodedMediaFile.Duration
           }
         }
       }
@@ -917,13 +987,8 @@ public onClickSlider(sliderContainer:any){
     this.showVideoInFullScreen();
   }
 
-
-  public onInitializeVideo(){
-    this.executeInitializeVideo();
-  }
-
   public getCurrentVideoTime(){
-    if(this.builderVideo && this.builderVideo.TranscodePrepareVideo && this.builderVideo.TranscodePrepareVideo.VideoTransmissionTypeId==VideoTransmissionType.MPEGDASH)
+    if(this.transcodedMediaFile && this.transcodedMediaFile.VideoTransmissionTypeId==VideoTransmissionType.MPEGDASH)
     {
       if(this.dashMediaPlayer && this.dashMediaPlayer.time())
       {
@@ -968,13 +1033,13 @@ public onClickSlider(sliderContainer:any){
   }
 
   public onLoadedMetadata(){
-    this.builderVideo.LoadStatus=LoadVideoStatus.LoadedMetada;
+    this.loadStatus=LoadVideoStatus.LoadedMetada;
     console.log("onLoadedMetadata");
   }
 
   public onLoadedData(){
     console.log("onLoadedData");
-    this.builderVideo.LoadStatus=LoadVideoStatus.LoadedData;
+    this.loadStatus=LoadVideoStatus.LoadedData;
     this.loadedData=true;
     if(this.videoTarget)
     {
@@ -987,27 +1052,19 @@ public onClickSlider(sliderContainer:any){
     console.log("onErrorVideo");
   }
 
-  public executeInitializeVideo(){
-    this.getVideoSource();
-  }
-
-  public testAnyVideo(){
-
-  }
-
   public getVideoSource(){
-    this.http.get(this.builderVideo.TranscodeRunVideo.VideoPath,{headers:undefined, responseType: 'blob' as 'json' }).subscribe((response:any) => {
-      this.builderVideo.LoadStatus=LoadVideoStatus.Initialized;
+    this.http.get(this.transcodedMediaFile.Url,{headers:undefined, responseType: 'blob' as 'json' }).subscribe((response:any) => {
+      this.loadStatus=LoadVideoStatus.Initialized;
       this.showVideoTarget=true;
       this.ref.detectChanges();
-      if(this.builderVideo.TranscodeRunVideo.VideoPath.indexOf("mpd")!=-1)
+      if(this.transcodedMediaFile.Url.indexOf("mpd")!=-1)
       {
-          this.displayVideoUsingDash(this.builderVideo.TranscodeRunVideo.VideoPath);
-      }else if(this.builderVideo.TranscodeRunVideo.VideoPath.indexOf("m3u8")!=-1)
+          this.displayVideoUsingDash(this.transcodedMediaFile.Url);
+      }else if(this.transcodedMediaFile.Url.indexOf("m3u8")!=-1)
       {
-        this.displayVideoUsingHLS(this.builderVideo.TranscodeRunVideo.VideoPath);
+        this.displayVideoUsingHLS(this.transcodedMediaFile.Url);
       }else{
-        this.videoTarget.nativeElement.src=this.builderVideo.TranscodeRunVideo.VideoPath;
+        this.videoTarget.nativeElement.src=this.transcodedMediaFile.Url;
         this.videoTarget.nativeElement.currentTime=this.lastRealVideoTime;
         this.lastRealVideoTime=0;
         this.videoTarget.nativeElement.play();
@@ -1020,8 +1077,8 @@ public onClickSlider(sliderContainer:any){
 
   public displayVideoUsingHLS(videoSrc:string){
     let ctx=this;
-    setTimeout(() => {
-      if(ctx.builderVideo.LoadStatus!=LoadVideoStatus.LoadedData)
+    this.timeOutLoadVideoId=setTimeout(() => {
+      if(ctx.loadStatus!=LoadVideoStatus.LoadedData)
       {
         ctx.showLoadVideoErrorActionsDialog();
       }
@@ -1080,7 +1137,7 @@ public onClickSlider(sliderContainer:any){
     setTimeout(() => {
       if(lastTimeSpanChangeGUID==this.lastTimeSpanChangeGUID)
       {
-        this.updateVideoData(currentVideoTime);
+        this.retranscodeMediaFile(currentVideoTime);
       }
     }, 1000);
   }
@@ -1098,7 +1155,7 @@ public onClickSlider(sliderContainer:any){
     }else{
       seconsToRest=this.getCurrentVideoTime();
     }
-    if(this.builderVideo.TranscodePrepareVideo && this.builderVideo.TranscodePrepareVideo.VideoTransmissionTypeId==VideoTransmissionType.MPEGDASH)
+    if(this.transcodedMediaFile && this.transcodedMediaFile.VideoTransmissionTypeId==VideoTransmissionType.MPEGDASH)
     {
       if(this.dashMediaPlayer && this.dashMediaPlayer.time()>seconsToRest)
       {
@@ -1127,21 +1184,21 @@ public onClickSlider(sliderContainer:any){
 
   public executeForwardVideo(maxSecondsToAdd:number){
     this.initializeVideo=false;
-    if(this.getCurrentVideoTime()<this.builderVideo.TranscodePrepareVideo.TotalSeconds)
+    if(this.getCurrentVideoTime()<this.transcodedMediaFile.Duration)
     {
       let seconsToAdd=0;
-      if(this.getCurrentVideoTime()+maxSecondsToAdd>this.builderVideo.TranscodePrepareVideo.TotalSeconds)
+      if(this.getCurrentVideoTime()+maxSecondsToAdd>this.transcodedMediaFile.Duration)
       {
-        if(this.builderVideo.TranscodePrepareVideo.TotalSeconds>this.getCurrentVideoTime())
+        if(this.transcodedMediaFile.Duration>this.getCurrentVideoTime())
         {
-          seconsToAdd=this.builderVideo.TranscodePrepareVideo.TotalSeconds-this.getCurrentVideoTime();
+          seconsToAdd=this.transcodedMediaFile.Duration-this.getCurrentVideoTime();
         }else{
           seconsToAdd=0;
         }
       }else{
         seconsToAdd=maxSecondsToAdd;
       }
-      if(this.builderVideo.TranscodePrepareVideo && this.builderVideo.TranscodePrepareVideo.VideoTransmissionTypeId==VideoTransmissionType.MPEGDASH)
+      if(this.transcodedMediaFile && this.transcodedMediaFile.VideoTransmissionTypeId==VideoTransmissionType.MPEGDASH)
       {
         if(this.dashMediaPlayer && this.dashMediaPlayer.duration()-this.dashMediaPlayer.time()>=seconsToAdd)
         {

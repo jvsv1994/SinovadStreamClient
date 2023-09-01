@@ -3,14 +3,10 @@ import { RestProviderService } from 'src/app/modules/shared/services/rest-provid
 import { HttpMethodType, MediaType } from 'src/app/modules/shared/enums/enums';
 import { Library } from './library.model';
 import {v4 as uuid} from "uuid";
-import { MediaServer } from 'src/app/modules/pages/servers/shared/server.model';
 import { ItemsGroup } from 'src/app/modules/pages/media/shared/models/items-group.model';
 import { Item } from 'src/app/modules/pages/media/shared/models/item.model';
 import { ItemDetail } from 'src/app/modules/pages/media/shared/models/item-detail.model';
 import { MediaFilePlayback } from 'src/app/modules/pages/media/shared/models/media-file-playback.model';
-import { MediaEpisode } from 'src/app/modules/pages/media/shared/models/media-episode.model';
-import { TranscodePrepareVideo } from 'src/app/modules/pages/media/video/models/transcode-prepare-video.model';
-import { BuilderVideo } from 'src/app/modules/pages/media/video/models/builder-video.model';
 import { SinovadApiGenericResponse } from 'src/app/modules/shared/models/response/sinovad-api-generic-response.model';
 
 @Injectable({ providedIn: 'root' })
@@ -170,63 +166,6 @@ export class LibraryService {
         reject(error);
       });
     });
-  }
-
-  public CreateBuilderVideoFromItem(detail:ItemDetail,mediaServer:MediaServer,currentTime?:number):BuilderVideo{
-    let processGUID=uuid();
-    var mediaFile=detail.ListMediaFiles[0];
-    var transcodeVideo= new TranscodePrepareVideo();
-    transcodeVideo.VideoId=mediaFile.Id;
-    transcodeVideo.Title=detail.MediaItem.ExtendedTitle;
-    transcodeVideo.PhysicalPath=mediaFile.PhysicalPath;
-    transcodeVideo.MediaServerId=mediaServer.Id;
-    transcodeVideo.MediaServerUrl=mediaServer.Url;
-    transcodeVideo.CurrentTime=currentTime?currentTime:0;
-    transcodeVideo.ProcessGUID=processGUID;
-    if(transcodeVideo.CurrentTime)
-    {
-      transcodeVideo.TimeSpan=transcodeVideo.CurrentTime.toString();
-    }else{
-      transcodeVideo.TimeSpan="0";
-    }
-    var builderVideo= new BuilderVideo();
-    builderVideo.TranscodePrepareVideo=transcodeVideo;
-    builderVideo.ItemDetail=detail;
-    return builderVideo;
-  }
-
-  public CreateBuilderVideoFromEpisode(detail:ItemDetail,episode:MediaEpisode,mediaServer:MediaServer,currentTime?:number):BuilderVideo{
-    var transcodeVideo:TranscodePrepareVideo=this.GetTranscodeVideoFromEpisode(detail,episode,mediaServer,currentTime);
-    if(detail.ListSeasons)
-    {
-      detail.CurrentSeason=detail.ListSeasons.find(item=>item.SeasonNumber==episode.SeasonNumber);
-      detail.CurrentEpisode=detail.CurrentSeason.ListEpisodes.find(item=>item.EpisodeNumber==episode.EpisodeNumber);
-    }
-    var builderVideo= new BuilderVideo();
-    builderVideo.TranscodePrepareVideo=transcodeVideo;
-    builderVideo.ItemDetail=detail;
-    return builderVideo;
-  }
-
-  public GetTranscodeVideoFromEpisode(detail:ItemDetail,episode:MediaEpisode,mediaServer:MediaServer,currentTime?:number):TranscodePrepareVideo{
-    var mediaFile=episode.ListMediaFiles[0];
-    let processGUID=uuid();
-    var transcodeVideo= new TranscodePrepareVideo();
-    transcodeVideo.VideoId=mediaFile.Id;
-    transcodeVideo.Title=detail.MediaItem.Title;
-    transcodeVideo.Subtitle="T"+episode.SeasonNumber+":E"+episode.EpisodeNumber+" "+episode.Name;
-    transcodeVideo.PhysicalPath=mediaFile.PhysicalPath;
-    transcodeVideo.MediaServerId=mediaServer.Id;
-    transcodeVideo.MediaServerUrl=mediaServer.Url;
-    transcodeVideo.ProcessGUID=processGUID;
-    transcodeVideo.CurrentTime=currentTime?currentTime:0;
-    if(transcodeVideo.CurrentTime)
-    {
-      transcodeVideo.TimeSpan=transcodeVideo.CurrentTime.toString();
-    }else{
-      transcodeVideo.TimeSpan="0";
-    }
-    return transcodeVideo;
   }
 
 }

@@ -26,7 +26,7 @@ export class SharedService {
   currentActiveSection:any;
   listProcessGUIDs:String[]=[];
   apiToken:string;
-  currentProfile:any;
+  currentProfile:Profile;
   configurationData:Configuration=new Configuration();
   listProfiles:Profile[]=[];
   manageMenus:Menu[]=[];
@@ -35,6 +35,7 @@ export class SharedService {
   libraries:Library[]=[];
   linkedAccounts:LinkedAccount[]=[];
   hubConnection:HubConnection;
+  platform:string;
 
   constructor() {
 
