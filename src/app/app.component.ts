@@ -3,7 +3,6 @@ import { ChangeDetectorRef, Component, HostListener} from '@angular/core';
 import { SharedService } from 'src/app/modules/shared/services/shared-data.service';
 import { UserService } from './modules/pages/users/shared/user.service';
 import { NotFoundPage } from './modules/pages/not-found/not-found.page';
-import { VideoPage } from './modules/pages/media/video/component/video.page';
 import { LandingPage } from './modules/pages/landing/landing.page';
 import { RecoverPasswordPage } from './modules/pages/recover-password/recover-password.page';
 import { LoginPage } from './modules/pages/login/login.page';
@@ -26,6 +25,7 @@ import { DeviceDetectorService } from 'ngx-device-detector';
 import { MediaItemsComponent } from './modules/pages/media-items/components/media-items.component';
 import { MediaDetailComponent } from './modules/pages/media-detail/components/media-detail.component';
 import { SearchViewPage } from './modules/pages/media-search/components/search-view/search-view.page';
+import { VideoComponent } from './modules/pages/media-video/components/video/video.component';
 
 @Component({
   selector: 'app-root',
@@ -98,7 +98,7 @@ export class AppComponent{
     public onActivate(event:any){
       this.isCollapsedSidebar=true;
       this.sharedService.showSplashScreen=false;
-      if(event instanceof NotFoundPage || event instanceof VideoPage || event instanceof LoginPage || event instanceof RegisterUserPage
+      if(event instanceof NotFoundPage || event instanceof VideoComponent || event instanceof LoginPage || event instanceof RegisterUserPage
         || event instanceof RecoverPasswordPage || event instanceof ResetPasswordPage
         || event instanceof LandingPage || event instanceof ConfirmEmailPage || event instanceof ProfilesViewPage)
       {

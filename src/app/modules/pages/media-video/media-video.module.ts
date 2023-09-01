@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { VideoPage } from './component/video.page';
 import { SharedModule } from 'src/app/modules/shared/shared.module';
+import { VideoComponent } from './components/video/video.component';
 
 @NgModule({
   imports: [
@@ -10,7 +10,7 @@ import { SharedModule } from 'src/app/modules/shared/shared.module';
     FormsModule,
     SharedModule
   ],
-  declarations: [VideoPage],
-  exports: [VideoPage]
+  declarations: [VideoComponent],
+  exports: [VideoComponent]
 })
-export class VideoPageModule {}
+export class MediaVideoModule {}

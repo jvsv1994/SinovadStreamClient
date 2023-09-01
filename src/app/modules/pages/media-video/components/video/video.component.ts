@@ -12,25 +12,25 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { CustomDialogOptionsComponent, DialogOption, DialogOptionsConfiguration } from 'src/app/modules/shared/components/custom-dialog-options/custom-dialog-options.component';
 import { LibraryService } from 'src/app/modules/pages/libraries/shared/library.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SignalIRHubService } from '../../shared/services/signal-ir-hub.service';
 import { Subscription } from 'rxjs';
 import { MediaServer } from 'src/app/modules/pages/servers/shared/server.model';
-import { MediaFilePlaybackRealTime } from '../models/media-file-playback-real-time.model';
-import { MediaFilePlaybackProfile } from '../models/media-file-playback-profile.model';
-import { MediaFilePlaybackClient } from '../models/media-file-playback-client.model';
-import { MediaFilePlaybackItem } from '../models/media-file-playback-item.model';
 import { SinovadApiGenericResponse } from 'src/app/modules/shared/models/response/sinovad-api-generic-response.model';
-import { TranscodedMediaFile } from '../models/transcoded-media-file.model';
-import { UpdateMediaFilePlaybackRequest } from '../models/update-media-file-playback-request.model';
-import { RetranscodeMediaFile } from '../models/retranscode-media-file.model';
-import { ItemDetail } from '../../../media-detail/models/item-detail.model';
-import { MediaEpisode } from '../../../media-detail/models/media-episode.model';
+import { ItemDetail } from 'src/app/modules/pages/media-detail/models/item-detail.model';
+import { SignalIRHubService } from 'src/app/modules/pages/media/shared/services/signal-ir-hub.service';
+import { MediaEpisode } from 'src/app/modules/pages/media-detail/models/media-episode.model';
+import { TranscodedMediaFile } from '../../models/transcoded-media-file.model';
+import { MediaFilePlaybackRealTime } from '../../models/media-file-playback-real-time.model';
+import { MediaFilePlaybackProfile } from '../../models/media-file-playback-profile.model';
+import { MediaFilePlaybackClient } from '../../models/media-file-playback-client.model';
+import { MediaFilePlaybackItem } from '../../models/media-file-playback-item.model';
+import { RetranscodeMediaFile } from '../../models/retranscode-media-file.model';
+import { UpdateMediaFilePlaybackRequest } from '../../models/update-media-file-playback-request.model';
 @Component({
   selector: 'app-video',
-  templateUrl: 'video.page.html',
-  styleUrls: ['video.page.scss'],
+  templateUrl: 'video.component.html',
+  styleUrls: ['video.component.scss'],
 })
-export class VideoPage implements OnInit,OnDestroy{
+export class VideoComponent implements OnInit,OnDestroy{
 
   _window=window;
   showVideo:boolean=true;

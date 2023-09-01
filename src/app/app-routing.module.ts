@@ -3,7 +3,6 @@ import { Routes, RouterModule} from '@angular/router';
 import { loggedUserGuard } from './guards/logged-user.guard';
 import { adminGuard } from './guards/admin.guard';
 import { unloggedUserGuard } from './guards/unlogged-user.guard ';
-import { VideoPage } from './modules/pages/media/video/component/video.page';
 import { ProfilesViewPage } from './modules/pages/profiles/profiles-view/profiles-view.page';
 import { ProfileNewPage } from './modules/pages/profiles/profile-new/profile-new.page';
 import { ProfileEditPage } from './modules/pages/profiles/profile-edit/profile-edit.page';
@@ -28,6 +27,7 @@ import { TvSerieListPage } from './modules/pages/tvseries/tvserie-list/tvserie-l
 import { MediaItemsComponent } from './modules/pages/media-items/components/media-items.component';
 import { MediaDetailComponent } from './modules/pages/media-detail/components/media-detail.component';
 import { SearchViewPage } from './modules/pages/media-search/components/search-view/search-view.page';
+import { VideoComponent } from './modules/pages/media-video/components/video/video.component';
 
 
 const routes: Routes = [
@@ -69,8 +69,8 @@ const routes: Routes = [
   },
   {
     path: 'media/server/:serverGuid/video/:mediaFileId',
-    component: VideoPage,
-    loadChildren: () => import('./modules/pages/media/video/video.module').then(m => m.VideoPageModule),
+    component: VideoComponent,
+    loadChildren: () => import('./modules/pages/media-video/media-video.module').then(m => m.MediaVideoModule),
     canActivate:[loggedUserGuard]
   },
   {
