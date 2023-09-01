@@ -3,7 +3,6 @@ import { Routes, RouterModule} from '@angular/router';
 import { loggedUserGuard } from './guards/logged-user.guard';
 import { adminGuard } from './guards/admin.guard';
 import { unloggedUserGuard } from './guards/unlogged-user.guard ';
-import { MediaItemsComponent } from './modules/pages/media/items/media-items.component';
 import { MediaDetailComponent } from './modules/pages/media/detail/media-detail.component';
 import { VideoPage } from './modules/pages/media/video/component/video.page';
 import { SearchViewPage } from './modules/pages/media/search/search-view/search-view.page';
@@ -28,37 +27,38 @@ import { ResetPasswordPage } from './modules/pages/reset-password/reset-password
 import { ConfirmEmailPage } from './modules/pages/confirm-email/confirm-email.page';
 import { NotFoundPage } from './modules/pages/not-found/not-found.page';
 import { TvSerieListPage } from './modules/pages/tvseries/tvserie-list/tvserie-list.page';
+import { MediaItemsComponent } from './modules/pages/media-items/components/media-items.component';
 
 
 const routes: Routes = [
   {
     path: 'home',
     component: MediaItemsComponent,
-    loadChildren: () => import('./modules/pages/media/media.module').then(m => m.MediaModule),
+    loadChildren: () => import('./modules/pages/media-items/media-items.module').then(m => m.MediaItemsModule),
     canActivate:[loggedUserGuard]
   },
   {
     path: 'media/movies',
     component: MediaItemsComponent,
-    loadChildren: () => import('./modules/pages/media/media.module').then(m => m.MediaModule),
+    loadChildren: () => import('./modules/pages/media-items/media-items.module').then(m => m.MediaItemsModule),
     canActivate:[loggedUserGuard]
   },
   {
     path: 'media/tvseries',
     component: MediaItemsComponent,
-    loadChildren: () => import('./modules/pages/media/media.module').then(m => m.MediaModule),
+    loadChildren: () => import('./modules/pages/media-items/media-items.module').then(m => m.MediaItemsModule),
     canActivate:[loggedUserGuard]
   },
   {
     path: 'media/server/:serverGuid',
     component: MediaItemsComponent,
-    loadChildren: () => import('./modules/pages/media/media.module').then(m => m.MediaModule),
+    loadChildren: () => import('./modules/pages/media-items/media-items.module').then(m => m.MediaItemsModule),
     canActivate:[loggedUserGuard]
   },
   {
     path: 'media/server/:serverGuid/libraries/:libraryId',
     component: MediaItemsComponent,
-    loadChildren: () => import('./modules/pages/media/media.module').then(m => m.MediaModule),
+    loadChildren: () => import('./modules/pages/media-items/media-items.module').then(m => m.MediaItemsModule),
     canActivate:[loggedUserGuard]
   },
   {

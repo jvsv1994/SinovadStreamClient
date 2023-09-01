@@ -3,7 +3,7 @@ import { Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@
 import { SharedService } from 'src/app/modules/shared/services/shared-data.service';
 import { Router } from '@angular/router';
 import { LibraryService } from 'src/app/modules/pages/libraries/shared/library.service';
-import { Item } from '../../shared/models/item.model';
+import { Item } from '../../../media-items/models/item.model';
 
 declare var window;
 @Component({

@@ -3,11 +3,11 @@ import { RestProviderService } from 'src/app/modules/shared/services/rest-provid
 import { HttpMethodType, MediaType } from 'src/app/modules/shared/enums/enums';
 import { Library } from './library.model';
 import {v4 as uuid} from "uuid";
-import { ItemsGroup } from 'src/app/modules/pages/media/shared/models/items-group.model';
-import { Item } from 'src/app/modules/pages/media/shared/models/item.model';
 import { ItemDetail } from 'src/app/modules/pages/media/shared/models/item-detail.model';
 import { MediaFilePlayback } from 'src/app/modules/pages/media/shared/models/media-file-playback.model';
 import { SinovadApiGenericResponse } from 'src/app/modules/shared/models/response/sinovad-api-generic-response.model';
+import { Item } from '../../media-items/models/item.model';
+import { ItemsGroup } from '../../media-items/models/items-group.model';
 
 @Injectable({ providedIn: 'root' })
 export class LibraryService {

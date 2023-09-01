@@ -6,11 +6,11 @@ import { MediaType } from 'src/app/modules/shared/enums/enums';
 import { RestProviderService } from 'src/app/modules/shared/services/rest-provider.service';
 import { LibraryService } from 'src/app/modules/pages/libraries/shared/library.service';
 import { Subscription } from 'rxjs';
-import { ItemsGroup } from '../shared/models/items-group.model';
-import { Item } from '../shared/models/item.model';
-import { SignalIRHubService } from '../shared/services/signal-ir-hub.service';
 import { MediaServer } from 'src/app/modules/pages/servers/shared/server.model';
 import { Library } from 'src/app/modules/pages/libraries/shared/library.model';
+import { ItemsGroup } from '../models/items-group.model';
+import { SignalIRHubService } from '../../media/shared/services/signal-ir-hub.service';
+import { Item } from '../models/item.model';
 
 @Component({
   selector: 'app-media-items',
