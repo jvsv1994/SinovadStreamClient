@@ -81,7 +81,12 @@ export class DashboardComponent {
     var sec_num = parseInt(time, 10);
     var hours:any   = Math.floor(sec_num / 3600);
     var minutes:any = Math.floor((sec_num - (hours * 3600)) / 60);
-    return hours+'hr '+minutes+'min';
+    if(hours==0)
+    {
+      return minutes+'min';
+    }else{
+      return hours+'hr '+minutes+'min';
+    }
   }
 
   public getPlayingMediaInfo(clientData:MediaFilePlaybackClient){
