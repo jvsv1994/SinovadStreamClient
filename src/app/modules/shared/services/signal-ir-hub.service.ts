@@ -6,6 +6,8 @@ import { Observable, Subject } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class SignalIRHubService {
 
+  private addMediaFilePlayBackRealTime$ = new Subject<any>();
+  private removeMediaFilePlayBackRealTime$ = new Subject<any>();
   private updateCurrentTimeMediaFilePlayBackRealTime$ = new Subject<any>();
   private updateMediaServers$ = new Subject<boolean>();
   private enableMediaServerSubject$ = new Subject<string>();
@@ -87,6 +89,8 @@ export class SignalIRHubService {
 
   public stopConnection(){
     this.sharedService.hubConnection.off('UpdateCurrentTimeMediaFilePlayBackRealTime');
+    this.sharedService.hubConnection.off('AddMediaFilePlayBackRealTime');
+    this.sharedService.hubConnection.off('RemoveMediaFilePlayBackRealTime');
     this.sharedService.hubConnection.off('UpdateMediaServers');
     this.sharedService.hubConnection.off('EnableMediaServer');
     this.sharedService.hubConnection.off('DisableMediaServer');
@@ -127,6 +131,12 @@ export class SignalIRHubService {
       hubConnection.on('UpdateCurrentTimeMediaFilePlayBackRealTime', (mediaServerGuid:string,mediaFilePlaybackRealTimeGuid:string,currentTime:number) => {
         this.updateCurrentTimeMediaFilePlayBackRealTime$.next({mediaServerGuid:mediaServerGuid,mediaFilePlaybackRealTimeGuid:mediaFilePlaybackRealTimeGuid,currentTime:currentTime});
       });
+      hubConnection.on('AddMediaFilePlayBackRealTime', (mediaServerGuid:string,mediaFilePlaybackRealTimeGuid:string) => {
+        this.addMediaFilePlayBackRealTime$.next({mediaServerGuid:mediaServerGuid,mediaFilePlaybackRealTimeGuid:mediaFilePlaybackRealTimeGuid});
+      });
+      hubConnection.on('RemoveMediaFilePlayBackRealTime', (mediaServerGuid:string,mediaFilePlaybackRealTimeGuid:string) => {
+        this.removeMediaFilePlayBackRealTime$.next({mediaServerGuid:mediaServerGuid,mediaFilePlaybackRealTimeGuid:mediaFilePlaybackRealTimeGuid});
+      });
       hubConnection.invoke("AddConnectionToUserClientsGroup",this.sharedService.userData.Guid).then(res=>{})
   }
 
@@ -138,5 +148,12 @@ export class SignalIRHubService {
     return this.updateCurrentTimeMediaFilePlayBackRealTime$.asObservable();
   }
 
+  public isAddingMediaFilePlaybackRealTime():Observable<any>{
+    return this.addMediaFilePlayBackRealTime$.asObservable();
+  }
+
+  public isRemovingMediaFilePlaybackRealTime():Observable<any>{
+    return this.removeMediaFilePlayBackRealTime$.asObservable();
+  }
 
 }

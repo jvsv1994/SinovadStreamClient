@@ -20,6 +20,8 @@ export class DashboardComponent {
   subscriptionEnableMediaServer:Subscription;
   subscriptionDisableMediaServer:Subscription;
   subscriptionUpdateCurrentTimeMediaFilePlayback:Subscription;
+  subscriptionAddMediaFilePlayback:Subscription;
+  subscriptionRemoveMediaFilePlayback:Subscription;
   listItems:MediaFilePlaybackRealTime[];
 
   constructor(
@@ -33,6 +35,36 @@ export class DashboardComponent {
     this.router.routeReuseStrategy.shouldReuseRoute = function () {
       return false;
     };
+    this.subscriptionAddMediaFilePlayback=this.signalIrService.isAddingMediaFilePlaybackRealTime().subscribe((event:any) => {
+      if(this.mediaServer && this.mediaServer.Guid==event.mediaServerGuid)
+      {
+        var item=this.listItems.find(x=>x.Guid==event.mediaFilePlaybackRealTimeGuid);
+        if(item==undefined)
+        {
+          this.dashboardService.GetListMediaFilePlaybackRealTime(this.mediaServer.Url).then((list:MediaFilePlaybackRealTime[]) => {
+            var newItem=list.find(x=>x.Guid==event.mediaFilePlaybackRealTimeGuid);
+            if(newItem)
+            {
+              this.listItems.push(newItem);
+              this.ref.detectChanges();
+            }
+          },error=>{
+
+          });
+        }
+      }
+    });
+    this.subscriptionRemoveMediaFilePlayback=this.signalIrService.isRemovingMediaFilePlaybackRealTime().subscribe((event:any) => {
+      if(this.mediaServer && this.mediaServer.Guid==event.mediaServerGuid)
+      {
+        var index=this.listItems.findIndex(x=>x.Guid==event.mediaFilePlaybackRealTimeGuid);
+        if(index!=-1)
+        {
+          this.listItems.splice(index,1);
+          this.ref.detectChanges();
+        }
+      }
+    });
     this.subscriptionUpdateCurrentTimeMediaFilePlayback=this.signalIrService.isUpdatingCurrentTimeMediaFilePlayBackRealTime().subscribe((event:any) => {
       if(this.mediaServer && this.mediaServer.Guid==event.mediaServerGuid)
       {
@@ -86,6 +118,8 @@ export class DashboardComponent {
     this.subscriptionEnableMediaServer.unsubscribe();
     this.subscriptionDisableMediaServer.unsubscribe();
     this.subscriptionUpdateCurrentTimeMediaFilePlayback.unsubscribe();
+    this.subscriptionAddMediaFilePlayback.unsubscribe();
+    this.subscriptionRemoveMediaFilePlayback.unsubscribe();
   }
 
   public getAllItems(){
