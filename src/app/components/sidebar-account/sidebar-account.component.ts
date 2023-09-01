@@ -4,12 +4,12 @@ import { SharedService } from 'src/app/modules/shared/services/shared-data.servi
 import { ActivatedRoute } from '@angular/router';
 import { Menu } from 'src/app/modules/pages/menus/shared/menu.model';
 import { MediaServer } from 'src/app/modules/pages/servers/shared/server.model';
-import { SignalIRHubService } from 'src/app/modules/pages/media/shared/services/signal-ir-hub.service';
 import { Subscription } from 'rxjs';
 import { SidebarOption } from 'src/app/models/sidebar-option.model';
 import { DropDownServersService } from 'src/app/services/drop-down-servers.service';
 import { DropDownMenuItem } from 'src/app/models/drop-down-menu-Item.model';
 import { DropDownMenuOptions } from 'src/app/models/drop-down-menu-options.model';
+import { SignalIRHubService } from 'src/app/modules/shared/services/signal-ir-hub.service';
 
 declare var window;
 @Component({

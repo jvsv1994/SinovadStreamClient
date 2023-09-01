@@ -8,9 +8,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { SinovadApiPaginationResponse } from 'src/app/modules/shared/models/response/sinovad-api-pagination-response.model';
 import { MediaServer } from 'src/app/modules/pages/servers/shared/server.model';
 import { Subscription } from 'rxjs';
-import { SignalIRHubService } from 'src/app/modules/pages/media/shared/services/signal-ir-hub.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SharedService } from 'src/app/modules/shared/services/shared-data.service';
+import { SignalIRHubService } from 'src/app/modules/shared/services/signal-ir-hub.service';
 
 @Component({
   selector: 'app-alerts',

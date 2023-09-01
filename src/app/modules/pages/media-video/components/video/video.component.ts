@@ -16,7 +16,6 @@ import { Subscription } from 'rxjs';
 import { MediaServer } from 'src/app/modules/pages/servers/shared/server.model';
 import { SinovadApiGenericResponse } from 'src/app/modules/shared/models/response/sinovad-api-generic-response.model';
 import { ItemDetail } from 'src/app/modules/pages/media-detail/models/item-detail.model';
-import { SignalIRHubService } from 'src/app/modules/pages/media/shared/services/signal-ir-hub.service';
 import { MediaEpisode } from 'src/app/modules/pages/media-detail/models/media-episode.model';
 import { TranscodedMediaFile } from '../../models/transcoded-media-file.model';
 import { MediaFilePlaybackRealTime } from '../../models/media-file-playback-real-time.model';
@@ -25,6 +24,7 @@ import { MediaFilePlaybackClient } from '../../models/media-file-playback-client
 import { MediaFilePlaybackItem } from '../../models/media-file-playback-item.model';
 import { RetranscodeMediaFile } from '../../models/retranscode-media-file.model';
 import { UpdateMediaFilePlaybackRequest } from '../../models/update-media-file-playback-request.model';
+import { SignalIRHubService } from 'src/app/modules/shared/services/signal-ir-hub.service';
 @Component({
   selector: 'app-video',
   templateUrl: 'video.component.html',

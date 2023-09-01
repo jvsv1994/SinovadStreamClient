@@ -6,7 +6,6 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { User } from '../users/shared/user.model';
 import { MenuService } from '../menus/shared/menu.service';
 import { UserSession } from '../users/shared/user-session.model';
-import { SignalIRHubService } from '../media/shared/services/signal-ir-hub.service';
 import { UserService } from '../users/shared/user.service';
 import { ConfirmLinkAccount } from '../../shared/models/confirm-linked-account.model';
 import { AuthenticationService } from '../../shared/services/authentication.service';
@@ -15,6 +14,7 @@ import { AuthenticationUserResponse } from '../../shared/models/authenticate-use
 import { LinkedAccount } from '../../shared/models/linked-account.model';
 import { CatalogEnum, LinkedAccountProvider } from '../../shared/enums/enums';
 import { MyErrorStateMatcher } from '../../shared/error-matcher/custom-error-state-matcher';
+import { SignalIRHubService } from '../../shared/services/signal-ir-hub.service';
 
 declare var window;
 @Component({

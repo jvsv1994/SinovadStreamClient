@@ -6,9 +6,9 @@ import { MediaServer } from './server.model';
 import { SharedService } from 'src/app/modules/shared/services/shared-data.service';
 import { LibraryService } from 'src/app/modules/pages/libraries/shared/library.service';
 import { Library } from 'src/app/modules/pages/libraries/shared/library.model';
-import { MediaService } from 'src/app/modules/pages/media/shared/services/media.service';
 import { SinovadApiGenericResponse } from 'src/app/modules/shared/models/response/sinovad-api-generic-response.model';
 import { SinovadApiPaginationResponse } from 'src/app/modules/shared/models/response/sinovad-api-pagination-response.model';
+import { MediaService } from 'src/app/modules/shared/services/media.service';
 
 @Injectable({ providedIn: 'root' })
 export class MediaServerService {

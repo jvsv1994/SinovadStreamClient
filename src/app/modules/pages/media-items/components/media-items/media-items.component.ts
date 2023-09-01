@@ -10,7 +10,7 @@ import { MediaServer } from 'src/app/modules/pages/servers/shared/server.model';
 import { Library } from 'src/app/modules/pages/libraries/shared/library.model';
 import { ItemsGroup } from '../../models/items-group.model';
 import { Item } from '../../models/item.model';
-import { SignalIRHubService } from '../../../media/shared/services/signal-ir-hub.service';
+import { SignalIRHubService } from 'src/app/modules/shared/services/signal-ir-hub.service';
 
 @Component({
   selector: 'app-media-items',

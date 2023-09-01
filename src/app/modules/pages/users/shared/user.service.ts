@@ -7,9 +7,9 @@ import { SharedService } from 'src/app/modules/shared/services/shared-data.servi
 import { SinovadApiPaginationResponse } from 'src/app/modules/shared/models/response/sinovad-api-pagination-response.model';
 import { SinovadApiGenericResponse } from 'src/app/modules/shared/models/response/sinovad-api-generic-response.model';
 import { UserSession } from './user-session.model';
-import { SignalIRHubService } from 'src/app/modules/pages/media/shared/services/signal-ir-hub.service';
 import { Observable, Subject } from 'rxjs';
 import { MenuService } from 'src/app/modules/pages/menus/shared/menu.service';
+import { SignalIRHubService } from 'src/app/modules/shared/services/signal-ir-hub.service';
 export declare type EventHandler = (...args: any[]) => any;
 
 @Injectable({ providedIn: 'root' })

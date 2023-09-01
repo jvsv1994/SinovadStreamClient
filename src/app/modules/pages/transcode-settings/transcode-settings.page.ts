@@ -11,11 +11,11 @@ import { CatalogDetail } from '../catalogs/shared/catalog-detail.model';
 import { TranscoderSettings } from './shared/transcoder-settings.model';
 import { TranscoderSettingsService } from './shared/transcoderSettings.service';
 import { Subscription } from 'rxjs';
-import { SignalIRHubService } from '../media/shared/services/signal-ir-hub.service';
 import { CatalogService } from '../catalogs/shared/catalog.services';
 import { SinovadApiGenericResponse } from '../../shared/models/response/sinovad-api-generic-response.model';
 import { SnackBarType } from '../../shared/components/custom-snack-bar/custom-snack-bar.component';
 import { DirectoryChooserPage } from '../../shared/components/directory-chooser/directory-chooser.page';
+import { SignalIRHubService } from '../../shared/services/signal-ir-hub.service';
 
 declare var window;
 @Component({

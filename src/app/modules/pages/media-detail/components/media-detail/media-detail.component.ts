@@ -7,9 +7,9 @@ import { MediaGeneric } from 'src/app/modules/shared/generics/media.generic';
 import { LibraryService } from 'src/app/modules/pages/libraries/shared/library.service';
 import { Subscription } from 'rxjs';
 import { ItemDetail } from '../../models/item-detail.model';
-import { SignalIRHubService } from '../../../media/shared/services/signal-ir-hub.service';
 import { MediaEpisode } from '../../models/media-episode.model';
 import { MediaSeason } from '../../models/media-season.model';
+import { SignalIRHubService } from 'src/app/modules/shared/services/signal-ir-hub.service';
 
 declare var window;
 @Component({

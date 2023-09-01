@@ -11,10 +11,10 @@ import { CustomMenuItem, CustomMenuService } from 'src/app/modules/shared/servic
 import { MediaServer } from 'src/app/modules/pages/servers/shared/server.model';
 import { SinovadApiGenericResponse } from 'src/app/modules/shared/models/response/sinovad-api-generic-response.model';
 import { Subscription } from 'rxjs';
-import { SignalIRHubService } from 'src/app/modules/pages/media/shared/services/signal-ir-hub.service';
 import { SnackBarService } from 'src/app/modules/shared/services/snack-bar.service';
 import { ConfirmDialogOptions, CustomConfirmDialogComponent } from 'src/app/modules/shared/components/custom-confirm-dialog/custom-confirm-dialog.component';
 import { SnackBarType } from 'src/app/modules/shared/components/custom-snack-bar/custom-snack-bar.component';
+import { SignalIRHubService } from 'src/app/modules/shared/services/signal-ir-hub.service';
 
 declare var window;
 @Component({
