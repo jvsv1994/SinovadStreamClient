@@ -1,6 +1,6 @@
 
 import { Component, EventEmitter, Output } from '@angular/core';
-import { Menu } from 'src/app/modules/pages/menus/shared/menu.model';
+import { Menu } from 'src/app/modules/pages/manage/modules/pages/menus/models/menu.model';
 import { SharedService } from 'src/app/modules/shared/services/shared-data.service';
 
 declare var window;

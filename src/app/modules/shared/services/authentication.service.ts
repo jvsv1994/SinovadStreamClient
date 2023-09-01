@@ -3,10 +3,10 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AuthProvider, FacebookAuthProvider, GoogleAuthProvider } from 'firebase/auth';
 import { RestProviderService } from './rest-provider.service';
 import { SinovadApiGenericResponse } from '../models/response/sinovad-api-generic-response.model';
-import { User } from 'src/app/modules/pages/users/shared/user.model';
 import { LinkedAccount } from '../models/linked-account.model';
 import { ConfirmLinkAccount } from '../models/confirm-linked-account.model';
 import { HttpMethodType } from '../enums/enums';
+import { User } from '../../pages/manage/modules/pages/users/models/user.model';
 
 @Injectable({
   providedIn: 'root'

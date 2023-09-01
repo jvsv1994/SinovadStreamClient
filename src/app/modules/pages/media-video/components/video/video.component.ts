@@ -2,7 +2,6 @@ import { ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild 
 import { HttpClient} from '@angular/common/http';
 import * as Dash from 'dashjs';
 import {v4 as uuid} from "uuid";
-import hiBase64 from 'hi-base64';
 import { SharedService } from 'src/app/modules/shared/services/shared-data.service';
 import { parse } from '@plussub/srt-vtt-parser';
 import Hls, { HlsConfig } from 'hls.js';
@@ -12,7 +11,6 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { CustomDialogOptionsComponent, DialogOption, DialogOptionsConfiguration } from 'src/app/modules/shared/components/custom-dialog-options/custom-dialog-options.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { MediaServer } from 'src/app/modules/pages/servers/shared/server.model';
 import { SinovadApiGenericResponse } from 'src/app/modules/shared/models/response/sinovad-api-generic-response.model';
 import { ItemDetail } from 'src/app/modules/pages/media-detail/models/item-detail.model';
 import { MediaEpisode } from 'src/app/modules/pages/media-detail/models/media-episode.model';
@@ -25,6 +23,7 @@ import { RetranscodeMediaFile } from '../../models/retranscode-media-file.model'
 import { UpdateMediaFilePlaybackRequest } from '../../models/update-media-file-playback-request.model';
 import { SignalIRHubService } from 'src/app/modules/shared/services/signal-ir-hub.service';
 import { LibraryService } from '../../../settings/modules/pages/server/modules/pages/manage/modules/pages/libraries/services/library.service';
+import { MediaServer } from '../../../manage/modules/pages/servers/models/server.model';
 @Component({
   selector: 'app-video',
   templateUrl: 'video.component.html',

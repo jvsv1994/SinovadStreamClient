@@ -6,7 +6,6 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LibraryFormComponent } from '../library-form/library-form.component';
 import { CustomMenuItem, CustomMenuService } from 'src/app/modules/shared/services/custom-menu.service';
-import { MediaServer } from 'src/app/modules/pages/servers/shared/server.model';
 import { SinovadApiGenericResponse } from 'src/app/modules/shared/models/response/sinovad-api-generic-response.model';
 import { Subscription } from 'rxjs';
 import { SnackBarService } from 'src/app/modules/shared/services/snack-bar.service';
@@ -15,6 +14,7 @@ import { SnackBarType } from 'src/app/modules/shared/components/custom-snack-bar
 import { SignalIRHubService } from 'src/app/modules/shared/services/signal-ir-hub.service';
 import { Library } from '../../models/library.model';
 import { LibraryService } from '../../services/library.service';
+import { MediaServer } from 'src/app/modules/pages/manage/modules/pages/servers/models/server.model';
 
 declare var window;
 @Component({

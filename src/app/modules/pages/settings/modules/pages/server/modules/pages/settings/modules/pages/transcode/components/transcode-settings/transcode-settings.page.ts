@@ -7,15 +7,15 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { SnackBarService } from 'src/app/modules/shared/services/snack-bar.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
-import { CatalogDetail } from 'src/app/modules/pages/catalogs/shared/catalog-detail.model';
 import { TranscoderSettings } from '../../models/transcoder-settings.model';
-import { MediaServer } from 'src/app/modules/pages/servers/shared/server.model';
-import { CatalogService } from 'src/app/modules/pages/catalogs/shared/catalog.services';
 import { SignalIRHubService } from 'src/app/modules/shared/services/signal-ir-hub.service';
 import { TranscoderSettingsService } from '../../services/transcoderSettings.service';
 import { SinovadApiGenericResponse } from 'src/app/modules/shared/models/response/sinovad-api-generic-response.model';
 import { SnackBarType } from 'src/app/modules/shared/components/custom-snack-bar/custom-snack-bar.component';
 import { DirectoryChooserPage } from 'src/app/modules/shared/components/directory-chooser/directory-chooser.page';
+import { CatalogDetail } from 'src/app/modules/pages/manage/modules/pages/catalogs/shared/catalog-detail.model';
+import { MediaServer } from 'src/app/modules/pages/manage/modules/pages/servers/models/server.model';
+import { CatalogService } from 'src/app/modules/pages/manage/modules/pages/catalogs/shared/catalog.services';
 
 declare var window;
 @Component({

@@ -1,8 +1,8 @@
 
 import { SharedService } from 'src/app/modules/shared/services/shared-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MediaServer } from 'src/app/modules/pages/servers/shared/server.model';
 import { Library } from '../../pages/settings/modules/pages/server/modules/pages/manage/modules/pages/libraries/models/library.model';
+import { MediaServer } from '../../pages/manage/modules/pages/servers/models/server.model';
 
 export class MediaGeneric{
 

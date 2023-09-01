@@ -1,16 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule} from '@angular/router';
 import { loggedUserGuard } from './guards/logged-user.guard';
-import { adminGuard } from './guards/admin.guard';
 import { unloggedUserGuard } from './guards/unlogged-user.guard ';
 import { ProfilesViewPage } from './modules/pages/profiles/profiles-view/profiles-view.page';
 import { ProfileNewPage } from './modules/pages/profiles/profile-new/profile-new.page';
 import { ProfileEditPage } from './modules/pages/profiles/profile-edit/profile-edit.page';
-import { MovieListPage } from './modules/pages/movies/movie-list/movie-list.page';
-import { GenreListPage } from './modules/pages/genres/genre-list/genre-list.page';
-import { MenuListPage } from './modules/pages/menus/menu-list/menu-list.page';
-import { UserListPage } from './modules/pages/users/user-list/user-list.page';
-import { RoleListPage } from './modules/pages/roles/role-list/role-list.page';
 import { LandingPage } from './modules/pages/landing/landing.page';
 import { RegisterUserPage } from './modules/pages/register-user/register-user.page';
 import { LoginPage } from './modules/pages/login/login.page';
@@ -18,7 +12,6 @@ import { RecoverPasswordPage } from './modules/pages/recover-password/recover-pa
 import { ResetPasswordPage } from './modules/pages/reset-password/reset-password.page';
 import { ConfirmEmailPage } from './modules/pages/confirm-email/confirm-email.page';
 import { NotFoundPage } from './modules/pages/not-found/not-found.page';
-import { TvSerieListPage } from './modules/pages/tvseries/tvserie-list/tvserie-list.page';
 import { SearchViewPage } from './modules/pages/media-search/components/search-view/search-view.page';
 import { VideoComponent } from './modules/pages/media-video/components/video/video.component';
 import { MediaItemsComponent } from './modules/pages/media-items/components/media-items/media-items.component';
@@ -97,40 +90,8 @@ const routes: Routes = [
     loadChildren: () => import('./modules/pages/settings/settings.module').then(m => m.SettingsModule)
   },
   {
-    path: 'manage/movies',
-    component: MovieListPage,
-    loadChildren: () => import('./modules/pages/movies/movies.module').then(m => m.MoviesModule),
-    canActivate:[loggedUserGuard,adminGuard]
-  },
-  {
-    path: 'manage/tvseries',
-    component: TvSerieListPage,
-    loadChildren: () => import('./modules/pages/tvseries/tvseries.module').then(m => m.TvSeriesModule),
-    canActivate:[loggedUserGuard,adminGuard]
-  },
-  {
-    path: 'manage/genres',
-    component: GenreListPage,
-    loadChildren: () => import('./modules/pages/genres/genres.module').then(m => m.GenresModule),
-    canActivate:[loggedUserGuard,adminGuard]
-  },
-  {
-    path: 'manage/menus',
-    component: MenuListPage,
-    loadChildren: () => import('./modules/pages/menus/menus.module').then(m => m.MenusModule),
-    canActivate:[loggedUserGuard,adminGuard]
-  },
-  {
-    path: 'manage/users',
-    component: UserListPage,
-    loadChildren: () => import('./modules/pages/users/users.module').then(m => m.UsersModule),
-    canActivate:[loggedUserGuard,adminGuard]
-  },
-  {
-    path: 'manage/roles',
-    component: RoleListPage,
-    loadChildren: () => import('./modules/pages/roles/roles.module').then(m => m.RolesPageModule),
-    canActivate:[loggedUserGuard,adminGuard]
+    path: 'manage',
+    loadChildren: () => import('./modules/pages/manage/manage.module').then(m => m.ManageModule)
   },
   {
     path: 'landing',

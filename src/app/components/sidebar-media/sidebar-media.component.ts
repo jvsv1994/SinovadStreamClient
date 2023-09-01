@@ -1,8 +1,8 @@
 
 import { Component, EventEmitter, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { Menu } from 'src/app/modules/pages/menus/shared/menu.model';
-import { MediaServer } from 'src/app/modules/pages/servers/shared/server.model';
+import { Menu } from 'src/app/modules/pages/manage/modules/pages/menus/models/menu.model';
+import { MediaServer } from 'src/app/modules/pages/manage/modules/pages/servers/models/server.model';
 import { Library } from 'src/app/modules/pages/settings/modules/pages/server/modules/pages/manage/modules/pages/libraries/models/library.model';
 import { LibraryService } from 'src/app/modules/pages/settings/modules/pages/server/modules/pages/manage/modules/pages/libraries/services/library.service';
 import { MediaType } from 'src/app/modules/shared/enums/enums';

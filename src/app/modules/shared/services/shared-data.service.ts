@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import { User } from 'src/app/modules/pages/users/shared/user.model';
-import { Menu } from 'src/app/modules/pages/menus/shared/menu.model';
 import { Profile } from 'src/app/modules/pages/profiles/shared/profile.model';
 import { Configuration } from '../models/configuration.model';
-import { MediaServer } from 'src/app/modules/pages/servers/shared/server.model';
 import { FormGroup } from '@angular/forms';
 import { LinkedAccount } from '../models/linked-account.model';
 import { HubConnection } from '@microsoft/signalr';
 import { MetadataAgents } from '../enums/enums';
 import { Item } from '../../pages/media-items/models/item.model';
+import { Menu } from '../../pages/manage/modules/pages/menus/models/menu.model';
+import { User } from '../../pages/manage/modules/pages/users/models/user.model';
+import { MediaServer } from '../../pages/manage/modules/pages/servers/models/server.model';
 
 @Injectable({ providedIn: 'root' })
 export class SharedService {

@@ -5,12 +5,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MediaType } from 'src/app/modules/shared/enums/enums';
 import { RestProviderService } from 'src/app/modules/shared/services/rest-provider.service';
 import { Subscription } from 'rxjs';
-import { MediaServer } from 'src/app/modules/pages/servers/shared/server.model';
 import { ItemsGroup } from '../../models/items-group.model';
 import { Item } from '../../models/item.model';
 import { SignalIRHubService } from 'src/app/modules/shared/services/signal-ir-hub.service';
 import { Library } from '../../../settings/modules/pages/server/modules/pages/manage/modules/pages/libraries/models/library.model';
 import { LibraryService } from '../../../settings/modules/pages/server/modules/pages/manage/modules/pages/libraries/services/library.service';
+import { MediaServer } from '../../../manage/modules/pages/servers/models/server.model';
 
 @Component({
   selector: 'app-media-items',

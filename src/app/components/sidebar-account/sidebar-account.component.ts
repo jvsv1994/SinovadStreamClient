@@ -2,14 +2,14 @@
 import { ChangeDetectorRef, Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { SharedService } from 'src/app/modules/shared/services/shared-data.service';
 import { ActivatedRoute } from '@angular/router';
-import { Menu } from 'src/app/modules/pages/menus/shared/menu.model';
-import { MediaServer } from 'src/app/modules/pages/servers/shared/server.model';
 import { Subscription } from 'rxjs';
 import { SidebarOption } from 'src/app/models/sidebar-option.model';
 import { DropDownServersService } from 'src/app/services/drop-down-servers.service';
 import { DropDownMenuItem } from 'src/app/models/drop-down-menu-Item.model';
 import { DropDownMenuOptions } from 'src/app/models/drop-down-menu-options.model';
 import { SignalIRHubService } from 'src/app/modules/shared/services/signal-ir-hub.service';
+import { MediaServer } from 'src/app/modules/pages/manage/modules/pages/servers/models/server.model';
+import { Menu } from 'src/app/modules/pages/manage/modules/pages/menus/models/menu.model';
 
 declare var window;
 @Component({

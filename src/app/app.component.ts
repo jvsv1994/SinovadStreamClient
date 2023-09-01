@@ -1,7 +1,6 @@
 
 import { ChangeDetectorRef, Component, HostListener} from '@angular/core';
 import { SharedService } from 'src/app/modules/shared/services/shared-data.service';
-import { UserService } from './modules/pages/users/shared/user.service';
 import { NotFoundPage } from './modules/pages/not-found/not-found.page';
 import { LandingPage } from './modules/pages/landing/landing.page';
 import { RecoverPasswordPage } from './modules/pages/recover-password/recover-password.page';
@@ -10,12 +9,6 @@ import { ResetPasswordPage } from './modules/pages/reset-password/reset-password
 import { ConfirmEmailPage } from './modules/pages/confirm-email/confirm-email.page';
 import { ProfilesViewPage } from './modules/pages/profiles/profiles-view/profiles-view.page';
 import { RegisterUserPage } from './modules/pages/register-user/register-user.page';
-import { MovieListPage } from './modules/pages/movies/movie-list/movie-list.page';
-import { GenreListPage } from './modules/pages/genres/genre-list/genre-list.page';
-import { UserListPage } from './modules/pages/users/user-list/user-list.page';
-import { TvSerieListPage } from './modules/pages/tvseries/tvserie-list/tvserie-list.page';
-import { RoleListPage } from './modules/pages/roles/role-list/role-list.page';
-import { MenuListPage } from './modules/pages/menus/menu-list/menu-list.page';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { SearchViewPage } from './modules/pages/media-search/components/search-view/search-view.page';
 import { VideoComponent } from './modules/pages/media-video/components/video/video.component';
@@ -26,6 +19,13 @@ import { TranscoderSettingssPage } from './modules/pages/settings/modules/pages/
 import { ServerSettingsGeneralPage } from './modules/pages/settings/modules/pages/server/modules/pages/settings/modules/pages/general/components/server-settings-general/server-settings-general.page';
 import { LibraryListComponent } from './modules/pages/settings/modules/pages/server/modules/pages/manage/modules/pages/libraries/components/library-list/library-list.component';
 import { AlertsComponent } from './modules/pages/settings/modules/pages/server/modules/pages/status/modules/pages/alerts/components/alerts/alerts.component';
+import { UserService } from './modules/pages/manage/modules/pages/users/services/user.service';
+import { MovieListPage } from './modules/pages/manage/modules/pages/movies/components/movie-list/movie-list.page';
+import { GenreListPage } from './modules/pages/manage/modules/pages/genres/components/genre-list/genre-list.page';
+import { TvSerieListPage } from './modules/pages/manage/modules/pages/tvseries/components/tvserie-list/tvserie-list.page';
+import { UserListPage } from './modules/pages/manage/modules/pages/users/components/user-list/user-list.page';
+import { MenuListPage } from './modules/pages/manage/modules/pages/menus/components/menu-list/menu-list.page';
+import { RoleListPage } from './modules/pages/manage/modules/pages/roles/components/role-list/role-list.page';
 
 @Component({
   selector: 'app-root',

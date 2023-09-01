@@ -3,10 +3,6 @@ import { Component } from '@angular/core';
 import { SharedService } from 'src/app/modules/shared/services/shared-data.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { User } from '../users/shared/user.model';
-import { MenuService } from '../menus/shared/menu.service';
-import { UserSession } from '../users/shared/user-session.model';
-import { UserService } from '../users/shared/user.service';
 import { ConfirmLinkAccount } from '../../shared/models/confirm-linked-account.model';
 import { AuthenticationService } from '../../shared/services/authentication.service';
 import { SinovadApiGenericResponse } from '../../shared/models/response/sinovad-api-generic-response.model';
@@ -15,6 +11,10 @@ import { LinkedAccount } from '../../shared/models/linked-account.model';
 import { CatalogEnum, LinkedAccountProvider } from '../../shared/enums/enums';
 import { MyErrorStateMatcher } from '../../shared/error-matcher/custom-error-state-matcher';
 import { SignalIRHubService } from '../../shared/services/signal-ir-hub.service';
+import { User } from '../manage/modules/pages/users/models/user.model';
+import { MenuService } from '../manage/modules/pages/menus/services/menu.service';
+import { UserService } from '../manage/modules/pages/users/services/user.service';
+import { UserSession } from '../manage/modules/pages/users/models/user-session.model';
 
 declare var window;
 @Component({

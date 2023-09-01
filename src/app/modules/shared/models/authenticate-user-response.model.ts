@@ -1,6 +1,5 @@
-import { User } from "src/app/modules/pages/users/shared/user.model";
+import { UserSession } from "../../pages/manage/modules/pages/users/models/user-session.model";
 import { ConfirmLinkAccount } from "./confirm-linked-account.model";
-import { UserSession } from "src/app/modules/pages/users/shared/user-session.model";
 
 export class AuthenticationUserResponse{
   ApiToken: string;
