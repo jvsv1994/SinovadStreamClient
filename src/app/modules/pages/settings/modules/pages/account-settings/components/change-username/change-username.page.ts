@@ -2,14 +2,14 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { SharedService } from 'src/app/modules/shared/services/shared-data.service';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { AccountSettingsService } from '../shared/services/account-settings.service';
-import { ChangeUsernameModel } from '../shared/models/change-username.model';
+import { ChangeUsernameModel } from '../../models/change-username.model';
+import { AccountSettingsService } from '../../services/account-settings.service';
 
 declare var window;
 @Component({
   selector: 'app-change-username',
   templateUrl: './change-username.page.html',
-  styleUrls: ['./change-username.page.scss','../shared/styles/account-settings-section.scss']
+  styleUrls: ['./change-username.page.scss','../../styles/account-settings-section.scss']
 })
 export class ChangeUsernamePage implements OnInit {
 

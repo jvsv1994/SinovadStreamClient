@@ -35,7 +35,7 @@ export class SidebarAccountComponent implements OnInit {
         {
           index:1,
           name:"Panel de Control",
-          path:"/settings/server/{serverGuid}/status/server-dashboard"
+          path:"/settings/server/{serverGuid}/status/dashboard"
         },
         {
           index:2,

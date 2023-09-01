@@ -2,14 +2,14 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { SharedService } from 'src/app/modules/shared/services/shared-data.service';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { ChangePasswordModel } from '../shared/models/change-password.model';
-import { AccountSettingsService } from '../shared/services/account-settings.service';
+import { AccountSettingsService } from '../../services/account-settings.service';
+import { ChangePasswordModel } from '../../models/change-password.model';
 
 declare var window;
 @Component({
   selector: 'app-change-password',
   templateUrl: './change-password.page.html',
-  styleUrls: ['./change-password.page.scss','../shared/styles/account-settings-section.scss']
+  styleUrls: ['./change-password.page.scss','../../styles/account-settings-section.scss']
 })
 export class ChangePasswordPage implements OnInit {
 
