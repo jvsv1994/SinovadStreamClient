@@ -9,6 +9,7 @@ import { Item } from '../../pages/media-items/models/item.model';
 import { Menu } from '../../pages/manage/modules/pages/menus/models/menu.model';
 import { User } from '../../pages/manage/modules/pages/users/models/user.model';
 import { MediaServer } from '../../pages/manage/modules/pages/servers/models/server.model';
+import { DeviceData } from 'src/app/models/device-data.model';
 
 @Injectable({ providedIn: 'root' })
 export class SharedService {
@@ -28,7 +29,7 @@ export class SharedService {
   mediaServers:MediaServer[]=[];
   linkedAccounts:LinkedAccount[]=[];
   hubConnection:HubConnection;
-  platform:string;
+  deviceData:DeviceData;
 
   constructor() {
 

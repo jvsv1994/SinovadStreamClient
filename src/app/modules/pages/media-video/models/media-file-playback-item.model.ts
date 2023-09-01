@@ -4,5 +4,7 @@ export class MediaFilePlaybackItem{
   public PhysicalPath: string;
   public Title: string;
   public Subtitle: string;
+  public PosterPath: string;
+  public Duration: number;
 
 }

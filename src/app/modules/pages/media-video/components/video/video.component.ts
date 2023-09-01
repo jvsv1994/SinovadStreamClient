@@ -5,7 +5,7 @@ import {v4 as uuid} from "uuid";
 import { SharedService } from 'src/app/modules/shared/services/shared-data.service';
 import { parse } from '@plussub/srt-vtt-parser';
 import Hls, { HlsConfig } from 'hls.js';
-import { HttpMethodType, LoadVideoStatus, MediaType, VideoTransmissionType } from 'src/app/modules/shared/enums/enums';
+import { HttpMethodType, LoadVideoStatus, MediaType, MetadataAgents, VideoTransmissionType } from 'src/app/modules/shared/enums/enums';
 import { RestProviderService } from 'src/app/modules/shared/services/rest-provider.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { CustomDialogOptionsComponent, DialogOption, DialogOptionsConfiguration } from 'src/app/modules/shared/components/custom-dialog-options/custom-dialog-options.component';
@@ -24,6 +24,8 @@ import { UpdateMediaFilePlaybackRequest } from '../../models/update-media-file-p
 import { SignalIRHubService } from 'src/app/modules/shared/services/signal-ir-hub.service';
 import { LibraryService } from '../../../settings/modules/pages/server/modules/pages/manage/modules/pages/libraries/services/library.service';
 import { MediaServer } from '../../../manage/modules/pages/servers/models/server.model';
+import { MediaItem } from '../../../media-detail/models/media-item.model';
+import { MediaFile } from '../../../media-detail/models/media-file.model';
 @Component({
   selector: 'app-video',
   templateUrl: 'video.component.html',
@@ -226,7 +228,7 @@ export class VideoComponent implements OnInit,OnDestroy{
     mediaFilePlaybackProfile.AvatarPath=this.sharedService.currentProfile.AvatarPath;
     mediaFilePlaybackRealTime.ProfileData=mediaFilePlaybackProfile;
     var mediaFilePlaybackClient = new MediaFilePlaybackClient();
-    mediaFilePlaybackClient.Platform=this.sharedService.platform;
+    mediaFilePlaybackClient.DeviceData=this.sharedService.deviceData;
     mediaFilePlaybackClient.IsPlaying=true;
     mediaFilePlaybackClient.CurrentTime=currentTime;
     mediaFilePlaybackRealTime.ClientData=mediaFilePlaybackClient;
@@ -237,6 +239,7 @@ export class VideoComponent implements OnInit,OnDestroy{
       mediaFilePlaybackItem.Title=this.itemDetail.MediaItem.ExtendedTitle;
       mediaFilePlaybackItem.PhysicalPath=mediaFile.PhysicalPath;
       mediaFilePlaybackItem.MediaFileId=mediaFile.Id;
+      mediaFilePlaybackItem.PosterPath=this.getPosterPath(this.itemDetail.MediaItem,mediaFile);
       mediaFilePlaybackRealTime.ItemData=mediaFilePlaybackItem;
     }
     if(this.itemDetail.MediaItem.MediaTypeId==MediaType.TvSerie)
@@ -247,14 +250,27 @@ export class VideoComponent implements OnInit,OnDestroy{
       mediaFilePlaybackItem.PhysicalPath=mediaFile.PhysicalPath;
       mediaFilePlaybackItem.Title=this.itemDetail.MediaItem.Title;
       mediaFilePlaybackItem.Subtitle="T"+this.itemDetail.CurrentEpisode.SeasonNumber+":E"+this.itemDetail.CurrentEpisode.EpisodeNumber+" "+this.itemDetail.CurrentEpisode.Name;
+      mediaFilePlaybackItem.PosterPath=this.getPosterPath(this.itemDetail.MediaItem,mediaFile);
       mediaFilePlaybackRealTime.ItemData=mediaFilePlaybackItem;
     }
     return mediaFilePlaybackRealTime;
   }
 
+  public getPosterPath(item:MediaItem,mediaFile:MediaFile){
+    if(item.MetadataAgentsId==MetadataAgents.TMDb)
+    {
+      return this.sharedService.originalUrlImagesMovieDataBase+item.PosterPath;
+    }else{
+      if(item.PosterPath)
+      {
+        return item.PosterPath;
+      }else{
+        return this.mediaServer.Url+"/media/"+mediaFile.Guid+"/thumbnail.png";
+      }
+    }
+  }
 
-
-    //Retranscode Section
+  //Retranscode Section
 
     public retranscodeMediaFile(newVideoTime:number){
       this.deleteLastTranscodedMediaFileProcess();

@@ -26,6 +26,8 @@ import { TvSerieListPage } from './modules/pages/manage/modules/pages/tvseries/c
 import { UserListPage } from './modules/pages/manage/modules/pages/users/components/user-list/user-list.page';
 import { MenuListPage } from './modules/pages/manage/modules/pages/menus/components/menu-list/menu-list.page';
 import { RoleListPage } from './modules/pages/manage/modules/pages/roles/components/role-list/role-list.page';
+import { DashboardComponent } from './modules/pages/settings/modules/pages/server/modules/pages/status/modules/pages/dashboard/components/dashboard/dashboard.component';
+import { DeviceData } from './models/device-data.model';
 
 @Component({
   selector: 'app-root',
@@ -49,7 +51,10 @@ export class AppComponent{
 
     public ngOnInit(): void {
       var deviceInfo=this.deviceService.getDeviceInfo();
-      this.sharedService.platform=deviceInfo.os+" - "+deviceInfo.deviceType+" - "+deviceInfo.browser;
+      this.sharedService.deviceData = new DeviceData();
+      this.sharedService.deviceData.OperatingSystem=deviceInfo.os;
+      this.sharedService.deviceData.DeviceType=deviceInfo.deviceType;
+      this.sharedService.deviceData.Browser=deviceInfo.browser;
       const queryString = window.location.search;
       if (queryString != "") {
           const urlParams = new URLSearchParams(queryString);
@@ -122,7 +127,7 @@ export class AppComponent{
         this.showingSidebarAdminMode=false;
       }
       if(event instanceof MyAccountPage || event instanceof TranscoderSettingssPage || event instanceof ServerSettingsGeneralPage ||
-        event instanceof LibraryListComponent || event instanceof AlertsComponent)
+        event instanceof LibraryListComponent || event instanceof AlertsComponent || event instanceof DashboardComponent)
       {
         this.showRouterChildWithFullDimentions=false;
         this.showingSidebarAccount=true;
