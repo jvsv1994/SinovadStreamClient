@@ -24,10 +24,10 @@ import { ResetPasswordPage } from './modules/pages/reset-password/reset-password
 import { ConfirmEmailPage } from './modules/pages/confirm-email/confirm-email.page';
 import { NotFoundPage } from './modules/pages/not-found/not-found.page';
 import { TvSerieListPage } from './modules/pages/tvseries/tvserie-list/tvserie-list.page';
-import { MediaDetailComponent } from './modules/pages/media-detail/components/media-detail.component';
 import { SearchViewPage } from './modules/pages/media-search/components/search-view/search-view.page';
 import { VideoComponent } from './modules/pages/media-video/components/video/video.component';
 import { MediaItemsComponent } from './modules/pages/media-items/components/media-items/media-items.component';
+import { MediaDetailComponent } from './modules/pages/media-detail/components/media-detail/media-detail.component';
 
 
 const routes: Routes = [

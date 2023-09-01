@@ -22,10 +22,10 @@ import { TvSerieListPage } from './modules/pages/tvseries/tvserie-list/tvserie-l
 import { RoleListPage } from './modules/pages/roles/role-list/role-list.page';
 import { MenuListPage } from './modules/pages/menus/menu-list/menu-list.page';
 import { DeviceDetectorService } from 'ngx-device-detector';
-import { MediaDetailComponent } from './modules/pages/media-detail/components/media-detail.component';
 import { SearchViewPage } from './modules/pages/media-search/components/search-view/search-view.page';
 import { VideoComponent } from './modules/pages/media-video/components/video/video.component';
 import { MediaItemsComponent } from './modules/pages/media-items/components/media-items/media-items.component';
+import { MediaDetailComponent } from './modules/pages/media-detail/components/media-detail/media-detail.component';
 
 @Component({
   selector: 'app-root',
