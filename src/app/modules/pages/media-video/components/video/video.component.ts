@@ -171,6 +171,10 @@ export class VideoComponent implements OnInit,OnDestroy{
     }
     window.addEventListener('beforeunload',this.beforeUnloadFunction);
     this.detectChangesInterval=window.setInterval(function() {
+      if(ctx.mediaServer && ctx.transcodedMediaFile)
+      {
+        ctx.signalIrService.updateCurrentTimeMediaFilePlayBackRealTime(ctx.mediaServer.Guid,ctx.transcodedMediaFile.Guid,ctx.getCurrentVideoTime());
+      }
       ctx.ref.detectChanges();
     }, 0);
     this.updateMediaFilePlaybackInterval=window.setInterval(function() {
