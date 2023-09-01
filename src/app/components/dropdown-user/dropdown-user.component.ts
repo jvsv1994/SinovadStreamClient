@@ -24,13 +24,13 @@ export class DropDownUserComponent{
   public onClickChangeProfileButton(){
     this.sharedService.showSplashScreen=true;
     this.ref.detectChanges();
-    this.router.navigateByUrl('/select-profile')
+    this.router.navigateByUrl('/profiles')
   }
 
   public onClickEditProfilesButton(){
     this.sharedService.showSplashScreen=true;
     this.ref.detectChanges();
-    this.router.navigateByUrl('/select-profile')
+    this.router.navigateByUrl('/profiles')
   }
 
   public onSelectProfile(profile:Profile)

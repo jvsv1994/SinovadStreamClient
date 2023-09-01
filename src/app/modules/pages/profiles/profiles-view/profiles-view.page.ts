@@ -38,11 +38,11 @@ export class ProfilesViewPage{
     }
 
     public showNewProfile(){
-      this.router.navigateByUrl("/add-profile");
+      this.router.navigateByUrl("/profiles/add");
     }
 
     public editProfile(profile:Profile){
-      this.router.navigateByUrl("/edit-profile/"+profile.Guid);
+      this.router.navigateByUrl("/profiles/edit/"+profile.Guid);
     }
 
     public onSelectProfile(profile:any){

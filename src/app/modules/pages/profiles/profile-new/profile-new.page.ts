@@ -33,14 +33,14 @@ export class ProfileNewPage{
 
     public saveProfile(){
       this.profileService.saveItem(this.currentTmpProfile).then((response) => {
-        this.router.navigateByUrl("/select-profile");
+        this.router.navigateByUrl("/profiles");
       },error=>{
         console.error(error);
       });
     }
 
     public onCloseProfileNew(){
-      this.router.navigateByUrl("/select-profile");
+      this.router.navigateByUrl("/profiles");
     }
 
 }

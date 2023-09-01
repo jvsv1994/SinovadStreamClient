@@ -68,22 +68,8 @@ const routes: Routes = [
     canActivate:[loggedUserGuard]
   },
   {
-    path: 'select-profile',
-    component: ProfilesViewPage,
-    loadChildren: () => import('./modules/pages/profiles/profiles.module').then(m => m.ProfilesModule),
-    canActivate:[loggedUserGuard]
-  },
-  {
-    path: 'add-profile',
-    component: ProfileNewPage,
-    loadChildren: () => import('./modules/pages/profiles/profiles.module').then(m => m.ProfilesModule),
-    canActivate:[loggedUserGuard]
-  },
-  {
-    path: 'edit-profile/:profileGuid',
-    component: ProfileEditPage,
-    loadChildren: () => import('./modules/pages/profiles/profiles.module').then(m => m.ProfilesModule),
-    canActivate:[loggedUserGuard]
+    path: 'profiles',
+    loadChildren: () => import('./modules/pages/profiles/profiles.module').then(m => m.ProfilesModule)
   },
   {
     path: 'settings',

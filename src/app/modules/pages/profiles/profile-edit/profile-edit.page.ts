@@ -47,7 +47,7 @@ export class ProfileEditPage implements OnInit {
 
     public saveProfile(){
       this.profileService.saveItem(this.currentTmpProfile).then((response) => {
-        this.router.navigateByUrl("/select-profile");
+        this.router.navigateByUrl("/profiles");
       },error=>{
         console.error(error);
       });
@@ -55,7 +55,7 @@ export class ProfileEditPage implements OnInit {
 
     public onClickDeleteButton(){
       this.profileService.deleteItem(this.currentTmpProfile.Id).then((response) => {
-        this.router.navigateByUrl("/select-profile");
+        this.router.navigateByUrl("/profiles");
       },error=>{
         console.error(error);
       });
