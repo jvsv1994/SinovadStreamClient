@@ -22,17 +22,12 @@ export class SharedService {
   urlSinovadCdn: string='https://resources.sinovad.com/stream/web';
   originalUrlImagesMovieDataBase:String="https://image.tmdb.org/t/p/w600_and_h900_bestv2";
   urlEpisodeDataBase:string="https://www.themoviedb.org/t/p/w454_and_h254_bestv2";
-  currentSelectedElement:any;
-  currentActiveSection:any;
-  listProcessGUIDs:String[]=[];
   apiToken:string;
   currentProfile:Profile;
   configurationData:Configuration=new Configuration();
   listProfiles:Profile[]=[];
   manageMenus:Menu[]=[];
-  pageNotFoundShowing:boolean=false;
   mediaServers:MediaServer[]=[];
-  libraries:Library[]=[];
   linkedAccounts:LinkedAccount[]=[];
   hubConnection:HubConnection;
   platform:string;

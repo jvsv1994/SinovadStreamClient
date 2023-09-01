@@ -69,11 +69,9 @@
                       <i class="fa-solid fa-rotate-left"></i>
                     </button>
                     <button #playButton id="playButton" class="sinovad-video-control-button principal" *ngIf="!isPlayingVideo()" (click)="playOrPauseVideo()">
-                      <img style="display:none;" src (error)="focusButton(playButton)">
                       <i class="fa-solid fa-play"></i>
                     </button>
                     <button #stopButton id="stopButton" class="sinovad-video-control-button principal" *ngIf="isPlayingVideo()" (click)="playOrPauseVideo()">
-                      <img style="display:none;" src (error)="focusButton(stopButton)">
                       <i class="fa-solid fa-pause"></i>
                     </button>
                     <button id="forwardButton" class="sinovad-video-control-button " (click)="forwardVideo()"  style="margin-left: 25px;">

@@ -623,25 +623,12 @@ export class VideoPage implements OnInit,OnDestroy{
     });
   }
 
-  public showSubtitle(){
-
-  }
-
   public closeVideo(){
     if (document.fullscreenElement) {
       document.exitFullscreen();
     }
     this.deleteTranscodedMediaFile();
     this.router.navigateByUrl("/home");
-  }
-
-  public focusButton(button:any){
-    button.focus();
-    this.sharedService.currentSelectedElement=button;
-  }
-
-  ngAfterViewInit(){
-
   }
 
   public getConfirmMessage():string{

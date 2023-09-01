@@ -18,13 +18,12 @@ export class NotFoundPage implements OnInit {
     }
 
   ngOnInit(): void {
-    this.sharedService.pageNotFoundShowing=true;
   }
 
   public goInitialPage(){
     var pagePath=this.sharedService.apiToken!=undefined?"/home":"/landing";
     this.router.navigateByUrl(pagePath).then((response) => {
-      this.sharedService.pageNotFoundShowing=false;
+
     },error=>{
       console.error(error);
     });
