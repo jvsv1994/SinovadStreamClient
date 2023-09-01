@@ -6,6 +6,7 @@ import { Observable, Subject } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class SignalIRHubService {
 
+  private refreshListMediaFilePlaybackRealTime$ = new Subject<string>();
   private updateMediaServers$ = new Subject<boolean>();
   private enableMediaServerSubject$ = new Subject<string>();
   private disableMediaServerSubject$ = new Subject<string>();
@@ -17,6 +18,14 @@ export class SignalIRHubService {
     private sharedService:SharedService
     ) {
 
+  }
+
+  public refreshListMediaFilePlaybackRealTime(mediaServerGuid:string):void{
+    this.refreshListMediaFilePlaybackRealTime$.next(mediaServerGuid);
+  };
+
+  public isRefreshingListMediaFilePlaybackRealTime():Observable<string>{
+    return this.refreshListMediaFilePlaybackRealTime$.asObservable();
   }
 
   public updateMediaServers():void{
@@ -85,6 +94,7 @@ export class SignalIRHubService {
   }
 
   public stopConnection(){
+    this.sharedService.hubConnection.off('RefreshListMediaFilePlaybackRealTimeInMediaServer');
     this.sharedService.hubConnection.off('UpdateMediaServers');
     this.sharedService.hubConnection.off('EnableMediaServer');
     this.sharedService.hubConnection.off('DisableMediaServer');
@@ -122,6 +132,14 @@ export class SignalIRHubService {
       });
 /*       hubConnection.on('UpdateItemsByMediaServerAndLibrary', (mediaServerGuid:string,libraryGuid:string) => {
       }); */
+      hubConnection.on('RefreshListMediaFilePlaybackRealTimeInMediaServer', (mediaServerGuid:string) => {
+        var mediaServer=this.sharedService.mediaServers.find(x=>x.Guid==mediaServerGuid);
+        if(!mediaServer.isSecureConnection)
+        {
+          mediaServer.isSecureConnection=true;
+        }
+        this.refreshListMediaFilePlaybackRealTime(mediaServerGuid);
+      });
       hubConnection.invoke("AddConnectionToUserClientsGroup",this.sharedService.userData.Guid).then(res=>{})
   }
 

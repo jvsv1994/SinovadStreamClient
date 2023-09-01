@@ -19,6 +19,7 @@ export class DashboardComponent {
   loadingConnection:boolean=true;
   subscriptionEnableMediaServer:Subscription;
   subscriptionDisableMediaServer:Subscription;
+  subscriptionRefreshListMediaFilePlayback:Subscription;
   listItems:MediaFilePlaybackRealTime[];
 
   constructor(
@@ -32,6 +33,12 @@ export class DashboardComponent {
     this.router.routeReuseStrategy.shouldReuseRoute = function () {
       return false;
     };
+    this.subscriptionRefreshListMediaFilePlayback=this.signalIrService.isRefreshingListMediaFilePlaybackRealTime().subscribe((mediaServerGuid:string) => {
+      if(this.mediaServer && this.mediaServer.Guid==mediaServerGuid)
+      {
+        this.getAllItems();
+      }
+    });
     this.subscriptionEnableMediaServer=this.signalIrService.isEnablingMediaServer().subscribe((mediaServerGuid:string) => {
       if(this.mediaServer && this.mediaServer.Guid==mediaServerGuid && !this.mediaServer.isSecureConnection)
       {
@@ -67,6 +74,13 @@ export class DashboardComponent {
     }else{
       this.router.navigateByUrl('/404')
     }
+  }
+
+
+  ngOnDestroy(){
+    this.subscriptionEnableMediaServer.unsubscribe();
+    this.subscriptionDisableMediaServer.unsubscribe();
+    this.subscriptionRefreshListMediaFilePlayback.unsubscribe();
   }
 
   public getAllItems(){
