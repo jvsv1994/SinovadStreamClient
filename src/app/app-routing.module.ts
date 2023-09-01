@@ -4,7 +4,6 @@ import { loggedUserGuard } from './guards/logged-user.guard';
 import { adminGuard } from './guards/admin.guard';
 import { unloggedUserGuard } from './guards/unlogged-user.guard ';
 import { VideoPage } from './modules/pages/media/video/component/video.page';
-import { SearchViewPage } from './modules/pages/media/search/search-view/search-view.page';
 import { ProfilesViewPage } from './modules/pages/profiles/profiles-view/profiles-view.page';
 import { ProfileNewPage } from './modules/pages/profiles/profile-new/profile-new.page';
 import { ProfileEditPage } from './modules/pages/profiles/profile-edit/profile-edit.page';
@@ -28,6 +27,7 @@ import { NotFoundPage } from './modules/pages/not-found/not-found.page';
 import { TvSerieListPage } from './modules/pages/tvseries/tvserie-list/tvserie-list.page';
 import { MediaItemsComponent } from './modules/pages/media-items/components/media-items.component';
 import { MediaDetailComponent } from './modules/pages/media-detail/components/media-detail.component';
+import { SearchViewPage } from './modules/pages/media-search/components/search-view/search-view.page';
 
 
 const routes: Routes = [
@@ -76,7 +76,7 @@ const routes: Routes = [
   {
     path: 'search',
     component: SearchViewPage,
-    loadChildren: () => import('./modules/pages/media/search/search.module').then(m => m.SearchModule),
+    loadChildren: () => import('./modules/pages/media-search/media-search.module').then(m => m.MediaSearchModule),
     canActivate:[loggedUserGuard]
   },
   {

@@ -11,7 +11,6 @@ import { ResetPasswordPage } from './modules/pages/reset-password/reset-password
 import { ConfirmEmailPage } from './modules/pages/confirm-email/confirm-email.page';
 import { ProfilesViewPage } from './modules/pages/profiles/profiles-view/profiles-view.page';
 import { RegisterUserPage } from './modules/pages/register-user/register-user.page';
-import { SearchViewPage } from './modules/pages/media/search/search-view/search-view.page';
 import { MyAccountPage } from './modules/pages/account-settings/my-account/my-account.page';
 import { TranscoderSettingssPage } from './modules/pages/transcode-settings/transcode-settings.page';
 import { ServerSettingsGeneralPage } from './modules/pages/server-settings-general/server-settings-general.page';
@@ -26,6 +25,7 @@ import { MenuListPage } from './modules/pages/menus/menu-list/menu-list.page';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { MediaItemsComponent } from './modules/pages/media-items/components/media-items.component';
 import { MediaDetailComponent } from './modules/pages/media-detail/components/media-detail.component';
+import { SearchViewPage } from './modules/pages/media-search/components/search-view/search-view.page';
 
 @Component({
   selector: 'app-root',

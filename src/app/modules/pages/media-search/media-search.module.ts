@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { SearchViewPage } from './search-view/search-view.page';
-import { VerticalItemListPage } from './vertical-item-list/vertical-item-list.page';
 import { SharedModule } from 'src/app/modules/shared/shared.module';
+import { SearchViewPage } from './components/search-view/search-view.page';
+import { VerticalItemListPage } from './components/vertical-item-list/vertical-item-list.page';
 
 @NgModule({
     declarations: [
@@ -18,5 +18,5 @@ import { SharedModule } from 'src/app/modules/shared/shared.module';
     ],
     exports: [SearchViewPage,VerticalItemListPage]
 })
-export class SearchModule {
+export class MediaSearchModule {
 }
