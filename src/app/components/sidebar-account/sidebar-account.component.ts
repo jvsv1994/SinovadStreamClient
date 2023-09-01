@@ -56,7 +56,7 @@ export class SidebarAccountComponent implements OnInit {
         {
           index:4,
           name:"Transcodificador",
-          path:"/settings/server/{serverGuid}/settings/transcoder"
+          path:"/settings/server/{serverGuid}/settings/transcode"
         }
       ]
     },{

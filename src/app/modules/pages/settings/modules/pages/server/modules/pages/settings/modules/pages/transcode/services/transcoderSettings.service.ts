@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { RestProviderService } from 'src/app/modules/shared/services/rest-provider.service';
 import { HttpMethodType } from 'src/app/modules/shared/enums/enums';
-import { TranscoderSettings } from './transcoder-settings.model';
 import { SinovadApiGenericResponse } from 'src/app/modules/shared/models/response/sinovad-api-generic-response.model';
+import { TranscoderSettings } from '../models/transcoder-settings.model';
 
 @Injectable({ providedIn: 'root' })
 export class TranscoderSettingsService {

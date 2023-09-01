@@ -6,12 +6,12 @@ import { RestProviderService } from 'src/app/modules/shared/services/rest-provid
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { SnackBarService } from 'src/app/modules/shared/services/snack-bar.service';
-import { MediaServer } from '../servers/shared/server.model';
-import { MediaServerService } from '../servers/shared/server.service';
 import { Subscription } from 'rxjs';
-import { SinovadApiGenericResponse } from '../../shared/models/response/sinovad-api-generic-response.model';
-import { SnackBarType } from '../../shared/components/custom-snack-bar/custom-snack-bar.component';
-import { SignalIRHubService } from '../../shared/services/signal-ir-hub.service';
+import { SignalIRHubService } from 'src/app/modules/shared/services/signal-ir-hub.service';
+import { MediaServer } from 'src/app/modules/pages/servers/shared/server.model';
+import { MediaServerService } from 'src/app/modules/pages/servers/shared/server.service';
+import { SinovadApiGenericResponse } from 'src/app/modules/shared/models/response/sinovad-api-generic-response.model';
+import { SnackBarType } from 'src/app/modules/shared/components/custom-snack-bar/custom-snack-bar.component';
 
 declare var window;
 @Component({

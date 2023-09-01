@@ -9,7 +9,11 @@ const routes: Routes = [
     component: MyAccountPage,
     loadChildren: () => import('./modules/pages/account-settings/account-settings.module').then(m => m.AccountSettingsModule),
     canActivate:[loggedUserGuard]
-  }
+  },
+  {
+    path: 'server/:serverGuid',
+    loadChildren: () => import('./modules/pages/server/server.module').then(m => m.ServerModule)
+  },
 ];
 
 @NgModule({

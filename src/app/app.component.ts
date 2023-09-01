@@ -10,8 +10,6 @@ import { ResetPasswordPage } from './modules/pages/reset-password/reset-password
 import { ConfirmEmailPage } from './modules/pages/confirm-email/confirm-email.page';
 import { ProfilesViewPage } from './modules/pages/profiles/profiles-view/profiles-view.page';
 import { RegisterUserPage } from './modules/pages/register-user/register-user.page';
-import { TranscoderSettingssPage } from './modules/pages/transcode-settings/transcode-settings.page';
-import { ServerSettingsGeneralPage } from './modules/pages/server-settings-general/server-settings-general.page';
 import { LibraryListComponent } from './modules/pages/libraries/library-list/library-list.component';
 import { AlertsComponent } from './modules/pages/alerts/components/alerts/alerts.component';
 import { MovieListPage } from './modules/pages/movies/movie-list/movie-list.page';
@@ -26,6 +24,8 @@ import { VideoComponent } from './modules/pages/media-video/components/video/vid
 import { MediaItemsComponent } from './modules/pages/media-items/components/media-items/media-items.component';
 import { MediaDetailComponent } from './modules/pages/media-detail/components/media-detail/media-detail.component';
 import { MyAccountPage } from './modules/pages/settings/modules/pages/account-settings/components/my-account/my-account.page';
+import { TranscoderSettingssPage } from './modules/pages/settings/modules/pages/server/modules/pages/settings/modules/pages/transcode/components/transcode-settings/transcode-settings.page';
+import { ServerSettingsGeneralPage } from './modules/pages/settings/modules/pages/server/modules/pages/settings/modules/pages/general/components/server-settings-general/server-settings-general.page';
 
 @Component({
   selector: 'app-root',
