@@ -8,7 +8,6 @@ import { LibraryService } from 'src/app/modules/pages/libraries/shared/library.s
 import { Library } from 'src/app/modules/pages/libraries/shared/library.model';
 import { SinovadApiGenericResponse } from 'src/app/modules/shared/models/response/sinovad-api-generic-response.model';
 import { SinovadApiPaginationResponse } from 'src/app/modules/shared/models/response/sinovad-api-pagination-response.model';
-import { MediaService } from 'src/app/modules/shared/services/media.service';
 
 @Injectable({ providedIn: 'root' })
 export class MediaServerService {
@@ -16,7 +15,6 @@ export class MediaServerService {
   lastCallGuid:string;
 
   constructor(
-    private mediaService:MediaService,
     private libraryService:LibraryService,
     private sharedService:SharedService,
     private restProvider: RestProviderService,
@@ -43,12 +41,10 @@ export class MediaServerService {
     {
       this.libraryService.getLibrariesByMediaServer(mediaServer.Url).then((libraries:Library[]) => {
         mediaServer.ListLibraries=libraries;
-        this.mediaService.updateMediaItems();
       },error=>{
       });
     }else{
       mediaServer.ListLibraries=[];
-      this.mediaService.updateMediaItems();
     }
   }
 
