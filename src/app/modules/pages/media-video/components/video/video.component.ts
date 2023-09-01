@@ -10,7 +10,6 @@ import { HttpMethodType, LoadVideoStatus, MediaType, VideoTransmissionType } fro
 import { RestProviderService } from 'src/app/modules/shared/services/rest-provider.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { CustomDialogOptionsComponent, DialogOption, DialogOptionsConfiguration } from 'src/app/modules/shared/components/custom-dialog-options/custom-dialog-options.component';
-import { LibraryService } from 'src/app/modules/pages/libraries/shared/library.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { MediaServer } from 'src/app/modules/pages/servers/shared/server.model';
@@ -25,6 +24,7 @@ import { MediaFilePlaybackItem } from '../../models/media-file-playback-item.mod
 import { RetranscodeMediaFile } from '../../models/retranscode-media-file.model';
 import { UpdateMediaFilePlaybackRequest } from '../../models/update-media-file-playback-request.model';
 import { SignalIRHubService } from 'src/app/modules/shared/services/signal-ir-hub.service';
+import { LibraryService } from '../../../settings/modules/pages/server/modules/pages/manage/modules/pages/libraries/services/library.service';
 @Component({
   selector: 'app-video',
   templateUrl: 'video.component.html',

@@ -2,13 +2,13 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { LibraryService } from '../shared/library.service';
-import { Library } from '../shared/library.model';
 import { MyErrorStateMatcher } from 'src/app/modules/shared/error-matcher/custom-error-state-matcher';
 import { CatalogEnum } from 'src/app/modules/shared/enums/enums';
 import { SharedService } from 'src/app/modules/shared/services/shared-data.service';
 import { DirectoryChooserPage } from 'src/app/modules/shared/components/directory-chooser/directory-chooser.page';
 import { MediaServer } from 'src/app/modules/pages/servers/shared/server.model';
+import { Library } from '../../models/library.model';
+import { LibraryService } from '../../services/library.service';
 
 declare var window;
 @Component({
@@ -35,7 +35,6 @@ export class LibraryFormComponent implements OnInit {
   ]
 
   constructor(
-    private sharedService:SharedService,
     private libraryService:LibraryService,
     private activeModal: NgbActiveModal,
     private formBuilder: FormBuilder,

@@ -2,8 +2,8 @@
 import { Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 import { SharedService } from 'src/app/modules/shared/services/shared-data.service';
 import { Router } from '@angular/router';
-import { LibraryService } from 'src/app/modules/pages/libraries/shared/library.service';
 import { Item } from '../../../media-items/models/item.model';
+import { LibraryService } from '../../../settings/modules/pages/server/modules/pages/manage/modules/pages/libraries/services/library.service';
 
 declare var window;
 @Component({

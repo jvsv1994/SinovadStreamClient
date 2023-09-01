@@ -7,7 +7,6 @@ import { ProfilesViewPage } from './modules/pages/profiles/profiles-view/profile
 import { ProfileNewPage } from './modules/pages/profiles/profile-new/profile-new.page';
 import { ProfileEditPage } from './modules/pages/profiles/profile-edit/profile-edit.page';
 import { AlertsComponent } from './modules/pages/alerts/components/alerts/alerts.component';
-import { LibraryListComponent } from './modules/pages/libraries/library-list/library-list.component';
 import { MovieListPage } from './modules/pages/movies/movie-list/movie-list.page';
 import { GenreListPage } from './modules/pages/genres/genre-list/genre-list.page';
 import { MenuListPage } from './modules/pages/menus/menu-list/menu-list.page';
@@ -102,12 +101,6 @@ const routes: Routes = [
     path: 'settings/server/:serverGuid/status/alerts',
     component: AlertsComponent,
     loadChildren: () => import('./modules/pages/alerts/alerts.module').then(m => m.AlertsModule),
-    canActivate:[loggedUserGuard]
-  },
-  {
-    path: 'settings/server/:serverGuid/manage/libraries',
-    component: LibraryListComponent,
-    loadChildren: () => import('./modules/pages/libraries/libraries.module').then(m => m.LibrariesModule),
     canActivate:[loggedUserGuard]
   },
   {

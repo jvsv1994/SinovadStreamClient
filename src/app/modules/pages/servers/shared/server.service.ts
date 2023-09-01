@@ -4,10 +4,10 @@ import { HttpMethodType } from 'src/app/modules/shared/enums/enums';
 import {v4 as uuid} from "uuid";
 import { MediaServer } from './server.model';
 import { SharedService } from 'src/app/modules/shared/services/shared-data.service';
-import { LibraryService } from 'src/app/modules/pages/libraries/shared/library.service';
-import { Library } from 'src/app/modules/pages/libraries/shared/library.model';
 import { SinovadApiGenericResponse } from 'src/app/modules/shared/models/response/sinovad-api-generic-response.model';
 import { SinovadApiPaginationResponse } from 'src/app/modules/shared/models/response/sinovad-api-pagination-response.model';
+import { LibraryService } from '../../settings/modules/pages/server/modules/pages/manage/modules/pages/libraries/services/library.service';
+import { Library } from '../../settings/modules/pages/server/modules/pages/manage/modules/pages/libraries/models/library.model';
 
 @Injectable({ providedIn: 'root' })
 export class MediaServerService {

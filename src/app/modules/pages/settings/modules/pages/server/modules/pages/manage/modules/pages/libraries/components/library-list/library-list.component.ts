@@ -3,8 +3,6 @@ import { Component, EventEmitter } from '@angular/core';
 import { SharedService } from 'src/app/modules/shared/services/shared-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { LibraryService } from '../shared/library.service';
-import { Library } from '../shared/library.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LibraryFormComponent } from '../library-form/library-form.component';
 import { CustomMenuItem, CustomMenuService } from 'src/app/modules/shared/services/custom-menu.service';
@@ -15,6 +13,8 @@ import { SnackBarService } from 'src/app/modules/shared/services/snack-bar.servi
 import { ConfirmDialogOptions, CustomConfirmDialogComponent } from 'src/app/modules/shared/components/custom-confirm-dialog/custom-confirm-dialog.component';
 import { SnackBarType } from 'src/app/modules/shared/components/custom-snack-bar/custom-snack-bar.component';
 import { SignalIRHubService } from 'src/app/modules/shared/services/signal-ir-hub.service';
+import { Library } from '../../models/library.model';
+import { LibraryService } from '../../services/library.service';
 
 declare var window;
 @Component({

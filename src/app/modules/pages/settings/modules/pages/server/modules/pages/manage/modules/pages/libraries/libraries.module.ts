@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SharedModule } from '../../shared/shared.module';
-import { LibraryListComponent } from './library-list/library-list.component';
-import { LibraryFormComponent } from './library-form/library-form.component';
+import { LibraryListComponent } from './components/library-list/library-list.component';
+import { LibraryFormComponent } from './components/library-form/library-form.component';
+import { SharedModule } from 'src/app/modules/shared/shared.module';
 
 @NgModule({
     declarations: [

@@ -1,10 +1,10 @@
 
 import { Component, EventEmitter, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { Library } from 'src/app/modules/pages/libraries/shared/library.model';
-import { LibraryService } from 'src/app/modules/pages/libraries/shared/library.service';
 import { Menu } from 'src/app/modules/pages/menus/shared/menu.model';
 import { MediaServer } from 'src/app/modules/pages/servers/shared/server.model';
+import { Library } from 'src/app/modules/pages/settings/modules/pages/server/modules/pages/manage/modules/pages/libraries/models/library.model';
+import { LibraryService } from 'src/app/modules/pages/settings/modules/pages/server/modules/pages/manage/modules/pages/libraries/services/library.service';
 import { MediaType } from 'src/app/modules/shared/enums/enums';
 import { SharedService } from 'src/app/modules/shared/services/shared-data.service';
 import { SignalIRHubService } from 'src/app/modules/shared/services/signal-ir-hub.service';

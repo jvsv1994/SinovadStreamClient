@@ -4,12 +4,12 @@ import { SharedService } from 'src/app/modules/shared/services/shared-data.servi
 import { MediaType, MetadataAgents } from 'src/app/modules/shared/enums/enums';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MediaGeneric } from 'src/app/modules/shared/generics/media.generic';
-import { LibraryService } from 'src/app/modules/pages/libraries/shared/library.service';
 import { Subscription } from 'rxjs';
 import { ItemDetail } from '../../models/item-detail.model';
 import { MediaEpisode } from '../../models/media-episode.model';
 import { MediaSeason } from '../../models/media-season.model';
 import { SignalIRHubService } from 'src/app/modules/shared/services/signal-ir-hub.service';
+import { LibraryService } from '../../../settings/modules/pages/server/modules/pages/manage/modules/pages/libraries/services/library.service';
 
 declare var window;
 @Component({

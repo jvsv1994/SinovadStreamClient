@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { RestProviderService } from 'src/app/modules/shared/services/rest-provider.service';
 import { HttpMethodType, MediaType } from 'src/app/modules/shared/enums/enums';
-import { Library } from './library.model';
 import {v4 as uuid} from "uuid";
 import { SinovadApiGenericResponse } from 'src/app/modules/shared/models/response/sinovad-api-generic-response.model';
-import { Item } from '../../media-items/models/item.model';
-import { ItemsGroup } from '../../media-items/models/items-group.model';
-import { ItemDetail } from '../../media-detail/models/item-detail.model';
-import { MediaFilePlayback } from '../../media-detail/models/media-file-playback.model';
+import { Library } from '../models/library.model';
+import { Item } from 'src/app/modules/pages/media-items/models/item.model';
+import { ItemsGroup } from 'src/app/modules/pages/media-items/models/items-group.model';
+import { ItemDetail } from 'src/app/modules/pages/media-detail/models/item-detail.model';
+import { MediaFilePlayback } from 'src/app/modules/pages/media-detail/models/media-file-playback.model';
 
 @Injectable({ providedIn: 'root' })
 export class LibraryService {

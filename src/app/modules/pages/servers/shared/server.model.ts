@@ -1,4 +1,4 @@
-import { Library } from "src/app/modules/pages/libraries/shared/library.model";
+import { Library } from "../../settings/modules/pages/server/modules/pages/manage/modules/pages/libraries/models/library.model";
 
 export class MediaServer{
   public Id?: number;
