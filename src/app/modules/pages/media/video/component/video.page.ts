@@ -12,8 +12,6 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { CustomDialogOptionsComponent, DialogOption, DialogOptionsConfiguration } from 'src/app/modules/shared/components/custom-dialog-options/custom-dialog-options.component';
 import { LibraryService } from 'src/app/modules/pages/libraries/shared/library.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MediaEpisode } from '../../shared/models/media-episode.model';
-import { ItemDetail } from '../../shared/models/item-detail.model';
 import { SignalIRHubService } from '../../shared/services/signal-ir-hub.service';
 import { Subscription } from 'rxjs';
 import { MediaServer } from 'src/app/modules/pages/servers/shared/server.model';
@@ -25,6 +23,8 @@ import { SinovadApiGenericResponse } from 'src/app/modules/shared/models/respons
 import { TranscodedMediaFile } from '../models/transcoded-media-file.model';
 import { UpdateMediaFilePlaybackRequest } from '../models/update-media-file-playback-request.model';
 import { RetranscodeMediaFile } from '../models/retranscode-media-file.model';
+import { ItemDetail } from '../../../media-detail/models/item-detail.model';
+import { MediaEpisode } from '../../../media-detail/models/media-episode.model';
 @Component({
   selector: 'app-video',
   templateUrl: 'video.page.html',

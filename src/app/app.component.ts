@@ -12,7 +12,6 @@ import { ConfirmEmailPage } from './modules/pages/confirm-email/confirm-email.pa
 import { ProfilesViewPage } from './modules/pages/profiles/profiles-view/profiles-view.page';
 import { RegisterUserPage } from './modules/pages/register-user/register-user.page';
 import { SearchViewPage } from './modules/pages/media/search/search-view/search-view.page';
-import { MediaDetailComponent } from './modules/pages/media/detail/media-detail.component';
 import { MyAccountPage } from './modules/pages/account-settings/my-account/my-account.page';
 import { TranscoderSettingssPage } from './modules/pages/transcode-settings/transcode-settings.page';
 import { ServerSettingsGeneralPage } from './modules/pages/server-settings-general/server-settings-general.page';
@@ -26,6 +25,7 @@ import { RoleListPage } from './modules/pages/roles/role-list/role-list.page';
 import { MenuListPage } from './modules/pages/menus/menu-list/menu-list.page';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { MediaItemsComponent } from './modules/pages/media-items/components/media-items.component';
+import { MediaDetailComponent } from './modules/pages/media-detail/components/media-detail.component';
 
 @Component({
   selector: 'app-root',

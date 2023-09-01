@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../../shared/shared.module';
-import { MediaDetailComponent } from './detail/media-detail.component';
+import { MediaDetailComponent } from './components/media-detail.component';
 
 @NgModule({
     declarations: [
@@ -16,5 +16,5 @@ import { MediaDetailComponent } from './detail/media-detail.component';
     ],
     exports: [MediaDetailComponent]
 })
-export class MediaModule {
+export class MediaDetailModule {
 }

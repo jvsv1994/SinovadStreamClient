@@ -5,11 +5,11 @@ import { MediaType, MetadataAgents } from 'src/app/modules/shared/enums/enums';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MediaGeneric } from 'src/app/modules/shared/generics/media.generic';
 import { LibraryService } from 'src/app/modules/pages/libraries/shared/library.service';
-import { ItemDetail } from '../shared/models/item-detail.model';
-import { MediaEpisode } from '../shared/models/media-episode.model';
-import { MediaSeason } from '../shared/models/media-season.model';
 import { Subscription } from 'rxjs';
-import { SignalIRHubService } from '../shared/services/signal-ir-hub.service';
+import { ItemDetail } from '../models/item-detail.model';
+import { SignalIRHubService } from '../../media/shared/services/signal-ir-hub.service';
+import { MediaEpisode } from '../models/media-episode.model';
+import { MediaSeason } from '../models/media-season.model';
 
 declare var window;
 @Component({

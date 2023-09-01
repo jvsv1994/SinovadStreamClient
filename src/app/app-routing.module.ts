@@ -3,7 +3,6 @@ import { Routes, RouterModule} from '@angular/router';
 import { loggedUserGuard } from './guards/logged-user.guard';
 import { adminGuard } from './guards/admin.guard';
 import { unloggedUserGuard } from './guards/unlogged-user.guard ';
-import { MediaDetailComponent } from './modules/pages/media/detail/media-detail.component';
 import { VideoPage } from './modules/pages/media/video/component/video.page';
 import { SearchViewPage } from './modules/pages/media/search/search-view/search-view.page';
 import { ProfilesViewPage } from './modules/pages/profiles/profiles-view/profiles-view.page';
@@ -28,6 +27,7 @@ import { ConfirmEmailPage } from './modules/pages/confirm-email/confirm-email.pa
 import { NotFoundPage } from './modules/pages/not-found/not-found.page';
 import { TvSerieListPage } from './modules/pages/tvseries/tvserie-list/tvserie-list.page';
 import { MediaItemsComponent } from './modules/pages/media-items/components/media-items.component';
+import { MediaDetailComponent } from './modules/pages/media-detail/components/media-detail.component';
 
 
 const routes: Routes = [
@@ -64,7 +64,7 @@ const routes: Routes = [
   {
     path: 'media/server/:serverGuid/libraries/:libraryId/detail',
     component: MediaDetailComponent,
-    loadChildren: () => import('./modules/pages/media/media.module').then(m => m.MediaModule),
+    loadChildren: () => import('./modules/pages/media-detail/media-detail.module').then(m => m.MediaDetailModule),
     canActivate:[loggedUserGuard]
   },
   {
