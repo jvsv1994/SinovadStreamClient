@@ -63,6 +63,7 @@ export class VideoComponent implements OnInit,OnDestroy{
   beforeUnloadFunction:any=false;
   subscriptionEnableMediaServer:Subscription;
   subscriptionDisableMediaServer:Subscription;
+  subscriptionRemoveMediaFilePlayback:Subscription;
   mediaServer:MediaServer;
   transcodedMediaFile:TranscodedMediaFile;
   itemDetail: ItemDetail;
@@ -97,6 +98,12 @@ export class VideoComponent implements OnInit,OnDestroy{
           this.router.navigateByUrl('/media/server/'+mediaServerGuid);
         }
       });
+      this.subscriptionRemoveMediaFilePlayback=this.signalIrService.isRemovingMediaFilePlayback().subscribe((event:any) => {
+        if(this.mediaServer && this.mediaServer.Guid==event.mediaServerGuid && this.transcodedMediaFile && this.transcodedMediaFile.Guid==event.mediaFilePlaybackGuid)
+        {
+          this.router.navigateByUrl('/media/server/'+event.mediaServerGuid);
+        }
+      });
   }
 
 
@@ -127,12 +134,13 @@ export class VideoComponent implements OnInit,OnDestroy{
   }
 
   ngOnDestroy(): void {
-    if (document.fullscreenElement) {
+    if(!this.sharedService.configurationData.alwaysFullScreen && document.fullscreenElement) {
       document.exitFullscreen();
     }
     this.deleteTranscodedMediaFile();
     this.subscriptionEnableMediaServer.unsubscribe();
     this.subscriptionDisableMediaServer.unsubscribe();
+    this.subscriptionRemoveMediaFilePlayback.unsubscribe();
     if(this.dashMediaPlayer)
     {
       this.dashMediaPlayer.reset();
