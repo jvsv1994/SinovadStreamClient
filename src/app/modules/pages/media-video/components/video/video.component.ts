@@ -91,17 +91,14 @@ export class VideoComponent implements OnInit,OnDestroy{
         }
       });
       this.subscriptionDisableMediaServer=this.signalIrService.isDisablingMediaServer().subscribe((mediaServerGuid:string)=>{
-        /*if(this.mediaServer && this.mediaServer.Guid==mediaServerGuid && this.mediaServer.isSecureConnection)
+        if(this.mediaServer && this.mediaServer.Guid==mediaServerGuid && this.mediaServer.isSecureConnection)
         {
-          if (document.fullscreenElement) {
-            document.exitFullscreen();
-          }
-          this.deleteTranscodedMediaFile();
           this.mediaServer.isSecureConnection=false;
           this.router.navigateByUrl('/media/server/'+mediaServerGuid);
-        }*/
+        }
       });
   }
+
 
   ngOnInit(): void {
     this.initializeEventsAndIntervals();
@@ -130,6 +127,10 @@ export class VideoComponent implements OnInit,OnDestroy{
   }
 
   ngOnDestroy(): void {
+    if (document.fullscreenElement) {
+      document.exitFullscreen();
+    }
+    this.deleteTranscodedMediaFile();
     this.subscriptionEnableMediaServer.unsubscribe();
     this.subscriptionDisableMediaServer.unsubscribe();
     if(this.dashMediaPlayer)
@@ -307,12 +308,7 @@ export class VideoComponent implements OnInit,OnDestroy{
         clearTimeout(this.timeOutLoadVideoId);
         this.timeOutLoadVideoId=undefined;
       }
-      let url=this.mediaServer.Url+"/api/mediaFilePlaybacks/DeleteTranscodedMediaFileByGuid/"+this.transcodedMediaFile.Guid;
-      this.restProvider.executeHttpMediaServerApi(HttpMethodType.DELETE,url).then((response) => {
-
-      },error=>{
-        console.error(error);
-      });
+      this.signalIrService.removeMediaFilePlayBackRealTime(this.mediaServer.Guid,this.transcodedMediaFile.Guid);
     }
 
     public deleteLastTranscodedMediaFileProcess(){
@@ -321,12 +317,7 @@ export class VideoComponent implements OnInit,OnDestroy{
         clearTimeout(this.timeOutLoadVideoId);
         this.timeOutLoadVideoId=undefined;
       }
-      let url=this.mediaServer.Url+"/api/mediaFilePlaybacks/DeleteLastTranscodedMediaFileProcessByGuid/"+this.transcodedMediaFile.Guid;
-      this.restProvider.executeHttpMediaServerApi(HttpMethodType.DELETE,url).then((response) => {
-
-      },error=>{
-        console.error(error);
-      });
+      this.signalIrService.removeLastTranscodedMediaFileProcess(this.mediaServer.Guid,this.transcodedMediaFile.Guid);
     }
 
   public GetFullVideoTitle(){
@@ -598,10 +589,6 @@ export class VideoComponent implements OnInit,OnDestroy{
   }
 
   public closeVideo(){
-    if (document.fullscreenElement) {
-      document.exitFullscreen();
-    }
-    this.deleteTranscodedMediaFile();
     this.router.navigateByUrl("/home");
   }
 

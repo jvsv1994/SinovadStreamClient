@@ -140,6 +140,14 @@ export class SignalIRHubService {
       hubConnection.invoke("AddConnectionToUserClientsGroup",this.sharedService.userData.Guid).then(res=>{})
   }
 
+  public removeMediaFilePlayBackRealTime(mediaServerGuid:string,mediaFilePlaybackRealTimeGuid:string){
+    this.sharedService.hubConnection.send("RemoveMediaFilePlayBackRealTime",this.sharedService.userData.Guid,mediaServerGuid,mediaFilePlaybackRealTimeGuid);
+  }
+
+  public removeLastTranscodedMediaFileProcess(mediaServerGuid:string,mediaFilePlaybackRealTimeGuid:string){
+    this.sharedService.hubConnection.send("RemoveLastTranscodedMediaFileProcess",this.sharedService.userData.Guid,mediaServerGuid,mediaFilePlaybackRealTimeGuid);
+  }
+
   public updateCurrentTimeMediaFilePlayBackRealTime(mediaServerGuid:string,mediaFilePlaybackRealTimeGuid:string,currentTime:number,isPlaying:boolean){
     this.sharedService.hubConnection.send("UpdateCurrentTimeMediaFilePlayBackRealTime",this.sharedService.userData.Guid,mediaServerGuid,mediaFilePlaybackRealTimeGuid,currentTime,isPlaying);
   }
