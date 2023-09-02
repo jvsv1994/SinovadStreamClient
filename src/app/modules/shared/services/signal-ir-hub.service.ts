@@ -128,8 +128,8 @@ export class SignalIRHubService {
       });
 /*       hubConnection.on('UpdateItemsByMediaServerAndLibrary', (mediaServerGuid:string,libraryGuid:string) => {
       }); */
-      hubConnection.on('UpdateCurrentTimeMediaFilePlayBackRealTime', (mediaServerGuid:string,mediaFilePlaybackRealTimeGuid:string,currentTime:number) => {
-        this.updateCurrentTimeMediaFilePlayBackRealTime$.next({mediaServerGuid:mediaServerGuid,mediaFilePlaybackRealTimeGuid:mediaFilePlaybackRealTimeGuid,currentTime:currentTime});
+      hubConnection.on('UpdateCurrentTimeMediaFilePlayBackRealTime', (mediaServerGuid:string,mediaFilePlaybackRealTimeGuid:string,currentTime:number,isPlaying:boolean) => {
+        this.updateCurrentTimeMediaFilePlayBackRealTime$.next({mediaServerGuid:mediaServerGuid,mediaFilePlaybackRealTimeGuid:mediaFilePlaybackRealTimeGuid,currentTime:currentTime,isPlaying:isPlaying});
       });
       hubConnection.on('AddMediaFilePlayBackRealTime', (mediaServerGuid:string,mediaFilePlaybackRealTimeGuid:string) => {
         this.addMediaFilePlayBackRealTime$.next({mediaServerGuid:mediaServerGuid,mediaFilePlaybackRealTimeGuid:mediaFilePlaybackRealTimeGuid});
@@ -140,8 +140,8 @@ export class SignalIRHubService {
       hubConnection.invoke("AddConnectionToUserClientsGroup",this.sharedService.userData.Guid).then(res=>{})
   }
 
-  public updateCurrentTimeMediaFilePlayBackRealTime(mediaServerGuid:string,mediaFilePlaybackRealTimeGuid:string,currentTime:number){
-    this.sharedService.hubConnection.send("UpdateCurrentTimeMediaFilePlayBackRealTime",this.sharedService.userData.Guid,mediaServerGuid,mediaFilePlaybackRealTimeGuid,currentTime);
+  public updateCurrentTimeMediaFilePlayBackRealTime(mediaServerGuid:string,mediaFilePlaybackRealTimeGuid:string,currentTime:number,isPlaying:boolean){
+    this.sharedService.hubConnection.send("UpdateCurrentTimeMediaFilePlayBackRealTime",this.sharedService.userData.Guid,mediaServerGuid,mediaFilePlaybackRealTimeGuid,currentTime,isPlaying);
   }
 
   public isUpdatingCurrentTimeMediaFilePlayBackRealTime():Observable<any>{

@@ -72,6 +72,7 @@ export class DashboardComponent {
         if(item)
         {
           item.ClientData.CurrentTime=event.currentTime;
+          item.ClientData.IsPlaying=event.isPlaying;
           this.ref.detectChanges();
         }
       }
