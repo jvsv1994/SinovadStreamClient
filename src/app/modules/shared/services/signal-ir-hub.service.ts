@@ -128,39 +128,39 @@ export class SignalIRHubService {
       });
 /*       hubConnection.on('UpdateItemsByMediaServerAndLibrary', (mediaServerGuid:string,libraryGuid:string) => {
       }); */
-      hubConnection.on('UpdateCurrentTimeMediaFilePlayBackRealTime', (mediaServerGuid:string,mediaFilePlaybackRealTimeGuid:string,currentTime:number,isPlaying:boolean) => {
-        this.updateCurrentTimeMediaFilePlayBackRealTime$.next({mediaServerGuid:mediaServerGuid,mediaFilePlaybackRealTimeGuid:mediaFilePlaybackRealTimeGuid,currentTime:currentTime,isPlaying:isPlaying});
+      hubConnection.on('UpdateCurrentTimeMediaFilePlayBackRealTime', (mediaServerGuid:string,mediaFilePlaybackGuid:string,currentTime:number,isPlaying:boolean) => {
+        this.updateCurrentTimeMediaFilePlayBackRealTime$.next({mediaServerGuid:mediaServerGuid,mediaFilePlaybackGuid:mediaFilePlaybackGuid,currentTime:currentTime,isPlaying:isPlaying});
       });
-      hubConnection.on('AddMediaFilePlayBackRealTime', (mediaServerGuid:string,mediaFilePlaybackRealTimeGuid:string) => {
-        this.addMediaFilePlayBackRealTime$.next({mediaServerGuid:mediaServerGuid,mediaFilePlaybackRealTimeGuid:mediaFilePlaybackRealTimeGuid});
+      hubConnection.on('AddMediaFilePlayBackRealTime', (mediaServerGuid:string,mediaFilePlaybackGuid:string) => {
+        this.addMediaFilePlayBackRealTime$.next({mediaServerGuid:mediaServerGuid,mediaFilePlaybackGuid:mediaFilePlaybackGuid});
       });
-      hubConnection.on('RemoveMediaFilePlayBackRealTime', (mediaServerGuid:string,mediaFilePlaybackRealTimeGuid:string) => {
-        this.removeMediaFilePlayBackRealTime$.next({mediaServerGuid:mediaServerGuid,mediaFilePlaybackRealTimeGuid:mediaFilePlaybackRealTimeGuid});
+      hubConnection.on('RemoveMediaFilePlayBackRealTime', (mediaServerGuid:string,mediaFilePlaybackGuid:string) => {
+        this.removeMediaFilePlayBackRealTime$.next({mediaServerGuid:mediaServerGuid,mediaFilePlaybackGuid:mediaFilePlaybackGuid});
       });
       hubConnection.invoke("AddConnectionToUserClientsGroup",this.sharedService.userData.Guid).then(res=>{})
   }
 
-  public removeMediaFilePlayBackRealTime(mediaServerGuid:string,mediaFilePlaybackRealTimeGuid:string){
-    this.sharedService.hubConnection.send("RemoveMediaFilePlayBackRealTime",this.sharedService.userData.Guid,mediaServerGuid,mediaFilePlaybackRealTimeGuid);
+  public removeMediaFilePlayBackRealTime(mediaServerGuid:string,mediaFilePlaybackGuid:string){
+    this.sharedService.hubConnection.send("RemoveMediaFilePlayBackRealTime",this.sharedService.userData.Guid,mediaServerGuid,mediaFilePlaybackGuid);
   }
 
-  public removeLastTranscodedMediaFileProcess(mediaServerGuid:string,mediaFilePlaybackRealTimeGuid:string){
-    this.sharedService.hubConnection.send("RemoveLastTranscodedMediaFileProcess",this.sharedService.userData.Guid,mediaServerGuid,mediaFilePlaybackRealTimeGuid);
+  public removeLastTranscodedMediaFileProcess(mediaServerGuid:string,mediaFilePlaybackGuid:string){
+    this.sharedService.hubConnection.send("RemoveLastTranscodedMediaFileProcess",this.sharedService.userData.Guid,mediaServerGuid,mediaFilePlaybackGuid);
   }
 
-  public updateCurrentTimeMediaFilePlayBackRealTime(mediaServerGuid:string,mediaFilePlaybackRealTimeGuid:string,currentTime:number,isPlaying:boolean){
-    this.sharedService.hubConnection.send("UpdateCurrentTimeMediaFilePlayBackRealTime",this.sharedService.userData.Guid,mediaServerGuid,mediaFilePlaybackRealTimeGuid,currentTime,isPlaying);
+  public updateCurrentTimeMediaFilePlayBackRealTime(mediaServerGuid:string,mediaFilePlaybackGuid:string,currentTime:number,isPlaying:boolean){
+    this.sharedService.hubConnection.send("UpdateCurrentTimeMediaFilePlayBackRealTime",this.sharedService.userData.Guid,mediaServerGuid,mediaFilePlaybackGuid,currentTime,isPlaying);
   }
 
   public isUpdatingCurrentTimeMediaFilePlayBackRealTime():Observable<any>{
     return this.updateCurrentTimeMediaFilePlayBackRealTime$.asObservable();
   }
 
-  public isAddingMediaFilePlaybackRealTime():Observable<any>{
+  public isAddingMediaFilePlayback():Observable<any>{
     return this.addMediaFilePlayBackRealTime$.asObservable();
   }
 
-  public isRemovingMediaFilePlaybackRealTime():Observable<any>{
+  public isRemovingMediaFilePlayback():Observable<any>{
     return this.removeMediaFilePlayBackRealTime$.asObservable();
   }
 

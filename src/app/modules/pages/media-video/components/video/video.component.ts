@@ -15,7 +15,7 @@ import { SinovadApiGenericResponse } from 'src/app/modules/shared/models/respons
 import { ItemDetail } from 'src/app/modules/pages/media-detail/models/item-detail.model';
 import { MediaEpisode } from 'src/app/modules/pages/media-detail/models/media-episode.model';
 import { TranscodedMediaFile } from '../../models/transcoded-media-file.model';
-import { MediaFilePlaybackRealTime } from '../../models/media-file-playback-real-time.model';
+import { MediaFilePlayback } from '../../models/media-file-playback.model';
 import { MediaFilePlaybackProfile } from '../../models/media-file-playback-profile.model';
 import { MediaFilePlaybackClient } from '../../models/media-file-playback-client.model';
 import { MediaFilePlaybackItem } from '../../models/media-file-playback-item.model';
@@ -204,12 +204,12 @@ export class VideoComponent implements OnInit,OnDestroy{
   public CreateTranscodedMediaFile(){
     this.loadStatus=LoadVideoStatus.Empty;
     var currentTime=0;
-    if(this.itemDetail.MediaFileProfiles)
+    if(this.itemDetail.MediaFileProfile)
     {
-      currentTime=this.itemDetail.MediaFileProfiles.CurrentTime;
+      currentTime=this.itemDetail.MediaFileProfile.CurrentTime;
     }
     let url=this.mediaServer.Url+"/api/mediaFilePlaybacks/CreateTranscodedMediaFile";
-    this.restProvider.executeHttpMediaServerApi(HttpMethodType.POST,url,this.GetMediaFilePlaybackRealTime(currentTime)).then((response:SinovadApiGenericResponse) => {
+    this.restProvider.executeHttpMediaServerApi(HttpMethodType.POST,url,this.GetMediaFilePlayback(currentTime)).then((response:SinovadApiGenericResponse) => {
       this.loadStatus=LoadVideoStatus.Generated;
       var transcodedMediaFile:TranscodedMediaFile=response.Data;
       this.transcodedMediaFile=transcodedMediaFile;
@@ -224,20 +224,20 @@ export class VideoComponent implements OnInit,OnDestroy{
     });
   }
 
-  private GetMediaFilePlaybackRealTime(currentTime:number):MediaFilePlaybackRealTime{
-    var mediaFilePlaybackRealTime:MediaFilePlaybackRealTime;
-    mediaFilePlaybackRealTime = new MediaFilePlaybackRealTime();
-    mediaFilePlaybackRealTime.Guid=uuid();
+  private GetMediaFilePlayback(currentTime:number):MediaFilePlayback{
+    var mediaFilePlayback:MediaFilePlayback;
+    mediaFilePlayback = new MediaFilePlayback();
+    mediaFilePlayback.Guid=uuid();
     var mediaFilePlaybackProfile = new MediaFilePlaybackProfile();
     mediaFilePlaybackProfile.ProfileId=this.sharedService.currentProfile.Id;
     mediaFilePlaybackProfile.ProfileName=this.sharedService.currentProfile.FullName;
     mediaFilePlaybackProfile.AvatarPath=this.sharedService.currentProfile.AvatarPath;
-    mediaFilePlaybackRealTime.ProfileData=mediaFilePlaybackProfile;
+    mediaFilePlayback.ProfileData=mediaFilePlaybackProfile;
     var mediaFilePlaybackClient = new MediaFilePlaybackClient();
     mediaFilePlaybackClient.DeviceData=this.sharedService.deviceData;
     mediaFilePlaybackClient.IsPlaying=true;
     mediaFilePlaybackClient.CurrentTime=currentTime;
-    mediaFilePlaybackRealTime.ClientData=mediaFilePlaybackClient;
+    mediaFilePlayback.ClientData=mediaFilePlaybackClient;
     if(this.itemDetail.MediaItem.MediaTypeId==MediaType.Movie)
     {
       var mediaFilePlaybackItem = new MediaFilePlaybackItem();
@@ -246,7 +246,7 @@ export class VideoComponent implements OnInit,OnDestroy{
       mediaFilePlaybackItem.PhysicalPath=mediaFile.PhysicalPath;
       mediaFilePlaybackItem.MediaFileId=mediaFile.Id;
       mediaFilePlaybackItem.PosterPath=this.getPosterPath(this.itemDetail.MediaItem,mediaFile);
-      mediaFilePlaybackRealTime.ItemData=mediaFilePlaybackItem;
+      mediaFilePlayback.ItemData=mediaFilePlaybackItem;
     }
     if(this.itemDetail.MediaItem.MediaTypeId==MediaType.TvSerie)
     {
@@ -257,9 +257,9 @@ export class VideoComponent implements OnInit,OnDestroy{
       mediaFilePlaybackItem.Title=this.itemDetail.MediaItem.Title;
       mediaFilePlaybackItem.Subtitle="T"+this.itemDetail.CurrentEpisode.SeasonNumber+":E"+this.itemDetail.CurrentEpisode.EpisodeNumber+" "+this.itemDetail.CurrentEpisode.Name;
       mediaFilePlaybackItem.PosterPath=this.getPosterPath(this.itemDetail.MediaItem,mediaFile);
-      mediaFilePlaybackRealTime.ItemData=mediaFilePlaybackItem;
+      mediaFilePlayback.ItemData=mediaFilePlaybackItem;
     }
-    return mediaFilePlaybackRealTime;
+    return mediaFilePlayback;
   }
 
   public getPosterPath(item:MediaItem,mediaFile:MediaFile){
@@ -460,7 +460,7 @@ export class VideoComponent implements OnInit,OnDestroy{
     this.resetStream();
     this.loadStatus=LoadVideoStatus.Empty;
     let url=this.mediaServer.Url+"/api/mediaFilePlaybacks/CreateTranscodedMediaFile";
-    this.restProvider.executeHttpMediaServerApi(HttpMethodType.POST,url,this.GetMediaFilePlaybackRealTime(0)).then((response:SinovadApiGenericResponse) => {
+    this.restProvider.executeHttpMediaServerApi(HttpMethodType.POST,url,this.GetMediaFilePlayback(0)).then((response:SinovadApiGenericResponse) => {
       this.loadStatus=LoadVideoStatus.Generated;
       var transcodedMediaFile:TranscodedMediaFile=response.Data;
       this.transcodedMediaFile=transcodedMediaFile;

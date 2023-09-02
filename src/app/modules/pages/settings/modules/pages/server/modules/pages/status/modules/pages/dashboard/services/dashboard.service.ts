@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MediaFilePlaybackRealTime } from 'src/app/modules/pages/media-video/models/media-file-playback-real-time.model';
+import { MediaFilePlayback } from 'src/app/modules/pages/media-video/models/media-file-playback.model';
 import { HttpMethodType } from 'src/app/modules/shared/enums/enums';
 import { SinovadApiGenericResponse } from 'src/app/modules/shared/models/response/sinovad-api-generic-response.model';
 import { RestProviderService } from 'src/app/modules/shared/services/rest-provider.service';
@@ -13,9 +13,9 @@ export class DashboardService {
     private restProvider:RestProviderService
   ) { }
 
-  public GetListMediaFilePlaybackRealTime(mediaServerUrl:string):Promise<MediaFilePlaybackRealTime[]>{
+  public GetListMediaFilePlayback(mediaServerUrl:string):Promise<MediaFilePlayback[]>{
     return new Promise((resolve, reject) => {
-      var path=mediaServerUrl+"/api/mediaFilePlaybacks/GetListMediaFilePlaybackRealTime";
+      var path=mediaServerUrl+"/api/mediaFilePlaybacks/GetListMediaFilePlayback";
       this.restProvider.executeHttpMediaServerApi(HttpMethodType.GET,path).then((response:SinovadApiGenericResponse) => {
         resolve(response.Data);
       },error=>{

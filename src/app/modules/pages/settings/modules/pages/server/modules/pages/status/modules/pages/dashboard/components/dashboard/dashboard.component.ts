@@ -4,7 +4,7 @@ import { MediaServer } from 'src/app/modules/pages/manage/modules/pages/servers/
 import { Subscription } from 'rxjs';
 import { SignalIRHubService } from 'src/app/modules/shared/services/signal-ir-hub.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MediaFilePlaybackRealTime } from 'src/app/modules/pages/media-video/models/media-file-playback-real-time.model';
+import { MediaFilePlayback } from 'src/app/modules/pages/media-video/models/media-file-playback.model';
 import { SharedService } from 'src/app/modules/shared/services/shared-data.service';
 import { MediaFilePlaybackClient } from 'src/app/modules/pages/media-video/models/media-file-playback-client.model';
 
@@ -22,7 +22,7 @@ export class DashboardComponent {
   subscriptionUpdateCurrentTimeMediaFilePlayback:Subscription;
   subscriptionAddMediaFilePlayback:Subscription;
   subscriptionRemoveMediaFilePlayback:Subscription;
-  listItems:MediaFilePlaybackRealTime[];
+  listItems:MediaFilePlayback[];
 
   constructor(
     public sharedService: SharedService,
@@ -35,14 +35,14 @@ export class DashboardComponent {
     this.router.routeReuseStrategy.shouldReuseRoute = function () {
       return false;
     };
-    this.subscriptionAddMediaFilePlayback=this.signalIrService.isAddingMediaFilePlaybackRealTime().subscribe((event:any) => {
+    this.subscriptionAddMediaFilePlayback=this.signalIrService.isAddingMediaFilePlayback().subscribe((event:any) => {
       if(this.mediaServer && this.mediaServer.Guid==event.mediaServerGuid)
       {
-        var item=this.listItems.find(x=>x.Guid==event.mediaFilePlaybackRealTimeGuid);
+        var item=this.listItems.find(x=>x.Guid==event.mediaFilePlaybackGuid);
         if(item==undefined)
         {
-          this.dashboardService.GetListMediaFilePlaybackRealTime(this.mediaServer.Url).then((list:MediaFilePlaybackRealTime[]) => {
-            var newItem=list.find(x=>x.Guid==event.mediaFilePlaybackRealTimeGuid);
+          this.dashboardService.GetListMediaFilePlayback(this.mediaServer.Url).then((list:MediaFilePlayback[]) => {
+            var newItem=list.find(x=>x.Guid==event.mediaFilePlaybackGuid);
             if(newItem)
             {
               this.listItems.push(newItem);
@@ -54,10 +54,10 @@ export class DashboardComponent {
         }
       }
     });
-    this.subscriptionRemoveMediaFilePlayback=this.signalIrService.isRemovingMediaFilePlaybackRealTime().subscribe((event:any) => {
+    this.subscriptionRemoveMediaFilePlayback=this.signalIrService.isRemovingMediaFilePlayback().subscribe((event:any) => {
       if(this.mediaServer && this.mediaServer.Guid==event.mediaServerGuid)
       {
-        var index=this.listItems.findIndex(x=>x.Guid==event.mediaFilePlaybackRealTimeGuid);
+        var index=this.listItems.findIndex(x=>x.Guid==event.mediaFilePlaybackGuid);
         if(index!=-1)
         {
           this.listItems.splice(index,1);
@@ -68,7 +68,7 @@ export class DashboardComponent {
     this.subscriptionUpdateCurrentTimeMediaFilePlayback=this.signalIrService.isUpdatingCurrentTimeMediaFilePlayBackRealTime().subscribe((event:any) => {
       if(this.mediaServer && this.mediaServer.Guid==event.mediaServerGuid)
       {
-        var item=this.listItems.find(x=>x.Guid==event.mediaFilePlaybackRealTimeGuid);
+        var item=this.listItems.find(x=>x.Guid==event.mediaFilePlaybackGuid);
         if(item)
         {
           item.ClientData.CurrentTime=event.currentTime;
@@ -124,7 +124,7 @@ export class DashboardComponent {
   }
 
   public getAllItems(){
-    this.dashboardService.GetListMediaFilePlaybackRealTime(this.mediaServer.Url).then((list:MediaFilePlaybackRealTime[]) => {
+    this.dashboardService.GetListMediaFilePlayback(this.mediaServer.Url).then((list:MediaFilePlayback[]) => {
       this.listItems=list;
     },error=>{
 

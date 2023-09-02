@@ -10,6 +10,6 @@ export class ItemDetail{
   public ListMediaFiles:MediaFile[];
   public CurrentSeason:MediaSeason;
   public CurrentEpisode:MediaEpisode;
-  public MediaFileProfiles:MediaFileProfile;
+  public MediaFileProfile:MediaFileProfile;
 
 }
