@@ -79,11 +79,12 @@ export class SignalIRHubService {
       ctx.setEvents(ctx.sharedService.hubConnection);
     }).catch((err) => {
       console.error('error while establishing signalr connection: ' + err);
+      ctx.startHubConnection();
     });
     this.sharedService.hubConnection.onclose(x=>{
       setTimeout(() => {
         ctx.startHubConnection();
-      }, 5000);
+      }, 5000,ctx);
     });
   }
 
