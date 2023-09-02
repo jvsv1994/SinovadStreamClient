@@ -110,9 +110,9 @@ export class SidebarAccountComponent implements OnInit {
     this.mediaServers=JSON.parse(JSON.stringify(this.sharedService.mediaServers));
     if(this.mediaServers && this.mediaServers.length>0)
     {
-      if(this.activeRoute.firstChild && this.activeRoute.firstChild.snapshot.params.serverGuid)
+      if(this.activeRoute.firstChild && this.activeRoute.firstChild.firstChild && this.activeRoute.firstChild.firstChild.snapshot.params.serverGuid)
       {
-        var mediaServerGuid=this.activeRoute.firstChild.snapshot.params.serverGuid;
+        var mediaServerGuid=this.activeRoute.firstChild.firstChild.snapshot.params.serverGuid;
         var selectedMediaServer=this.mediaServers.find(x=>x.Guid==mediaServerGuid);
         if(selectedMediaServer)
         {
