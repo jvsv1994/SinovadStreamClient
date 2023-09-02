@@ -89,7 +89,7 @@ export class SignalIRHubService {
 
   public stopConnection(){
     this.sharedService.hubConnection.off('UpdateCurrentTimeMediaFilePlayBack');
-    this.sharedService.hubConnection.off('AddMediaFilePlayBack');
+    this.sharedService.hubConnection.off('AddedMediaFilePlayBack');
     this.sharedService.hubConnection.off('RemovedMediaFilePlayBack');
     this.sharedService.hubConnection.off('UpdateMediaServers');
     this.sharedService.hubConnection.off('EnableMediaServer');
