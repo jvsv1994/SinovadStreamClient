@@ -206,7 +206,12 @@ export class VideoComponent implements OnInit,OnDestroy{
     var currentTime=0;
     if(this.itemDetail.MediaFileProfile)
     {
-      currentTime=this.itemDetail.MediaFileProfile.CurrentTime;
+      if(this.itemDetail.MediaFileProfile.CurrentTime>20)
+      {
+        currentTime=this.itemDetail.MediaFileProfile.CurrentTime-20;
+      }else{
+        currentTime=0;
+      }
     }
     let url=this.mediaServer.Url+"/api/mediaFilePlaybacks/CreateTranscodedMediaFile";
     this.restProvider.executeHttpMediaServerApi(HttpMethodType.POST,url,this.GetMediaFilePlayback(currentTime)).then((response:SinovadApiGenericResponse) => {
