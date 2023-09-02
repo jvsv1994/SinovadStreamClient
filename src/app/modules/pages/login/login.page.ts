@@ -149,7 +149,7 @@ export class LoginPage {
     this.userService.calledGetUserData=true;
     this.menuService.getManageMenu();
     this.signalIRHubService.openConnection();
-    this.router.navigate(['select-profile'],{ skipLocationChange: false});
+    this.router.navigate(['profiles'],{ skipLocationChange: false});
   }
 
   public loginWithFacebook(){
