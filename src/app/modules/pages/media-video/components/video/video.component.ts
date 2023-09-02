@@ -20,7 +20,6 @@ import { MediaFilePlaybackProfile } from '../../models/media-file-playback-profi
 import { MediaFilePlaybackClient } from '../../models/media-file-playback-client.model';
 import { MediaFilePlaybackItem } from '../../models/media-file-playback-item.model';
 import { RetranscodeMediaFile } from '../../models/retranscode-media-file.model';
-import { UpdateMediaFilePlaybackRequest } from '../../models/update-media-file-playback-request.model';
 import { SignalIRHubService } from 'src/app/modules/shared/services/signal-ir-hub.service';
 import { LibraryService } from '../../../settings/modules/pages/server/modules/pages/manage/modules/pages/libraries/services/library.service';
 import { MediaServer } from '../../../manage/modules/pages/servers/models/server.model';
@@ -44,7 +43,6 @@ export class VideoComponent implements OnInit,OnDestroy{
   @ViewChild('videoPrincipalContainer') videoPrincipalContainer: ElementRef;
   @ViewChild('videoTarget') videoTarget: ElementRef;
   detectChangesInterval:any;
-  updateMediaFilePlaybackInterval:any;
   currentSubtitleData:any[]=undefined;
   haveError:boolean=false;
   currentEpisode:any={};
@@ -70,6 +68,7 @@ export class VideoComponent implements OnInit,OnDestroy{
   itemDetail: ItemDetail;
   loadStatus: LoadVideoStatus;
   timeOutLoadVideoId:number;
+  isRetranscoding:boolean=false;
 
   constructor(
     private signalIrService:SignalIRHubService,
@@ -92,11 +91,15 @@ export class VideoComponent implements OnInit,OnDestroy{
         }
       });
       this.subscriptionDisableMediaServer=this.signalIrService.isDisablingMediaServer().subscribe((mediaServerGuid:string)=>{
-        if(this.mediaServer && this.mediaServer.Guid==mediaServerGuid && this.mediaServer.isSecureConnection)
+        /*if(this.mediaServer && this.mediaServer.Guid==mediaServerGuid && this.mediaServer.isSecureConnection)
         {
+          if (document.fullscreenElement) {
+            document.exitFullscreen();
+          }
+          this.deleteTranscodedMediaFile();
           this.mediaServer.isSecureConnection=false;
           this.router.navigateByUrl('/media/server/'+mediaServerGuid);
-        }
+        }*/
       });
   }
 
@@ -143,10 +146,6 @@ export class VideoComponent implements OnInit,OnDestroy{
     {
       window.clearInterval(this.detectChangesInterval);
     }
-    if(this.updateMediaFilePlaybackInterval)
-    {
-      window.clearInterval(this.updateMediaFilePlaybackInterval);
-    }
     if(this.customMouseOutEvent)
     {
       window.removeEventListener('click',this.customMouseOutEvent);
@@ -154,6 +153,11 @@ export class VideoComponent implements OnInit,OnDestroy{
     if(this.beforeUnloadFunction)
     {
       window.removeEventListener('beforeunload',this.beforeUnloadFunction);
+    }
+    if(this.timeOutLoadVideoId)
+    {
+      clearTimeout(this.timeOutLoadVideoId);
+      this.timeOutLoadVideoId=undefined;
     }
   }
 
@@ -171,15 +175,12 @@ export class VideoComponent implements OnInit,OnDestroy{
     }
     window.addEventListener('beforeunload',this.beforeUnloadFunction);
     this.detectChangesInterval=window.setInterval(function() {
-      if(ctx.mediaServer && ctx.transcodedMediaFile)
+      if(ctx.mediaServer && ctx.transcodedMediaFile && !ctx.isRetranscoding)
       {
         ctx.signalIrService.updateCurrentTimeMediaFilePlayBackRealTime(ctx.mediaServer.Guid,ctx.transcodedMediaFile.Guid,ctx.getCurrentVideoTime(),ctx.isPlayingVideo());
       }
       ctx.ref.detectChanges();
     }, 0);
-    this.updateMediaFilePlaybackInterval=window.setInterval(function() {
-        ctx.updateMediaFilePlayback();
-    }, 10000);
   }
 
   private getMediaItemDetailByMediaFileAndProfile(){
@@ -283,13 +284,16 @@ export class VideoComponent implements OnInit,OnDestroy{
       retranscodeMediaFileRequest.NewTime=newVideoTime;
       this.loadStatus=LoadVideoStatus.Empty;
       let url=this.mediaServer.Url+"/api/mediaFilePlaybacks/RetranscodeMediaFile";
+      this.isRetranscoding=true;
       this.restProvider.executeHttpMediaServerApi(HttpMethodType.PUT,url,retranscodeMediaFileRequest).then((response:SinovadApiGenericResponse) => {
+        this.isRetranscoding=false;
         this.transcodedMediaFile.InitialTime=newVideoTime;
         this.transcodedMediaFile.Url=response.Data;
         this.loadStatus=LoadVideoStatus.Generated;
         this.updateAudioAndVideoList();
         this.getVideoSource();
       },error=>{
+        this.isRetranscoding=false;
         this.showLoadVideoErrorActionsDialog();
         console.error(error);
       });
@@ -325,19 +329,6 @@ export class VideoComponent implements OnInit,OnDestroy{
       });
     }
 
-  // Update Media File Playback
-
-  public updateMediaFilePlayback(){
-    if(this.transcodedMediaFile){
-      let url=this.mediaServer.Url+"/api/mediaFilePlaybacks/UpdateMediaFilePlayback";
-      this.restProvider.executeHttpMediaServerApi(HttpMethodType.PUT,url,this.getUpdateMediaFilePlaybackRequestData()).then((response:SinovadApiGenericResponse) => {
-
-      },error=>{
-        console.error(error);
-      });
-    }
-  }
-
   public GetFullVideoTitle(){
     var fullVideoTitle="";
     if(this.itemDetail && this.itemDetail.MediaItem.MediaTypeId==MediaType.Movie)
@@ -351,44 +342,8 @@ export class VideoComponent implements OnInit,OnDestroy{
     return fullVideoTitle;
   }
 
-  private getUpdateMediaFilePlaybackRequestData():UpdateMediaFilePlaybackRequest{
-    var updateMediaFilePlaybackData = new UpdateMediaFilePlaybackRequest();
-    if(this.itemDetail.MediaItem.MediaTypeId==MediaType.Movie)
-    {
-      var mediaFile=this.itemDetail.ListMediaFiles[0];
-      updateMediaFilePlaybackData.Title=this.itemDetail.MediaItem.ExtendedTitle;
-      updateMediaFilePlaybackData.MediaFileId=mediaFile.Id;
-    }
-    if(this.itemDetail.MediaItem.MediaTypeId==MediaType.TvSerie)
-    {
-      var mediaFile=this.itemDetail.CurrentEpisode.ListMediaFiles[0];
-      updateMediaFilePlaybackData.MediaFileId=mediaFile.Id;
-      updateMediaFilePlaybackData.Title=this.itemDetail.MediaItem.Title;
-      updateMediaFilePlaybackData.Subtitle="T"+this.itemDetail.CurrentEpisode.SeasonNumber+":E"+this.itemDetail.CurrentEpisode.EpisodeNumber+" "+this.itemDetail.CurrentEpisode.Name;
-    }
-     updateMediaFilePlaybackData.IsPlaying=this.isPlayingVideo();
-     updateMediaFilePlaybackData.ProfileId=this.sharedService.currentProfile.Id;
-     updateMediaFilePlaybackData.Guid=this.transcodedMediaFile.Guid;
-     var currentTime=0;
-     if(this.getCurrentVideoTime()>0 && this.getCurrentVideoTime()<=this.transcodedMediaFile.Duration)
-     {
-       currentTime=this.getCurrentVideoTime();
-       if(currentTime-20<0)
-       {
-         currentTime=0;
-       }else{
-         currentTime=currentTime-20;
-       }
-     }
-     updateMediaFilePlaybackData.CurrentTime=currentTime;
-     updateMediaFilePlaybackData.DurationTime=this.transcodedMediaFile.Duration;
-     return updateMediaFilePlaybackData;
-  }
-
 
   //Change Episode Section
-
-
 
   public isEnablePreviousEpisodeButton(){
     if(this.itemDetail && this.itemDetail.ListSeasons && this.itemDetail.ListSeasons.length>0 && this.itemDetail.CurrentSeason)
