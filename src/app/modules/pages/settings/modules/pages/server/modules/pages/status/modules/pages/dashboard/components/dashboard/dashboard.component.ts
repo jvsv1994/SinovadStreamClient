@@ -65,7 +65,7 @@ export class DashboardComponent {
         }
       }
     });
-    this.subscriptionUpdateCurrentTimeMediaFilePlayback=this.signalIrService.isUpdatingCurrentTimeMediaFilePlayBackRealTime().subscribe((event:any) => {
+    this.subscriptionUpdateCurrentTimeMediaFilePlayback=this.signalIrService.isUpdatingCurrentTimeMediaFilePlayBack().subscribe((event:any) => {
       if(this.mediaServer && this.mediaServer.Guid==event.mediaServerGuid)
       {
         var item=this.listItems.find(x=>x.Guid==event.mediaFilePlaybackGuid);

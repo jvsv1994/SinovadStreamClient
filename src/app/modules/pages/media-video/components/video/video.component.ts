@@ -178,7 +178,7 @@ export class VideoComponent implements OnInit,OnDestroy{
     this.detectChangesInterval=window.setInterval(function() {
       if(ctx.mediaServer && ctx.transcodedMediaFile && !ctx.isRetranscoding)
       {
-        ctx.signalIrService.updateCurrentTimeMediaFilePlayBackRealTime(ctx.mediaServer.Guid,ctx.transcodedMediaFile.Guid,ctx.getCurrentVideoTime(),ctx.isPlayingVideo());
+        ctx.signalIrService.updateCurrentTimeMediaFilePlayBack(ctx.mediaServer.Guid,ctx.transcodedMediaFile.Guid,ctx.getCurrentVideoTime(),ctx.isPlayingVideo());
       }
       ctx.ref.detectChanges();
     }, 0);
@@ -313,7 +313,7 @@ export class VideoComponent implements OnInit,OnDestroy{
       clearTimeout(this.timeOutLoadVideoId);
       this.timeOutLoadVideoId=undefined;
     }
-    this.signalIrService.removeMediaFilePlayBackRealTime(this.mediaServer.Guid,this.transcodedMediaFile.Guid);
+    this.signalIrService.removeMediaFilePlayBack(this.mediaServer.Guid,this.transcodedMediaFile.Guid);
   }
 
   public deleteLastTranscodedMediaFileProcess(){
