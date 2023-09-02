@@ -204,9 +204,9 @@ export class VideoComponent implements OnInit,OnDestroy{
   public CreateTranscodedMediaFile(){
     this.loadStatus=LoadVideoStatus.Empty;
     var currentTime=0;
-    if(this.itemDetail.LastMediaFilePlayback)
+    if(this.itemDetail.MediaFileProfiles)
     {
-      currentTime=this.itemDetail.LastMediaFilePlayback.CurrentTime;
+      currentTime=this.itemDetail.MediaFileProfiles.CurrentTime;
     }
     let url=this.mediaServer.Url+"/api/mediaFilePlaybacks/CreateTranscodedMediaFile";
     this.restProvider.executeHttpMediaServerApi(HttpMethodType.POST,url,this.GetMediaFilePlaybackRealTime(currentTime)).then((response:SinovadApiGenericResponse) => {
@@ -300,25 +300,25 @@ export class VideoComponent implements OnInit,OnDestroy{
       });
     }
 
-    //Delete Transcode Media File Section
+//Delete Transcode Media File Section
 
-    public deleteTranscodedMediaFile(){
-      if(this.timeOutLoadVideoId)
-      {
-        clearTimeout(this.timeOutLoadVideoId);
-        this.timeOutLoadVideoId=undefined;
-      }
-      this.signalIrService.removeMediaFilePlayBackRealTime(this.mediaServer.Guid,this.transcodedMediaFile.Guid);
+  public deleteTranscodedMediaFile(){
+    if(this.timeOutLoadVideoId)
+    {
+      clearTimeout(this.timeOutLoadVideoId);
+      this.timeOutLoadVideoId=undefined;
     }
+    this.signalIrService.removeMediaFilePlayBackRealTime(this.mediaServer.Guid,this.transcodedMediaFile.Guid);
+  }
 
-    public deleteLastTranscodedMediaFileProcess(){
-      if(this.timeOutLoadVideoId)
-      {
-        clearTimeout(this.timeOutLoadVideoId);
-        this.timeOutLoadVideoId=undefined;
-      }
-      this.signalIrService.removeLastTranscodedMediaFileProcess(this.mediaServer.Guid,this.transcodedMediaFile.Guid);
+  public deleteLastTranscodedMediaFileProcess(){
+    if(this.timeOutLoadVideoId)
+    {
+      clearTimeout(this.timeOutLoadVideoId);
+      this.timeOutLoadVideoId=undefined;
     }
+    this.signalIrService.removeLastTranscodedMediaFileProcess(this.mediaServer.Guid,this.transcodedMediaFile.Guid);
+  }
 
   public GetFullVideoTitle(){
     var fullVideoTitle="";
@@ -332,7 +332,6 @@ export class VideoComponent implements OnInit,OnDestroy{
     }
     return fullVideoTitle;
   }
-
 
   //Change Episode Section
 

@@ -7,7 +7,7 @@ import { Library } from '../models/library.model';
 import { Item } from 'src/app/modules/pages/media-items/models/item.model';
 import { ItemsGroup } from 'src/app/modules/pages/media-items/models/items-group.model';
 import { ItemDetail } from 'src/app/modules/pages/media-detail/models/item-detail.model';
-import { MediaFilePlayback } from 'src/app/modules/pages/media-detail/models/media-file-playback.model';
+import { MediaFileProfile } from 'src/app/modules/pages/media-detail/models/media-file-profile.model';
 
 @Injectable({ providedIn: 'root' })
 export class LibraryService {
@@ -149,18 +149,6 @@ export class LibraryService {
     return new Promise((resolve, reject) => {
       var path=mediaServerUrl+"/api/libraries/GetMediaItemDetailByMediaFileAndProfile?mediaFileId="+mediaFileId+"&profileId="+profileId;
       this.restProvider.executeHttpMediaServerApi(HttpMethodType.GET,path).then((response:SinovadApiGenericResponse) => {
-        resolve(response.Data);
-      },error=>{
-        reject(error);
-      });
-    });
-  }
-
-
-  public updateMediaFilePlayback(mediaServerUrl:string,mediaFilePlayback:MediaFilePlayback):Promise<ItemDetail>{
-    return new Promise((resolve, reject) => {
-      var path=mediaServerUrl+"/api/libraries/UpdateMediaFilePlayback";
-      this.restProvider.executeHttpMediaServerApi(HttpMethodType.PUT,path,mediaFilePlayback).then((response:SinovadApiGenericResponse) => {
         resolve(response.Data);
       },error=>{
         reject(error);

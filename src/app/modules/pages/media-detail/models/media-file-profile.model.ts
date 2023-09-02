@@ -1,4 +1,4 @@
-export class MediaFilePlayback{
+export class MediaFileProfile{
   public ProfileId: number;
   public MediaFileId: number;
   public Title: string;
