@@ -79,7 +79,10 @@ export class SignalIRHubService {
       ctx.setEvents(this.sharedService.hubConnection);
       ctx.sharedService.hubConnection.onclose(x=>{
         setTimeout(() => {
-          ctx.tryStartHubConnection();
+          if(ctx.sharedService.userData)
+          {
+            ctx.tryStartHubConnection();
+          }
         }, 1000,ctx);
       });
     }).catch((err) => {
