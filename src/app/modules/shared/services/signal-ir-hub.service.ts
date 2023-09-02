@@ -2,7 +2,6 @@ import { HttpTransportType, HubConnection, HubConnectionBuilder } from '@microso
 import { Injectable } from '@angular/core';
 import { SharedService } from 'src/app/modules/shared/services/shared-data.service';
 import { Observable, Subject } from 'rxjs';
-import { error } from 'console';
 
 @Injectable({ providedIn: 'root' })
 export class SignalIRHubService {
