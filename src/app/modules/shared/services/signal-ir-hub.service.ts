@@ -6,8 +6,8 @@ import { Observable, Subject } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class SignalIRHubService {
 
-  private addMediaFilePlayBack$ = new Subject<any>();
-  private removeMediaFilePlayBack$ = new Subject<any>();
+  private addedMediaFilePlayBack$ = new Subject<any>();
+  private removedMediaFilePlayBack$ = new Subject<any>();
   private updateCurrentTimeMediaFilePlayBack$ = new Subject<any>();
   private updateMediaServers$ = new Subject<boolean>();
   private enableMediaServerSubject$ = new Subject<string>();
@@ -90,7 +90,7 @@ export class SignalIRHubService {
   public stopConnection(){
     this.sharedService.hubConnection.off('UpdateCurrentTimeMediaFilePlayBack');
     this.sharedService.hubConnection.off('AddMediaFilePlayBack');
-    this.sharedService.hubConnection.off('RemoveMediaFilePlayBack');
+    this.sharedService.hubConnection.off('RemovedMediaFilePlayBack');
     this.sharedService.hubConnection.off('UpdateMediaServers');
     this.sharedService.hubConnection.off('EnableMediaServer');
     this.sharedService.hubConnection.off('DisableMediaServer');
@@ -131,13 +131,21 @@ export class SignalIRHubService {
       hubConnection.on('UpdateCurrentTimeMediaFilePlayBack', (mediaServerGuid:string,mediaFilePlaybackGuid:string,currentTime:number,isPlaying:boolean) => {
         this.updateCurrentTimeMediaFilePlayBack$.next({mediaServerGuid:mediaServerGuid,mediaFilePlaybackGuid:mediaFilePlaybackGuid,currentTime:currentTime,isPlaying:isPlaying});
       });
-      hubConnection.on('AddMediaFilePlayBack', (mediaServerGuid:string,mediaFilePlaybackGuid:string) => {
-        this.addMediaFilePlayBack$.next({mediaServerGuid:mediaServerGuid,mediaFilePlaybackGuid:mediaFilePlaybackGuid});
+      hubConnection.on('AddedMediaFilePlayBack', (mediaServerGuid:string,mediaFilePlaybackGuid:string) => {
+        this.addedMediaFilePlayBack$.next({mediaServerGuid:mediaServerGuid,mediaFilePlaybackGuid:mediaFilePlaybackGuid});
       });
-      hubConnection.on('RemoveMediaFilePlayBack', (mediaServerGuid:string,mediaFilePlaybackGuid:string) => {
-        this.removeMediaFilePlayBack$.next({mediaServerGuid:mediaServerGuid,mediaFilePlaybackGuid:mediaFilePlaybackGuid});
+      hubConnection.on('RemovedMediaFilePlayBack', (mediaServerGuid:string,mediaFilePlaybackGuid:string) => {
+        this.removedMediaFilePlayBack$.next({mediaServerGuid:mediaServerGuid,mediaFilePlaybackGuid:mediaFilePlaybackGuid});
       });
       hubConnection.invoke("AddConnectionToUserClientsGroup",this.sharedService.userData.Guid).then(res=>{})
+  }
+
+  public isRemovedMediaFilePlayback():Observable<any>{
+    return this.removedMediaFilePlayBack$.asObservable();
+  }
+
+  public isAddedMediaFilePlayback():Observable<any>{
+    return this.addedMediaFilePlayBack$.asObservable();
   }
 
   public removeMediaFilePlayBack(mediaServerGuid:string,mediaFilePlaybackGuid:string){
@@ -156,12 +164,5 @@ export class SignalIRHubService {
     return this.updateCurrentTimeMediaFilePlayBack$.asObservable();
   }
 
-  public isAddingMediaFilePlayback():Observable<any>{
-    return this.addMediaFilePlayBack$.asObservable();
-  }
-
-  public isRemovingMediaFilePlayback():Observable<any>{
-    return this.removeMediaFilePlayBack$.asObservable();
-  }
 
 }
