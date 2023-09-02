@@ -2,6 +2,7 @@ import { HttpTransportType, HubConnection, HubConnectionBuilder } from '@microso
 import { Injectable } from '@angular/core';
 import { SharedService } from 'src/app/modules/shared/services/shared-data.service';
 import { Observable, Subject } from 'rxjs';
+import { error } from 'console';
 
 @Injectable({ providedIn: 'root' })
 export class SignalIRHubService {
@@ -69,22 +70,24 @@ export class SignalIRHubService {
       transport: HttpTransportType.WebSockets
     }).build();
     this.sharedService.hubConnection=hubConnection;
-    this.startHubConnection();
+    this.tryStartHubConnection();
   }
 
-  private startHubConnection(){
+  private tryStartHubConnection(){
     let ctx=this;
     this.sharedService.hubConnection.start().then(() => {
       console.log('connection started');
-      ctx.setEvents(ctx.sharedService.hubConnection);
+      ctx.setEvents(this.sharedService.hubConnection);
+      ctx.sharedService.hubConnection.onclose(x=>{
+        setTimeout(() => {
+          ctx.tryStartHubConnection();
+        }, 1000,ctx);
+      });
     }).catch((err) => {
       console.error('error while establishing signalr connection: ' + err);
-      ctx.startHubConnection();
-    });
-    this.sharedService.hubConnection.onclose(x=>{
       setTimeout(() => {
-        ctx.startHubConnection();
-      }, 5000,ctx);
+        ctx.tryStartHubConnection();
+      }, 1000,ctx);
     });
   }
 
@@ -150,11 +153,21 @@ export class SignalIRHubService {
   }
 
   public removeMediaFilePlayBack(mediaServerGuid:string,mediaFilePlaybackGuid:string){
-    this.sharedService.hubConnection.send("RemoveMediaFilePlayBack",this.sharedService.userData.Guid,mediaServerGuid,mediaFilePlaybackGuid);
+    let ctx=this;
+    this.sharedService.hubConnection.send("RemoveMediaFilePlayBack",this.sharedService.userData.Guid,mediaServerGuid,mediaFilePlaybackGuid).then(res=>{},(error)=>{
+      setTimeout(() => {
+        ctx.removeMediaFilePlayBack(mediaServerGuid,mediaFilePlaybackGuid);
+      }, 1000,ctx);
+    });
   }
 
   public removeLastTranscodedMediaFileProcess(mediaServerGuid:string,mediaFilePlaybackGuid:string){
-    this.sharedService.hubConnection.send("RemoveLastTranscodedMediaFileProcess",this.sharedService.userData.Guid,mediaServerGuid,mediaFilePlaybackGuid);
+    let ctx=this;
+    this.sharedService.hubConnection.send("RemoveLastTranscodedMediaFileProcess",this.sharedService.userData.Guid,mediaServerGuid,mediaFilePlaybackGuid).then(res=>{},(error)=>{
+      setTimeout(() => {
+        ctx.removeLastTranscodedMediaFileProcess(mediaServerGuid,mediaFilePlaybackGuid);
+      }, 1000,ctx);
+    });
   }
 
   public updateCurrentTimeMediaFilePlayBack(mediaServerGuid:string,mediaFilePlaybackGuid:string,currentTime:number,isPlaying:boolean){
