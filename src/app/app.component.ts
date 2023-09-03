@@ -22,13 +22,13 @@ import { DeviceData } from './models/device-data.model';
 import { SharedDataService } from './services/shared-data.service';
 import { CommonService } from './services/common.service';
 import { LoginComponent } from './modules/pages/login/components/login/login.component';
-import { LandingComponent } from './modules/pages/landing/components/landing/landing.component';
 import { RegisterUserComponent } from './modules/pages/register-user/components/register-user/register-user.component';
 import { RecoverPasswordComponent } from './modules/pages/recover-password/components/recover-password.component';
 import { ResetPasswordComponent } from './modules/pages/reset-password/components/reset-password/reset-password.component';
 import { ConfirmEmailComponent } from './modules/pages/confirm-email/components/confirm-email/confirm-email.component';
 import { ProfilesViewPage } from './modules/pages/profiles/components/profiles-view/profiles-view.page';
 import { NotFoundPageComponent } from './components/pages/not-found-page/not-found-page.component';
+import { LandingPageComponent } from './components/pages/landing-page/landing-page.component';
 
 @Component({
   selector: 'app-root',
@@ -107,7 +107,7 @@ export class AppComponent{
       this.sharedDataService.showSplashScreen=false;
       if(event instanceof NotFoundPageComponent || event instanceof VideoComponent || event instanceof LoginComponent || event instanceof RegisterUserComponent
         || event instanceof RecoverPasswordComponent || event instanceof ResetPasswordComponent
-        || event instanceof LandingComponent || event instanceof ConfirmEmailComponent || event instanceof ProfilesViewPage)
+        || event instanceof LandingPageComponent || event instanceof ConfirmEmailComponent || event instanceof ProfilesViewPage)
       {
         this.showRouterChildWithFullDimentions=true;
         this.showingSidebarMedia=false;

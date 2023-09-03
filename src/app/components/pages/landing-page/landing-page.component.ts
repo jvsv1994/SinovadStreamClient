@@ -6,10 +6,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 declare var window;
 @Component({
   selector: 'app-landing',
-  templateUrl: './landing.component.html',
-  styleUrls: ['./landing.component.scss']
+  templateUrl: './landing-page.component.html',
+  styleUrls: ['./landing-page.component.scss']
 })
-export class LandingComponent implements OnInit {
+export class LandingPageComponent implements OnInit {
 
   _window=window;
   title: string;

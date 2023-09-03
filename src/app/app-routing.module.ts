@@ -7,12 +7,12 @@ import { VideoComponent } from './modules/pages/media-video/components/video/vid
 import { MediaItemsComponent } from './modules/pages/media-items/components/media-items/media-items.component';
 import { MediaDetailComponent } from './modules/pages/media-detail/components/media-detail/media-detail.component';
 import { LoginComponent } from './modules/pages/login/components/login/login.component';
-import { LandingComponent } from './modules/pages/landing/components/landing/landing.component';
 import { RegisterUserComponent } from './modules/pages/register-user/components/register-user/register-user.component';
 import { RecoverPasswordComponent } from './modules/pages/recover-password/components/recover-password.component';
 import { ResetPasswordComponent } from './modules/pages/reset-password/components/reset-password/reset-password.component';
 import { ConfirmEmailComponent } from './modules/pages/confirm-email/components/confirm-email/confirm-email.component';
 import { NotFoundPageComponent } from './components/pages/not-found-page/not-found-page.component';
+import { LandingPageComponent } from './components/pages/landing-page/landing-page.component';
 
 const routes: Routes = [
   {
@@ -77,8 +77,7 @@ const routes: Routes = [
   },
   {
     path: 'landing',
-    component:LandingComponent,
-    loadChildren: () => import('./modules/pages/landing/landing.module').then(m => m.LandingPageModule),
+    component:LandingPageComponent,
     canActivate:[unloggedUserGuard]
   },
   {
