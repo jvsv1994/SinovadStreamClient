@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { RestProviderService } from 'src/app/modules/shared/services/rest-provider.service';
+import { RestProviderService } from 'src/app/services/rest-provider.service';
 import { HttpMethodType, MediaType } from 'src/app/modules/shared/enums/enums';
 import {v4 as uuid} from "uuid";
 import { SinovadApiGenericResponse } from 'src/app/modules/shared/models/response/sinovad-api-generic-response.model';

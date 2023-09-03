@@ -3,7 +3,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AuthProvider, FacebookAuthProvider, GoogleAuthProvider } from 'firebase/auth';
 import { HttpMethodType } from 'src/app/modules/shared/enums/enums';
 import { SinovadApiGenericResponse } from 'src/app/modules/shared/models/response/sinovad-api-generic-response.model';
-import { RestProviderService } from 'src/app/modules/shared/services/rest-provider.service';
+import { RestProviderService } from 'src/app/services/rest-provider.service';
 import { AccessUser } from '../models/access-user.model';
 import { LinkedAccount } from '../models/linked-account.model';
 import { ConfirmLinkAccount } from '../models/confirm-linked-account.model';

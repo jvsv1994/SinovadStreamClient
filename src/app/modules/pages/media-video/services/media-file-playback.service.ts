@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpMethodType } from 'src/app/modules/shared/enums/enums';
-import { RestProviderService } from 'src/app/modules/shared/services/rest-provider.service';
+import { RestProviderService } from 'src/app/services/rest-provider.service';
 import { MediaFilePlayback } from '../models/media-file-playback.model';
 import { RetranscodeMediaFile } from '../models/retranscode-media-file.model';
 
