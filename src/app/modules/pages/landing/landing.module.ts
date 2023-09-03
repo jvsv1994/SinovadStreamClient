@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../../shared/shared.module';
-import { LandingPage } from './landing.page';
+import { LandingComponent } from './components/landing/landing.component';
 @NgModule({
     declarations: [
-      LandingPage
+      LandingComponent
     ],
     imports: [
         CommonModule,
@@ -13,7 +13,7 @@ import { LandingPage } from './landing.page';
         SharedModule,
         ReactiveFormsModule
     ],
-    exports: [LandingPage]
+    exports: [LandingComponent]
 })
 export class LandingPageModule {
 }

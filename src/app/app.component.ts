@@ -1,7 +1,6 @@
 
 import { ChangeDetectorRef, Component, HostListener} from '@angular/core';
 import { NotFoundPage } from './modules/pages/not-found/not-found.page';
-import { LandingPage } from './modules/pages/landing/landing.page';
 import { RecoverPasswordPage } from './modules/pages/recover-password/recover-password.page';
 import { ResetPasswordPage } from './modules/pages/reset-password/reset-password.page';
 import { ConfirmEmailPage } from './modules/pages/confirm-email/confirm-email.page';
@@ -29,6 +28,7 @@ import { DeviceData } from './models/device-data.model';
 import { SharedDataService } from './services/shared-data.service';
 import { CommonService } from './services/common.service';
 import { LoginComponent } from './modules/pages/login/components/login/login.component';
+import { LandingComponent } from './modules/pages/landing/components/landing/landing.component';
 
 @Component({
   selector: 'app-root',
@@ -107,7 +107,7 @@ export class AppComponent{
       this.sharedDataService.showSplashScreen=false;
       if(event instanceof NotFoundPage || event instanceof VideoComponent || event instanceof LoginComponent || event instanceof RegisterUserPage
         || event instanceof RecoverPasswordPage || event instanceof ResetPasswordPage
-        || event instanceof LandingPage || event instanceof ConfirmEmailPage || event instanceof ProfilesViewPage)
+        || event instanceof LandingComponent || event instanceof ConfirmEmailPage || event instanceof ProfilesViewPage)
       {
         this.showRouterChildWithFullDimentions=true;
         this.showingSidebarMedia=false;

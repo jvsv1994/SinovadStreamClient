@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule} from '@angular/router';
 import { loggedUserGuard } from './guards/logged-user.guard';
 import { unloggedUserGuard } from './guards/unlogged-user.guard ';
-import { LandingPage } from './modules/pages/landing/landing.page';
 import { RegisterUserPage } from './modules/pages/register-user/register-user.page';
 import { RecoverPasswordPage } from './modules/pages/recover-password/recover-password.page';
 import { ResetPasswordPage } from './modules/pages/reset-password/reset-password.page';
@@ -13,6 +12,7 @@ import { VideoComponent } from './modules/pages/media-video/components/video/vid
 import { MediaItemsComponent } from './modules/pages/media-items/components/media-items/media-items.component';
 import { MediaDetailComponent } from './modules/pages/media-detail/components/media-detail/media-detail.component';
 import { LoginComponent } from './modules/pages/login/components/login/login.component';
+import { LandingComponent } from './modules/pages/landing/components/landing/landing.component';
 
 
 const routes: Routes = [
@@ -78,7 +78,7 @@ const routes: Routes = [
   },
   {
     path: 'landing',
-    component:LandingPage,
+    component:LandingComponent,
     loadChildren: () => import('./modules/pages/landing/landing.module').then(m => m.LandingPageModule),
     canActivate:[unloggedUserGuard]
   },
