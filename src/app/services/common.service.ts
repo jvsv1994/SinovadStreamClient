@@ -1,44 +1,21 @@
 import { Injectable } from '@angular/core';
-import { Profile } from 'src/app/modules/pages/profiles/shared/profile.model';
-import { Configuration } from '../models/configuration.model';
+import { SharedDataService } from './shared-data.service';
 import { FormGroup } from '@angular/forms';
-import { LinkedAccount } from '../models/linked-account.model';
-import { HubConnection } from '@microsoft/signalr';
-import { MetadataAgents } from '../enums/enums';
-import { Item } from '../../pages/media-items/models/item.model';
-import { Menu } from '../../pages/manage/modules/pages/menus/models/menu.model';
-import { User } from '../../pages/manage/modules/pages/users/models/user.model';
-import { MediaServer } from '../../pages/manage/modules/pages/servers/models/server.model';
-import { DeviceData } from 'src/app/models/device-data.model';
+import { MetadataAgents } from '../modules/shared/enums/enums';
+import { Item } from '../modules/pages/media-items/models/item.model';
 
 @Injectable({ providedIn: 'root' })
-export class SharedService {
+export class CommonService {
 
-  showSplashScreen:boolean=true;
-  userData: User;
-  //urlSinovadStreamWebApi: string='http://localhost:53363';
-  urlSinovadStreamWebApi: string='https://streamapi.sinovad.com';
-  urlSinovadCdn: string='https://resources.sinovad.com/stream/web';
-  originalUrlImagesMovieDataBase:String="https://image.tmdb.org/t/p/w600_and_h900_bestv2";
-  urlEpisodeDataBase:string="https://www.themoviedb.org/t/p/w454_and_h254_bestv2";
-  apiToken:string;
-  currentProfile:Profile;
-  configurationData:Configuration=new Configuration();
-  listProfiles:Profile[]=[];
-  manageMenus:Menu[]=[];
-  mediaServers:MediaServer[]=[];
-  linkedAccounts:LinkedAccount[]=[];
-  hubConnection:HubConnection;
-  deviceData:DeviceData;
-
-  constructor() {
+  constructor(public sharedDataService:SharedDataService) {
 
   }
 
+
   public checkIfIsEnableMenuOptionByPath(path:string){
     var findOption=false;
-    for (let index = 0; index < this.manageMenus.length; index++) {
-      const menu = this.manageMenus[index];
+    for (let index = 0; index < this.sharedDataService.manageMenus.length; index++) {
+      const menu = this.sharedDataService.manageMenus[index];
       if(menu.ChildMenus && menu.ChildMenus.findIndex(x=>x.Path && x.Path.includes(path))!=-1)
       {
         findOption=true;
@@ -118,13 +95,13 @@ export class SharedService {
   public getUrlByItemMovieDataBase(item:Item){
     if(item.MetadataAgentsId==MetadataAgents.TMDb)
     {
-      return this.originalUrlImagesMovieDataBase+item.PosterPath;
+      return this.sharedDataService.originalUrlImagesMovieDataBase+item.PosterPath;
     }else{
       if(item.PosterPath)
       {
         return item.PosterPath;
       }else{
-        var mediaServer=this.mediaServers.find(x=>x.Id==item.MediaServerId);
+        var mediaServer=this.sharedDataService.mediaServers.find(x=>x.Id==item.MediaServerId);
         if(mediaServer)
         {
           return mediaServer.Url+"/media/"+item.MediaFileGuid+"/thumbnail.png";
@@ -143,5 +120,4 @@ export class SharedService {
       return false;
     }
   }
-
 }

@@ -1,0 +1,35 @@
+import { Injectable } from '@angular/core';
+import { Profile } from 'src/app/modules/pages/profiles/shared/profile.model';
+import { HubConnection } from '@microsoft/signalr';
+import { DeviceData } from 'src/app/models/device-data.model';
+import { User } from '../modules/pages/manage/modules/pages/users/models/user.model';
+import { Configuration } from '../modules/shared/models/configuration.model';
+import { Menu } from '../modules/pages/manage/modules/pages/menus/models/menu.model';
+import { MediaServer } from '../modules/pages/manage/modules/pages/servers/models/server.model';
+import { LinkedAccount } from '../modules/shared/models/linked-account.model';
+
+@Injectable({ providedIn: 'root' })
+export class SharedDataService {
+
+  showSplashScreen:boolean=true;
+  userData: User;
+  //urlSinovadStreamWebApi: string='http://localhost:53363';
+  urlSinovadStreamWebApi: string='https://streamapi.sinovad.com';
+  urlSinovadCdn: string='https://resources.sinovad.com/stream/web';
+  originalUrlImagesMovieDataBase:String="https://image.tmdb.org/t/p/w600_and_h900_bestv2";
+  urlEpisodeDataBase:string="https://www.themoviedb.org/t/p/w454_and_h254_bestv2";
+  apiToken:string;
+  currentProfile:Profile;
+  configurationData:Configuration=new Configuration();
+  listProfiles:Profile[]=[];
+  manageMenus:Menu[]=[];
+  mediaServers:MediaServer[]=[];
+  linkedAccounts:LinkedAccount[]=[];
+  hubConnection:HubConnection;
+  deviceData:DeviceData;
+
+  constructor() {
+
+  }
+
+}
