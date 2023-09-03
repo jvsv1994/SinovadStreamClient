@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AuthProvider, FacebookAuthProvider, GoogleAuthProvider } from 'firebase/auth';
-import { RestProviderService } from './rest-provider.service';
-import { SinovadApiGenericResponse } from '../models/response/sinovad-api-generic-response.model';
-import { LinkedAccount } from '../models/linked-account.model';
-import { ConfirmLinkAccount } from '../models/confirm-linked-account.model';
-import { HttpMethodType } from '../enums/enums';
-import { User } from '../../pages/manage/modules/pages/users/models/user.model';
+import { HttpMethodType } from 'src/app/modules/shared/enums/enums';
+import { ConfirmLinkAccount } from 'src/app/modules/shared/models/confirm-linked-account.model';
+import { LinkedAccount } from 'src/app/modules/shared/models/linked-account.model';
+import { SinovadApiGenericResponse } from 'src/app/modules/shared/models/response/sinovad-api-generic-response.model';
+import { RestProviderService } from 'src/app/modules/shared/services/rest-provider.service';
+import { User } from '../../manage/modules/pages/users/models/user.model';
 
 @Injectable({
   providedIn: 'root'
