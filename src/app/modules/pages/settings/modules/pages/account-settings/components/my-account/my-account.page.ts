@@ -4,7 +4,7 @@ import { CatalogDetail } from 'src/app/modules/pages/manage/modules/pages/catalo
 import { CatalogService } from 'src/app/modules/pages/manage/modules/pages/catalogs/shared/catalog.services';
 import { CatalogEnum } from 'src/app/modules/shared/enums/enums';
 import { SinovadApiGenericResponse } from 'src/app/modules/shared/models/response/sinovad-api-generic-response.model';
-import { SharedService } from 'src/app/modules/shared/services/shared-data.service';
+import { SharedDataService } from 'src/app/services/shared-data.service';
 
 declare var window;
 @Component({
@@ -24,7 +24,7 @@ export class MyAccountPage implements OnInit {
 
   constructor(
     private catalogService:CatalogService,
-    public sharedService: SharedService) {
+    public sharedService: SharedDataService) {
     }
 
     ngOnInit(): void {

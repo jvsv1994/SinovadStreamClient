@@ -1,16 +1,16 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
-import { SharedService } from '../modules/shared/services/shared-data.service';
 import { tap } from 'rxjs';
 import { MenuService } from '../modules/pages/manage/modules/pages/menus/services/menu.service';
+import { CommonService } from '../services/common.service';
 
 export const adminGuard: CanActivateFn = (route, state) => {
-  const sharedService=inject(SharedService);
+  const commonService=inject(CommonService);
   const menuService=inject(MenuService);
   const router=inject(Router);
   if(menuService.loadedManageMenu)
   {
-    if(sharedService.checkIfIsEnableMenuOptionByPath(route.routeConfig.path))
+    if(commonService.checkIfIsEnableMenuOptionByPath(route.routeConfig.path))
     {
       return true;
     }else{
@@ -18,7 +18,7 @@ export const adminGuard: CanActivateFn = (route, state) => {
     }
   }else{
     return menuService.isCompletedLoadUserManageMenu().pipe(tap(x=>{
-      if(sharedService.checkIfIsEnableMenuOptionByPath(route.routeConfig.path))
+      if(commonService.checkIfIsEnableMenuOptionByPath(route.routeConfig.path))
       {
         return true;
       }else{

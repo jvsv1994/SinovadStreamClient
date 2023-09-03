@@ -1,9 +1,10 @@
 
 import { ChangeDetectorRef, Component} from '@angular/core';
-import { SharedService } from 'src/app/modules/shared/services/shared-data.service';
+import { SharedDataService } from 'src/app/services/shared-data.service';
 import { Router } from '@angular/router';
 import { Profile } from 'src/app/modules/pages/profiles/shared/profile.model';
 import { UserService } from 'src/app/modules/pages/manage/modules/pages/users/services/user.service';
+import { CommonService } from 'src/app/services/common.service';
 
 declare var window;
 @Component({
@@ -14,10 +15,11 @@ declare var window;
 export class DropDownUserComponent{
 
   constructor(
+    public commonService:CommonService,
     private userService:UserService,
     private ref:ChangeDetectorRef,
     private router: Router,
-    public sharedService: SharedService) {
+    public sharedService: SharedDataService) {
 
     }
 

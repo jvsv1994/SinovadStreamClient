@@ -14,7 +14,7 @@
           <ng-template ngFor let-profile [ngForOf]="sharedService.listProfiles">
             <button id="profile_{{profile.Id}}" (click)="onSelectProfile(profile)">
               <div *ngIf="profile.AvatarPath==undefined" class="sinovad-initials-profile">
-                {{sharedService.getInitials(profile)}}
+                {{commonService.getInitials(profile)}}
               </div>
               <img *ngIf="profile.AvatarPath!=undefined" class="sinovad-initials-profile" [attr.src]="profile.Id | formatDataPipe : 'GetAvatarImageURLByProfileId' | async">
               <div *ngIf="enableEditMode" class="sinovad-icon-edit-profile-container">

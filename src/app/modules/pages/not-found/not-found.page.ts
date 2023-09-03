@@ -1,6 +1,6 @@
 
 import { Component, OnInit } from '@angular/core';
-import { SharedService } from 'src/app/modules/shared/services/shared-data.service';
+import { SharedDataService } from 'src/app/services/shared-data.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -12,7 +12,7 @@ export class NotFoundPage implements OnInit {
 
   constructor(
     private router: Router,
-    public sharedService: SharedService) {
+    public sharedService: SharedDataService) {
 
 
     }

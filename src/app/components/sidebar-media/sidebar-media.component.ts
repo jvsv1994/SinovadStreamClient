@@ -6,7 +6,7 @@ import { MediaServer } from 'src/app/modules/pages/manage/modules/pages/servers/
 import { Library } from 'src/app/modules/pages/settings/modules/pages/server/modules/pages/manage/modules/pages/libraries/models/library.model';
 import { LibraryService } from 'src/app/modules/pages/settings/modules/pages/server/modules/pages/manage/modules/pages/libraries/services/library.service';
 import { MediaType } from 'src/app/modules/shared/enums/enums';
-import { SharedService } from 'src/app/modules/shared/services/shared-data.service';
+import { SharedDataService } from 'src/app/services/shared-data.service';
 import { SignalIRHubService } from 'src/app/modules/shared/services/signal-ir-hub.service';
 
 declare var window;
@@ -26,7 +26,7 @@ export class SidebarMediaComponent{
   constructor(
     private libraryService:LibraryService,
     private signalIrService:SignalIRHubService,
-    public sharedService:SharedService) {
+    public sharedService:SharedDataService) {
       this.subscriptionEnableMediaServer=this.signalIrService.isEnablingMediaServer().subscribe((mediaServerGuid:string) => {
         var mediaServerMenu=this.mediaMenu.find(x=>x.MediaServerGuid==mediaServerGuid);
         if(mediaServerMenu && !mediaServerMenu.IsSecureConnection)

@@ -44,7 +44,7 @@
                   </div>
                   <div class="custom-card-profile-content">
                     <div *ngIf="item.ProfileData.AvatarPath==undefined" class="sinovad-initials-profile">
-                      {{sharedService.getInitials(item.ProfileData.ProfileName)}}
+                      {{commonService.getInitials(item.ProfileData.ProfileName)}}
                     </div>
                     <img *ngIf="item.ProfileData.AvatarPath!=undefined" class="sinovad-initials-profile" [attr.src]="item.ProfileData.ProfileId | formatDataPipe : 'GetAvatarImageURLByProfileId' | async">
                     <span class="sinovad-fullname-profile text-truncate">

@@ -1,6 +1,5 @@
 
 import { Component, EventEmitter } from '@angular/core';
-import { SharedService } from 'src/app/modules/shared/services/shared-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -15,6 +14,7 @@ import { SignalIRHubService } from 'src/app/modules/shared/services/signal-ir-hu
 import { Library } from '../../models/library.model';
 import { LibraryService } from '../../services/library.service';
 import { MediaServer } from 'src/app/modules/pages/manage/modules/pages/servers/models/server.model';
+import { SharedDataService } from 'src/app/services/shared-data.service';
 
 declare var window;
 @Component({
@@ -40,7 +40,7 @@ export class LibraryListComponent{
     private snackBarService:SnackBarService,
     private router: Router,
     public activeRoute: ActivatedRoute,
-    public sharedService: SharedService) {
+    public sharedService: SharedDataService) {
       this.router.routeReuseStrategy.shouldReuseRoute = function () {
         return false;
       };

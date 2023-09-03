@@ -6,7 +6,6 @@ import { SnackBarService } from 'src/app/modules/shared/services/snack-bar.servi
 import { SnackBarType } from 'src/app/modules/shared/components/custom-snack-bar/custom-snack-bar.component';
 import { MyErrorStateMatcher } from 'src/app/modules/shared/error-matcher/custom-error-state-matcher';
 import { SelectionModel } from '@angular/cdk/collections';
-import { SharedService } from 'src/app/modules/shared/services/shared-data.service';
 import { SinovadApiGenericResponse } from 'src/app/modules/shared/models/response/sinovad-api-generic-response.model';
 import { Genre } from '../../../genres/models/genre.model';
 import { Movie } from '../../models/movie.model';
@@ -14,6 +13,7 @@ import { GenreService } from '../../../genres/services/genre.service';
 import { MovieService } from '../../services/movie.service';
 import { GenresSelectionModalComponent } from '../../../genres/components/genres-selection-modal/genres-selection-modal.component';
 import { MovieGenre } from '../../models/movie-genre.model';
+import { CommonService } from 'src/app/services/common.service';
 
 @Component({
   selector: 'app-movie-form',
@@ -30,7 +30,7 @@ export class MovieFormPage implements OnInit{
   listGenres:Genre[];
 
   constructor(
-    private sharedService:SharedService,
+    public commonService: CommonService,
     private modalService: NgbModal,
     private genreService:GenreService,
     private formBuilder: FormBuilder,
@@ -60,7 +60,7 @@ export class MovieFormPage implements OnInit{
     private buildFormGroup(){
       this.movieFormGroup = this.formBuilder.group({
         title:new FormControl(this.movie.Title,[Validators.required]),
-        releaseDate:new FormControl(this.sharedService.formatDate(this.movie.ReleaseDate)),
+        releaseDate:new FormControl(this.commonService.formatDate(this.movie.ReleaseDate)),
         directors:new FormControl(this.movie.Directors),
         actors:new FormControl(this.movie.Actors),
         overview:new FormControl(this.movie.Overview),

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { RestProviderService } from 'src/app/modules/shared/services/rest-provider.service';
 import { HttpMethodType } from 'src/app/modules/shared/enums/enums';
 import {v4 as uuid} from "uuid";
-import { SharedService } from 'src/app/modules/shared/services/shared-data.service';
+import { SharedDataService } from 'src/app/services/shared-data.service';
 import { SinovadApiPaginationResponse } from 'src/app/modules/shared/models/response/sinovad-api-pagination-response.model';
 import { SinovadApiGenericResponse } from 'src/app/modules/shared/models/response/sinovad-api-generic-response.model';
 import { Observable, Subject } from 'rxjs';
@@ -22,7 +22,7 @@ export class UserService {
   constructor(
     private menuService:MenuService,
     private signalIRHubService:SignalIRHubService,
-    private sharedService:SharedService,
+    private sharedService:SharedDataService,
     private restProvider: RestProviderService,
   ) {
   }

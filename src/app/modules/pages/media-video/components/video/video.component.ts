@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild 
 import { HttpClient} from '@angular/common/http';
 import * as Dash from 'dashjs';
 import {v4 as uuid} from "uuid";
-import { SharedService } from 'src/app/modules/shared/services/shared-data.service';
+import { SharedDataService } from 'src/app/services/shared-data.service';
 import { parse } from '@plussub/srt-vtt-parser';
 import Hls, { HlsConfig } from 'hls.js';
 import { HttpMethodType, LoadVideoStatus, MediaType, MetadataAgents, VideoTransmissionType } from 'src/app/modules/shared/enums/enums';
@@ -25,6 +25,7 @@ import { LibraryService } from '../../../settings/modules/pages/server/modules/p
 import { MediaServer } from '../../../manage/modules/pages/servers/models/server.model';
 import { MediaItem } from '../../../media-detail/models/media-item.model';
 import { MediaFile } from '../../../media-detail/models/media-file.model';
+import { CommonService } from 'src/app/services/common.service';
 @Component({
   selector: 'app-video',
   templateUrl: 'video.component.html',
@@ -78,7 +79,8 @@ export class VideoComponent implements OnInit,OnDestroy{
     private libraryService:LibraryService,
     private dialog: MatDialog,
     public restProvider: RestProviderService,
-    public sharedService: SharedService,
+    public commonService: CommonService,
+    public sharedService: SharedDataService,
     public ref: ChangeDetectorRef,
     public http: HttpClient) {
       this.router.routeReuseStrategy.shouldReuseRoute = function () {
@@ -491,7 +493,7 @@ export class VideoComponent implements OnInit,OnDestroy{
   public onTouchVideoContainer(target?:any){
     if(!this.showingSettings)
     {
-      if(this.sharedService.isMobileDevice())
+      if(this.commonService.isMobileDevice())
       {
         this.showControlsTemporarily(target);
       }
@@ -505,7 +507,7 @@ export class VideoComponent implements OnInit,OnDestroy{
       setTimeout(() => {
         target.clicked=false;
       }, 2000);
-      if(!this.sharedService.isMobileDevice())
+      if(!this.commonService.isMobileDevice())
       {
         this.showControlsTemporarily(target);
       }
@@ -1204,7 +1206,7 @@ public onClickSlider(sliderContainer:any){
     {
       let guid=uuid();
       target.guid=guid;
-      if(this.sharedService.isMobileDevice())
+      if(this.commonService.isMobileDevice())
       {
         setTimeout(() => {
           this.executeShowControlsTemporarily(target,guid);

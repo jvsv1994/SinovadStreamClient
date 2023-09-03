@@ -1,11 +1,12 @@
 
 import { Component, OnInit } from '@angular/core';
-import { SharedService } from 'src/app/modules/shared/services/shared-data.service';
+import { SharedDataService } from 'src/app/services/shared-data.service';
 import { RestProviderService } from 'src/app/modules/shared/services/rest-provider.service';
 import { HttpMethodType } from 'src/app/modules/shared/enums/enums';
 import { Router } from '@angular/router';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { RegisterUserModel } from './register-user-model';
+import { CommonService } from 'src/app/services/common.service';
 
 declare var window;
 @Component({
@@ -35,7 +36,8 @@ export class RegisterUserPage implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     public restProvider: RestProviderService,
-    public sharedService: SharedService) {
+    public commonService:CommonService,
+    public sharedService: SharedDataService) {
 
     }
 

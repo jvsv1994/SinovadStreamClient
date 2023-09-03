@@ -1,6 +1,5 @@
 
 import { Component, OnInit } from '@angular/core';
-import { SharedService } from 'src/app/modules/shared/services/shared-data.service';
 import { HttpMethodType } from 'src/app/modules/shared/enums/enums';
 import { RestProviderService } from 'src/app/modules/shared/services/rest-provider.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -12,6 +11,7 @@ import { SinovadApiGenericResponse } from 'src/app/modules/shared/models/respons
 import { SnackBarType } from 'src/app/modules/shared/components/custom-snack-bar/custom-snack-bar.component';
 import { MediaServer } from 'src/app/modules/pages/manage/modules/pages/servers/models/server.model';
 import { MediaServerService } from 'src/app/modules/pages/manage/modules/pages/servers/services/server.service';
+import { SharedDataService } from 'src/app/services/shared-data.service';
 
 declare var window;
 @Component({
@@ -36,7 +36,7 @@ export class ServerSettingsGeneralPage implements OnInit {
     private router: Router,
     public activeRoute: ActivatedRoute,
     public restProvider: RestProviderService,
-    public sharedService: SharedService) {
+    public sharedService: SharedDataService) {
       this.router.routeReuseStrategy.shouldReuseRoute = function () {
         return false;
       };

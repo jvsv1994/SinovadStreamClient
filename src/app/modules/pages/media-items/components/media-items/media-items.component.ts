@@ -1,6 +1,6 @@
 
 import { ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
-import { SharedService } from 'src/app/modules/shared/services/shared-data.service';
+import { SharedDataService } from 'src/app/services/shared-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MediaType } from 'src/app/modules/shared/enums/enums';
 import { RestProviderService } from 'src/app/modules/shared/services/rest-provider.service';
@@ -11,6 +11,7 @@ import { SignalIRHubService } from 'src/app/modules/shared/services/signal-ir-hu
 import { Library } from '../../../settings/modules/pages/server/modules/pages/manage/modules/pages/libraries/models/library.model';
 import { LibraryService } from '../../../settings/modules/pages/server/modules/pages/manage/modules/pages/libraries/services/library.service';
 import { MediaServer } from '../../../manage/modules/pages/servers/models/server.model';
+import { CommonService } from 'src/app/services/common.service';
 
 @Component({
   selector: 'app-media-items',
@@ -39,7 +40,8 @@ export class MediaItemsComponent implements OnInit,OnDestroy {
     public router: Router,
     public restProvider: RestProviderService,
     private  ref:ChangeDetectorRef,
-    public sharedService: SharedService) {
+    public commonService: CommonService,
+    public sharedService: SharedDataService) {
       this.router.routeReuseStrategy.shouldReuseRoute = function () {
         return false;
       };

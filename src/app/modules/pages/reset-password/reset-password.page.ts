@@ -1,6 +1,6 @@
 
 import { Component, OnInit } from '@angular/core';
-import { SharedService } from 'src/app/modules/shared/services/shared-data.service';
+import { SharedDataService } from 'src/app/services/shared-data.service';
 import { RestProviderService } from 'src/app/modules/shared/services/rest-provider.service';
 import { HttpMethodType } from 'src/app/modules/shared/enums/enums';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -8,6 +8,7 @@ import hiBase64 from 'hi-base64';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ResetPasswordModel } from './reset-password.model';
 import { ValidateResetPasswordTokenModel } from './validate-reset-password-token.model';
+import { CommonService } from 'src/app/services/common.service';
 
 declare var window;
 @Component({
@@ -38,7 +39,8 @@ export class ResetPasswordPage implements OnInit {
     private router: Router,
     public activeRoute: ActivatedRoute,
     public restProvider: RestProviderService,
-    public sharedService: SharedService) {
+    public commonService: CommonService,
+    public sharedService: SharedDataService) {
 
     }
 

@@ -1,8 +1,8 @@
 
-import { SharedService } from 'src/app/modules/shared/services/shared-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Library } from '../../pages/settings/modules/pages/server/modules/pages/manage/modules/pages/libraries/models/library.model';
 import { MediaServer } from '../../pages/manage/modules/pages/servers/models/server.model';
+import { SharedDataService } from 'src/app/services/shared-data.service';
 
 export class MediaGeneric{
 
@@ -14,7 +14,7 @@ export class MediaGeneric{
   constructor(
     public router:Router,
     public activeRoute: ActivatedRoute,
-    public sharedService: SharedService) {}
+    public sharedService: SharedDataService) {}
 
   public initializeHeaderData(): void {
     var mediaServerGuid=this.activeRoute.snapshot.params.serverGuid;

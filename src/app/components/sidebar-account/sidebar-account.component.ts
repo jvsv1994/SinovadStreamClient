@@ -1,6 +1,6 @@
 
 import { ChangeDetectorRef, Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
-import { SharedService } from 'src/app/modules/shared/services/shared-data.service';
+import { SharedDataService } from 'src/app/services/shared-data.service';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { SidebarOption } from 'src/app/models/sidebar-option.model';
@@ -10,6 +10,7 @@ import { DropDownMenuOptions } from 'src/app/models/drop-down-menu-options.model
 import { SignalIRHubService } from 'src/app/modules/shared/services/signal-ir-hub.service';
 import { MediaServer } from 'src/app/modules/pages/manage/modules/pages/servers/models/server.model';
 import { Menu } from 'src/app/modules/pages/manage/modules/pages/menus/models/menu.model';
+import { CommonService } from 'src/app/services/common.service';
 
 declare var window;
 @Component({
@@ -78,7 +79,8 @@ export class SidebarAccountComponent implements OnInit {
     public dropDownServersService:DropDownServersService,
     public activeRoute: ActivatedRoute,
     public  ref:ChangeDetectorRef,
-    public sharedService: SharedService) {
+    public commonService:CommonService,
+    public sharedService: SharedDataService) {
       this.subscriptionEnableMediaServer=this.signalIrService.isEnablingMediaServer().subscribe((mediaServerGuid:string) => {
         if(this.selectedMediaServer && this.selectedMediaServer.Guid==mediaServerGuid && !this.selectedMediaServer.isSecureConnection)
         {

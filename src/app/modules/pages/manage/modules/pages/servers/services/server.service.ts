@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { RestProviderService } from 'src/app/modules/shared/services/rest-provider.service';
 import { HttpMethodType } from 'src/app/modules/shared/enums/enums';
 import {v4 as uuid} from "uuid";
-import { SharedService } from 'src/app/modules/shared/services/shared-data.service';
+import { SharedDataService } from 'src/app/services/shared-data.service';
 import { SinovadApiGenericResponse } from 'src/app/modules/shared/models/response/sinovad-api-generic-response.model';
 import { SinovadApiPaginationResponse } from 'src/app/modules/shared/models/response/sinovad-api-pagination-response.model';
 import { LibraryService } from 'src/app/modules/pages/settings/modules/pages/server/modules/pages/manage/modules/pages/libraries/services/library.service';
@@ -16,7 +16,7 @@ export class MediaServerService {
 
   constructor(
     private libraryService:LibraryService,
-    private sharedService:SharedService,
+    private sharedService:SharedDataService,
     private restProvider: RestProviderService,
   ) {
   }

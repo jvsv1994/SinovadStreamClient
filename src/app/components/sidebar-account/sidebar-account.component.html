@@ -39,7 +39,7 @@
         </button>
         <ng-template [ngIf]="!loadingConnection && selectedMediaServer && serverModules && serverModules.length>0">
           <ng-template [ngIf]="selectedMediaServer.isSecureConnection">
-            <ng-template [ngIf]="!sharedService.isHttpsSite()">
+            <ng-template [ngIf]="!commonService.isHttpsSite()">
               <ng-template ngFor let-module [ngForOf]="serverModules">
                 <div role="navigation">
                   <div class="sidebar-list-header-container">
@@ -62,7 +62,7 @@
                 </div>
               </ng-template>
             </ng-template>
-            <ng-template [ngIf]="sharedService.isHttpsSite()">
+            <ng-template [ngIf]="commonService.isHttpsSite()">
               <div>
                 <p class="sidebar-message">No se puede conectar a "{{selectedMediaServer.FamilyName?selectedMediaServer.FamilyName:selectedMediaServer.DeviceName}}" desde este sitio</p>
               </div>

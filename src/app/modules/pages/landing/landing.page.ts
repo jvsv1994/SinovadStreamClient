@@ -1,6 +1,6 @@
 
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { SharedService } from 'src/app/modules/shared/services/shared-data.service';
+import { SharedDataService } from 'src/app/services/shared-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 declare var window;
@@ -22,7 +22,7 @@ export class LandingPage implements OnInit {
   constructor(
     private router: Router,
     public activeRoute: ActivatedRoute,
-    public sharedService: SharedService) {
+    public sharedService: SharedDataService) {
 
 
     }

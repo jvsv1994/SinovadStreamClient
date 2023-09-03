@@ -6,7 +6,6 @@ import { SnackBarService } from 'src/app/modules/shared/services/snack-bar.servi
 import { SnackBarType } from 'src/app/modules/shared/components/custom-snack-bar/custom-snack-bar.component';
 import { MyErrorStateMatcher } from 'src/app/modules/shared/error-matcher/custom-error-state-matcher';
 import { SelectionModel } from '@angular/cdk/collections';
-import { SharedService } from 'src/app/modules/shared/services/shared-data.service';
 import { SinovadApiGenericResponse } from 'src/app/modules/shared/models/response/sinovad-api-generic-response.model';
 import { TvSerie } from '../../models/tvserie.model';
 import { Genre } from '../../../genres/models/genre.model';
@@ -14,6 +13,7 @@ import { GenreService } from '../../../genres/services/genre.service';
 import { TvSerieService } from '../../services/tvserie.service';
 import { GenresSelectionModalComponent } from '../../../genres/components/genres-selection-modal/genres-selection-modal.component';
 import { TvSerieGenre } from '../../models/tvserie-genre.model';
+import { CommonService } from 'src/app/services/common.service';
 
 @Component({
   selector: 'app-tvserie-form',
@@ -30,7 +30,7 @@ export class TvSerieFormPage implements OnInit{
   listGenres:Genre[];
 
   constructor(
-    private sharedService:SharedService,
+    public commonService: CommonService,
     private modalService: NgbModal,
     private genreService:GenreService,
     private formBuilder: FormBuilder,
@@ -60,8 +60,8 @@ export class TvSerieFormPage implements OnInit{
     private buildFormGroup(){
       this.tvserieFormGroup = this.formBuilder.group({
         name:new FormControl(this.tvserie.Name,[Validators.required]),
-        firstAirDate:new FormControl(this.sharedService.formatDate(this.tvserie.FirstAirDate)),
-        lastAirDate:new FormControl(this.sharedService.formatDate(this.tvserie.LastAirDate)),
+        firstAirDate:new FormControl(this.commonService.formatDate(this.tvserie.FirstAirDate)),
+        lastAirDate:new FormControl(this.commonService.formatDate(this.tvserie.LastAirDate)),
         directors:new FormControl(this.tvserie.Directors),
         actors:new FormControl(this.tvserie.Actors),
         overview:new FormControl(this.tvserie.Overview),

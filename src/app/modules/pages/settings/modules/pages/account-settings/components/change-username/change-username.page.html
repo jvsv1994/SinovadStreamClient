@@ -7,9 +7,9 @@
       <button class="cancel" (click)="closeChangeUsername.emit(true)">Cancelar</button>
     </div>
     <form [formGroup]="changeUsernameForm" (ngSubmit)="changeUsername()" class="form">
-      <div class="form-group" [ngClass]="{'error':sharedService.isInvalidFormControl(changeUsernameForm,'username')}">
+      <div class="form-group" [ngClass]="{'error':commonService.isInvalidFormControl(changeUsernameForm,'username')}">
         <label>
-          Nombre de Usuario{{sharedService.isInvalidFormControl(changeUsernameForm,'username') && sharedService.hasRequireErrorFormControl(changeUsernameForm,'username')?' - Se requiere nombre de usuario':''}}
+          Nombre de Usuario{{commonService.isInvalidFormControl(changeUsernameForm,'username') && commonService.hasRequireErrorFormControl(changeUsernameForm,'username')?' - Se requiere nombre de usuario':''}}
         </label>
         <input formControlName="username">
       </div>

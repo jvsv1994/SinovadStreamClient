@@ -1,11 +1,12 @@
 
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { SharedService } from 'src/app/modules/shared/services/shared-data.service';
+import { SharedDataService } from 'src/app/services/shared-data.service';
 
 import { RestProviderService } from 'src/app/modules/shared/services/rest-provider.service';
 import { Router } from '@angular/router';
 import { NavbarOption } from 'src/app/models/navbar-option.model';
 import { Profile } from 'src/app/modules/pages/profiles/shared/profile.model';
+import { CommonService } from 'src/app/services/common.service';
 
 declare var window;
 @Component({
@@ -30,7 +31,8 @@ export class NavbarComponent implements OnInit {
   constructor(
     private router: Router,
     public restProvider: RestProviderService,
-    public sharedService: SharedService) {
+    public commonService:CommonService,
+    public sharedService: SharedDataService) {
 
 
     }

@@ -5,8 +5,9 @@ import { Subscription } from 'rxjs';
 import { SignalIRHubService } from 'src/app/modules/shared/services/signal-ir-hub.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MediaFilePlayback } from 'src/app/modules/pages/media-video/models/media-file-playback.model';
-import { SharedService } from 'src/app/modules/shared/services/shared-data.service';
 import { MediaFilePlaybackClient } from 'src/app/modules/pages/media-video/models/media-file-playback-client.model';
+import { SharedDataService } from 'src/app/services/shared-data.service';
+import { CommonService } from 'src/app/services/common.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -25,7 +26,8 @@ export class DashboardComponent {
   listItems:MediaFilePlayback[];
 
   constructor(
-    public sharedService: SharedService,
+    public commonService: CommonService,
+    public sharedService: SharedDataService,
     private ref:ChangeDetectorRef,
     private router: Router,
     public activeRoute: ActivatedRoute,

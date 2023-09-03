@@ -1,6 +1,6 @@
 
 import { ChangeDetectorRef, Component, HostListener, OnInit} from '@angular/core';
-import { SharedService } from 'src/app/modules/shared/services/shared-data.service';
+import { SharedDataService } from 'src/app/services/shared-data.service';
 import { MediaType, MetadataAgents } from 'src/app/modules/shared/enums/enums';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MediaGeneric } from 'src/app/modules/shared/generics/media.generic';
@@ -36,7 +36,7 @@ export class MediaDetailComponent extends MediaGeneric implements OnInit {
     public activeRoute: ActivatedRoute,
     public router: Router,
     private  ref:ChangeDetectorRef,
-    public sharedService: SharedService) {
+    public sharedService: SharedDataService) {
       super(router,activeRoute,sharedService)
       this.subscriptionEnableMediaServer=this.signalIrService.isEnablingMediaServer().subscribe((mediaServerGuid:string)=>{
         if(this.mediaServer && this.mediaServer.Guid==mediaServerGuid && !this.mediaServer.isSecureConnection)

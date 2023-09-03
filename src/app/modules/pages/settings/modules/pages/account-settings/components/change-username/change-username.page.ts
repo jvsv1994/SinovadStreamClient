@@ -1,9 +1,10 @@
 
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { SharedService } from 'src/app/modules/shared/services/shared-data.service';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ChangeUsernameModel } from '../../models/change-username.model';
 import { AccountSettingsService } from '../../services/account-settings.service';
+import { SharedDataService } from 'src/app/services/shared-data.service';
+import { CommonService } from 'src/app/services/common.service';
 
 declare var window;
 @Component({
@@ -24,7 +25,8 @@ export class ChangeUsernamePage implements OnInit {
   constructor(
     private accountSettingsService:AccountSettingsService,
     private formBuilder: FormBuilder,
-    public sharedService: SharedService) {
+    public commonService: CommonService,
+    public sharedService: SharedDataService) {
 
     }
 

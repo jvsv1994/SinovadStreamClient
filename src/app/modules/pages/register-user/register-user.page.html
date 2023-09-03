@@ -13,70 +13,70 @@
         <div class="sinovad-title-container">
           Regístrate
         </div>
-        <div class="mb-3" [ngClass]="{'error':sharedService.isInvalidFormControl(registerUserForm,'email')}">
+        <div class="mb-3" [ngClass]="{'error':commonService.isInvalidFormControl(registerUserForm,'email')}">
           <label class="form-label">
               Correo electrónico
           </label>
           <div class="sinovad-form-textinput-container">
             <input type="text"  formControlName="email"/>
-            <label class="sinovad-form-invalid-input-message" *ngIf="sharedService.isInvalidFormControl(registerUserForm,'email')">
+            <label class="sinovad-form-invalid-input-message" *ngIf="commonService.isInvalidFormControl(registerUserForm,'email')">
               <i class="fa-solid fa-circle-exclamation me-2"></i>
-              {{sharedService.hasRequireErrorFormControl(registerUserForm,'email')? 'Confirma que hayas agregado el email correctamente':
-              sharedService.hasErrorPatternFormControl(registerUserForm,'email')?'Confirma que hayas agregado un email con formato válido':''}}
+              {{commonService.hasRequireErrorFormControl(registerUserForm,'email')? 'Confirma que hayas agregado el email correctamente':
+              commonService.hasErrorPatternFormControl(registerUserForm,'email')?'Confirma que hayas agregado un email con formato válido':''}}
             </label>
           </div>
         </div>
-        <div class="mb-3" [ngClass]="{'error':sharedService.isInvalidFormControl(registerUserForm,'firstName')}">
+        <div class="mb-3" [ngClass]="{'error':commonService.isInvalidFormControl(registerUserForm,'firstName')}">
           <label class="form-label">
             Nombres
           </label>
           <div class="sinovad-form-textinput-container">
             <input type="text" formControlName="firstName"/>
-            <label class="sinovad-form-invalid-input-message" *ngIf="sharedService.isInvalidFormControl(registerUserForm,'firstName') && sharedService.hasRequireErrorFormControl(registerUserForm,'firstName')">
+            <label class="sinovad-form-invalid-input-message" *ngIf="commonService.isInvalidFormControl(registerUserForm,'firstName') && commonService.hasRequireErrorFormControl(registerUserForm,'firstName')">
               <i class="fa-solid fa-circle-exclamation me-2"></i>Confirma que hayas agregado los nombres correctamente
             </label>
           </div>
         </div>
-        <div class="mb-3" [ngClass]="{'error':sharedService.isInvalidFormControl(registerUserForm,'lastName')}">
+        <div class="mb-3" [ngClass]="{'error':commonService.isInvalidFormControl(registerUserForm,'lastName')}">
           <label class="form-label">
             Apellidos
           </label>
           <div class="sinovad-form-textinput-container">
             <input type="text" formControlName="lastName"/>
-            <label class="sinovad-form-invalid-input-message" *ngIf="sharedService.isInvalidFormControl(registerUserForm,'lastName') && sharedService.hasRequireErrorFormControl(registerUserForm,'lastName')">
+            <label class="sinovad-form-invalid-input-message" *ngIf="commonService.isInvalidFormControl(registerUserForm,'lastName') && commonService.hasRequireErrorFormControl(registerUserForm,'lastName')">
               <i class="fa-solid fa-circle-exclamation me-2"></i>Confirma que hayas agregado los apellidos correctamente
             </label>
           </div>
         </div>
-        <div class="mb-3" [ngClass]="{'error':sharedService.isInvalidFormControl(registerUserForm,'username')}">
+        <div class="mb-3" [ngClass]="{'error':commonService.isInvalidFormControl(registerUserForm,'username')}">
           <label class="form-label">
             Usuario
           </label>
           <div class="sinovad-form-textinput-container">
             <input type="text" formControlName="username"/>
-            <label class="sinovad-form-invalid-input-message" *ngIf="sharedService.isInvalidFormControl(registerUserForm,'username') && sharedService.hasRequireErrorFormControl(registerUserForm,'username')">
+            <label class="sinovad-form-invalid-input-message" *ngIf="commonService.isInvalidFormControl(registerUserForm,'username') && commonService.hasRequireErrorFormControl(registerUserForm,'username')">
               <i class="fa-solid fa-circle-exclamation me-2"></i>Confirma que hayas agregado el usuario correctamente
             </label>
           </div>
         </div>
-        <div class="mb-3" [ngClass]="{'error':sharedService.isInvalidFormControl(registerUserForm,'password')}">
+        <div class="mb-3" [ngClass]="{'error':commonService.isInvalidFormControl(registerUserForm,'password')}">
           <label class="form-label">
             Contraseña
           </label>
           <div class="sinovad-form-textinput-container">
             <input type="password" formControlName="password"/>
-            <label class="sinovad-form-invalid-input-message" *ngIf="sharedService.isInvalidFormControl(registerUserForm,'password') && sharedService.hasRequireErrorFormControl(registerUserForm,'password')">
+            <label class="sinovad-form-invalid-input-message" *ngIf="commonService.isInvalidFormControl(registerUserForm,'password') && commonService.hasRequireErrorFormControl(registerUserForm,'password')">
               <i class="fa-solid fa-circle-exclamation me-2"></i>Confirma que hayas agregado el password correctamente
             </label>
           </div>
         </div>
-        <div class="mb-3" [ngClass]="{'error':sharedService.isInvalidFormControl(registerUserForm,'confirmPassword')}">
+        <div class="mb-3" [ngClass]="{'error':commonService.isInvalidFormControl(registerUserForm,'confirmPassword')}">
           <label class="form-label">
             Confirmar contraseña
           </label>
           <div class="sinovad-form-textinput-container">
             <input type="password" formControlName="confirmPassword"/>
-            <label class="sinovad-form-invalid-input-message" *ngIf="sharedService.isInvalidFormControl(registerUserForm,'confirmPassword') && sharedService.hasRequireErrorFormControl(registerUserForm,'confirmPassword')">
+            <label class="sinovad-form-invalid-input-message" *ngIf="commonService.isInvalidFormControl(registerUserForm,'confirmPassword') && commonService.hasRequireErrorFormControl(registerUserForm,'confirmPassword')">
               <i class="fa-solid fa-circle-exclamation me-2"></i>Confirma que hayas agregado la confirmación del password correctamente
             </label>
           </div>

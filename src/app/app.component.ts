@@ -1,6 +1,5 @@
 
 import { ChangeDetectorRef, Component, HostListener} from '@angular/core';
-import { SharedService } from 'src/app/modules/shared/services/shared-data.service';
 import { NotFoundPage } from './modules/pages/not-found/not-found.page';
 import { LandingPage } from './modules/pages/landing/landing.page';
 import { RecoverPasswordPage } from './modules/pages/recover-password/recover-password.page';
@@ -28,6 +27,8 @@ import { MenuListPage } from './modules/pages/manage/modules/pages/menus/compone
 import { RoleListPage } from './modules/pages/manage/modules/pages/roles/components/role-list/role-list.page';
 import { DashboardComponent } from './modules/pages/settings/modules/pages/server/modules/pages/status/modules/pages/dashboard/components/dashboard/dashboard.component';
 import { DeviceData } from './models/device-data.model';
+import { SharedDataService } from './services/shared-data.service';
+import { CommonService } from './services/common.service';
 
 @Component({
   selector: 'app-root',
@@ -44,10 +45,11 @@ export class AppComponent{
   showRouterChildWithFullDimentions:boolean=true;
 
   constructor(
+    public commonService:CommonService,
     private deviceService: DeviceDetectorService,
     private userService:UserService,
     public ref: ChangeDetectorRef,
-    public sharedService: SharedService) {}
+    public sharedService: SharedDataService) {}
 
     public ngOnInit(): void {
       var deviceInfo=this.deviceService.getDeviceInfo();

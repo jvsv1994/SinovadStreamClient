@@ -1,13 +1,13 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { SharedService } from 'src/app/modules/shared/services/shared-data.service';
+import { SharedDataService } from 'src/app/services/shared-data.service';
 @Pipe({
     name: 'formatDataPipe'
 })
 export class FormatDataPipe implements PipeTransform {
 
     constructor(public domSanitizer: DomSanitizer,
-      private sharedService: SharedService) {
+      private sharedService: SharedDataService) {
     }
     transform(input: any, ...args: any[]):Promise<any> {
       return new Promise((resolve, reject) => {

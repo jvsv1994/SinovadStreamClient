@@ -1,7 +1,7 @@
 import { HttpTransportType, HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
 import { Injectable } from '@angular/core';
-import { SharedService } from 'src/app/modules/shared/services/shared-data.service';
 import { Observable, Subject } from 'rxjs';
+import { SharedDataService } from 'src/app/services/shared-data.service';
 
 @Injectable({ providedIn: 'root' })
 export class SignalIRHubService {
@@ -17,7 +17,7 @@ export class SignalIRHubService {
   //private updateItemsByMediaServerAndLibrarySubject$ = new Subject<string>();
 
   constructor(
-    private sharedService:SharedService
+    private sharedService:SharedDataService
     ) {
 
   }

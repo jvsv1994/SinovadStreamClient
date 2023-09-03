@@ -1,10 +1,11 @@
 
 import { Component} from '@angular/core';
-import { SharedService } from 'src/app/modules/shared/services/shared-data.service';
+import { SharedDataService } from 'src/app/services/shared-data.service';
 import { Router } from '@angular/router';
 import { Profile } from '../shared/profile.model';
 import { ProfileService } from '../shared/profile.service';
 import { SinovadApiGenericResponse } from 'src/app/modules/shared/models/response/sinovad-api-generic-response.model';
+import { CommonService } from 'src/app/services/common.service';
 
 declare var window;
 @Component({
@@ -21,7 +22,8 @@ export class ProfilesViewPage{
   constructor(
     private profileService:ProfileService,
     private router: Router,
-    public sharedService: SharedService) {
+    public commonService: CommonService,
+    public sharedService: SharedDataService) {
 
     }
 

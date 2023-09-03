@@ -3,7 +3,8 @@ import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, Outpu
 import { Router } from '@angular/router';
 import { DropDownMenuItem } from 'src/app/models/drop-down-menu-Item.model';
 import { DropDownMenuOptions } from 'src/app/models/drop-down-menu-options.model';
-import { SharedService } from 'src/app/modules/shared/services/shared-data.service';
+import { CommonService } from 'src/app/services/common.service';
+import { SharedDataService } from 'src/app/services/shared-data.service';
 
 @Component({
   selector: 'app-drop-down-servers',
@@ -21,8 +22,8 @@ export class DropDownServersComponent<T> implements AfterViewInit{
   @Input() width:number;
 
   constructor(
+    public commonService:CommonService,
     private ref: ChangeDetectorRef,
-    private sharedService:SharedService,
     private router: Router) {
 
     }
@@ -32,7 +33,7 @@ export class DropDownServersComponent<T> implements AfterViewInit{
     }
 
     public async showContent(){
-      await this.sharedService.delay(100);
+      await this.commonService.delay(100);
       this.show=true;
       this.ref.detectChanges();
     }

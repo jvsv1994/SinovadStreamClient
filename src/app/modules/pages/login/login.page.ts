@@ -1,6 +1,6 @@
 
 import { Component } from '@angular/core';
-import { SharedService } from 'src/app/modules/shared/services/shared-data.service';
+import { SharedDataService } from 'src/app/services/shared-data.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ConfirmLinkAccount } from '../../shared/models/confirm-linked-account.model';
@@ -48,7 +48,7 @@ export class LoginPage {
     private signalIRHubService:SignalIRHubService,
     private formBuilder: FormBuilder,
     private router: Router,
-    public sharedService: SharedService) {}
+    public sharedService: SharedDataService) {}
 
     public validateUser(){
       if(this.userFormGroup.valid)

@@ -8,9 +8,9 @@ import { MatTableDataSource } from '@angular/material/table';
 import { SinovadApiPaginationResponse } from 'src/app/modules/shared/models/response/sinovad-api-pagination-response.model';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SharedService } from 'src/app/modules/shared/services/shared-data.service';
 import { SignalIRHubService } from 'src/app/modules/shared/services/signal-ir-hub.service';
 import { MediaServer } from 'src/app/modules/pages/manage/modules/pages/servers/models/server.model';
+import { SharedDataService } from 'src/app/services/shared-data.service';
 
 @Component({
   selector: 'app-alerts',
@@ -27,7 +27,7 @@ export class AlertsComponent extends CustomListGeneric<Alert> {
 
   constructor(
     private ref:ChangeDetectorRef,
-    public sharedService: SharedService,
+    public sharedService: SharedDataService,
     private router: Router,
     public activeRoute: ActivatedRoute,
     private signalIrService:SignalIRHubService,

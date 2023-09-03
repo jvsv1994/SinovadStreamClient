@@ -7,15 +7,15 @@
       <button class="cancel" (click)="closeChangeNames.emit(true)">Cancelar</button>
     </div>
     <form [formGroup]="changeNamesForm" (ngSubmit)="changeUsername()" class="form">
-      <div class="form-group" [ngClass]="{'error':sharedService.isInvalidFormControl(changeNamesForm,'firstName')}">
+      <div class="form-group" [ngClass]="{'error':commonService.isInvalidFormControl(changeNamesForm,'firstName')}">
         <label>
-          Nombres{{sharedService.isInvalidFormControl(changeNamesForm,'firstName') && sharedService.hasRequireErrorFormControl(changeNamesForm,'firstName')?' - Se requiere nombres':''}}
+          Nombres{{commonService.isInvalidFormControl(changeNamesForm,'firstName') && commonService.hasRequireErrorFormControl(changeNamesForm,'firstName')?' - Se requiere nombres':''}}
         </label>
         <input formControlName="firstName">
       </div>
-      <div class="form-group" [ngClass]="{'error':sharedService.isInvalidFormControl(changeNamesForm,'lastName')}">
+      <div class="form-group" [ngClass]="{'error':commonService.isInvalidFormControl(changeNamesForm,'lastName')}">
         <label>
-          Apellidos{{sharedService.isInvalidFormControl(changeNamesForm,'lastName') && sharedService.hasRequireErrorFormControl(changeNamesForm,'lastName')?' - Se requiere apellidos':''}}
+          Apellidos{{commonService.isInvalidFormControl(changeNamesForm,'lastName') && commonService.hasRequireErrorFormControl(changeNamesForm,'lastName')?' - Se requiere apellidos':''}}
         </label>
         <input formControlName="lastName">
       </div>
