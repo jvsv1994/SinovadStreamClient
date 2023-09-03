@@ -40,7 +40,7 @@ export class ResetPasswordPage implements OnInit {
     public activeRoute: ActivatedRoute,
     public restProvider: RestProviderService,
     public commonService: CommonService,
-    public sharedService: SharedDataService) {
+    public sharedDataService: SharedDataService) {
 
     }
 

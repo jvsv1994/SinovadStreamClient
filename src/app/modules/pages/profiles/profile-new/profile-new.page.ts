@@ -18,13 +18,13 @@ export class ProfileNewPage{
 
   constructor(
     private router: Router,
-    private sharedService:SharedDataService,
+    private sharedDataService:SharedDataService,
     private profileService:ProfileService) {
 
     }
   ngOnInit(): void {
     this.currentTmpProfile= new Profile();
-    this.currentTmpProfile.UserId=this.sharedService.userData.Id;
+    this.currentTmpProfile.UserId=this.sharedDataService.userData.Id;
   }
 
     ngAfterViewInit(){

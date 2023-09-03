@@ -28,7 +28,7 @@ export class ChangePasswordPage implements OnInit {
     private accountSettingsService:AccountSettingsService,
     private formBuilder: FormBuilder,
     public commonService: CommonService,
-    public sharedService: SharedDataService) {
+    public sharedDataService: SharedDataService) {
 
     }
 
@@ -40,7 +40,7 @@ export class ChangePasswordPage implements OnInit {
       if(this.changePasswordForm.valid)
       {
         this.changePasswordData={
-          UserId:this.sharedService.userData.Id,
+          UserId:this.sharedDataService.userData.Id,
           Password:this.changePasswordForm.value.password,
           ConfirmPassword:this.changePasswordForm.value.confirmPassword,
           CurrentPassword:this.changePasswordForm.value.currentPassword

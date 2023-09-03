@@ -27,7 +27,7 @@ export class DashboardComponent {
 
   constructor(
     public commonService: CommonService,
-    public sharedService: SharedDataService,
+    public sharedDataService: SharedDataService,
     private ref:ChangeDetectorRef,
     private router: Router,
     public activeRoute: ActivatedRoute,
@@ -98,7 +98,7 @@ export class DashboardComponent {
 
   ngOnInit(): void {
     var mediaServerGuid=this.activeRoute.snapshot.params.serverGuid;
-    var mediaServer=this.sharedService.mediaServers.find(x=>x.Guid==mediaServerGuid)
+    var mediaServer=this.sharedDataService.mediaServers.find(x=>x.Guid==mediaServerGuid)
     if(mediaServer)
     {
       this.mediaServer=JSON.parse(JSON.stringify(mediaServer));

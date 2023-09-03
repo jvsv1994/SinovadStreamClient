@@ -36,7 +36,7 @@ export class ServerSettingsGeneralPage implements OnInit {
     private router: Router,
     public activeRoute: ActivatedRoute,
     public restProvider: RestProviderService,
-    public sharedService: SharedDataService) {
+    public sharedDataService: SharedDataService) {
       this.router.routeReuseStrategy.shouldReuseRoute = function () {
         return false;
       };
@@ -57,7 +57,7 @@ export class ServerSettingsGeneralPage implements OnInit {
 
     ngOnInit(): void {
       var mediaServerGuid=this.activeRoute.snapshot.params.serverGuid;
-      var mediaServer=this.sharedService.mediaServers.find(x=>x.Guid==mediaServerGuid)
+      var mediaServer=this.sharedDataService.mediaServers.find(x=>x.Guid==mediaServerGuid)
       if(mediaServer)
       {
         this.mediaServer=JSON.parse(JSON.stringify(mediaServer));
@@ -87,7 +87,7 @@ export class ServerSettingsGeneralPage implements OnInit {
       var mediaServerGuid=this.activeRoute.snapshot.params.serverGuid;
       this.serverService.getMediaServerByGuid(mediaServerGuid).then((response:SinovadApiGenericResponse) => {
         var mediaServer:MediaServer=response.Data;
-        var ms=this.sharedService.mediaServers.find(x=>x.Guid==mediaServerGuid);
+        var ms=this.sharedDataService.mediaServers.find(x=>x.Guid==mediaServerGuid);
         var mediaServerUpdated=ms;
         mediaServerUpdated.FamilyName=mediaServer.FamilyName;
         this.mediaServer=mediaServerUpdated;

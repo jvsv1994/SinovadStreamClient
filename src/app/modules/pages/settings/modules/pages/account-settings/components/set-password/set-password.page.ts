@@ -27,7 +27,7 @@ export class SetPasswordPage implements OnInit {
     private accountSettingsService:AccountSettingsService,
     private formBuilder: FormBuilder,
     public commonService: CommonService,
-    public sharedService: SharedDataService) {
+    public sharedDataService: SharedDataService) {
 
     }
 
@@ -39,14 +39,14 @@ export class SetPasswordPage implements OnInit {
       if(this.setPasswordForm.valid)
       {
         this.setPasswordData={
-          UserId:this.sharedService.userData.Id,
+          UserId:this.sharedDataService.userData.Id,
           Password:this.setPasswordForm.value.password,
           ConfirmPassword:this.setPasswordForm.value.confirmPassword
         }
         this.loading=true;
         this.accountSettingsService.setPassword(this.setPasswordData).then((result: any) => {
           this.loading=false;
-          this.sharedService.userData.IsPasswordSetted=true;
+          this.sharedDataService.userData.IsPasswordSetted=true;
           this.closeSetPassword.emit(true);
         },error=>{
           this.loading=false;

@@ -15,7 +15,7 @@
       </div>
       <div class="submit-button-container">
         <button type="submit" class="btn btn-primary"
-        [disabled]="loading || changeUsernameForm.pristine || !changeUsernameForm.valid || changeUsernameForm.value.username==sharedService.userData.UserName">
+        [disabled]="loading || changeUsernameForm.pristine || !changeUsernameForm.valid || changeUsernameForm.value.username==sharedDataService.userData.UserName">
           <span [style.visibility]="loading?'hidden':'unset'">Guardar Cambios</span>
           <div *ngIf="loading" class="lds-dual-ring"></div>
         </button>

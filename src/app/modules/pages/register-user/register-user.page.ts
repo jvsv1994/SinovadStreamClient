@@ -37,7 +37,7 @@ export class RegisterUserPage implements OnInit {
     private router: Router,
     public restProvider: RestProviderService,
     public commonService:CommonService,
-    public sharedService: SharedDataService) {
+    public sharedDataService: SharedDataService) {
 
     }
 

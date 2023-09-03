@@ -48,7 +48,7 @@ export class LoginPage {
     private signalIRHubService:SignalIRHubService,
     private formBuilder: FormBuilder,
     private router: Router,
-    public sharedService: SharedDataService) {}
+    public sharedDataService: SharedDataService) {}
 
     public validateUser(){
       if(this.userFormGroup.valid)
@@ -137,15 +137,15 @@ export class LoginPage {
   }
 
   private setUserSessionDataAfterAuthenticate(authenticateUserResponseData:AuthenticationUserResponse){
-    this.sharedService.apiToken=authenticateUserResponseData.ApiToken;
-    localStorage.setItem('apiToken',this.sharedService.apiToken);
+    this.sharedDataService.apiToken=authenticateUserResponseData.ApiToken;
+    localStorage.setItem('apiToken',this.sharedDataService.apiToken);
     let userSessionData:UserSession=authenticateUserResponseData.UserData;
-    this.sharedService.userData=userSessionData.User;
-    this.sharedService.mediaServers=userSessionData.MediaServers;
-    this.sharedService.listProfiles=userSessionData.Profiles;
-    this.sharedService.linkedAccounts=userSessionData.LinkedAccounts;
-    this.sharedService.currentProfile=userSessionData.Profiles[0];
-    this.sharedService.showSplashScreen=true;
+    this.sharedDataService.userData=userSessionData.User;
+    this.sharedDataService.mediaServers=userSessionData.MediaServers;
+    this.sharedDataService.listProfiles=userSessionData.Profiles;
+    this.sharedDataService.linkedAccounts=userSessionData.LinkedAccounts;
+    this.sharedDataService.currentProfile=userSessionData.Profiles[0];
+    this.sharedDataService.showSplashScreen=true;
     this.userService.calledGetUserData=true;
     this.menuService.getManageMenu();
     this.signalIRHubService.openConnection();

@@ -32,7 +32,7 @@ export class NavbarComponent implements OnInit {
     private router: Router,
     public restProvider: RestProviderService,
     public commonService:CommonService,
-    public sharedService: SharedDataService) {
+    public sharedDataService: SharedDataService) {
 
 
     }
@@ -71,12 +71,12 @@ export class NavbarComponent implements OnInit {
 
   public onSelectProfile(profile:Profile)
   {
-    this.sharedService.currentProfile=profile;
+    this.sharedDataService.currentProfile=profile;
     this.router.navigateByUrl("/home");
   }
 
   public onClickChangeProfileButton(){
-    this.sharedService.showSplashScreen=true;
+    this.sharedDataService.showSplashScreen=true;
   }
 
   public onChangeSearchValue(){

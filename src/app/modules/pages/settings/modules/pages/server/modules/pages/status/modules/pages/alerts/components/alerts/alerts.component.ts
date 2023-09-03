@@ -27,7 +27,7 @@ export class AlertsComponent extends CustomListGeneric<Alert> {
 
   constructor(
     private ref:ChangeDetectorRef,
-    public sharedService: SharedDataService,
+    public sharedDataService: SharedDataService,
     private router: Router,
     public activeRoute: ActivatedRoute,
     private signalIrService:SignalIRHubService,
@@ -58,7 +58,7 @@ export class AlertsComponent extends CustomListGeneric<Alert> {
 
   ngOnInit(): void {
     var mediaServerGuid=this.activeRoute.snapshot.params.serverGuid;
-    var mediaServer=this.sharedService.mediaServers.find(x=>x.Guid==mediaServerGuid)
+    var mediaServer=this.sharedDataService.mediaServers.find(x=>x.Guid==mediaServerGuid)
     if(mediaServer)
     {
       this.mediaServer=JSON.parse(JSON.stringify(mediaServer));

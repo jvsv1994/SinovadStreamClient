@@ -22,7 +22,7 @@ export class UserService {
   constructor(
     private menuService:MenuService,
     private signalIRHubService:SignalIRHubService,
-    private sharedService:SharedDataService,
+    private sharedDataService:SharedDataService,
     private restProvider: RestProviderService,
   ) {
   }
@@ -37,10 +37,10 @@ export class UserService {
 
   public clearSessionData(){
     this.calledGetUserData=false;
-    this.sharedService.manageMenus=[];
-    this.sharedService.currentProfile=undefined;
-    this.sharedService.userData=undefined;
-    this.sharedService.apiToken=undefined;
+    this.sharedDataService.manageMenus=[];
+    this.sharedDataService.currentProfile=undefined;
+    this.sharedDataService.userData=undefined;
+    this.sharedDataService.apiToken=undefined;
     this.signalIRHubService.stopConnection();
     localStorage.removeItem("apiToken");
   }
@@ -50,15 +50,15 @@ export class UserService {
       let userSessionData:UserSession=response.Data;
       if(userSessionData && userSessionData.User)
       {
-        this.sharedService.userData=userSessionData.User;
-        this.sharedService.mediaServers=userSessionData.MediaServers;
-        this.sharedService.linkedAccounts=userSessionData.LinkedAccounts;
-        this.sharedService.listProfiles=userSessionData.Profiles;
-        this.sharedService.currentProfile=userSessionData.Profiles[0];
+        this.sharedDataService.userData=userSessionData.User;
+        this.sharedDataService.mediaServers=userSessionData.MediaServers;
+        this.sharedDataService.linkedAccounts=userSessionData.LinkedAccounts;
+        this.sharedDataService.listProfiles=userSessionData.Profiles;
+        this.sharedDataService.currentProfile=userSessionData.Profiles[0];
         this.signalIRHubService.openConnection();
         this.menuService.getManageMenu();
       }else{
-        this.sharedService.apiToken=undefined;
+        this.sharedDataService.apiToken=undefined;
         localStorage.removeItem("apiToken");
       }
       this.calledGetUserData=true;

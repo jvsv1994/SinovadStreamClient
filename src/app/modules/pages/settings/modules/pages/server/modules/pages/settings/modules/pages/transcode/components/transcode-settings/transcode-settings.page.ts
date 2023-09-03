@@ -44,7 +44,7 @@ export class TranscoderSettingssPage implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     public activeRoute: ActivatedRoute,
-    public sharedService: SharedDataService) {
+    public sharedDataService: SharedDataService) {
       this.router.routeReuseStrategy.shouldReuseRoute = function () {
         return false;
       };
@@ -67,7 +67,7 @@ export class TranscoderSettingssPage implements OnInit {
     ngOnInit(): void {
       this.getCatalogDetails();
       var mediaServerGuid=this.activeRoute.snapshot.params.serverGuid;
-      var mediaServer=this.sharedService.mediaServers.find(x=>x.Guid==mediaServerGuid)
+      var mediaServer=this.sharedDataService.mediaServers.find(x=>x.Guid==mediaServerGuid)
       if(mediaServer)
       {
         this.mediaServer=JSON.parse(JSON.stringify(mediaServer));

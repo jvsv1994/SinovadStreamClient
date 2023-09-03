@@ -80,7 +80,7 @@ export class VideoComponent implements OnInit,OnDestroy{
     private dialog: MatDialog,
     public restProvider: RestProviderService,
     public commonService: CommonService,
-    public sharedService: SharedDataService,
+    public sharedDataService: SharedDataService,
     public ref: ChangeDetectorRef,
     public http: HttpClient) {
       this.router.routeReuseStrategy.shouldReuseRoute = function () {
@@ -114,7 +114,7 @@ export class VideoComponent implements OnInit,OnDestroy{
     var mediaServerGuid=this.activeRoute.snapshot.params.serverGuid;
     if(mediaServerGuid!=undefined)
     {
-      var mediaServer=this.sharedService.mediaServers.find(x=>x.Guid==mediaServerGuid);
+      var mediaServer=this.sharedDataService.mediaServers.find(x=>x.Guid==mediaServerGuid);
       if(mediaServer)
       {
         this.mediaServer=JSON.parse(JSON.stringify(mediaServer));
@@ -136,7 +136,7 @@ export class VideoComponent implements OnInit,OnDestroy{
   }
 
   ngOnDestroy(): void {
-    if(!this.sharedService.configurationData.alwaysFullScreen && document.fullscreenElement) {
+    if(!this.sharedDataService.configurationData.alwaysFullScreen && document.fullscreenElement) {
       document.exitFullscreen();
     }
     this.deleteTranscodedMediaFile();
@@ -198,7 +198,7 @@ export class VideoComponent implements OnInit,OnDestroy{
     var mediaFileId=this.activeRoute.snapshot.params.mediaFileId;
     if(mediaFileId)
     {
-      this.libraryService.GetMediaItemDetailByMediaFileAndProfile(this.mediaServer.Url,mediaFileId,this.sharedService.currentProfile.Id).then((itemDetail:ItemDetail)=>{
+      this.libraryService.GetMediaItemDetailByMediaFileAndProfile(this.mediaServer.Url,mediaFileId,this.sharedDataService.currentProfile.Id).then((itemDetail:ItemDetail)=>{
         this.itemDetail=itemDetail;
         this.CreateTranscodedMediaFile();
       },error=>{
@@ -244,12 +244,12 @@ export class VideoComponent implements OnInit,OnDestroy{
     mediaFilePlayback = new MediaFilePlayback();
     mediaFilePlayback.Guid=uuid();
     var mediaFilePlaybackProfile = new MediaFilePlaybackProfile();
-    mediaFilePlaybackProfile.ProfileId=this.sharedService.currentProfile.Id;
-    mediaFilePlaybackProfile.ProfileName=this.sharedService.currentProfile.FullName;
-    mediaFilePlaybackProfile.AvatarPath=this.sharedService.currentProfile.AvatarPath;
+    mediaFilePlaybackProfile.ProfileId=this.sharedDataService.currentProfile.Id;
+    mediaFilePlaybackProfile.ProfileName=this.sharedDataService.currentProfile.FullName;
+    mediaFilePlaybackProfile.AvatarPath=this.sharedDataService.currentProfile.AvatarPath;
     mediaFilePlayback.ProfileData=mediaFilePlaybackProfile;
     var mediaFilePlaybackClient = new MediaFilePlaybackClient();
-    mediaFilePlaybackClient.DeviceData=this.sharedService.deviceData;
+    mediaFilePlaybackClient.DeviceData=this.sharedDataService.deviceData;
     mediaFilePlaybackClient.IsPlaying=true;
     mediaFilePlaybackClient.CurrentTime=currentTime;
     mediaFilePlayback.ClientData=mediaFilePlaybackClient;
@@ -280,7 +280,7 @@ export class VideoComponent implements OnInit,OnDestroy{
   public getPosterPath(item:MediaItem,mediaFile:MediaFile){
     if(item.MetadataAgentsId==MetadataAgents.TMDb)
     {
-      return this.sharedService.originalUrlImagesMovieDataBase+item.PosterPath;
+      return this.sharedDataService.originalUrlImagesMovieDataBase+item.PosterPath;
     }else{
       if(item.PosterPath)
       {

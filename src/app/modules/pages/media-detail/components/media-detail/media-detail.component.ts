@@ -36,8 +36,8 @@ export class MediaDetailComponent extends MediaGeneric implements OnInit {
     public activeRoute: ActivatedRoute,
     public router: Router,
     private  ref:ChangeDetectorRef,
-    public sharedService: SharedDataService) {
-      super(router,activeRoute,sharedService)
+    public sharedDataService: SharedDataService) {
+      super(router,activeRoute,sharedDataService)
       this.subscriptionEnableMediaServer=this.signalIrService.isEnablingMediaServer().subscribe((mediaServerGuid:string)=>{
         if(this.mediaServer && this.mediaServer.Guid==mediaServerGuid && !this.mediaServer.isSecureConnection)
         {
@@ -94,7 +94,7 @@ export class MediaDetailComponent extends MediaGeneric implements OnInit {
 
     public getEpisodeImagePath(episode:MediaEpisode){
       if(this.detail.MediaItem.MetadataAgentsId==MetadataAgents.TMDb && episode.PosterPath){
-        return this.sharedService.urlEpisodeDataBase+episode.PosterPath;
+        return this.sharedDataService.urlEpisodeDataBase+episode.PosterPath;
       }else{
         if(episode.ListMediaFiles && episode.ListMediaFiles.length>0)
         {
@@ -109,7 +109,7 @@ export class MediaDetailComponent extends MediaGeneric implements OnInit {
     public getUrlByItemDetailMovieDataBase(detail:ItemDetail){
       if(detail.MediaItem.MetadataAgentsId==MetadataAgents.TMDb)
       {
-        return this.sharedService.originalUrlImagesMovieDataBase+detail.MediaItem.PosterPath;
+        return this.sharedDataService.originalUrlImagesMovieDataBase+detail.MediaItem.PosterPath;
       }else{
         if(detail.MediaItem.PosterPath)
         {

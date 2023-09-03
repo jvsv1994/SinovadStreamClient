@@ -6,7 +6,7 @@ import { SharedDataService } from '../services/shared-data.service';
 
 export const loggedUserGuard: CanActivateFn = (route, state) => {
   const router=inject(Router);
-  const sharedService=inject(SharedDataService);
+  const sharedDataService=inject(SharedDataService);
   const userService=inject(UserService);
   if(localStorage.getItem('apiToken')!=null)
   {
@@ -15,7 +15,7 @@ export const loggedUserGuard: CanActivateFn = (route, state) => {
       return true;
     }else{
       return userService.isCompletedCallGetUserData().pipe(tap(x=>{
-          if(sharedService.userData!=null)
+          if(sharedDataService.userData!=null)
           {
             return true;
           }else{

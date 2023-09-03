@@ -14,7 +14,7 @@ export class ProfileService {
   lastCallGuid:string;
 
   constructor(
-    private sharedService:SharedDataService,
+    private sharedDataService:SharedDataService,
     private restProvider: RestProviderService,
   ) {
   }
@@ -31,10 +31,10 @@ export class ProfileService {
   }
   public getAllProfiles(): Promise<any>{
     return new Promise((resolve, reject) => {
-      this.restProvider.executeSinovadApiService(HttpMethodType.GET,'/profiles/GetAllWithPaginationByUserAsync/'+this.sharedService.userData.Id).then((response:SinovadApiGenericResponse) => {
+      this.restProvider.executeSinovadApiService(HttpMethodType.GET,'/profiles/GetAllWithPaginationByUserAsync/'+this.sharedDataService.userData.Id).then((response:SinovadApiGenericResponse) => {
         let listProfiles=response.Data;
-        this.sharedService.listProfiles=listProfiles;
-        this.sharedService.currentProfile=listProfiles[0];
+        this.sharedDataService.listProfiles=listProfiles;
+        this.sharedDataService.currentProfile=listProfiles[0];
         resolve(true);
       },error=>{
         reject(error);

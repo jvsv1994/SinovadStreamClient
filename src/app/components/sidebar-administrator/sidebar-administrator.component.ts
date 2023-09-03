@@ -13,7 +13,7 @@ export class SidebarAdministratorComponent{
 
   @Output() collapseSidebar=new EventEmitter();
 
-  constructor(public sharedService:SharedDataService) {
+  constructor(public sharedDataService:SharedDataService) {
 
     }
 

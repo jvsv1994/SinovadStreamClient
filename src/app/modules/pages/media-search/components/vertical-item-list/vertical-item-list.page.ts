@@ -23,7 +23,7 @@ export class VerticalItemListPage implements OnInit {
     private libraryService:LibraryService,
     private router: Router,
     public commonService: CommonService,
-    public sharedService: SharedDataService) {
+    public sharedDataService: SharedDataService) {
 
 
     }
@@ -35,7 +35,7 @@ export class VerticalItemListPage implements OnInit {
     public getItemsBySearch(){
       if(this.searchText.trim()!="")
       {
-        this.sharedService.mediaServers.forEach(mediaServer => {
+        this.sharedDataService.mediaServers.forEach(mediaServer => {
           if(mediaServer.isSecureConnection)
           {
             this.libraryService.getAllMediaItemsBySearchQuery(mediaServer.Url,this.searchText).then((listItems:Item[]) => {
@@ -79,7 +79,7 @@ export class VerticalItemListPage implements OnInit {
     }
 
     public getMediaDetail(item:Item){
-      var mediaServer=this.sharedService.mediaServers.find(x=>x.Id==item.MediaServerId);
+      var mediaServer=this.sharedDataService.mediaServers.find(x=>x.Id==item.MediaServerId);
       this.router.navigateByUrl('/media/server/'+mediaServer.Guid+"/libraries/"+item.LibraryId+"/detail?mediaType="+item.MediaTypeId+"&mediaId="+item.MediaItemId);
     }
 

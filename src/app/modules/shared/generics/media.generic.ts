@@ -14,13 +14,13 @@ export class MediaGeneric{
   constructor(
     public router:Router,
     public activeRoute: ActivatedRoute,
-    public sharedService: SharedDataService) {}
+    public sharedDataService: SharedDataService) {}
 
   public initializeHeaderData(): void {
     var mediaServerGuid=this.activeRoute.snapshot.params.serverGuid;
     if(mediaServerGuid!=undefined)
     {
-      var mediaServer=this.sharedService.mediaServers.find(x=>x.Guid==mediaServerGuid);
+      var mediaServer=this.sharedDataService.mediaServers.find(x=>x.Guid==mediaServerGuid);
       if(mediaServer)
       {
         this.mediaServer=JSON.parse(JSON.stringify(mediaServer));

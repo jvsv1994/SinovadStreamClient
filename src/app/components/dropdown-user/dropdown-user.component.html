@@ -1,26 +1,26 @@
 
 
-<div *ngIf="!sharedService.showSplashScreen" class="sinovad-user-dropdown">
+<div *ngIf="!sharedDataService.showSplashScreen" class="sinovad-user-dropdown">
   <ul class="sinovad-dropdown-list" role="menu">
     <li class="sinovad-avatar-item">
       <a #button id="avatar_button" class="sinovad-avatar-button principal">
-        <ng-template [ngIf]="sharedService.currentProfile">
+        <ng-template [ngIf]="sharedDataService.currentProfile">
           <span class="sinovad-fullname-profile text-truncate">
-            {{sharedService.currentProfile.FullName}}
+            {{sharedDataService.currentProfile.FullName}}
           </span>
-          <div *ngIf="sharedService.currentProfile.AvatarPath==undefined" class="sinovad-initials-profile">
-            {{commonService.getInitials(sharedService.currentProfile)}}
+          <div *ngIf="sharedDataService.currentProfile.AvatarPath==undefined" class="sinovad-initials-profile">
+            {{commonService.getInitials(sharedDataService.currentProfile)}}
           </div>
-          <img *ngIf="sharedService.currentProfile.AvatarPath!=undefined" class="sinovad-initials-profile"
-          [attr.src]="sharedService.currentProfile.Id | formatDataPipe : 'GetAvatarImageURLByProfileId' | async">
+          <img *ngIf="sharedDataService.currentProfile.AvatarPath!=undefined" class="sinovad-initials-profile"
+          [attr.src]="sharedDataService.currentProfile.Id | formatDataPipe : 'GetAvatarImageURLByProfileId' | async">
         </ng-template>
       </a>
     </li>
     <div class="sinovad-separator-dropdown"></div>
     <div class="sinovad-bottom-list">
-      <ng-template [ngIf]="sharedService.listProfiles && sharedService.listProfiles.length>0">
-        <ng-template ngFor let-profile [ngForOf]="sharedService.listProfiles">
-          <li *ngIf="sharedService.currentProfile && profile.Id!=sharedService.currentProfile.Id" class="sinovad-avatar-item">
+      <ng-template [ngIf]="sharedDataService.listProfiles && sharedDataService.listProfiles.length>0">
+        <ng-template ngFor let-profile [ngForOf]="sharedDataService.listProfiles">
+          <li *ngIf="sharedDataService.currentProfile && profile.Id!=sharedDataService.currentProfile.Id" class="sinovad-avatar-item">
             <a #button id="avatar_button" class="sinovad-avatar-button" (click)="onSelectProfile(profile)">
                 <div *ngIf="profile.AvatarPath==undefined" class="sinovad-initials-profile">
                   {{commonService.getInitials(profile)}}
@@ -43,7 +43,7 @@
           <span>Cuenta</span>
         </a>
       </li>
-      <li *ngIf="sharedService.manageMenus && sharedService.manageMenus.length>0" class="sinovad-avatar-item">
+      <li *ngIf="sharedDataService.manageMenus && sharedDataService.manageMenus.length>0" class="sinovad-avatar-item">
         <a (click)="onClickAdminMode()">
           <span>Mantenimiento</span>
         </a>

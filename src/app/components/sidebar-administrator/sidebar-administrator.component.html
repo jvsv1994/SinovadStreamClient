@@ -1,7 +1,7 @@
 
 <div class="sidebar-backdrop" (clickOutside)="onClickOutsideSidebar($event)">
   <ul class="sinovad-sidebar-modules-list">
-    <ng-template ngFor let-module [ngForOf]="sharedService.manageMenus">
+    <ng-template ngFor let-module [ngForOf]="sharedDataService.manageMenus">
       <li class="sinovad-sidebar-module-element">
         <button class="sinovad-sidebar-module-button" (click)="onClickModule(module,$event)">
           <i *ngIf="module.isCollapsed" class="fa-solid fa-chevron-right"></i>

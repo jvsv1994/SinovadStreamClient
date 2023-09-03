@@ -24,11 +24,11 @@ export class MyAccountPage implements OnInit {
 
   constructor(
     private catalogService:CatalogService,
-    public sharedService: SharedDataService) {
+    public sharedDataService: SharedDataService) {
     }
 
     ngOnInit(): void {
-      this.currentUserLinkedAccountIds=this.sharedService.linkedAccounts.map(x=>x.LinkedAccountProviderCatalogDetailId);
+      this.currentUserLinkedAccountIds=this.sharedDataService.linkedAccounts.map(x=>x.LinkedAccountProviderCatalogDetailId);
       this.catalogService.getDetailsByCatalogId(CatalogEnum.LinkedAccountProvider).then((response:SinovadApiGenericResponse)=>{
         this.allLinkedAccountProviders=response.Data;
         this.currentUserLinkedAccountsText=this.allLinkedAccountProviders.filter(x=>this.currentUserLinkedAccountIds.indexOf(x.Id)!=-1).map(x=>x.Name).join(",");

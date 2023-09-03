@@ -2,10 +2,10 @@
 <div class="sidebar-backdrop" (clickOutside)="onClickOutsideSidebar($event)">
   <div class="sidebar-container">
     <div class="sidebar-content">
-        <div *ngIf="sharedService.userData" role="navigation">
+        <div *ngIf="sharedDataService.userData" role="navigation">
             <div class="sidebar-list-header-container">
               <div class="sidebar-list-header-content">
-                {{sharedService.userData.FirstName}} {{sharedService.userData.LastName}}
+                {{sharedDataService.userData.FirstName}} {{sharedDataService.userData.LastName}}
               </div>
             </div>
             <div class="sidebar-list-item-container" [ngClass]="{'selected':isSelectedAccountOption()}">

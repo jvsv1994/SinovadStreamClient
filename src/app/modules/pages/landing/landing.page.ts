@@ -22,7 +22,7 @@ export class LandingPage implements OnInit {
   constructor(
     private router: Router,
     public activeRoute: ActivatedRoute,
-    public sharedService: SharedDataService) {
+    public sharedDataService: SharedDataService) {
 
 
     }

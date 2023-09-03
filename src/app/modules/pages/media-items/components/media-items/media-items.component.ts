@@ -41,7 +41,7 @@ export class MediaItemsComponent implements OnInit,OnDestroy {
     public restProvider: RestProviderService,
     private  ref:ChangeDetectorRef,
     public commonService: CommonService,
-    public sharedService: SharedDataService) {
+    public sharedDataService: SharedDataService) {
       this.router.routeReuseStrategy.shouldReuseRoute = function () {
         return false;
       };
@@ -120,7 +120,7 @@ export class MediaItemsComponent implements OnInit,OnDestroy {
 
     public ngOnInit(): void {
       if(this.considerAllMediaServers()){
-        this.mediaServers=JSON.parse(JSON.stringify(this.sharedService.mediaServers));
+        this.mediaServers=JSON.parse(JSON.stringify(this.sharedDataService.mediaServers));
         if(this.isEnableAnyMediaServer())
         {
           this.loadingConnection=false;
@@ -145,7 +145,7 @@ export class MediaItemsComponent implements OnInit,OnDestroy {
         var mediaServerGuid=this.activeRoute.snapshot.params.serverGuid;
         if(mediaServerGuid!=undefined)
         {
-          var mediaServer=this.sharedService.mediaServers.find(x=>x.Guid==mediaServerGuid);
+          var mediaServer=this.sharedDataService.mediaServers.find(x=>x.Guid==mediaServerGuid);
           if(mediaServer)
           {
             this.currentMediaServer=JSON.parse(JSON.stringify(mediaServer));
@@ -203,7 +203,7 @@ export class MediaItemsComponent implements OnInit,OnDestroy {
             this.currentLibrary=this.currentMediaServer.ListLibraries[index];
             this.title=this.currentLibrary.Name;
             this.subtitle=this.currentMediaServer.FamilyName?this.currentMediaServer.FamilyName:this.currentMediaServer.DeviceName;
-            this.libraryService.getMediaItemsByLibrary(this.currentMediaServer.Url,this.currentLibrary.Id,this.sharedService.currentProfile.Id).then((itemsGroupList:ItemsGroup[])=>{
+            this.libraryService.getMediaItemsByLibrary(this.currentMediaServer.Url,this.currentLibrary.Id,this.sharedDataService.currentProfile.Id).then((itemsGroupList:ItemsGroup[])=>{
               this.setItemsInGroup(this.currentMediaServer.Id,itemsGroupList);
             },error=>{
               console.error(error);
@@ -212,7 +212,7 @@ export class MediaItemsComponent implements OnInit,OnDestroy {
         });
       }else{
         this.title=this.currentMediaServer.FamilyName?this.currentMediaServer.FamilyName:this.currentMediaServer.DeviceName;
-        this.libraryService.getAllMediaItems(this.currentMediaServer.Url,this.sharedService.currentProfile.Id).then((itemsGroupList:ItemsGroup[])=>{
+        this.libraryService.getAllMediaItems(this.currentMediaServer.Url,this.sharedDataService.currentProfile.Id).then((itemsGroupList:ItemsGroup[])=>{
           this.setItemsInGroup(this.currentMediaServer.Id,itemsGroupList);
         },error=>{
           console.error(error);
@@ -224,17 +224,17 @@ export class MediaItemsComponent implements OnInit,OnDestroy {
     private getItemsByMediaServer(mediaServer:MediaServer){
       if(window.location.pathname.endsWith("home"))
       {
-        this.libraryService.getAllMediaItems(mediaServer.Url,this.sharedService.currentProfile.Id).then((itemsGroupList:ItemsGroup[])=>{
+        this.libraryService.getAllMediaItems(mediaServer.Url,this.sharedDataService.currentProfile.Id).then((itemsGroupList:ItemsGroup[])=>{
           this.setItemsInGroup(mediaServer.Id,itemsGroupList);
         },error=>{});
       }else if(window.location.pathname.endsWith("movies")){
-        this.libraryService.getMediaItemsByMediaType(mediaServer.Url,MediaType.Movie,this.sharedService.currentProfile.Id).then((itemsGroupList:ItemsGroup[])=>{
+        this.libraryService.getMediaItemsByMediaType(mediaServer.Url,MediaType.Movie,this.sharedDataService.currentProfile.Id).then((itemsGroupList:ItemsGroup[])=>{
           this.setItemsInGroup(mediaServer.Id,itemsGroupList);
         },error=>{
           console.error(error);
         });
       }else if(window.location.pathname.endsWith("tvseries")){
-        this.libraryService.getMediaItemsByMediaType(mediaServer.Url,MediaType.TvSerie,this.sharedService.currentProfile.Id).then((itemsGroupList:ItemsGroup[])=>{
+        this.libraryService.getMediaItemsByMediaType(mediaServer.Url,MediaType.TvSerie,this.sharedDataService.currentProfile.Id).then((itemsGroupList:ItemsGroup[])=>{
           this.setItemsInGroup(mediaServer.Id,itemsGroupList);
         },error=>{
           console.error(error);
@@ -329,12 +329,12 @@ export class MediaItemsComponent implements OnInit,OnDestroy {
     }
 
     public getMediaItemDetail(item:Item){
-      var mediaServer=this.sharedService.mediaServers.find(x=>x.Id==item.MediaServerId);
+      var mediaServer=this.sharedDataService.mediaServers.find(x=>x.Id==item.MediaServerId);
       this.router.navigateByUrl('/media/server/'+mediaServer.Guid+"/libraries/"+item.LibraryId+"/detail?mediaType="+item.MediaTypeId+"&mediaId="+item.MediaItemId);
     }
 
     public continueVideoByItem(item:Item){
-      var mediaServer=this.sharedService.mediaServers.find(x=>x.Id==item.MediaServerId);
+      var mediaServer=this.sharedDataService.mediaServers.find(x=>x.Id==item.MediaServerId);
       this.router.navigateByUrl('/media/server/'+mediaServer.Guid+"/video/"+item.FileId);
     }
 

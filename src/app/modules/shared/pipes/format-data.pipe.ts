@@ -7,7 +7,7 @@ import { SharedDataService } from 'src/app/services/shared-data.service';
 export class FormatDataPipe implements PipeTransform {
 
     constructor(public domSanitizer: DomSanitizer,
-      private sharedService: SharedDataService) {
+      private sharedDataService: SharedDataService) {
     }
     transform(input: any, ...args: any[]):Promise<any> {
       return new Promise((resolve, reject) => {
@@ -16,11 +16,11 @@ export class FormatDataPipe implements PipeTransform {
         switch (type) {
           case "GetIconURLByKey":{
             if (input != undefined && input != '') {
-              if(this.sharedService.configurationData.developerMode)
+              if(this.sharedDataService.configurationData.developerMode)
               {
                 output = "assets/icon/"+input;
               }else{
-                output = this.sharedService.urlSinovadCdn+"/assets/icon/"+input;
+                output = this.sharedDataService.urlSinovadCdn+"/assets/icon/"+input;
               }
               resolve(output);
             }
@@ -28,7 +28,7 @@ export class FormatDataPipe implements PipeTransform {
           }
           case "GetAvatarImageURLByProfileId":{
             if (input != undefined && input != '') {
-                var url=this.sharedService.urlSinovadStreamWebApi+"/api/v1/documents/GetAvatarProfile/"+input;
+                var url=this.sharedDataService.urlSinovadStreamWebApi+"/api/v1/documents/GetAvatarProfile/"+input;
                 fetch(url)
                 .then(res => res.blob()) // Gets the response and returns it as a blob
                 .then(blob => {
@@ -40,11 +40,11 @@ export class FormatDataPipe implements PipeTransform {
           }
           case "GetSoundUrlByKey":{
             if (input != undefined && input != '') {
-              if(this.sharedService.configurationData.developerMode)
+              if(this.sharedDataService.configurationData.developerMode)
               {
                 output = "assets/sound/"+input;
               }else{
-                output = this.sharedService.urlSinovadCdn+"/assets/sound/"+input;
+                output = this.sharedDataService.urlSinovadCdn+"/assets/sound/"+input;
               }
               resolve(output);
             }

@@ -10,8 +10,8 @@
         ¿Quién eres?
       </div>
       <div class="sinovad-profiles-view-list-container">
-        <ng-template [ngIf]="sharedService.listProfiles">
-          <ng-template ngFor let-profile [ngForOf]="sharedService.listProfiles">
+        <ng-template [ngIf]="sharedDataService.listProfiles">
+          <ng-template ngFor let-profile [ngForOf]="sharedDataService.listProfiles">
             <button id="profile_{{profile.Id}}" (click)="onSelectProfile(profile)">
               <div *ngIf="profile.AvatarPath==undefined" class="sinovad-initials-profile">
                 {{commonService.getInitials(profile)}}

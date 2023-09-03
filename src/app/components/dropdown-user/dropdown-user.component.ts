@@ -19,25 +19,25 @@ export class DropDownUserComponent{
     private userService:UserService,
     private ref:ChangeDetectorRef,
     private router: Router,
-    public sharedService: SharedDataService) {
+    public sharedDataService: SharedDataService) {
 
     }
 
   public onClickChangeProfileButton(){
-    this.sharedService.showSplashScreen=true;
+    this.sharedDataService.showSplashScreen=true;
     this.ref.detectChanges();
     this.router.navigateByUrl('/profiles')
   }
 
   public onClickEditProfilesButton(){
-    this.sharedService.showSplashScreen=true;
+    this.sharedDataService.showSplashScreen=true;
     this.ref.detectChanges();
     this.router.navigateByUrl('/profiles')
   }
 
   public onSelectProfile(profile:Profile)
   {
-    this.sharedService.currentProfile=profile;
+    this.sharedDataService.currentProfile=profile;
     this.router.navigateByUrl('/home')
   }
 
@@ -46,7 +46,7 @@ export class DropDownUserComponent{
   }
 
   public onClickAdminMode(){
-    this.router.navigateByUrl(this.sharedService.manageMenus[0].ChildMenus[0].Path)
+    this.router.navigateByUrl(this.sharedDataService.manageMenus[0].ChildMenus[0].Path)
   }
 
   public logOut(){

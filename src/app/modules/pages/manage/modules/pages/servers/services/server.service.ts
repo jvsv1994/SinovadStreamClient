@@ -16,17 +16,17 @@ export class MediaServerService {
 
   constructor(
     private libraryService:LibraryService,
-    private sharedService:SharedDataService,
+    private sharedDataService:SharedDataService,
     private restProvider: RestProviderService,
   ) {
   }
 
   public getMediaServers(): Promise<any>{
     return new Promise((resolve, reject) => {
-      this.restProvider.executeSinovadApiService(HttpMethodType.GET,'/mediaServers/GetAllByUserAsync/'+this.sharedService.userData.Id).then((response:SinovadApiGenericResponse) => {
+      this.restProvider.executeSinovadApiService(HttpMethodType.GET,'/mediaServers/GetAllByUserAsync/'+this.sharedDataService.userData.Id).then((response:SinovadApiGenericResponse) => {
         let mediaServers=response.Data;
-        this.sharedService.mediaServers=mediaServers;
-        this.sharedService.mediaServers.forEach(mediaServer => {
+        this.sharedDataService.mediaServers=mediaServers;
+        this.sharedDataService.mediaServers.forEach(mediaServer => {
           this.executeGetLibrariesByMediaServer(mediaServer);
         });
         resolve(true);

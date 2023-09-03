@@ -16,7 +16,7 @@ export class SearchViewPage implements OnInit {
   constructor(
     private router: Router,
     private route:ActivatedRoute,
-    public sharedService: SharedDataService) {
+    public sharedDataService: SharedDataService) {
       this.router.routeReuseStrategy.shouldReuseRoute = function () {
         return false;
       };

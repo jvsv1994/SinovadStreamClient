@@ -49,14 +49,14 @@ export class AppComponent{
     private deviceService: DeviceDetectorService,
     private userService:UserService,
     public ref: ChangeDetectorRef,
-    public sharedService: SharedDataService) {}
+    public sharedDataService: SharedDataService) {}
 
     public ngOnInit(): void {
       var deviceInfo=this.deviceService.getDeviceInfo();
-      this.sharedService.deviceData = new DeviceData();
-      this.sharedService.deviceData.OperatingSystem=deviceInfo.os;
-      this.sharedService.deviceData.DeviceType=deviceInfo.deviceType;
-      this.sharedService.deviceData.Browser=deviceInfo.browser;
+      this.sharedDataService.deviceData = new DeviceData();
+      this.sharedDataService.deviceData.OperatingSystem=deviceInfo.os;
+      this.sharedDataService.deviceData.DeviceType=deviceInfo.deviceType;
+      this.sharedDataService.deviceData.Browser=deviceInfo.browser;
       const queryString = window.location.search;
       if (queryString != "") {
           const urlParams = new URLSearchParams(queryString);
@@ -68,11 +68,11 @@ export class AppComponent{
       }
       if((<any>window).configurationData)
       {
-        this.sharedService.configurationData=(<any>window).configurationData;
+        this.sharedDataService.configurationData=(<any>window).configurationData;
       }
       if(localStorage.getItem('apiToken'))
       {
-        this.sharedService.apiToken=localStorage.getItem('apiToken');
+        this.sharedDataService.apiToken=localStorage.getItem('apiToken');
         this.userService.getUserData();
       }
     }
@@ -80,7 +80,7 @@ export class AppComponent{
     ngAfterViewInit(){
       let ctx=this;
       let customClickEvent=function onCustomClick(event:any) {
-        if(ctx.sharedService.configurationData.alwaysFullScreen)
+        if(ctx.sharedDataService.configurationData.alwaysFullScreen)
         {
           ctx.showPageInFullScreen();
         }
@@ -104,7 +104,7 @@ export class AppComponent{
 
     public onActivate(event:any){
       this.isCollapsedSidebar=true;
-      this.sharedService.showSplashScreen=false;
+      this.sharedDataService.showSplashScreen=false;
       if(event instanceof NotFoundPage || event instanceof VideoComponent || event instanceof LoginPage || event instanceof RegisterUserPage
         || event instanceof RecoverPasswordPage || event instanceof ResetPasswordPage
         || event instanceof LandingPage || event instanceof ConfirmEmailPage || event instanceof ProfilesViewPage)

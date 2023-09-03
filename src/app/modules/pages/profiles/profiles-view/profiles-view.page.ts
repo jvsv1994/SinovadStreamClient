@@ -23,7 +23,7 @@ export class ProfilesViewPage{
     private profileService:ProfileService,
     private router: Router,
     public commonService: CommonService,
-    public sharedService: SharedDataService) {
+    public sharedDataService: SharedDataService) {
 
     }
 
@@ -57,16 +57,16 @@ export class ProfilesViewPage{
     }
 
     public enterProfile(profile:any){
-      this.sharedService.currentProfile=profile;
+      this.sharedDataService.currentProfile=profile;
       this.router.navigateByUrl("/home");
     }
 
     public getProfiles(){
       this.showLoading=true;
-      this.profileService.getProfiles(this.sharedService.userData.Id,1,100,"Id","asc","","").then((response:SinovadApiGenericResponse) => {
+      this.profileService.getProfiles(this.sharedDataService.userData.Id,1,100,"Id","asc","","").then((response:SinovadApiGenericResponse) => {
         let listProfiles=response.Data;
-        this.sharedService.listProfiles=listProfiles;
-        this.sharedService.currentProfile=listProfiles[0];
+        this.sharedDataService.listProfiles=listProfiles;
+        this.sharedDataService.currentProfile=listProfiles[0];
         this.showLoading=false;
       },error=>{
         this.showLoading=false;

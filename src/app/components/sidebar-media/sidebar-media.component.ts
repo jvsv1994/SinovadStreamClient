@@ -26,13 +26,13 @@ export class SidebarMediaComponent{
   constructor(
     private libraryService:LibraryService,
     private signalIrService:SignalIRHubService,
-    public sharedService:SharedDataService) {
+    public sharedDataService:SharedDataService) {
       this.subscriptionEnableMediaServer=this.signalIrService.isEnablingMediaServer().subscribe((mediaServerGuid:string) => {
         var mediaServerMenu=this.mediaMenu.find(x=>x.MediaServerGuid==mediaServerGuid);
         if(mediaServerMenu && !mediaServerMenu.IsSecureConnection)
         {
           mediaServerMenu.IsSecureConnection=true;
-          var mediaServer=this.sharedService.mediaServers.find(x=>x.Guid==mediaServerMenu.MediaServerGuid);
+          var mediaServer=this.sharedDataService.mediaServers.find(x=>x.Guid==mediaServerMenu.MediaServerGuid);
           if(mediaServer)
           {
             this.updateLibrariesInMediaServer(mediaServerMenu,mediaServer);
@@ -49,7 +49,7 @@ export class SidebarMediaComponent{
       });
       this.subscriptionUpdateLibrariesByMediaServer=this.signalIrService.isUpdatingLibrariesByMediaServer().subscribe((mediaServerGuid:string) => {
         var mediaServerMenu=this.mediaMenu.find(x=>x.MediaServerGuid==mediaServerGuid);
-        var mediaServer=this.sharedService.mediaServers.find(x=>x.Guid==mediaServerGuid);
+        var mediaServer=this.sharedDataService.mediaServers.find(x=>x.Guid==mediaServerGuid);
         if(mediaServerMenu && mediaServer)
         {
           mediaServerMenu.IsSecureConnection=true;
@@ -91,7 +91,7 @@ export class SidebarMediaComponent{
     tvseries.IconClass = "fa-tv fa-solid";
     listOptions.push(tvseries);
     this.mediaMenu=listOptions;
-    this.sharedService.mediaServers.forEach(mediaServer => {
+    this.sharedDataService.mediaServers.forEach(mediaServer => {
         var ms = new Menu();
         ms.SortOrder = this.mediaMenu.length + 1;
         ms.Title = mediaServer.FamilyName!=null && mediaServer.FamilyName!="" ? mediaServer.FamilyName:mediaServer.DeviceName;
@@ -105,7 +105,7 @@ export class SidebarMediaComponent{
   }
 
   public buildMediaMenuFromListLibraries(){
-    this.sharedService.mediaServers.forEach(mediaServer => {
+    this.sharedDataService.mediaServers.forEach(mediaServer => {
       var mediaServerMenu=this.mediaMenu.find(x=>x.MediaServerId==mediaServer.Id);
       if(mediaServer.isSecureConnection)
       {

@@ -26,7 +26,7 @@ export class ProfileEditPage implements OnInit {
     private profileService:ProfileService,
     public restProvider: RestProviderService,
     public commonService: CommonService,
-    public sharedService:SharedDataService) {
+    public sharedDataService:SharedDataService) {
 
     }
 

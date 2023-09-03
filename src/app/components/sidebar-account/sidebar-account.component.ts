@@ -80,7 +80,7 @@ export class SidebarAccountComponent implements OnInit {
     public activeRoute: ActivatedRoute,
     public  ref:ChangeDetectorRef,
     public commonService:CommonService,
-    public sharedService: SharedDataService) {
+    public sharedDataService: SharedDataService) {
       this.subscriptionEnableMediaServer=this.signalIrService.isEnablingMediaServer().subscribe((mediaServerGuid:string) => {
         if(this.selectedMediaServer && this.selectedMediaServer.Guid==mediaServerGuid && !this.selectedMediaServer.isSecureConnection)
         {
@@ -109,7 +109,7 @@ export class SidebarAccountComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    this.mediaServers=JSON.parse(JSON.stringify(this.sharedService.mediaServers));
+    this.mediaServers=JSON.parse(JSON.stringify(this.sharedDataService.mediaServers));
     if(this.mediaServers && this.mediaServers.length>0)
     {
       if(this.activeRoute.firstChild && this.activeRoute.firstChild.firstChild && this.activeRoute.firstChild.firstChild.snapshot.params.serverGuid)

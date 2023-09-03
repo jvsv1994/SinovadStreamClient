@@ -18,8 +18,8 @@ export class ChangeNamesPage implements OnInit {
   changeNamesData:ChangeNamesModel;
   @Output() closeChangeNames=new EventEmitter();
   changeNamesForm = this.formBuilder.group({
-    firstName: new FormControl(this.sharedService.userData.FirstName, [Validators.required]),
-    lastName: new FormControl(this.sharedService.userData.LastName, [Validators.required])
+    firstName: new FormControl(this.sharedDataService.userData.FirstName, [Validators.required]),
+    lastName: new FormControl(this.sharedDataService.userData.LastName, [Validators.required])
   });
   loading:boolean=false;
 
@@ -27,7 +27,7 @@ export class ChangeNamesPage implements OnInit {
     private accountSettingsService:AccountSettingsService,
     private formBuilder: FormBuilder,
     public commonService: CommonService,
-    public sharedService: SharedDataService) {
+    public sharedDataService: SharedDataService) {
 
     }
 
@@ -39,15 +39,15 @@ export class ChangeNamesPage implements OnInit {
       if(this.changeNamesForm.valid)
       {
         this.changeNamesData={
-          UserId:this.sharedService.userData.Id,
+          UserId:this.sharedDataService.userData.Id,
           FirstName:this.changeNamesForm.value.firstName,
           LastName:this.changeNamesForm.value.lastName
         }
         this.loading=true;
         this.accountSettingsService.changeNanes(this.changeNamesData).then((result: any) => {
           this.loading=false;
-          this.sharedService.userData.FirstName=this.changeNamesData.FirstName;
-          this.sharedService.userData.LastName=this.changeNamesData.LastName;
+          this.sharedDataService.userData.FirstName=this.changeNamesData.FirstName;
+          this.sharedDataService.userData.LastName=this.changeNamesData.LastName;
           this.closeChangeNames.emit(true);
         },error=>{
           this.loading=false;

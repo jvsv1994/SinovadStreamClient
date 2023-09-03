@@ -14,7 +14,7 @@
       </div>
       <div class="detail">
         <label>Nombre de Usuario</label>
-        <span>{{sharedService.userData.UserName}}</span>
+        <span>{{sharedDataService.userData.UserName}}</span>
       </div>
     </div>
   </div>
@@ -26,7 +26,7 @@
       </div>
       <div class="detail">
         <label>Nombres y apellidos</label>
-        <span>{{sharedService.userData.FirstName}} {{sharedService.userData.LastName}}</span>
+        <span>{{sharedDataService.userData.FirstName}} {{sharedDataService.userData.LastName}}</span>
       </div>
     </div>
   </div>
@@ -35,7 +35,7 @@
     <div class="sinovad-page-section-content">
       <div class="detail">
         <label>Correo electrónico</label>
-        <span>{{sharedService.userData.Email}}</span>
+        <span>{{sharedDataService.userData.Email}}</span>
       </div>
     </div>
   </div>
@@ -51,13 +51,13 @@
       </div>
       <div class="detail">
         <label>Contraseña</label>
-        <span *ngIf="sharedService.userData.IsPasswordSetted">*********</span>
-        <span *ngIf="!sharedService.userData.IsPasswordSetted">No establecida</span>
+        <span *ngIf="sharedDataService.userData.IsPasswordSetted">*********</span>
+        <span *ngIf="!sharedDataService.userData.IsPasswordSetted">No establecida</span>
       </div>
     </div>
   </div>
-  <app-change-password *ngIf="!isCollapsedChangePasswordSection && sharedService.userData.IsPasswordSetted" (closeChangePassword)="isCollapsedChangePasswordSection=true"></app-change-password>
-  <app-set-password *ngIf="!isCollapsedChangePasswordSection && !sharedService.userData.IsPasswordSetted" (closeSetPassword)="isCollapsedChangePasswordSection=true"></app-set-password>
+  <app-change-password *ngIf="!isCollapsedChangePasswordSection && sharedDataService.userData.IsPasswordSetted" (closeChangePassword)="isCollapsedChangePasswordSection=true"></app-change-password>
+  <app-set-password *ngIf="!isCollapsedChangePasswordSection && !sharedDataService.userData.IsPasswordSetted" (closeSetPassword)="isCollapsedChangePasswordSection=true"></app-set-password>
   <div class="settings-category-header-background">
     <div style="width: 100%;">
       <h2>Ajustes</h2>
@@ -67,10 +67,10 @@
     <div class="sinovad-page-section-content">
       <div class="detail">
         <label>Cuentas vinculadas</label>
-        <ng-template [ngIf]="sharedService.linkedAccounts.length==0">
+        <ng-template [ngIf]="sharedDataService.linkedAccounts.length==0">
           <span>No establecida</span>
         </ng-template>
-        <ng-template [ngIf]="sharedService.linkedAccounts.length>0">
+        <ng-template [ngIf]="sharedDataService.linkedAccounts.length>0">
             <span>{{currentUserLinkedAccountsText}}</span>
         </ng-template>
       </div>

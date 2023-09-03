@@ -12,7 +12,7 @@ export class NotFoundPage implements OnInit {
 
   constructor(
     private router: Router,
-    public sharedService: SharedDataService) {
+    public sharedDataService: SharedDataService) {
 
 
     }
@@ -21,7 +21,7 @@ export class NotFoundPage implements OnInit {
   }
 
   public goInitialPage(){
-    var pagePath=this.sharedService.apiToken!=undefined?"/home":"/landing";
+    var pagePath=this.sharedDataService.apiToken!=undefined?"/home":"/landing";
     this.router.navigateByUrl(pagePath).then((response) => {
 
     },error=>{

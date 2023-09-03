@@ -16,7 +16,7 @@ export class SplashScreenComponent {
   constructor(
     public restProvider: RestProviderService,
     public domSanitizer: DomSanitizer,
-    public sharedService: SharedDataService) {
+    public sharedDataService: SharedDataService) {
 
 
     }

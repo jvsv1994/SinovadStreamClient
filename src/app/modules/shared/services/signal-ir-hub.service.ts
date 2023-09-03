@@ -17,7 +17,7 @@ export class SignalIRHubService {
   //private updateItemsByMediaServerAndLibrarySubject$ = new Subject<string>();
 
   constructor(
-    private sharedService:SharedDataService
+    private sharedDataService:SharedDataService
     ) {
 
   }
@@ -64,22 +64,22 @@ export class SignalIRHubService {
 
 
   public openConnection(){
-    var hubConnection = new HubConnectionBuilder().withUrl(this.sharedService.urlSinovadStreamWebApi+'/mediaServerHub', {
+    var hubConnection = new HubConnectionBuilder().withUrl(this.sharedDataService.urlSinovadStreamWebApi+'/mediaServerHub', {
       skipNegotiation: true,
       transport: HttpTransportType.WebSockets
     }).build();
-    this.sharedService.hubConnection=hubConnection;
+    this.sharedDataService.hubConnection=hubConnection;
     this.tryStartHubConnection();
   }
 
   private tryStartHubConnection(){
     let ctx=this;
-    this.sharedService.hubConnection.start().then(() => {
+    this.sharedDataService.hubConnection.start().then(() => {
       console.log('connection started');
-      ctx.setEvents(this.sharedService.hubConnection);
-      ctx.sharedService.hubConnection.onclose(x=>{
+      ctx.setEvents(this.sharedDataService.hubConnection);
+      ctx.sharedDataService.hubConnection.onclose(x=>{
         setTimeout(() => {
-          if(ctx.sharedService.userData)
+          if(ctx.sharedDataService.userData)
           {
             ctx.tryStartHubConnection();
           }
@@ -94,16 +94,16 @@ export class SignalIRHubService {
   }
 
   public stopConnection(){
-    this.sharedService.hubConnection.off('UpdateCurrentTimeMediaFilePlayBack');
-    this.sharedService.hubConnection.off('AddedMediaFilePlayBack');
-    this.sharedService.hubConnection.off('RemovedMediaFilePlayBack');
-    this.sharedService.hubConnection.off('UpdateMediaServers');
-    this.sharedService.hubConnection.off('EnableMediaServer');
-    this.sharedService.hubConnection.off('DisableMediaServer');
-    this.sharedService.hubConnection.off('UpdateLibrariesByMediaServer');
-    this.sharedService.hubConnection.off('UpdateItemsByMediaServer');
-    this.sharedService.hubConnection.off('UpdateItemsByMediaServerAndLibrary');
-    this.sharedService.hubConnection.stop();
+    this.sharedDataService.hubConnection.off('UpdateCurrentTimeMediaFilePlayBack');
+    this.sharedDataService.hubConnection.off('AddedMediaFilePlayBack');
+    this.sharedDataService.hubConnection.off('RemovedMediaFilePlayBack');
+    this.sharedDataService.hubConnection.off('UpdateMediaServers');
+    this.sharedDataService.hubConnection.off('EnableMediaServer');
+    this.sharedDataService.hubConnection.off('DisableMediaServer');
+    this.sharedDataService.hubConnection.off('UpdateLibrariesByMediaServer');
+    this.sharedDataService.hubConnection.off('UpdateItemsByMediaServer');
+    this.sharedDataService.hubConnection.off('UpdateItemsByMediaServerAndLibrary');
+    this.sharedDataService.hubConnection.stop();
   }
 
   private setEvents(hubConnection:HubConnection){
@@ -111,7 +111,7 @@ export class SignalIRHubService {
         this.updateMediaServers();
       });
       hubConnection.on('EnableMediaServer', (mediaServerGuid:string) => {
-        var mediaServer=this.sharedService.mediaServers.find(x=>x.Guid==mediaServerGuid);
+        var mediaServer=this.sharedDataService.mediaServers.find(x=>x.Guid==mediaServerGuid);
         if(!mediaServer.isSecureConnection)
         {
           mediaServer.isSecureConnection=true;
@@ -119,7 +119,7 @@ export class SignalIRHubService {
         this.enableMediaServer(mediaServerGuid);
       });
       hubConnection.on('DisableMediaServer', (mediaServerGuid:string) => {
-        var mediaServer=this.sharedService.mediaServers.find(x=>x.Guid==mediaServerGuid);
+        var mediaServer=this.sharedDataService.mediaServers.find(x=>x.Guid==mediaServerGuid);
         if(mediaServer.isSecureConnection)
         {
           mediaServer.isSecureConnection=false;
@@ -143,7 +143,7 @@ export class SignalIRHubService {
       hubConnection.on('RemovedMediaFilePlayBack', (mediaServerGuid:string,mediaFilePlaybackGuid:string) => {
         this.removedMediaFilePlayBack$.next({mediaServerGuid:mediaServerGuid,mediaFilePlaybackGuid:mediaFilePlaybackGuid});
       });
-      hubConnection.invoke("AddConnectionToUserClientsGroup",this.sharedService.userData.Guid).then(res=>{})
+      hubConnection.invoke("AddConnectionToUserClientsGroup",this.sharedDataService.userData.Guid).then(res=>{})
   }
 
   public isRemovedMediaFilePlayback():Observable<any>{
@@ -156,7 +156,7 @@ export class SignalIRHubService {
 
   public removeMediaFilePlayBack(mediaServerGuid:string,mediaFilePlaybackGuid:string){
     let ctx=this;
-    this.sharedService.hubConnection.send("RemoveMediaFilePlayBack",this.sharedService.userData.Guid,mediaServerGuid,mediaFilePlaybackGuid).then(res=>{},(error)=>{
+    this.sharedDataService.hubConnection.send("RemoveMediaFilePlayBack",this.sharedDataService.userData.Guid,mediaServerGuid,mediaFilePlaybackGuid).then(res=>{},(error)=>{
       setTimeout(() => {
         ctx.removeMediaFilePlayBack(mediaServerGuid,mediaFilePlaybackGuid);
       }, 1000,ctx);
@@ -165,7 +165,7 @@ export class SignalIRHubService {
 
   public removeLastTranscodedMediaFileProcess(mediaServerGuid:string,mediaFilePlaybackGuid:string){
     let ctx=this;
-    this.sharedService.hubConnection.send("RemoveLastTranscodedMediaFileProcess",this.sharedService.userData.Guid,mediaServerGuid,mediaFilePlaybackGuid).then(res=>{},(error)=>{
+    this.sharedDataService.hubConnection.send("RemoveLastTranscodedMediaFileProcess",this.sharedDataService.userData.Guid,mediaServerGuid,mediaFilePlaybackGuid).then(res=>{},(error)=>{
       setTimeout(() => {
         ctx.removeLastTranscodedMediaFileProcess(mediaServerGuid,mediaFilePlaybackGuid);
       }, 1000,ctx);
@@ -173,7 +173,7 @@ export class SignalIRHubService {
   }
 
   public updateCurrentTimeMediaFilePlayBack(mediaServerGuid:string,mediaFilePlaybackGuid:string,currentTime:number,isPlaying:boolean){
-    this.sharedService.hubConnection.send("UpdateCurrentTimeMediaFilePlayBack",this.sharedService.userData.Guid,mediaServerGuid,mediaFilePlaybackGuid,currentTime,isPlaying);
+    this.sharedDataService.hubConnection.send("UpdateCurrentTimeMediaFilePlayBack",this.sharedDataService.userData.Guid,mediaServerGuid,mediaFilePlaybackGuid,currentTime,isPlaying);
   }
 
   public isUpdatingCurrentTimeMediaFilePlayBack():Observable<any>{

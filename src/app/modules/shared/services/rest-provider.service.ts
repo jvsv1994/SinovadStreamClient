@@ -8,7 +8,7 @@ export class RestProviderService {
 
   constructor(
     public http: HttpClient,
-    public sharedService: SharedDataService
+    public sharedDataService: SharedDataService
   ) {
   }
 
@@ -18,9 +18,9 @@ export class RestProviderService {
         let requestOptions:any={
           responseType: 'text'
         }
-        if(this.sharedService.apiToken)
+        if(this.sharedDataService.apiToken)
         {
-          let api_key = this.sharedService.apiToken;
+          let api_key = this.sharedDataService.apiToken;
           const headers = new HttpHeaders({
               'Content-Type': 'application/json',
               'Authorization': 'Bearer '+api_key
@@ -67,7 +67,7 @@ export class RestProviderService {
   }
 
   public executeSinovadApiService(methodType:HttpMethodType,routePath:string,body?:any): Promise<any>{
-    let link=this.sharedService.urlSinovadStreamWebApi+"/api/v1"+routePath;
+    let link=this.sharedDataService.urlSinovadStreamWebApi+"/api/v1"+routePath;
     return new Promise((resolve, reject) => {
       try{
         this.performExecuteMethod(methodType,link,body).then((response: any) => {
@@ -102,9 +102,9 @@ export class RestProviderService {
           }
           if(error.status==401)
           {
-            if(this.sharedService.apiToken)
+            if(this.sharedDataService.apiToken)
             {
-              this.sharedService.apiToken=undefined;
+              this.sharedDataService.apiToken=undefined;
               localStorage.removeItem('apiToken');
               (<any>window).location.href = '/';
             }
@@ -149,14 +149,14 @@ export class RestProviderService {
   }
 
   public executeHttpPostMethodWithFormData(routePath:string,formData:FormData): Promise<any>{
-    let link=this.sharedService.urlSinovadStreamWebApi+"/api/v1"+routePath;
+    let link=this.sharedDataService.urlSinovadStreamWebApi+"/api/v1"+routePath;
     return new Promise((resolve, reject) => {
       let requestOptions:any={
         responseType: 'text'
       }
-      if(this.sharedService.apiToken)
+      if(this.sharedDataService.apiToken)
       {
-        let api_key = this.sharedService.apiToken;
+        let api_key = this.sharedDataService.apiToken;
         const headers = new HttpHeaders({
           'Accept': '*/*',
           'Authorization': 'Bearer '+api_key
