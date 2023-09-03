@@ -5,10 +5,10 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-not-found',
-  templateUrl: './not-found.page.html',
-  styleUrls: ['./not-found.page.scss']
+  templateUrl: './not-found-page.component.html',
+  styleUrls: ['./not-found-page.component.scss']
 })
-export class NotFoundPage implements OnInit {
+export class NotFoundPageComponent implements OnInit {
 
   constructor(
     private router: Router,

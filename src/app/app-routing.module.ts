@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule} from '@angular/router';
 import { loggedUserGuard } from './guards/logged-user.guard';
 import { unloggedUserGuard } from './guards/unlogged-user.guard ';
-import { NotFoundPage } from './modules/pages/not-found/not-found.page';
 import { SearchViewPage } from './modules/pages/media-search/components/search-view/search-view.page';
 import { VideoComponent } from './modules/pages/media-video/components/video/video.component';
 import { MediaItemsComponent } from './modules/pages/media-items/components/media-items/media-items.component';
@@ -13,6 +12,7 @@ import { RegisterUserComponent } from './modules/pages/register-user/components/
 import { RecoverPasswordComponent } from './modules/pages/recover-password/components/recover-password.component';
 import { ResetPasswordComponent } from './modules/pages/reset-password/components/reset-password/reset-password.component';
 import { ConfirmEmailComponent } from './modules/pages/confirm-email/components/confirm-email/confirm-email.component';
+import { NotFoundPageComponent } from './components/pages/not-found-page/not-found-page.component';
 
 const routes: Routes = [
   {
@@ -111,9 +111,9 @@ const routes: Routes = [
    loadChildren: () => import('./modules/pages/confirm-email/confirm-email.module').then(m => m.ConfirmEmailPageModule),
    canActivate:[unloggedUserGuard]
   },
-  {path: '404',
-   component: NotFoundPage,
-   loadChildren: () => import('./modules/pages/not-found/not-found.module').then(m => m.NotFoundPageModule)
+  {
+    path: '404',
+   component: NotFoundPageComponent
   },
   {
     path: '',

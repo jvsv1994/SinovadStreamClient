@@ -1,6 +1,5 @@
 
 import { ChangeDetectorRef, Component, HostListener} from '@angular/core';
-import { NotFoundPage } from './modules/pages/not-found/not-found.page';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { SearchViewPage } from './modules/pages/media-search/components/search-view/search-view.page';
 import { VideoComponent } from './modules/pages/media-video/components/video/video.component';
@@ -29,6 +28,7 @@ import { RecoverPasswordComponent } from './modules/pages/recover-password/compo
 import { ResetPasswordComponent } from './modules/pages/reset-password/components/reset-password/reset-password.component';
 import { ConfirmEmailComponent } from './modules/pages/confirm-email/components/confirm-email/confirm-email.component';
 import { ProfilesViewPage } from './modules/pages/profiles/components/profiles-view/profiles-view.page';
+import { NotFoundPageComponent } from './components/pages/not-found-page/not-found-page.component';
 
 @Component({
   selector: 'app-root',
@@ -105,7 +105,7 @@ export class AppComponent{
     public onActivate(event:any){
       this.isCollapsedSidebar=true;
       this.sharedDataService.showSplashScreen=false;
-      if(event instanceof NotFoundPage || event instanceof VideoComponent || event instanceof LoginComponent || event instanceof RegisterUserComponent
+      if(event instanceof NotFoundPageComponent || event instanceof VideoComponent || event instanceof LoginComponent || event instanceof RegisterUserComponent
         || event instanceof RecoverPasswordComponent || event instanceof ResetPasswordComponent
         || event instanceof LandingComponent || event instanceof ConfirmEmailComponent || event instanceof ProfilesViewPage)
       {

@@ -17,9 +17,10 @@ import { SidebarMediaComponent } from './components/sidebar-media/sidebar-media.
 import { SidebarAdministratorComponent } from './components/sidebar-administrator/sidebar-administrator.component';
 import { SidebarAccountComponent } from './components/sidebar-account/sidebar-account.component';
 import { DropDownUserComponent } from './components/dropdown-user/dropdown-user.component';
+import { NotFoundPageComponent } from './components/pages/not-found-page/not-found-page.component';
 
 @NgModule({
-  declarations: [AppComponent,NavbarComponent,DropDownUserComponent,SidebarAccountComponent,SidebarAdministratorComponent,SidebarMediaComponent,DropDownServersComponent,SplashScreenComponent],
+  declarations: [AppComponent,NotFoundPageComponent,NavbarComponent,DropDownUserComponent,SidebarAccountComponent,SidebarAdministratorComponent,SidebarMediaComponent,DropDownServersComponent,SplashScreenComponent],
   providers: [{provide: APP_BASE_HREF, useValue : '/' }],
   imports: [
     BrowserModule,
