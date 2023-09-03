@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AuthProvider, FacebookAuthProvider, GoogleAuthProvider } from 'firebase/auth';
 import { HttpMethodType } from 'src/app/modules/shared/enums/enums';
-import { ConfirmLinkAccount } from 'src/app/modules/shared/models/confirm-linked-account.model';
-import { LinkedAccount } from 'src/app/modules/shared/models/linked-account.model';
 import { SinovadApiGenericResponse } from 'src/app/modules/shared/models/response/sinovad-api-generic-response.model';
 import { RestProviderService } from 'src/app/modules/shared/services/rest-provider.service';
-import { User } from '../../manage/modules/pages/users/models/user.model';
+import { AccessUser } from '../models/access-user.model';
+import { LinkedAccount } from '../models/linked-account.model';
+import { ConfirmLinkAccount } from '../models/confirm-linked-account.model';
 
 @Injectable({
   providedIn: 'root'
@@ -38,7 +38,7 @@ export class AuthenticationService {
     })
   }
 
-  public authenticateUser(user:User):Promise<SinovadApiGenericResponse>{
+  public authenticateUser(user:AccessUser):Promise<SinovadApiGenericResponse>{
     return new Promise((resolve,reject)=>{
       this.restProvider.executeSinovadApiService(HttpMethodType.POST,'/authentication/AuthenticateUser',user).then((response:SinovadApiGenericResponse) => {
         resolve(response);

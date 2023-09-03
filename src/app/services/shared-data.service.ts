@@ -6,7 +6,7 @@ import { User } from '../modules/pages/manage/modules/pages/users/models/user.mo
 import { Configuration } from '../modules/shared/models/configuration.model';
 import { Menu } from '../modules/pages/manage/modules/pages/menus/models/menu.model';
 import { MediaServer } from '../modules/pages/manage/modules/pages/servers/models/server.model';
-import { LinkedAccount } from '../modules/shared/models/linked-account.model';
+import { LinkedAccount } from '../modules/pages/login/models/linked-account.model';
 
 @Injectable({ providedIn: 'root' })
 export class SharedDataService {

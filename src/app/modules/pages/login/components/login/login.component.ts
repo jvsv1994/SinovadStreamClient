@@ -4,17 +4,17 @@ import { SharedDataService } from 'src/app/services/shared-data.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MyErrorStateMatcher } from 'src/app/modules/shared/error-matcher/custom-error-state-matcher';
-import { ConfirmLinkAccount } from 'src/app/modules/shared/models/confirm-linked-account.model';
 import { UserService } from '../../../manage/modules/pages/users/services/user.service';
 import { MenuService } from '../../../manage/modules/pages/menus/services/menu.service';
 import { SignalIRHubService } from 'src/app/modules/shared/services/signal-ir-hub.service';
 import { SinovadApiGenericResponse } from 'src/app/modules/shared/models/response/sinovad-api-generic-response.model';
-import { AuthenticationUserResponse } from 'src/app/modules/shared/models/authenticate-user-response.model';
-import { LinkedAccount } from 'src/app/modules/shared/models/linked-account.model';
 import { CatalogEnum, LinkedAccountProvider } from 'src/app/modules/shared/enums/enums';
 import { UserSession } from '../../../manage/modules/pages/users/models/user-session.model';
 import { AuthenticationService } from '../../services/authentication.service';
-import { User } from '../../../manage/modules/pages/users/models/user.model';
+import { AccessUser } from '../../models/access-user.model';
+import { ConfirmLinkAccount } from '../../models/confirm-linked-account.model';
+import { AuthenticationUserResponse } from '../../models/authenticate-user-response.model';
+import { LinkedAccount } from '../../models/linked-account.model';
 
 
 declare var window;
@@ -30,7 +30,7 @@ export class LoginComponent {
   title: string;
   errorMessage: string;
   showLoading:boolean=false;
-  user:User=new User();
+  user:AccessUser=new AccessUser();
   userFormGroup = this.formBuilder.group({
     username: new FormControl("", [Validators.required]),
   });
