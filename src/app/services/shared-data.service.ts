@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Profile } from 'src/app/modules/pages/profiles/shared/profile.model';
 import { HubConnection } from '@microsoft/signalr';
 import { DeviceData } from 'src/app/models/device-data.model';
 import { User } from '../modules/pages/manage/modules/pages/users/models/user.model';
@@ -7,6 +6,7 @@ import { Configuration } from '../modules/shared/models/configuration.model';
 import { Menu } from '../modules/pages/manage/modules/pages/menus/models/menu.model';
 import { MediaServer } from '../modules/pages/manage/modules/pages/servers/models/server.model';
 import { LinkedAccount } from '../modules/pages/login/models/linked-account.model';
+import { Profile } from '../modules/pages/profiles/models/profile.model';
 
 @Injectable({ providedIn: 'root' })
 export class SharedDataService {

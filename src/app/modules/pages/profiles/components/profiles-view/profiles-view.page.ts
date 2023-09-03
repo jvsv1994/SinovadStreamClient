@@ -2,10 +2,10 @@
 import { Component} from '@angular/core';
 import { SharedDataService } from 'src/app/services/shared-data.service';
 import { Router } from '@angular/router';
-import { Profile } from '../shared/profile.model';
-import { ProfileService } from '../shared/profile.service';
 import { SinovadApiGenericResponse } from 'src/app/modules/shared/models/response/sinovad-api-generic-response.model';
 import { CommonService } from 'src/app/services/common.service';
+import { ProfileService } from '../../services/profile.service';
+import { Profile } from '../../models/profile.model';
 
 declare var window;
 @Component({

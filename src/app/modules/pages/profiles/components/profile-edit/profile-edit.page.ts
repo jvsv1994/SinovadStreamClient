@@ -3,11 +3,11 @@ import { Component, OnInit } from '@angular/core';
 import { SharedDataService } from 'src/app/services/shared-data.service';
 import { RestProviderService } from 'src/app/modules/shared/services/rest-provider.service';
 import { HttpMethodType } from 'src/app/modules/shared/enums/enums';
-import { Profile } from '../shared/profile.model';
-import { ProfileService } from '../shared/profile.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SinovadApiGenericResponse } from 'src/app/modules/shared/models/response/sinovad-api-generic-response.model';
 import { CommonService } from 'src/app/services/common.service';
+import { ProfileService } from '../../services/profile.service';
+import { Profile } from '../../models/profile.model';
 
 declare var window;
 @Component({

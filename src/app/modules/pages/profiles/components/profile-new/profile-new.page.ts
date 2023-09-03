@@ -1,9 +1,9 @@
 
 import { Component} from '@angular/core';
-import { Profile } from '../shared/profile.model';
-import { ProfileService } from '../shared/profile.service';
 import { SharedDataService } from 'src/app/services/shared-data.service';
 import { Router } from '@angular/router';
+import { ProfileService } from '../../services/profile.service';
+import { Profile } from '../../models/profile.model';
 
 declare var window;
 @Component({

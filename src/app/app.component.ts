@@ -1,7 +1,6 @@
 
 import { ChangeDetectorRef, Component, HostListener} from '@angular/core';
 import { NotFoundPage } from './modules/pages/not-found/not-found.page';
-import { ProfilesViewPage } from './modules/pages/profiles/profiles-view/profiles-view.page';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { SearchViewPage } from './modules/pages/media-search/components/search-view/search-view.page';
 import { VideoComponent } from './modules/pages/media-video/components/video/video.component';
@@ -29,6 +28,7 @@ import { RegisterUserComponent } from './modules/pages/register-user/components/
 import { RecoverPasswordComponent } from './modules/pages/recover-password/components/recover-password.component';
 import { ResetPasswordComponent } from './modules/pages/reset-password/components/reset-password/reset-password.component';
 import { ConfirmEmailComponent } from './modules/pages/confirm-email/components/confirm-email/confirm-email.component';
+import { ProfilesViewPage } from './modules/pages/profiles/components/profiles-view/profiles-view.page';
 
 @Component({
   selector: 'app-root',
