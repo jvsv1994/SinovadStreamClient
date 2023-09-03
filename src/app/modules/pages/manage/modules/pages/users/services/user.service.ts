@@ -12,6 +12,9 @@ import { UserSession } from '../models/user-session.model';
 import { User } from '../models/user.model';
 import { ValidateConfirmEmailTokenModel } from 'src/app/modules/pages/confirm-email/models/validate-confirm-email-token.model';
 import { RecoverPasswordModel } from 'src/app/modules/pages/recover-password/models/recover-password.model';
+import { RegisterUserModel } from 'src/app/modules/pages/register-user/models/register-user-model';
+import { ValidateResetPasswordTokenModel } from 'src/app/modules/pages/reset-password/models/validate-reset-password-token.model';
+import { ResetPasswordModel } from 'src/app/modules/pages/reset-password/models/reset-password.model';
 export declare type EventHandler = (...args: any[]) => any;
 
 @Injectable({ providedIn: 'root' })
@@ -155,4 +158,39 @@ export class UserService {
       });
    });
   }
+
+  public registerUser(registerUserModel:RegisterUserModel):Promise<SinovadApiGenericResponse>{
+    return new Promise((resolve, reject) => {
+      this.restProvider.executeSinovadApiService(HttpMethodType.POST,'/users/Register',registerUserModel).then((response: SinovadApiGenericResponse) => {
+        resolve(response);
+      },error=>{
+        console.error(error);
+        reject(error);
+      });
+   });
+  }
+
+  public validateResetPasswordToken(validateResetPasswordTokenModel:ValidateResetPasswordTokenModel):Promise<SinovadApiGenericResponse>{
+    return new Promise((resolve, reject) => {
+      this.restProvider.executeSinovadApiService(HttpMethodType.POST,'/users/ValidateResetPasswordToken',validateResetPasswordTokenModel).then((response: SinovadApiGenericResponse) => {
+        resolve(response);
+      },error=>{
+        console.error(error);
+        reject(error);
+      });
+   });
+  }
+
+  public resetPassword(resetPasswordModel:ResetPasswordModel):Promise<SinovadApiGenericResponse>{
+    return new Promise((resolve, reject) => {
+      this.restProvider.executeSinovadApiService(HttpMethodType.POST,'/users/ResetPassword',resetPasswordModel).then((response: SinovadApiGenericResponse) => {
+        resolve(response);
+      },error=>{
+        console.error(error);
+        reject(error);
+      });
+   });
+  }
+
+
 }

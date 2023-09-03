@@ -1,14 +1,13 @@
 
 import { Component, OnInit } from '@angular/core';
 import { SharedDataService } from 'src/app/services/shared-data.service';
-import { RestProviderService } from 'src/app/modules/shared/services/rest-provider.service';
-import { HttpMethodType } from 'src/app/modules/shared/enums/enums';
 import { ActivatedRoute, Router } from '@angular/router';
 import hiBase64 from 'hi-base64';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { CommonService } from 'src/app/services/common.service';
 import { ResetPasswordModel } from '../../models/reset-password.model';
 import { ValidateResetPasswordTokenModel } from '../../models/validate-reset-password-token.model';
+import { UserService } from '../../../manage/modules/pages/users/services/user.service';
 
 declare var window;
 @Component({
@@ -38,7 +37,7 @@ export class ResetPasswordComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     public activeRoute: ActivatedRoute,
-    public restProvider: RestProviderService,
+    public userService: UserService,
     public commonService: CommonService,
     public sharedDataService: SharedDataService) {
 
@@ -59,7 +58,7 @@ export class ResetPasswordComponent implements OnInit {
           var validateResetPasswordTokenModel= new ValidateResetPasswordTokenModel();
           validateResetPasswordTokenModel.ResetPasswordToken=this.resetPasswordToken;
           validateResetPasswordTokenModel.UserId=this.userId;;
-          this.restProvider.executeSinovadApiService(HttpMethodType.POST,'/users/ValidateResetPasswordToken',validateResetPasswordTokenModel).then((result: any) => {
+          this.userService.validateResetPasswordToken(validateResetPasswordTokenModel).then((result: any) => {
             this.showResetPasswordForm=true;
             this.showLoading=false;
           },error=>{
@@ -89,7 +88,7 @@ export class ResetPasswordComponent implements OnInit {
         Password:this.resetPasswordForm.value.password,
         ConfirmPassword:this.resetPasswordForm.value.confirmPassword
       }
-      this.restProvider.executeSinovadApiService(HttpMethodType.POST,'/users/ResetPassword',this.resetPasswordModel).then((result: any) => {
+      this.userService.resetPassword(this.resetPasswordModel).then((result: any) => {
         this.showResetPasswordSuccessMessage=true;
         this.showResetPasswordForm=false;
         this.showLoading=false;

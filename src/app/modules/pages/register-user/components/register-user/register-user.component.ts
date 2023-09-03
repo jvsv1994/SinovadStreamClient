@@ -1,12 +1,11 @@
 
 import { Component, OnInit } from '@angular/core';
 import { SharedDataService } from 'src/app/services/shared-data.service';
-import { RestProviderService } from 'src/app/modules/shared/services/rest-provider.service';
-import { HttpMethodType } from 'src/app/modules/shared/enums/enums';
 import { Router } from '@angular/router';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { CommonService } from 'src/app/services/common.service';
 import { RegisterUserModel } from '../../models/register-user-model';
+import { UserService } from '../../../manage/modules/pages/users/services/user.service';
 
 declare var window;
 @Component({
@@ -35,7 +34,7 @@ export class RegisterUserComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    public restProvider: RestProviderService,
+    public userService: UserService,
     public commonService:CommonService,
     public sharedDataService: SharedDataService) {
 
@@ -57,8 +56,7 @@ export class RegisterUserComponent implements OnInit {
           ConfirmEmailUrl:window.location.origin+"/confirm"
         }
         this.showLoading=true;
-        this.restProvider.executeSinovadApiService(HttpMethodType.POST,'/users/Register',this.registerUserModel).then((response: any) => {
-          console.log("Registrado exitosamente");
+        this.userService.registerUser(this.registerUserModel).then((response: any) => {
           this.showLoading=false;
           this.showSuccessMessage=true;
         },error=>{
