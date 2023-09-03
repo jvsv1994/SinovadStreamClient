@@ -1,7 +1,6 @@
 
 import { Component, OnInit } from '@angular/core';
 import { SharedDataService } from 'src/app/services/shared-data.service';
-import { RestProviderService } from 'src/app/modules/shared/services/rest-provider.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SinovadApiGenericResponse } from 'src/app/modules/shared/models/response/sinovad-api-generic-response.model';
 import { CommonService } from 'src/app/services/common.service';
@@ -23,7 +22,6 @@ export class ProfileEditPage implements OnInit {
     private router: Router,
     public activeRoute: ActivatedRoute,
     private profileService:ProfileService,
-    public restProvider: RestProviderService,
     public commonService: CommonService,
     public sharedDataService:SharedDataService) {
 
