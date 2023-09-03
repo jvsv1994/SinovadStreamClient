@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs';
 import { ItemDetail } from '../../models/item-detail.model';
 import { MediaEpisode } from '../../models/media-episode.model';
 import { MediaSeason } from '../../models/media-season.model';
-import { SignalIRHubService } from 'src/app/modules/shared/services/signal-ir-hub.service';
+import { SignalIRHubService } from 'src/app/services/signal-ir-hub.service';
 import { LibraryService } from '../../../settings/modules/pages/server/modules/pages/manage/modules/pages/libraries/services/library.service';
 
 declare var window;

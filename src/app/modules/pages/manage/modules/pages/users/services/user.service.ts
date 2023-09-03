@@ -6,7 +6,7 @@ import { SharedDataService } from 'src/app/services/shared-data.service';
 import { SinovadApiPaginationResponse } from 'src/app/modules/shared/models/response/sinovad-api-pagination-response.model';
 import { SinovadApiGenericResponse } from 'src/app/modules/shared/models/response/sinovad-api-generic-response.model';
 import { Observable, Subject } from 'rxjs';
-import { SignalIRHubService } from 'src/app/modules/shared/services/signal-ir-hub.service';
+import { SignalIRHubService } from 'src/app/services/signal-ir-hub.service';
 import { MenuService } from '../../menus/services/menu.service';
 import { UserSession } from '../models/user-session.model';
 import { User } from '../models/user.model';

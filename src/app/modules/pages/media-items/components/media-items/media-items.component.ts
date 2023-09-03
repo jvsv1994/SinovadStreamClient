@@ -6,7 +6,7 @@ import { MediaType } from 'src/app/modules/shared/enums/enums';
 import { Subscription } from 'rxjs';
 import { ItemsGroup } from '../../models/items-group.model';
 import { Item } from '../../models/item.model';
-import { SignalIRHubService } from 'src/app/modules/shared/services/signal-ir-hub.service';
+import { SignalIRHubService } from 'src/app/services/signal-ir-hub.service';
 import { Library } from '../../../settings/modules/pages/server/modules/pages/manage/modules/pages/libraries/models/library.model';
 import { LibraryService } from '../../../settings/modules/pages/server/modules/pages/manage/modules/pages/libraries/services/library.service';
 import { MediaServer } from '../../../manage/modules/pages/servers/models/server.model';

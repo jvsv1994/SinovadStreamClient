@@ -7,7 +7,7 @@ import { Library } from 'src/app/modules/pages/settings/modules/pages/server/mod
 import { LibraryService } from 'src/app/modules/pages/settings/modules/pages/server/modules/pages/manage/modules/pages/libraries/services/library.service';
 import { MediaType } from 'src/app/modules/shared/enums/enums';
 import { SharedDataService } from 'src/app/services/shared-data.service';
-import { SignalIRHubService } from 'src/app/modules/shared/services/signal-ir-hub.service';
+import { SignalIRHubService } from 'src/app/services/signal-ir-hub.service';
 
 declare var window;
 @Component({

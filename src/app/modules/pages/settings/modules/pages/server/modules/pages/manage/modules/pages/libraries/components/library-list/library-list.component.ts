@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs';
 import { SnackBarService } from 'src/app/modules/shared/services/snack-bar.service';
 import { ConfirmDialogOptions, CustomConfirmDialogComponent } from 'src/app/modules/shared/components/custom-confirm-dialog/custom-confirm-dialog.component';
 import { SnackBarType } from 'src/app/modules/shared/components/custom-snack-bar/custom-snack-bar.component';
-import { SignalIRHubService } from 'src/app/modules/shared/services/signal-ir-hub.service';
+import { SignalIRHubService } from 'src/app/services/signal-ir-hub.service';
 import { Library } from '../../models/library.model';
 import { LibraryService } from '../../services/library.service';
 import { MediaServer } from 'src/app/modules/pages/manage/modules/pages/servers/models/server.model';

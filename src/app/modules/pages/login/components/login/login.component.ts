@@ -6,7 +6,7 @@ import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MyErrorStateMatcher } from 'src/app/modules/shared/error-matcher/custom-error-state-matcher';
 import { UserService } from '../../../manage/modules/pages/users/services/user.service';
 import { MenuService } from '../../../manage/modules/pages/menus/services/menu.service';
-import { SignalIRHubService } from 'src/app/modules/shared/services/signal-ir-hub.service';
+import { SignalIRHubService } from 'src/app/services/signal-ir-hub.service';
 import { SinovadApiGenericResponse } from 'src/app/modules/shared/models/response/sinovad-api-generic-response.model';
 import { CatalogEnum, LinkedAccountProvider } from 'src/app/modules/shared/enums/enums';
 import { UserSession } from '../../../manage/modules/pages/users/models/user-session.model';

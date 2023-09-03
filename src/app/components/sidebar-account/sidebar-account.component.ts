@@ -7,7 +7,7 @@ import { SidebarOption } from 'src/app/models/sidebar-option.model';
 import { DropDownServersService } from 'src/app/services/drop-down-servers.service';
 import { DropDownMenuItem } from 'src/app/models/drop-down-menu-Item.model';
 import { DropDownMenuOptions } from 'src/app/models/drop-down-menu-options.model';
-import { SignalIRHubService } from 'src/app/modules/shared/services/signal-ir-hub.service';
+import { SignalIRHubService } from 'src/app/services/signal-ir-hub.service';
 import { MediaServer } from 'src/app/modules/pages/manage/modules/pages/servers/models/server.model';
 import { Menu } from 'src/app/modules/pages/manage/modules/pages/menus/models/menu.model';
 import { CommonService } from 'src/app/services/common.service';

@@ -19,7 +19,7 @@ import { MediaFilePlaybackProfile } from '../../models/media-file-playback-profi
 import { MediaFilePlaybackClient } from '../../models/media-file-playback-client.model';
 import { MediaFilePlaybackItem } from '../../models/media-file-playback-item.model';
 import { RetranscodeMediaFile } from '../../models/retranscode-media-file.model';
-import { SignalIRHubService } from 'src/app/modules/shared/services/signal-ir-hub.service';
+import { SignalIRHubService } from 'src/app/services/signal-ir-hub.service';
 import { LibraryService } from '../../../settings/modules/pages/server/modules/pages/manage/modules/pages/libraries/services/library.service';
 import { MediaServer } from '../../../manage/modules/pages/servers/models/server.model';
 import { MediaItem } from '../../../media-detail/models/media-item.model';

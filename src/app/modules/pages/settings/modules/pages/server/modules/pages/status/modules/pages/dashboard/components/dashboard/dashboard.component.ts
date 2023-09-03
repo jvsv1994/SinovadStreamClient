@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component } from '@angular/core';
 import { DashboardService } from '../../services/dashboard.service';
 import { MediaServer } from 'src/app/modules/pages/manage/modules/pages/servers/models/server.model';
 import { Subscription } from 'rxjs';
-import { SignalIRHubService } from 'src/app/modules/shared/services/signal-ir-hub.service';
+import { SignalIRHubService } from 'src/app/services/signal-ir-hub.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MediaFilePlayback } from 'src/app/modules/pages/media-video/models/media-file-playback.model';
 import { MediaFilePlaybackClient } from 'src/app/modules/pages/media-video/models/media-file-playback-client.model';
