@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule} from '@angular/router';
 import { loggedUserGuard } from './guards/logged-user.guard';
 import { unloggedUserGuard } from './guards/unlogged-user.guard ';
-import { ConfirmEmailPage } from './modules/pages/confirm-email/confirm-email.page';
 import { NotFoundPage } from './modules/pages/not-found/not-found.page';
 import { SearchViewPage } from './modules/pages/media-search/components/search-view/search-view.page';
 import { VideoComponent } from './modules/pages/media-video/components/video/video.component';
@@ -13,6 +12,7 @@ import { LandingComponent } from './modules/pages/landing/components/landing/lan
 import { RegisterUserComponent } from './modules/pages/register-user/components/register-user/register-user.component';
 import { RecoverPasswordComponent } from './modules/pages/recover-password/components/recover-password.component';
 import { ResetPasswordComponent } from './modules/pages/reset-password/components/reset-password/reset-password.component';
+import { ConfirmEmailComponent } from './modules/pages/confirm-email/components/confirm-email/confirm-email.component';
 
 const routes: Routes = [
   {
@@ -107,7 +107,7 @@ const routes: Routes = [
   },
   {
    path: 'confirm/:base64Data',
-   component:ConfirmEmailPage,
+   component:ConfirmEmailComponent,
    loadChildren: () => import('./modules/pages/confirm-email/confirm-email.module').then(m => m.ConfirmEmailPageModule),
    canActivate:[unloggedUserGuard]
   },

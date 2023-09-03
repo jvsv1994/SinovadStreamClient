@@ -2,11 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../../shared/shared.module';
-import { ConfirmEmailPage } from './confirm-email.page';
+import { ConfirmEmailComponent } from './components/confirm-email/confirm-email.component';
 
 @NgModule({
     declarations: [
-      ConfirmEmailPage
+      ConfirmEmailComponent
     ],
     imports: [
         CommonModule,
@@ -14,7 +14,7 @@ import { ConfirmEmailPage } from './confirm-email.page';
         SharedModule,
         ReactiveFormsModule
     ],
-    exports: [ConfirmEmailPage]
+    exports: [ConfirmEmailComponent]
 })
 export class ConfirmEmailPageModule {
 }

@@ -4,15 +4,15 @@ import { RestProviderService } from 'src/app/modules/shared/services/rest-provid
 import { HttpMethodType } from 'src/app/modules/shared/enums/enums';
 import { ActivatedRoute, Router } from '@angular/router';
 import hiBase64 from 'hi-base64';
-import { ValidateConfirmEmailTokenModel } from './validate-confirm-email-token.model';
+import { ValidateConfirmEmailTokenModel } from '../../models/validate-confirm-email-token.model';
 
 declare var window;
 @Component({
   selector: 'app-confirm-email',
-  templateUrl: './confirm-email.page.html',
-  styleUrls: ['./confirm-email.page.scss']
+  templateUrl: './confirm-email.component.html',
+  styleUrls: ['./confirm-email.component.scss']
 })
-export class ConfirmEmailPage implements OnInit {
+export class ConfirmEmailComponent implements OnInit {
 
   _window=window;
   title: string;
