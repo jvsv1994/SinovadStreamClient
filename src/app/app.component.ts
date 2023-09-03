@@ -23,12 +23,12 @@ import { SharedDataService } from './services/shared-data.service';
 import { CommonService } from './services/common.service';
 import { LoginComponent } from './modules/pages/login/components/login/login.component';
 import { RegisterUserComponent } from './modules/pages/register-user/components/register-user/register-user.component';
-import { RecoverPasswordComponent } from './modules/pages/recover-password/components/recover-password.component';
 import { ResetPasswordComponent } from './modules/pages/reset-password/components/reset-password/reset-password.component';
 import { ConfirmEmailComponent } from './modules/pages/confirm-email/components/confirm-email/confirm-email.component';
 import { ProfilesViewPage } from './modules/pages/profiles/components/profiles-view/profiles-view.page';
 import { NotFoundPageComponent } from './components/pages/not-found-page/not-found-page.component';
 import { LandingPageComponent } from './components/pages/landing-page/landing-page.component';
+import { RecoverPasswordComponent } from './modules/pages/recover-password/components/recover-password/recover-password.component';
 
 @Component({
   selector: 'app-root',

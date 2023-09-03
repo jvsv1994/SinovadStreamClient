@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../../shared/shared.module';
-import { RecoverPasswordComponent } from './components/recover-password.component';
+import { RecoverPasswordComponent } from './components/recover-password/recover-password.component';
 
 @NgModule({
     declarations: [

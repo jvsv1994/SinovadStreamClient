@@ -6,7 +6,7 @@ import { HttpMethodType } from 'src/app/modules/shared/enums/enums';
 import { Router } from '@angular/router';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { CommonService } from 'src/app/services/common.service';
-import { RecoverPasswordModel } from '../models/recover-password.model';
+import { RecoverPasswordModel } from '../../models/recover-password.model';
 
 declare var window;
 @Component({
