@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { LoginPage } from './login.page';
 import { SharedModule } from '../../shared/shared.module';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
     declarations: [
-      LoginPage
+      LoginComponent
     ],
     imports: [
         CommonModule,
@@ -14,7 +14,7 @@ import { SharedModule } from '../../shared/shared.module';
         SharedModule,
         ReactiveFormsModule
     ],
-    exports: [LoginPage]
+    exports: [LoginComponent]
 })
 export class LoginPageModule {
 }

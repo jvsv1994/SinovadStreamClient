@@ -2,12 +2,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule} from '@angular/router';
 import { loggedUserGuard } from './guards/logged-user.guard';
 import { unloggedUserGuard } from './guards/unlogged-user.guard ';
-import { ProfilesViewPage } from './modules/pages/profiles/profiles-view/profiles-view.page';
-import { ProfileNewPage } from './modules/pages/profiles/profile-new/profile-new.page';
-import { ProfileEditPage } from './modules/pages/profiles/profile-edit/profile-edit.page';
 import { LandingPage } from './modules/pages/landing/landing.page';
 import { RegisterUserPage } from './modules/pages/register-user/register-user.page';
-import { LoginPage } from './modules/pages/login/login.page';
 import { RecoverPasswordPage } from './modules/pages/recover-password/recover-password.page';
 import { ResetPasswordPage } from './modules/pages/reset-password/reset-password.page';
 import { ConfirmEmailPage } from './modules/pages/confirm-email/confirm-email.page';
@@ -16,6 +12,7 @@ import { SearchViewPage } from './modules/pages/media-search/components/search-v
 import { VideoComponent } from './modules/pages/media-video/components/video/video.component';
 import { MediaItemsComponent } from './modules/pages/media-items/components/media-items/media-items.component';
 import { MediaDetailComponent } from './modules/pages/media-detail/components/media-detail/media-detail.component';
+import { LoginComponent } from './modules/pages/login/components/login/login.component';
 
 
 const routes: Routes = [
@@ -93,7 +90,7 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    component:LoginPage,
+    component:LoginComponent,
     loadChildren: () => import('./modules/pages/login/login.module').then(m => m.LoginPageModule),
     canActivate:[unloggedUserGuard]
   },
