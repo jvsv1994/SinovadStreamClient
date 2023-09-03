@@ -1,16 +1,16 @@
 
 import { AfterViewInit, Component, Input, OnInit} from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { CatalogEnum, HttpMethodType} from 'src/app/modules/shared/enums/enums';
+import { CatalogEnum} from 'src/app/modules/shared/enums/enums';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { SnackBarService } from 'src/app/modules/shared/services/snack-bar.service';
-import { RestProviderService } from 'src/app/modules/shared/services/rest-provider.service';
 import { SnackBarType } from 'src/app/modules/shared/components/custom-snack-bar/custom-snack-bar.component';
 import { MyErrorStateMatcher } from 'src/app/modules/shared/error-matcher/custom-error-state-matcher';
 import { SinovadApiGenericResponse } from 'src/app/modules/shared/models/response/sinovad-api-generic-response.model';
 import { Menu } from '../../models/menu.model';
 import { CatalogDetail } from '../../../catalogs/shared/catalog-detail.model';
 import { MenuService } from '../../services/menu.service';
+import { CatalogService } from '../../../catalogs/services/catalog.services';
 
 @Component({
   selector: 'app-menu-form',
@@ -27,7 +27,7 @@ export class MenuFormPage implements OnInit,AfterViewInit{
   matcher = new MyErrorStateMatcher();
 
   constructor(
-    private restProvider:RestProviderService,
+    private catalogService:CatalogService,
     private formBuilder: FormBuilder,
     private activeModal: NgbActiveModal,
     private snackbarService:SnackBarService,
@@ -52,8 +52,7 @@ export class MenuFormPage implements OnInit,AfterViewInit{
     }
 
     private getIconTypes():void{
-      var path="/catalogs/GetDetailsByCatalogAsync/"+CatalogEnum.IconTypes;
-      this.restProvider.executeSinovadApiService(HttpMethodType.GET,path).then((response:SinovadApiGenericResponse) => {
+      this.catalogService.getDetailsByCatalogId(CatalogEnum.IconTypes).then((response:SinovadApiGenericResponse) => {
         var data=response.Data;
         this.listIconTypes=data;
       },error=>{
