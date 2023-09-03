@@ -3,7 +3,6 @@ import { ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import { SharedDataService } from 'src/app/services/shared-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MediaType } from 'src/app/modules/shared/enums/enums';
-import { RestProviderService } from 'src/app/modules/shared/services/rest-provider.service';
 import { Subscription } from 'rxjs';
 import { ItemsGroup } from '../../models/items-group.model';
 import { Item } from '../../models/item.model';
@@ -38,7 +37,6 @@ export class MediaItemsComponent implements OnInit,OnDestroy {
     private libraryService:LibraryService,
     public activeRoute: ActivatedRoute,
     public router: Router,
-    public restProvider: RestProviderService,
     private  ref:ChangeDetectorRef,
     public commonService: CommonService,
     public sharedDataService: SharedDataService) {
