@@ -14,8 +14,8 @@ import { SnackBarType } from 'src/app/modules/shared/components/custom-snack-bar
 import { DirectoryChooserPage } from 'src/app/modules/shared/components/directory-chooser/directory-chooser.page';
 import { CatalogDetail } from 'src/app/modules/pages/manage/modules/pages/catalogs/shared/catalog-detail.model';
 import { MediaServer } from 'src/app/modules/pages/manage/modules/pages/servers/models/server.model';
-import { CatalogService } from 'src/app/modules/pages/manage/modules/pages/catalogs/shared/catalog.services';
 import { SharedDataService } from 'src/app/services/shared-data.service';
+import { CatalogService } from 'src/app/modules/pages/manage/modules/pages/catalogs/services/catalog.services';
 
 declare var window;
 @Component({
