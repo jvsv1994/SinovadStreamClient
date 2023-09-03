@@ -5,8 +5,7 @@ import {v4 as uuid} from "uuid";
 import { SharedDataService } from 'src/app/services/shared-data.service';
 import { parse } from '@plussub/srt-vtt-parser';
 import Hls, { HlsConfig } from 'hls.js';
-import { HttpMethodType, LoadVideoStatus, MediaType, MetadataAgents, VideoTransmissionType } from 'src/app/modules/shared/enums/enums';
-import { RestProviderService } from 'src/app/modules/shared/services/rest-provider.service';
+import { LoadVideoStatus, MediaType, MetadataAgents, VideoTransmissionType } from 'src/app/modules/shared/enums/enums';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { CustomDialogOptionsComponent, DialogOption, DialogOptionsConfiguration } from 'src/app/modules/shared/components/custom-dialog-options/custom-dialog-options.component';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -26,6 +25,7 @@ import { MediaServer } from '../../../manage/modules/pages/servers/models/server
 import { MediaItem } from '../../../media-detail/models/media-item.model';
 import { MediaFile } from '../../../media-detail/models/media-file.model';
 import { CommonService } from 'src/app/services/common.service';
+import { MediaFilePlaybackService } from '../../services/media-file-playback.service';
 @Component({
   selector: 'app-video',
   templateUrl: 'video.component.html',
@@ -78,7 +78,7 @@ export class VideoComponent implements OnInit,OnDestroy{
     private router: Router,
     private libraryService:LibraryService,
     private dialog: MatDialog,
-    public restProvider: RestProviderService,
+    public mediaFilePlaybackService: MediaFilePlaybackService,
     public commonService: CommonService,
     public sharedDataService: SharedDataService,
     public ref: ChangeDetectorRef,
@@ -223,8 +223,7 @@ export class VideoComponent implements OnInit,OnDestroy{
         currentTime=0;
       }
     }
-    let url=this.mediaServer.Url+"/api/mediaFilePlaybacks/CreateTranscodedMediaFile";
-    this.restProvider.executeHttpMediaServerApi(HttpMethodType.POST,url,this.GetMediaFilePlayback(currentTime)).then((response:SinovadApiGenericResponse) => {
+    this.mediaFilePlaybackService.createTranscodedMediaFile(this.mediaServer.Url,this.GetMediaFilePlayback(currentTime)).then((response:SinovadApiGenericResponse) => {
       this.loadStatus=LoadVideoStatus.Generated;
       var transcodedMediaFile:TranscodedMediaFile=response.Data;
       this.transcodedMediaFile=transcodedMediaFile;
@@ -293,29 +292,28 @@ export class VideoComponent implements OnInit,OnDestroy{
 
   //Retranscode Section
 
-    public retranscodeMediaFile(newVideoTime:number){
-      this.deleteLastTranscodedMediaFileProcess();
-      var retranscodeMediaFileRequest= new RetranscodeMediaFile();
-      retranscodeMediaFileRequest.Guid= this.transcodedMediaFile.Guid;
-      retranscodeMediaFileRequest.NewTime=newVideoTime;
-      this.loadStatus=LoadVideoStatus.Empty;
-      let url=this.mediaServer.Url+"/api/mediaFilePlaybacks/RetranscodeMediaFile";
-      this.isRetranscoding=true;
-      this.restProvider.executeHttpMediaServerApi(HttpMethodType.PUT,url,retranscodeMediaFileRequest).then((response:SinovadApiGenericResponse) => {
-        this.isRetranscoding=false;
-        this.transcodedMediaFile.InitialTime=newVideoTime;
-        this.transcodedMediaFile.Url=response.Data;
-        this.loadStatus=LoadVideoStatus.Generated;
-        this.updateAudioAndVideoList();
-        this.getVideoSource();
-      },error=>{
-        this.isRetranscoding=false;
-        this.showLoadVideoErrorActionsDialog();
-        console.error(error);
-      });
-    }
+  public retranscodeMediaFile(newVideoTime:number){
+    this.deleteLastTranscodedMediaFileProcess();
+    var retranscodeMediaFileRequest= new RetranscodeMediaFile();
+    retranscodeMediaFileRequest.Guid= this.transcodedMediaFile.Guid;
+    retranscodeMediaFileRequest.NewTime=newVideoTime;
+    this.loadStatus=LoadVideoStatus.Empty;
+    this.isRetranscoding=true;
+    this.mediaFilePlaybackService.retranscodeMediaFile(this.mediaServer.Url,retranscodeMediaFileRequest).then((response:SinovadApiGenericResponse) => {
+      this.isRetranscoding=false;
+      this.transcodedMediaFile.InitialTime=newVideoTime;
+      this.transcodedMediaFile.Url=response.Data;
+      this.loadStatus=LoadVideoStatus.Generated;
+      this.updateAudioAndVideoList();
+      this.getVideoSource();
+    },error=>{
+      this.isRetranscoding=false;
+      this.showLoadVideoErrorActionsDialog();
+      console.error(error);
+    });
+  }
 
-//Delete Transcode Media File Section
+  //Delete Transcode Media File Section
 
   public deleteTranscodedMediaFile(){
     if(this.timeOutLoadVideoId)
@@ -474,8 +472,7 @@ export class VideoComponent implements OnInit,OnDestroy{
     this.lastRealVideoTime=0;
     this.resetStream();
     this.loadStatus=LoadVideoStatus.Empty;
-    let url=this.mediaServer.Url+"/api/mediaFilePlaybacks/CreateTranscodedMediaFile";
-    this.restProvider.executeHttpMediaServerApi(HttpMethodType.POST,url,this.GetMediaFilePlayback(0)).then((response:SinovadApiGenericResponse) => {
+    this.mediaFilePlaybackService.createTranscodedMediaFile(this.mediaServer.Url,this.GetMediaFilePlayback(0)).then((response:SinovadApiGenericResponse) => {
       this.loadStatus=LoadVideoStatus.Generated;
       var transcodedMediaFile:TranscodedMediaFile=response.Data;
       this.transcodedMediaFile=transcodedMediaFile;
