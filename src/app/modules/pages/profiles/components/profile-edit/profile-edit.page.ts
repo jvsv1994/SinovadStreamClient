@@ -2,7 +2,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SharedDataService } from 'src/app/services/shared-data.service';
 import { RestProviderService } from 'src/app/modules/shared/services/rest-provider.service';
-import { HttpMethodType } from 'src/app/modules/shared/enums/enums';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SinovadApiGenericResponse } from 'src/app/modules/shared/models/response/sinovad-api-generic-response.model';
 import { CommonService } from 'src/app/services/common.service';
@@ -70,9 +69,8 @@ export class ProfileEditPage implements OnInit {
         var formData = new FormData();
         formData.append("ProfileId",this.currentTmpProfile.Id.toString());
         formData.append('File', file, file.name);
-        var url="/documents/UploadAvatarProfile";
-        this.restProvider.executeHttpPostMethodWithFormData(url,formData).then((response: any) => {
-          this.restProvider.executeSinovadApiService(HttpMethodType.GET,"/profiles/GetAsync/"+this.currentTmpProfile.Id).then((response: SinovadApiGenericResponse) => {
+        this.profileService.uploadAvatarProfile(formData).then((response: any) => {
+          this.profileService.getProfileById(this.currentTmpProfile.Id).then((response: SinovadApiGenericResponse) => {
              this.currentTmpProfile=response.Data;
              this.hideImage=true;
              setTimeout(() => {

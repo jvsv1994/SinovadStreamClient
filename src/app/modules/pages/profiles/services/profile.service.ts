@@ -19,6 +19,29 @@ export class ProfileService {
   ) {
   }
 
+  public uploadAvatarProfile(formData:FormData):Promise<SinovadApiGenericResponse>{
+    return new Promise((resolve, reject) => {
+      var url="/documents/UploadAvatarProfile";
+      this.restProvider.executeHttpPostMethodWithFormData(url,formData).then((response: any) => {
+        resolve(response);
+      },error=>{
+        console.error(error);
+        reject(error);
+      });
+    });
+  }
+
+  public getProfileById(id:number):Promise<SinovadApiGenericResponse>{
+    return new Promise((resolve, reject) => {
+      this.restProvider.executeSinovadApiService(HttpMethodType.GET,'/profiles/GetAsync/'+id).then((response:SinovadApiGenericResponse) => {
+        resolve(response);
+      },error=>{
+        console.error(error);
+        reject(error);
+      });
+    });
+  }
+
   public getProfileByGuid(guid:string):Promise<SinovadApiGenericResponse>{
     return new Promise((resolve, reject) => {
       this.restProvider.executeSinovadApiService(HttpMethodType.GET,'/profiles/GetByGuidAsync/'+guid).then((response:SinovadApiGenericResponse) => {
