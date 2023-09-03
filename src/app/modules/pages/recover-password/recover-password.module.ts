@@ -2,11 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../../shared/shared.module';
-import { RecoverPasswordPage } from './recover-password.page';
+import { RecoverPasswordComponent } from './components/recover-password.component';
 
 @NgModule({
     declarations: [
-      RecoverPasswordPage
+      RecoverPasswordComponent
     ],
     imports: [
         CommonModule,
@@ -14,7 +14,7 @@ import { RecoverPasswordPage } from './recover-password.page';
         SharedModule,
         ReactiveFormsModule
     ],
-    exports: [RecoverPasswordPage]
+    exports: [RecoverPasswordComponent]
 })
 export class RecoverPasswordPageModule {
 }

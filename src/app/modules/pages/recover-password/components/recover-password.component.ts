@@ -5,16 +5,16 @@ import { RestProviderService } from 'src/app/modules/shared/services/rest-provid
 import { HttpMethodType } from 'src/app/modules/shared/enums/enums';
 import { Router } from '@angular/router';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { RecoverPasswordModel } from './recover-password.model';
 import { CommonService } from 'src/app/services/common.service';
+import { RecoverPasswordModel } from '../models/recover-password.model';
 
 declare var window;
 @Component({
   selector: 'app-recover-password',
-  templateUrl: './recover-password.page.html',
-  styleUrls: ['./recover-password.page.scss']
+  templateUrl: './recover-password.component.html',
+  styleUrls: ['./recover-password.component.scss']
 })
-export class RecoverPasswordPage {
+export class RecoverPasswordComponent {
 
   _window=window;
   title: string;
