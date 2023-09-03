@@ -8,9 +8,9 @@ import { SnackBarType } from 'src/app/modules/shared/components/custom-snack-bar
 import { MyErrorStateMatcher } from 'src/app/modules/shared/error-matcher/custom-error-state-matcher';
 import { SinovadApiGenericResponse } from 'src/app/modules/shared/models/response/sinovad-api-generic-response.model';
 import { Menu } from '../../models/menu.model';
-import { CatalogDetail } from '../../../catalogs/shared/catalog-detail.model';
 import { MenuService } from '../../services/menu.service';
 import { CatalogService } from '../../../catalogs/services/catalog.services';
+import { CatalogDetail } from '../../../catalogs/model/catalog-detail.model';
 
 @Component({
   selector: 'app-menu-form',
