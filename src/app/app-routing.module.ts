@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule} from '@angular/router';
 import { loggedUserGuard } from './guards/logged-user.guard';
 import { unloggedUserGuard } from './guards/unlogged-user.guard ';
-import { RegisterUserPage } from './modules/pages/register-user/register-user.page';
 import { RecoverPasswordPage } from './modules/pages/recover-password/recover-password.page';
 import { ResetPasswordPage } from './modules/pages/reset-password/reset-password.page';
 import { ConfirmEmailPage } from './modules/pages/confirm-email/confirm-email.page';
@@ -13,7 +12,7 @@ import { MediaItemsComponent } from './modules/pages/media-items/components/medi
 import { MediaDetailComponent } from './modules/pages/media-detail/components/media-detail/media-detail.component';
 import { LoginComponent } from './modules/pages/login/components/login/login.component';
 import { LandingComponent } from './modules/pages/landing/components/landing/landing.component';
-
+import { RegisterUserComponent } from './modules/pages/register-user/components/register-user/register-user.component';
 
 const routes: Routes = [
   {
@@ -84,7 +83,7 @@ const routes: Routes = [
   },
   {
     path: 'register',
-    component:RegisterUserPage,
+    component:RegisterUserComponent,
     loadChildren: () => import('./modules/pages/register-user/register-user.module').then(m => m.RegisterAcccountPageModule),
     canActivate:[unloggedUserGuard]
   },

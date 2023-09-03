@@ -5,16 +5,16 @@ import { RestProviderService } from 'src/app/modules/shared/services/rest-provid
 import { HttpMethodType } from 'src/app/modules/shared/enums/enums';
 import { Router } from '@angular/router';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { RegisterUserModel } from './register-user-model';
 import { CommonService } from 'src/app/services/common.service';
+import { RegisterUserModel } from '../../models/register-user-model';
 
 declare var window;
 @Component({
   selector: 'app-register-user',
-  templateUrl: './register-user.page.html',
-  styleUrls: ['./register-user.page.scss']
+  templateUrl: './register-user.component.html',
+  styleUrls: ['./register-user.component.scss']
 })
-export class RegisterUserPage implements OnInit {
+export class RegisterUserComponent implements OnInit {
 
   _window=window;
   title: string;
