@@ -1,7 +1,7 @@
 
 import { Component, OnInit } from '@angular/core';
+import { CatalogDetail } from 'src/app/modules/pages/manage/modules/pages/catalogs/model/catalog-detail.model';
 import { CatalogService } from 'src/app/modules/pages/manage/modules/pages/catalogs/services/catalog.services';
-import { CatalogDetail } from 'src/app/modules/pages/manage/modules/pages/catalogs/shared/catalog-detail.model';
 import { CatalogEnum } from 'src/app/modules/shared/enums/enums';
 import { SinovadApiGenericResponse } from 'src/app/modules/shared/models/response/sinovad-api-generic-response.model';
 import { SharedDataService } from 'src/app/services/shared-data.service';

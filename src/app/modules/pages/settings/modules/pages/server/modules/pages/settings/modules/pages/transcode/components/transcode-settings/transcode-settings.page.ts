@@ -12,10 +12,10 @@ import { TranscoderSettingsService } from '../../services/transcoderSettings.ser
 import { SinovadApiGenericResponse } from 'src/app/modules/shared/models/response/sinovad-api-generic-response.model';
 import { SnackBarType } from 'src/app/modules/shared/components/custom-snack-bar/custom-snack-bar.component';
 import { DirectoryChooserPage } from 'src/app/modules/shared/components/directory-chooser/directory-chooser.page';
-import { CatalogDetail } from 'src/app/modules/pages/manage/modules/pages/catalogs/shared/catalog-detail.model';
 import { MediaServer } from 'src/app/modules/pages/manage/modules/pages/servers/models/server.model';
 import { SharedDataService } from 'src/app/services/shared-data.service';
 import { CatalogService } from 'src/app/modules/pages/manage/modules/pages/catalogs/services/catalog.services';
+import { CatalogDetail } from 'src/app/modules/pages/manage/modules/pages/catalogs/model/catalog-detail.model';
 
 declare var window;
 @Component({
