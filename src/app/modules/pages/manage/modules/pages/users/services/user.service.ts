@@ -10,6 +10,8 @@ import { SignalIRHubService } from 'src/app/modules/shared/services/signal-ir-hu
 import { MenuService } from '../../menus/services/menu.service';
 import { UserSession } from '../models/user-session.model';
 import { User } from '../models/user.model';
+import { ValidateConfirmEmailTokenModel } from 'src/app/modules/pages/confirm-email/models/validate-confirm-email-token.model';
+import { RecoverPasswordModel } from 'src/app/modules/pages/recover-password/models/recover-password.model';
 export declare type EventHandler = (...args: any[]) => any;
 
 @Injectable({ providedIn: 'root' })
@@ -132,6 +134,25 @@ export class UserService {
    });
   }
 
+  public validateConfirmEmailToken(validateConfirmEmailTokenModel:ValidateConfirmEmailTokenModel):Promise<SinovadApiGenericResponse>{
+    return new Promise((resolve, reject) => {
+      this.restProvider.executeSinovadApiService(HttpMethodType.POST,'/users/ValidateConfirmEmailToken',validateConfirmEmailTokenModel).then((response: SinovadApiGenericResponse) => {
+        resolve(response);
+      },error=>{
+        console.error(error);
+        reject(error);
+      });
+   });
+  }
 
-
+  public recoverPassword(recoverPasswordModel:RecoverPasswordModel):Promise<SinovadApiGenericResponse>{
+    return new Promise((resolve, reject) => {
+      this.restProvider.executeSinovadApiService(HttpMethodType.POST,'/users/RecoverPassword',recoverPasswordModel).then((response: SinovadApiGenericResponse) => {
+        resolve(response);
+      },error=>{
+        console.error(error);
+        reject(error);
+      });
+   });
+  }
 }

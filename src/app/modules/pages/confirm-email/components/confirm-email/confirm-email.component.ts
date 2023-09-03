@@ -1,10 +1,10 @@
 
 import { Component, OnInit } from '@angular/core';
-import { RestProviderService } from 'src/app/modules/shared/services/rest-provider.service';
 import { HttpMethodType } from 'src/app/modules/shared/enums/enums';
 import { ActivatedRoute, Router } from '@angular/router';
 import hiBase64 from 'hi-base64';
 import { ValidateConfirmEmailTokenModel } from '../../models/validate-confirm-email-token.model';
+import { UserService } from '../../../manage/modules/pages/users/services/user.service';
 
 declare var window;
 @Component({
@@ -25,7 +25,7 @@ export class ConfirmEmailComponent implements OnInit {
   constructor(
     private router: Router,
     public activeRoute: ActivatedRoute,
-    public restProvider: RestProviderService) {
+    public userService: UserService) {
 
     }
 
@@ -42,7 +42,7 @@ export class ConfirmEmailComponent implements OnInit {
           var validateConfirmEmailTokenModel= new ValidateConfirmEmailTokenModel();
           validateConfirmEmailTokenModel.ConfirmEmailToken=additionalUrlData.ConfirmEmailToken;
           validateConfirmEmailTokenModel.UserId=additionalUrlData.UserId;;
-          this.restProvider.executeSinovadApiService(HttpMethodType.POST,'/users/ValidateConfirmEmailToken',validateConfirmEmailTokenModel).then((result: any) => {
+          this.userService.validateConfirmEmailToken(validateConfirmEmailTokenModel).then((result: any) => {
             this.showLoading=false;
             this.showSuccessMessage=true;
           },error=>{
