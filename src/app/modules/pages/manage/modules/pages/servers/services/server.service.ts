@@ -120,6 +120,17 @@ export class MediaServerService {
    });
   }
 
+  public updateMediaServer(mediaServer:MediaServer):Promise<SinovadApiGenericResponse>{
+    return new Promise((resolve, reject) => {
+      var path="/mediaServers/Update";
+      this.restProvider.executeSinovadApiService(HttpMethodType.PUT,path,mediaServer).then((response) => {
+        resolve(response);
+      },error=>{
+        console.error(error);
+        reject(error);
+      });
+    });
+  }
 
 
 }

@@ -1,7 +1,5 @@
 
 import { Component, OnInit } from '@angular/core';
-import { HttpMethodType } from 'src/app/modules/shared/enums/enums';
-import { RestProviderService } from 'src/app/modules/shared/services/rest-provider.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { SnackBarService } from 'src/app/modules/shared/services/snack-bar.service';
@@ -35,7 +33,6 @@ export class ServerSettingsGeneralPage implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     public activeRoute: ActivatedRoute,
-    public restProvider: RestProviderService,
     public sharedDataService: SharedDataService) {
       this.router.routeReuseStrategy.shouldReuseRoute = function () {
         return false;
@@ -107,10 +104,9 @@ export class ServerSettingsGeneralPage implements OnInit {
 
     public updateMediaServer(){
       this.loading=true;
-      var path="/mediaServers/Update";
       var mediaServer=JSON.parse(JSON.stringify(this.mediaServer));
       mediaServer.FamilyName=this.customForm.value.familyName;
-      this.restProvider.executeSinovadApiService(HttpMethodType.PUT,path,mediaServer).then((response) => {
+      this.serverService.updateMediaServer(mediaServer).then((response) => {
         this.getMediaServerData();
         this.snackBarService.showSnackBar("Se guardaron los cambios satisfactoriamente",SnackBarType.Success);
       },error=>{
@@ -118,6 +114,5 @@ export class ServerSettingsGeneralPage implements OnInit {
         console.error(error);
       });
     }
-
 
 }
