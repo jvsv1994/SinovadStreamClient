@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../../shared/shared.module';
-import { ResetPasswordPage } from './reset-password.page';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 @NgModule({
     declarations: [
-      ResetPasswordPage
+      ResetPasswordComponent
     ],
     imports: [
         CommonModule,
@@ -13,7 +13,7 @@ import { ResetPasswordPage } from './reset-password.page';
         SharedModule,
         ReactiveFormsModule
     ],
-    exports: [ResetPasswordPage]
+    exports: [ResetPasswordComponent]
 })
 export class ResetPasswordPageModule {
 }

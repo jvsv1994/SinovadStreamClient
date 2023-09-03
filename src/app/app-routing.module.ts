@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule} from '@angular/router';
 import { loggedUserGuard } from './guards/logged-user.guard';
 import { unloggedUserGuard } from './guards/unlogged-user.guard ';
-import { ResetPasswordPage } from './modules/pages/reset-password/reset-password.page';
 import { ConfirmEmailPage } from './modules/pages/confirm-email/confirm-email.page';
 import { NotFoundPage } from './modules/pages/not-found/not-found.page';
 import { SearchViewPage } from './modules/pages/media-search/components/search-view/search-view.page';
@@ -13,6 +12,7 @@ import { LoginComponent } from './modules/pages/login/components/login/login.com
 import { LandingComponent } from './modules/pages/landing/components/landing/landing.component';
 import { RegisterUserComponent } from './modules/pages/register-user/components/register-user/register-user.component';
 import { RecoverPasswordComponent } from './modules/pages/recover-password/components/recover-password.component';
+import { ResetPasswordComponent } from './modules/pages/reset-password/components/reset-password/reset-password.component';
 
 const routes: Routes = [
   {
@@ -101,7 +101,7 @@ const routes: Routes = [
   },
   {
     path: 'reset/:base64Data',
-    component:ResetPasswordPage,
+    component:ResetPasswordComponent,
     loadChildren: () => import('./modules/pages/reset-password/reset-password.module').then(m => m.ResetPasswordPageModule),
     canActivate:[unloggedUserGuard]
   },

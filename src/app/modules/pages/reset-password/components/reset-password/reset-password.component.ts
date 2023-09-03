@@ -6,17 +6,17 @@ import { HttpMethodType } from 'src/app/modules/shared/enums/enums';
 import { ActivatedRoute, Router } from '@angular/router';
 import hiBase64 from 'hi-base64';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
-import { ResetPasswordModel } from './reset-password.model';
-import { ValidateResetPasswordTokenModel } from './validate-reset-password-token.model';
 import { CommonService } from 'src/app/services/common.service';
+import { ResetPasswordModel } from '../../models/reset-password.model';
+import { ValidateResetPasswordTokenModel } from '../../models/validate-reset-password-token.model';
 
 declare var window;
 @Component({
   selector: 'app-reset-password',
-  templateUrl: './reset-password.page.html',
-  styleUrls: ['./reset-password.page.scss']
+  templateUrl: './reset-password.component.html',
+  styleUrls: ['./reset-password.component.scss']
 })
-export class ResetPasswordPage implements OnInit {
+export class ResetPasswordComponent implements OnInit {
 
   _window=window;
   title: string;
