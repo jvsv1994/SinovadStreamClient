@@ -3,10 +3,10 @@ import { ChangeDetectorRef, Component, Input, OnInit, ViewContainerRef} from '@a
 
 @Component({
   selector: 'app-custom-spinner',
-  templateUrl: './custom-spinner.page.html',
-  styleUrls: ['./custom-spinner.page.scss']
+  templateUrl: './custom-spinner.component.html',
+  styleUrls: ['./custom-spinner.component.scss']
 })
-export class CustomSpinnerPage implements OnInit {
+export class CustomSpinnerComponent implements OnInit {
 
   @Input() showLoading:boolean=false;
 
