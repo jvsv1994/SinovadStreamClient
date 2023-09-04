@@ -23,30 +23,6 @@ const routes: Routes = [
     path: 'media',
     loadChildren: () => import('./modules/pages/media/media.module').then(m => m.MediaModule)
   },
-  /* {
-    path: 'media/server/:serverGuid',
-    component: MediaItemsComponent,
-    loadChildren: () => import('./modules/pages/media-items/media-items.module').then(m => m.MediaItemsModule),
-    canActivate:[loggedUserGuard]
-  },
-  {
-    path: 'media/server/:serverGuid/libraries/:libraryId',
-    component: MediaItemsComponent,
-    loadChildren: () => import('./modules/pages/media-items/media-items.module').then(m => m.MediaItemsModule),
-    canActivate:[loggedUserGuard]
-  },
-  {
-    path: 'media/server/:serverGuid/libraries/:libraryId/detail',
-    component: MediaDetailComponent,
-    loadChildren: () => import('./modules/pages/media-detail/media-detail.module').then(m => m.MediaDetailModule),
-    canActivate:[loggedUserGuard]
-  },
-  {
-    path: 'media/server/:serverGuid/video/:mediaFileId',
-    component: VideoComponent,
-    loadChildren: () => import('./modules/pages/media-video/media-video.module').then(m => m.MediaVideoModule),
-    canActivate:[loggedUserGuard]
-  }, */
   {
     path: 'search',
     component: SearchViewComponent,

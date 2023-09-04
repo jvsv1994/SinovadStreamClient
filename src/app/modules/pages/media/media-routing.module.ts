@@ -17,12 +17,12 @@ const routes: Routes = [{
   canActivate:[loggedUserGuard]
 },
 {
-  path: 'media/server/:serverGuid/libraries/:libraryId/detail',
+  path: 'server/:serverGuid/libraries/:libraryId/detail',
   component: ItemDetailComponent,
   canActivate:[loggedUserGuard]
 },
 {
-  path: 'media/server/:serverGuid/video/:mediaFileId',
+  path: 'server/:serverGuid/video/:mediaFileId',
   component: ItemVideoComponent,
   canActivate:[loggedUserGuard]
 }];
