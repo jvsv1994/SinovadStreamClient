@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MediaServersModule } from '../servers/servers.module';
-import { UserListPage } from './components/user-list/user-list.page';
 import { SharedModule } from 'src/app/modules/shared/shared.module';
+import { UserListComponent } from './components/user-list/user-list.component';
 
 @NgModule({
     declarations: [
-      UserListPage
+      UserListComponent
     ],
     providers:[],
     imports: [
@@ -15,7 +15,7 @@ import { SharedModule } from 'src/app/modules/shared/shared.module';
       SharedModule,
       MediaServersModule
     ],
-    exports: [UserListPage]
+    exports: [UserListComponent]
 })
 export class UsersModule {
 }

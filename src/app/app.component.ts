@@ -9,7 +9,6 @@ import { LibraryListComponent } from './modules/pages/settings/modules/pages/ser
 import { AlertsComponent } from './modules/pages/settings/modules/pages/server/modules/pages/status/modules/pages/alerts/components/alerts/alerts.component';
 import { UserService } from './modules/pages/manage/modules/pages/users/services/user.service';
 import { GenreListPage } from './modules/pages/manage/modules/pages/genres/components/genre-list/genre-list.page';
-import { UserListPage } from './modules/pages/manage/modules/pages/users/components/user-list/user-list.page';
 import { MenuListPage } from './modules/pages/manage/modules/pages/menus/components/menu-list/menu-list.page';
 import { RoleListPage } from './modules/pages/manage/modules/pages/roles/components/role-list/role-list.page';
 import { DashboardComponent } from './modules/pages/settings/modules/pages/server/modules/pages/status/modules/pages/dashboard/components/dashboard/dashboard.component';
@@ -29,6 +28,7 @@ import { TranscoderSettingssPageComponent } from './modules/pages/settings/modul
 import { MyAccountPageComponent } from './modules/pages/settings/modules/pages/account-settings/components/my-account/my-account-page.component';
 import { MovieListComponent } from './modules/pages/manage/modules/pages/movies/components/movie-list/movie-list.component';
 import { TvSerieListComponent } from './modules/pages/manage/modules/pages/tvseries/components/tvserie-list/tvserie-list.component';
+import { UserListComponent } from './modules/pages/manage/modules/pages/users/components/user-list/user-list.component';
 
 @Component({
   selector: 'app-root',
@@ -137,7 +137,7 @@ export class AppComponent{
         this.showingSidebarMedia=false;
       }
       if(event instanceof MovieListComponent || event instanceof TvSerieListComponent || event instanceof MenuListPage
-        || event instanceof GenreListPage || event instanceof UserListPage || event instanceof RoleListPage)
+        || event instanceof GenreListPage || event instanceof UserListComponent || event instanceof RoleListPage)
       {
         this.showRouterChildWithFullDimentions=false;
         this.showingSidebarAccount=false;

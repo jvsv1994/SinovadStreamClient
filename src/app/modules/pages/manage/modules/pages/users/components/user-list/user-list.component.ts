@@ -19,10 +19,10 @@ import { MediaServerListModalComponent } from '../../../servers/components/serve
 
 @Component({
   selector: 'app-user-list',
-  templateUrl: './user-list.page.html',
-  styleUrls: ['./user-list.page.scss']
+  templateUrl: './user-list.component.html',
+  styleUrls: ['./user-list.component.scss']
 })
-export class UserListPage extends CustomListGeneric<User> {
+export class UserListComponent extends CustomListGeneric<User> {
 
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
