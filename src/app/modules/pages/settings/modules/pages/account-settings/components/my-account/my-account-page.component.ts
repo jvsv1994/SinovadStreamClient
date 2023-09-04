@@ -8,11 +8,11 @@ import { SharedDataService } from 'src/app/services/shared-data.service';
 
 declare var window;
 @Component({
-  selector: 'app-my-account',
-  templateUrl: './my-account.page.html',
-  styleUrls: ['./my-account.page.scss','../../styles/account-settings-section.scss']
+  selector: 'app-my-account-page',
+  templateUrl: './my-account-page.component.html',
+  styleUrls: ['./my-account-page.component.scss','../../styles/account-settings-section.scss']
 })
-export class MyAccountPage implements OnInit {
+export class MyAccountPageComponent implements OnInit {
 
   isCollapsedLinkedAccountsSection:boolean=true;
   isCollapsedChangeNamesSection:boolean=true;
