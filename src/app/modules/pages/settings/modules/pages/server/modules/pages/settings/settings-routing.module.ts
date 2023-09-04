@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { loggedUserGuard } from 'src/app/guards/logged-user.guard';
-import { TranscoderSettingssPage } from './modules/pages/transcode/components/transcode-settings/transcode-settings.page';
 import { ServerSettingsGeneralPageComponent } from './modules/pages/general/components/server-settings-general/server-settings-general.page.component';
+import { TranscoderSettingssPageComponent } from './modules/pages/transcode/components/transcode-settings/transcode-settings-page.component';
 
 const routes: Routes = [
   {
@@ -13,7 +13,7 @@ const routes: Routes = [
   },
   {
     path: 'transcode',
-    component: TranscoderSettingssPage,
+    component: TranscoderSettingssPageComponent,
     loadChildren: () => import('./modules/pages/transcode/transcode.module').then(m => m.TranscodeModule),
     canActivate:[loggedUserGuard]
   }

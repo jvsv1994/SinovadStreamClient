@@ -2,11 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/modules/shared/shared.module';
-import { TranscoderSettingssPage } from './components/transcode-settings/transcode-settings.page';
+import { TranscoderSettingssPageComponent } from './components/transcode-settings/transcode-settings-page.component';
 
 @NgModule({
     declarations: [
-      TranscoderSettingssPage
+      TranscoderSettingssPageComponent
     ],
     imports: [
         CommonModule,
@@ -14,7 +14,7 @@ import { TranscoderSettingssPage } from './components/transcode-settings/transco
         SharedModule,
         ReactiveFormsModule
     ],
-    exports: [TranscoderSettingssPage]
+    exports: [TranscoderSettingssPageComponent]
 })
 export class TranscodeModule {
 }

@@ -19,11 +19,11 @@ import { DirectoryChooserComponent } from 'src/app/modules/shared/components/dir
 
 declare var window;
 @Component({
-  selector: 'app-transcode-settings',
-  templateUrl: './transcode-settings.page.html',
-  styleUrls: ['./transcode-settings.page.scss']
+  selector: 'app-transcode-settings-page',
+  templateUrl: './transcode-settings-page.component.html',
+  styleUrls: ['./transcode-settings-page.component.scss']
 })
-export class TranscoderSettingssPage implements OnInit {
+export class TranscoderSettingssPageComponent implements OnInit {
 
   transmissionMethodList:CatalogDetail[]=[];
   presetList:CatalogDetail[]=[];

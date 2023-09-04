@@ -6,7 +6,6 @@ import { VideoComponent } from './modules/pages/media-video/components/video/vid
 import { MediaItemsComponent } from './modules/pages/media-items/components/media-items/media-items.component';
 import { MediaDetailComponent } from './modules/pages/media-detail/components/media-detail/media-detail.component';
 import { MyAccountPage } from './modules/pages/settings/modules/pages/account-settings/components/my-account/my-account.page';
-import { TranscoderSettingssPage } from './modules/pages/settings/modules/pages/server/modules/pages/settings/modules/pages/transcode/components/transcode-settings/transcode-settings.page';
 import { LibraryListComponent } from './modules/pages/settings/modules/pages/server/modules/pages/manage/modules/pages/libraries/components/library-list/library-list.component';
 import { AlertsComponent } from './modules/pages/settings/modules/pages/server/modules/pages/status/modules/pages/alerts/components/alerts/alerts.component';
 import { UserService } from './modules/pages/manage/modules/pages/users/services/user.service';
@@ -29,6 +28,7 @@ import { NotFoundPageComponent } from './components/pages/not-found-page/not-fou
 import { LandingPageComponent } from './components/pages/landing-page/landing-page.component';
 import { RecoverPasswordComponent } from './modules/pages/recover-password/components/recover-password/recover-password.component';
 import { ServerSettingsGeneralPageComponent } from './modules/pages/settings/modules/pages/server/modules/pages/settings/modules/pages/general/components/server-settings-general/server-settings-general.page.component';
+import { TranscoderSettingssPageComponent } from './modules/pages/settings/modules/pages/server/modules/pages/settings/modules/pages/transcode/components/transcode-settings/transcode-settings-page.component';
 
 @Component({
   selector: 'app-root',
@@ -128,7 +128,7 @@ export class AppComponent{
         this.showingSidebarAccount=false;
         this.showingSidebarAdminMode=false;
       }
-      if(event instanceof MyAccountPage || event instanceof TranscoderSettingssPage || event instanceof ServerSettingsGeneralPageComponent ||
+      if(event instanceof MyAccountPage || event instanceof TranscoderSettingssPageComponent || event instanceof ServerSettingsGeneralPageComponent ||
         event instanceof LibraryListComponent || event instanceof AlertsComponent || event instanceof DashboardComponent)
       {
         this.showRouterChildWithFullDimentions=false;
