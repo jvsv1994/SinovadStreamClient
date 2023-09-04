@@ -11,11 +11,11 @@ import { SignalIRHubService } from 'src/app/services/signal-ir-hub.service';
 import { TranscoderSettingsService } from '../../services/transcoderSettings.service';
 import { SinovadApiGenericResponse } from 'src/app/modules/shared/models/response/sinovad-api-generic-response.model';
 import { SnackBarType } from 'src/app/modules/shared/components/custom-snack-bar/custom-snack-bar.component';
-import { DirectoryChooserPage } from 'src/app/modules/shared/components/directory-chooser/directory-chooser.page';
 import { MediaServer } from 'src/app/modules/pages/manage/modules/pages/servers/models/server.model';
 import { SharedDataService } from 'src/app/services/shared-data.service';
 import { CatalogService } from 'src/app/modules/pages/manage/modules/pages/catalogs/services/catalog.services';
 import { CatalogDetail } from 'src/app/modules/pages/manage/modules/pages/catalogs/model/catalog-detail.model';
+import { DirectoryChooserComponent } from 'src/app/modules/shared/components/directory-chooser/directory-chooser.component';
 
 declare var window;
 @Component({
@@ -144,7 +144,7 @@ export class TranscoderSettingssPage implements OnInit {
 
     public showChooserDirectoryModal(){
       var ctx=this;
-      var ref=this.modalService.open(DirectoryChooserPage, {container:"#sinovadMainContainer",
+      var ref=this.modalService.open(DirectoryChooserComponent, {container:"#sinovadMainContainer",
       modalDialogClass:'modal-dialog modal-fullscreen-md-down modal-dialog-centered modal-dialog-scrollable',scrollable:true,backdrop: 'static'});
       ref.componentInstance.mediaServer=this.mediaServer;
       ref.closed.subscribe((directoryPath:string)=>{

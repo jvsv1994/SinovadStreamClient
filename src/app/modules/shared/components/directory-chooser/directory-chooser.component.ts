@@ -7,10 +7,10 @@ import { MediaServer } from 'src/app/modules/pages/manage/modules/pages/servers/
 
 @Component({
   selector: 'app-directory-chooser',
-  templateUrl: './directory-chooser.page.html',
-  styleUrls: ['./directory-chooser.page.scss']
+  templateUrl: './directory-chooser.component.html',
+  styleUrls: ['./directory-chooser.component.scss']
 })
-export class DirectoryChooserPage implements OnInit {
+export class DirectoryChooserComponent implements OnInit {
 
   @Input() mediaServer:MediaServer;
   selectedMainDirectory:Directory;

@@ -4,10 +4,10 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MyErrorStateMatcher } from 'src/app/modules/shared/error-matcher/custom-error-state-matcher';
 import { CatalogEnum } from 'src/app/modules/shared/enums/enums';
-import { DirectoryChooserPage } from 'src/app/modules/shared/components/directory-chooser/directory-chooser.page';
 import { Library } from '../../models/library.model';
 import { LibraryService } from '../../services/library.service';
 import { MediaServer } from 'src/app/modules/pages/manage/modules/pages/servers/models/server.model';
+import { DirectoryChooserComponent } from 'src/app/modules/shared/components/directory-chooser/directory-chooser.component';
 
 declare var window;
 @Component({
@@ -73,7 +73,7 @@ export class LibraryFormComponent implements OnInit {
 
     public showChooserDirectoryModal(){
       var ctx=this;
-      var ref=this.modalService.open(DirectoryChooserPage, {container:"#sinovadMainContainer",
+      var ref=this.modalService.open(DirectoryChooserComponent, {container:"#sinovadMainContainer",
       modalDialogClass:'modal-dialog modal-fullscreen-md-down modal-dialog-centered modal-dialog-scrollable',scrollable:true,backdrop: 'static'});
       ref.componentInstance.mediaServer=this.mediaServer;
       ref.closed.subscribe((directoryPath:string)=>{

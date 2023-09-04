@@ -4,10 +4,10 @@ import { MediaServer } from 'src/app/modules/pages/manage/modules/pages/servers/
 
 @Component({
   selector: 'app-server-connection-error',
-  templateUrl: './server-connection-error.page.html',
-  styleUrls: ['./server-connection-error.page.scss']
+  templateUrl: './server-connection-error.component.html',
+  styleUrls: ['./server-connection-error.component.scss']
 })
-export class ServerConnectionErrorPage {
+export class ServerConnectionErrorComponent {
 
   @Input() mediaServer:MediaServer;
 
