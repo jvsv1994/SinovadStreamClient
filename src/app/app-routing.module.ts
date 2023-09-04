@@ -2,9 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule} from '@angular/router';
 import { loggedUserGuard } from './guards/logged-user.guard';
 import { unloggedUserGuard } from './guards/unlogged-user.guard ';
-import { VideoComponent } from './modules/pages/media-video/components/video/video.component';
-import { MediaItemsComponent } from './modules/pages/media-items/components/media-items/media-items.component';
-import { MediaDetailComponent } from './modules/pages/media-detail/components/media-detail/media-detail.component';
 import { LoginComponent } from './modules/pages/login/components/login/login.component';
 import { RegisterUserComponent } from './modules/pages/register-user/components/register-user/register-user.component';
 import { ResetPasswordComponent } from './modules/pages/reset-password/components/reset-password/reset-password.component';
@@ -23,6 +20,10 @@ const routes: Routes = [
     canActivate:[loggedUserGuard]
   },
   {
+    path: 'media',
+    loadChildren: () => import('./modules/pages/media/media.module').then(m => m.MediaModule)
+  },
+  /* {
     path: 'media/server/:serverGuid',
     component: MediaItemsComponent,
     loadChildren: () => import('./modules/pages/media-items/media-items.module').then(m => m.MediaItemsModule),
@@ -45,7 +46,7 @@ const routes: Routes = [
     component: VideoComponent,
     loadChildren: () => import('./modules/pages/media-video/media-video.module').then(m => m.MediaVideoModule),
     canActivate:[loggedUserGuard]
-  },
+  }, */
   {
     path: 'search',
     component: SearchViewComponent,

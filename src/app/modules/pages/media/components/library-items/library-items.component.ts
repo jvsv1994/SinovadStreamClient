@@ -1,20 +1,22 @@
-import { Component } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { MediaServer } from '../../../manage/modules/pages/servers/models/server.model';
-import { SignalIRHubService } from 'src/app/services/signal-ir-hub.service';
-import { LibraryService } from '../../../settings/modules/pages/server/modules/pages/manage/modules/pages/libraries/services/library.service';
-import { Router } from '@angular/router';
-import { CommonService } from 'src/app/services/common.service';
+
+import { Component, OnDestroy, OnInit} from '@angular/core';
 import { SharedDataService } from 'src/app/services/shared-data.service';
-import { ItemsGroup } from '../../../media/models/items-group.model';
-import { Item } from '../../../media/models/item.model';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { SignalIRHubService } from 'src/app/services/signal-ir-hub.service';
+import { Library } from '../../../settings/modules/pages/server/modules/pages/manage/modules/pages/libraries/models/library.model';
+import { LibraryService } from '../../../settings/modules/pages/server/modules/pages/manage/modules/pages/libraries/services/library.service';
+import { MediaServer } from '../../../manage/modules/pages/servers/models/server.model';
+import { CommonService } from 'src/app/services/common.service';
+import { ItemsGroup } from '../../models/items-group.model';
+import { Item } from '../../models/item.model';
 
 @Component({
-  selector: 'app-home-page',
-  templateUrl: './home-page.component.html',
-  styleUrls: ['./home-page.component.scss']
+  selector: 'app-library-items',
+  templateUrl: './library-items.component.html',
+  styleUrls: ['./library-items.component.scss']
 })
-export class HomePageComponent {
+export class LibraryItemsComponent implements OnInit,OnDestroy {
 
   itemsGroupList:ItemsGroup[]=[];
   _window=window;
@@ -22,12 +24,16 @@ export class HomePageComponent {
   subscriptionDisableMediaServer:Subscription;
   subscriptionUpdateLibrariesByMediaServer:Subscription;
   subscriptionUpdateItemsByMediaServer:Subscription;
-  mediaServers:MediaServer[];
+  title:string;
+  subtitle:string;
+  currentLibrary:Library;
+  currentMediaServer:MediaServer;
   loadingConnection:boolean=true;
 
   constructor(
     private signalIrService:SignalIRHubService,
     private libraryService:LibraryService,
+    public activeRoute: ActivatedRoute,
     public router: Router,
     public commonService: CommonService,
     public sharedDataService: SharedDataService) {
@@ -36,56 +42,59 @@ export class HomePageComponent {
       };
       let ctx=this;
       this.subscriptionEnableMediaServer=this.signalIrService.isEnablingMediaServer().subscribe((mediaServerGuid:string)=>{
-        var mediaServer=ctx.mediaServers.find(x=>x.Guid==mediaServerGuid);
-        if(mediaServer && !mediaServer.isSecureConnection)
+        if(ctx.currentMediaServer && ctx.currentMediaServer.Guid==mediaServerGuid && !ctx.currentMediaServer.isSecureConnection)
         {
           ctx.loadingConnection=false;
-          mediaServer.isSecureConnection=true;
-          ctx.getAllItemsByMediaServer(mediaServer);
+          ctx.currentMediaServer.isSecureConnection=true;
+          ctx.getItemsByCurrentMediaServerAndCurrentLibrary();
         }
       });
       this.subscriptionDisableMediaServer=this.signalIrService.isDisablingMediaServer().subscribe((mediaServerGuid:string)=>{
-        var mediaServer=ctx.mediaServers.find(x=>x.Guid==mediaServerGuid);
-        if(mediaServer && mediaServer.isSecureConnection)
+        if(ctx.currentMediaServer && ctx.currentMediaServer.Guid==mediaServerGuid && ctx.currentMediaServer.isSecureConnection)
         {
-          mediaServer.isSecureConnection=false;
-          ctx.clearItemsInGroup(mediaServer.Id);
+          ctx.currentMediaServer.isSecureConnection=false;
+          ctx.clearItemsInGroup(ctx.currentMediaServer.Id);
         }
       });
       this.subscriptionUpdateLibrariesByMediaServer=this.signalIrService.isUpdatingLibrariesByMediaServer().subscribe((mediaServerGuid:string)=>{
-        var mediaServer=ctx.mediaServers.find(x=>x.Guid==mediaServerGuid);
-        if(mediaServer && !mediaServer.isSecureConnection)
+        if(ctx.currentMediaServer && ctx.currentMediaServer.Guid==mediaServerGuid && !ctx.currentMediaServer.isSecureConnection)
         {
-          mediaServer.isSecureConnection=true;
-          ctx.getAllItemsByMediaServer(mediaServer);
+          ctx.currentMediaServer.isSecureConnection=true;
+          ctx.getItemsByCurrentMediaServerAndCurrentLibrary();
         }
       });
       this.subscriptionUpdateItemsByMediaServer=this.signalIrService.isUpdatingItemsByMediaServer().subscribe((mediaServerGuid:string)=>{
-          var mediaServer=ctx.mediaServers.find(x=>x.Guid==mediaServerGuid);
-          if(mediaServer && !mediaServer.isSecureConnection)
-          {
-            mediaServer.isSecureConnection=true;
-            ctx.getAllItemsByMediaServer(mediaServer);
-          }
+        if(ctx.currentMediaServer && ctx.currentMediaServer.Guid==mediaServerGuid && !ctx.currentMediaServer.isSecureConnection)
+        {
+          ctx.currentMediaServer.isSecureConnection=true;
+          ctx.getItemsByCurrentMediaServerAndCurrentLibrary();
+        }
       });
     }
 
     public ngOnInit(): void {
-      this.mediaServers=JSON.parse(JSON.stringify(this.sharedDataService.mediaServers));
-      if(this.isEnableAnyMediaServer())
+      var mediaServerGuid=this.activeRoute.snapshot.params.serverGuid;
+      if(mediaServerGuid!=undefined)
       {
-        this.loadingConnection=false;
-      }else{
-        setTimeout(() => {
-          this.loadingConnection=false;
-        }, 3000);
-      }
-      this.mediaServers.forEach(mediaServer => {
-        if(mediaServer.isSecureConnection)
+        var mediaServer=this.sharedDataService.mediaServers.find(x=>x.Guid==mediaServerGuid);
+        if(mediaServer)
         {
-          this.getAllItemsByMediaServer(mediaServer);
+          this.currentMediaServer=JSON.parse(JSON.stringify(mediaServer));
+          if(this.currentMediaServer.isSecureConnection)
+          {
+            this.loadingConnection=false;
+            this.getItemsByCurrentMediaServerAndCurrentLibrary();
+          }else{
+            setTimeout(() => {
+              this.loadingConnection=false;
+            }, 3000);
+          }
+        }else{
+          this.router.navigateByUrl('/404')
         }
-      });
+      }else{
+        this.router.navigateByUrl('/404')
+      }
     }
 
     ngOnDestroy(){
@@ -95,27 +104,28 @@ export class HomePageComponent {
       this.subscriptionUpdateItemsByMediaServer.unsubscribe();
     }
 
-    public isEnableAnyMediaServer(){
-      if(this.mediaServers.filter(x=>x.isSecureConnection).length>0){
-        return true;
-      }else{
-        return false;
-      }
-    }
-
-    public considerAllMediaServers(){
-      if(window.location.pathname.endsWith("home"))
+    private getItemsByCurrentMediaServerAndCurrentLibrary(){
+      var libraryId=this.activeRoute.snapshot.params.libraryId;
+      if(libraryId)
       {
-        return true;
+        this.libraryService.getLibrariesByMediaServer(this.currentMediaServer.Url).then((list:Library[])=>{
+          this.currentMediaServer.ListLibraries=list;
+          var index=this.currentMediaServer.ListLibraries.findIndex(x=>x.Id==libraryId);
+          if(index!=-1)
+          {
+            this.currentLibrary=this.currentMediaServer.ListLibraries[index];
+            this.title=this.currentLibrary.Name;
+            this.subtitle=this.currentMediaServer.FamilyName?this.currentMediaServer.FamilyName:this.currentMediaServer.DeviceName;
+            this.libraryService.getMediaItemsByLibrary(this.currentMediaServer.Url,this.currentLibrary.Id,this.sharedDataService.currentProfile.Id).then((itemsGroupList:ItemsGroup[])=>{
+              this.setItemsInGroup(this.currentMediaServer.Id,itemsGroupList);
+            },error=>{
+              console.error(error);
+            });
+          }
+        });
       }else{
-        return false;
+        this.router.navigateByUrl('/404')
       }
-    }
-
-    private getAllItemsByMediaServer(mediaServer:MediaServer){
-      this.libraryService.getAllMediaItems(mediaServer.Url,this.sharedDataService.currentProfile.Id).then((itemsGroupList:ItemsGroup[])=>{
-        this.setItemsInGroup(mediaServer.Id,itemsGroupList);
-      },error=>{});
     }
 
     private setItemsInGroup(mediaServerId:number,itemsGroupList:ItemsGroup[]){
@@ -155,5 +165,4 @@ export class HomePageComponent {
         });
       });
     }
-
 }

@@ -4,10 +4,9 @@ import { HttpMethodType, MediaType } from 'src/app/modules/shared/enums/enums';
 import {v4 as uuid} from "uuid";
 import { SinovadApiGenericResponse } from 'src/app/modules/shared/models/response/sinovad-api-generic-response.model';
 import { Library } from '../models/library.model';
-import { Item } from 'src/app/modules/pages/media-items/models/item.model';
-import { ItemsGroup } from 'src/app/modules/pages/media-items/models/items-group.model';
-import { ItemDetail } from 'src/app/modules/pages/media-detail/models/item-detail.model';
-import { MediaFileProfile } from 'src/app/modules/pages/media-detail/models/media-file-profile.model';
+import { ItemsGroup } from 'src/app/modules/pages/media/models/items-group.model';
+import { Item } from 'src/app/modules/pages/media/models/item.model';
+import { ItemDetail } from 'src/app/modules/pages/media/models/item-detail.model';
 
 @Injectable({ providedIn: 'root' })
 export class LibraryService {

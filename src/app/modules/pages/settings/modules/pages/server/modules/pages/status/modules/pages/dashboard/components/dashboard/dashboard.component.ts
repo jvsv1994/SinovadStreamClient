@@ -4,10 +4,10 @@ import { MediaServer } from 'src/app/modules/pages/manage/modules/pages/servers/
 import { Subscription } from 'rxjs';
 import { SignalIRHubService } from 'src/app/services/signal-ir-hub.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MediaFilePlayback } from 'src/app/modules/pages/media-video/models/media-file-playback.model';
-import { MediaFilePlaybackClient } from 'src/app/modules/pages/media-video/models/media-file-playback-client.model';
 import { SharedDataService } from 'src/app/services/shared-data.service';
 import { CommonService } from 'src/app/services/common.service';
+import { MediaFilePlayback } from 'src/app/modules/pages/media/models/media-file-playback.model';
+import { MediaFilePlaybackClient } from 'src/app/modules/pages/media/models/media-file-playback-client.model';
 
 @Component({
   selector: 'app-dashboard',

@@ -1,9 +1,6 @@
 
 import { ChangeDetectorRef, Component, HostListener} from '@angular/core';
 import { DeviceDetectorService } from 'ngx-device-detector';
-import { VideoComponent } from './modules/pages/media-video/components/video/video.component';
-import { MediaItemsComponent } from './modules/pages/media-items/components/media-items/media-items.component';
-import { MediaDetailComponent } from './modules/pages/media-detail/components/media-detail/media-detail.component';
 import { LibraryListComponent } from './modules/pages/settings/modules/pages/server/modules/pages/manage/modules/pages/libraries/components/library-list/library-list.component';
 import { AlertsComponent } from './modules/pages/settings/modules/pages/server/modules/pages/status/modules/pages/alerts/components/alerts/alerts.component';
 import { UserService } from './modules/pages/manage/modules/pages/users/services/user.service';
@@ -30,6 +27,10 @@ import { RoleListComponent } from './modules/pages/manage/modules/pages/roles/co
 import { SearchViewComponent } from './modules/pages/media-search/components/search-view/search-view.component';
 import { ProfilesViewComponent } from './modules/pages/profiles/components/profiles-view/profiles-view.component';
 import { HomePageComponent } from './modules/pages/home/components/home-page/home-page.component';
+import { ItemVideoComponent } from './modules/pages/media/components/item-video/item-video.component';
+import { ServerItemsComponent } from './modules/pages/media/components/server-items/server-items.component';
+import { LibraryItemsComponent } from './modules/pages/media/components/library-items/library-items.component';
+import { ItemDetailComponent } from './modules/pages/media/components/item-detail/item-detail.component';
 
 @Component({
   selector: 'app-root',
@@ -106,7 +107,7 @@ export class AppComponent{
     public onActivate(event:any){
       this.isCollapsedSidebar=true;
       this.sharedDataService.showSplashScreen=false;
-      if(event instanceof NotFoundPageComponent || event instanceof VideoComponent || event instanceof LoginComponent || event instanceof RegisterUserComponent
+      if(event instanceof NotFoundPageComponent || event instanceof ItemVideoComponent || event instanceof LoginComponent || event instanceof RegisterUserComponent
         || event instanceof RecoverPasswordComponent || event instanceof ResetPasswordComponent
         || event instanceof LandingPageComponent || event instanceof ConfirmEmailComponent || event instanceof ProfilesViewComponent)
       {
@@ -115,7 +116,7 @@ export class AppComponent{
         this.showingSidebarAccount=false;
         this.showingSidebarAdminMode=false;
       }
-      if(event instanceof HomePageComponent || event instanceof MediaItemsComponent || event instanceof MediaDetailComponent || event instanceof SearchViewComponent)
+      if(event instanceof HomePageComponent || event instanceof ServerItemsComponent || event instanceof LibraryItemsComponent || event instanceof ItemDetailComponent || event instanceof SearchViewComponent)
       {
         this.showRouterChildWithFullDimentions=false;
         this.showingSidebarMedia=true;

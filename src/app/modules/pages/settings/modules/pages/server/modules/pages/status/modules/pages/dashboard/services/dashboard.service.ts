@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MediaFilePlayback } from 'src/app/modules/pages/media-video/models/media-file-playback.model';
+import { MediaFilePlayback } from 'src/app/modules/pages/media/models/media-file-playback.model';
 import { HttpMethodType } from 'src/app/modules/shared/enums/enums';
 import { SinovadApiGenericResponse } from 'src/app/modules/shared/models/response/sinovad-api-generic-response.model';
 import { RestProviderService } from 'src/app/services/rest-provider.service';

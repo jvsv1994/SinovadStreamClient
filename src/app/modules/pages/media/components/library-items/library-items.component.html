@@ -1,0 +1,30 @@
+<ng-template [ngIf]="!loadingConnection">
+  <ng-template [ngIf]="(currentMediaServer && currentMediaServer.isSecureConnection)">
+    <div class="media-principal-section">
+      <div class="media-container">
+        <div *ngIf="title" class="media-header">
+          <button class="media-header-button">
+            <div class="title">
+              {{title}}
+            </div>
+            <div class="subtitle">
+              {{subtitle}}
+            </div>
+          </button>
+        </div>
+        <div [style.height]="'calc(100% - 65px)'">
+            <app-media-items [itemsGroupList]="itemsGroupList"></app-media-items>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template [ngIf]="currentMediaServer && !currentMediaServer.isSecureConnection">
+    <app-server-connection-error [mediaServer]="currentMediaServer"></app-server-connection-error>
+  </ng-template>
+</ng-template>
+
+<ng-template [ngIf]="loadingConnection">
+  <div class="spinner-centered-container">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>

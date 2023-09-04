@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Item } from 'src/app/modules/pages/media-items/models/item.model';
-import { ItemsGroup } from 'src/app/modules/pages/media-items/models/items-group.model';
+import { Item } from 'src/app/modules/pages/media/models/item.model';
+import { ItemsGroup } from 'src/app/modules/pages/media/models/items-group.model';
 import { CommonService } from 'src/app/services/common.service';
 import { SharedDataService } from 'src/app/services/shared-data.service';
 

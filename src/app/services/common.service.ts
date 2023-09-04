@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { SharedDataService } from './shared-data.service';
 import { FormGroup } from '@angular/forms';
 import { MetadataAgents } from '../modules/shared/enums/enums';
-import { Item } from '../modules/pages/media-items/models/item.model';
+import { Item } from '../modules/pages/media/models/item.model';
 
 @Injectable({ providedIn: 'root' })
 export class CommonService {

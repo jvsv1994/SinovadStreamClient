@@ -11,27 +11,28 @@ import { CustomDialogOptionsComponent, DialogOption, DialogOptionsConfiguration 
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { SinovadApiGenericResponse } from 'src/app/modules/shared/models/response/sinovad-api-generic-response.model';
-import { ItemDetail } from 'src/app/modules/pages/media-detail/models/item-detail.model';
-import { MediaEpisode } from 'src/app/modules/pages/media-detail/models/media-episode.model';
+import { SignalIRHubService } from 'src/app/services/signal-ir-hub.service';
+import { LibraryService } from '../../../settings/modules/pages/server/modules/pages/manage/modules/pages/libraries/services/library.service';
+import { MediaServer } from '../../../manage/modules/pages/servers/models/server.model';
+import { CommonService } from 'src/app/services/common.service';
 import { TranscodedMediaFile } from '../../models/transcoded-media-file.model';
+import { ItemDetail } from '../../models/item-detail.model';
+import { MediaFilePlaybackService } from '../../services/media-file-playback.service';
+import { MediaEpisode } from '../../models/media-episode.model';
 import { MediaFilePlayback } from '../../models/media-file-playback.model';
 import { MediaFilePlaybackProfile } from '../../models/media-file-playback-profile.model';
 import { MediaFilePlaybackClient } from '../../models/media-file-playback-client.model';
 import { MediaFilePlaybackItem } from '../../models/media-file-playback-item.model';
 import { RetranscodeMediaFile } from '../../models/retranscode-media-file.model';
-import { SignalIRHubService } from 'src/app/services/signal-ir-hub.service';
-import { LibraryService } from '../../../settings/modules/pages/server/modules/pages/manage/modules/pages/libraries/services/library.service';
-import { MediaServer } from '../../../manage/modules/pages/servers/models/server.model';
-import { MediaItem } from '../../../media-detail/models/media-item.model';
-import { MediaFile } from '../../../media-detail/models/media-file.model';
-import { CommonService } from 'src/app/services/common.service';
-import { MediaFilePlaybackService } from '../../services/media-file-playback.service';
+import { MediaItem } from '../../models/media-item.model';
+import { MediaFile } from '../../models/media-file.model';
+
 @Component({
-  selector: 'app-video',
-  templateUrl: 'video.component.html',
-  styleUrls: ['video.component.scss'],
+  selector: 'app-item-video',
+  templateUrl: 'item-video.component.html',
+  styleUrls: ['item-video.component.scss'],
 })
-export class VideoComponent implements OnInit,OnDestroy{
+export class ItemVideoComponent implements OnInit,OnDestroy{
 
   _window=window;
   showVideo:boolean=true;
