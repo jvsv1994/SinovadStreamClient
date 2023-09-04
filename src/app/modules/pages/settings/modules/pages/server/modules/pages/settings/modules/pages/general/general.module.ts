@@ -2,11 +2,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../../../../../../../../../../../shared/shared.module';
-import { ServerSettingsGeneralPage } from './components/server-settings-general/server-settings-general.page';
+import { ServerSettingsGeneralPageComponent } from './components/server-settings-general/server-settings-general.page.component';
 
 @NgModule({
     declarations: [
-      ServerSettingsGeneralPage
+      ServerSettingsGeneralPageComponent
     ],
     imports: [
         CommonModule,
@@ -14,7 +14,7 @@ import { ServerSettingsGeneralPage } from './components/server-settings-general/
         SharedModule,
         ReactiveFormsModule
     ],
-    exports: [ServerSettingsGeneralPage]
+    exports: [ServerSettingsGeneralPageComponent]
 })
 export class GeneralModule {
 }

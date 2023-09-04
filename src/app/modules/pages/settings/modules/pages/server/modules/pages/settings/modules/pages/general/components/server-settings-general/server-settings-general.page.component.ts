@@ -13,11 +13,11 @@ import { SharedDataService } from 'src/app/services/shared-data.service';
 
 declare var window;
 @Component({
-  selector: 'app-server-setttings-general',
-  templateUrl: './server-settings-general.page.html',
-  styleUrls: ['./server-settings-general.page.scss']
+  selector: 'app-server-setttings-general-page',
+  templateUrl: './server-settings-general-page.component.html',
+  styleUrls: ['./server-settings-general-page.component.scss']
 })
-export class ServerSettingsGeneralPage implements OnInit {
+export class ServerSettingsGeneralPageComponent implements OnInit {
 
   customForm:FormGroup;
   mediaServer:MediaServer;
