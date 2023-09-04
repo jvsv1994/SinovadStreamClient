@@ -29,6 +29,7 @@ import { MenuListComponent } from './modules/pages/manage/modules/pages/menus/co
 import { RoleListComponent } from './modules/pages/manage/modules/pages/roles/components/role-list/role-list.component';
 import { SearchViewComponent } from './modules/pages/media-search/components/search-view/search-view.component';
 import { ProfilesViewComponent } from './modules/pages/profiles/components/profiles-view/profiles-view.component';
+import { HomePageComponent } from './modules/pages/home/components/home-page/home-page.component';
 
 @Component({
   selector: 'app-root',
@@ -114,7 +115,7 @@ export class AppComponent{
         this.showingSidebarAccount=false;
         this.showingSidebarAdminMode=false;
       }
-      if(event instanceof MediaItemsComponent || event instanceof MediaDetailComponent || event instanceof SearchViewComponent)
+      if(event instanceof HomePageComponent || event instanceof MediaItemsComponent || event instanceof MediaDetailComponent || event instanceof SearchViewComponent)
       {
         this.showRouterChildWithFullDimentions=false;
         this.showingSidebarMedia=true;

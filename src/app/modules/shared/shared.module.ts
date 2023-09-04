@@ -11,6 +11,7 @@ import { AngularMaterialModule } from '../material/angular-material.module';
 import { CustomSpinnerComponent } from './components/custom-spinner/custom-spinner.component';
 import { DirectoryChooserComponent } from './components/directory-chooser/directory-chooser.component';
 import { ServerConnectionErrorComponent } from './components/server-connection-error/server-connection-error.component';
+import { MediaItemsComponent } from './components/media-items/media-items.component';
 @NgModule({
   imports: [
     CommonModule,AngularMaterialModule
@@ -18,14 +19,14 @@ import { ServerConnectionErrorComponent } from './components/server-connection-e
   declarations: [
     FormatDataPipe,ClickOutsideDirective,CustomMenuComponent,CustomConfirmDialogComponent,
     CustomSpinnerComponent,CustomContextMenuComponent,CustomDialogOptionsComponent,CustomPaginationComponent,
-    DirectoryChooserComponent,ServerConnectionErrorComponent
+    DirectoryChooserComponent,ServerConnectionErrorComponent, MediaItemsComponent
   ],
   providers: [
   ],
   exports: [
     FormatDataPipe,ClickOutsideDirective,CustomMenuComponent,CustomConfirmDialogComponent,
     CustomSpinnerComponent,CustomContextMenuComponent,CommonModule,AngularMaterialModule,CustomDialogOptionsComponent,
-    CustomPaginationComponent,DirectoryChooserComponent,ServerConnectionErrorComponent
+    CustomPaginationComponent,DirectoryChooserComponent,ServerConnectionErrorComponent,MediaItemsComponent
   ]
 })
 export class SharedModule { }

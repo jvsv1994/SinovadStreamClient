@@ -1,0 +1,36 @@
+<ng-template [ngIf]="!loadingConnection">
+  <ng-template [ngIf]="(mediaServers && isEnableAnyMediaServer())">
+    <div class="media-principal-section">
+      <div class="media-container">
+        <div class="media-header">
+          <button class="media-header-button">
+            <div class="title">
+              Inicio
+            </div>
+          </button>
+        </div>
+        <div [style.height]="'calc(100% - 65px)'">
+            <app-media-items [itemsGroupList]="itemsGroupList"></app-media-items>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  <ng-template [ngIf]="(mediaServers && !isEnableAnyMediaServer())">
+    <div class="server-error-page-container">
+      <div class="server-error-page-content">
+        <div class="server-error-message-title">
+            No hay servidores disponibles en este momento
+        </div>
+        <div class="server-error-message-description">
+
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</ng-template>
+
+<ng-template [ngIf]="loadingConnection">
+  <div class="spinner-centered-container">
+    <mat-spinner></mat-spinner>
+  </div>
+</ng-template>

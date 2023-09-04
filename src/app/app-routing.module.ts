@@ -13,12 +13,13 @@ import { NotFoundPageComponent } from './components/pages/not-found-page/not-fou
 import { LandingPageComponent } from './components/pages/landing-page/landing-page.component';
 import { RecoverPasswordComponent } from './modules/pages/recover-password/components/recover-password/recover-password.component';
 import { SearchViewComponent } from './modules/pages/media-search/components/search-view/search-view.component';
+import { HomePageComponent } from './modules/pages/home/components/home-page/home-page.component';
 
 const routes: Routes = [
   {
     path: 'home',
-    component: MediaItemsComponent,
-    loadChildren: () => import('./modules/pages/media-items/media-items.module').then(m => m.MediaItemsModule),
+    component: HomePageComponent,
+    loadChildren: () => import('./modules/pages/home/home.module').then(m => m.HomeModule),
     canActivate:[loggedUserGuard]
   },
   {

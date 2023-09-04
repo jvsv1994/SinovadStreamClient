@@ -13,7 +13,7 @@ import { MediaServer } from '../../../manage/modules/pages/servers/models/server
 import { CommonService } from 'src/app/services/common.service';
 
 @Component({
-  selector: 'app-media-items',
+  selector: 'app-media-items-2',
   templateUrl: './media-items.component.html',
   styleUrls: ['./media-items.component.scss']
 })
