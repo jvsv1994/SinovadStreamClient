@@ -9,24 +9,22 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { SnackBarService } from 'src/app/modules/shared/services/snack-bar.service';
 import { SnackBarType } from 'src/app/modules/shared/components/custom-snack-bar/custom-snack-bar.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { GenreFormPage } from '../genre-form/genre-form.page';
-import { Router } from '@angular/router';
 import { SinovadApiPaginationResponse } from 'src/app/modules/shared/models/response/sinovad-api-pagination-response.model';
 import { Genre } from '../../models/genre.model';
 import { GenreService } from '../../services/genre.service';
+import { GenreFormComponent } from '../genre-form/genre-form.component';
 @Component({
   selector: 'app-genre-list',
-  templateUrl: './genre-list.page.html',
-  styleUrls: ['./genre-list.page.scss']
+  templateUrl: './genre-list.component.html',
+  styleUrls: ['./genre-list.component.scss']
 })
-export class GenreListPage extends CustomListGeneric<Genre>  implements AfterViewInit {
+export class GenreListComponent extends CustomListGeneric<Genre>  implements AfterViewInit {
 
   displayedColumns: string[] = ['Select','Id', 'Name','Actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(
-    private router:Router,
     private modalService: NgbModal,
     private dialog: MatDialog,
     public matPaginatorIntl: MatPaginatorIntl,
@@ -88,7 +86,7 @@ export class GenreListPage extends CustomListGeneric<Genre>  implements AfterVie
 
     public showModalForm(genre:Genre){
       var ctx=this;
-      var ref=this.modalService.open(GenreFormPage, {container:"#sinovadMainContainer",
+      var ref=this.modalService.open(GenreFormComponent, {container:"#sinovadMainContainer",
       modalDialogClass:'modal-dialog modal-fullscreen-md-down modal-dialog-centered modal-dialog-scrollable',scrollable:true,backdrop: 'static'});
       ref.componentInstance.genre=genre;
       ref.closed.subscribe(x=>{

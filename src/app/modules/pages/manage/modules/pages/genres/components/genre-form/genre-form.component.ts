@@ -10,10 +10,10 @@ import { Genre } from '../../models/genre.model';
 
 @Component({
   selector: 'app-genre-form',
-  templateUrl: './genre-form.page.html',
-  styleUrls: ['./genre-form.page.scss']
+  templateUrl: './genre-form.component.html',
+  styleUrls: ['./genre-form.component.scss']
 })
-export class GenreFormPage implements OnInit,AfterViewInit{
+export class GenreFormComponent implements OnInit,AfterViewInit{
 
   @Input() genre:Genre;
   genreFormGroup:FormGroup;

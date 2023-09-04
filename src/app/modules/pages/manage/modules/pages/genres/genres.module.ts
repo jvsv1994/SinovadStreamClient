@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { GenreFormPage } from './components/genre-form/genre-form.page';
 import { GenresSelectionModalComponent } from './components/genres-selection-modal/genres-selection-modal.component';
-import { GenreListPage } from './components/genre-list/genre-list.page';
 import { SharedModule } from 'src/app/modules/shared/shared.module';
+import { GenreListComponent } from './components/genre-list/genre-list.component';
+import { GenreFormComponent } from './components/genre-form/genre-form.component';
 
 @NgModule({
     declarations: [
-      GenreListPage,GenreFormPage,GenresSelectionModalComponent
+      GenreListComponent,GenreFormComponent,GenresSelectionModalComponent
     ],
     providers:[],
     imports: [
@@ -15,7 +15,7 @@ import { SharedModule } from 'src/app/modules/shared/shared.module';
       ReactiveFormsModule,
       SharedModule
     ],
-    exports: [GenreListPage,GenreFormPage,GenresSelectionModalComponent]
+    exports: [GenreListComponent,GenreFormComponent,GenresSelectionModalComponent]
 })
 export class GenresModule {
 }
