@@ -26,8 +26,7 @@ export class ItemDetailComponent extends MediaGeneric implements OnInit {
   itemUserData:any;
   listEpisodePreference:any[];
   lastEpisodeWatched:any;
-  subscriptionEnableMediaServer:Subscription;
-  subscriptionDisableMediaServer:Subscription;
+  subscription:Subscription= new Subscription();;
   loadingConnection:boolean=true;
 
   constructor(
@@ -38,20 +37,20 @@ export class ItemDetailComponent extends MediaGeneric implements OnInit {
     private  ref:ChangeDetectorRef,
     public sharedDataService: SharedDataService) {
       super(router,activeRoute,sharedDataService)
-      this.subscriptionEnableMediaServer=this.signalIrService.isEnablingMediaServer().subscribe((mediaServerGuid:string)=>{
+      this.subscription.add(this.signalIrService.isEnablingMediaServer().subscribe((mediaServerGuid:string)=>{
         if(this.mediaServer && this.mediaServer.Guid==mediaServerGuid && !this.mediaServer.isSecureConnection)
         {
           this.loadingConnection=false;
           this.mediaServer.isSecureConnection=true;
           this.getMediaItemDetail();
         }
-      });
-      this.subscriptionDisableMediaServer=this.signalIrService.isDisablingMediaServer().subscribe((mediaServerGuid:string)=>{
+      }));
+      this.subscription.add(this.signalIrService.isDisablingMediaServer().subscribe((mediaServerGuid:string)=>{
         if(this.mediaServer && this.mediaServer.Guid==mediaServerGuid && this.mediaServer.isSecureConnection)
         {
           this.mediaServer.isSecureConnection=false;
         }
-      });
+      }));
     }
 
     ngOnInit(): void {
@@ -73,8 +72,7 @@ export class ItemDetailComponent extends MediaGeneric implements OnInit {
     }
 
     ngOnDestroy(){
-      this.subscriptionEnableMediaServer.unsubscribe();
-      this.subscriptionDisableMediaServer.unsubscribe();
+      this.subscription.unsubscribe();
     }
 
     private getMediaItemDetail(){

@@ -63,9 +63,7 @@ export class ItemVideoComponent implements OnInit,OnDestroy{
   showVideoTarget:boolean=false;
   loadedData:boolean=false;
   beforeUnloadFunction:any=false;
-  subscriptionEnableMediaServer:Subscription;
-  subscriptionDisableMediaServer:Subscription;
-  subscriptionRemovedMediaFilePlayback:Subscription;
+  subscription:Subscription= new Subscription();
   mediaServer:MediaServer;
   transcodedMediaFile:TranscodedMediaFile;
   itemDetail: ItemDetail;
@@ -87,26 +85,26 @@ export class ItemVideoComponent implements OnInit,OnDestroy{
       this.router.routeReuseStrategy.shouldReuseRoute = function () {
         return false;
       };
-      this.subscriptionEnableMediaServer=this.signalIrService.isEnablingMediaServer().subscribe((mediaServerGuid:string)=>{
+      this.subscription.add(this.signalIrService.isEnablingMediaServer().subscribe((mediaServerGuid:string)=>{
         if(this.mediaServer && this.mediaServer.Guid==mediaServerGuid && !this.mediaServer.isSecureConnection)
         {
           this.mediaServer.isSecureConnection=true;
           this.getMediaItemDetailByMediaFileAndProfile();
         }
-      });
-      this.subscriptionDisableMediaServer=this.signalIrService.isDisablingMediaServer().subscribe((mediaServerGuid:string)=>{
+      }));
+      this.subscription.add(this.signalIrService.isDisablingMediaServer().subscribe((mediaServerGuid:string)=>{
         if(this.mediaServer && this.mediaServer.Guid==mediaServerGuid && this.mediaServer.isSecureConnection)
         {
           this.mediaServer.isSecureConnection=false;
           this.router.navigateByUrl('/media/server/'+mediaServerGuid);
         }
-      });
-      this.subscriptionRemovedMediaFilePlayback=this.signalIrService.isRemovedMediaFilePlayback().subscribe((event:any) => {
+      }));
+      this.subscription.add(this.signalIrService.isRemovedMediaFilePlayback().subscribe((event:any) => {
         if(this.mediaServer && this.mediaServer.Guid==event.mediaServerGuid && this.transcodedMediaFile && this.transcodedMediaFile.Guid==event.mediaFilePlaybackGuid)
         {
           this.router.navigateByUrl('/media/server/'+event.mediaServerGuid);
         }
-      });
+      }));
   }
 
 
@@ -141,9 +139,7 @@ export class ItemVideoComponent implements OnInit,OnDestroy{
       document.exitFullscreen();
     }
     this.deleteTranscodedMediaFile();
-    this.subscriptionEnableMediaServer.unsubscribe();
-    this.subscriptionDisableMediaServer.unsubscribe();
-    this.subscriptionRemovedMediaFilePlayback.unsubscribe();
+    this.subscription.unsubscribe();
     if(this.dashMediaPlayer)
     {
       this.dashMediaPlayer.reset();
