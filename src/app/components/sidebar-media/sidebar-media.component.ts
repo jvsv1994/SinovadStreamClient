@@ -78,18 +78,6 @@ export class SidebarMediaComponent{
     home.Path = "/home";
     home.IconClass = "fa-house fa-solid";
     listOptions.push(home);
-    var movies = new Menu();
-    movies.SortOrder = listOptions.length + 1;
-    movies.Title = "Películas";
-    movies.Path = "/media/movies";
-    movies.IconClass = "fa-film fa-solid";
-    listOptions.push(movies);
-    var tvseries = new Menu();
-    tvseries.SortOrder = listOptions.length + 1;
-    tvseries.Title = "Series";
-    tvseries.Path = "/media/tvseries";
-    tvseries.IconClass = "fa-tv fa-solid";
-    listOptions.push(tvseries);
     this.mediaMenu=listOptions;
     this.sharedDataService.mediaServers.forEach(mediaServer => {
         var ms = new Menu();

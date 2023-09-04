@@ -52,7 +52,7 @@ export class MediaItemsComponent implements OnInit,OnDestroy {
           {
             ctx.loadingConnection=false;
             mediaServer.isSecureConnection=true;
-            ctx.getItemsByMediaServer(mediaServer);
+            ctx.getAllItemsByMediaServer(mediaServer);
           }
         }else{
           if(ctx.currentMediaServer && ctx.currentMediaServer.Guid==mediaServerGuid && !ctx.currentMediaServer.isSecureConnection)
@@ -87,7 +87,7 @@ export class MediaItemsComponent implements OnInit,OnDestroy {
           if(mediaServer && !mediaServer.isSecureConnection)
           {
             mediaServer.isSecureConnection=true;
-            ctx.getItemsByMediaServer(mediaServer);
+            ctx.getAllItemsByMediaServer(mediaServer);
           }
         }else{
           if(ctx.currentMediaServer && ctx.currentMediaServer.Guid==mediaServerGuid && !ctx.currentMediaServer.isSecureConnection)
@@ -104,7 +104,7 @@ export class MediaItemsComponent implements OnInit,OnDestroy {
           if(mediaServer && !mediaServer.isSecureConnection)
           {
             mediaServer.isSecureConnection=true;
-            ctx.getItemsByMediaServer(mediaServer);
+            ctx.getAllItemsByMediaServer(mediaServer);
           }
         }else{
           if(ctx.currentMediaServer && ctx.currentMediaServer.Guid==mediaServerGuid && !ctx.currentMediaServer.isSecureConnection)
@@ -127,16 +127,10 @@ export class MediaItemsComponent implements OnInit,OnDestroy {
             this.loadingConnection=false;
           }, 3000);
         }
-        if(window.location.pathname.endsWith("movies")){
-          this.title="Películas";
-        }
-        if(window.location.pathname.endsWith("tvseries")){
-          this.title="Series de TV"
-        }
         this.mediaServers.forEach(mediaServer => {
           if(mediaServer.isSecureConnection)
           {
-            this.getItemsByMediaServer(mediaServer);
+            this.getAllItemsByMediaServer(mediaServer);
           }
         });
       }else{
@@ -181,7 +175,7 @@ export class MediaItemsComponent implements OnInit,OnDestroy {
     }
 
     public considerAllMediaServers(){
-      if(window.location.pathname.endsWith("home") || window.location.pathname.endsWith("movies") || window.location.pathname.endsWith("tvseries"))
+      if(window.location.pathname.endsWith("home"))
       {
         return true;
       }else{
@@ -219,25 +213,10 @@ export class MediaItemsComponent implements OnInit,OnDestroy {
     }
 
 
-    private getItemsByMediaServer(mediaServer:MediaServer){
-      if(window.location.pathname.endsWith("home"))
-      {
-        this.libraryService.getAllMediaItems(mediaServer.Url,this.sharedDataService.currentProfile.Id).then((itemsGroupList:ItemsGroup[])=>{
-          this.setItemsInGroup(mediaServer.Id,itemsGroupList);
-        },error=>{});
-      }else if(window.location.pathname.endsWith("movies")){
-        this.libraryService.getMediaItemsByMediaType(mediaServer.Url,MediaType.Movie,this.sharedDataService.currentProfile.Id).then((itemsGroupList:ItemsGroup[])=>{
-          this.setItemsInGroup(mediaServer.Id,itemsGroupList);
-        },error=>{
-          console.error(error);
-        });
-      }else if(window.location.pathname.endsWith("tvseries")){
-        this.libraryService.getMediaItemsByMediaType(mediaServer.Url,MediaType.TvSerie,this.sharedDataService.currentProfile.Id).then((itemsGroupList:ItemsGroup[])=>{
-          this.setItemsInGroup(mediaServer.Id,itemsGroupList);
-        },error=>{
-          console.error(error);
-        });
-      }
+    private getAllItemsByMediaServer(mediaServer:MediaServer){
+      this.libraryService.getAllMediaItems(mediaServer.Url,this.sharedDataService.currentProfile.Id).then((itemsGroupList:ItemsGroup[])=>{
+        this.setItemsInGroup(mediaServer.Id,itemsGroupList);
+      },error=>{});
     }
 
     private setItemsInGroup(mediaServerId:number,itemsGroupList:ItemsGroup[]){

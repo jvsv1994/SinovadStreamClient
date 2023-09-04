@@ -22,18 +22,6 @@ const routes: Routes = [
     canActivate:[loggedUserGuard]
   },
   {
-    path: 'media/movies',
-    component: MediaItemsComponent,
-    loadChildren: () => import('./modules/pages/media-items/media-items.module').then(m => m.MediaItemsModule),
-    canActivate:[loggedUserGuard]
-  },
-  {
-    path: 'media/tvseries',
-    component: MediaItemsComponent,
-    loadChildren: () => import('./modules/pages/media-items/media-items.module').then(m => m.MediaItemsModule),
-    canActivate:[loggedUserGuard]
-  },
-  {
     path: 'media/server/:serverGuid',
     component: MediaItemsComponent,
     loadChildren: () => import('./modules/pages/media-items/media-items.module').then(m => m.MediaItemsModule),
