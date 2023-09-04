@@ -19,10 +19,7 @@ export class ServerItemsComponent implements OnInit,OnDestroy {
 
   itemsGroupList:ItemsGroup[]=[];
   _window=window;
-  subscriptionEnableMediaServer:Subscription;
-  subscriptionDisableMediaServer:Subscription;
-  subscriptionUpdateLibrariesByMediaServer:Subscription;
-  subscriptionUpdateItemsByMediaServer:Subscription;
+  subscription:Subscription= new Subscription();;
   title:string;
   currentMediaServer:MediaServer;
   loadingConnection:boolean=true;
@@ -38,35 +35,35 @@ export class ServerItemsComponent implements OnInit,OnDestroy {
         return false;
       };
       let ctx=this;
-      this.subscriptionEnableMediaServer=this.signalIrService.isEnablingMediaServer().subscribe((mediaServerGuid:string)=>{
+      this.subscription.add(this.signalIrService.isEnablingMediaServer().subscribe((mediaServerGuid:string)=>{
           if(ctx.currentMediaServer && ctx.currentMediaServer.Guid==mediaServerGuid && !ctx.currentMediaServer.isSecureConnection)
           {
             ctx.loadingConnection=false;
             ctx.currentMediaServer.isSecureConnection=true;
             ctx.getItemsByMediaServer();
           }
-      });
-      this.subscriptionDisableMediaServer=this.signalIrService.isDisablingMediaServer().subscribe((mediaServerGuid:string)=>{
+      }));
+      this.subscription.add(this.signalIrService.isDisablingMediaServer().subscribe((mediaServerGuid:string)=>{
           if(ctx.currentMediaServer && ctx.currentMediaServer.Guid==mediaServerGuid && ctx.currentMediaServer.isSecureConnection)
           {
             ctx.currentMediaServer.isSecureConnection=false;
             ctx.clearItemsInGroup(ctx.currentMediaServer.Id);
           }
-      });
-      this.subscriptionUpdateLibrariesByMediaServer=this.signalIrService.isUpdatingLibrariesByMediaServer().subscribe((mediaServerGuid:string)=>{
+      }));
+      this.subscription.add(this.signalIrService.isUpdatingLibrariesByMediaServer().subscribe((mediaServerGuid:string)=>{
           if(ctx.currentMediaServer && ctx.currentMediaServer.Guid==mediaServerGuid && !ctx.currentMediaServer.isSecureConnection)
           {
             ctx.currentMediaServer.isSecureConnection=true;
             ctx.getItemsByMediaServer();
           }
-      });
-      this.subscriptionUpdateItemsByMediaServer=this.signalIrService.isUpdatingItemsByMediaServer().subscribe((mediaServerGuid:string)=>{
+      }));
+      this.subscription.add(this.signalIrService.isUpdatingItemsByMediaServer().subscribe((mediaServerGuid:string)=>{
           if(ctx.currentMediaServer && ctx.currentMediaServer.Guid==mediaServerGuid && !ctx.currentMediaServer.isSecureConnection)
           {
             ctx.currentMediaServer.isSecureConnection=true;
             ctx.getItemsByMediaServer();
           }
-      });
+      }));
     }
 
     public ngOnInit(): void {
@@ -96,10 +93,7 @@ export class ServerItemsComponent implements OnInit,OnDestroy {
     }
 
     ngOnDestroy(){
-      this.subscriptionEnableMediaServer.unsubscribe();
-      this.subscriptionDisableMediaServer.unsubscribe();
-      this.subscriptionUpdateLibrariesByMediaServer.unsubscribe();
-      this.subscriptionUpdateItemsByMediaServer.unsubscribe();
+      this.subscription.unsubscribe();
     }
 
     private getItemsByMediaServer(){
