@@ -17,10 +17,10 @@ import { CommonService } from 'src/app/services/common.service';
 
 @Component({
   selector: 'app-movie-form',
-  templateUrl: './movie-form.page.html',
-  styleUrls: ['./movie-form.page.scss']
+  templateUrl: './movie-form.component.html',
+  styleUrls: ['./movie-form.component.scss']
 })
-export class MovieFormPage implements OnInit{
+export class MovieFormComponent implements OnInit{
 
   @Input() movie:Movie;
   listMovies:Movie[];

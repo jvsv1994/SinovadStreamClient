@@ -6,20 +6,20 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { SnackBarService } from 'src/app/modules/shared/services/snack-bar.service';
-import { MovieFormPage } from '../movie-form/movie-form.page';
 import { MatTableDataSource } from '@angular/material/table';
 import { ConfirmDialogOptions, CustomConfirmDialogComponent } from 'src/app/modules/shared/components/custom-confirm-dialog/custom-confirm-dialog.component';
 import { SnackBarType } from 'src/app/modules/shared/components/custom-snack-bar/custom-snack-bar.component';
 import { SinovadApiPaginationResponse } from 'src/app/modules/shared/models/response/sinovad-api-pagination-response.model';
 import { Movie } from '../../models/movie.model';
 import { MovieService } from '../../services/movie.service';
+import { MovieFormComponent } from '../movie-form/movie-form.component';
 
 @Component({
   selector: 'app-movie-list',
-  templateUrl: './movie-list.page.html',
-  styleUrls: ['./movie-list.page.scss']
+  templateUrl: './movie-list.component.html',
+  styleUrls: ['./movie-list.component.scss']
 })
-export class MovieListPage extends CustomListGeneric<Movie> implements AfterViewInit {
+export class MovieListComponent extends CustomListGeneric<Movie> implements AfterViewInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -88,7 +88,7 @@ export class MovieListPage extends CustomListGeneric<Movie> implements AfterView
 
     public showModalForm(movie:Movie){
       var ctx=this;
-      var ref=this.modalService.open(MovieFormPage, {container:"#sinovadMainContainer",
+      var ref=this.modalService.open(MovieFormComponent, {container:"#sinovadMainContainer",
       modalDialogClass:'modal-dialog modal-fullscreen-md-down modal-dialog-centered modal-dialog-scrollable',scrollable:true,backdrop: 'static'});
       ref.componentInstance.movie=movie;
       ref.closed.subscribe(x=>{

@@ -8,7 +8,6 @@ import { MediaDetailComponent } from './modules/pages/media-detail/components/me
 import { LibraryListComponent } from './modules/pages/settings/modules/pages/server/modules/pages/manage/modules/pages/libraries/components/library-list/library-list.component';
 import { AlertsComponent } from './modules/pages/settings/modules/pages/server/modules/pages/status/modules/pages/alerts/components/alerts/alerts.component';
 import { UserService } from './modules/pages/manage/modules/pages/users/services/user.service';
-import { MovieListPage } from './modules/pages/manage/modules/pages/movies/components/movie-list/movie-list.page';
 import { GenreListPage } from './modules/pages/manage/modules/pages/genres/components/genre-list/genre-list.page';
 import { TvSerieListPage } from './modules/pages/manage/modules/pages/tvseries/components/tvserie-list/tvserie-list.page';
 import { UserListPage } from './modules/pages/manage/modules/pages/users/components/user-list/user-list.page';
@@ -29,6 +28,7 @@ import { RecoverPasswordComponent } from './modules/pages/recover-password/compo
 import { ServerSettingsGeneralPageComponent } from './modules/pages/settings/modules/pages/server/modules/pages/settings/modules/pages/general/components/server-settings-general/server-settings-general.page.component';
 import { TranscoderSettingssPageComponent } from './modules/pages/settings/modules/pages/server/modules/pages/settings/modules/pages/transcode/components/transcode-settings/transcode-settings-page.component';
 import { MyAccountPageComponent } from './modules/pages/settings/modules/pages/account-settings/components/my-account/my-account-page.component';
+import { MovieListComponent } from './modules/pages/manage/modules/pages/movies/components/movie-list/movie-list.component';
 
 @Component({
   selector: 'app-root',
@@ -136,7 +136,7 @@ export class AppComponent{
         this.showingSidebarAdminMode=false;
         this.showingSidebarMedia=false;
       }
-      if(event instanceof MovieListPage || event instanceof TvSerieListPage || event instanceof MenuListPage
+      if(event instanceof MovieListComponent || event instanceof TvSerieListPage || event instanceof MenuListPage
         || event instanceof GenreListPage || event instanceof UserListPage || event instanceof RoleListPage)
       {
         this.showRouterChildWithFullDimentions=false;

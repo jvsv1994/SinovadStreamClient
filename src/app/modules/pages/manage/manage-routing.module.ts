@@ -3,15 +3,15 @@ import { RouterModule, Routes } from '@angular/router';
 import { loggedUserGuard } from 'src/app/guards/logged-user.guard';
 import { adminGuard } from 'src/app/guards/admin.guard';
 import { UserListPage } from './modules/pages/users/components/user-list/user-list.page';
-import { MovieListPage } from './modules/pages/movies/components/movie-list/movie-list.page';
 import { TvSerieListPage } from './modules/pages/tvseries/components/tvserie-list/tvserie-list.page';
 import { GenreListPage } from './modules/pages/genres/components/genre-list/genre-list.page';
 import { MenuListPage } from './modules/pages/menus/components/menu-list/menu-list.page';
 import { RoleListPage } from './modules/pages/roles/components/role-list/role-list.page';
+import { MovieListComponent } from './modules/pages/movies/components/movie-list/movie-list.component';
 
 const routes: Routes = [ {
   path: 'movies',
-  component: MovieListPage,
+  component: MovieListComponent,
   loadChildren: () => import('./modules/pages/movies/movies.module').then(m => m.MoviesModule),
   canActivate:[loggedUserGuard,adminGuard]
 },

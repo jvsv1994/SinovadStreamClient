@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MovieListPage } from './components/movie-list/movie-list.page';
-import { MovieFormPage } from './components/movie-form/movie-form.page';
 import { SharedModule } from 'src/app/modules/shared/shared.module';
+import { MovieListComponent } from './components/movie-list/movie-list.component';
+import { MovieFormComponent } from './components/movie-form/movie-form.component';
 
 @NgModule({
     declarations: [
-      MovieListPage,MovieFormPage
+      MovieListComponent,MovieFormComponent
     ],
     providers:[],
     imports: [
@@ -14,7 +14,7 @@ import { SharedModule } from 'src/app/modules/shared/shared.module';
       ReactiveFormsModule,
       SharedModule
     ],
-    exports: [MovieListPage,MovieFormPage]
+    exports: [MovieListComponent,MovieFormComponent]
 })
 export class MoviesModule {
 }
