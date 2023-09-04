@@ -9,10 +9,10 @@ import { CommonService } from 'src/app/services/common.service';
 declare var window;
 @Component({
   selector: 'app-change-username',
-  templateUrl: './change-username.page.html',
-  styleUrls: ['./change-username.page.scss','../../styles/account-settings-section.scss']
+  templateUrl: './change-username.component.html',
+  styleUrls: ['./change-username.component.scss','../../styles/account-settings-section.scss']
 })
-export class ChangeUsernamePage implements OnInit {
+export class ChangeUsernameComponent implements OnInit {
 
   serverErrorMessage:string=undefined;
   changeUsernameData:ChangeUsernameModel;

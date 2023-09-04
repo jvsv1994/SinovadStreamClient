@@ -9,10 +9,10 @@ import { CommonService } from 'src/app/services/common.service';
 declare var window;
 @Component({
   selector: 'app-change-names',
-  templateUrl: './change-names.page.html',
-  styleUrls: ['./change-names.page.scss','../../styles/account-settings-section.scss']
+  templateUrl: './change-names.component.html',
+  styleUrls: ['./change-names.component.scss','../../styles/account-settings-section.scss']
 })
-export class ChangeNamesPage implements OnInit {
+export class ChangeNamesComponent implements OnInit {
 
   serverErrorMessage:string=undefined;
   changeNamesData:ChangeNamesModel;

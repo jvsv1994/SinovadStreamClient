@@ -9,10 +9,10 @@ import { CommonService } from 'src/app/services/common.service';
 declare var window;
 @Component({
   selector: 'app-change-password',
-  templateUrl: './change-password.page.html',
-  styleUrls: ['./change-password.page.scss','../../styles/account-settings-section.scss']
+  templateUrl: './change-password.component.html',
+  styleUrls: ['./change-password.component.scss','../../styles/account-settings-section.scss']
 })
-export class ChangePasswordPage implements OnInit {
+export class ChangePasswordComponent implements OnInit {
 
   serverErrorMessage:string=undefined;
   changePasswordData:ChangePasswordModel;

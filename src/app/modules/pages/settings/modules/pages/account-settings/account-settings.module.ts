@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ChangePasswordPage } from './components/change-password/change-password.page';
 import { SetPasswordPage } from './components/set-password/set-password.page';
-import { ChangeUsernamePage } from './components/change-username/change-username.page';
-import { ChangeNamesPage } from './components/change-names/change-names.page';
 import { SharedModule } from 'src/app/modules/shared/shared.module';
 import { MyAccountPageComponent } from './components/my-account/my-account-page.component';
+import { ChangePasswordComponent } from './components/change-password/change-password.component';
+import { ChangeUsernameComponent } from './components/change-username/change-username.component';
+import { ChangeNamesComponent } from './components/change-names/change-names.component';
 
 @NgModule({
     declarations: [
-      MyAccountPageComponent,ChangePasswordPage,SetPasswordPage,ChangeUsernamePage,ChangeNamesPage
+      MyAccountPageComponent,ChangePasswordComponent,SetPasswordPage,ChangeUsernameComponent,ChangeNamesComponent
     ],
     imports: [
         CommonModule,
@@ -18,7 +18,7 @@ import { MyAccountPageComponent } from './components/my-account/my-account-page.
         SharedModule,
         ReactiveFormsModule
     ],
-    exports: [MyAccountPageComponent,ChangePasswordPage,SetPasswordPage,ChangeUsernamePage,ChangeNamesPage]
+    exports: [MyAccountPageComponent,ChangePasswordComponent,SetPasswordPage,ChangeUsernameComponent,ChangeNamesComponent]
 })
 export class AccountSettingsModule {
 }
