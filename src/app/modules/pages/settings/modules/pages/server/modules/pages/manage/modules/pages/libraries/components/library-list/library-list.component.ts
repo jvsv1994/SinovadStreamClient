@@ -28,8 +28,7 @@ export class LibraryListComponent{
   mediaServer:MediaServer;
   currentLibrary:Library;
   loadingConnection:boolean=true;
-  subscriptionEnableMediaServer:Subscription;
-  subscriptionDisableMediaServer:Subscription;
+  subscription:Subscription= new Subscription();
 
   constructor(
     private signalIrService:SignalIRHubService,
@@ -44,20 +43,20 @@ export class LibraryListComponent{
       this.router.routeReuseStrategy.shouldReuseRoute = function () {
         return false;
       };
-      this.subscriptionEnableMediaServer=this.signalIrService.isEnablingMediaServer().subscribe((mediaServerGuid:string) => {
+      this.subscription.add(this.signalIrService.isEnablingMediaServer().subscribe((mediaServerGuid:string) => {
         if(this.mediaServer && this.mediaServer.Guid==mediaServerGuid && !this.mediaServer.isSecureConnection)
         {
           this.mediaServer.isSecureConnection=true;
           this.loadingConnection=false;
           this.getAllItems();
         }
-      });
-      this.subscriptionDisableMediaServer=this.signalIrService.isDisablingMediaServer().subscribe((mediaServerGuid:string) => {
+      }));
+      this.subscription.add(this.signalIrService.isDisablingMediaServer().subscribe((mediaServerGuid:string) => {
         if(this.mediaServer && this.mediaServer.Guid==mediaServerGuid && this.mediaServer.isSecureConnection)
         {
           this.mediaServer.isSecureConnection=false;
         }
-      });
+      }));
     }
 
     ngOnInit(): void {
@@ -81,8 +80,7 @@ export class LibraryListComponent{
     }
 
     ngOnDestroy(){
-      this.subscriptionEnableMediaServer.unsubscribe();
-      this.subscriptionDisableMediaServer.unsubscribe();
+      this.subscription.unsubscribe();
     }
 
     public getAllItems(){
