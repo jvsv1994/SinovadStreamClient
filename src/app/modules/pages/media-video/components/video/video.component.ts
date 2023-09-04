@@ -209,10 +209,9 @@ export class VideoComponent implements OnInit,OnDestroy{
     }
   }
 
-  //Create Trnascoded Media File
+  //Create Transcoded Media File
 
   public CreateTranscodedMediaFile(){
-    this.loadStatus=LoadVideoStatus.Empty;
     var currentTime=0;
     if(this.itemDetail.MediaFileProfile)
     {
@@ -223,20 +222,43 @@ export class VideoComponent implements OnInit,OnDestroy{
         currentTime=0;
       }
     }
+    this.createTranscodedMediaFile(currentTime);
+  }
+
+
+  //Create transcoded Media File By Episode
+
+  public getVideoByEpisode(episode:MediaEpisode){
+    this.deleteTranscodedMediaFile();
+    if(this.itemDetail.ListSeasons)
+    {
+      this.itemDetail.CurrentSeason=this.itemDetail.ListSeasons.find(item=>item.SeasonNumber==episode.SeasonNumber);
+      this.itemDetail.CurrentEpisode=this.itemDetail.CurrentSeason.ListEpisodes.find(item=>item.EpisodeNumber==episode.EpisodeNumber);
+    }
+    this.lastRealVideoTime=0;
+    this.resetStream();
+    this.transcodedMediaFile=undefined;
+    this.createTranscodedMediaFile(0);
+  }
+
+  //Create Transcoded Media File
+
+
+  public createTranscodedMediaFile(currentTime:number):void{
     this.mediaFilePlaybackService.createTranscodedMediaFile(this.mediaServer.Url,this.GetMediaFilePlayback(currentTime)).then((response:SinovadApiGenericResponse) => {
       this.loadStatus=LoadVideoStatus.Generated;
       var transcodedMediaFile:TranscodedMediaFile=response.Data;
       this.transcodedMediaFile=transcodedMediaFile;
       this.initializeStreams();
-      setTimeout(() => {
-        this.executeHideControls();
-      }, 1000);
       this.getVideoSource();
     },error=>{
       this.showLoadVideoErrorActionsDialog();
       console.error(error);
     });
   }
+
+  // Get Media File Playback
+
 
   private GetMediaFilePlayback(currentTime:number):MediaFilePlayback{
     var mediaFilePlayback:MediaFilePlayback;
@@ -274,20 +296,6 @@ export class VideoComponent implements OnInit,OnDestroy{
       mediaFilePlayback.ItemData=mediaFilePlaybackItem;
     }
     return mediaFilePlayback;
-  }
-
-  public getPosterPath(item:MediaItem,mediaFile:MediaFile){
-    if(item.MetadataAgentsId==MetadataAgents.TMDb)
-    {
-      return this.sharedDataService.originalUrlImagesMovieDataBase+item.PosterPath;
-    }else{
-      if(item.PosterPath)
-      {
-        return item.PosterPath;
-      }else{
-        return this.mediaServer.Url+"/media/"+mediaFile.Guid+"/thumbnail.png";
-      }
-    }
   }
 
   //Retranscode Section
@@ -462,28 +470,6 @@ export class VideoComponent implements OnInit,OnDestroy{
     }
   }
 
-  public getVideoByEpisode(episode:MediaEpisode){
-    this.deleteTranscodedMediaFile();
-    if(this.itemDetail.ListSeasons)
-    {
-      this.itemDetail.CurrentSeason=this.itemDetail.ListSeasons.find(item=>item.SeasonNumber==episode.SeasonNumber);
-      this.itemDetail.CurrentEpisode=this.itemDetail.CurrentSeason.ListEpisodes.find(item=>item.EpisodeNumber==episode.EpisodeNumber);
-    }
-    this.lastRealVideoTime=0;
-    this.resetStream();
-    this.loadStatus=LoadVideoStatus.Empty;
-    this.mediaFilePlaybackService.createTranscodedMediaFile(this.mediaServer.Url,this.GetMediaFilePlayback(0)).then((response:SinovadApiGenericResponse) => {
-      this.loadStatus=LoadVideoStatus.Generated;
-      var transcodedMediaFile:TranscodedMediaFile=response.Data;
-      this.transcodedMediaFile=transcodedMediaFile;
-      this.initializeStreams();
-      this.getVideoSource();
-    },error=>{
-      this.showLoadVideoErrorActionsDialog();
-      console.error(error);
-    });
-  }
-
 
 
 
@@ -567,6 +553,20 @@ export class VideoComponent implements OnInit,OnDestroy{
       }else{
         this.hls.subtitleTrack=option.index;
         this.hls.subtitleDisplay=true;
+      }
+    }
+  }
+
+  public getPosterPath(item:MediaItem,mediaFile:MediaFile){
+    if(item.MetadataAgentsId==MetadataAgents.TMDb)
+    {
+      return this.sharedDataService.originalUrlImagesMovieDataBase+item.PosterPath;
+    }else{
+      if(item.PosterPath)
+      {
+        return item.PosterPath;
+      }else{
+        return this.mediaServer.Url+"/media/"+mediaFile.Guid+"/thumbnail.png";
       }
     }
   }

@@ -25,7 +25,7 @@ export class MediaFilePlaybackService {
   public retranscodeMediaFile(mediaServerUrl:string,retranscodeMediaFile:RetranscodeMediaFile): Promise<any>{
     return new Promise((resolve, reject) => {
       let url=mediaServerUrl+"/api/mediaFilePlaybacks/RetranscodeMediaFile";
-      this.restProvider.executeHttpMediaServerApi(HttpMethodType.POST,url,retranscodeMediaFile).then((response) => {
+      this.restProvider.executeHttpMediaServerApi(HttpMethodType.PUT,url,retranscodeMediaFile).then((response) => {
         resolve(response);
       },error=>{
         reject(error);
