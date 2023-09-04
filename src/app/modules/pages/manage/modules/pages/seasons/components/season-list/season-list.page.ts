@@ -13,7 +13,7 @@ import { SinovadApiPaginationResponse } from 'src/app/modules/shared/models/resp
 import { TvSerie } from '../../../tvseries/models/tvserie.model';
 import { SeasonService } from '../../services/season.service';
 import { Season } from '../../models/season.model';
-import { EpisodeListModalPage } from '../../../episodes/components/episode-list-modal/episode-list-modal.page';
+import { EpisodeListModalComponent } from '../../../episodes/components/episode-list-modal/episode-list-modal.component';
 @Component({
   selector: 'app-season-list',
   templateUrl: 'season-list.page.html',
@@ -176,7 +176,7 @@ export class SeasonListPage extends CustomListGeneric<Season>{
 
       public showEpisodeListModal(season:Season){
         var ctx=this;
-        var ref=this.modalService.open(EpisodeListModalPage, {container:"#sinovadMainContainer",modalDialogClass:'modal-dialog modal-fullscreen-md-down modal-xl modal-dialog-centered modal-dialog-scrollable  modal-list',scrollable:true,backdrop: 'static'});
+        var ref=this.modalService.open(EpisodeListModalComponent, {container:"#sinovadMainContainer",modalDialogClass:'modal-dialog modal-fullscreen-md-down modal-xl modal-dialog-centered modal-dialog-scrollable  modal-list',scrollable:true,backdrop: 'static'});
         ref.componentInstance.parent=season;
         ref.closed.subscribe(x=>{
 

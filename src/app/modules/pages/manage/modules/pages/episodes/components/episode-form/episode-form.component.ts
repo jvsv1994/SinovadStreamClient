@@ -9,10 +9,10 @@ import { Episode } from '../../models/episode.model';
 
 @Component({
   selector: 'app-episode-form',
-  templateUrl: './episode-form.page.html',
-  styleUrls: ['./episode-form.page.scss']
+  templateUrl: './episode-form.component.html',
+  styleUrls: ['./episode-form.component.scss']
 })
-export class EpisodeFormPage implements AfterViewInit{
+export class EpisodeFormComponent implements AfterViewInit{
 
   @Input() episode:Episode;
   episodeFormGroup:FormGroup;

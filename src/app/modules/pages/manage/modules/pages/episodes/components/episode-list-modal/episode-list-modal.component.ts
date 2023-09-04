@@ -4,10 +4,10 @@ import { Season } from '../../../seasons/models/season.model';
 
 @Component({
   selector: 'app-episode-list-modal',
-  templateUrl: 'episode-list-modal.page.html',
-  styleUrls: ['episode-list-modal.page.scss'],
+  templateUrl: 'episode-list-modal.component.html',
+  styleUrls: ['episode-list-modal.component.scss'],
 })
-export class EpisodeListModalPage{
+export class EpisodeListModalComponent{
 
   @Input() parent:Season;
 

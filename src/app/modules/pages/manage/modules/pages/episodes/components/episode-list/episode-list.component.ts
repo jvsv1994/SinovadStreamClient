@@ -7,19 +7,19 @@ import { SnackBarService } from 'src/app/modules/shared/services/snack-bar.servi
 import { MatTableDataSource } from '@angular/material/table';
 import { ConfirmDialogOptions, CustomConfirmDialogComponent } from 'src/app/modules/shared/components/custom-confirm-dialog/custom-confirm-dialog.component';
 import { SnackBarType } from 'src/app/modules/shared/components/custom-snack-bar/custom-snack-bar.component';
-import { EpisodeFormPage } from '../episode-form/episode-form.page';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { EpisodeRangeModalPage } from '../episode-range-modal/episode-range-modal.page';
 import { SinovadApiPaginationResponse } from 'src/app/modules/shared/models/response/sinovad-api-pagination-response.model';
 import { Season } from '../../../seasons/models/season.model';
 import { Episode } from '../../models/episode.model';
 import { EpisodeService } from '../../services/episode.service';
+import { EpisodeFormComponent } from '../episode-form/episode-form.component';
+import { EpisodeRangeModalComponent } from '../episode-range-modal/episode-range-modal.component';
 @Component({
   selector: 'app-episode-list',
-  templateUrl: 'episode-list.page.html',
-  styleUrls: ['episode-list.page.scss'],
+  templateUrl: 'episode-list.component.html',
+  styleUrls: ['episode-list.component.scss'],
 })
-export class EpisodeListPage extends CustomListGeneric<Episode>{
+export class EpisodeListComponent extends CustomListGeneric<Episode>{
 
   @Input() parentItem:Season;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -86,7 +86,7 @@ export class EpisodeListPage extends CustomListGeneric<Episode>{
 
     public showModalForm(episode:Episode){
       var ctx=this;
-      var ref=this.modalService.open(EpisodeFormPage, {container:"#sinovadMainContainer",
+      var ref=this.modalService.open(EpisodeFormComponent, {container:"#sinovadMainContainer",
       modalDialogClass:'modal-dialog modal-fullscreen-md-down modal-dialog-centered modal-dialog-scrollable',scrollable:true,backdrop: 'static'});
       ref.componentInstance.episode=episode;
       ref.closed.subscribe(x=>{
@@ -176,7 +176,7 @@ export class EpisodeListPage extends CustomListGeneric<Episode>{
 
       public showEpisodeRangeModal(){
         var ctx=this;
-        var ref=this.modalService.open(EpisodeRangeModalPage, {container:"#sinovadMainContainer",
+        var ref=this.modalService.open(EpisodeRangeModalComponent, {container:"#sinovadMainContainer",
         modalDialogClass:'modal-dialog modal-fullscreen-md-down modal-dialog-centered modal-dialog-scrollable',scrollable:true,backdrop: 'static'});
         ref.componentInstance.parent=this.parentItem;
         ref.closed.subscribe(x=>{

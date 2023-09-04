@@ -9,10 +9,10 @@ import { Episode } from '../../models/episode.model';
 
 @Component({
   selector: 'app-episode-range-modal',
-  templateUrl: './episode-range-modal.page.html',
-  styleUrls: ['./episode-range-modal.page.scss']
+  templateUrl: './episode-range-modal.component.html',
+  styleUrls: ['./episode-range-modal.component.scss']
 })
-export class EpisodeRangeModalPage{
+export class EpisodeRangeModalComponent{
 
   formGroup:FormGroup;
   @Input() parent:Season;
