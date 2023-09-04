@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RoleListPage } from './components/role-list/role-list.page';
-import { RoleFormPage } from './components/role-form/role-form.page';
 import { SharedModule } from 'src/app/modules/shared/shared.module';
+import { RoleListComponent } from './components/role-list/role-list.component';
+import { RoleFormComponent } from './components/role-form/role-form.component';
 
 @NgModule({
     declarations: [
-      RoleListPage,
-      RoleFormPage
+      RoleListComponent,
+      RoleFormComponent
     ],
     providers:[],
     imports: [
@@ -15,7 +15,7 @@ import { SharedModule } from 'src/app/modules/shared/shared.module';
       ReactiveFormsModule,
       SharedModule
     ],
-    exports: [RoleListPage]
+    exports: [RoleListComponent,RoleFormComponent]
 })
 export class RolesPageModule {
 }

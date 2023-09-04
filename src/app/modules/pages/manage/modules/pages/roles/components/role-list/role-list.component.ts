@@ -9,16 +9,16 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { SnackBarService } from 'src/app/modules/shared/services/snack-bar.service';
 import { SnackBarType } from 'src/app/modules/shared/components/custom-snack-bar/custom-snack-bar.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { RoleFormPage } from '../role-form/role-form.page';
 import { SinovadApiPaginationResponse } from 'src/app/modules/shared/models/response/sinovad-api-pagination-response.model';
 import { Role } from '../../models/role.model';
 import { RoleService } from '../../services/role.service';
+import { RoleFormComponent } from '../role-form/role-form.component';
 @Component({
   selector: 'app-role-list',
-  templateUrl: './role-list.page.html',
-  styleUrls: ['./role-list.page.scss']
+  templateUrl: './role-list.component.html',
+  styleUrls: ['./role-list.component.scss']
 })
-export class RoleListPage extends CustomListGeneric<Role>  implements AfterViewInit {
+export class RoleListComponent extends CustomListGeneric<Role>  implements AfterViewInit {
 
   displayedColumns: string[] = ['Select','Id', 'Name','Actions'];
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -88,7 +88,7 @@ export class RoleListPage extends CustomListGeneric<Role>  implements AfterViewI
 
     public showModalForm(role:Role){
       var ctx=this;
-      var ref=this.modalService.open(RoleFormPage, {container:"#sinovadMainContainer",
+      var ref=this.modalService.open(RoleFormComponent, {container:"#sinovadMainContainer",
       modalDialogClass:'modal-dialog modal-fullscreen-md-down modal-dialog-centered modal-dialog-scrollable',scrollable:true,backdrop: 'static'});
       ref.componentInstance.role=role;
       ref.closed.subscribe(x=>{

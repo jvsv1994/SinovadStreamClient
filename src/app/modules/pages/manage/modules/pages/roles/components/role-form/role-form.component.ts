@@ -10,10 +10,10 @@ import { Role } from '../../models/role.model';
 
 @Component({
   selector: 'app-role-form',
-  templateUrl: './role-form.page.html',
-  styleUrls: ['./role-form.page.scss']
+  templateUrl: './role-form.component.html',
+  styleUrls: ['./role-form.component.scss']
 })
-export class RoleFormPage implements AfterViewInit{
+export class RoleFormComponent implements AfterViewInit{
 
   @Input() role:Role;
   roleFormGroup:FormGroup;
