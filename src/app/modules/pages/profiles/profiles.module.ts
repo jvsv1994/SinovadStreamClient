@@ -3,14 +3,14 @@ import { CommonModule } from '@angular/common';
 import { ProfilesRoutingModule } from './profiles-routing.module';
 import { SharedModule } from '../../shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ProfilesViewPage } from './components/profiles-view/profiles-view.page';
-import { ProfileEditPage } from './components/profile-edit/profile-edit.page';
-import { ProfileNewPage } from './components/profile-new/profile-new.page';
+import { ProfilesViewComponent } from './components/profiles-view/profiles-view.component';
+import { ProfileEditComponent } from './components/profile-edit/profile-edit.component';
+import { ProfileNewComponent } from './components/profile-new/profile-new.component';
 
 @NgModule({
-  declarations: [ProfilesViewPage,
-    ProfileEditPage,
-    ProfileNewPage],
+  declarations: [ProfilesViewComponent,
+    ProfileEditComponent,
+    ProfileNewComponent],
   imports: [
     CommonModule,
     SharedModule,
@@ -18,6 +18,6 @@ import { ProfileNewPage } from './components/profile-new/profile-new.page';
     FormsModule,
     ProfilesRoutingModule
   ],
-  exports: [ProfilesViewPage,ProfileEditPage,ProfileNewPage]
+  exports: [ProfilesViewComponent,ProfileEditComponent,ProfileNewComponent]
 })
 export class ProfilesModule { }

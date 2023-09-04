@@ -8,10 +8,10 @@ import { Profile } from '../../models/profile.model';
 declare var window;
 @Component({
   selector: 'app-profile-new',
-  templateUrl: './profile-new.page.html',
-  styleUrls: ['./profile-new.page.scss']
+  templateUrl: './profile-new.component.html',
+  styleUrls: ['./profile-new.component.scss']
 })
-export class ProfileNewPage{
+export class ProfileNewComponent{
 
   currentTmpProfile:Profile;
   placeHolder:string="Nombre de Perfil";

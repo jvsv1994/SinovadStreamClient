@@ -10,10 +10,10 @@ import { Profile } from '../../models/profile.model';
 declare var window;
 @Component({
   selector: 'app-profile-edit',
-  templateUrl: './profile-edit.page.html',
-  styleUrls: ['./profile-edit.page.scss']
+  templateUrl: './profile-edit.component.html',
+  styleUrls: ['./profile-edit.component.scss']
 })
-export class ProfileEditPage implements OnInit {
+export class ProfileEditComponent implements OnInit {
 
   currentTmpProfile:Profile;
   hideImage:boolean=false;

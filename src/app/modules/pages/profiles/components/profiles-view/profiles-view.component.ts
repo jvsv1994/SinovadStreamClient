@@ -10,10 +10,10 @@ import { Profile } from '../../models/profile.model';
 declare var window;
 @Component({
   selector: 'app-profiles-view',
-  templateUrl: './profiles-view.page.html',
-  styleUrls: ['./profiles-view.page.scss']
+  templateUrl: './profiles-view.component.html',
+  styleUrls: ['./profiles-view.component.scss']
 })
-export class ProfilesViewPage{
+export class ProfilesViewComponent{
 
   enableEditMode:boolean=false;
   showLoading:boolean=true;

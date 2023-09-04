@@ -1,24 +1,24 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { loggedUserGuard } from 'src/app/guards/logged-user.guard';
-import { ProfilesViewPage } from './components/profiles-view/profiles-view.page';
-import { ProfileNewPage } from './components/profile-new/profile-new.page';
-import { ProfileEditPage } from './components/profile-edit/profile-edit.page';
+import { ProfilesViewComponent } from './components/profiles-view/profiles-view.component';
+import { ProfileNewComponent } from './components/profile-new/profile-new.component';
+import { ProfileEditComponent } from './components/profile-edit/profile-edit.component';
 
 const routes: Routes = [
   {
   path: '',
-  component: ProfilesViewPage,
+  component: ProfilesViewComponent,
   canActivate:[loggedUserGuard]
 },
 {
   path: 'add',
-  component: ProfileNewPage,
+  component: ProfileNewComponent,
   canActivate:[loggedUserGuard]
 },
 {
   path: 'edit/:profileGuid',
-  component: ProfileEditPage,
+  component: ProfileEditComponent,
   canActivate:[loggedUserGuard]
 }];
 
