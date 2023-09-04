@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MediaServerListPage } from './components/server-list/media-server-list.page';
 import { SharedModule } from 'src/app/modules/shared/shared.module';
-import { MediaServerListModalPage } from './components/server-list-modal/media-server-list-modal.page';
+import { MediaServerListComponent } from './components/server-list/media-server-list.component';
+import { MediaServerListModalComponent } from './components/server-list-modal/media-server-list-modal.component';
 
 @NgModule({
     declarations: [
-      MediaServerListPage,
-      MediaServerListModalPage
+      MediaServerListComponent,
+      MediaServerListModalComponent
     ],
     providers:[],
     imports: [
@@ -15,7 +15,7 @@ import { MediaServerListModalPage } from './components/server-list-modal/media-s
       ReactiveFormsModule,
       SharedModule
     ],
-    exports: [MediaServerListPage,MediaServerListModalPage]
+    exports: [MediaServerListComponent,MediaServerListModalComponent]
 })
 export class MediaServersModule {
 }

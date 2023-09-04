@@ -13,10 +13,10 @@ import { MediaServerService } from '../../services/server.service';
 import { User } from '../../../users/models/user.model';
 @Component({
   selector: 'app-media-server-list',
-  templateUrl: 'media-server-list.page.html',
-  styleUrls: ['media-server-list.page.scss'],
+  templateUrl: 'media-server-list.component.html',
+  styleUrls: ['media-server-list.component.scss'],
 })
-export class MediaServerListPage extends CustomListGeneric<MediaServer>{
+export class MediaServerListComponent extends CustomListGeneric<MediaServer>{
 
   @Input() parentItem:User;
   @ViewChild(MatPaginator) paginator: MatPaginator;

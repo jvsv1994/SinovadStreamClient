@@ -4,10 +4,10 @@ import { User } from '../../../users/models/user.model';
 
 @Component({
   selector: 'app-media-server-list-modal',
-  templateUrl: 'media-server-list-modal.page.html',
-  styleUrls: ['media-server-list-modal.page.scss'],
+  templateUrl: 'media-server-list-modal.component.html',
+  styleUrls: ['media-server-list-modal.component.scss'],
 })
-export class MediaServerListModalPage{
+export class MediaServerListModalComponent{
 
   @Input() parent:User;
 

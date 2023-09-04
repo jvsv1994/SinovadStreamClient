@@ -15,7 +15,7 @@ import { Router } from '@angular/router';
 import { SinovadApiPaginationResponse } from 'src/app/modules/shared/models/response/sinovad-api-pagination-response.model';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/user.model';
-import { MediaServerListModalPage } from '../../../servers/components/server-list-modal/media-server-list-modal.page';
+import { MediaServerListModalComponent } from '../../../servers/components/server-list-modal/media-server-list-modal.component';
 
 @Component({
   selector: 'app-user-list',
@@ -202,7 +202,7 @@ export class UserListPage extends CustomListGeneric<User> {
 
     private showMediaServerListModal(user:User){
       var ctx=this;
-      var ref=this.modalService.open(MediaServerListModalPage, {container:"#sinovadMainContainer",modalDialogClass:'modal-dialog modal-fullscreen-md-down modal-xl modal-dialog-centered modal-dialog-scrollable  modal-list',scrollable:true,backdrop: 'static'});
+      var ref=this.modalService.open(MediaServerListModalComponent, {container:"#sinovadMainContainer",modalDialogClass:'modal-dialog modal-fullscreen-md-down modal-xl modal-dialog-centered modal-dialog-scrollable  modal-list',scrollable:true,backdrop: 'static'});
       ref.componentInstance.parent=user;
       ref.closed.subscribe(x=>{
         ctx.lastSelectedItem=undefined;
