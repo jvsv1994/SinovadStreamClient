@@ -21,8 +21,7 @@ declare var window;
 export class SidebarAccountComponent implements OnInit {
 
   mediaServers:MediaServer[]=[];
-  subscriptionEnableMediaServer:Subscription;
-  subscriptionDisableMediaServer:Subscription;
+  subscription:Subscription= new Subscription();
   selectedMediaServer:MediaServer;
   @Output() collapseSidebar=new EventEmitter();
   @ViewChild('mediaServerButton') mediaServerButton:ElementRef ;
@@ -81,7 +80,7 @@ export class SidebarAccountComponent implements OnInit {
     public  ref:ChangeDetectorRef,
     public commonService:CommonService,
     public sharedDataService: SharedDataService) {
-      this.subscriptionEnableMediaServer=this.signalIrService.isEnablingMediaServer().subscribe(
+      this.subscription.add(this.signalIrService.isEnablingMediaServer().subscribe(
         {
           next:(mediaServerGuid:string) => {
             if(this.selectedMediaServer && this.selectedMediaServer.Guid==mediaServerGuid && !this.selectedMediaServer.isSecureConnection)
@@ -101,8 +100,8 @@ export class SidebarAccountComponent implements OnInit {
           },
           complete:()=>{console.info("completado");}
         }
-      );
-      this.subscriptionDisableMediaServer=this.signalIrService.isDisablingMediaServer().subscribe((mediaServerGuid:string) => {
+      ));
+      this.subscription.add(this.signalIrService.isDisablingMediaServer().subscribe((mediaServerGuid:string) => {
         if(this.selectedMediaServer && this.selectedMediaServer.Guid==mediaServerGuid && this.selectedMediaServer.isSecureConnection)
         {
           this.selectedMediaServer.isSecureConnection=false;
@@ -113,7 +112,7 @@ export class SidebarAccountComponent implements OnInit {
         {
           mediaServer.isSecureConnection=false;
         }
-      });
+      }));
     }
 
   ngOnInit(): void {
@@ -143,8 +142,7 @@ export class SidebarAccountComponent implements OnInit {
   }
 
   ngOnDestroy(){
-    this.subscriptionEnableMediaServer.unsubscribe();
-    this.subscriptionDisableMediaServer.unsubscribe();
+    this.subscription.unsubscribe();
   }
 
   public getOptionPath(option:SidebarOption){

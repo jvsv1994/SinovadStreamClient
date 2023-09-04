@@ -22,8 +22,7 @@ export class AlertsComponent extends CustomListGeneric<Alert> {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   mediaServer:MediaServer;
   loadingConnection:boolean=true;
-  subscriptionEnableMediaServer:Subscription;
-  subscriptionDisableMediaServer:Subscription;
+  subscription:Subscription= new Subscription();
 
   constructor(
     private ref:ChangeDetectorRef,
@@ -38,7 +37,7 @@ export class AlertsComponent extends CustomListGeneric<Alert> {
       this.router.routeReuseStrategy.shouldReuseRoute = function () {
         return false;
       };
-      this.subscriptionEnableMediaServer=this.signalIrService.isEnablingMediaServer().subscribe((mediaServerGuid:string) => {
+      this.subscription.add(this.signalIrService.isEnablingMediaServer().subscribe((mediaServerGuid:string) => {
         if(this.mediaServer && this.mediaServer.Guid==mediaServerGuid && !this.mediaServer.isSecureConnection)
         {
           this.mediaServer.isSecureConnection=true;
@@ -47,13 +46,13 @@ export class AlertsComponent extends CustomListGeneric<Alert> {
           this.initializePaginator();
           this.getAllItems();
         }
-      });
-      this.subscriptionDisableMediaServer=this.signalIrService.isDisablingMediaServer().subscribe((mediaServerGuid:string) => {
+      }));
+      this.subscription.add(this.signalIrService.isDisablingMediaServer().subscribe((mediaServerGuid:string) => {
         if(this.mediaServer && this.mediaServer.Guid==mediaServerGuid && this.mediaServer.isSecureConnection)
         {
           this.mediaServer.isSecureConnection=false;
         }
-      });
+      }));
   }
 
   ngOnInit(): void {
@@ -93,8 +92,7 @@ export class AlertsComponent extends CustomListGeneric<Alert> {
   }
 
   ngOnDestroy(){
-    this.subscriptionEnableMediaServer.unsubscribe();
-    this.subscriptionDisableMediaServer.unsubscribe();
+    this.subscription.unsubscribe();
   }
 
   public getAllItems(){

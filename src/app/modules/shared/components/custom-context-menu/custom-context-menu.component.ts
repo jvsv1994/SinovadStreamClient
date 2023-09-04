@@ -22,10 +22,6 @@ export class CustomContextMenuComponent {
   listOptions:ContextMenuOption[];
   hideContextMenu =new EventEmitter();
   clickOption =new EventEmitter();
-  htmlContent:HTMLElement;
-  mainContainer:HTMLElement;
-  hideContextMenuSuscription:Subscription;
-  clickOptionSubscription:Subscription;
 
   constructor() {
 

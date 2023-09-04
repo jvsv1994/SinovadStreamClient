@@ -18,11 +18,7 @@ import { MediaFilePlaybackClient } from 'src/app/modules/pages/media/models/medi
 export class DashboardComponent {
   mediaServer:MediaServer;
   loadingConnection:boolean=true;
-  subscriptionEnableMediaServer:Subscription;
-  subscriptionDisableMediaServer:Subscription;
-  subscriptionUpdateCurrentTimeMediaFilePlayback:Subscription;
-  subscriptionAddedMediaFilePlayback:Subscription;
-  subscriptionRemovedMediaFilePlayback:Subscription;
+  subscription:Subscription= new Subscription();
   listItems:MediaFilePlayback[];
 
   constructor(
@@ -37,7 +33,7 @@ export class DashboardComponent {
     this.router.routeReuseStrategy.shouldReuseRoute = function () {
       return false;
     };
-    this.subscriptionAddedMediaFilePlayback=this.signalIrService.isAddedMediaFilePlayback().subscribe((event:any) => {
+    this.subscription.add(this.signalIrService.isAddedMediaFilePlayback().subscribe((event:any) => {
       if(this.mediaServer && this.mediaServer.Guid==event.mediaServerGuid)
       {
         var item=this.listItems.find(x=>x.Guid==event.mediaFilePlaybackGuid);
@@ -55,8 +51,8 @@ export class DashboardComponent {
           });
         }
       }
-    });
-    this.subscriptionRemovedMediaFilePlayback=this.signalIrService.isRemovedMediaFilePlayback().subscribe((event:any) => {
+    }));
+    this.subscription.add(this.signalIrService.isRemovedMediaFilePlayback().subscribe((event:any) => {
       if(this.mediaServer && this.mediaServer.Guid==event.mediaServerGuid)
       {
         var index=this.listItems.findIndex(x=>x.Guid==event.mediaFilePlaybackGuid);
@@ -66,8 +62,8 @@ export class DashboardComponent {
           this.ref.detectChanges();
         }
       }
-    });
-    this.subscriptionUpdateCurrentTimeMediaFilePlayback=this.signalIrService.isUpdatingCurrentTimeMediaFilePlayBack().subscribe((event:any) => {
+    }));
+    this.subscription.add(this.signalIrService.isUpdatingCurrentTimeMediaFilePlayBack().subscribe((event:any) => {
       if(this.mediaServer && this.mediaServer.Guid==event.mediaServerGuid)
       {
         var item=this.listItems.find(x=>x.Guid==event.mediaFilePlaybackGuid);
@@ -78,8 +74,8 @@ export class DashboardComponent {
           this.ref.detectChanges();
         }
       }
-    });
-    this.subscriptionEnableMediaServer=this.signalIrService.isEnablingMediaServer().subscribe((mediaServerGuid:string) => {
+    }));
+    this.subscription.add(this.signalIrService.isEnablingMediaServer().subscribe((mediaServerGuid:string) => {
       if(this.mediaServer && this.mediaServer.Guid==mediaServerGuid && !this.mediaServer.isSecureConnection)
       {
         this.mediaServer.isSecureConnection=true;
@@ -87,13 +83,13 @@ export class DashboardComponent {
         this.ref.detectChanges();
         this.getAllItems();
       }
-    });
-    this.subscriptionDisableMediaServer=this.signalIrService.isDisablingMediaServer().subscribe((mediaServerGuid:string) => {
+    }));
+    this.subscription.add(this.signalIrService.isDisablingMediaServer().subscribe((mediaServerGuid:string) => {
       if(this.mediaServer && this.mediaServer.Guid==mediaServerGuid && this.mediaServer.isSecureConnection)
       {
         this.mediaServer.isSecureConnection=false;
       }
-    });
+    }));
   }
 
   ngOnInit(): void {
@@ -118,11 +114,7 @@ export class DashboardComponent {
 
 
   ngOnDestroy(){
-    this.subscriptionEnableMediaServer.unsubscribe();
-    this.subscriptionDisableMediaServer.unsubscribe();
-    this.subscriptionUpdateCurrentTimeMediaFilePlayback.unsubscribe();
-    this.subscriptionAddedMediaFilePlayback.unsubscribe();
-    this.subscriptionRemovedMediaFilePlayback.unsubscribe();
+    this.subscription.unsubscribe();
   }
 
   public getAllItems(){

@@ -18,16 +18,14 @@ declare var window;
 export class SidebarMediaComponent{
 
   @Output() collapseSidebar=new EventEmitter();
-  subscriptionEnableMediaServer:Subscription;
-  subscriptionDisableMediaServer:Subscription;
-  subscriptionUpdateLibrariesByMediaServer:Subscription;
+  subscription:Subscription= new Subscription();
   mediaMenu:Menu[]=[];
 
   constructor(
     private libraryService:LibraryService,
     private signalIrService:SignalIRHubService,
     public sharedDataService:SharedDataService) {
-      this.subscriptionEnableMediaServer=this.signalIrService.isEnablingMediaServer().subscribe((mediaServerGuid:string) => {
+      this.subscription.add(this.signalIrService.isEnablingMediaServer().subscribe((mediaServerGuid:string) => {
         var mediaServerMenu=this.mediaMenu.find(x=>x.MediaServerGuid==mediaServerGuid);
         if(mediaServerMenu && !mediaServerMenu.IsSecureConnection)
         {
@@ -38,16 +36,16 @@ export class SidebarMediaComponent{
             this.updateLibrariesInMediaServer(mediaServerMenu,mediaServer);
           }
         }
-      });
-      this.subscriptionDisableMediaServer=this.signalIrService.isDisablingMediaServer().subscribe((mediaServerGuid:string) => {
+      }));
+      this.subscription.add(this.signalIrService.isDisablingMediaServer().subscribe((mediaServerGuid:string) => {
         var mediaServerMenu=this.mediaMenu.find(x=>x.MediaServerGuid==mediaServerGuid);
         if(mediaServerMenu && mediaServerMenu.IsSecureConnection)
         {
           mediaServerMenu.IsSecureConnection=false;
           mediaServerMenu.ChildMenus=[];
         }
-      });
-      this.subscriptionUpdateLibrariesByMediaServer=this.signalIrService.isUpdatingLibrariesByMediaServer().subscribe((mediaServerGuid:string) => {
+      }));
+      this.subscription.add(this.signalIrService.isUpdatingLibrariesByMediaServer().subscribe((mediaServerGuid:string) => {
         var mediaServerMenu=this.mediaMenu.find(x=>x.MediaServerGuid==mediaServerGuid);
         var mediaServer=this.sharedDataService.mediaServers.find(x=>x.Guid==mediaServerGuid);
         if(mediaServerMenu && mediaServer)
@@ -55,8 +53,7 @@ export class SidebarMediaComponent{
           mediaServerMenu.IsSecureConnection=true;
           this.updateLibrariesInMediaServer(mediaServerMenu,mediaServer);
         }
-      });
-
+      }));
   }
 
 
@@ -65,9 +62,7 @@ export class SidebarMediaComponent{
   }
 
   ngOnDestroy(){
-    this.subscriptionEnableMediaServer.unsubscribe();
-    this.subscriptionDisableMediaServer.unsubscribe();
-    this.subscriptionUpdateLibrariesByMediaServer.unsubscribe();
+    this.subscription.unsubscribe();
   }
 
   public getMediaMenu(){

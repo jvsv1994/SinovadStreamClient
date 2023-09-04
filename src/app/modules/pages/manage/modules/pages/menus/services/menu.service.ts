@@ -12,8 +12,6 @@ import { Menu } from '../models/menu.model';
 export class MenuService {
 
   lastCallGuid:string;
-  subscriptionUpdatingLibraries:Subscription;
-  subscriptionCompleteConnection:Subscription;
   completedLoadUserManageMenu$ = new Subject<boolean>();
   loadedManageMenu:boolean=false;
 

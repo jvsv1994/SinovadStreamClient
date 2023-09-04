@@ -32,8 +32,7 @@ export class TranscoderSettingssPageComponent implements OnInit {
   loading:boolean=false;
   customForm:FormGroup;
   loadingConnection:boolean=true;
-  subscriptionEnableMediaServer:Subscription;
-  subscriptionDisableMediaServer:Subscription;
+  subscription:Subscription= new Subscription();
 
   constructor(
     private catalogService:CatalogService,
@@ -48,20 +47,20 @@ export class TranscoderSettingssPageComponent implements OnInit {
       this.router.routeReuseStrategy.shouldReuseRoute = function () {
         return false;
       };
-      this.subscriptionEnableMediaServer=this.signalIrService.isEnablingMediaServer().subscribe((mediaServerGuid:string) => {
+      this.subscription.add(this.signalIrService.isEnablingMediaServer().subscribe((mediaServerGuid:string) => {
         if(this.mediaServer && this.mediaServer.Guid==mediaServerGuid && !this.mediaServer.isSecureConnection)
         {
           this.loadingConnection=false;
           this.mediaServer.isSecureConnection=true;
           this.getTranscoderSettingss();
         }
-      });
-      this.subscriptionDisableMediaServer=this.signalIrService.isDisablingMediaServer().subscribe((mediaServerGuid:string) => {
+      }));
+      this.subscription.add(this.signalIrService.isDisablingMediaServer().subscribe((mediaServerGuid:string) => {
         if(this.mediaServer && this.mediaServer.Guid==mediaServerGuid && this.mediaServer.isSecureConnection)
         {
           this.mediaServer.isSecureConnection=false;
         }
-      });
+      }));
     }
 
     ngOnInit(): void {
@@ -86,8 +85,7 @@ export class TranscoderSettingssPageComponent implements OnInit {
     }
 
     ngOnDestroy(){
-      this.subscriptionEnableMediaServer.unsubscribe();
-      this.subscriptionDisableMediaServer.unsubscribe();
+      this.subscription.unsubscribe();
     }
 
 

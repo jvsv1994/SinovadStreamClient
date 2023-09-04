@@ -23,8 +23,7 @@ export class ServerSettingsGeneralPageComponent implements OnInit {
   mediaServer:MediaServer;
   loading:boolean=false;
   loadingConnection:boolean=true;
-  subscriptionEnableMediaServer:Subscription;
-  subscriptionDisableMediaServer:Subscription;
+  subscription:Subscription= new Subscription();
 
   constructor(
     private signalIrService:SignalIRHubService,
@@ -37,19 +36,19 @@ export class ServerSettingsGeneralPageComponent implements OnInit {
       this.router.routeReuseStrategy.shouldReuseRoute = function () {
         return false;
       };
-      this.subscriptionEnableMediaServer=this.signalIrService.isEnablingMediaServer().subscribe((mediaServerGuid:string) => {
+      this.subscription.add(this.signalIrService.isEnablingMediaServer().subscribe((mediaServerGuid:string) => {
         if(this.mediaServer && this.mediaServer.Guid==mediaServerGuid && !this.mediaServer.isSecureConnection)
         {
           this.loadingConnection=false;
           this.mediaServer.isSecureConnection=true;
         }
-      });
-      this.subscriptionDisableMediaServer=this.signalIrService.isDisablingMediaServer().subscribe((mediaServerGuid:string) => {
+      }));
+      this.subscription.add(this.signalIrService.isDisablingMediaServer().subscribe((mediaServerGuid:string) => {
         if(this.mediaServer && this.mediaServer.Guid==mediaServerGuid && this.mediaServer.isSecureConnection)
         {
           this.mediaServer.isSecureConnection=false;
         }
-      });
+      }));
     }
 
     ngOnInit(): void {
@@ -75,8 +74,7 @@ export class ServerSettingsGeneralPageComponent implements OnInit {
     }
 
     ngOnDestroy(){
-      this.subscriptionEnableMediaServer.unsubscribe();
-      this.subscriptionDisableMediaServer.unsubscribe();
+      this.subscription.unsubscribe();
     }
 
     public async getMediaServerData(){
