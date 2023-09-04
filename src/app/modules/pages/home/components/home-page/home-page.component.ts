@@ -18,10 +18,7 @@ export class HomePageComponent {
 
   itemsGroupList:ItemsGroup[]=[];
   _window=window;
-  subscriptionEnableMediaServer:Subscription;
-  subscriptionDisableMediaServer:Subscription;
-  subscriptionUpdateLibrariesByMediaServer:Subscription;
-  subscriptionUpdateItemsByMediaServer:Subscription;
+  subscription:Subscription= new Subscription();
   mediaServers:MediaServer[];
   loadingConnection:boolean=true;
 
@@ -35,7 +32,7 @@ export class HomePageComponent {
         return false;
       };
       let ctx=this;
-      this.subscriptionEnableMediaServer=this.signalIrService.isEnablingMediaServer().subscribe((mediaServerGuid:string)=>{
+      this.subscription.add(this.signalIrService.isEnablingMediaServer().subscribe((mediaServerGuid:string)=>{
         var mediaServer=ctx.mediaServers.find(x=>x.Guid==mediaServerGuid);
         if(mediaServer && !mediaServer.isSecureConnection)
         {
@@ -43,31 +40,31 @@ export class HomePageComponent {
           mediaServer.isSecureConnection=true;
           ctx.getAllItemsByMediaServer(mediaServer);
         }
-      });
-      this.subscriptionDisableMediaServer=this.signalIrService.isDisablingMediaServer().subscribe((mediaServerGuid:string)=>{
+      }));
+      this.subscription.add(this.signalIrService.isDisablingMediaServer().subscribe((mediaServerGuid:string)=>{
         var mediaServer=ctx.mediaServers.find(x=>x.Guid==mediaServerGuid);
         if(mediaServer && mediaServer.isSecureConnection)
         {
           mediaServer.isSecureConnection=false;
           ctx.clearItemsInGroup(mediaServer.Id);
         }
-      });
-      this.subscriptionUpdateLibrariesByMediaServer=this.signalIrService.isUpdatingLibrariesByMediaServer().subscribe((mediaServerGuid:string)=>{
+      }));
+      this.subscription.add(this.signalIrService.isUpdatingLibrariesByMediaServer().subscribe((mediaServerGuid:string)=>{
         var mediaServer=ctx.mediaServers.find(x=>x.Guid==mediaServerGuid);
         if(mediaServer && !mediaServer.isSecureConnection)
         {
           mediaServer.isSecureConnection=true;
           ctx.getAllItemsByMediaServer(mediaServer);
         }
-      });
-      this.subscriptionUpdateItemsByMediaServer=this.signalIrService.isUpdatingItemsByMediaServer().subscribe((mediaServerGuid:string)=>{
+      }));
+      this.subscription.add(this.signalIrService.isUpdatingItemsByMediaServer().subscribe((mediaServerGuid:string)=>{
           var mediaServer=ctx.mediaServers.find(x=>x.Guid==mediaServerGuid);
           if(mediaServer && !mediaServer.isSecureConnection)
           {
             mediaServer.isSecureConnection=true;
             ctx.getAllItemsByMediaServer(mediaServer);
           }
-      });
+      }));
     }
 
     public ngOnInit(): void {
@@ -89,10 +86,7 @@ export class HomePageComponent {
     }
 
     ngOnDestroy(){
-      this.subscriptionEnableMediaServer.unsubscribe();
-      this.subscriptionDisableMediaServer.unsubscribe();
-      this.subscriptionUpdateLibrariesByMediaServer.unsubscribe();
-      this.subscriptionUpdateItemsByMediaServer.unsubscribe();
+      this.subscription.unsubscribe();
     }
 
     public isEnableAnyMediaServer(){
