@@ -9,10 +9,10 @@ import { CommonService } from 'src/app/services/common.service';
 declare var window;
 @Component({
   selector: 'app-set-password',
-  templateUrl: './set-password.page.html',
-  styleUrls: ['./set-password.page.scss','../../styles/account-settings-section.scss']
+  templateUrl: './set-password.component.html',
+  styleUrls: ['./set-password.component.scss','../../styles/account-settings-section.scss']
 })
-export class SetPasswordPage implements OnInit {
+export class SetPasswordComponent implements OnInit {
 
   serverErrorMessage:string=undefined;
   setPasswordData:SetPasswordModel;
