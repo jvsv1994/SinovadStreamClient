@@ -17,10 +17,10 @@ import { CommonService } from 'src/app/services/common.service';
 
 @Component({
   selector: 'app-tvserie-form',
-  templateUrl: './tvserie-form.page.html',
-  styleUrls: ['./tvserie-form.page.scss']
+  templateUrl: './tvserie-form.component.html',
+  styleUrls: ['./tvserie-form.component.scss']
 })
-export class TvSerieFormPage implements OnInit{
+export class TvSerieFormComponent implements OnInit{
 
   @Input() tvserie:TvSerie;
   listTvSeries:TvSerie[];

@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SeasonsModule } from '../seasons/seasons.module';
-import { TvSerieFormPage } from './components/tvserie-form/tvserie-form.page';
-import { TvSerieListPage } from './components/tvserie-list/tvserie-list.page';
 import { SharedModule } from 'src/app/modules/shared/shared.module';
+import { TvSerieListComponent } from './components/tvserie-list/tvserie-list.component';
+import { TvSerieFormComponent } from './components/tvserie-form/tvserie-form.component';
 
 @NgModule({
     declarations: [
-      TvSerieListPage,TvSerieFormPage
+      TvSerieListComponent,TvSerieFormComponent
     ],
     providers:[],
     imports: [
@@ -16,7 +16,7 @@ import { SharedModule } from 'src/app/modules/shared/shared.module';
       SharedModule,
       SeasonsModule
     ],
-    exports: [TvSerieListPage,TvSerieFormPage]
+    exports: [TvSerieListComponent,TvSerieFormComponent]
 })
 export class TvSeriesModule {
 }

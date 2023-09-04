@@ -6,7 +6,6 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { SnackBarService } from 'src/app/modules/shared/services/snack-bar.service';
-import { TvSerieFormPage } from '../tvserie-form/tvserie-form.page';
 import { MatTableDataSource } from '@angular/material/table';
 import { ConfirmDialogOptions, CustomConfirmDialogComponent } from 'src/app/modules/shared/components/custom-confirm-dialog/custom-confirm-dialog.component';
 import { SnackBarType } from 'src/app/modules/shared/components/custom-snack-bar/custom-snack-bar.component';
@@ -14,13 +13,14 @@ import { SinovadApiPaginationResponse } from 'src/app/modules/shared/models/resp
 import { TvSerie } from '../../models/tvserie.model';
 import { TvSerieService } from '../../services/tvserie.service';
 import { SeasonListModalComponent } from '../../../seasons/components/season-list-modal/season-list-modal.component';
+import { TvSerieFormComponent } from '../tvserie-form/tvserie-form.component';
 
 @Component({
   selector: 'app-tvserie-list',
-  templateUrl: './tvserie-list.page.html',
-  styleUrls: ['./tvserie-list.page.scss']
+  templateUrl: './tvserie-list.component.html',
+  styleUrls: ['./tvserie-list.component.scss']
 })
-export class TvSerieListPage extends CustomListGeneric<TvSerie> implements AfterViewInit {
+export class TvSerieListComponent extends CustomListGeneric<TvSerie> implements AfterViewInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -90,7 +90,7 @@ export class TvSerieListPage extends CustomListGeneric<TvSerie> implements After
 
     public showModalForm(tvserie:TvSerie){
       var ctx=this;
-      var ref=this.modalService.open(TvSerieFormPage, {container:"#sinovadMainContainer",
+      var ref=this.modalService.open(TvSerieFormComponent, {container:"#sinovadMainContainer",
       modalDialogClass:'modal-dialog modal-fullscreen-md-down modal-dialog-centered modal-dialog-scrollable',scrollable:true,backdrop: 'static'});
       ref.componentInstance.tvserie=tvserie;
       ref.closed.subscribe(x=>{
