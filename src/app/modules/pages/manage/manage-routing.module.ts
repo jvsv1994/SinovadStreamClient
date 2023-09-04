@@ -2,12 +2,12 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { loggedUserGuard } from 'src/app/guards/logged-user.guard';
 import { adminGuard } from 'src/app/guards/admin.guard';
-import { MenuListPage } from './modules/pages/menus/components/menu-list/menu-list.page';
 import { RoleListPage } from './modules/pages/roles/components/role-list/role-list.page';
 import { MovieListComponent } from './modules/pages/movies/components/movie-list/movie-list.component';
 import { TvSerieListComponent } from './modules/pages/tvseries/components/tvserie-list/tvserie-list.component';
 import { UserListComponent } from './modules/pages/users/components/user-list/user-list.component';
 import { GenreListComponent } from './modules/pages/genres/components/genre-list/genre-list.component';
+import { MenuListComponent } from './modules/pages/menus/components/menu-list/menu-list.component';
 
 const routes: Routes = [ {
   path: 'movies',
@@ -29,7 +29,7 @@ const routes: Routes = [ {
 },
 {
   path: 'menus',
-  component: MenuListPage,
+  component: MenuListComponent,
   loadChildren: () => import('./modules/pages/menus/menus.module').then(m => m.MenusModule),
   canActivate:[loggedUserGuard,adminGuard]
 },

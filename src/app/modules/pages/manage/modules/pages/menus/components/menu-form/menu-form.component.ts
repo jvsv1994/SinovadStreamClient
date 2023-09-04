@@ -14,10 +14,10 @@ import { CatalogDetail } from '../../../catalogs/model/catalog-detail.model';
 
 @Component({
   selector: 'app-menu-form',
-  templateUrl: './menu-form.page.html',
-  styleUrls: ['./menu-form.page.scss']
+  templateUrl: './menu-form.component.html',
+  styleUrls: ['./menu-form.component.scss']
 })
-export class MenuFormPage implements OnInit,AfterViewInit{
+export class MenuFormComponent implements OnInit,AfterViewInit{
 
   @Input() menu:Menu;
   listMenusSelectable:Menu[];

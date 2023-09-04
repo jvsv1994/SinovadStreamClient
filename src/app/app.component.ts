@@ -8,7 +8,6 @@ import { MediaDetailComponent } from './modules/pages/media-detail/components/me
 import { LibraryListComponent } from './modules/pages/settings/modules/pages/server/modules/pages/manage/modules/pages/libraries/components/library-list/library-list.component';
 import { AlertsComponent } from './modules/pages/settings/modules/pages/server/modules/pages/status/modules/pages/alerts/components/alerts/alerts.component';
 import { UserService } from './modules/pages/manage/modules/pages/users/services/user.service';
-import { MenuListPage } from './modules/pages/manage/modules/pages/menus/components/menu-list/menu-list.page';
 import { RoleListPage } from './modules/pages/manage/modules/pages/roles/components/role-list/role-list.page';
 import { DashboardComponent } from './modules/pages/settings/modules/pages/server/modules/pages/status/modules/pages/dashboard/components/dashboard/dashboard.component';
 import { DeviceData } from './models/device-data.model';
@@ -29,6 +28,7 @@ import { MovieListComponent } from './modules/pages/manage/modules/pages/movies/
 import { TvSerieListComponent } from './modules/pages/manage/modules/pages/tvseries/components/tvserie-list/tvserie-list.component';
 import { UserListComponent } from './modules/pages/manage/modules/pages/users/components/user-list/user-list.component';
 import { GenreListComponent } from './modules/pages/manage/modules/pages/genres/components/genre-list/genre-list.component';
+import { MenuListComponent } from './modules/pages/manage/modules/pages/menus/components/menu-list/menu-list.component';
 
 @Component({
   selector: 'app-root',
@@ -136,7 +136,7 @@ export class AppComponent{
         this.showingSidebarAdminMode=false;
         this.showingSidebarMedia=false;
       }
-      if(event instanceof MovieListComponent || event instanceof TvSerieListComponent || event instanceof MenuListPage
+      if(event instanceof MovieListComponent || event instanceof TvSerieListComponent || event instanceof MenuListComponent
         || event instanceof GenreListComponent || event instanceof UserListComponent || event instanceof RoleListPage)
       {
         this.showRouterChildWithFullDimentions=false;

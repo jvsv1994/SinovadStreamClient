@@ -6,20 +6,20 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { SnackBarService } from 'src/app/modules/shared/services/snack-bar.service';
-import { MenuFormPage } from '../menu-form/menu-form.page';
 import { MatTableDataSource } from '@angular/material/table';
 import { ConfirmDialogOptions, CustomConfirmDialogComponent } from 'src/app/modules/shared/components/custom-confirm-dialog/custom-confirm-dialog.component';
 import { SnackBarType } from 'src/app/modules/shared/components/custom-snack-bar/custom-snack-bar.component';
 import { SinovadApiPaginationResponse } from 'src/app/modules/shared/models/response/sinovad-api-pagination-response.model';
 import { Menu } from '../../models/menu.model';
 import { MenuService } from '../../services/menu.service';
+import { MenuFormComponent } from '../menu-form/menu-form.component';
 
 @Component({
   selector: 'app-menu-list',
-  templateUrl: './menu-list.page.html',
-  styleUrls: ['./menu-list.page.scss']
+  templateUrl: './menu-list.component.html',
+  styleUrls: ['./menu-list.component.scss']
 })
-export class MenuListPage extends CustomListGeneric<Menu> implements AfterViewInit {
+export class MenuListComponent extends CustomListGeneric<Menu> implements AfterViewInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -89,7 +89,7 @@ export class MenuListPage extends CustomListGeneric<Menu> implements AfterViewIn
 
     public showModalForm(menu:Menu){
       var ctx=this;
-      var ref=this.modalService.open(MenuFormPage, {container:"#sinovadMainContainer",
+      var ref=this.modalService.open(MenuFormComponent, {container:"#sinovadMainContainer",
       modalDialogClass:'modal-dialog modal-fullscreen-md-down modal-dialog-centered modal-dialog-scrollable',scrollable:true,backdrop: 'static'});
       ref.componentInstance.menu=menu;
       ref.closed.subscribe(x=>{

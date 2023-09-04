@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MenuListPage } from './components/menu-list/menu-list.page';
-import { MenuFormPage } from './components/menu-form/menu-form.page';
 import { SharedModule } from 'src/app/modules/shared/shared.module';
+import { MenuListComponent } from './components/menu-list/menu-list.component';
+import { MenuFormComponent } from './components/menu-form/menu-form.component';
 
 @NgModule({
     declarations: [
-      MenuListPage,MenuFormPage
+      MenuListComponent,MenuFormComponent
     ],
     providers:[],
     imports: [
@@ -14,7 +14,7 @@ import { SharedModule } from 'src/app/modules/shared/shared.module';
       ReactiveFormsModule,
       SharedModule
     ],
-    exports: [MenuListPage,MenuFormPage]
+    exports: [MenuListComponent,MenuFormComponent]
 })
 export class MenusModule {
 }
