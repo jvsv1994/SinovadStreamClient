@@ -81,19 +81,27 @@ export class SidebarAccountComponent implements OnInit {
     public  ref:ChangeDetectorRef,
     public commonService:CommonService,
     public sharedDataService: SharedDataService) {
-      this.subscriptionEnableMediaServer=this.signalIrService.isEnablingMediaServer().subscribe((mediaServerGuid:string) => {
-        if(this.selectedMediaServer && this.selectedMediaServer.Guid==mediaServerGuid && !this.selectedMediaServer.isSecureConnection)
+      this.subscriptionEnableMediaServer=this.signalIrService.isEnablingMediaServer().subscribe(
         {
-          this.selectedMediaServer.isSecureConnection=true;
-          this.loadingConnection=false;
-          this.closeDropDown();
+          next:(mediaServerGuid:string) => {
+            if(this.selectedMediaServer && this.selectedMediaServer.Guid==mediaServerGuid && !this.selectedMediaServer.isSecureConnection)
+            {
+              this.selectedMediaServer.isSecureConnection=true;
+              this.loadingConnection=false;
+              this.closeDropDown();
+            }
+            var mediaServer=this.mediaServers.find(x=>x.Guid==mediaServerGuid);
+            if(mediaServer && !mediaServer.isSecureConnection)
+            {
+              mediaServer.isSecureConnection=true;
+            }
+          },
+          error:(error:any)=>{
+            console.error('Ha ocurrido un error');
+          },
+          complete:()=>{console.info("completado");}
         }
-        var mediaServer=this.mediaServers.find(x=>x.Guid==mediaServerGuid);
-        if(mediaServer && !mediaServer.isSecureConnection)
-        {
-          mediaServer.isSecureConnection=true;
-        }
-      });
+      );
       this.subscriptionDisableMediaServer=this.signalIrService.isDisablingMediaServer().subscribe((mediaServerGuid:string) => {
         if(this.selectedMediaServer && this.selectedMediaServer.Guid==mediaServerGuid && this.selectedMediaServer.isSecureConnection)
         {
