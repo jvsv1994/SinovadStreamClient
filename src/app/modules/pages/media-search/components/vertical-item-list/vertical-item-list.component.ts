@@ -9,10 +9,10 @@ import { CommonService } from 'src/app/services/common.service';
 declare var window;
 @Component({
   selector: 'app-vertical-item-list',
-  templateUrl: './vertical-item-list.page.html',
-  styleUrls: ['./vertical-item-list.page.scss']
+  templateUrl: './vertical-item-list.component.html',
+  styleUrls: ['./vertical-item-list.component.scss']
 })
-export class VerticalItemListPage implements OnInit {
+export class VerticalItemListComponent implements OnInit {
 
   @ViewChild('itemListContainer') container: ElementRef;
   @Input() searchText:string;

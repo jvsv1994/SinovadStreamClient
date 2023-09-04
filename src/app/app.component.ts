@@ -1,7 +1,6 @@
 
 import { ChangeDetectorRef, Component, HostListener} from '@angular/core';
 import { DeviceDetectorService } from 'ngx-device-detector';
-import { SearchViewPage } from './modules/pages/media-search/components/search-view/search-view.page';
 import { VideoComponent } from './modules/pages/media-video/components/video/video.component';
 import { MediaItemsComponent } from './modules/pages/media-items/components/media-items/media-items.component';
 import { MediaDetailComponent } from './modules/pages/media-detail/components/media-detail/media-detail.component';
@@ -29,6 +28,7 @@ import { UserListComponent } from './modules/pages/manage/modules/pages/users/co
 import { GenreListComponent } from './modules/pages/manage/modules/pages/genres/components/genre-list/genre-list.component';
 import { MenuListComponent } from './modules/pages/manage/modules/pages/menus/components/menu-list/menu-list.component';
 import { RoleListComponent } from './modules/pages/manage/modules/pages/roles/components/role-list/role-list.component';
+import { SearchViewComponent } from './modules/pages/media-search/components/search-view/search-view.component';
 
 @Component({
   selector: 'app-root',
@@ -114,14 +114,7 @@ export class AppComponent{
         this.showingSidebarAccount=false;
         this.showingSidebarAdminMode=false;
       }
-      if(event instanceof SearchViewPage)
-      {
-        this.showRouterChildWithFullDimentions=false;
-        this.showingSidebarMedia=true;
-        this.showingSidebarAccount=false;
-        this.showingSidebarAdminMode=false;
-      }
-      if(event instanceof MediaItemsComponent || event instanceof MediaDetailComponent)
+      if(event instanceof MediaItemsComponent || event instanceof MediaDetailComponent || event instanceof SearchViewComponent)
       {
         this.showRouterChildWithFullDimentions=false;
         this.showingSidebarMedia=true;

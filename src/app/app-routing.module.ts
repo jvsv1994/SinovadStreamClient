@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule} from '@angular/router';
 import { loggedUserGuard } from './guards/logged-user.guard';
 import { unloggedUserGuard } from './guards/unlogged-user.guard ';
-import { SearchViewPage } from './modules/pages/media-search/components/search-view/search-view.page';
 import { VideoComponent } from './modules/pages/media-video/components/video/video.component';
 import { MediaItemsComponent } from './modules/pages/media-items/components/media-items/media-items.component';
 import { MediaDetailComponent } from './modules/pages/media-detail/components/media-detail/media-detail.component';
@@ -13,6 +12,7 @@ import { ConfirmEmailComponent } from './modules/pages/confirm-email/components/
 import { NotFoundPageComponent } from './components/pages/not-found-page/not-found-page.component';
 import { LandingPageComponent } from './components/pages/landing-page/landing-page.component';
 import { RecoverPasswordComponent } from './modules/pages/recover-password/components/recover-password/recover-password.component';
+import { SearchViewComponent } from './modules/pages/media-search/components/search-view/search-view.component';
 
 const routes: Routes = [
   {
@@ -59,7 +59,7 @@ const routes: Routes = [
   },
   {
     path: 'search',
-    component: SearchViewPage,
+    component: SearchViewComponent,
     loadChildren: () => import('./modules/pages/media-search/media-search.module').then(m => m.MediaSearchModule),
     canActivate:[loggedUserGuard]
   },

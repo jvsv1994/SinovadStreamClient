@@ -2,12 +2,12 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from 'src/app/modules/shared/shared.module';
-import { SearchViewPage } from './components/search-view/search-view.page';
-import { VerticalItemListPage } from './components/vertical-item-list/vertical-item-list.page';
+import { SearchViewComponent } from './components/search-view/search-view.component';
+import { VerticalItemListComponent } from './components/vertical-item-list/vertical-item-list.component';
 
 @NgModule({
     declarations: [
-      SearchViewPage,VerticalItemListPage
+      SearchViewComponent,VerticalItemListComponent
     ],
     providers:[],
     imports: [
@@ -16,7 +16,7 @@ import { VerticalItemListPage } from './components/vertical-item-list/vertical-i
       SharedModule,
       RouterModule
     ],
-    exports: [SearchViewPage,VerticalItemListPage]
+    exports: [SearchViewComponent,VerticalItemListComponent]
 })
 export class MediaSearchModule {
 }

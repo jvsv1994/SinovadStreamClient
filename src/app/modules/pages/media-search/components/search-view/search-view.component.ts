@@ -6,10 +6,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 declare var window;
 @Component({
   selector: 'app-search-view',
-  templateUrl: './search-view.page.html',
-  styleUrls: ['./search-view.page.scss']
+  templateUrl: './search-view.component.html',
+  styleUrls: ['./search-view.component.scss']
 })
-export class SearchViewPage implements OnInit {
+export class SearchViewComponent implements OnInit {
 
   searchText:string="";
 
