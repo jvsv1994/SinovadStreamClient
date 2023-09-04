@@ -7,19 +7,19 @@ import { SnackBarService } from 'src/app/modules/shared/services/snack-bar.servi
 import { MatTableDataSource } from '@angular/material/table';
 import { ConfirmDialogOptions, CustomConfirmDialogComponent } from 'src/app/modules/shared/components/custom-confirm-dialog/custom-confirm-dialog.component';
 import { SnackBarType } from 'src/app/modules/shared/components/custom-snack-bar/custom-snack-bar.component';
-import { SeasonFormPage } from '../season-form/season-form.page';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SinovadApiPaginationResponse } from 'src/app/modules/shared/models/response/sinovad-api-pagination-response.model';
 import { TvSerie } from '../../../tvseries/models/tvserie.model';
 import { SeasonService } from '../../services/season.service';
 import { Season } from '../../models/season.model';
 import { EpisodeListModalComponent } from '../../../episodes/components/episode-list-modal/episode-list-modal.component';
+import { SeasonFormComponent } from '../season-form/season-form.component';
 @Component({
   selector: 'app-season-list',
-  templateUrl: 'season-list.page.html',
-  styleUrls: ['season-list.page.scss'],
+  templateUrl: 'season-list.component.html',
+  styleUrls: ['season-list.component.scss'],
 })
-export class SeasonListPage extends CustomListGeneric<Season>{
+export class SeasonListComponent extends CustomListGeneric<Season>{
 
   @Input() parentItem:TvSerie;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -85,7 +85,7 @@ export class SeasonListPage extends CustomListGeneric<Season>{
 
     public showModalForm(season:Season){
       var ctx=this;
-      var ref=this.modalService.open(SeasonFormPage, {container:"#sinovadMainContainer",
+      var ref=this.modalService.open(SeasonFormComponent, {container:"#sinovadMainContainer",
       modalDialogClass:'modal-dialog modal-fullscreen-md-down modal-dialog-centered modal-dialog-scrollable',scrollable:true,backdrop: 'static'});
       ref.componentInstance.season=season;
       ref.closed.subscribe(x=>{

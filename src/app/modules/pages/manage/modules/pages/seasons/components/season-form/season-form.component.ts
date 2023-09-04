@@ -13,10 +13,10 @@ import { SeasonService } from '../../services/season.service';
 
 @Component({
   selector: 'app-season-form',
-  templateUrl: './season-form.page.html',
-  styleUrls: ['./season-form.page.scss']
+  templateUrl: './season-form.component.html',
+  styleUrls: ['./season-form.component.scss']
 })
-export class SeasonFormPage implements AfterViewInit{
+export class SeasonFormComponent implements AfterViewInit{
 
   @Input() season:Season;
   seasonFormGroup:FormGroup;

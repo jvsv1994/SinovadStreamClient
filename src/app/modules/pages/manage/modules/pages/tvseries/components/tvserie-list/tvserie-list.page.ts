@@ -10,11 +10,10 @@ import { TvSerieFormPage } from '../tvserie-form/tvserie-form.page';
 import { MatTableDataSource } from '@angular/material/table';
 import { ConfirmDialogOptions, CustomConfirmDialogComponent } from 'src/app/modules/shared/components/custom-confirm-dialog/custom-confirm-dialog.component';
 import { SnackBarType } from 'src/app/modules/shared/components/custom-snack-bar/custom-snack-bar.component';
-import { Router } from '@angular/router';
 import { SinovadApiPaginationResponse } from 'src/app/modules/shared/models/response/sinovad-api-pagination-response.model';
 import { TvSerie } from '../../models/tvserie.model';
 import { TvSerieService } from '../../services/tvserie.service';
-import { SeasonListModalPage } from '../../../seasons/components/season-list-modal/season-list-modal.page';
+import { SeasonListModalComponent } from '../../../seasons/components/season-list-modal/season-list-modal.component';
 
 @Component({
   selector: 'app-tvserie-list',
@@ -195,7 +194,7 @@ export class TvSerieListPage extends CustomListGeneric<TvSerie> implements After
 
     public showSeasonListModal(tvserie:TvSerie){
       var ctx=this;
-      var ref=this.modalService.open(SeasonListModalPage, {container:"#sinovadMainContainer",modalDialogClass:'modal-dialog modal-fullscreen-md-down modal-xl modal-dialog-centered modal-dialog-scrollable  modal-list',scrollable:true,backdrop: 'static'});
+      var ref=this.modalService.open(SeasonListModalComponent, {container:"#sinovadMainContainer",modalDialogClass:'modal-dialog modal-fullscreen-md-down modal-xl modal-dialog-centered modal-dialog-scrollable  modal-list',scrollable:true,backdrop: 'static'});
       ref.componentInstance.parent=tvserie;
       ref.closed.subscribe(x=>{
 

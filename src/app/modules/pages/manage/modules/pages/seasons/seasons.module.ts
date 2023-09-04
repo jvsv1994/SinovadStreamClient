@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EpisodesModule } from '../episodes/episodes.module';
-import { SeasonFormPage } from './components/season-form/season-form.page';
-import { SeasonListModalPage } from './components/season-list-modal/season-list-modal.page';
-import { SeasonListPage } from './components/season-list/season-list.page';
 import { SharedModule } from 'src/app/modules/shared/shared.module';
+import { SeasonListComponent } from './components/season-list/season-list.component';
+import { SeasonListModalComponent } from './components/season-list-modal/season-list-modal.component';
+import { SeasonFormComponent } from './components/season-form/season-form.component';
 
 @NgModule({
     declarations: [
-      SeasonListPage,
-      SeasonListModalPage,
-      SeasonFormPage
+      SeasonListComponent,
+      SeasonListModalComponent,
+      SeasonFormComponent
     ],
     providers:[],
     imports: [
@@ -19,7 +19,7 @@ import { SharedModule } from 'src/app/modules/shared/shared.module';
       SharedModule,
       EpisodesModule
     ],
-    exports: [SeasonListPage,SeasonListModalPage,SeasonFormPage]
+    exports: [SeasonListComponent,SeasonListModalComponent,SeasonFormComponent]
 })
 export class SeasonsModule {
 }
