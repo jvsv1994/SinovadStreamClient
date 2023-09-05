@@ -125,6 +125,7 @@ export class SignalIRHubService {
   }
 
   private removeHubHandlerMethods(){
+    this.addWebLog({Created: new Date(),Description:"Eliminando controladores para los metodos del hub"})
     this.sharedDataService.hubConnection.off('UpdateCurrentTimeMediaFilePlayBack');
     this.sharedDataService.hubConnection.off('AddedMediaFilePlayBack');
     this.sharedDataService.hubConnection.off('RemovedMediaFilePlayBack');
@@ -137,6 +138,7 @@ export class SignalIRHubService {
   }
 
   private addHubEvents(){
+      this.addWebLog({Created: new Date(),Description:"Agregando controladores para los metodos del hub"})
       this.sharedDataService.hubConnection.on('UpdateMediaServers', (message) => {
         this.updateMediaServers();
       });
