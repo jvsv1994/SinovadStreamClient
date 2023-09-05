@@ -76,20 +76,21 @@ export class SignalIRHubService {
     let ctx=this;
     this.sharedDataService.hubConnection.start().then(() => {
       console.log('connection started');
-      ctx.setEvents(this.sharedDataService.hubConnection);
+      ctx.sharedDataService.hubConnection.invoke("AddConnectionToUserClientsGroup",this.sharedDataService.userData.Guid).then(res=>{})
+      ctx.addHubEvents();
       ctx.sharedDataService.hubConnection.onclose(x=>{
+        ctx.removeHubHandlerMethods();
         setTimeout(() => {
           if(ctx.sharedDataService.userData)
           {
-            ctx.removeHubHandlerMethods();
             ctx.tryStartHubConnection();
           }
         }, 1000,ctx);
       });
     }).catch((err) => {
       console.error('error while establishing signalr connection: ' + err);
+      ctx.removeHubHandlerMethods();
       setTimeout(() => {
-        ctx.removeHubHandlerMethods();
         ctx.tryStartHubConnection();
       }, 1000,ctx);
     });
@@ -100,6 +101,9 @@ export class SignalIRHubService {
     this.sharedDataService.hubConnection.stop();
   }
 
+  public delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
+  }
 
   private removeHubHandlerMethods(){
     this.sharedDataService.hubConnection.off('UpdateCurrentTimeMediaFilePlayBack');
@@ -113,11 +117,11 @@ export class SignalIRHubService {
     this.sharedDataService.hubConnection.off('UpdateItemsByMediaServerAndLibrary');
   }
 
-  private setEvents(hubConnection:HubConnection){
-      hubConnection.on('UpdateMediaServers', (message) => {
+  private addHubEvents(){
+      this.sharedDataService.hubConnection.on('UpdateMediaServers', (message) => {
         this.updateMediaServers();
       });
-      hubConnection.on('EnableMediaServer', (mediaServerGuid:string) => {
+      this.sharedDataService.hubConnection.on('EnableMediaServer', (mediaServerGuid:string) => {
         var mediaServer=this.sharedDataService.mediaServers.find(x=>x.Guid==mediaServerGuid);
         if(!mediaServer.isSecureConnection)
         {
@@ -125,7 +129,7 @@ export class SignalIRHubService {
         }
         this.enableMediaServer(mediaServerGuid);
       });
-      hubConnection.on('DisableMediaServer', (mediaServerGuid:string) => {
+      this.sharedDataService.hubConnection.on('DisableMediaServer', (mediaServerGuid:string) => {
         var mediaServer=this.sharedDataService.mediaServers.find(x=>x.Guid==mediaServerGuid);
         if(mediaServer.isSecureConnection)
         {
@@ -133,24 +137,23 @@ export class SignalIRHubService {
         }
         this.disableMediaServer(mediaServerGuid);
       });
-      hubConnection.on('UpdateLibrariesByMediaServer', (mediaServerGuid:string) => {
+      this.sharedDataService.hubConnection.on('UpdateLibrariesByMediaServer', (mediaServerGuid:string) => {
         this.updateLibrariesByMediaServer(mediaServerGuid);
       });
-      hubConnection.on('UpdateItemsByMediaServer', (mediaServerGuid:string) => {
+      this.sharedDataService.hubConnection.on('UpdateItemsByMediaServer', (mediaServerGuid:string) => {
         this.updateItemsByMediaServer(mediaServerGuid);
       });
 /*       hubConnection.on('UpdateItemsByMediaServerAndLibrary', (mediaServerGuid:string,libraryGuid:string) => {
       }); */
-      hubConnection.on('UpdateCurrentTimeMediaFilePlayBack', (mediaServerGuid:string,mediaFilePlaybackGuid:string,currentTime:number,isPlaying:boolean) => {
+      this.sharedDataService.hubConnection.on('UpdateCurrentTimeMediaFilePlayBack', (mediaServerGuid:string,mediaFilePlaybackGuid:string,currentTime:number,isPlaying:boolean) => {
         this.updateCurrentTimeMediaFilePlayBack$.next({mediaServerGuid:mediaServerGuid,mediaFilePlaybackGuid:mediaFilePlaybackGuid,currentTime:currentTime,isPlaying:isPlaying});
       });
-      hubConnection.on('AddedMediaFilePlayBack', (mediaServerGuid:string,mediaFilePlaybackGuid:string) => {
+      this.sharedDataService.hubConnection.on('AddedMediaFilePlayBack', (mediaServerGuid:string,mediaFilePlaybackGuid:string) => {
         this.addedMediaFilePlayBack$.next({mediaServerGuid:mediaServerGuid,mediaFilePlaybackGuid:mediaFilePlaybackGuid});
       });
-      hubConnection.on('RemovedMediaFilePlayBack', (mediaServerGuid:string,mediaFilePlaybackGuid:string) => {
+      this.sharedDataService.hubConnection.on('RemovedMediaFilePlayBack', (mediaServerGuid:string,mediaFilePlaybackGuid:string) => {
         this.removedMediaFilePlayBack$.next({mediaServerGuid:mediaServerGuid,mediaFilePlaybackGuid:mediaFilePlaybackGuid});
       });
-      hubConnection.invoke("AddConnectionToUserClientsGroup",this.sharedDataService.userData.Guid).then(res=>{})
   }
 
   public isRemovedMediaFilePlayback():Observable<any>{
