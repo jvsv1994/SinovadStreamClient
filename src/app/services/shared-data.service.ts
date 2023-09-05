@@ -7,6 +7,7 @@ import { Menu } from '../modules/pages/manage/modules/pages/menus/models/menu.mo
 import { MediaServer } from '../modules/pages/manage/modules/pages/servers/models/server.model';
 import { LinkedAccount } from '../modules/pages/login/models/linked-account.model';
 import { Profile } from '../modules/pages/profiles/models/profile.model';
+import { Log } from '../modules/pages/settings/modules/pages/web/models/log.model';
 
 @Injectable({ providedIn: 'root' })
 export class SharedDataService {
@@ -28,6 +29,7 @@ export class SharedDataService {
   hubConnection:HubConnection;
   deviceData:DeviceData;
   hubLog:string[]=[];
+  webLogs:Log[]=[];
 
   constructor() {
 

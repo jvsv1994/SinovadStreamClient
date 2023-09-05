@@ -2,6 +2,7 @@ import { HttpTransportType, HubConnection, HubConnectionBuilder } from '@microso
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { SharedDataService } from 'src/app/services/shared-data.service';
+import { Log } from '../modules/pages/settings/modules/pages/web/models/log.model';
 
 @Injectable({ providedIn: 'root' })
 export class SignalIRHubService {
@@ -15,11 +16,21 @@ export class SignalIRHubService {
   private updateLibrariesByMediaServerSubject$ = new Subject<string>();
   private updateItemsByMediaServerSubject$ = new Subject<string>();
   //private updateItemsByMediaServerAndLibrarySubject$ = new Subject<string>();
+  private webLogs$ = new Subject<Log[]>();
 
   constructor(
     private sharedDataService:SharedDataService
     ) {
 
+  }
+
+  public addWebLog(webLog:Log){
+    this.sharedDataService.webLogs.push(webLog);
+    this.webLogs$.next(this.sharedDataService.webLogs);
+  }
+
+  public isUpdatingWebLogs():Observable<Log[]>{
+    return this.webLogs$.asObservable();
   }
 
   public updateMediaServers():void{
@@ -74,11 +85,13 @@ export class SignalIRHubService {
 
   private tryStartHubConnection(){
     let ctx=this;
+    this.addWebLog({Created: new Date(),Description:"Intentando conectarse a Signal IR"})
     this.sharedDataService.hubConnection.start().then(() => {
-      console.log('connection started');
+      ctx.addWebLog({Created: new Date(),Description:"Se inicio satisfactoriamente la conexión a Signal IR"})
       ctx.sharedDataService.hubConnection.invoke("AddConnectionToUserClientsGroup",this.sharedDataService.userData.Guid).then(res=>{})
       ctx.addHubEvents();
       ctx.sharedDataService.hubConnection.onclose(x=>{
+        ctx.addWebLog({Created: new Date(),Description:"Se cerró la conexión a Signal IR"})
         ctx.removeHubHandlerMethods();
         setTimeout(() => {
           if(ctx.sharedDataService.userData)
@@ -87,8 +100,14 @@ export class SignalIRHubService {
           }
         }, 1000,ctx);
       });
+      ctx.sharedDataService.hubConnection.onreconnecting(x=>{
+        ctx.addWebLog({Created: new Date(),Description:"Reconectando a Signal IR"})
+      });
+      ctx.sharedDataService.hubConnection.onreconnected(x=>{
+        ctx.addWebLog({Created: new Date(),Description:"Reconexión satisfactoria a Signal IR"})
+      });
     }).catch((err) => {
-      console.error('error while establishing signalr connection: ' + err);
+      ctx.addWebLog({Created: new Date(),Description:"Error al iniciar la conexión a Signal IR"})
       ctx.removeHubHandlerMethods();
       setTimeout(() => {
         ctx.tryStartHubConnection();

@@ -31,6 +31,7 @@ import { ItemVideoComponent } from './modules/pages/media/components/item-video/
 import { ServerItemsComponent } from './modules/pages/media/components/server-items/server-items.component';
 import { LibraryItemsComponent } from './modules/pages/media/components/library-items/library-items.component';
 import { ItemDetailComponent } from './modules/pages/media/components/item-detail/item-detail.component';
+import { LogPageComponent } from './modules/pages/settings/modules/pages/web/components/log-page/log-page.component';
 
 @Component({
   selector: 'app-root',
@@ -124,7 +125,7 @@ export class AppComponent{
         this.showingSidebarAdminMode=false;
       }
       if(event instanceof MyAccountPageComponent || event instanceof TranscoderSettingssPageComponent || event instanceof ServerSettingsGeneralPageComponent ||
-        event instanceof LibraryListComponent || event instanceof AlertsComponent || event instanceof DashboardComponent)
+        event instanceof LibraryListComponent || event instanceof AlertsComponent || event instanceof DashboardComponent || event instanceof LogPageComponent)
       {
         this.showRouterChildWithFullDimentions=false;
         this.showingSidebarAccount=true;
