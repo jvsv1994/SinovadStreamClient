@@ -36,7 +36,8 @@
                 "glob": "web.config",
                 "input": "src/",
                 "output": "/"
-              }
+              },
+              "src/manifest.webmanifest"
             ],
             "styles": [
               {
@@ -52,7 +53,9 @@
                 "input": "node_modules/@fortawesome/fontawesome-free/css/all.css"
               }
             ],
-            "scripts": []
+            "scripts": [],
+            "serviceWorker": true,
+            "ngswConfigPath": "ngsw-config.json"
           },
           "configurations": {
             "development": {
@@ -133,7 +136,8 @@
             "assets": [
               "src/favicon.ico",
               "src/assets",
-              "src/web.config"
+              "src/web.config",
+              "src/manifest.webmanifest"
             ],
             "styles": [
               "src/styles.css"

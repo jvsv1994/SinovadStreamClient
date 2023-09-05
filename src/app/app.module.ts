@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserModule} from '@angular/platform-browser';
@@ -19,6 +19,7 @@ import { SidebarAccountComponent } from './components/sidebar-account/sidebar-ac
 import { DropDownUserComponent } from './components/dropdown-user/dropdown-user.component';
 import { NotFoundPageComponent } from './components/pages/not-found-page/not-found-page.component';
 import { LandingPageComponent } from './components/pages/landing-page/landing-page.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
   declarations: [AppComponent,NotFoundPageComponent,LandingPageComponent,NavbarComponent,DropDownUserComponent,SidebarAccountComponent,SidebarAdministratorComponent,SidebarMediaComponent,DropDownServersComponent,SplashScreenComponent],
@@ -31,7 +32,13 @@ import { LandingPageComponent } from './components/pages/landing-page/landing-pa
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    })
   ],
   bootstrap:[AppComponent]
 })
