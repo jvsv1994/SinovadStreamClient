@@ -135,10 +135,11 @@ export class ItemVideoComponent implements OnInit,OnDestroy{
   }
 
   ngOnDestroy(): void {
-    if(!this.sharedDataService.configurationData.alwaysFullScreen && document.fullscreenElement) {
-      document.exitFullscreen();
+    if(this.timeOutLoadVideoId)
+    {
+      clearTimeout(this.timeOutLoadVideoId);
+      this.timeOutLoadVideoId=undefined;
     }
-    this.deleteTranscodedMediaFile();
     this.subscription.unsubscribe();
     if(this.dashMediaPlayer)
     {
@@ -162,11 +163,10 @@ export class ItemVideoComponent implements OnInit,OnDestroy{
     {
       window.removeEventListener('beforeunload',this.beforeUnloadFunction);
     }
-    if(this.timeOutLoadVideoId)
-    {
-      clearTimeout(this.timeOutLoadVideoId);
-      this.timeOutLoadVideoId=undefined;
+    if(!this.sharedDataService.configurationData.alwaysFullScreen && document.fullscreenElement) {
+      document.exitFullscreen();
     }
+    this.deleteTranscodedMediaFile();
   }
 
   private initializeEventsAndIntervals(){
