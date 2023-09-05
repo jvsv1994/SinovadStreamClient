@@ -81,6 +81,7 @@ export class SignalIRHubService {
         setTimeout(() => {
           if(ctx.sharedDataService.userData)
           {
+            ctx.removeHubHandlerMethods();
             ctx.tryStartHubConnection();
           }
         }, 1000,ctx);
@@ -88,12 +89,19 @@ export class SignalIRHubService {
     }).catch((err) => {
       console.error('error while establishing signalr connection: ' + err);
       setTimeout(() => {
+        ctx.removeHubHandlerMethods();
         ctx.tryStartHubConnection();
       }, 1000,ctx);
     });
   }
 
   public stopConnection(){
+    this.removeHubHandlerMethods();
+    this.sharedDataService.hubConnection.stop();
+  }
+
+
+  private removeHubHandlerMethods(){
     this.sharedDataService.hubConnection.off('UpdateCurrentTimeMediaFilePlayBack');
     this.sharedDataService.hubConnection.off('AddedMediaFilePlayBack');
     this.sharedDataService.hubConnection.off('RemovedMediaFilePlayBack');
@@ -103,7 +111,6 @@ export class SignalIRHubService {
     this.sharedDataService.hubConnection.off('UpdateLibrariesByMediaServer');
     this.sharedDataService.hubConnection.off('UpdateItemsByMediaServer');
     this.sharedDataService.hubConnection.off('UpdateItemsByMediaServerAndLibrary');
-    this.sharedDataService.hubConnection.stop();
   }
 
   private setEvents(hubConnection:HubConnection){
@@ -156,7 +163,10 @@ export class SignalIRHubService {
 
   public removeMediaFilePlayBack(mediaServerGuid:string,mediaFilePlaybackGuid:string){
     let ctx=this;
-    this.sharedDataService.hubConnection.send("RemoveMediaFilePlayBack",this.sharedDataService.userData.Guid,mediaServerGuid,mediaFilePlaybackGuid).then(res=>{},(error)=>{
+    this.sharedDataService.hubConnection.send("RemoveMediaFilePlayBack",this.sharedDataService.userData.Guid,mediaServerGuid,mediaFilePlaybackGuid).then(res=>{
+        console.log("RemoveMediaFilePlayBack Success");
+    },(error)=>{
+      console.error("RemoveMediaFilePlayBack Error");
       setTimeout(() => {
         ctx.removeMediaFilePlayBack(mediaServerGuid,mediaFilePlaybackGuid);
       }, 1000,ctx);
