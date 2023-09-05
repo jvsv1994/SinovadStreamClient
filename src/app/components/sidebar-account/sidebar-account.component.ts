@@ -201,8 +201,8 @@ export class SidebarAccountComponent implements OnInit {
     return false;
   }
 
-  public isSelectedAccountOption(){
-    if('/settings/account'.indexOf(window.location.pathname)!=-1)
+  public isSelectedOption(path:string){
+    if(path.indexOf(window.location.pathname)!=-1)
     {
       return true;
     }

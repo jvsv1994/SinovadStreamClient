@@ -86,11 +86,11 @@
     color: #fff;
   }
 }
-.sidebar-list-item-container.selected{
-  a{
+.sidebar-list-item-container{
+  a.selected{
     color: #007bff;
   }
-  a:hover{
+  a.selected:hover{
     color: #fff;
   }
 }

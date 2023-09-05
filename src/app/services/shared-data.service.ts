@@ -27,6 +27,7 @@ export class SharedDataService {
   linkedAccounts:LinkedAccount[]=[];
   hubConnection:HubConnection;
   deviceData:DeviceData;
+  hubLog:string[]=[];
 
   constructor() {
 
