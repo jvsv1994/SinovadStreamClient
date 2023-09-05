@@ -268,7 +268,7 @@ export class ItemVideoComponent implements OnInit,OnDestroy{
     mediaFilePlayback.ProfileData=mediaFilePlaybackProfile;
     var mediaFilePlaybackClient = new MediaFilePlaybackClient();
     mediaFilePlaybackClient.DeviceData=this.sharedDataService.deviceData;
-    mediaFilePlaybackClient.IsPlaying=true;
+    mediaFilePlaybackClient.IsPlaying=false;
     mediaFilePlaybackClient.CurrentTime=currentTime;
     mediaFilePlayback.ClientData=mediaFilePlaybackClient;
     if(this.itemDetail.MediaItem.MediaTypeId==MediaType.Movie)
