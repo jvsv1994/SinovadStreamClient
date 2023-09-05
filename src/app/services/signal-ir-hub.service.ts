@@ -75,6 +75,7 @@ export class SignalIRHubService {
 
 
   public openConnection(){
+    this.addWebLog({Created: new Date(),Description:"Definiendo conexión a Signal IR"})
     var hubConnection = new HubConnectionBuilder().withUrl(this.sharedDataService.urlSinovadStreamWebApi+'/mediaServerHub', {
       skipNegotiation: true,
       transport: HttpTransportType.WebSockets
@@ -88,11 +89,9 @@ export class SignalIRHubService {
     this.addWebLog({Created: new Date(),Description:"Intentando conectarse a Signal IR"})
     this.sharedDataService.hubConnection.start().then(() => {
       ctx.addWebLog({Created: new Date(),Description:"Se inicio satisfactoriamente la conexión a Signal IR"})
-      ctx.sharedDataService.hubConnection.invoke("AddConnectionToUserClientsGroup",this.sharedDataService.userData.Guid).then(res=>{})
-      ctx.addHubEvents();
-      ctx.sharedDataService.hubConnection.onclose(x=>{
-        ctx.addWebLog({Created: new Date(),Description:"Se cerró la conexión a Signal IR"})
-        ctx.removeHubHandlerMethods();
+      ctx.removeHubHandlerMethods();
+      ctx.sharedDataService.hubConnection.onclose((error:Error)=>{
+        ctx.addWebLog({Created: new Date(),Description:"Se cerró la conexión a Signal IR "+error.message})
         setTimeout(() => {
           if(ctx.sharedDataService.userData)
           {
@@ -106,9 +105,12 @@ export class SignalIRHubService {
       ctx.sharedDataService.hubConnection.onreconnected(x=>{
         ctx.addWebLog({Created: new Date(),Description:"Reconexión satisfactoria a Signal IR"})
       });
+      setTimeout(() => {
+        ctx.sharedDataService.hubConnection.invoke("AddConnectionToUserClientsGroup",this.sharedDataService.userData.Guid).then(res=>{})
+        ctx.addHubEvents();
+      }, 100,ctx);
     }).catch((err) => {
       ctx.addWebLog({Created: new Date(),Description:"Error al iniciar la conexión a Signal IR"})
-      ctx.removeHubHandlerMethods();
       setTimeout(() => {
         ctx.tryStartHubConnection();
       }, 1000,ctx);
