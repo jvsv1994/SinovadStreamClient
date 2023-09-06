@@ -32,6 +32,7 @@ import { ServerItemsComponent } from './modules/pages/media/components/server-it
 import { LibraryItemsComponent } from './modules/pages/media/components/library-items/library-items.component';
 import { ItemDetailComponent } from './modules/pages/media/components/item-detail/item-detail.component';
 import { LogPageComponent } from './modules/pages/settings/modules/pages/web/components/log-page/log-page.component';
+import { CatalogListComponent } from './modules/pages/manage/modules/pages/catalogs/components/catalog-list/catalog-list.component';
 
 @Component({
   selector: 'app-root',
@@ -133,7 +134,7 @@ export class AppComponent{
         this.showingSidebarMedia=false;
       }
       if(event instanceof MovieListComponent || event instanceof TvSerieListComponent || event instanceof MenuListComponent
-        || event instanceof GenreListComponent || event instanceof UserListComponent || event instanceof RoleListComponent)
+        || event instanceof GenreListComponent || event instanceof UserListComponent || event instanceof RoleListComponent || event instanceof CatalogListComponent)
       {
         this.showRouterChildWithFullDimentions=false;
         this.showingSidebarAccount=false;
