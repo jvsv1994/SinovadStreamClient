@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { SharedDataService } from 'src/app/services/shared-data.service';
 import { Log } from '../modules/pages/settings/modules/pages/web/models/log.model';
+import * as signalR from '@microsoft/signalr';
 
 @Injectable({ providedIn: 'root' })
 export class SignalIRHubService {
@@ -79,17 +80,22 @@ export class SignalIRHubService {
     var hubConnection = new HubConnectionBuilder().withUrl(this.sharedDataService.urlSinovadStreamWebApi+'/mediaServerHub', {
       skipNegotiation: true,
       transport: HttpTransportType.WebSockets
-    }).build();
+    }).configureLogging(signalR.LogLevel.None).withAutomaticReconnect([1000,2000,4000,8000,16000,32000,64000,128000]).build();
     this.sharedDataService.hubConnection=hubConnection;
     let ctx=this;
     this.sharedDataService.hubConnection.onclose((error:Error)=>{
       ctx.addWebLog({Created: new Date(),Description:"Se cerró la conexión a Signal IR "+error.message})
+    });
+    this.sharedDataService.hubConnection.onreconnecting(x=>{
+      ctx.addWebLog({Created: new Date(),Description:"Reconectando a Signal IR"})
+    });
+    this.sharedDataService.hubConnection.onreconnected((connectionId:string)=>{
+      ctx.addWebLog({Created: new Date(),Description:"Reconexión satisfactoria a Signal IR"});
+      ctx.removeHubHandlerMethods();
       setTimeout(() => {
-        if(ctx.sharedDataService.userData)
-        {
-          ctx.tryStartHubConnection();
-        }
-      }, 1000,ctx);
+        ctx.sharedDataService.hubConnection.invoke("AddConnectionToUserClientsGroup",this.sharedDataService.userData.Guid).then(res=>{})
+        ctx.addHubEvents();
+      }, 100,ctx);
     });
     this.tryStartHubConnection();
   }
@@ -100,21 +106,15 @@ export class SignalIRHubService {
     this.sharedDataService.hubConnection.start().then(() => {
       ctx.addWebLog({Created: new Date(),Description:"Se inicio satisfactoriamente la conexión a Signal IR"})
       ctx.removeHubHandlerMethods();
-      ctx.sharedDataService.hubConnection.onreconnecting(x=>{
-        ctx.addWebLog({Created: new Date(),Description:"Reconectando a Signal IR"})
-      });
-      ctx.sharedDataService.hubConnection.onreconnected(x=>{
-        ctx.addWebLog({Created: new Date(),Description:"Reconexión satisfactoria a Signal IR"})
-      });
       setTimeout(() => {
-        ctx.sharedDataService.hubConnection.invoke("AddConnectionToUserClientsGroup",this.sharedDataService.userData.Guid).then(res=>{})
+        ctx.sharedDataService.hubConnection.invoke("AddConnectionToUserClientsGroup",ctx.sharedDataService.userData.Guid).then(res=>{})
         ctx.addHubEvents();
       }, 100,ctx);
     }).catch((err) => {
       ctx.addWebLog({Created: new Date(),Description:"Error al iniciar la conexión a Signal IR"})
-      setTimeout(() => {
+ /*      setTimeout(() => {
         ctx.tryStartHubConnection();
-      }, 1000,ctx);
+      }, 1000,ctx); */
     });
   }
 
