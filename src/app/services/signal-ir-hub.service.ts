@@ -191,9 +191,9 @@ export class SignalIRHubService {
   public removeMediaFilePlayBack(mediaServerGuid:string,mediaFilePlaybackGuid:string){
     let ctx=this;
     this.sharedDataService.hubConnection.send("RemoveMediaFilePlayBack",this.sharedDataService.userData.Guid,mediaServerGuid,mediaFilePlaybackGuid).then(res=>{
-        console.log("RemoveMediaFilePlayBack Success");
+      ctx.addWebLog({Created: new Date(),Description:"Se completó la llamada al metodo RemoveMediaFilePlayBack de forma exitosa"});
     },(error)=>{
-      console.error("RemoveMediaFilePlayBack Error");
+      ctx.addWebLog({Created: new Date(),Description:"Error al llamar al metodo RemoveMediaFilePlayBack"});
       setTimeout(() => {
         ctx.removeMediaFilePlayBack(mediaServerGuid,mediaFilePlaybackGuid);
       }, 1000,ctx);
@@ -202,7 +202,10 @@ export class SignalIRHubService {
 
   public removeLastTranscodedMediaFileProcess(mediaServerGuid:string,mediaFilePlaybackGuid:string){
     let ctx=this;
-    this.sharedDataService.hubConnection.send("RemoveLastTranscodedMediaFileProcess",this.sharedDataService.userData.Guid,mediaServerGuid,mediaFilePlaybackGuid).then(res=>{},(error)=>{
+    this.sharedDataService.hubConnection.send("RemoveLastTranscodedMediaFileProcess",this.sharedDataService.userData.Guid,mediaServerGuid,mediaFilePlaybackGuid).then(res=>{
+      ctx.addWebLog({Created: new Date(),Description:"Se completó la llamada al metodo RemoveLastTranscodedMediaFileProcess de forma exitosa"});
+    },(error)=>{
+      ctx.addWebLog({Created: new Date(),Description:"Error al llamar al metodo RemoveLastTranscodedMediaFileProcess"});
       setTimeout(() => {
         ctx.removeLastTranscodedMediaFileProcess(mediaServerGuid,mediaFilePlaybackGuid);
       }, 1000,ctx);
