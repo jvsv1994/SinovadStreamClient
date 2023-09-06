@@ -81,24 +81,25 @@ export class SignalIRHubService {
       transport: HttpTransportType.WebSockets
     }).build();
     this.sharedDataService.hubConnection=hubConnection;
+    let ctx=this;
+    this.sharedDataService.hubConnection.onclose((error:Error)=>{
+      ctx.addWebLog({Created: new Date(),Description:"Se cerró la conexión a Signal IR "+error.message})
+      setTimeout(() => {
+        if(ctx.sharedDataService.userData)
+        {
+          ctx.tryStartHubConnection();
+        }
+      }, 1000,ctx);
+    });
     this.tryStartHubConnection();
   }
 
   private tryStartHubConnection(){
     let ctx=this;
-    this.addWebLog({Created: new Date(),Description:"Intentando conectarse a Signal IR"})
+    this.addWebLog({Created: new Date(),Description:"Intentando conectarse a Signal IR"});
     this.sharedDataService.hubConnection.start().then(() => {
       ctx.addWebLog({Created: new Date(),Description:"Se inicio satisfactoriamente la conexión a Signal IR"})
       ctx.removeHubHandlerMethods();
-      ctx.sharedDataService.hubConnection.onclose((error:Error)=>{
-        ctx.addWebLog({Created: new Date(),Description:"Se cerró la conexión a Signal IR "+error.message})
-        setTimeout(() => {
-          if(ctx.sharedDataService.userData)
-          {
-            ctx.tryStartHubConnection();
-          }
-        }, 1000,ctx);
-      });
       ctx.sharedDataService.hubConnection.onreconnecting(x=>{
         ctx.addWebLog({Created: new Date(),Description:"Reconectando a Signal IR"})
       });
@@ -127,7 +128,7 @@ export class SignalIRHubService {
   }
 
   private removeHubHandlerMethods(){
-    this.addWebLog({Created: new Date(),Description:"Eliminando controladores para los metodos del hub"})
+    this.addWebLog({Created: new Date(),Description:"Eliminando controladores para los metodos del hub"});
     this.sharedDataService.hubConnection.off('UpdateCurrentTimeMediaFilePlayBack');
     this.sharedDataService.hubConnection.off('AddedMediaFilePlayBack');
     this.sharedDataService.hubConnection.off('RemovedMediaFilePlayBack');
@@ -140,7 +141,7 @@ export class SignalIRHubService {
   }
 
   private addHubEvents(){
-      this.addWebLog({Created: new Date(),Description:"Agregando controladores para los metodos del hub"})
+     this.addWebLog({Created: new Date(),Description:"Agregando controladores para los metodos del hub"});
       this.sharedDataService.hubConnection.on('UpdateMediaServers', (message) => {
         this.updateMediaServers();
       });
