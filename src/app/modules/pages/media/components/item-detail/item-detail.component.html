@@ -98,15 +98,19 @@
                     <ng-template ngFor let-episode [ngForOf]="detail.CurrentSeason.ListEpisodes">
                       <section id="section_episode_s{{episode.SeasonNumber}}_e{{episode.EpisodeNumber}}" class="sinovad-section">
                         <button id="button_episode_s{{episode.SeasonNumber}}_e{{episode.EpisodeNumber}}" class="sinovad-episode-button " (click)="onClickEpisode(episode)">
-                          <div class="sinovad-episode-image-section">
-                              <img [src]="getEpisodeImagePath(episode)" onError="this.src='assets/img/no-image-available.jpg'">
-                          </div>
-                          <div class="sinovad-episode-detail-section">
-                            <div class="sinovad-episode-title-section">
-                              {{episode.EpisodeNumber}}. {{episode.Name}}
-                            </div>
-                            <div class="sinovad-overview-section">
-                              {{episode.Overview}}
+                          <div class="container-fluid">
+                            <div class="row">
+                              <div class="col-sm col-md-6 col-lg-4 col-xl-3 sinovad-episode-image-section">
+                                <img class="img-fluid" [src]="getEpisodeImagePath(episode)" onError="this.src='assets/img/no-image-available.jpg'">
+                              </div>
+                              <div class="col sinovad-episode-detail-section">
+                                <div class="sinovad-episode-title-section">
+                                  {{episode.EpisodeNumber}}. {{episode.Name}}
+                                </div>
+                                <div *ngIf="episode.Overview" class="sinovad-overview-section">
+                                  {{episode.Overview}}
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </button>
