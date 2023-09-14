@@ -48,7 +48,7 @@ export class MovieService {
   public saveItem(movie:Movie):Promise<boolean>{
     return new Promise((resolve, reject) => {
       let methodType=movie.Id>0?HttpMethodType.PUT:HttpMethodType.POST;
-      var path=movie.Id>0?"/movies/Update":"/movies/Create";
+      var path=movie.Id>0?"/movies/UpdateAsync/"+movie.Id:"/movies/CreateAsync";
       this.restProvider.executeSinovadApiService(methodType,path,movie).then((response) => {
         resolve(true);
       },error=>{
@@ -59,7 +59,7 @@ export class MovieService {
   }
   public deleteItem(itemId:number):Promise<SinovadApiGenericResponse>{
     return new Promise((resolve, reject) => {
-      var path="/movies/Delete/"+itemId;
+      var path="/movies/DeleteAsync/"+itemId;
       this.restProvider.executeSinovadApiService(HttpMethodType.DELETE,path).then((response:SinovadApiGenericResponse) => {
         resolve(response);
       },error=>{
@@ -78,7 +78,7 @@ export class MovieService {
         listItemIds.push(item.Id);
       }
       var listIds=listItemIds.join(",");
-      var path="/movies/DeleteList/"+listIds;
+      var path="/movies/DeleteListAsync/"+listIds;
       this.restProvider.executeSinovadApiService(HttpMethodType.DELETE,path).then((response:SinovadApiGenericResponse) => {
         resolve(response);
       },error=>{

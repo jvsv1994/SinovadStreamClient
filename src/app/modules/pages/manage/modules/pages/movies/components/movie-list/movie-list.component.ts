@@ -13,6 +13,7 @@ import { SinovadApiPaginationResponse } from 'src/app/modules/shared/models/resp
 import { Movie } from '../../models/movie.model';
 import { MovieService } from '../../services/movie.service';
 import { MovieFormComponent } from '../movie-form/movie-form.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-movie-list',
@@ -25,12 +26,16 @@ export class MovieListComponent extends CustomListGeneric<Movie> implements Afte
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(
+    public router: Router,
     private modalService: NgbModal,
     private dialog: MatDialog,
     public matPaginatorIntl: MatPaginatorIntl,
     private snackbarService:SnackBarService,
     private movieService:MovieService) {
       super(matPaginatorIntl);
+      this.router.routeReuseStrategy.shouldReuseRoute = function () {
+        return false;
+      };
     }
 
     ngOnInit(): void {
