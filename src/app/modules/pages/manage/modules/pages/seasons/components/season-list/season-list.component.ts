@@ -76,6 +76,7 @@ export class SeasonListComponent extends CustomListGeneric<Season>{
 
      public showNewItem(){
       var season= new Season();
+      season.TvSerieId=this.parentItem.Id;
       this.showModalForm(season);
     }
 

@@ -38,7 +38,7 @@ export class SeasonService {
   public saveItem(item:Season):Promise<boolean>{
     return new Promise((resolve, reject) => {
       let methodType=item.Id>0?HttpMethodType.PUT:HttpMethodType.POST;
-      var path=item.Id>0?"/seasons/Update":"/seasons/Create";
+      var path=item.Id>0?"/seasons/UpdateAsync/"+item.Id:"/seasons/CreateAsync";
       this.restProvider.executeSinovadApiService(methodType,path,item).then((response) => {
         resolve(true);
       },error=>{
@@ -49,7 +49,7 @@ export class SeasonService {
   }
   public deleteItem(itemId:number):Promise<SinovadApiGenericResponse>{
     return new Promise((resolve, reject) => {
-      var path="/seasons/Delete/"+itemId;
+      var path="/seasons/DeleteAsync/"+itemId;
       this.restProvider.executeSinovadApiService(HttpMethodType.DELETE,path).then((response:SinovadApiGenericResponse) => {
         resolve(response);
       },error=>{
@@ -68,7 +68,7 @@ export class SeasonService {
         listItemIds.push(item.Id);
       }
       var listIds=listItemIds.join(",");
-      var path="/seasons/DeleteList/"+listIds;
+      var path="/seasons/DeleteListAsync/"+listIds;
       this.restProvider.executeSinovadApiService(HttpMethodType.DELETE,path).then((response:SinovadApiGenericResponse) => {
         resolve(response);
       },error=>{
