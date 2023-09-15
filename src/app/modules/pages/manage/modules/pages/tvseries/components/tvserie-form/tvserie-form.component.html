@@ -23,10 +23,10 @@
         </mat-form-field>
         <mat-form-field>
           <mat-label>Última fecha de emisión</mat-label>
-          <input matInput [matDatepicker]="picker" formControlName="lastAirDate">
+          <input matInput [matDatepicker]="pickerLastAirDate" formControlName="lastAirDate">
           <mat-hint>MM/DD/YYYY</mat-hint>
-          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
+          <mat-datepicker-toggle matIconSuffix [for]="pickerLastAirDate"></mat-datepicker-toggle>
+          <mat-datepicker #pickerLastAirDate></mat-datepicker>
         </mat-form-field>
         <mat-form-field>
           <mat-label>Géneros</mat-label>

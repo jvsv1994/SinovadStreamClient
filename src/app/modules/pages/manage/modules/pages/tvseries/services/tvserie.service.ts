@@ -49,7 +49,7 @@ export class TvSerieService {
   public saveItem(tvserie:TvSerie):Promise<boolean>{
     return new Promise((resolve, reject) => {
       let methodType=tvserie.Id>0?HttpMethodType.PUT:HttpMethodType.POST;
-      var path=tvserie.Id>0?"/tvseries/Update":"/tvseries/Create";
+      var path=tvserie.Id>0?"/tvseries/UpdateAsync/"+tvserie.Id:"/tvseries/CreateAsync";
       this.restProvider.executeSinovadApiService(methodType,path,tvserie).then((response) => {
         resolve(true);
       },error=>{
@@ -60,7 +60,7 @@ export class TvSerieService {
   }
   public deleteItem(itemId:number):Promise<SinovadApiGenericResponse>{
     return new Promise((resolve, reject) => {
-      var path="/tvseries/Delete/"+itemId;
+      var path="/tvseries/DeleteAsync/"+itemId;
       this.restProvider.executeSinovadApiService(HttpMethodType.DELETE,path).then((response:SinovadApiGenericResponse) => {
         resolve(response);
       },error=>{
@@ -79,7 +79,7 @@ export class TvSerieService {
         listItemIds.push(item.Id);
       }
       var listIds=listItemIds.join(",");
-      var path="/tvseries/DeleteList/"+listIds;
+      var path="/tvseries/DeleteListAsync/"+listIds;
       this.restProvider.executeSinovadApiService(HttpMethodType.DELETE,path).then((response:SinovadApiGenericResponse) => {
         resolve(response);
       },error=>{
