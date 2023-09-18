@@ -14,6 +14,7 @@ import { MovieService } from '../../services/movie.service';
 import { GenresSelectionModalComponent } from '../../../genres/components/genres-selection-modal/genres-selection-modal.component';
 import { MovieGenre } from '../../models/movie-genre.model';
 import { CommonService } from 'src/app/services/common.service';
+import { MovieCreation } from '../../models/movie-creation.model';
 
 @Component({
   selector: 'app-movie-form',
@@ -23,7 +24,6 @@ import { CommonService } from 'src/app/services/common.service';
 export class MovieFormComponent implements OnInit{
 
   @Input() movie:Movie;
-  listMovies:Movie[];
   movieFormGroup:FormGroup;
   showLoading:boolean=false;
   matcher = new MyErrorStateMatcher();
@@ -51,7 +51,7 @@ export class MovieFormComponent implements OnInit{
       {
         this.getMovie();
       }else{
-        this.movie.ListItemGenres=[];
+        this.movie.MovieGenres=[];
       }
     }
 
@@ -85,12 +85,13 @@ export class MovieFormComponent implements OnInit{
       if(this.movieFormGroup.valid)
       {
         this.showLoading=true;
-        var movie:Movie=JSON.parse(JSON.stringify(this.movie));
+        var movie:MovieCreation=JSON.parse(JSON.stringify(this.movie));
         movie.Title=this.movieFormGroup.value.title;
         movie.ReleaseDate=this.movieFormGroup.value.releaseDate;
         movie.Directors=this.movieFormGroup.value.directors;
         movie.Actors=this.movieFormGroup.value.actors;
         movie.Overview=this.movieFormGroup.value.overview;
+        movie.GenresIds=this.movie.MovieGenres.map(mg=>mg.GenreId);
         this.movieService.saveItem(movie).then((response: any) => {
           this.showLoading=false;
           this.snackbarService.showSnackBar("Se guardo el movie satisfactoriamente",SnackBarType.Success);
@@ -113,9 +114,9 @@ export class MovieFormComponent implements OnInit{
     //Movie Genres Section
 
     private getSelectedGenres():string{
-      if(this.movie.ListItemGenres && this.movie.ListItemGenres.length>0)
+      if(this.movie.MovieGenres && this.movie.MovieGenres.length>0)
       {
-        var listGenres = this.movie.ListItemGenres.map(a => a.GenreName);
+        var listGenres = this.movie.MovieGenres.map(a => a.GenreName);
         return listGenres.join(", ");
       }
       return "";
@@ -133,7 +134,7 @@ export class MovieFormComponent implements OnInit{
     }
 
     private getMovieGenres():Genre[]{
-      var listGenreIds = this.movie.ListItemGenres.map(a => a.GenreId);
+      var listGenreIds = this.movie.MovieGenres.map(a => a.GenreId);
       return this.listGenres.filter(g=>listGenreIds.indexOf(g.Id)!=-1);
     }
 
@@ -142,7 +143,7 @@ export class MovieFormComponent implements OnInit{
       genres.forEach(genre => {
         movieGenres.push({MovieId:this.movie.Id,GenreId:genre.Id,GenreName:genre.Name});
       });
-      this.movie.ListItemGenres=movieGenres;
+      this.movie.MovieGenres=movieGenres;
       this.movieFormGroup.controls['selectedGenres'].patchValue(this.getSelectedGenres());
     }
 

@@ -1,8 +1,7 @@
-import { MovieGenre } from "./movie-genre.model";
+export class MovieCreation{
 
-export class Movie{
-
-  public Id: number;
+  public Id:number;
+  public Title: string;
   public Adult: Boolean;
   public OriginalLanguage: string;
   public OriginalTitle: string;
@@ -11,11 +10,9 @@ export class Movie{
   public PosterPath: string;
   public BackdropPath: string;
   public ReleaseDate: Date;
-  public Title: string;
   public Directors: string;
   public Actors: string;
   public Genres: string;
-  public Imdbid: string;
-  public MovieGenres: MovieGenre[];
+  public GenresIds:number[];
 
 }
