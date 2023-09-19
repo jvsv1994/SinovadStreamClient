@@ -17,8 +17,7 @@ export class TvSerie{
   public Directors:string;
   public Genres:string;
   public Actors:string;
-  public listSeasons:Season[];
-  public ListItemGenres:TvSerieGenre[];
-
+  public TvSerieGenres:TvSerieGenre[];
+  public GenresIds:number[];
 
 }

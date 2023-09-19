@@ -17,5 +17,6 @@ export class Movie{
   public Genres: string;
   public Imdbid: string;
   public MovieGenres: MovieGenre[];
+  public GenresIds:number[];
 
 }

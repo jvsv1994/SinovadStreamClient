@@ -5,7 +5,6 @@ import {v4 as uuid} from "uuid";
 import { SinovadApiGenericResponse } from 'src/app/modules/shared/models/response/sinovad-api-generic-response.model';
 import { SinovadApiPaginationResponse } from 'src/app/modules/shared/models/response/sinovad-api-pagination-response.model';
 import { Movie } from '../models/movie.model';
-import { MovieCreation } from '../models/movie-creation.model';
 
 @Injectable({ providedIn: 'root' })
 export class MovieService {
@@ -46,7 +45,7 @@ export class MovieService {
    });
   }
 
-  public saveItem(movie:MovieCreation):Promise<boolean>{
+  public saveItem(movie:Movie):Promise<boolean>{
     return new Promise((resolve, reject) => {
       let methodType=movie.Id>0?HttpMethodType.PUT:HttpMethodType.POST;
       var path=movie.Id>0?"/movies/UpdateAsync/"+movie.Id:"/movies/CreateAsync";

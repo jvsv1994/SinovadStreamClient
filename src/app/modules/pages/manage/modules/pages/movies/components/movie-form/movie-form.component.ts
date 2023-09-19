@@ -14,7 +14,6 @@ import { MovieService } from '../../services/movie.service';
 import { GenresSelectionModalComponent } from '../../../genres/components/genres-selection-modal/genres-selection-modal.component';
 import { MovieGenre } from '../../models/movie-genre.model';
 import { CommonService } from 'src/app/services/common.service';
-import { MovieCreation } from '../../models/movie-creation.model';
 
 @Component({
   selector: 'app-movie-form',
@@ -85,7 +84,7 @@ export class MovieFormComponent implements OnInit{
       if(this.movieFormGroup.valid)
       {
         this.showLoading=true;
-        var movie:MovieCreation=JSON.parse(JSON.stringify(this.movie));
+        var movie:Movie=JSON.parse(JSON.stringify(this.movie));
         movie.Title=this.movieFormGroup.value.title;
         movie.ReleaseDate=this.movieFormGroup.value.releaseDate;
         movie.Directors=this.movieFormGroup.value.directors;

@@ -51,7 +51,7 @@ export class TvSerieFormComponent implements OnInit{
       {
         this.getTvSerie();
       }else{
-        this.tvserie.ListItemGenres=[];
+        this.tvserie.TvSerieGenres=[];
       }
     }
 
@@ -93,6 +93,7 @@ export class TvSerieFormComponent implements OnInit{
         tvserie.Directors=this.tvserieFormGroup.value.directors;
         tvserie.Actors=this.tvserieFormGroup.value.actors;
         tvserie.Overview=this.tvserieFormGroup.value.overview;
+        tvserie.GenresIds=this.tvserie.TvSerieGenres.map(mg=>mg.GenreId);
         this.tvserieService.saveItem(tvserie).then((response: any) => {
           this.showLoading=false;
           this.snackbarService.showSnackBar("Se guardo la serie satisfactoriamente",SnackBarType.Success);
@@ -115,9 +116,9 @@ export class TvSerieFormComponent implements OnInit{
     //TvSerie Genres Section
 
     private getSelectedGenres():string{
-      if(this.tvserie.ListItemGenres && this.tvserie.ListItemGenres.length>0)
+      if(this.tvserie.TvSerieGenres && this.tvserie.TvSerieGenres.length>0)
       {
-        var listGenres = this.tvserie.ListItemGenres.map(a => a.GenreName);
+        var listGenres = this.tvserie.TvSerieGenres.map(a => a.GenreName);
         return listGenres.join(", ");
       }
       return "";
@@ -135,7 +136,7 @@ export class TvSerieFormComponent implements OnInit{
     }
 
     private getTvSerieGenres():Genre[]{
-      var listGenreIds = this.tvserie.ListItemGenres.map(a => a.GenreId);
+      var listGenreIds = this.tvserie.TvSerieGenres.map(a => a.GenreId);
       return this.listGenres.filter(g=>listGenreIds.indexOf(g.Id)!=-1);
     }
 
@@ -144,7 +145,7 @@ export class TvSerieFormComponent implements OnInit{
       genres.forEach(genre => {
         tvserieGenres.push({TvSerieId:this.tvserie.Id,GenreId:genre.Id,GenreName:genre.Name});
       });
-      this.tvserie.ListItemGenres=tvserieGenres;
+      this.tvserie.TvSerieGenres=tvserieGenres;
       this.tvserieFormGroup.controls['selectedGenres'].patchValue(this.getSelectedGenres());
     }
 
