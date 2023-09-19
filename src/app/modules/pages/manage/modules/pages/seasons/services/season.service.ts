@@ -22,7 +22,7 @@ export class SeasonService {
       let callGuid=uuid();
       this.lastCallGuid=callGuid;
       var queryParams="?page="+pageNumber.toString()+"&take="+itemsPerPage.toString()+"&sortBy="+sortBy+"&sortDirection="+sortDirection+"&searchText="+searchText+"&searchBy="+searchBy;
-      var path="/tvSeries/"+tvSerieId+"/seasons/GetAllWithPaginationByTvSerieAsync"+queryParams;
+      var path="/tvSeries/"+tvSerieId+"/seasons/GetAllWithPaginationAsync"+queryParams;
       this.restProvider.executeSinovadApiService(HttpMethodType.GET,path).then((response:SinovadApiPaginationResponse) => {
         if(this.lastCallGuid==callGuid)
         {

@@ -44,7 +44,7 @@ export class EpisodeRangeModalComponent{
           episode.Title="Episodio "+i;
           listEpisodes.push(episode);
         }
-        this.episodeService.createList(listEpisodes).then((response) => {
+        this.episodeService.createList(this.parent.Id,listEpisodes).then((response) => {
           this.showLoading=false;
           this.activeModal.close(true);
         },error=>{

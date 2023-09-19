@@ -129,7 +129,7 @@ export class EpisodeListComponent extends CustomListGeneric<Episode>{
 
       private executeDeleteItem(item:Episode){
         this.showLoading=true;
-        this.episodeService.deleteItem(item.Id).then(res=>{
+        this.episodeService.deleteItem(this.parentItem.Id,item.Id).then(res=>{
           this.snackbarService.showSnackBar("Se elimino el registro satisfactoriamente",SnackBarType.Success);
           this.getAllItems();
         },(error)=>{
@@ -157,7 +157,7 @@ export class EpisodeListComponent extends CustomListGeneric<Episode>{
 
       private executeDeleteSelectedItems(){
         this.showLoading=true;
-        this.episodeService.deleteItems(this.selection.selected).then(res=>{
+        this.episodeService.deleteItems(this.parentItem.Id,this.selection.selected).then(res=>{
           this.snackbarService.showSnackBar("Se eliminaron los registros seleccionados satisfactoriamente",SnackBarType.Success);
           this.getAllItems();
         },(error)=>{
