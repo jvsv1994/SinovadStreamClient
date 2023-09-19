@@ -22,7 +22,7 @@ export class SeasonService {
       let callGuid=uuid();
       this.lastCallGuid=callGuid;
       var queryParams="?page="+pageNumber.toString()+"&take="+itemsPerPage.toString()+"&sortBy="+sortBy+"&sortDirection="+sortDirection+"&searchText="+searchText+"&searchBy="+searchBy;
-      var path="/seasons/GetAllWithPaginationByTvSerieAsync/"+tvSerieId+queryParams;
+      var path="/tvSeries/"+tvSerieId+"/seasons/GetAllWithPaginationByTvSerieAsync"+queryParams;
       this.restProvider.executeSinovadApiService(HttpMethodType.GET,path).then((response:SinovadApiPaginationResponse) => {
         if(this.lastCallGuid==callGuid)
         {
@@ -38,7 +38,7 @@ export class SeasonService {
   public saveItem(item:Season):Promise<boolean>{
     return new Promise((resolve, reject) => {
       let methodType=item.Id>0?HttpMethodType.PUT:HttpMethodType.POST;
-      var path=item.Id>0?"/seasons/UpdateAsync/"+item.Id:"/seasons/CreateAsync";
+      var path=item.Id>0?"/tvSeries/"+item.TvSerieId+"/seasons/UpdateAsync/"+item.Id:"/tvSeries/"+item.TvSerieId+"/seasons/CreateAsync";
       this.restProvider.executeSinovadApiService(methodType,path,item).then((response) => {
         resolve(true);
       },error=>{
@@ -47,9 +47,9 @@ export class SeasonService {
       });
    });
   }
-  public deleteItem(itemId:number):Promise<SinovadApiGenericResponse>{
+  public deleteItem(tvSerieId:number,itemId:number):Promise<SinovadApiGenericResponse>{
     return new Promise((resolve, reject) => {
-      var path="/seasons/DeleteAsync/"+itemId;
+      var path="/tvSeries/"+tvSerieId+"/seasons/DeleteAsync/"+itemId;
       this.restProvider.executeSinovadApiService(HttpMethodType.DELETE,path).then((response:SinovadApiGenericResponse) => {
         resolve(response);
       },error=>{
@@ -59,7 +59,7 @@ export class SeasonService {
    });
   }
 
-  public deleteItems(list:Season[]):Promise<SinovadApiGenericResponse>{
+  public deleteItems(tvSerieId:number,list:Season[]):Promise<SinovadApiGenericResponse>{
     return new Promise((resolve, reject) => {
       let listItemIds:number[]=[];
       for(let i=0;i < list.length;i++)
@@ -68,7 +68,7 @@ export class SeasonService {
         listItemIds.push(item.Id);
       }
       var listIds=listItemIds.join(",");
-      var path="/seasons/DeleteListAsync/"+listIds;
+      var path="/tvSeries/"+tvSerieId+"/seasons/DeleteListAsync/"+listIds;
       this.restProvider.executeSinovadApiService(HttpMethodType.DELETE,path).then((response:SinovadApiGenericResponse) => {
         resolve(response);
       },error=>{

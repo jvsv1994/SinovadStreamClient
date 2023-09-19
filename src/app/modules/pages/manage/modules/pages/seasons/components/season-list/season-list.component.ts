@@ -129,7 +129,7 @@ export class SeasonListComponent extends CustomListGeneric<Season>{
 
       private executeDeleteItem(item:Season){
         this.showLoading=true;
-        this.seasonService.deleteItem(item.Id).then(res=>{
+        this.seasonService.deleteItem(item.TvSerieId,item.Id).then(res=>{
           this.snackbarService.showSnackBar("Se elimino el registro satisfactoriamente",SnackBarType.Success);
           this.getAllItems();
         },(error)=>{
@@ -157,7 +157,7 @@ export class SeasonListComponent extends CustomListGeneric<Season>{
 
       private executeDeleteSelectedItems(){
         this.showLoading=true;
-        this.seasonService.deleteItems(this.selection.selected).then(res=>{
+        this.seasonService.deleteItems(this.parentItem.Id,this.selection.selected).then(res=>{
           this.snackbarService.showSnackBar("Se eliminaron los registros seleccionados satisfactoriamente",SnackBarType.Success);
           this.getAllItems();
         },(error)=>{
