@@ -49,7 +49,7 @@ export class GenreService {
   public saveItem(genre:Genre):Promise<boolean>{
     return new Promise((resolve, reject) => {
       let methodType=genre.Id>0?HttpMethodType.PUT:HttpMethodType.POST;
-      var path=genre.Id>0?"/genres/Update":"/genres/Create";
+      var path=genre.Id>0?"/genres/UpdateAsync/"+genre.Id:"/genres/CreateAsync";
       this.restProvider.executeSinovadApiService(methodType,path,genre).then((response) => {
         resolve(true);
       },error=>{
@@ -60,7 +60,7 @@ export class GenreService {
   }
   public deleteItem(itemId:number):Promise<SinovadApiGenericResponse>{
     return new Promise((resolve, reject) => {
-      var path="/genres/Delete/"+itemId;
+      var path="/genres/DeleteAsync/"+itemId;
       this.restProvider.executeSinovadApiService(HttpMethodType.DELETE,path).then((response:SinovadApiGenericResponse) => {
         resolve(response);
       },error=>{
@@ -79,7 +79,7 @@ export class GenreService {
         listItemIds.push(item.Id);
       }
       var listIds=listItemIds.join(",");
-      var path="/genres/DeleteList/"+listIds;
+      var path="/genres/DeleteListAsync/"+listIds;
       this.restProvider.executeSinovadApiService(HttpMethodType.DELETE,path).then((response:SinovadApiGenericResponse) => {
         resolve(response);
       },error=>{
