@@ -1,5 +1,3 @@
-import { Episode } from "../../episodes/models/episode.model";
-
 export class Season{
 
   public Id: number;
@@ -9,7 +7,5 @@ export class Season{
   public Overview: string;
   public PosterPath: string;
   public TvSerieId: number;
-  public TvSerieTmdbId: number;
-  public ListEpisodes: Episode[];
 
 }
