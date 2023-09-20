@@ -4,7 +4,6 @@ import { HttpMethodType } from 'src/app/modules/shared/enums/enums';
 import {v4 as uuid} from "uuid";
 import { SharedDataService } from 'src/app/services/shared-data.service';
 import { SinovadApiGenericResponse } from 'src/app/modules/shared/models/response/sinovad-api-generic-response.model';
-import { SinovadApiPaginationResponse } from 'src/app/modules/shared/models/response/sinovad-api-pagination-response.model';
 import { Profile } from '../models/profile.model';
 export declare type EventHandler = (...args: any[]) => any;
 
@@ -33,7 +32,7 @@ export class ProfileService {
 
   public getProfileById(id:number):Promise<SinovadApiGenericResponse>{
     return new Promise((resolve, reject) => {
-      this.restProvider.executeSinovadApiService(HttpMethodType.GET,'/profiles/GetAsync/'+id).then((response:SinovadApiGenericResponse) => {
+      this.restProvider.executeSinovadApiService(HttpMethodType.GET,"/users/"+this.sharedDataService.userData.Id+"/profiles/GetAsync/"+id).then((response:SinovadApiGenericResponse) => {
         resolve(response);
       },error=>{
         console.error(error);
@@ -44,7 +43,7 @@ export class ProfileService {
 
   public getProfileByGuid(guid:string):Promise<SinovadApiGenericResponse>{
     return new Promise((resolve, reject) => {
-      this.restProvider.executeSinovadApiService(HttpMethodType.GET,'/profiles/GetByGuidAsync/'+guid).then((response:SinovadApiGenericResponse) => {
+      this.restProvider.executeSinovadApiService(HttpMethodType.GET,"/users/"+this.sharedDataService.userData.Id+"/profiles/GetByGuidAsync/"+guid).then((response:SinovadApiGenericResponse) => {
         resolve(response);
       },error=>{
         console.error(error);
@@ -52,27 +51,13 @@ export class ProfileService {
       });
     });
   }
-  public getAllProfiles(): Promise<any>{
-    return new Promise((resolve, reject) => {
-      this.restProvider.executeSinovadApiService(HttpMethodType.GET,'/profiles/GetAllWithPaginationByUserAsync/'+this.sharedDataService.userData.Id).then((response:SinovadApiGenericResponse) => {
-        let listProfiles=response.Data;
-        this.sharedDataService.listProfiles=listProfiles;
-        this.sharedDataService.currentProfile=listProfiles[0];
-        resolve(true);
-      },error=>{
-        reject(error);
-      });
-    });
-  }
 
-
-  public getProfiles(userId:number,pageNumber:number,itemsPerPage:number,sortBy:string,sortDirection:string,searchText:string,searchBy:string):Promise<SinovadApiPaginationResponse>{
+  public getProfiles():Promise<SinovadApiGenericResponse>{
     return new Promise((resolve, reject) => {
       let callGuid=uuid();
       this.lastCallGuid=callGuid;
-      var queryParams="?page="+pageNumber.toString()+"&take="+itemsPerPage.toString()+"&sortBy="+sortBy+"&sortDirection="+sortDirection+"&searchText="+searchText+"&searchBy="+searchBy;
-      var path="/profiles/GetAllWithPaginationByUserAsync/"+userId+queryParams;
-      this.restProvider.executeSinovadApiService(HttpMethodType.GET,path).then((response:SinovadApiPaginationResponse) => {
+      var path="/users/"+this.sharedDataService.userData.Id+"/profiles/GetAllAsync";
+      this.restProvider.executeSinovadApiService(HttpMethodType.GET,path).then((response:SinovadApiGenericResponse) => {
         if(this.lastCallGuid==callGuid)
         {
           resolve(response);
@@ -87,7 +72,7 @@ export class ProfileService {
   public saveItem(item:Profile):Promise<boolean>{
     return new Promise((resolve, reject) => {
       let methodType=item.Id>0?HttpMethodType.PUT:HttpMethodType.POST;
-      var path=item.Id>0?"/profiles/Update":"/profiles/Create";
+      var path=item.Id>0?"/users/"+item.UserId+"/profiles/UpdateAsync/"+item.Id:"/users/"+item.UserId+"/profiles/CreateAsync";
       this.restProvider.executeSinovadApiService(methodType,path,item).then((response) => {
         resolve(true);
       },error=>{
@@ -96,9 +81,10 @@ export class ProfileService {
       });
    });
   }
+
   public deleteItem(itemId:number):Promise<SinovadApiGenericResponse>{
     return new Promise((resolve, reject) => {
-      var path="/profiles/Delete/"+itemId;
+      var path="/users/"+this.sharedDataService.userData.Id+"/profiles/DeleteAsync/"+itemId;
       this.restProvider.executeSinovadApiService(HttpMethodType.DELETE,path).then((response:SinovadApiGenericResponse) => {
         resolve(response);
       },error=>{
@@ -107,26 +93,6 @@ export class ProfileService {
       });
    });
   }
-
-  public deleteItems(list:Profile[]):Promise<SinovadApiGenericResponse>{
-    return new Promise((resolve, reject) => {
-      let listItemIds:number[]=[];
-      for(let i=0;i < list.length;i++)
-      {
-        let item=list[i];
-        listItemIds.push(item.Id);
-      }
-      var listIds=listItemIds.join(",");
-      var path="/profiles/DeleteList/"+listIds;
-      this.restProvider.executeSinovadApiService(HttpMethodType.DELETE,path).then((response:SinovadApiGenericResponse) => {
-        resolve(response);
-      },error=>{
-        console.error(error);
-        reject(error);
-      });
-   });
-  }
-
 
 
 }

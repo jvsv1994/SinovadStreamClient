@@ -63,7 +63,7 @@ export class ProfilesViewComponent{
 
     public getProfiles(){
       this.showLoading=true;
-      this.profileService.getProfiles(this.sharedDataService.userData.Id,1,100,"Id","asc","","").then((response:SinovadApiGenericResponse) => {
+      this.profileService.getProfiles().then((response:SinovadApiGenericResponse) => {
         let listProfiles=response.Data;
         this.sharedDataService.listProfiles=listProfiles;
         this.sharedDataService.currentProfile=listProfiles[0];
