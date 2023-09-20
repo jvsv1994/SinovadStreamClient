@@ -18,9 +18,9 @@ export class AuthenticationService {
     private afAuth: AngularFireAuth
     ) { }
 
-  public validateUser(username:string):Promise<SinovadApiGenericResponse>{
+  public validateUser(username:string):Promise<any>{
     return new Promise((resolve,reject)=>{
-      this.restProvider.executeSinovadApiService(HttpMethodType.POST,'/authentication/ValidateUser',{UserName:username}).then((response:SinovadApiGenericResponse) => {
+      this.restProvider.executeSinovadApiService(HttpMethodType.POST,'/authentication/ValidateUser',{UserName:username}).then((response) => {
         resolve(response);
       },error=>{
         reject(error)

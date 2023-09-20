@@ -56,7 +56,7 @@ export class LoginComponent {
       {
         this.showLoading=true;
         this.user.UserName=this.userFormGroup.value.username;
-        this.authenticationService.validateUser(this.user.UserName).then((response:SinovadApiGenericResponse) => {
+        this.authenticationService.validateUser(this.user.UserName).then((response) => {
           this.showPasswordForm=true;
           this.showLoading=false;
           this.errorMessage=undefined;
