@@ -161,7 +161,7 @@ export class UserService {
 
   public registerUser(registerUserModel:RegisterUserModel):Promise<SinovadApiGenericResponse>{
     return new Promise((resolve, reject) => {
-      this.restProvider.executeSinovadApiService(HttpMethodType.POST,'/users/Register',registerUserModel).then((response: SinovadApiGenericResponse) => {
+      this.restProvider.executeSinovadApiService(HttpMethodType.POST,'/signup/Register',registerUserModel).then((response: SinovadApiGenericResponse) => {
         resolve(response);
       },error=>{
         console.error(error);
