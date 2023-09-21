@@ -4,7 +4,6 @@ import { HttpMethodType} from 'src/app/modules/shared/enums/enums';
 import { SinovadApiGenericResponse } from 'src/app/modules/shared/models/response/sinovad-api-generic-response.model';
 import { SinovadApiPaginationResponse } from 'src/app/modules/shared/models/response/sinovad-api-pagination-response.model';
 import {v4 as uuid} from "uuid";
-import { CatalogDetail } from '../model/catalog-detail.model';
 import { Catalog } from '../model/catalog.model';
 
 @Injectable({ providedIn: 'root' })
@@ -56,7 +55,7 @@ export class CatalogService {
 
   public deleteItem(itemId:number):Promise<SinovadApiGenericResponse>{
     return new Promise((resolve, reject) => {
-      var path="/catalogs/Delete/"+itemId;
+      var path="/catalogs/DeleteAsync/"+itemId;
       this.restProvider.executeSinovadApiService(HttpMethodType.DELETE,path).then((response:SinovadApiGenericResponse) => {
         resolve(response);
       },error=>{
@@ -75,7 +74,7 @@ export class CatalogService {
         listItemIds.push(item.Id);
       }
       var listIds=listItemIds.join(",");
-      var path="/catalogs/DeleteList/"+listIds;
+      var path="/catalogs/DeleteListAsync/"+listIds;
       this.restProvider.executeSinovadApiService(HttpMethodType.DELETE,path).then((response:SinovadApiGenericResponse) => {
         resolve(response);
       },error=>{
