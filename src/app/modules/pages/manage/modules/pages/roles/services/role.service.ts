@@ -38,7 +38,7 @@ export class RoleService {
   public saveItem(role:Role):Promise<boolean>{
     return new Promise((resolve, reject) => {
       let methodType=role.Id>0?HttpMethodType.PUT:HttpMethodType.POST;
-      var path=role.Id>0?"/roles/Update":"/roles/Create";
+      var path=role.Id>0?"/roles/UpdateAsync/"+role.Id:"/roles/CreateAsync";
       this.restProvider.executeSinovadApiService(methodType,path,role).then((response) => {
         resolve(true);
       },error=>{
@@ -49,7 +49,7 @@ export class RoleService {
   }
   public deleteItem(itemId:number):Promise<SinovadApiGenericResponse>{
     return new Promise((resolve, reject) => {
-      var path="/roles/Delete/"+itemId;
+      var path="/roles/DeleteAsync/"+itemId;
       this.restProvider.executeSinovadApiService(HttpMethodType.DELETE,path).then((response:SinovadApiGenericResponse) => {
         resolve(response);
       },error=>{
@@ -68,7 +68,7 @@ export class RoleService {
         listItemIds.push(item.Id);
       }
       var listIds=listItemIds.join(",");
-      var path="/roles/DeleteList/"+listIds;
+      var path="/roles/DeleteListAsync/"+listIds;
       this.restProvider.executeSinovadApiService(HttpMethodType.DELETE,path).then((response:SinovadApiGenericResponse) => {
         resolve(response);
       },error=>{

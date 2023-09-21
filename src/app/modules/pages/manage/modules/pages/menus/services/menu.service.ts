@@ -75,7 +75,7 @@ export class MenuService {
   public saveItem(menu:Menu):Promise<boolean>{
     return new Promise((resolve, reject) => {
       let methodType=menu.Id>0?HttpMethodType.PUT:HttpMethodType.POST;
-      var path=menu.Id>0?"/menus/Update":"/menus/Create";
+      var path=menu.Id>0?"/menus/UpdateAsync/"+menu.Id:"/menus/CreateAsync";
       this.restProvider.executeSinovadApiService(methodType,path,menu).then((response) => {
         resolve(true);
       },error=>{
@@ -84,9 +84,10 @@ export class MenuService {
       });
    });
   }
+
   public deleteItem(itemId:number):Promise<SinovadApiGenericResponse>{
     return new Promise((resolve, reject) => {
-      var path="/menus/Delete/"+itemId;
+      var path="/menus/DeleteAsync/"+itemId;
       this.restProvider.executeSinovadApiService(HttpMethodType.DELETE,path).then((response:SinovadApiGenericResponse) => {
         resolve(response);
       },error=>{
@@ -105,7 +106,7 @@ export class MenuService {
         listItemIds.push(item.Id);
       }
       var listIds=listItemIds.join(",");
-      var path="/menus/DeleteList/"+listIds;
+      var path="/menus/DeleteListAsync/"+listIds;
       this.restProvider.executeSinovadApiService(HttpMethodType.DELETE,path).then((response:SinovadApiGenericResponse) => {
         resolve(response);
       },error=>{
