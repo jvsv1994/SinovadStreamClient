@@ -1,3 +1,4 @@
+import { Catalog } from "./catalog.model";
 
 
 export class CatalogDetail{
@@ -7,5 +8,6 @@ export class CatalogDetail{
   public Name:string;
   public TextValue: string;
   public NumberValue: string;
+  public Catalog: Catalog;
 
 }

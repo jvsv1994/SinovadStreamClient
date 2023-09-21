@@ -1,1 +1,29 @@
-<p>catalog-detail-form works!</p>
+<ng-template [ngIf]="catalogDetail!=undefined && catalogDetailFormGroup">
+  <div class="container custom-list-container">
+    <div class="row mb-5">
+      <h3 class="custom-list-title">Catálogos - {{catalogDetail.Catalog?catalogDetail.Catalog.Name:''}} - Detalles - {{catalogDetail.Id>0?'Editar':'Nuevo'}}</h3>
+    </div>
+    <div>
+      <div class="row">
+        <div class="col-12">
+            <form [formGroup]="catalogDetailFormGroup" (ngSubmit)="saveItem()">
+              <div class="modal-body">
+                <mat-form-field>
+                  <mat-label>Nombre</mat-label>
+                  <input id="name" matInput formControlName="name" [errorStateMatcher]="matcher"/>
+                  <mat-error *ngIf="catalogDetailFormGroup.controls['name'].hasError('required')">
+                    Nombre es <strong>requerido</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" [disabled]="showLoading || !catalogDetailFormGroup.valid">Guardar</button>
+              </div>
+            </form>
+            <app-custom-spinner [showLoading]="showLoading"></app-custom-spinner>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
