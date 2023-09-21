@@ -104,7 +104,7 @@ export class ServerSettingsGeneralPageComponent implements OnInit {
       this.loading=true;
       var mediaServer=JSON.parse(JSON.stringify(this.mediaServer));
       mediaServer.FamilyName=this.customForm.value.familyName;
-      this.serverService.updateMediaServer(mediaServer).then((response) => {
+      this.serverService.saveItem(mediaServer).then((response) => {
         this.getMediaServerData();
         this.snackBarService.showSnackBar("Se guardaron los cambios satisfactoriamente",SnackBarType.Success);
       },error=>{

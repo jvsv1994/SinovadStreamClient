@@ -112,34 +112,6 @@ export class MediaServerListComponent extends CustomListGeneric<MediaServer>{
         });
       }
 
-      //Delete List Section
-
-      public deleteSelectedItems(){
-        if(this.selection.hasValue())
-        {
-          var config = new MatDialogConfig<ConfirmDialogOptions>();
-          config.data={
-            title:"Eliminar roles",message:'¿Esta seguro que desea eliminar los registros seleccionados?',accordMessage:"Si, eliminar"
-          }
-          this.dialog.open(CustomConfirmDialogComponent,config).afterClosed().subscribe((confirm: boolean) => {
-            if (confirm) {
-              this.executeDeleteSelectedItems();
-            }
-          });
-        }
-      }
-
-      private executeDeleteSelectedItems(){
-        this.showLoading=true;
-        this.mediaServerService.deleteItems(this.selection.selected).then(res=>{
-          this.snackbarService.showSnackBar("Se eliminaron los registros seleccionados satisfactoriamente",SnackBarType.Success);
-          this.getAllItems();
-        },(error)=>{
-          this.showLoading=false;
-          this.snackbarService.showSnackBar(error,SnackBarType.Error);
-        });
-      }
-
       //Displayed Columns Section
 
       public getDisplayedColumns(){

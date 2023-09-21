@@ -80,7 +80,7 @@ export class MediaServerService {
   public saveItem(item:MediaServer):Promise<boolean>{
     return new Promise((resolve, reject) => {
       let methodType=item.Id>0?HttpMethodType.PUT:HttpMethodType.POST;
-      var path=item.Id>0?"/mediaServers/Update":"/mediaServers/Create";
+      var path=item.Id>0?"/mediaServers/UpdateAsync/"+item.Id:"/mediaServers/CreateAsync";
       this.restProvider.executeSinovadApiService(methodType,path,item).then((response) => {
         resolve(true);
       },error=>{
@@ -89,9 +89,10 @@ export class MediaServerService {
       });
    });
   }
+
   public deleteItem(itemId:number):Promise<SinovadApiGenericResponse>{
     return new Promise((resolve, reject) => {
-      var path="/mediaServers/Delete/"+itemId;
+      var path="/mediaServers/DeleteAsync/"+itemId;
       this.restProvider.executeSinovadApiService(HttpMethodType.DELETE,path).then((response:SinovadApiGenericResponse) => {
         resolve(response);
       },error=>{
@@ -99,37 +100,6 @@ export class MediaServerService {
         reject(error);
       });
    });
-  }
-
-  public deleteItems(list:MediaServer[]):Promise<SinovadApiGenericResponse>{
-    return new Promise((resolve, reject) => {
-      let listItemIds:number[]=[];
-      for(let i=0;i < list.length;i++)
-      {
-        let item=list[i];
-        listItemIds.push(item.Id);
-      }
-      var listIds=listItemIds.join(",");
-      var path="/mediaServers/DeleteList/"+listIds;
-      this.restProvider.executeSinovadApiService(HttpMethodType.DELETE,path).then((response:SinovadApiGenericResponse) => {
-        resolve(response);
-      },error=>{
-        console.error(error);
-        reject(error);
-      });
-   });
-  }
-
-  public updateMediaServer(mediaServer:MediaServer):Promise<SinovadApiGenericResponse>{
-    return new Promise((resolve, reject) => {
-      var path="/mediaServers/Update";
-      this.restProvider.executeSinovadApiService(HttpMethodType.PUT,path,mediaServer).then((response) => {
-        resolve(response);
-      },error=>{
-        console.error(error);
-        reject(error);
-      });
-    });
   }
 
 
