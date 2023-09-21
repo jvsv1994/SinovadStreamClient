@@ -3,7 +3,7 @@ import { RestProviderService } from 'src/app/services/rest-provider.service';
 import { HttpMethodType} from 'src/app/modules/shared/enums/enums';
 import {v4 as uuid} from "uuid";
 import { SharedDataService } from 'src/app/services/shared-data.service';
-import { Observable, Subject, Subscription } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { SinovadApiGenericResponse } from 'src/app/modules/shared/models/response/sinovad-api-generic-response.model';
 import { SinovadApiPaginationResponse } from 'src/app/modules/shared/models/response/sinovad-api-pagination-response.model';
 import { Menu } from '../models/menu.model';
