@@ -94,40 +94,9 @@ export class UserService {
    });
   }
 
-  public saveItem(user:User):Promise<boolean>{
-    return new Promise((resolve, reject) => {
-      let methodType=user.Id>0?HttpMethodType.PUT:HttpMethodType.POST;
-      var path=user.Id>0?"/users/Update":"/users/Create";
-      this.restProvider.executeSinovadApiService(methodType,path,user).then((response) => {
-        resolve(true);
-      },error=>{
-        console.error(error);
-        reject(error);
-      });
-   });
-  }
   public deleteItem(itemId:number):Promise<SinovadApiGenericResponse>{
     return new Promise((resolve, reject) => {
       var path="/users/Delete/"+itemId;
-      this.restProvider.executeSinovadApiService(HttpMethodType.DELETE,path).then((response:SinovadApiGenericResponse) => {
-        resolve(response);
-      },error=>{
-        console.error(error);
-        reject(error);
-      });
-   });
-  }
-
-  public deleteItems(list:User[]):Promise<SinovadApiGenericResponse>{
-    return new Promise((resolve, reject) => {
-      let listItemIds:number[]=[];
-      for(let i=0;i < list.length;i++)
-      {
-        let item=list[i];
-        listItemIds.push(item.Id);
-      }
-      var listIds=listItemIds.join(",");
-      var path="/users/DeleteList/"+listIds;
       this.restProvider.executeSinovadApiService(HttpMethodType.DELETE,path).then((response:SinovadApiGenericResponse) => {
         resolve(response);
       },error=>{
