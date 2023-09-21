@@ -3,7 +3,6 @@ import { Catalog } from '../../model/catalog.model';
 import { CustomListGeneric } from 'src/app/modules/shared/generics/custom-list.generic';
 import { MatPaginator, MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import { MatSort, Sort } from '@angular/material/sort';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { SnackBarService } from 'src/app/modules/shared/services/snack-bar.service';
 import { MatTableDataSource } from '@angular/material/table';
@@ -11,6 +10,7 @@ import { SinovadApiPaginationResponse } from 'src/app/modules/shared/models/resp
 import { ConfirmDialogOptions, CustomConfirmDialogComponent } from 'src/app/modules/shared/components/custom-confirm-dialog/custom-confirm-dialog.component';
 import { SnackBarType } from 'src/app/modules/shared/components/custom-snack-bar/custom-snack-bar.component';
 import { CatalogService } from '../../services/catalog.services';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-catalog-list',
@@ -24,7 +24,8 @@ export class CatalogListComponent extends CustomListGeneric<Catalog> implements 
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(
-    private modalService: NgbModal,
+    private router:Router,
+    private activatedRoute:ActivatedRoute,
     private dialog: MatDialog,
     public matPaginatorIntl: MatPaginatorIntl,
     private snackbarService:SnackBarService,
@@ -73,28 +74,17 @@ export class CatalogListComponent extends CustomListGeneric<Catalog> implements 
       this.getAllItems();
     }
 
-    //Show Modal Form Section
-
     public showNewItem(){
-      var catalog= new Catalog();
-      this.showModalForm(catalog);
+      this.router.navigate(["add"],{relativeTo:this.activatedRoute});
     }
 
     public editItem(catalog: Catalog){
-      this.showModalForm(catalog);
+      this.router.navigate(["edit",catalog.Id.toString()],{relativeTo:this.activatedRoute});
     }
 
-
-    public showModalForm(catalog:Catalog){
-  /*     var ctx=this;
-      var ref=this.modalService.open(MenuFormComponent, {container:"#sinovadMainContainer",
-      modalDialogClass:'modal-dialog modal-fullscreen-md-down modal-dialog-centered modal-dialog-scrollable',scrollable:true,backdrop: 'static'});
-      ref.componentInstance.menu=menu;
-      ref.closed.subscribe(x=>{
-        ctx.getAllItems();
-      }) */
+    public showDetails(catalog: Catalog){
+      this.router.navigate(["details",catalog.Id.toString()],{relativeTo:this.activatedRoute});
     }
-
 
     //Get Data Section
 

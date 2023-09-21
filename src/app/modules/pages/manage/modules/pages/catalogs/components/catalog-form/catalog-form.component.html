@@ -1,0 +1,29 @@
+<ng-template [ngIf]="catalog!=undefined && catalogFormGroup">
+  <div class="container custom-list-container">
+    <div class="row mb-5">
+      <h3 class="custom-list-title">Catálogos - {{catalog.Id>0?'Editar':'Nuevo'}}</h3>
+    </div>
+    <div>
+      <div class="row">
+        <div class="col-12">
+            <form [formGroup]="catalogFormGroup" (ngSubmit)="saveItem()">
+              <div class="modal-body">
+                <mat-form-field>
+                  <mat-label>Nombre</mat-label>
+                  <input id="name" matInput formControlName="name" [errorStateMatcher]="matcher"/>
+                  <mat-error *ngIf="catalogFormGroup.controls['name'].hasError('required')">
+                    Nombre es <strong>requerido</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" [disabled]="showLoading || !catalogFormGroup.valid">Guardar</button>
+              </div>
+            </form>
+            <app-custom-spinner [showLoading]="showLoading"></app-custom-spinner>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+

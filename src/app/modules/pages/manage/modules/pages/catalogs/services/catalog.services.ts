@@ -15,6 +15,30 @@ export class CatalogService {
   ) {
   }
 
+  public getCatalog(catalogId:number){
+    return new Promise((resolve, reject) => {
+      var path="/catalogs/GetAsync/"+catalogId;
+      this.restProvider.executeSinovadApiService(HttpMethodType.GET,path).then((response:SinovadApiGenericResponse) => {
+        resolve(response);
+      },error=>{
+        reject(error);
+      });
+    });
+  }
+
+  public saveCatalog(catalog:Catalog)
+  {
+    return new Promise((resolve, reject) => {
+      var path=catalog.Id>0?"/catalogs/UpdateAsync/"+catalog.Id:"/catalogs/CreateAsync";
+      var httpMethodType=catalog.Id>0?HttpMethodType.PUT:HttpMethodType.POST;
+      this.restProvider.executeSinovadApiService(httpMethodType,path,catalog).then((response:SinovadApiGenericResponse) => {
+        resolve(response);
+      },error=>{
+        reject(error);
+      });
+    });
+  }
+
 
   public getAllWithPagination(pageNumber:number,itemsPerPage:number,sortBy:string,sortDirection:string,searchText:string,searchBy:string): Promise<any>{
     let callGuid=uuid();
