@@ -7,6 +7,7 @@ import { SnackBarService } from 'src/app/modules/shared/services/snack-bar.servi
 import { SinovadApiGenericResponse } from 'src/app/modules/shared/models/response/sinovad-api-generic-response.model';
 import { CatalogDetailService } from '../../services/catalog-detail.service';
 import { SnackBarType } from 'src/app/modules/shared/components/custom-snack-bar/custom-snack-bar.component';
+import { CatalogService } from '../../services/catalog.services';
 
 @Component({
   selector: 'app-catalog-detail-form',
@@ -24,6 +25,7 @@ export class CatalogDetailFormComponent {
     private activatedRoute:ActivatedRoute,
     private router:Router,
     private snackbarService:SnackBarService,
+    private catalogService:CatalogService,
     private catalogDetailService:CatalogDetailService) {
 
 	}
@@ -42,9 +44,14 @@ export class CatalogDetailFormComponent {
               this.router.navigateByUrl("/404");
           });
       }else{
-        this.catalogDetail= new CatalogDetail();
-        this.catalogDetail.CatalogId=catalogId;
-        this.buildFormGroup();
+        this.catalogService.get(catalogId).then((response:SinovadApiGenericResponse)=>{
+          this.catalogDetail= new CatalogDetail();
+          this.catalogDetail.Catalog=response.Data;
+          this.catalogDetail.CatalogId=catalogId;
+          this.buildFormGroup();
+        },error=>{
+            this.router.navigateByUrl("/404");
+        });
       }
     }
   }
