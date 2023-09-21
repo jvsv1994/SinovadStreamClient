@@ -69,11 +69,11 @@ export class CatalogDetailListComponent extends CustomListGeneric<CatalogDetail>
         this.sortDirection=sort.direction;
         this.getAllItems();
       });
-      this.sortBy="Name";
+      this.sortBy="Id";
       this.sortDirection="asc";
       this.sort.disableClear=true;
       this.sort.sort({
-        id:"Name",
+        id:"Id",
         start:"asc",
         disableClear:true
       });
