@@ -32,7 +32,7 @@ export class CatalogFormComponent implements OnInit{
     var catalogId=this.activatedRoute.snapshot.params.catalogId;
     if(catalogId!=null)
     {
-        this.catalogService.getCatalog(catalogId).then((response:SinovadApiGenericResponse)=>{
+        this.catalogService.get(catalogId).then((response:SinovadApiGenericResponse)=>{
           this.catalog=response.Data;
           this.buildFormGroup();
         },error=>{
@@ -56,7 +56,7 @@ export class CatalogFormComponent implements OnInit{
       this.showLoading=true;
       var movie:Catalog=JSON.parse(JSON.stringify(this.catalog));
       movie.Name=this.catalogFormGroup.value.name;
-      this.catalogService.saveCatalog(movie).then((response: any) => {
+      this.catalogService.save(movie).then((response: any) => {
         this.showLoading=false;
         this.snackbarService.showSnackBar("Se guardo el catálogo satisfactoriamente",SnackBarType.Success);
         this.router.navigateByUrl("/manage/catalogs");

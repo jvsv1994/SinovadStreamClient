@@ -34,6 +34,8 @@ import { ItemDetailComponent } from './modules/pages/media/components/item-detai
 import { LogPageComponent } from './modules/pages/settings/modules/pages/web/components/log-page/log-page.component';
 import { CatalogListComponent } from './modules/pages/manage/modules/pages/catalogs/components/catalog-list/catalog-list.component';
 import { CatalogFormComponent } from './modules/pages/manage/modules/pages/catalogs/components/catalog-form/catalog-form.component';
+import { CatalogDetailListComponent } from './modules/pages/manage/modules/pages/catalogs/components/catalog-detail-list/catalog-detail-list.component';
+import { CatalogDetailFormComponent } from './modules/pages/manage/modules/pages/catalogs/components/catalog-detail-form/catalog-detail-form.component';
 
 @Component({
   selector: 'app-root',
@@ -136,7 +138,7 @@ export class AppComponent{
       }
       if(event instanceof MovieListComponent || event instanceof TvSerieListComponent || event instanceof MenuListComponent
         || event instanceof GenreListComponent || event instanceof UserListComponent || event instanceof RoleListComponent
-        || event instanceof CatalogListComponent || event instanceof CatalogFormComponent)
+        || event instanceof CatalogListComponent || event instanceof CatalogFormComponent || event instanceof CatalogDetailListComponent || event instanceof CatalogDetailFormComponent)
       {
         this.showRouterChildWithFullDimentions=false;
         this.showingSidebarAccount=false;

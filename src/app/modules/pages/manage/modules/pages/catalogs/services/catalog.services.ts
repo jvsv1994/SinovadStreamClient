@@ -15,7 +15,7 @@ export class CatalogService {
   ) {
   }
 
-  public getCatalog(catalogId:number){
+  public get(catalogId:number){
     return new Promise((resolve, reject) => {
       var path="/catalogs/GetAsync/"+catalogId;
       this.restProvider.executeSinovadApiService(HttpMethodType.GET,path).then((response:SinovadApiGenericResponse) => {
@@ -26,7 +26,7 @@ export class CatalogService {
     });
   }
 
-  public saveCatalog(catalog:Catalog)
+  public save(catalog:Catalog)
   {
     return new Promise((resolve, reject) => {
       var path=catalog.Id>0?"/catalogs/UpdateAsync/"+catalog.Id:"/catalogs/CreateAsync";
@@ -77,7 +77,7 @@ export class CatalogService {
     });
   }
 
-  public deleteItem(itemId:number):Promise<SinovadApiGenericResponse>{
+  public delete(itemId:number):Promise<SinovadApiGenericResponse>{
     return new Promise((resolve, reject) => {
       var path="/catalogs/DeleteAsync/"+itemId;
       this.restProvider.executeSinovadApiService(HttpMethodType.DELETE,path).then((response:SinovadApiGenericResponse) => {

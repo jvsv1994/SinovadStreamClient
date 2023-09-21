@@ -70,7 +70,7 @@ export class CatalogDetailService {
    });
   }
 
-  public deleteList(catalogId:number,list:Catalog[]):Promise<SinovadApiGenericResponse>{
+  public deleteList(catalogId:number,list:CatalogDetail[]):Promise<SinovadApiGenericResponse>{
     return new Promise((resolve, reject) => {
       let listItemIds:number[]=[];
       for(let i=0;i < list.length;i++)

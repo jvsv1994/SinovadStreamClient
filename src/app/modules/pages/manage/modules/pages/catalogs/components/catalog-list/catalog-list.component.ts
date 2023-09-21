@@ -108,7 +108,7 @@ export class CatalogListComponent extends CustomListGeneric<Catalog> implements 
 
     //Delete Section
 
-    public deleteItem(catalog:Catalog){
+    public delete(catalog:Catalog){
       var config = new MatDialogConfig<ConfirmDialogOptions>();
       config.data={
         title:'Eliminar rol',message:'¿Esta seguro que desea eliminar el catálogo '+catalog.Name+'?',accordMessage:"Si, eliminar el catálogo '"+catalog.Name+"'"
@@ -122,7 +122,7 @@ export class CatalogListComponent extends CustomListGeneric<Catalog> implements 
 
     private executeDeleteItem(Catalog:Catalog){
       this.showLoading=true;
-      this.catalogService.deleteItem(Catalog.Id).then(res=>{
+      this.catalogService.delete(Catalog.Id).then(res=>{
         this.snackbarService.showSnackBar("Se elimino el registro satisfactoriamente",SnackBarType.Success);
         this.getAllItems();
       },(error)=>{
