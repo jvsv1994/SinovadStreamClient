@@ -71,7 +71,7 @@ export class CatalogDetailFormComponent {
       this.catalogDetailService.save(catalogDetail).then((response: any) => {
         this.showLoading=false;
         this.snackbarService.showSnackBar("Se guardo el detalle catálogo satisfactoriamente",SnackBarType.Success);
-        this.router.navigateByUrl("/manage/catalogs/"+this.catalogDetail.CatalogId+"/details");
+        this.router.navigateByUrl("/manage/catalogs/details"+this.catalogDetail.CatalogId);
       },error=>{
         this.showLoading=false;
         console.error(error);
