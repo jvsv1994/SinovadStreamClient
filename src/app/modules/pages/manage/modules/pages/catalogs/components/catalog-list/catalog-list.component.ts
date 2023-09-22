@@ -31,6 +31,9 @@ export class CatalogListComponent extends CustomListGeneric<Catalog> implements 
     private snackbarService:SnackBarService,
     private catalogService:CatalogService) {
       super(matPaginatorIntl);
+      this.router.routeReuseStrategy.shouldReuseRoute = function () {
+        return false;
+      };
     }
 
     ngOnInit(): void {
@@ -55,13 +58,9 @@ export class CatalogListComponent extends CustomListGeneric<Catalog> implements 
       this.sortBy="Id";
       this.sortDirection="asc";
       this.sort.disableClear=true;
-      this.sort.sort({
-        id:"Id",
-        start:"asc",
-        disableClear:true
-      });
       this.searchBy="Name";
       this.dataSource.sort = this.sort;
+      this.getAllItems();
     }
 
 
