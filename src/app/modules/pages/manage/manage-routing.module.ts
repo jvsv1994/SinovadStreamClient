@@ -41,9 +41,7 @@ const routes: Routes = [
   },
   {
     path: 'roles',
-    component: RoleListComponent,
     loadChildren: () => import('./modules/pages/roles/roles.module').then(m => m.RolesPageModule),
-    canActivate:[loggedUserGuard,mainAdminGuard]
   },
   {
     path: 'catalogs',
