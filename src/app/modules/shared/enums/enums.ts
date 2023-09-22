@@ -87,3 +87,9 @@ export enum AlertType
   Bullhorn = 4,
   Tags = 5
 }
+
+
+export enum Roles{
+  MainAdministrator=1,
+  MediaAdministrator=2
+}

@@ -11,21 +11,6 @@ export class CommonService {
 
   }
 
-
-  public checkIfIsEnableMenuOptionByPath(path:string){
-   /*  var findOption=false;
-    for (let index = 0; index < this.sharedDataService.manageMenus.length; index++) {
-      const menu = this.sharedDataService.manageMenus[index];
-      if(menu.ChildMenus && menu.ChildMenus.findIndex(x=>x.Path && x.Path.includes(path))!=-1)
-      {
-        findOption=true;
-        break;
-      }
-    }
-    return findOption; */
-    return true;
-  }
-
   //auxiliary methods
 
   public formatDate(date:any) {
