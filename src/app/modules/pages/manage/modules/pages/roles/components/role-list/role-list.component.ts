@@ -13,6 +13,7 @@ import { SinovadApiPaginationResponse } from 'src/app/modules/shared/models/resp
 import { Role } from '../../models/role.model';
 import { RoleService } from '../../services/role.service';
 import { RoleFormComponent } from '../role-form/role-form.component';
+import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-role-list',
   templateUrl: './role-list.component.html',
@@ -25,12 +26,17 @@ export class RoleListComponent extends CustomListGeneric<Role>  implements After
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(
+    private activatedRoute:ActivatedRoute,
+    private router:Router,
     private modalService: NgbModal,
     private dialog: MatDialog,
     public matPaginatorIntl: MatPaginatorIntl,
     private snackbarService:SnackBarService,
     private roleService:RoleService) {
       super(matPaginatorIntl);
+      this.router.routeReuseStrategy.shouldReuseRoute = function () {
+        return false;
+      };
     }
 
     ngOnInit(): void {
@@ -56,13 +62,16 @@ export class RoleListComponent extends CustomListGeneric<Role>  implements After
       this.sortBy="Name";
       this.sortDirection="asc";
       this.sort.disableClear=true;
-      this.sort.sort({
-        id:"Name",
-        start:"asc",
-        disableClear:true
-      });
       this.searchBy="Name";
       this.dataSource.sort = this.sort;
+      this.getAllItems();
+    }
+
+
+    //Show Menus
+
+    public showMenus(event:Event){
+
     }
 
     //Apply Filters Section
