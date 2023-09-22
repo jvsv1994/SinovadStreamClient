@@ -367,6 +367,11 @@ ngb-modal-window .component-host-scrollable {
   text-align: center !important;
 }
 
+.expandable-cell{
+  width:100%;
+  text-align: left !important;
+}
+
 .text-truncate{
   white-space: nowrap;
   overflow: hidden;
@@ -880,6 +885,18 @@ section{
   text-align: center;
 }
 
+
+.custom-page-title{
+  font-size: 22px;
+  color: white;
+  margin-bottom: 10px;
+  a{
+    color: #007bff !important;
+    cursor: pointer;
+    text-decoration: blink;
+  }
+}
+
 @media only screen and (max-width: 767px) {
   div{
     &::-webkit-scrollbar{
@@ -909,6 +926,14 @@ section{
   }
 }
 
+@media only screen and (max-width: 400px) {
+  .expandable-cell{
+    max-width: 120px !important;
+    width: 120px !important;
+  }
+}
+
+
 @media only screen and (max-width: 375px) {
   .custom-list-container{
     padding-left: 6px !important;
@@ -917,6 +942,9 @@ section{
   .custom-list-title{
     display: flex !important;
     justify-content: center !important;
+  }
+  .custom-page-title{
+    text-align: center;
   }
 }
 

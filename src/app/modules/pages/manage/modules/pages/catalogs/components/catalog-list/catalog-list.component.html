@@ -1,6 +1,8 @@
 <div class="container custom-list-container">
-  <div class="row">
-    <h3 class="custom-list-title">Catálogos</h3>
+  <div>
+    <div class="row">
+      <div class="custom-page-title">Catálogos</div>
+    </div>
   </div>
   <div>
     <div class="row">
@@ -47,8 +49,8 @@
                 <td mat-cell *matCellDef="let element;let i = index" class="number-cell"> {{element.Id}}</td>
               </ng-container>
               <ng-container matColumnDef="Name">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header style="width:100%;text-align: left;">Nombre</th>
-                <td mat-cell *matCellDef="let element" style="width:100%;text-align: left;"> {{element.Name}} </td>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="expandable-cell">Nombre</th>
+                <td mat-cell *matCellDef="let element" class="expandable-cell"> {{element.Name}} </td>
               </ng-container>
               <ng-container matColumnDef="Actions">
                 <th mat-header-cell *matHeaderCellDef style="width:100px;"></th>

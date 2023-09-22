@@ -1,6 +1,6 @@
 <div *ngIf="catalog" class="container custom-list-container">
   <div class="row">
-    <h3 class="custom-list-title">Catálogos - {{catalog.Name}} - Detalles</h3>
+    <div class="custom-page-title"><a [routerLink]="['/manage/catalogs']">Catálogos</a> - {{catalog.Name}} - Detalles</div>
   </div>
   <div>
     <div class="row">
