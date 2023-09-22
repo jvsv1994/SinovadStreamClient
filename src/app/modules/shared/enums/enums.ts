@@ -91,5 +91,5 @@ export enum AlertType
 
 export enum Roles{
   MainAdministrator=1,
-  MediaAdministrator=2
+  MediaDbAdministrator=2
 }

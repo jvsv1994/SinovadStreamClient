@@ -8,25 +8,26 @@ import { UserListComponent } from './modules/pages/users/components/user-list/us
 import { GenreListComponent } from './modules/pages/genres/components/genre-list/genre-list.component';
 import { MenuListComponent } from './modules/pages/menus/components/menu-list/menu-list.component';
 import { RoleListComponent } from './modules/pages/roles/components/role-list/role-list.component';
+import { mediadbAdminGuard } from 'src/app/guards/mediadb-admin.guard';
 
 const routes: Routes = [
   {
     path: 'movies',
     component: MovieListComponent,
     loadChildren: () => import('./modules/pages/movies/movies.module').then(m => m.MoviesModule),
-    canActivate:[loggedUserGuard,mainAdminGuard]
+    canActivate:[loggedUserGuard,mediadbAdminGuard]
   },
   {
     path: 'tvseries',
     component: TvSerieListComponent,
     loadChildren: () => import('./modules/pages/tvseries/tvseries.module').then(m => m.TvSeriesModule),
-    canActivate:[loggedUserGuard,mainAdminGuard]
+    canActivate:[loggedUserGuard,mediadbAdminGuard]
   },
   {
     path: 'genres',
     component: GenreListComponent,
     loadChildren: () => import('./modules/pages/genres/genres.module').then(m => m.GenresModule),
-    canActivate:[loggedUserGuard,mainAdminGuard]
+    canActivate:[loggedUserGuard,mediadbAdminGuard]
   },
   {
     path: 'menus',
