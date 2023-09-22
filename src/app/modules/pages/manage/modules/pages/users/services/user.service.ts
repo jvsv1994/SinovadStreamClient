@@ -15,6 +15,7 @@ import { RecoverPasswordModel } from 'src/app/modules/pages/recover-password/mod
 import { RegisterUserModel } from 'src/app/modules/pages/register-user/models/register-user-model';
 import { ValidateResetPasswordTokenModel } from 'src/app/modules/pages/reset-password/models/validate-reset-password-token.model';
 import { ResetPasswordModel } from 'src/app/modules/pages/reset-password/models/reset-password.model';
+import { UserRole } from '../models/user-role.model';
 export declare type EventHandler = (...args: any[]) => any;
 
 @Injectable({ providedIn: 'root' })
@@ -79,8 +80,20 @@ export class UserService {
 
   public getWithRoles(userId:number):Promise<SinovadApiGenericResponse>{
     return new Promise((resolve, reject) => {
-      var path="/users/GetAsync/"+userId+"/roles";
+      var path="/users/GetUserWithRolesAsync/"+userId;
       this.restProvider.executeSinovadApiService(HttpMethodType.GET,path).then((response:SinovadApiGenericResponse) => {
+        resolve(response);
+      },error=>{
+        console.error(error);
+        reject(error);
+      });
+   });
+  }
+
+  public updateWithRoles(userId:number,userRoles:UserRole[]):Promise<SinovadApiGenericResponse>{
+    return new Promise((resolve, reject) => {
+      var path="/users/UpdateUserRolesAsync/"+userId;
+      this.restProvider.executeSinovadApiService(HttpMethodType.PUT,path,userRoles).then((response:SinovadApiGenericResponse) => {
         resolve(response);
       },error=>{
         console.error(error);
