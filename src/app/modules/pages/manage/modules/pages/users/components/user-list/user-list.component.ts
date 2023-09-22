@@ -11,7 +11,7 @@ import { SnackBarType } from 'src/app/modules/shared/components/custom-snack-bar
 import { ContextMenuService } from 'src/app/modules/shared/services/context-menu.service';
 import { ContextMenuOption } from 'src/app/modules/shared/components/custom-context-menu/custom-context-menu.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SinovadApiPaginationResponse } from 'src/app/modules/shared/models/response/sinovad-api-pagination-response.model';
 import { UserService } from '../../services/user.service';
 import { User } from '../../models/user.model';
@@ -29,6 +29,7 @@ export class UserListComponent extends CustomListGeneric<User> {
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(
+    private activatedRoute:ActivatedRoute,
     private router:Router,
     private modalService: NgbModal,
     private contextMenuService:ContextMenuService,
@@ -37,7 +38,9 @@ export class UserListComponent extends CustomListGeneric<User> {
     public matPaginatorIntl: MatPaginatorIntl,
     private snackbarService:SnackBarService) {
       super(matPaginatorIntl)
-
+      this.router.routeReuseStrategy.shouldReuseRoute = function () {
+        return false;
+      };
     }
 
     ngOnInit(): void {
@@ -62,13 +65,9 @@ export class UserListComponent extends CustomListGeneric<User> {
       this.sortBy="UserName";
       this.sortDirection="asc";
       this.sort.disableClear=true;
-      this.sort.sort({
-        id:"UserName",
-        start:"asc",
-        disableClear:true
-      });
       this.searchBy="UserName|Email|FirstName|LastName";
       this.dataSource.sort = this.sort;
+      this.getAllItems();
     }
 
     //Apply Filters Section
@@ -100,6 +99,12 @@ export class UserListComponent extends CustomListGeneric<User> {
       });
     }
 
+
+    //Show Roles
+
+    public showRoles(user:User){
+      this.router.navigate(["roles",user.Id.toString()],{relativeTo:this.activatedRoute});
+    }
 
     //Delete Section
 

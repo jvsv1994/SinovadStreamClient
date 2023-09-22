@@ -1,0 +1,23 @@
+<ng-template [ngIf]="user!=undefined">
+  <div class="container custom-list-container">
+    <div class="row mb-5">
+      <div class="custom-page-title"><a>Usuarios</a> - {{user.UserName}} - Roles</div>
+    </div>
+    <div>
+      <div class="row">
+        <div class="col-12">
+              <div class="modal-body">
+                <ng-template ngFor let-item [ngForOf]="listRoles"  let-i="index">
+                  <p><mat-checkbox (click)="onChangeCheckValue($event,item)" [checked]="selection.isSelected(item)">{{item.Name}}</mat-checkbox></p>
+                </ng-template>
+              </div>
+              <div class="modal-footer">
+                <button class="btn btn-primary" [disabled]="showLoading" (click)="saveUserRoles()">Guardar</button>
+              </div>
+            <app-custom-spinner [showLoading]="showLoading"></app-custom-spinner>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+

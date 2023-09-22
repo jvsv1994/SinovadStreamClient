@@ -37,9 +37,7 @@ const routes: Routes = [
   },
   {
     path: 'users',
-    component: UserListComponent,
     loadChildren: () => import('./modules/pages/users/users.module').then(m => m.UsersModule),
-    canActivate:[loggedUserGuard,mainAdminGuard]
   },
   {
     path: 'roles',
