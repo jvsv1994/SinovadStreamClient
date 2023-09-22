@@ -5,7 +5,7 @@ import { MenuService } from '../modules/pages/manage/modules/pages/menus/service
 import { SharedDataService } from '../services/shared-data.service';
 import { Roles } from '../modules/shared/enums/enums';
 
-export const adminGuard: CanActivateFn = (route, state) => {
+export const mainAdminGuard: CanActivateFn = (route, state) => {
   const sharedDataService=inject(SharedDataService);
   const menuService=inject(MenuService);
   const router=inject(Router);
