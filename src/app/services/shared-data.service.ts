@@ -8,6 +8,7 @@ import { MediaServer } from '../modules/pages/manage/modules/pages/servers/model
 import { LinkedAccount } from '../modules/pages/login/models/linked-account.model';
 import { Profile } from '../modules/pages/profiles/models/profile.model';
 import { Log } from '../modules/pages/settings/modules/pages/web/models/log.model';
+import { Role } from '../modules/pages/manage/modules/pages/roles/models/role.model';
 
 @Injectable({ providedIn: 'root' })
 export class SharedDataService {
@@ -25,6 +26,7 @@ export class SharedDataService {
   listProfiles:Profile[]=[];
   manageMenus:Menu[]=[];
   mediaServers:MediaServer[]=[];
+  roles:Role[]=[];
   linkedAccounts:LinkedAccount[]=[];
   hubConnection:HubConnection;
   deviceData:DeviceData;

@@ -56,6 +56,7 @@ export class UserService {
       if(userSessionData && userSessionData.User)
       {
         this.sharedDataService.userData=userSessionData.User;
+        this.sharedDataService.roles=userSessionData.Roles;
         this.sharedDataService.mediaServers=userSessionData.MediaServers;
         this.sharedDataService.linkedAccounts=userSessionData.LinkedAccounts;
         this.sharedDataService.listProfiles=userSessionData.Profiles;
