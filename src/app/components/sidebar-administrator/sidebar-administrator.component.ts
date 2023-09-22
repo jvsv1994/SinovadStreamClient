@@ -28,7 +28,7 @@ export class SidebarAdministratorComponent{
     }
 
     public isSelectedMenu(option:Menu){
-      if(option.Path.indexOf(window.location.pathname)!=-1)
+      if(window.location.pathname.indexOf(option.Path)!=-1)
       {
         return true;
       }
