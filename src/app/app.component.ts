@@ -36,6 +36,7 @@ import { CatalogListComponent } from './modules/pages/manage/modules/pages/catal
 import { CatalogFormComponent } from './modules/pages/manage/modules/pages/catalogs/components/catalog-form/catalog-form.component';
 import { CatalogDetailListComponent } from './modules/pages/manage/modules/pages/catalogs/components/catalog-detail-list/catalog-detail-list.component';
 import { CatalogDetailFormComponent } from './modules/pages/manage/modules/pages/catalogs/components/catalog-detail-form/catalog-detail-form.component';
+import { UserRolesComponent } from './modules/pages/manage/modules/pages/users/components/user-roles/user-roles.component';
 
 @Component({
   selector: 'app-root',
@@ -138,7 +139,8 @@ export class AppComponent{
       }
       if(event instanceof MovieListComponent || event instanceof TvSerieListComponent || event instanceof MenuListComponent
         || event instanceof GenreListComponent || event instanceof UserListComponent || event instanceof RoleListComponent
-        || event instanceof CatalogListComponent || event instanceof CatalogFormComponent || event instanceof CatalogDetailListComponent || event instanceof CatalogDetailFormComponent)
+        || event instanceof CatalogListComponent || event instanceof CatalogFormComponent || event instanceof CatalogDetailListComponent
+        || event instanceof CatalogDetailFormComponent || event instanceof UserRolesComponent)
       {
         this.showRouterChildWithFullDimentions=false;
         this.showingSidebarAccount=false;

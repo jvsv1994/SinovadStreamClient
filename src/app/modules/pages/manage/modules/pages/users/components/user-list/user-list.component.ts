@@ -103,7 +103,7 @@ export class UserListComponent extends CustomListGeneric<User> {
     //Show Roles
 
     public showRoles(user:User){
-      this.router.navigate(["roles",user.Id.toString()],{relativeTo:this.activatedRoute});
+      this.router.navigate([user.Id.toString(),"roles"],{relativeTo:this.activatedRoute});
     }
 
     //Delete Section

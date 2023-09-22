@@ -39,7 +39,7 @@
                 <th mat-header-cell *matHeaderCellDef style="width:100px;"></th>
                 <td mat-cell *matCellDef="let element" style="width:100px;height: 100%;">
                   <div style="display: flex;align-items: center;justify-content: center;height: 100%;">
-                    <button type="button" class="action-button" data-toggle="tooltip" data-placement="bottom" matTooltip="Roles" (click)="deleteItem(element)">
+                    <button type="button" class="action-button" data-toggle="tooltip" data-placement="bottom" matTooltip="Roles" (click)="showRoles(element)">
                       <i class="fa-solid fa-circle-user"></i>
                     </button>
                     <button type="button" class="action-button" data-toggle="tooltip" data-placement="bottom" matTooltip="Eliminar" (click)="deleteItem(element)">

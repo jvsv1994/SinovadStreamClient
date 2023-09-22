@@ -77,6 +77,18 @@ export class UserService {
     });
   }
 
+  public getWithRoles(userId:number):Promise<SinovadApiGenericResponse>{
+    return new Promise((resolve, reject) => {
+      var path="/users/GetAsync/"+userId+"/roles";
+      this.restProvider.executeSinovadApiService(HttpMethodType.GET,path).then((response:SinovadApiGenericResponse) => {
+        resolve(response);
+      },error=>{
+        console.error(error);
+        reject(error);
+      });
+   });
+  }
+
   public getItems(pageNumber:number,itemsPerPage:number,sortBy:string,sortDirection:string,searchText:string,searchBy:string):Promise<SinovadApiPaginationResponse>{
     return new Promise((resolve, reject) => {
       let callGuid=uuid();

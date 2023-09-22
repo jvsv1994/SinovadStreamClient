@@ -5,6 +5,7 @@ import { UserService } from '../../services/user.service';
 import { User } from '../../models/user.model';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Role } from '../../../roles/models/role.model';
+import { SinovadApiGenericResponse } from 'src/app/modules/shared/models/response/sinovad-api-generic-response.model';
 
 @Component({
   selector: 'app-user-roles',
@@ -27,8 +28,14 @@ export class UserRolesComponent implements OnInit{
 
   ngOnInit(): void {
     var userId=this.activatedRoute.snapshot.params.userId;
-
-
+    if(userId)
+    {
+      this.userService.getWithRoles(userId).then((response:SinovadApiGenericResponse)=>{
+        this.user=response.Data;
+      },error=>{
+        console.error(error);
+      });
+    }
   }
 
 
