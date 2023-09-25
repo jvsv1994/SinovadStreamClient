@@ -45,9 +45,9 @@ export class RoleMenusComponent implements OnInit{
     });
   }
 
-  public onChangeCheckValue(event:any,item:RoleMenu)
+  public getTargetFromEvent(event:any)
   {
-    item.Enabled=event.target.checked;
+    return event.target;
   }
 
 }

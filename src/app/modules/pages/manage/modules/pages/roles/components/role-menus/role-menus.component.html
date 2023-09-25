@@ -7,11 +7,44 @@
       <div class="row">
         <div class="col-12">
               <div class="modal-body">
+                <div class="row">
+                  <div class="col-4">
+                  </div>
+                  <div class="col-2 text-center text-truncate">
+                    Ver
+                 </div>
+                 <div class="col-2 text-center text-truncate">
+                   Crear
+                 </div>
+                 <div class="col-2 text-center text-truncate">
+                   Actualizar
+                 </div>
+                 <div class="col-2 text-center text-truncate">
+                   Eliminar
+                 </div>
+                </div>
+
                 <ng-template ngFor let-roleMenu [ngForOf]="role.RoleMenus"  let-i="index">
-                  <p><mat-checkbox (click)="onChangeCheckValue($event,roleMenu)" [checked]="roleMenu.Enabled">{{roleMenu.MenuTitle}}</mat-checkbox></p>
+                  <div class="row">
+                    <div class="col-4 d-flex align-items-center">
+                      <mat-checkbox (click)="roleMenu.Enabled=getTargetFromEvent($event).checked" [checked]="roleMenu.Enabled"></mat-checkbox><span>{{roleMenu.MenuTitle}}</span>
+                    </div>
+                    <div class="col-2 text-center">
+                      <mat-checkbox (click)="roleMenu.AllowRead=getTargetFromEvent($event).checked" [checked]="roleMenu.AllowRead"></mat-checkbox>
+                    </div>
+                    <div class="col-2 text-center">
+                      <mat-checkbox (click)="roleMenu.AllowCreate=getTargetFromEvent($event).checked" [checked]="roleMenu.AllowCreate"></mat-checkbox>
+                    </div>
+                    <div class="col-2 text-center">
+                      <mat-checkbox (click)="roleMenu.AllowUpdate=getTargetFromEvent($event).checked" [checked]="roleMenu.AllowUpdate"></mat-checkbox>
+                    </div>
+                    <div class="col-2 text-center">
+                      <mat-checkbox (click)="roleMenu.AllowDelete=getTargetFromEvent($event).checked" [checked]="roleMenu.AllowDelete"></mat-checkbox>
+                    </div>
+                  </div>
                 </ng-template>
               </div>
-              <div class="modal-footer">
+              <div class="modal-footer mt-5">
                 <button class="btn btn-primary" [disabled]="showLoading" (click)="saveRoleMenus()">Guardar</button>
               </div>
             <app-custom-spinner [showLoading]="showLoading"></app-custom-spinner>
