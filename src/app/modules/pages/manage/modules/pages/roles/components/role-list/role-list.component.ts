@@ -70,8 +70,8 @@ export class RoleListComponent extends CustomListGeneric<Role>  implements After
 
     //Show Menus
 
-    public showMenus(event:Event){
-
+    public showMenus(role:Role){
+      this.router.navigate([role.Id,'menus'],{relativeTo:this.activatedRoute});
     }
 
     //Apply Filters Section

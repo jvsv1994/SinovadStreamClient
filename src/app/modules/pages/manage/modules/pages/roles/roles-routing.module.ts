@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { loggedUserGuard } from 'src/app/guards/logged-user.guard';
 import { mainAdminGuard } from 'src/app/guards/main-admin.guard';
 import { RoleListComponent } from './components/role-list/role-list.component';
+import { RoleMenusComponent } from './components/role-menus/role-menus.component';
 
 const routes: Routes = [
   {
@@ -12,7 +13,7 @@ const routes: Routes = [
   },
   {
     path:":roleId/menus",
-    component:RoleListComponent,
+    component:RoleMenusComponent,
     canActivate:[loggedUserGuard,mainAdminGuard]
   }
 ];

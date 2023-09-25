@@ -4,11 +4,13 @@ import { SharedModule } from 'src/app/modules/shared/shared.module';
 import { RoleListComponent } from './components/role-list/role-list.component';
 import { RoleFormComponent } from './components/role-form/role-form.component';
 import { RolesRoutingModule } from './roles-routing.module';
+import { RoleMenusComponent } from './components/role-menus/role-menus.component';
 
 @NgModule({
     declarations: [
       RoleListComponent,
-      RoleFormComponent
+      RoleFormComponent,
+      RoleMenusComponent
     ],
     providers:[],
     imports: [
@@ -17,7 +19,7 @@ import { RolesRoutingModule } from './roles-routing.module';
       RolesRoutingModule,
       SharedModule
     ],
-    exports: [RoleListComponent,RoleFormComponent]
+    exports: [RoleListComponent,RoleFormComponent,RoleMenusComponent]
 })
 export class RolesPageModule {
 }

@@ -5,6 +5,7 @@ import {v4 as uuid} from "uuid";
 import { SinovadApiPaginationResponse } from 'src/app/modules/shared/models/response/sinovad-api-pagination-response.model';
 import { SinovadApiGenericResponse } from 'src/app/modules/shared/models/response/sinovad-api-generic-response.model';
 import { Role } from '../models/role.model';
+import { RoleMenu } from '../models/role-menu.model';
 export declare type EventHandler = (...args: any[]) => any;
 
 @Injectable({ providedIn: 'root' })
@@ -16,6 +17,31 @@ export class RoleService {
     private restProvider: RestProviderService,
   ) {
   }
+
+  public getWithMenus(roleId:number):Promise<SinovadApiGenericResponse>{
+    return new Promise((resolve, reject) => {
+      var path="/roles/GetRoleWithMenusAsync/"+roleId;
+      this.restProvider.executeSinovadApiService(HttpMethodType.GET,path).then((response:SinovadApiGenericResponse) => {
+        resolve(response);
+      },error=>{
+        console.error(error);
+        reject(error);
+      });
+   });
+  }
+
+  public updateWithMenus(roleId:number,roleMenus:RoleMenu[]):Promise<SinovadApiGenericResponse>{
+    return new Promise((resolve, reject) => {
+      var path="/roles/UpdateRoleMenusAsync/"+roleId;
+      this.restProvider.executeSinovadApiService(HttpMethodType.PUT,path,roleMenus).then((response:SinovadApiGenericResponse) => {
+        resolve(response);
+      },error=>{
+        console.error(error);
+        reject(error);
+      });
+   });
+  }
+
 
   public getItems(pageNumber:number,itemsPerPage:number,sortBy:string,sortDirection:string,searchText:string,searchBy:string):Promise<SinovadApiPaginationResponse>{
     return new Promise((resolve, reject) => {

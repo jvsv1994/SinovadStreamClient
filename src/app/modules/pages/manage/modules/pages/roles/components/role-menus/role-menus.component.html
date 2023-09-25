@@ -1,0 +1,23 @@
+<ng-template [ngIf]="role!=undefined">
+  <div class="container custom-list-container">
+    <div class="row mb-5">
+      <div class="custom-page-title"><a [routerLink]="['/manage/roles']">Roles</a> - {{role.Name}} - Menus</div>
+    </div>
+    <div>
+      <div class="row">
+        <div class="col-12">
+              <div class="modal-body">
+                <ng-template ngFor let-roleMenu [ngForOf]="role.RoleMenus"  let-i="index">
+                  <p><mat-checkbox (click)="onChangeCheckValue($event,roleMenu)" [checked]="roleMenu.Enabled">{{roleMenu.MenuTitle}}</mat-checkbox></p>
+                </ng-template>
+              </div>
+              <div class="modal-footer">
+                <button class="btn btn-primary" [disabled]="showLoading" (click)="saveRoleMenus()">Guardar</button>
+              </div>
+            <app-custom-spinner [showLoading]="showLoading"></app-custom-spinner>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
