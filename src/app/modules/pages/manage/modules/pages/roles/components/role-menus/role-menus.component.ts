@@ -50,4 +50,30 @@ export class RoleMenusComponent implements OnInit{
     return event.target;
   }
 
+  public onChangeEnable(event:any,roleMenu:RoleMenu)
+  {
+    roleMenu.Enabled=event.target.checked;
+  }
+
+  public onChangeCreate(event:any,roleMenu:RoleMenu)
+  {
+    roleMenu.AllowCreate=event.target.checked;
+  }
+
+  public onChangeUpdate(event:any,roleMenu:RoleMenu)
+  {
+    roleMenu.AllowUpdate=event.target.checked;
+  }
+
+  public onChangeDelete(event:any,roleMenu:RoleMenu)
+  {
+    roleMenu.AllowDelete=event.target.checked;
+  }
+
+  public onChangeRead(event:any,roleMenu:RoleMenu)
+  {
+    roleMenu.AllowRead=event.target.checked;
+  }
+
+
 }

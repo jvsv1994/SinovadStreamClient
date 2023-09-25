@@ -27,19 +27,19 @@
                 <ng-template ngFor let-roleMenu [ngForOf]="role.RoleMenus"  let-i="index">
                   <div class="row">
                     <div class="col-4 d-flex align-items-center">
-                      <mat-checkbox (click)="roleMenu.Enabled=getTargetFromEvent($event).checked" [checked]="roleMenu.Enabled"></mat-checkbox><span>{{roleMenu.MenuTitle}}</span>
+                      <mat-checkbox (click)="onChangeEnable($event,roleMenu)" [checked]="roleMenu.Enabled"></mat-checkbox><span>{{roleMenu.MenuTitle}}</span>
                     </div>
                     <div class="col-2 text-center">
-                      <mat-checkbox (click)="roleMenu.AllowRead=getTargetFromEvent($event).checked" [checked]="roleMenu.AllowRead"></mat-checkbox>
+                      <mat-checkbox (click)="onChangeRead($event,roleMenu)" [checked]="roleMenu.AllowRead"></mat-checkbox>
                     </div>
                     <div class="col-2 text-center">
-                      <mat-checkbox (click)="roleMenu.AllowCreate=getTargetFromEvent($event).checked" [checked]="roleMenu.AllowCreate"></mat-checkbox>
+                      <mat-checkbox (click)="onChangeCreate($event,roleMenu)" [checked]="roleMenu.AllowCreate"></mat-checkbox>
                     </div>
                     <div class="col-2 text-center">
-                      <mat-checkbox (click)="roleMenu.AllowUpdate=getTargetFromEvent($event).checked" [checked]="roleMenu.AllowUpdate"></mat-checkbox>
+                      <mat-checkbox (click)="onChangeUpdate($event,roleMenu)" [checked]="roleMenu.AllowUpdate"></mat-checkbox>
                     </div>
                     <div class="col-2 text-center">
-                      <mat-checkbox (click)="roleMenu.AllowDelete=getTargetFromEvent($event).checked" [checked]="roleMenu.AllowDelete"></mat-checkbox>
+                      <mat-checkbox (click)="onChangeDelete($event,roleMenu)" [checked]="roleMenu.AllowDelete"></mat-checkbox>
                     </div>
                   </div>
                 </ng-template>
