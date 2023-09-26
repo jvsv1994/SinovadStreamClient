@@ -5,11 +5,9 @@ import {v4 as uuid} from "uuid";
 import { SharedDataService } from 'src/app/services/shared-data.service';
 import { SinovadApiPaginationResponse } from 'src/app/modules/shared/models/response/sinovad-api-pagination-response.model';
 import { SinovadApiGenericResponse } from 'src/app/modules/shared/models/response/sinovad-api-generic-response.model';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Observer, from, of } from 'rxjs';
 import { SignalIRHubService } from 'src/app/services/signal-ir-hub.service';
-import { MenuService } from '../../menus/services/menu.service';
 import { UserSession } from '../models/user-session.model';
-import { User } from '../models/user.model';
 import { ValidateConfirmEmailTokenModel } from 'src/app/modules/pages/confirm-email/models/validate-confirm-email-token.model';
 import { RecoverPasswordModel } from 'src/app/modules/pages/recover-password/models/recover-password.model';
 import { RegisterUserModel } from 'src/app/modules/pages/register-user/models/register-user-model';
@@ -22,27 +20,15 @@ export declare type EventHandler = (...args: any[]) => any;
 export class UserService {
 
   lastCallGuid:string;
-  completedCallGetUserData$ = new Subject<boolean>();
-  calledGetUserData:boolean=false;
 
   constructor(
-    private menuService:MenuService,
     private signalIRHubService:SignalIRHubService,
     private sharedDataService:SharedDataService,
     private restProvider: RestProviderService,
   ) {
   }
 
-  public completeCallGetUserData():void{
-    this.completedCallGetUserData$.next(true);
-  };
-
-  public isCompletedCallGetUserData():Observable<boolean>{
-    return this.completedCallGetUserData$.asObservable();
-  }
-
   public clearSessionData(){
-    this.calledGetUserData=false;
     this.sharedDataService.manageMenus=[];
     this.sharedDataService.currentProfile=undefined;
     this.sharedDataService.userData=undefined;
@@ -51,31 +37,39 @@ export class UserService {
     localStorage.removeItem("apiToken");
   }
 
-  public getUserData(){
-    this.restProvider.executeSinovadApiService(HttpMethodType.GET,'/users/GetUserData').then((response:SinovadApiGenericResponse) => {
-      let userSessionData:UserSession=response.Data;
-      if(userSessionData && userSessionData.User)
-      {
-        this.sharedDataService.userData=userSessionData.User;
-        this.sharedDataService.roles=userSessionData.Roles;
-        this.sharedDataService.mediaServers=userSessionData.MediaServers;
-        this.sharedDataService.linkedAccounts=userSessionData.LinkedAccounts;
-        this.sharedDataService.listProfiles=userSessionData.Profiles;
-        this.sharedDataService.currentProfile=userSessionData.Profiles[0];
-        this.signalIRHubService.openConnection();
-        this.menuService.getManageMenu();
-      }else{
-        this.sharedDataService.apiToken=undefined;
+  public isLoadedUserData():Observable<any>{
+    if(this.sharedDataService.userData!=undefined)
+    {
+      return of(true);
+    }else{
+      return from(this.getUserData());
+    }
+  }
+
+  public getUserData():Promise<any>{
+    return new Promise((resolve, reject) => {
+      this.restProvider.executeSinovadApiService(HttpMethodType.GET,'/users/GetUserData').then((response:SinovadApiGenericResponse) => {
+        let userSessionData:UserSession=response.Data;
+        if(userSessionData && userSessionData.User)
+        {
+          this.sharedDataService.userData=userSessionData.User;
+          this.sharedDataService.roles=userSessionData.Roles;
+          this.sharedDataService.mediaServers=userSessionData.MediaServers;
+          this.sharedDataService.linkedAccounts=userSessionData.LinkedAccounts;
+          this.sharedDataService.listProfiles=userSessionData.Profiles;
+          this.sharedDataService.currentProfile=userSessionData.Profiles[0];
+          this.sharedDataService.manageMenus=userSessionData.Menus;
+          this.signalIRHubService.openConnection();
+        }else{
+          this.sharedDataService.apiToken=undefined;
+          localStorage.removeItem("apiToken");
+        }
+        resolve(true);
+      },error=>{
         localStorage.removeItem("apiToken");
-      }
-      this.calledGetUserData=true;
-      this.completeCallGetUserData();
-    },error=>{
-      this.calledGetUserData=true;
-      localStorage.removeItem("apiToken");
-      this.completeCallGetUserData();
-      console.error(error);
-    });
+        reject(error);
+      })
+   });
   }
 
   public getWithRoles(userId:number):Promise<SinovadApiGenericResponse>{

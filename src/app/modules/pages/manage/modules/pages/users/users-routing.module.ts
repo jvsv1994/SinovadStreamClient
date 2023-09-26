@@ -9,12 +9,12 @@ const routes: Routes = [
   {
     path:"",
     component:UserListComponent,
-    canActivate:[loggedUserGuard,mainAdminGuard]
+    canActivate:[mainAdminGuard]
   },
   {
     path:":userId/roles",
     component:UserRolesComponent,
-    canActivate:[loggedUserGuard,mainAdminGuard]
+    canActivate:[mainAdminGuard]
   }
 ];
 

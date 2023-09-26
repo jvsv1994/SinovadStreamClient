@@ -29,18 +29,6 @@ export class MenuService {
     return this.completedLoadUserManageMenu$.asObservable();
   }
 
-  public getManageMenu(): Promise<any>{
-    return new Promise((resolve, reject) => {
-      this.restProvider.executeSinovadApiService(HttpMethodType.GET,'/menus/GetByUserAsync/'+this.sharedDataService.userData.Id).then((response:SinovadApiGenericResponse) => {
-        this.sharedDataService.manageMenus=response.Data;
-        this.completeLoadUserManageMenu();
-        this.loadedManageMenu=true;
-        resolve(true);
-      },error=>{
-        reject(error);
-      });
-    });
-  }
 
   public getAllMenus(){
     return new Promise((resolve, reject) => {

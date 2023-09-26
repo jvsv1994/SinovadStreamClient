@@ -146,9 +146,8 @@ export class LoginComponent {
     this.sharedDataService.listProfiles=userSessionData.Profiles;
     this.sharedDataService.linkedAccounts=userSessionData.LinkedAccounts;
     this.sharedDataService.currentProfile=userSessionData.Profiles[0];
+    this.sharedDataService.manageMenus=userSessionData.Menus;
     this.sharedDataService.showSplashScreen=true;
-    this.userService.calledGetUserData=true;
-    this.menuService.getManageMenu();
     this.signalIRHubService.openConnection();
     this.router.navigate(['profiles'],{ skipLocationChange: false});
   }

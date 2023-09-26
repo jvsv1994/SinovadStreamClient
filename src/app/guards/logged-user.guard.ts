@@ -10,19 +10,14 @@ export const loggedUserGuard: CanActivateFn = (route, state) => {
   const userService=inject(UserService);
   if(localStorage.getItem('apiToken')!=null)
   {
-    if(userService.calledGetUserData)
-    {
-      return true;
-    }else{
-      return userService.isCompletedCallGetUserData().pipe(tap(x=>{
-          if(sharedDataService.userData!=null)
-          {
-            return true;
-          }else{
-            return router.navigateByUrl("/landing");
-          }
-      }));
-    }
+    return userService.isLoadedUserData().pipe(tap(response=>{
+      if(sharedDataService.userData!=null)
+      {
+        return true;
+      }else{
+        return router.navigateByUrl("/landing");
+      }
+    }));
   }else{
     return router.navigateByUrl("/landing");
   }

@@ -82,7 +82,6 @@ export class AppComponent{
       if(localStorage.getItem('apiToken'))
       {
         this.sharedDataService.apiToken=localStorage.getItem('apiToken');
-        this.userService.getUserData();
       }
     }
 
