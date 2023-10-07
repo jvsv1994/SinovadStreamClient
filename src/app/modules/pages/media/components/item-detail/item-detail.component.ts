@@ -6,10 +6,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MediaGeneric } from 'src/app/modules/shared/generics/media.generic';
 import { Subscription } from 'rxjs';
 import { SignalIRHubService } from 'src/app/services/signal-ir-hub.service';
-import { LibraryService } from '../../../settings/modules/pages/server/modules/pages/manage/modules/pages/libraries/services/library.service';
 import { ItemDetail } from '../../models/item-detail.model';
 import { MediaEpisode } from '../../models/media-episode.model';
 import { MediaSeason } from '../../models/media-season.model';
+import { MediaItemService } from '../../services/media-item.service';
 
 declare var window;
 @Component({
@@ -31,7 +31,7 @@ export class ItemDetailComponent extends MediaGeneric implements OnInit {
 
   constructor(
     private signalIrService:SignalIRHubService,
-    private libraryService:LibraryService,
+    private mediaItemService:MediaItemService,
     public activeRoute: ActivatedRoute,
     public router: Router,
     private  ref:ChangeDetectorRef,
@@ -79,7 +79,7 @@ export class ItemDetailComponent extends MediaGeneric implements OnInit {
       let mediaId = this.activeRoute.snapshot.queryParams['mediaId'];
       if(mediaId)
       {
-        this.libraryService.getMediaItemDetail(this.mediaServer.Url,mediaId).then((detail:ItemDetail) => {
+        this.mediaItemService.getMediaItemDetail(this.mediaServer.Url,mediaId).then((detail:ItemDetail) => {
           this.detail=detail;
           this.detail.CurrentSeason=this.detail.ListSeasons[0];
         },error=>{

@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { LibraryService } from '../../../settings/modules/pages/server/modules/pages/manage/modules/pages/libraries/services/library.service';
 import { CommonService } from 'src/app/services/common.service';
 import { Item } from '../../../media/models/item.model';
+import { MediaItemService } from '../../../media/services/media-item.service';
 
 declare var window;
 @Component({
@@ -20,7 +21,7 @@ export class VerticalItemListComponent implements OnInit {
   listGroupItems:any[]=[];
 
   constructor(
-    private libraryService:LibraryService,
+    private mediaItemService:MediaItemService,
     private router: Router,
     public commonService: CommonService,
     public sharedDataService: SharedDataService) {
@@ -38,7 +39,7 @@ export class VerticalItemListComponent implements OnInit {
         this.sharedDataService.mediaServers.forEach(mediaServer => {
           if(mediaServer.isSecureConnection)
           {
-            this.libraryService.getAllMediaItemsBySearchQuery(mediaServer.Url,this.searchText).then((listItems:Item[]) => {
+            this.mediaItemService.getAllMediaItemsBySearchQuery(mediaServer.Url,this.searchText).then((listItems:Item[]) => {
               this.listItems=this.listItems.concat(listItems);
               this.buildGroupItems(this.listItems);
             },error=>{

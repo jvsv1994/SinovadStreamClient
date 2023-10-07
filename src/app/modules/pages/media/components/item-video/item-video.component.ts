@@ -26,6 +26,7 @@ import { MediaFilePlaybackItem } from '../../models/media-file-playback-item.mod
 import { RetranscodeMediaFile } from '../../models/retranscode-media-file.model';
 import { MediaItem } from '../../models/media-item.model';
 import { MediaFile } from '../../models/media-file.model';
+import { MediaItemService } from '../../services/media-item.service';
 
 @Component({
   selector: 'app-item-video',
@@ -75,7 +76,7 @@ export class ItemVideoComponent implements OnInit,OnDestroy{
     private signalIrService:SignalIRHubService,
     public activeRoute: ActivatedRoute,
     private router: Router,
-    private libraryService:LibraryService,
+    private mediaItemService:MediaItemService,
     private dialog: MatDialog,
     public mediaFilePlaybackService: MediaFilePlaybackService,
     public commonService: CommonService,
@@ -195,7 +196,7 @@ export class ItemVideoComponent implements OnInit,OnDestroy{
     var mediaFileId=this.activeRoute.snapshot.params.mediaFileId;
     if(mediaFileId)
     {
-      this.libraryService.GetMediaItemDetailByMediaFileAndProfile(this.mediaServer.Url,mediaFileId,this.sharedDataService.currentProfile.Id).then((itemDetail:ItemDetail)=>{
+      this.mediaItemService.GetMediaItemDetailByMediaFileAndProfile(this.mediaServer.Url,mediaFileId,this.sharedDataService.currentProfile.Id).then((itemDetail:ItemDetail)=>{
         this.itemDetail=itemDetail;
         this.CreateTranscodedMediaFile();
       },error=>{

@@ -9,6 +9,7 @@ import { MediaServer } from '../../../manage/modules/pages/servers/models/server
 import { CommonService } from 'src/app/services/common.service';
 import { ItemsGroup } from '../../models/items-group.model';
 import { Item } from '../../models/item.model';
+import { MediaItemService } from '../../services/media-item.service';
 
 @Component({
   selector: 'app-server-items',
@@ -26,7 +27,7 @@ export class ServerItemsComponent implements OnInit,OnDestroy {
 
   constructor(
     private signalIrService:SignalIRHubService,
-    private libraryService:LibraryService,
+    private mediaItemService:MediaItemService,
     public activeRoute: ActivatedRoute,
     public router: Router,
     public commonService: CommonService,
@@ -98,7 +99,7 @@ export class ServerItemsComponent implements OnInit,OnDestroy {
 
     private getItemsByMediaServer(){
       this.title=this.currentMediaServer.FamilyName?this.currentMediaServer.FamilyName:this.currentMediaServer.DeviceName;
-      this.libraryService.getAllMediaItems(this.currentMediaServer.Url,this.sharedDataService.currentProfile.Id).then((itemsGroupList:ItemsGroup[])=>{
+      this.mediaItemService.getAllMediaItems(this.currentMediaServer.Url,this.sharedDataService.currentProfile.Id).then((itemsGroupList:ItemsGroup[])=>{
         this.setItemsInGroup(this.currentMediaServer.Id,itemsGroupList);
       },error=>{
         console.error(error);

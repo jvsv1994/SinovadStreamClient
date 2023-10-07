@@ -5,11 +5,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { SignalIRHubService } from 'src/app/services/signal-ir-hub.service';
 import { Library } from '../../../settings/modules/pages/server/modules/pages/manage/modules/pages/libraries/models/library.model';
-import { LibraryService } from '../../../settings/modules/pages/server/modules/pages/manage/modules/pages/libraries/services/library.service';
 import { MediaServer } from '../../../manage/modules/pages/servers/models/server.model';
 import { CommonService } from 'src/app/services/common.service';
 import { ItemsGroup } from '../../models/items-group.model';
 import { Item } from '../../models/item.model';
+import { MediaItemService } from '../../services/media-item.service';
+import { LibraryService } from '../../../settings/modules/pages/server/modules/pages/manage/modules/pages/libraries/services/library.service';
 
 @Component({
   selector: 'app-library-items',
@@ -29,6 +30,7 @@ export class LibraryItemsComponent implements OnInit,OnDestroy {
 
   constructor(
     private signalIrService:SignalIRHubService,
+    private mediaItemService:MediaItemService,
     private libraryService:LibraryService,
     public activeRoute: ActivatedRoute,
     public router: Router,
@@ -110,7 +112,7 @@ export class LibraryItemsComponent implements OnInit,OnDestroy {
             this.currentLibrary=this.currentMediaServer.ListLibraries[index];
             this.title=this.currentLibrary.Name;
             this.subtitle=this.currentMediaServer.FamilyName?this.currentMediaServer.FamilyName:this.currentMediaServer.DeviceName;
-            this.libraryService.getMediaItemsByLibrary(this.currentMediaServer.Url,this.currentLibrary.Id,this.sharedDataService.currentProfile.Id).then((itemsGroupList:ItemsGroup[])=>{
+            this.mediaItemService.getMediaItemsByLibrary(this.currentMediaServer.Url,this.currentLibrary.Id,this.sharedDataService.currentProfile.Id).then((itemsGroupList:ItemsGroup[])=>{
               this.setItemsInGroup(this.currentMediaServer.Id,itemsGroupList);
             },error=>{
               console.error(error);

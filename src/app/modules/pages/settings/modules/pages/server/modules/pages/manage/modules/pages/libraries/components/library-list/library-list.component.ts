@@ -15,6 +15,7 @@ import { Library } from '../../models/library.model';
 import { LibraryService } from '../../services/library.service';
 import { MediaServer } from 'src/app/modules/pages/manage/modules/pages/servers/models/server.model';
 import { SharedDataService } from 'src/app/services/shared-data.service';
+import { ScanLibraryService } from '../../services/scan-library.service';
 
 declare var window;
 @Component({
@@ -34,6 +35,7 @@ export class LibraryListComponent{
     private signalIrService:SignalIRHubService,
     private customMenuService:CustomMenuService,
     private modalService: NgbModal,
+    private scanLibraryService:ScanLibraryService,
     private libraryService:LibraryService,
     private dialog: MatDialog,
     private snackBarService:SnackBarService,
@@ -185,7 +187,7 @@ export class LibraryListComponent{
   }
 
   public searchFilesInLibraries(listLibraries:Library[]){
-    this.libraryService.searchFiles(this.mediaServer.Url,listLibraries);
+    this.scanLibraryService.scanLibraries(this.mediaServer.Url,listLibraries);
   }
 
 }

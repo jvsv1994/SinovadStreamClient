@@ -8,6 +8,7 @@ import { CommonService } from 'src/app/services/common.service';
 import { SharedDataService } from 'src/app/services/shared-data.service';
 import { ItemsGroup } from '../../../media/models/items-group.model';
 import { Item } from '../../../media/models/item.model';
+import { MediaItemService } from '../../../media/services/media-item.service';
 
 @Component({
   selector: 'app-home-page',
@@ -24,7 +25,7 @@ export class HomePageComponent {
 
   constructor(
     private signalIrService:SignalIRHubService,
-    private libraryService:LibraryService,
+    private mediaItemService:MediaItemService,
     public router: Router,
     public commonService: CommonService,
     public sharedDataService: SharedDataService) {
@@ -107,7 +108,7 @@ export class HomePageComponent {
     }
 
     private getAllItemsByMediaServer(mediaServer:MediaServer){
-      this.libraryService.getAllMediaItems(mediaServer.Url,this.sharedDataService.currentProfile.Id).then((itemsGroupList:ItemsGroup[])=>{
+      this.mediaItemService.getAllMediaItems(mediaServer.Url,this.sharedDataService.currentProfile.Id).then((itemsGroupList:ItemsGroup[])=>{
         this.setItemsInGroup(mediaServer.Id,itemsGroupList);
       },error=>{});
     }
