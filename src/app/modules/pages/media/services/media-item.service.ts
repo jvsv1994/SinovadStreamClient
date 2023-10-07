@@ -16,7 +16,7 @@ export class MediaItemService {
 
   public getAllMediaItemsBySearchQuery(mediaServerUrl:string,searchQuery:string):Promise<Item[]>{
     return new Promise((resolve, reject) => {
-      var path=mediaServerUrl+"/api/libraries/GetAllMediaItemsBySearchQuery?searchQuery="+searchQuery;
+      var path=mediaServerUrl+"/api/mediaItems/GetAllMediaItemsBySearchQuery?searchQuery="+searchQuery;
       this.restProvider.executeHttpMediaServerApi(HttpMethodType.GET,path).then((response:SinovadApiGenericResponse) => {
         resolve(response.Data);
       },error=>{
@@ -28,7 +28,7 @@ export class MediaItemService {
 
   public getAllMediaItems(mediaServerUrl:string,profileId:number):Promise<ItemsGroup[]>{
     return new Promise((resolve, reject) => {
-      var path=mediaServerUrl+"/api/libraries/GetAllMediaItems?profileId="+profileId;
+      var path=mediaServerUrl+"/api/mediaItems/GetAllMediaItems?profileId="+profileId;
       this.restProvider.executeHttpMediaServerApi(HttpMethodType.GET,path).then((response:SinovadApiGenericResponse) => {
         resolve(response.Data);
       },error=>{
@@ -39,7 +39,7 @@ export class MediaItemService {
 
   public getMediaItemsByLibrary(mediaServerUrl:string,libraryId:number,profileId:number):Promise<ItemsGroup[]>{
     return new Promise((resolve, reject) => {
-      var path=mediaServerUrl+"/api/libraries/GetMediaItemsByLibrary?libraryId="+libraryId+"&profileId="+profileId;
+      var path=mediaServerUrl+"/api/mediaItems/GetMediaItemsByLibrary?libraryId="+libraryId+"&profileId="+profileId;
       this.restProvider.executeHttpMediaServerApi(HttpMethodType.GET,path).then((response:SinovadApiGenericResponse) => {
         resolve(response.Data);
       },error=>{
@@ -50,7 +50,7 @@ export class MediaItemService {
 
   public getMediaItemsByMediaType(mediaServerUrl:string,mediaTypeId:MediaType,profileId:number):Promise<ItemsGroup[]>{
     return new Promise((resolve, reject) => {
-      var path=mediaServerUrl+"/api/libraries/GetMediaItemsByMediaType?mediaTypeId="+mediaTypeId+"&profileId="+profileId;
+      var path=mediaServerUrl+"/api/mediaItems/GetMediaItemsByMediaType?mediaTypeId="+mediaTypeId+"&profileId="+profileId;
       this.restProvider.executeHttpMediaServerApi(HttpMethodType.GET,path).then((response:SinovadApiGenericResponse) => {
         resolve(response.Data);
       },error=>{
@@ -61,7 +61,7 @@ export class MediaItemService {
 
   public getMediaItemDetail(mediaServerUrl:string,mediaItemId:number):Promise<ItemDetail>{
     return new Promise((resolve, reject) => {
-      var path=mediaServerUrl+"/api/libraries/GetMediaItemDetail/"+mediaItemId;
+      var path=mediaServerUrl+"/api/mediaItems/GetMediaItemDetail/"+mediaItemId;
       this.restProvider.executeHttpMediaServerApi(HttpMethodType.GET,path).then((response:SinovadApiGenericResponse) => {
         resolve(response.Data);
       },error=>{
@@ -72,7 +72,7 @@ export class MediaItemService {
 
   public GetMediaItemDetailByMediaFileAndProfile(mediaServerUrl:string,mediaFileId:number,profileId:number):Promise<ItemDetail>{
     return new Promise((resolve, reject) => {
-      var path=mediaServerUrl+"/api/libraries/GetMediaItemDetailByMediaFileAndProfile?mediaFileId="+mediaFileId+"&profileId="+profileId;
+      var path=mediaServerUrl+"/api/mediaItems/GetMediaItemDetailByMediaFileAndProfile?mediaFileId="+mediaFileId+"&profileId="+profileId;
       this.restProvider.executeHttpMediaServerApi(HttpMethodType.GET,path).then((response:SinovadApiGenericResponse) => {
         resolve(response.Data);
       },error=>{
