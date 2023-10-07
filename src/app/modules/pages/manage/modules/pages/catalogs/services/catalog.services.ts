@@ -59,7 +59,7 @@ export class CatalogService {
 
   public getDetailsByCatalogId(catalogId:number): Promise<any>{
     return new Promise((resolve, reject) => {
-      this.restProvider.executeSinovadApiService(HttpMethodType.GET,'/catalogs/GetDetailsByCatalogAsync/'+catalogId).then((response:SinovadApiGenericResponse) => {
+      this.restProvider.executeSinovadApiService(HttpMethodType.GET,'/catalogs/'+catalogId+'/details/GetAllAsync').then((response:SinovadApiGenericResponse) => {
         resolve(response);
       },error=>{
         reject(error);
