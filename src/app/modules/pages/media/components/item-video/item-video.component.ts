@@ -93,13 +93,6 @@ export class ItemVideoComponent implements OnInit,OnDestroy{
           this.getMediaItemDetailByMediaFileAndProfile();
         }
       }));
-      this.subscription.add(this.signalIrService.isDisablingMediaServer().subscribe((mediaServerGuid:string)=>{
-        if(this.mediaServer && this.mediaServer.Guid==mediaServerGuid && this.mediaServer.isSecureConnection)
-        {
-          this.mediaServer.isSecureConnection=false;
-          this.router.navigateByUrl('/media/server/'+mediaServerGuid);
-        }
-      }));
       this.subscription.add(this.signalIrService.isRemovedMediaFilePlayback().subscribe((event:any) => {
         if(this.mediaServer && this.mediaServer.Guid==event.mediaServerGuid && this.transcodedMediaFile && this.transcodedMediaFile.Guid==event.mediaFilePlaybackGuid)
         {
