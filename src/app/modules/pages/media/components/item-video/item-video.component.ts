@@ -303,7 +303,7 @@ export class ItemVideoComponent implements OnInit,OnDestroy{
       this.transcodedMediaFile.InitialTime=newVideoTime;
       this.transcodedMediaFile.Url=response.Data;
       this.loadStatus=LoadVideoStatus.Generated;
-      this.updateAudioAndVideoList();
+      this.initializeStreams();
       this.getVideoSource();
     },error=>{
       this.isRetranscoding=false;
@@ -840,19 +840,6 @@ public onClickSlider(sliderContainer:any){
   }
 
   public playOrPauseVideo(){
-    console.log("subtitle tracks");
-    console.log(this.hls.subtitleTracks);
-
-    console.log("audio tracks");
-    console.log(this.hls.audioTracks);
-
-   /*  if(this.hls.audioTrack==1)
-    {
-      this.hls.audioTrack=0;
-    }else{
-      this.hls.audioTrack=1;
-    } */
-
     if(this.transcodedMediaFile && this.transcodedMediaFile.VideoTransmissionTypeId==VideoTransmissionType.MPEGDASH)
     {
       if(this.dashMediaPlayer)
@@ -1003,26 +990,28 @@ public onClickSlider(sliderContainer:any){
   }
 
   public getVideoSource(){
-    this.http.get(this.transcodedMediaFile.Url,{headers:undefined, responseType: 'blob' as 'json' }).subscribe((response:any) => {
+    if(this.transcodedMediaFile.Url.indexOf("mpd")==-1 && this.transcodedMediaFile.Url.indexOf("m3u8")==-1){
       this.loadStatus=LoadVideoStatus.Initialized;
       this.showVideoTarget=true;
       this.ref.detectChanges();
-      if(this.transcodedMediaFile.Url.indexOf("mpd")!=-1)
-      {
-          this.displayVideoUsingDash(this.transcodedMediaFile.Url);
-      }else if(this.transcodedMediaFile.Url.indexOf("m3u8")!=-1)
-      {
-        this.displayVideoUsingHLS(this.transcodedMediaFile.Url);
-      }else{
-        this.videoTarget.nativeElement.src=this.transcodedMediaFile.Url;
-        this.videoTarget.nativeElement.currentTime=this.lastRealVideoTime;
-        this.lastRealVideoTime=0;
-        this.videoTarget.nativeElement.play();
-      }
-    },error=>{
-      console.error(error);
-      this.showLoadVideoErrorActionsDialog();
-    });
+      this.videoTarget.nativeElement.src=this.transcodedMediaFile.Url;
+    }else{
+      this.http.get(this.transcodedMediaFile.Url,{headers:undefined, responseType: 'blob' as 'json' }).subscribe((response:any) => {
+        this.loadStatus=LoadVideoStatus.Initialized;
+        this.showVideoTarget=true;
+        this.ref.detectChanges();
+        if(this.transcodedMediaFile.Url.indexOf("mpd")!=-1)
+        {
+            this.displayVideoUsingDash(this.transcodedMediaFile.Url);
+        }else if(this.transcodedMediaFile.Url.indexOf("m3u8")!=-1)
+        {
+          this.displayVideoUsingHLS(this.transcodedMediaFile.Url);
+        }
+      },error=>{
+        console.error(error);
+        this.showLoadVideoErrorActionsDialog();
+      });
+    }
   }
 
   public displayVideoUsingHLS(videoSrc:string){
@@ -1159,7 +1148,7 @@ public onClickSlider(sliderContainer:any){
           this.callUpdateVideoData(this.lastRealVideoTime);
         }
       }else{
-        if(this.videoTarget && this.videoTarget.nativeElement.duration!=undefined && this.videoTarget.nativeElement.currentTime!=undefined && this.videoTarget.nativeElement.duration-this.videoTarget.nativeElement.currentTime>=seconsToAdd)
+        if(this.videoTarget && this.videoTarget.nativeElement.duration!=Infinity && this.videoTarget.nativeElement.duration!=undefined && this.videoTarget.nativeElement.currentTime!=undefined && this.videoTarget.nativeElement.duration-this.videoTarget.nativeElement.currentTime>=seconsToAdd)
         {
           this.videoTarget.nativeElement.currentTime=this.videoTarget.nativeElement.currentTime+seconsToAdd;
         }else{
