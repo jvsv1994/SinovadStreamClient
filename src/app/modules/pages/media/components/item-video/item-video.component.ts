@@ -320,7 +320,11 @@ export class ItemVideoComponent implements OnInit,OnDestroy{
       clearTimeout(this.timeOutLoadVideoId);
       this.timeOutLoadVideoId=undefined;
     }
-    this.signalIrService.removeMediaFilePlayBack(this.mediaServer.Guid,this.transcodedMediaFile.Guid);
+    if(this.transcodedMediaFile){
+      this.signalIrService.removeMediaFilePlayBack(this.mediaServer.Guid,this.transcodedMediaFile.Guid);
+    }else{
+      this.router.navigateByUrl('/media/server/'+this.mediaServer.Guid);
+    }
   }
 
   public deleteLastTranscodedMediaFileProcess(){
@@ -329,7 +333,11 @@ export class ItemVideoComponent implements OnInit,OnDestroy{
       clearTimeout(this.timeOutLoadVideoId);
       this.timeOutLoadVideoId=undefined;
     }
-    this.signalIrService.removeLastTranscodedMediaFileProcess(this.mediaServer.Guid,this.transcodedMediaFile.Guid);
+    if(this.transcodedMediaFile){
+      this.signalIrService.removeLastTranscodedMediaFileProcess(this.mediaServer.Guid,this.transcodedMediaFile.Guid);
+    }else{
+      this.router.navigateByUrl('/media/server/'+this.mediaServer.Guid);
+    }
   }
 
   public GetFullVideoTitle(){
