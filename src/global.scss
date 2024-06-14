@@ -36,48 +36,49 @@ $app-theme: mat.m2-define-light-theme((
 // override angular material styles
 
 .mat-mdc-form-field {
-  font-size: 16px;
-  width: 100%;
+  font-size: 16px !important;
+  width: 100% !important;
 }
 
 .mat-mdc-table{
-  background-color: transparent;
+  background-color: transparent !important;
+  font-size: 16px !important;
 }
 
 .mdc-data-table__header-cell{
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.7) !important;
 }
 
 .mdc-data-table__cell{
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.7) !important;
 }
 
 .mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__input{
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.7) !important;
 }
 
 .mdc-text-field .mdc-text-field__input{
-  caret-color: rgba(255, 255, 255, 0.7);
+  caret-color: rgba(255, 255, 255, 0.7) !important;
 }
 
 .mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-line-ripple::before {
-  border-bottom-color: rgba(255, 255, 255, 0.7);
+  border-bottom-color: rgba(255, 255, 255, 0.7) !important;
 }
 
 .mdc-text-field--filled .mdc-line-ripple::after{
-  border-bottom-color: transparent;
+  border-bottom-color: transparent !important;
 }
 
 .mdc-text-field--filled:not(.mdc-text-field--disabled):hover .mdc-line-ripple::before{
-  border-bottom-color: rgba(255, 255, 255, 0.7);
+  border-bottom-color: rgba(255, 255, 255, 0.7) !important;
 }
 
 .mdc-text-field--filled:not(.mdc-text-field--disabled){
-  background-color: transparent;
+  background-color: transparent !important;
 }
 
 .mdc-text-field:not(.mdc-text-field--disabled) .mdc-floating-label{
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.7) !important;
 }
 
 .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__leading, .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__notch, .mdc-text-field--outlined:not(.mdc-text-field--disabled) .mdc-notched-outline__trailing
@@ -90,45 +91,49 @@ $app-theme: mat.m2-define-light-theme((
 }
 
 .mat-mdc-form-field-error{
-  font-size: 12px;
+  font-size: 12px !important;
 }
 
 .mat-mdc-checkbox .mdc-form-field{
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.7) !important;
 }
 
 .mat-mdc-progress-spinner {
-  --mdc-circular-progress-active-indicator-color: rgba(255, 255, 255, 0.7);;
+  --mdc-circular-progress-active-indicator-color: rgba(255, 255, 255, 0.7) !important;
 }
 
 .mat-mdc-no-data-row .mat-cell{
-  color: rgba(255, 255, 255, 0.7);
-  padding: 20px;
+  color: rgba(255, 255, 255, 0.7) !important;
+  padding: 20px !important;
 }
 
 .cdk-overlay-container {
-  z-index: 1056;
+  z-index: 1056 !important;
 }
 
 .mat-mdc-form-field-hint{
-  font-size: 12px;
+  font-size: 12px !important;
+}
+
+.mat-calendar-table-header th{
+  color: inherit !important;
 }
 
 .mat-datepicker-toggle, .mat-datepicker-content .mat-calendar-next-button, .mat-datepicker-content .mat-calendar-previous-button{
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.7) !important;
 }
 
 .mat-datepicker-content{
-  color: rgba(255, 255, 255, 0.7);
-  background-color:#1F212B ;
+  color: rgba(255, 255, 255, 0.7) !important;
+  background-color:#1F212B !important;
 }
 
 .mat-calendar-body-cell-content, .mat-date-range-input-separator{
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.7) !important; 
 }
 
 .mat-mdc-button:not(:disabled) {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.7) !important;
 }
 
 .mat-mdc-button.mat-unthemed {
@@ -157,16 +162,16 @@ $app-theme: mat.m2-define-light-theme((
 }
 
 .mat-mdc-button, .mat-mdc-outlined-button {
-  --mat-mdc-button-persistent-ripple-color: rgba(255, 255, 255, 0.08);
-  --mat-mdc-button-ripple-color: rgba(255, 255, 255, 0.08);
+  --mat-mdc-button-persistent-ripple-color: rgba(255, 255, 255, 0.08) !important;
+  --mat-mdc-button-ripple-color: rgba(255, 255, 255, 0.08) !important;
 }
 
 .mat-mdc-button:hover{
-  background-color: rgba(255, 255, 255, 0.08);
+  background-color: rgba(255, 255, 255, 0.08) !important; 
 }
 
 .mat-mdc-icon-button:hover{
-  background-color: rgba(255, 255, 255, 0.08);
+  background-color: rgba(255, 255, 255, 0.08) !important;
 }
 
 .mat-mdc-dialog-container {
@@ -212,11 +217,11 @@ $app-theme: mat.m2-define-light-theme((
 
 .login-form-field{
   .mdc-text-field .mdc-text-field__input{
-    caret-color: #51595e;
+    caret-color: #51595e !important;
   }
 
   .mdc-text-field--filled .mdc-line-ripple:before {
-    border-bottom-color:  #51595e;
+    border-bottom-color:  #51595e !important;
   }
 
   .mdc-text-field--filled .mdc-line-ripple:after {
@@ -232,10 +237,10 @@ $app-theme: mat.m2-define-light-theme((
     border-bottom-color: #51595e !important;
   }
   .mdc-text-field:not(.mdc-text-field--disabled) .mdc-floating-label{
-    color: #51595e;
+    color: #51595e !important;
   }
   .mdc-text-field:not(.mdc-text-field--disabled) .mdc-text-field__input{
-    color: #51595e;
+    color: #51595e !important; 
   }
 
   .mdc-text-field--invalid:not(.mdc-text-field--disabled) .mdc-floating-label {
@@ -265,6 +270,7 @@ ngb-modal-window .component-host-scrollable {
 
 .modal-header{
   color: rgba(255, 255, 255, 0.7);
+  justify-content: space-between;
 }
 
 .modal-body{

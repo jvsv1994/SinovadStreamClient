@@ -5,6 +5,11 @@
 :root {
 
     //override angular material variable values
+  --mat-table-header-headline-size:16px;
+  --mat-table-header-headline-weight:600;
+
+  --mat-table-row-item-label-text-size:16px;
+
   --mat-paginator-container-background-color: #1F212B;
   --mat-paginator-container-text-color: rgba(255, 255, 255, 0.7);
   --mat-paginator-enabled-icon-color: rgba(255, 255, 255, 0.7);
