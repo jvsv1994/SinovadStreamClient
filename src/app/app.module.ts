@@ -1,5 +1,5 @@
 import { NgModule, isDevMode } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserModule} from '@angular/platform-browser';
 import { APP_BASE_HREF } from '@angular/common';
@@ -21,27 +21,20 @@ import { NotFoundPageComponent } from './components/pages/not-found-page/not-fou
 import { LandingPageComponent } from './components/pages/landing-page/landing-page.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
-@NgModule({
-  declarations: [AppComponent,NotFoundPageComponent,LandingPageComponent,NavbarComponent,DropDownUserComponent,SidebarAccountComponent,SidebarAdministratorComponent,SidebarMediaComponent,DropDownServersComponent,SplashScreenComponent],
-  providers: [{provide: APP_BASE_HREF, useValue : '/' }],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    SharedModule,
-    HttpClientModule,
-    AppRoutingModule,
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFireAuthModule,
-    BrowserAnimationsModule,
-    ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: !isDevMode(),
-      // Register the ServiceWorker as soon as the application is stable
-      // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000'
-    })
-  ],
-  bootstrap:[AppComponent]
-})
+@NgModule({ declarations: [AppComponent, NotFoundPageComponent, LandingPageComponent, NavbarComponent, DropDownUserComponent, SidebarAccountComponent, SidebarAdministratorComponent, SidebarMediaComponent, DropDownServersComponent, SplashScreenComponent],
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        FormsModule,
+        SharedModule,
+        AppRoutingModule,
+        AngularFireModule.initializeApp(environment.firebase),
+        AngularFireAuthModule,
+        BrowserAnimationsModule,
+        ServiceWorkerModule.register('ngsw-worker.js', {
+            enabled: !isDevMode(),
+            // Register the ServiceWorker as soon as the application is stable
+            // or after 30 seconds (whichever comes first).
+            registrationStrategy: 'registerWhenStable:30000'
+        })], providers: [{ provide: APP_BASE_HREF, useValue: '/' }, provideHttpClient(withInterceptorsFromDi())] })
 export class AppModule {}
 
 
